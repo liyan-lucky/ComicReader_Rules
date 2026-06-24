@@ -1,7 +1,6 @@
 {
-  "schema": "womh_comic_rules_index_v1",
-  "version": "2026.06.24.2235",
-  "updatedAt": "2026-06-24T22:35:53.062029+00:00",
+  "tool": "ComicReaderHarmony RuleBot",
+  "version": "1.0.0",
   "queries": [
     "斗罗大陆",
     "斗罗大陆 漫画 在线阅读",
@@ -16,12 +15,13 @@
     "Douluo Dalu manga chapter read",
     "Douluo Dalu manhua read online"
   ],
-  "rules": [],
-  "audit": {
-    "generatedCount": 0,
-    "excludedCount": 0,
-    "publicOnly": true,
-    "noLoginPayBypass": true,
-    "sourceReport": "generated/rulebot_report.json"
-  }
+  "generatedCount": 0,
+  "excludedCount": 0,
+  "generated": [],
+  "excluded": [],
+  "limits": [
+    "只请求公开 HTTP/HTTPS 页面",
+    "不登录、不付费、不绕验证码、不解析加密接口、不伪造 App 协议",
+    "静态无图但浏览器公开可读的页面由 App 的渲染卷轴兜底处理"
+  ]
 }

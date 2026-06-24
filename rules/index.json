@@ -1,13 +1,27 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "0.1.0",
-  "updatedAt": "2026-06-24T00:00:00Z",
-  "description": "我漫画浏览器远程公开源规则索引。App 可通过 raw.githubusercontent.com 在线更新。",
-  "rules": [],
-  "rawRuleFiles": [
-    "kaixinman_public_access.json",
-    "public_source_template.json",
-    "tencent_ac_official_catalog.json"
+  "version": "2026.06.24.2235",
+  "updatedAt": "2026-06-24T22:35:53.062029+00:00",
+  "queries": [
+    "斗罗大陆",
+    "斗罗大陆 漫画 在线阅读",
+    "斗罗大陆 manga chapter read",
+    "斗罗大陆 manhua read online",
+    "Soul Land",
+    "Soul Land 漫画 在线阅读",
+    "Soul Land manga chapter read",
+    "Soul Land manhua read online",
+    "Douluo Dalu",
+    "Douluo Dalu 漫画 在线阅读",
+    "Douluo Dalu manga chapter read",
+    "Douluo Dalu manhua read online"
   ],
-  "notes": "rules 字段由 GitHub Actions 生成标准 ComicSourceRule 数组；rawRuleFiles 保留人工模板/审计规则。"
+  "rules": [],
+  "audit": {
+    "generatedCount": 0,
+    "excludedCount": 0,
+    "publicOnly": true,
+    "noLoginPayBypass": true,
+    "sourceReport": "generated/rulebot_report.json"
+  }
 }
