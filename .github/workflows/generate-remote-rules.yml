@@ -15,6 +15,15 @@ on:
         description: 'Max generated domain rules'
         required: false
         default: '30'
+      release_tag:
+        description: 'Optional release tag. Empty = auto rules-YYYYMMDD-HHMMSS'
+        required: false
+        default: ''
+      publish_release:
+        description: 'Create GitHub tag and Release after generation'
+        required: false
+        type: boolean
+        default: true
   schedule:
     - cron: '0 3 * * 1'
 
@@ -31,6 +40,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -72,29 +83,78 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
         run: |
-          mkdir -p generated rules
+          mkdir -p generated rules dist
           eval "python tools/rule_discovery/generate_rules.py ${{ steps.args.outputs.PY_ARGS }} --max-generated ${{ steps.args.outputs.MAX_GENERATED }} --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           cp generated/index.json rules/index.json
 
-      - name: Upload generated artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: comic-reader-generated-rules
-          path: |
-            generated/index.json
-            generated/rulebot_report.json
-            generated/GeneratedSourceRules.ets
-            rules/index.json
-
       - name: Commit generated rules
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
           if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No generated rule changes."
           else
             git commit -m "chore: update generated comic rules"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare release metadata and bundle
+        id: release_meta
+        run: |
+          INPUT_TAG="${{ github.event.inputs.release_tag || '' }}"
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG="rules-$(date -u +'%Y%m%d-%H%M%S')"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          mkdir -p dist
+          cp generated/index.json dist/index.json
+          cp generated/rulebot_report.json dist/rulebot_report.json
+          cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
+          cp rules/index.json dist/rules-index.json
+          (cd dist && zip -r "comic-reader-rules-$TAG.zip" index.json rulebot_report.json GeneratedSourceRules.ets rules-index.json)
+          {
+            echo "# 我漫画浏览器远程规则 $TAG"
+            echo ""
+            echo "- 规则索引：generated/index.json"
+            echo "- 审计报告：generated/rulebot_report.json"
+            echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
+            echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
+            echo "- Commit：$(git rev-parse HEAD)"
+          } > dist/release-notes.md
+
+      - name: Upload generated artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: comic-reader-generated-rules-${{ steps.release_meta.outputs.tag }}
+          path: |
+            generated/index.json
+            generated/rulebot_report.json
+            generated/GeneratedSourceRules.ets
+            rules/index.json
+            dist/*.zip
+
+      - name: Create tag and GitHub Release
+        if: ${{ github.event.inputs.publish_release != 'false' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release_meta.outputs.tag }}
+          target_commitish: ${{ steps.release_meta.outputs.sha }}
+          name: 我漫画浏览器远程规则 ${{ steps.release_meta.outputs.tag }}
+          body_path: dist/release-notes.md
+          draft: false
+          prerelease: false
+          files: |
+            generated/index.json
+            generated/rulebot_report.json
+            generated/GeneratedSourceRules.ets
+            rules/index.json
+            dist/comic-reader-rules-${{ steps.release_meta.outputs.tag }}.zip
