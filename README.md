@@ -47,7 +47,7 @@ generated/rulebot_report.json
 generated/GeneratedSourceRules.ets
 ```
 
-## GitHub Actions 自动生成 + 标签发布
+## GitHub Actions 一键生成 + 标签发布
 
 进入 GitHub 仓库：
 
@@ -55,24 +55,31 @@ generated/GeneratedSourceRules.ets
 Actions → Generate Remote Comic Rules → Run workflow
 ```
 
-输入示例：
+现在不需要填写任何信息，直接点绿色按钮运行即可。
+
+默认内置关键词：
 
 ```text
-keywords = 斗罗大陆,Soul Land,Douluo Dalu
-domains = kaixinman.com,soullandmanga.com
-max_generated = 30
-release_tag = 留空自动生成，例如 rules-20260624-233000
-publish_release = true
+斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下
 ```
 
-运行完成后会自动生成规则、提交到 main、创建 tag、创建 GitHub Release，并上传这些附件：
+默认内置域名：
 
 ```text
-generated/index.json
-generated/rulebot_report.json
-generated/GeneratedSourceRules.ets
-rules/index.json
-comic-reader-rules-标签名.zip
+kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com
+```
+
+运行完成后会自动：
+
+```text
+1. 生成 generated/index.json
+2. 生成 generated/rulebot_report.json
+3. 生成 generated/GeneratedSourceRules.ets
+4. 同步 rules/index.json
+5. commit 并 push 到 main
+6. 自动生成 tag，例如 rules-20260624-233000
+7. 自动创建 GitHub Release
+8. 上传 index.json、审计报告、ArkTS 文件和 zip 包
 ```
 
 Release 页面：
