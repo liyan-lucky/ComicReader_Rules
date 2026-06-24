@@ -2,28 +2,6 @@ name: Generate Remote Comic Rules
 
 on:
   workflow_dispatch:
-    inputs:
-      keywords:
-        description: 'Comma separated keywords, e.g. 斗罗大陆,Soul Land,Douluo Dalu'
-        required: false
-        default: '斗罗大陆,Soul Land,Douluo Dalu'
-      domains:
-        description: 'Comma separated domains, optional, e.g. kaixinman.com,soullandmanga.com'
-        required: false
-        default: ''
-      max_generated:
-        description: 'Max generated domain rules'
-        required: false
-        default: '30'
-      release_tag:
-        description: 'Optional release tag. Empty = auto rules-YYYYMMDD-HHMMSS'
-        required: false
-        default: ''
-      publish_release:
-        description: 'Create GitHub tag and Release after generation'
-        required: false
-        type: boolean
-        default: true
   schedule:
     - cron: '0 3 * * 1'
 
@@ -37,6 +15,10 @@ defaults:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下'
+      DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com'
+      DEFAULT_MAX_GENERATED: '50'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,21 +35,18 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: Build argument list
+      - name: Build default argument list
         id: args
         run: |
-          KEYWORDS="${{ github.event.inputs.keywords || '斗罗大陆,Soul Land,Douluo Dalu' }}"
-          DOMAINS="${{ github.event.inputs.domains || '' }}"
-          MAX_GENERATED="${{ github.event.inputs.max_generated || '30' }}"
           PY_ARGS=""
-          IFS=',' read -ra KW_ARR <<< "$KEYWORDS"
+          IFS=',' read -ra KW_ARR <<< "$DEFAULT_KEYWORDS"
           for kw in "${KW_ARR[@]}"; do
             kw="$(echo "$kw" | xargs)"
             if [ -n "$kw" ]; then
               PY_ARGS="$PY_ARGS --keyword '$kw'"
             fi
           done
-          IFS=',' read -ra DM_ARR <<< "$DOMAINS"
+          IFS=',' read -ra DM_ARR <<< "$DEFAULT_DOMAINS"
           for dm in "${DM_ARR[@]}"; do
             dm="$(echo "$dm" | xargs)"
             if [ -n "$dm" ]; then
@@ -75,7 +54,7 @@ jobs:
             fi
           done
           echo "PY_ARGS=$PY_ARGS" >> "$GITHUB_OUTPUT"
-          echo "MAX_GENERATED=$MAX_GENERATED" >> "$GITHUB_OUTPUT"
+          echo "MAX_GENERATED=$DEFAULT_MAX_GENERATED" >> "$GITHUB_OUTPUT"
 
       - name: Generate public rules
         env:
@@ -107,12 +86,7 @@ jobs:
       - name: Prepare release metadata and bundle
         id: release_meta
         run: |
-          INPUT_TAG="${{ github.event.inputs.release_tag || '' }}"
-          if [ -n "$INPUT_TAG" ]; then
-            TAG="$INPUT_TAG"
-          else
-            TAG="rules-$(date -u +'%Y%m%d-%H%M%S')"
-          fi
+          TAG="rules-$(date -u +'%Y%m%d-%H%M%S')"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           mkdir -p dist
@@ -124,6 +98,8 @@ jobs:
           {
             echo "# 我漫画浏览器远程规则 $TAG"
             echo ""
+            echo "- 默认关键词：$DEFAULT_KEYWORDS"
+            echo "- 默认域名：$DEFAULT_DOMAINS"
             echo "- 规则索引：generated/index.json"
             echo "- 审计报告：generated/rulebot_report.json"
             echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
@@ -143,7 +119,6 @@ jobs:
             dist/*.zip
 
       - name: Create tag and GitHub Release
-        if: ${{ github.event.inputs.publish_release != 'false' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.release_meta.outputs.tag }}
