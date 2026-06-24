@@ -1,0 +1,53 @@
+{
+  "schema": "womh_comic_rules_index_v1",
+  "version": "0.1.0",
+  "updatedAt": "2026-06-24T00:00:00Z",
+  "rules": [
+    {
+      "id": "remote_kaixinman_public_access",
+      "name": "开心漫远程公开访问源",
+      "description": "远程规则仓库下发的开心漫公开访问源：支持详情目录、章节页图片/JS图片URL、静态无图时App渲染卷轴兜底。",
+      "homepage": "https://www.kaixinman.com",
+      "searchUrl": "https://www.kaixinman.com/search?keyword={keyword}",
+      "searchMethod": "get",
+      "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']*/comic/[^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,680}?)<\\/a>",
+      "searchTitleGroups": [
+        2
+      ],
+      "searchUrlGroups": [
+        1
+      ],
+      "searchCoverGroups": [],
+      "searchResultIsChapter": false,
+      "searchFilterByKeyword": true,
+      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']*/chapter/[^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,220}?(?:第|话|章|Chapter|立即阅读|下一章)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterTitleGroups": [
+        2
+      ],
+      "detailChapterUrlGroups": [
+        1
+      ],
+      "detailChapterFilter": true,
+      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?(?:\\/\\/|//)[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,6000}?\\])",
+      "readerImageGroups": [
+        1,
+        2,
+        3
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/remote",
+      "referer": "https://www.kaixinman.com/",
+      "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*&gt;\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+      "readerNextPageUrlGroups": [
+        1,
+        2,
+        3
+      ],
+      "maxReaderPages": 12
+    }
+  ],
+  "audit": {
+    "generatedBy": "starter",
+    "publicOnly": true,
+    "noLoginPayBypass": true
+  }
+}

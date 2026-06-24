@@ -1,0 +1,64 @@
+name: Generate Remote Comic Rules
+
+on:
+  workflow_dispatch:
+    inputs:
+      keywords:
+        description: '逗号分隔关键词，例如：斗罗大陆,Soul Land,Douluo Dalu'
+        required: false
+        default: '斗罗大陆,Soul Land,Douluo Dalu'
+      domains:
+        description: '逗号分隔限定域名，可留空，例如：kaixinman.com,soullandmanga.com'
+        required: false
+        default: ''
+      max_generated:
+        description: '最多生成规则数量'
+        required: false
+        default: '30'
+  schedule:
+    - cron: '23 3 * * 2'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+      - name: Generate rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          IFS=',' read -ra KW <<< "${{ github.event.inputs.keywords || '斗罗大陆,Soul Land,Douluo Dalu' }}"
+          IFS=',' read -ra DM <<< "${{ github.event.inputs.domains || '' }}"
+          ARGS=()
+          for k in "${KW[@]}"; do
+            k="$(echo "$k" | xargs)"
+            [[ -n "$k" ]] && ARGS+=(--keyword "$k")
+          done
+          for d in "${DM[@]}"; do
+            d="$(echo "$d" | xargs)"
+            [[ -n "$d" ]] && ARGS+=(--domain "$d")
+          done
+          python tools/rule_discovery/generate_rules.py \
+            "${ARGS[@]}" \
+            --max-generated "${{ github.event.inputs.max_generated || '30' }}" \
+            --output-ets generated/GeneratedSourceRules.ets \
+            --report generated/rulebot_report.json
+          python tools/rule_discovery/build_index_from_report.py \
+            --report generated/rulebot_report.json \
+            --output generated/index.json
+          cp generated/index.json rules/index.json
+      - name: Commit generated rules
+        run: |
+          git config user.name "comic-rulebot"
+          git config user.email "comic-rulebot@users.noreply.github.com"
+          git add generated/ rules/index.json
+          git commit -m "chore: update generated comic rules" || echo "No rule changes"
+          git push
