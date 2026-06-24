@@ -1,0 +1,100 @@
+name: Generate Remote Comic Rules
+
+on:
+  workflow_dispatch:
+    inputs:
+      keywords:
+        description: 'Comma separated keywords, e.g. 斗罗大陆,Soul Land,Douluo Dalu'
+        required: false
+        default: '斗罗大陆,Soul Land,Douluo Dalu'
+      domains:
+        description: 'Comma separated domains, optional, e.g. kaixinman.com,soullandmanga.com'
+        required: false
+        default: ''
+      max_generated:
+        description: 'Max generated domain rules'
+        required: false
+        default: '30'
+  schedule:
+    - cron: '0 3 * * 1'
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: Build argument list
+        id: args
+        run: |
+          KEYWORDS="${{ github.event.inputs.keywords || '斗罗大陆,Soul Land,Douluo Dalu' }}"
+          DOMAINS="${{ github.event.inputs.domains || '' }}"
+          MAX_GENERATED="${{ github.event.inputs.max_generated || '30' }}"
+          PY_ARGS=""
+          IFS=',' read -ra KW_ARR <<< "$KEYWORDS"
+          for kw in "${KW_ARR[@]}"; do
+            kw="$(echo "$kw" | xargs)"
+            if [ -n "$kw" ]; then
+              PY_ARGS="$PY_ARGS --keyword '$kw'"
+            fi
+          done
+          IFS=',' read -ra DM_ARR <<< "$DOMAINS"
+          for dm in "${DM_ARR[@]}"; do
+            dm="$(echo "$dm" | xargs)"
+            if [ -n "$dm" ]; then
+              PY_ARGS="$PY_ARGS --domain '$dm'"
+            fi
+          done
+          echo "PY_ARGS=$PY_ARGS" >> "$GITHUB_OUTPUT"
+          echo "MAX_GENERATED=$MAX_GENERATED" >> "$GITHUB_OUTPUT"
+
+      - name: Generate public rules
+        env:
+          BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
+        run: |
+          mkdir -p generated rules
+          eval "python tools/rule_discovery/generate_rules.py ${{ steps.args.outputs.PY_ARGS }} --max-generated ${{ steps.args.outputs.MAX_GENERATED }} --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
+          python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
+          cp generated/index.json rules/index.json
+
+      - name: Upload generated artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: comic-reader-generated-rules
+          path: |
+            generated/index.json
+            generated/rulebot_report.json
+            generated/GeneratedSourceRules.ets
+            rules/index.json
+
+      - name: Commit generated rules
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
+          if git diff --cached --quiet; then
+            echo "No generated rule changes."
+          else
+            git commit -m "chore: update generated comic rules"
+            git push
+          fi
