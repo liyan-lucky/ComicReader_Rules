@@ -1,7 +1,7 @@
 name: Generate Remote Comic Rules
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
   schedule:
     - cron: '0 3 * * 1'
 
@@ -119,17 +119,17 @@ jobs:
             dist/*.zip
 
       - name: Create tag and GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.release_meta.outputs.tag }}
-          target_commitish: ${{ steps.release_meta.outputs.sha }}
-          name: 我漫画浏览器远程规则 ${{ steps.release_meta.outputs.tag }}
-          body_path: dist/release-notes.md
-          draft: false
-          prerelease: false
-          files: |
-            generated/index.json
-            generated/rulebot_report.json
-            generated/GeneratedSourceRules.ets
-            rules/index.json
-            dist/comic-reader-rules-${{ steps.release_meta.outputs.tag }}.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release_meta.outputs.tag }}
+        run: |
+          git tag "$TAG"
+          git push origin "refs/tags/$TAG"
+          gh release create "$TAG" \
+            --title "我漫画浏览器远程规则 $TAG" \
+            --notes-file dist/release-notes.md \
+            generated/index.json \
+            generated/rulebot_report.json \
+            generated/GeneratedSourceRules.ets \
+            rules/index.json \
+            dist/comic-reader-rules-$TAG.zip
