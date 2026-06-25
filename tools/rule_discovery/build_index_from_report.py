@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Convert RuleBot audit report into remote rules/index.json for 我漫画浏览器."""
+"""Convert RuleBot audit report into remote rules/index.json for 漫画浏览器."""
 from __future__ import annotations
 import argparse, json, re
 from datetime import datetime, timezone
