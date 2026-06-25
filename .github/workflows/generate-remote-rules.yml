@@ -96,7 +96,7 @@ jobs:
           cp rules/index.json dist/rules-index.json
           (cd dist && zip -r "comic-reader-rules-$TAG.zip" index.json rulebot_report.json GeneratedSourceRules.ets rules-index.json)
           {
-            echo "# 我漫画浏览器远程规则 $TAG"
+            echo "# 漫画浏览器远程规则 $TAG"
             echo ""
             echo "- 默认关键词：$DEFAULT_KEYWORDS"
             echo "- 默认域名：$DEFAULT_DOMAINS"
@@ -126,7 +126,7 @@ jobs:
           git tag "$TAG"
           git push origin "refs/tags/$TAG"
           gh release create "$TAG" \
-            --title "我漫画浏览器远程规则 $TAG" \
+            --title "漫画浏览器远程规则 $TAG" \
             --notes-file dist/release-notes.md \
             generated/index.json \
             generated/rulebot_report.json \
