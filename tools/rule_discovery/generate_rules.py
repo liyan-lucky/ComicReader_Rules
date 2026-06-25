@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-我漫画浏览器 · 公开漫画源规则自动发现/审计/生成脚本
+漫画浏览器 · 公开漫画源规则自动发现/审计/生成脚本
 
 用途：
   1) 使用搜索引擎/API 发现公开漫画详情页/章节页；
@@ -496,7 +496,7 @@ def build_queries(keywords: List[str], domains: List[str]) -> List[str]:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成我漫画浏览器规则")
+    ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成漫画浏览器规则")
     ap.add_argument("--keyword", action="append", default=[], help="搜索关键词，可重复，如：--keyword 斗罗大陆 --keyword 'Soul Land'")
     ap.add_argument("--domain", action="append", default=[], help="限定域名，可重复，如：--domain kaixinman.com")
     ap.add_argument("--limit", type=int, default=20, help="每个查询最多取多少搜索结果")
