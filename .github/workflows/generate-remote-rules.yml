@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: comic-reader-rules-main
+  cancel-in-progress: false
+
 defaults:
   run:
     shell: bash
@@ -70,15 +74,32 @@ jobs:
       - name: Commit generated rules
         id: commit
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # 运行过程中 main 可能被其他提交更新；先自动暂存生成文件并 rebase 到最新 main，避免 push rejected。
+          git pull --rebase --autostash origin main
+
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No generated rule changes."
           else
             git commit -m "chore: update generated comic rules"
-            git push
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "Push rejected, pulling latest main and retrying ($i/3)..."
+              git pull --rebase origin main
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "Failed to push generated rules after retries."
+              exit 1
+            fi
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -86,7 +107,7 @@ jobs:
       - name: Prepare release metadata and bundle
         id: release_meta
         run: |
-          TAG="rules-$(date -u +'%Y%m%d-%H%M%S')"
+          TAG="rules-$(date -u +'%Y%m%d-%H%M%S')-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           mkdir -p dist
@@ -126,6 +147,7 @@ jobs:
           git tag "$TAG"
           git push origin "refs/tags/$TAG"
           gh release create "$TAG" \
+            --target "$(git rev-parse HEAD)" \
             --title "漫画浏览器远程规则 $TAG" \
             --notes-file dist/release-notes.md \
             generated/index.json \
