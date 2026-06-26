@@ -111,11 +111,11 @@ jobs:
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           mkdir -p dist
-          cp generated/index.json dist/index.json
-          cp generated/rulebot_report.json dist/rulebot_report.json
+          cp generated/index.json dist/generated-index.json
+          cp generated/rulebot_report.json dist/rulebot-report.json
           cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
           cp rules/index.json dist/rules-index.json
-          (cd dist && zip -r "comic-reader-rules-$TAG.zip" index.json rulebot_report.json GeneratedSourceRules.ets rules-index.json)
+          (cd dist && zip -r "comic-reader-rules-$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json)
           {
             echo "# 漫画浏览器远程规则 $TAG"
             echo ""
@@ -124,6 +124,7 @@ jobs:
             echo "- 规则索引：generated/index.json"
             echo "- 审计报告：generated/rulebot_report.json"
             echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
+            echo "- Release附件名已去重：generated-index.json / rules-index.json"
             echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
             echo "- Commit：$(git rev-parse HEAD)"
           } > dist/release-notes.md
@@ -137,6 +138,10 @@ jobs:
             generated/rulebot_report.json
             generated/GeneratedSourceRules.ets
             rules/index.json
+            dist/generated-index.json
+            dist/rulebot-report.json
+            dist/GeneratedSourceRules.ets
+            dist/rules-index.json
             dist/*.zip
 
       - name: Create tag and GitHub Release
@@ -144,14 +149,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release_meta.outputs.tag }}
         run: |
+          # 如果重跑同一次任务时留下了半成品 Release/tag，先清理再重新发布。
+          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          git push origin ":refs/tags/$TAG" 2>/dev/null || true
+          git tag -d "$TAG" 2>/dev/null || true
+
           git tag "$TAG"
           git push origin "refs/tags/$TAG"
           gh release create "$TAG" \
             --target "$(git rev-parse HEAD)" \
             --title "漫画浏览器远程规则 $TAG" \
             --notes-file dist/release-notes.md \
-            generated/index.json \
-            generated/rulebot_report.json \
-            generated/GeneratedSourceRules.ets \
-            rules/index.json \
+            dist/generated-index.json \
+            dist/rulebot-report.json \
+            dist/GeneratedSourceRules.ets \
+            dist/rules-index.json \
             dist/comic-reader-rules-$TAG.zip
