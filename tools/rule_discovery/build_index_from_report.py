@@ -17,6 +17,17 @@ REQUIRED_RULE_FIELDS = [
     'readerImageRegex', 'readerImageGroups', 'userAgent', 'referer'
 ]
 
+PROJECT_COMPLIANCE = {
+    'license': 'MIT',
+    'publicOnly': True,
+    'noAccountData': True,
+    'noBundledComicContent': True,
+    'noPaidContentCopies': True,
+    'noProtectedAssets': True,
+    'noAccessControlBypass': True,
+    'rightsPolicy': 'See README.md, DISCLAIMER.md and COMPLIANCE.md'
+}
+
 def safe_id(domain: str) -> str:
     core = domain.lower().replace('www.', '')
     core = re.sub(r'[^a-z0-9]+', '_', core).strip('_')
@@ -28,6 +39,19 @@ def is_valid_rule(rule: dict) -> bool:
             return False
     return bool(rule.get('id')) and bool(rule.get('name')) and bool(rule.get('readerImageRegex')) and isinstance(rule.get('readerImageGroups'), list)
 
+def add_rule_compliance(rule: dict) -> dict:
+    rule = dict(rule)
+    rule.setdefault('license', 'MIT')
+    rule.setdefault('sourceType', 'public-web-page-rule')
+    rule.setdefault('compliance', {
+        'publicOnly': True,
+        'noLoginRequired': True,
+        'noPaymentBypass': True,
+        'noCaptchaBypass': True,
+        'noProtectedAssetBundled': True
+    })
+    return rule
+
 def load_manual_rules(path: str) -> list[dict]:
     manual_path = Path(path)
     if not manual_path.exists():
@@ -37,13 +61,13 @@ def load_manual_rules(path: str) -> list[dict]:
     rules: list[dict] = []
     for item in raw_rules:
         if isinstance(item, dict) and is_valid_rule(item):
-            rules.append(item)
+            rules.append(add_rule_compliance(item))
     return rules
 
 def rule_for_audit(a: dict) -> dict:
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
-    return {
+    return add_rule_compliance({
         'id': safe_id(domain),
         'name': f'{domain} 远程公开源',
         'description': '规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。',
@@ -67,14 +91,14 @@ def rule_for_audit(a: dict) -> dict:
         'readerNextPageRegex': '<a[^>]+href=["\\\']([^"\\\']+)["\\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=["\\\']next["\\\'][^>]+href=["\\\']([^"\\\']+)["\\\']|href=["\\\']([^"\\\']+)["\\\'][^>]+rel=["\\\']next["\\\']',
         'readerNextPageUrlGroups': [1, 2, 3],
         'maxReaderPages': 12
-    }
+    })
 
 def append_unique(target: list[dict], seen: set[str], rule: dict) -> None:
     rule_id = str(rule.get('id', '')).strip()
     if not rule_id or rule_id in seen:
         return
     seen.add(rule_id)
-    target.append(rule)
+    target.append(add_rule_compliance(rule))
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -107,6 +131,8 @@ def main() -> int:
         'schema': 'womh_comic_rules_index_v1',
         'version': datetime.now(timezone.utc).strftime('%Y.%m.%d.%H%M'),
         'updatedAt': datetime.now(timezone.utc).isoformat(),
+        'license': 'MIT',
+        'compliance': PROJECT_COMPLIANCE,
         'queries': data.get('queries', []),
         'rules': rules,
         'audit': {
