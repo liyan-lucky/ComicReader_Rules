@@ -1,4 +1,4 @@
-name: Generate Remote Comic Rules
+name: 生成远程漫画规则
 
 on:
   workflow_dispatch: {}
@@ -18,28 +18,29 @@ defaults:
 
 jobs:
   generate:
+    name: 生成并发布远程规则
     runs-on: ubuntu-latest
     env:
       DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下'
       DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com'
       DEFAULT_MAX_GENERATED: '50'
     steps:
-      - name: Checkout
+      - name: 检出仓库
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: Build default argument list
+      - name: 构建默认参数列表
         id: args
         run: |
           PY_ARGS=""
@@ -60,7 +61,7 @@ jobs:
           echo "PY_ARGS=$PY_ARGS" >> "$GITHUB_OUTPUT"
           echo "MAX_GENERATED=$DEFAULT_MAX_GENERATED" >> "$GITHUB_OUTPUT"
 
-      - name: Generate public rules
+      - name: 生成公开规则
         env:
           BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
@@ -71,7 +72,7 @@ jobs:
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           cp generated/index.json rules/index.json
 
-      - name: Commit generated rules
+      - name: 提交生成规则
         id: commit
         run: |
           set -euo pipefail
@@ -104,7 +105,7 @@ jobs:
           fi
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Prepare release metadata and bundle
+      - name: 准备 Release 元数据和压缩包
         id: release_meta
         run: |
           TAG="rules-$(date -u +'%Y%m%d-%H%M%S')-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
@@ -129,7 +130,7 @@ jobs:
             echo "- Commit：$(git rev-parse HEAD)"
           } > dist/release-notes.md
 
-      - name: Upload generated artifact
+      - name: 上传生成规则 artifact
         uses: actions/upload-artifact@v4
         with:
           name: comic-reader-generated-rules-${{ steps.release_meta.outputs.tag }}
@@ -144,7 +145,7 @@ jobs:
             dist/rules-index.json
             dist/*.zip
 
-      - name: Create tag and GitHub Release
+      - name: 创建 tag 和 GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release_meta.outputs.tag }}
