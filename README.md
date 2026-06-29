@@ -52,7 +52,7 @@ generated/GeneratedSourceRules.ets
 进入 GitHub 仓库：
 
 ```text
-Actions → Generate Remote Comic Rules → Run workflow
+Actions → 生成远程漫画规则 → Run workflow
 ```
 
 现在不需要填写任何信息，直接点绿色按钮运行即可。
