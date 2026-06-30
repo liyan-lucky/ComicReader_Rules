@@ -1,6 +1,6 @@
 name: 生成公开漫画目录
 
-on:
+'on':
   workflow_dispatch:
     inputs:
       commit_changes:
@@ -69,24 +69,24 @@ jobs:
           for file_name in required_files:
               path = Path(file_name)
               if not path.exists():
-                  raise SystemExit(f'missing generated file: {file_name}')
+                  raise SystemExit(f'缺少生成文件: {file_name}')
               json.loads(path.read_text('utf-8'))
 
           catalog = json.loads(Path('generated/catalog.json').read_text('utf-8'))
           if catalog.get('schema') != 'comic_catalog_v1':
-              raise SystemExit('invalid catalog schema')
+              raise SystemExit('目录 schema 不正确')
           if not isinstance(catalog.get('categories'), list):
-              raise SystemExit('catalog.categories must be list')
+              raise SystemExit('catalog.categories 必须是数组')
           if not isinstance(catalog.get('items'), list):
-              raise SystemExit('catalog.items must be list')
+              raise SystemExit('catalog.items 必须是数组')
           for item in catalog.get('items', []):
               if not item.get('id') or not item.get('title'):
-                  raise SystemExit(f'invalid catalog item: {item}')
-          print('catalog json validation passed')
+                  raise SystemExit(f'目录条目不完整: {item}')
+          print('目录 JSON 校验通过')
           PY
 
       - name: 提交到 develop
-        if: github.event_name == 'schedule' || inputs.commit_changes == 'true'
+        if: github.event_name == 'schedule' || github.event.inputs.commit_changes == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -96,7 +96,7 @@ jobs:
           git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
 
           if git diff --cached --quiet; then
-            echo "No catalog changes."
+            echo "目录没有变化，无需提交。"
           else
             git commit -m "chore: update public comic catalog"
             pushed=false
@@ -105,19 +105,19 @@ jobs:
                 pushed=true
                 break
               fi
-              echo "Push rejected, pulling latest $TARGET_BRANCH and retrying ($i/3)..."
+              echo "推送失败，正在拉取最新 $TARGET_BRANCH 后重试（$i/3）..."
               git pull --rebase origin "$TARGET_BRANCH"
             done
             if [ "$pushed" != "true" ]; then
-              echo "Failed to push generated catalog after retries."
+              echo "目录生成结果推送失败。"
               exit 1
             fi
           fi
 
-      - name: 上传目录 artifact
+      - name: 上传目录产物
         uses: actions/upload-artifact@v4
         with:
-          name: comic-reader-catalog-develop
+          name: 漫画目录-develop
           path: |
             generated/catalog.json
             generated/catalog_categories.json
