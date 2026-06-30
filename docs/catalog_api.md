@@ -26,7 +26,8 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
     "noChapterText": true,
     "noAccountData": true,
     "noAccessControlBypass": true,
-    "singlePrimaryCategory": true
+    "singlePrimaryCategory": true,
+    "clickableLinks": true
   },
   "categories": [
     { "id": "xuanhuan", "name": "玄幻", "count": 10 }
@@ -41,14 +42,24 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
       "tags": [],
       "status": "unknown",
       "cover": "",
+      "primaryUrl": "https://example.com/comic/douluo-dalu",
+      "links": [
+        {
+          "title": "示例来源",
+          "url": "https://example.com/comic/douluo-dalu",
+          "type": "detail",
+          "ruleId": "example.com"
+        }
+      ],
       "sources": [
         {
-          "ruleId": "kaixinman.com",
-          "siteName": "kaixinman.com",
-          "siteUrl": "https://kaixinman.com"
+          "ruleId": "example.com",
+          "siteName": "示例来源",
+          "detailUrl": "https://example.com/comic/douluo-dalu"
         }
       ],
       "sourceCount": 1,
+      "linkCount": 1,
       "firstSeenAt": "2026-06-30T00:00:00Z",
       "lastSeenAt": "2026-06-30T00:00:00Z"
     }
@@ -56,6 +67,16 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
   "itemCount": 1
 }
 ```
+
+## 点击查看规则
+
+目录项可以直接点击查看：
+
+- APP 列表点击漫画时，优先打开 `items[].primaryUrl`。
+- 详情页展示多个来源时，使用 `items[].links[]`。
+- `links[].type = detail` 表示漫画详情页链接。
+- `links[].type = site` 表示只有来源站点链接，APP 可以进入站点或用对应 `ruleId` 发起搜索。
+- `sources[]` 继续保留给规则关联使用，APP 根据 `sources[].ruleId` 对应 `generated/index.json` 里的规则。
 
 ## 分类唯一性规则
 
@@ -74,9 +95,10 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 4. 缓存 `categories` 和 `items`。
 5. 首页展示分类列表。
 6. 点击分类后按 `items[].primaryCategory` 过滤，旧版也可以按 `items[].categories[0]` 过滤。
-7. 点击漫画后展示 `sources`。
-8. 根据 `sources[].ruleId` 关联 `generated/index.json` 里的规则。
-9. App 使用规则打开详情页、搜索页或章节页。
+7. 点击漫画后优先打开 `items[].primaryUrl`。
+8. 如果有多个来源，展示 `items[].links[]` 让用户选择。
+9. 根据 `sources[].ruleId` 关联 `generated/index.json` 里的规则。
+10. App 使用规则打开详情页、搜索页或章节页。
 
 ## 分类 ID
 
@@ -118,11 +140,4 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 - 公开详情页或站点 URL；
 - 首次发现和最后发现时间。
 
-禁止保存：
-
-- 漫画图片；
-- 章节图片；
-- 章节正文；
-- 付费内容；
-- 账号、Cookie、Token；
-- 破解接口、验证码绕过、DRM 绕过、私有 App 协议。
+目录文件不保存漫画图片、章节图片、章节正文、付费内容、账号、Cookie、Token 或任何非公开访问相关信息。
