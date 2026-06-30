@@ -1,8 +1,18 @@
 name: 生成公开漫画目录
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      commit_changes:
+        description: '是否把生成结果提交到 develop'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
   schedule:
+    # 每天 UTC 03:30 自动生成；北京时间 11:30 左右。
     - cron: '30 3 * * *'
 
 permissions:
@@ -16,16 +26,18 @@ defaults:
   run:
     shell: bash
 
+env:
+  TARGET_BRANCH: develop
+
 jobs:
   generate-catalog:
-    name: 生成并提交公开漫画目录
+    name: 生成并校验公开漫画目录
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     steps:
       - name: 检出 develop
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: ${{ env.TARGET_BRANCH }}
           fetch-depth: 0
 
       - name: 设置 Python
@@ -33,18 +45,54 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: 校验脚本语法
+        run: |
+          python -m py_compile scripts/generate_catalog.py
+
       - name: 生成目录索引
         run: |
           mkdir -p generated
           python scripts/generate_catalog.py
 
+      - name: 校验生成 JSON
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          required_files = [
+              'generated/catalog.json',
+              'generated/catalog_categories.json',
+              'generated/catalog_delta.json',
+              'generated/catalog_report.json',
+          ]
+          for file_name in required_files:
+              path = Path(file_name)
+              if not path.exists():
+                  raise SystemExit(f'missing generated file: {file_name}')
+              json.loads(path.read_text('utf-8'))
+
+          catalog = json.loads(Path('generated/catalog.json').read_text('utf-8'))
+          if catalog.get('schema') != 'comic_catalog_v1':
+              raise SystemExit('invalid catalog schema')
+          if not isinstance(catalog.get('categories'), list):
+              raise SystemExit('catalog.categories must be list')
+          if not isinstance(catalog.get('items'), list):
+              raise SystemExit('catalog.items must be list')
+          for item in catalog.get('items', []):
+              if not item.get('id') or not item.get('title'):
+                  raise SystemExit(f'invalid catalog item: {item}')
+          print('catalog json validation passed')
+          PY
+
       - name: 提交到 develop
+        if: github.event_name == 'schedule' || inputs.commit_changes == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git pull --rebase --autostash origin develop
+          git pull --rebase --autostash origin "$TARGET_BRANCH"
           git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
 
           if git diff --cached --quiet; then
@@ -53,12 +101,12 @@ jobs:
             git commit -m "chore: update public comic catalog"
             pushed=false
             for i in 1 2 3; do
-              if git push origin HEAD:develop; then
+              if git push origin "HEAD:$TARGET_BRANCH"; then
                 pushed=true
                 break
               fi
-              echo "Push rejected, pulling latest develop and retrying ($i/3)..."
-              git pull --rebase origin develop
+              echo "Push rejected, pulling latest $TARGET_BRANCH and retrying ($i/3)..."
+              git pull --rebase origin "$TARGET_BRANCH"
             done
             if [ "$pushed" != "true" ]; then
               echo "Failed to push generated catalog after retries."
