@@ -1,0 +1,120 @@
+{
+  "schema": "comic_catalog_discovery_sources_v1",
+  "updatedAt": "2026-07-01T00:00:00Z",
+  "description": "独立公开目录发现源，仅供 GitHub Actions 生成 catalog.json 使用。APP 搜索与阅读继续使用 generated/index.json，不读取本文件。",
+  "compliance": {
+    "publicOnly": true,
+    "metadataOnly": true,
+    "noImages": true,
+    "noChapterText": true,
+    "noAccountData": true
+  },
+  "defaults": {
+    "maxPages": 2,
+    "maxItemsPerSource": 200,
+    "requestTimeoutSeconds": 12,
+    "itemRegex": "<a[^>]+href=[\"']([^\"']*(?:comic|manga|manhua|book|series|title|read)[^\"']*)[\"'][^>]*>([\\s\\S]{0,320}?)<\\/a>",
+    "urlGroups": [1],
+    "titleGroups": [2],
+    "nextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*&gt;\\s*)<\\/a>",
+    "nextPageUrlGroups": [1]
+  },
+  "sources": [
+    {
+      "id": "kaixinman.com",
+      "name": "开心漫公开目录",
+      "ruleId": "kaixinman_public_access",
+      "homepage": "https://www.kaixinman.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.kaixinman.com" },
+        { "type": "latest", "url": "https://www.kaixinman.com/latest" },
+        { "type": "comic", "url": "https://www.kaixinman.com/comic" }
+      ]
+    },
+    {
+      "id": "mgeko.cc",
+      "name": "Mgeko公开目录",
+      "ruleId": "mgeko_public_access",
+      "homepage": "https://www.mgeko.cc",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.mgeko.cc" },
+        { "type": "latest", "url": "https://www.mgeko.cc/latest" },
+        { "type": "manga", "url": "https://www.mgeko.cc/manga" }
+      ]
+    },
+    {
+      "id": "soullandmanga.com",
+      "name": "SoulLandManga公开目录",
+      "ruleId": "soullandmanga.com",
+      "homepage": "https://soullandmanga.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://soullandmanga.com" },
+        { "type": "manga", "url": "https://soullandmanga.com/manga" },
+        { "type": "latest", "url": "https://soullandmanga.com/latest" }
+      ]
+    },
+    {
+      "id": "manhuaus.com",
+      "name": "ManhuaUS公开目录",
+      "ruleId": "manhuaus.com",
+      "homepage": "https://manhuaus.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://manhuaus.com" },
+        { "type": "manga", "url": "https://manhuaus.com/manga" },
+        { "type": "latest", "url": "https://manhuaus.com/latest" }
+      ]
+    },
+    {
+      "id": "mangafire.to",
+      "name": "MangaFire公开目录",
+      "ruleId": "mangafire.to",
+      "homepage": "https://mangafire.to",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://mangafire.to" },
+        { "type": "filter", "url": "https://mangafire.to/filter" },
+        { "type": "latest", "url": "https://mangafire.to/updated" }
+      ]
+    },
+    {
+      "id": "happymh.com",
+      "name": "HappyMH公开目录",
+      "ruleId": "happymh.com",
+      "homepage": "https://happymh.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://happymh.com" },
+        { "type": "manga", "url": "https://happymh.com/manga" },
+        { "type": "latest", "url": "https://happymh.com/latest" }
+      ]
+    },
+    {
+      "id": "mangaread.org",
+      "name": "MangaRead公开目录",
+      "ruleId": "mangaread.org",
+      "homepage": "https://mangaread.org",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://mangaread.org" },
+        { "type": "manga", "url": "https://mangaread.org/manga" },
+        { "type": "latest", "url": "https://mangaread.org/latest" }
+      ]
+    },
+    {
+      "id": "mangadna.com",
+      "name": "MangaDNA公开目录",
+      "ruleId": "mangadna.com",
+      "homepage": "https://mangadna.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://mangadna.com" },
+        { "type": "manga", "url": "https://mangadna.com/manga" },
+        { "type": "latest", "url": "https://mangadna.com/latest" }
+      ]
+    }
+  ]
+}
