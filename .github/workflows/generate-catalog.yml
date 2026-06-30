@@ -1,18 +1,8 @@
 name: 生成公开漫画目录
 
-'on':
+on:
   workflow_dispatch:
-    inputs:
-      commit_changes:
-        description: '是否把生成结果提交到 develop'
-        required: true
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
   schedule:
-    # 每天 UTC 03:30 自动生成；北京时间 11:30 左右。
     - cron: '30 3 * * *'
 
 permissions:
@@ -22,96 +12,45 @@ concurrency:
   group: comic-reader-catalog-develop
   cancel-in-progress: false
 
-defaults:
-  run:
-    shell: bash
-
-env:
-  TARGET_BRANCH: develop
-
 jobs:
   generate-catalog:
     name: 生成并校验公开漫画目录
     runs-on: ubuntu-latest
+
     steps:
-      - name: 检出 develop
+      - name: 检出 develop 代码
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.TARGET_BRANCH }}
+          ref: develop
           fetch-depth: 0
 
-      - name: 设置 Python
+      - name: 安装 Python 环境
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 校验脚本语法
+      - name: 校验目录生成脚本
+        run: python -m py_compile scripts/generate_catalog.py
+
+      - name: 生成公开漫画目录
+        run: python scripts/generate_catalog.py
+
+      - name: 校验目录 JSON 文件
         run: |
-          python -m py_compile scripts/generate_catalog.py
+          python -c "import json, pathlib; files=['generated/catalog.json','generated/catalog_categories.json','generated/catalog_delta.json','generated/catalog_report.json']; [json.loads(pathlib.Path(f).read_text('utf-8')) for f in files]; c=json.loads(pathlib.Path('generated/catalog.json').read_text('utf-8')); assert c.get('schema') == 'comic_catalog_v1'; assert isinstance(c.get('categories'), list); assert isinstance(c.get('items'), list); print('目录 JSON 校验通过')"
 
-      - name: 生成目录索引
-        run: |
-          mkdir -p generated
-          python scripts/generate_catalog.py
-
-      - name: 校验生成 JSON
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          required_files = [
-              'generated/catalog.json',
-              'generated/catalog_categories.json',
-              'generated/catalog_delta.json',
-              'generated/catalog_report.json',
-          ]
-          for file_name in required_files:
-              path = Path(file_name)
-              if not path.exists():
-                  raise SystemExit(f'缺少生成文件: {file_name}')
-              json.loads(path.read_text('utf-8'))
-
-          catalog = json.loads(Path('generated/catalog.json').read_text('utf-8'))
-          if catalog.get('schema') != 'comic_catalog_v1':
-              raise SystemExit('目录 schema 不正确')
-          if not isinstance(catalog.get('categories'), list):
-              raise SystemExit('catalog.categories 必须是数组')
-          if not isinstance(catalog.get('items'), list):
-              raise SystemExit('catalog.items 必须是数组')
-          for item in catalog.get('items', []):
-              if not item.get('id') or not item.get('title'):
-                  raise SystemExit(f'目录条目不完整: {item}')
-          print('目录 JSON 校验通过')
-          PY
-
-      - name: 提交到 develop
-        if: github.event_name == 'schedule' || github.event.inputs.commit_changes == 'true'
+      - name: 提交生成结果到 develop
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git pull --rebase --autostash origin "$TARGET_BRANCH"
+          git pull --rebase --autostash origin develop
           git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
-
           if git diff --cached --quiet; then
             echo "目录没有变化，无需提交。"
           else
             git commit -m "chore: update public comic catalog"
-            pushed=false
-            for i in 1 2 3; do
-              if git push origin "HEAD:$TARGET_BRANCH"; then
-                pushed=true
-                break
-              fi
-              echo "推送失败，正在拉取最新 $TARGET_BRANCH 后重试（$i/3）..."
-              git pull --rebase origin "$TARGET_BRANCH"
-            done
-            if [ "$pushed" != "true" ]; then
-              echo "目录生成结果推送失败。"
-              exit 1
-            fi
+            git push origin HEAD:develop
           fi
 
       - name: 上传目录产物
