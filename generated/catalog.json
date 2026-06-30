@@ -1,20 +1,22 @@
 {
   "schema": "comic_catalog_v1",
-  "version": "20260630T223122Z",
-  "updatedAt": "2026-06-30T22:31:22Z",
+  "version": "20260630T233602Z",
+  "updatedAt": "2026-06-30T23:36:02Z",
   "compliance": {
     "publicOnly": true,
     "noBundledComicContent": true,
     "noImages": true,
     "noChapterText": true,
     "noAccountData": true,
-    "noAccessControlBypass": true
+    "noAccessControlBypass": true,
+    "singlePrimaryCategory": true,
+    "clickableLinks": true
   },
   "categories": [
     {
       "id": "xuanhuan",
       "name": "玄幻",
-      "count": 8
+      "count": 7
     },
     {
       "id": "xiuxian",
@@ -84,7 +86,7 @@
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 1
+      "count": 0
     },
     {
       "id": "gaoxiao",
@@ -177,7 +179,60 @@
       ],
       "firstSeenAt": "2026-06-30T22:31:22Z",
       "sourceCount": 8,
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-e85d1c6a76",
@@ -198,7 +253,18 @@
       ],
       "firstSeenAt": "2026-06-30T22:31:22Z",
       "sourceCount": 1,
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "weifenlei",
+      "links": [
+        {
+          "title": "Mgeko公开访问源",
+          "url": "https://www.mgeko.cc",
+          "type": "detail",
+          "ruleId": "mgeko_public_access"
+        }
+      ],
+      "primaryUrl": "https://www.mgeko.cc",
+      "linkCount": 1
     },
     {
       "id": "soul-land",
@@ -254,15 +320,67 @@
       ],
       "firstSeenAt": "2026-06-30T22:31:22Z",
       "sourceCount": 8,
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-yirenzhixia",
       "title": "一人之下",
       "aliases": [],
       "categories": [
-        "wuxia",
-        "xuanhuan"
+        "wuxia"
       ],
       "tags": [],
       "status": "unknown",
@@ -311,7 +429,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "wuxia",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-fanren-xiuxianzhuan",
@@ -367,15 +538,67 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xiuxian",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-tunshi-xingkong",
       "title": "吞噬星空",
       "aliases": [],
       "categories": [
-        "xuanhuan",
-        "kehuan"
+        "xuanhuan"
       ],
       "tags": [],
       "status": "unknown",
@@ -424,7 +647,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-wanmei-shijie",
@@ -480,7 +756,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-248c2798bc",
@@ -501,7 +830,18 @@
       ],
       "firstSeenAt": "2026-06-30T22:31:22Z",
       "sourceCount": 1,
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "weifenlei",
+      "links": [
+        {
+          "title": "开心漫公开访问源",
+          "url": "https://www.kaixinman.com",
+          "type": "detail",
+          "ruleId": "kaixinman_public_access"
+        }
+      ],
+      "primaryUrl": "https://www.kaixinman.com",
+      "linkCount": 1
     },
     {
       "id": "comic-doupocangqiong",
@@ -557,7 +897,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-douluo-dalu",
@@ -616,7 +1009,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-wudong-qiankun",
@@ -672,7 +1118,60 @@
       ],
       "sourceCount": 8,
       "firstSeenAt": "2026-06-30T00:00:00Z",
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "xuanhuan",
+      "links": [
+        {
+          "title": "kaixinman.com",
+          "url": "https://kaixinman.com",
+          "type": "site",
+          "ruleId": "kaixinman.com"
+        },
+        {
+          "title": "soullandmanga.com",
+          "url": "https://soullandmanga.com",
+          "type": "site",
+          "ruleId": "soullandmanga.com"
+        },
+        {
+          "title": "manhuaus.com",
+          "url": "https://manhuaus.com",
+          "type": "site",
+          "ruleId": "manhuaus.com"
+        },
+        {
+          "title": "mangafire.to",
+          "url": "https://mangafire.to",
+          "type": "site",
+          "ruleId": "mangafire.to"
+        },
+        {
+          "title": "mgeko.cc",
+          "url": "https://mgeko.cc",
+          "type": "site",
+          "ruleId": "mgeko.cc"
+        },
+        {
+          "title": "happymh.com",
+          "url": "https://happymh.com",
+          "type": "site",
+          "ruleId": "happymh.com"
+        },
+        {
+          "title": "mangaread.org",
+          "url": "https://mangaread.org",
+          "type": "site",
+          "ruleId": "mangaread.org"
+        },
+        {
+          "title": "mangadna.com",
+          "url": "https://mangadna.com",
+          "type": "site",
+          "ruleId": "mangadna.com"
+        }
+      ],
+      "primaryUrl": "https://kaixinman.com",
+      "linkCount": 8
     },
     {
       "id": "comic-1e3d3fa17f",
@@ -693,7 +1192,18 @@
       ],
       "firstSeenAt": "2026-06-30T22:31:22Z",
       "sourceCount": 1,
-      "lastSeenAt": "2026-06-30T22:31:22Z"
+      "lastSeenAt": "2026-06-30T23:36:02Z",
+      "primaryCategory": "weifenlei",
+      "links": [
+        {
+          "title": "通用公开网页源",
+          "url": "https://通用公开网页源",
+          "type": "site",
+          "ruleId": "generic_html_public"
+        }
+      ],
+      "primaryUrl": "https://通用公开网页源",
+      "linkCount": 1
     }
   ],
   "itemCount": 12,
