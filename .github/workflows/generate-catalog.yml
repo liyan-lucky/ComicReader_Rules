@@ -1,0 +1,77 @@
+name: 生成公开漫画目录
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '30 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comic-reader-catalog-develop
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  generate-catalog:
+    name: 生成并提交公开漫画目录
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    steps:
+      - name: 检出 develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 生成目录索引
+        run: |
+          mkdir -p generated
+          python scripts/generate_catalog.py
+
+      - name: 提交到 develop
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git pull --rebase --autostash origin develop
+          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
+
+          if git diff --cached --quiet; then
+            echo "No catalog changes."
+          else
+            git commit -m "chore: update public comic catalog"
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:develop; then
+                pushed=true
+                break
+              fi
+              echo "Push rejected, pulling latest develop and retrying ($i/3)..."
+              git pull --rebase origin develop
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "Failed to push generated catalog after retries."
+              exit 1
+            fi
+          fi
+
+      - name: 上传目录 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: comic-reader-catalog-develop
+          path: |
+            generated/catalog.json
+            generated/catalog_categories.json
+            generated/catalog_delta.json
+            generated/catalog_report.json
