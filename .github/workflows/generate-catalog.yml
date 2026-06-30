@@ -62,3 +62,36 @@ jobs:
             generated/catalog_categories.json
             generated/catalog_delta.json
             generated/catalog_report.json
+
+      - name: 显示题材数量汇总
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          categories = json.loads(Path('generated/catalog_categories.json').read_text('utf-8')).get('categories', [])
+          report = json.loads(Path('generated/catalog_report.json').read_text('utf-8'))
+
+          lines = [
+              '## 公开漫画目录题材数量汇总',
+              '',
+              f"- 更新时间：{report.get('updatedAt', '')}",
+              f"- 漫画总数：{report.get('itemCount', 0)}",
+              f"- 来源记录数：{report.get('sourceRecordCount', 0)}",
+              f"- 未分类数量：{report.get('uncategorizedCount', 0)}",
+              '',
+              '| 题材 | 数量 |',
+              '|---|---:|',
+          ]
+          for item in categories:
+              lines.append(f"| {item.get('name', item.get('id', ''))} | {item.get('count', 0)} |")
+
+          output = '\n'.join(lines) + '\n'
+          print(output)
+
+          summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary_path:
+              with open(summary_path, 'a', encoding='utf-8') as f:
+                  f.write(output)
+          PY
