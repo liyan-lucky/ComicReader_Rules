@@ -7,6 +7,7 @@
 - 只生成作品元数据、分类、标签、来源规则引用。
 - 不下载、不保存漫画图片、章节正文、付费内容、账号数据。
 - 默认从 generated/index.json 与 generated/rulebot_report.json 中提取公开来源信息。
+- 每本漫画只固定到一个主分类，避免分类重复计数。
 """
 
 from __future__ import annotations
@@ -23,6 +24,8 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# 分类顺序就是唯一主分类优先级。
+# 例如同一本漫画同时命中“古风”和“穿越”，会固定归入优先级更靠前的分类。
 CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo"]},
     {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "immortal", "cultivation"]},
@@ -47,6 +50,8 @@ CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "yuri"]},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
+
+CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
 
 SEED_TITLES = [
     "斗罗大陆",
@@ -115,15 +120,35 @@ def slugify(title: str) -> str:
     return text or hashlib.sha1(title.encode("utf-8")).hexdigest()[:12]
 
 
-def guess_categories(title: str, tags: Optional[List[str]] = None) -> List[str]:
+def guess_primary_category(title: str, tags: Optional[List[str]] = None) -> str:
     text = (title + " " + " ".join(tags or [])).lower()
-    matched: List[str] = []
     for rule in CATEGORY_RULES:
         if rule["id"] == "weifenlei":
             continue
         if any(keyword.lower() in text for keyword in rule["keywords"]):
-            matched.append(rule["id"])
-    return matched or ["weifenlei"]
+            return rule["id"]
+    return "weifenlei"
+
+
+def normalize_single_category(title: str, item: Optional[Dict[str, Any]] = None) -> str:
+    tags = item.get("tags", []) if isinstance(item, dict) else []
+    guessed = guess_primary_category(title, tags)
+    if guessed != "weifenlei":
+        return guessed
+
+    # 对历史目录做兼容：如果之前已有分类，但现在无法重新命中关键词，只保留第一个有效分类。
+    previous_categories = item.get("categories", []) if isinstance(item, dict) else []
+    if isinstance(previous_categories, str):
+        previous_categories = [previous_categories]
+    for cid in previous_categories:
+        cid = safe_str(cid)
+        if cid in CATEGORY_IDS:
+            return cid
+    return "weifenlei"
+
+
+def guess_categories(title: str, tags: Optional[List[str]] = None) -> List[str]:
+    return [guess_primary_category(title, tags)]
 
 
 def walk_records(obj: Any) -> Iterable[Dict[str, Any]]:
@@ -183,6 +208,8 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
     for item in previous.get("items", []) if isinstance(previous, dict) else []:
         title = safe_str(item.get("title"))
         if title:
+            item["primaryCategory"] = normalize_single_category(title, item)
+            item["categories"] = [item["primaryCategory"]]
             by_title[title.lower()] = item
 
     for title, record in records:
@@ -191,19 +218,21 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
             "id": slugify(title),
             "title": title,
             "aliases": [],
-            "categories": guess_categories(title),
+            "categories": [],
             "tags": [],
             "status": "unknown",
             "cover": "",
             "sources": [],
             "firstSeenAt": timestamp,
         }
+        item["primaryCategory"] = normalize_single_category(title, item)
+        item["categories"] = [item["primaryCategory"]]
+
         source = make_source(record)
         existing = {(s.get("ruleId"), s.get("detailUrl") or s.get("siteUrl")) for s in item.get("sources", [])}
         source_key = (source.get("ruleId"), source.get("detailUrl") or source.get("siteUrl"))
         if source_key not in existing:
             item.setdefault("sources", []).append(source)
-        item["categories"] = item.get("categories") or guess_categories(title, item.get("tags", []))
         item["sourceCount"] = len(item.get("sources", []))
         item["lastSeenAt"] = timestamp
         by_title[key] = item
@@ -214,8 +243,11 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
 def build_category_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     counts = defaultdict(int)
     for item in items:
-        for cid in item.get("categories", []) or ["weifenlei"]:
-            counts[cid] += 1
+        cid = safe_str(item.get("primaryCategory"))
+        if not cid:
+            categories = item.get("categories", []) or []
+            cid = safe_str(categories[0]) if categories else "weifenlei"
+        counts[cid if cid in CATEGORY_IDS else "weifenlei"] += 1
     return [
         {"id": rule["id"], "name": rule["name"], "count": counts.get(rule["id"], 0)}
         for rule in CATEGORY_RULES
@@ -270,6 +302,7 @@ def main() -> int:
             "noChapterText": True,
             "noAccountData": True,
             "noAccessControlBypass": True,
+            "singlePrimaryCategory": True,
         },
         "categories": categories,
         "items": items,
@@ -291,7 +324,8 @@ def main() -> int:
         "itemCount": len(items),
         "categoryCount": len(categories),
         "sourceRecordCount": len(records),
-        "uncategorizedCount": sum(1 for item in items if "weifenlei" in item.get("categories", [])),
+        "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"),
+        "singlePrimaryCategory": True,
     }
 
     dump_json(ROOT / args.output, catalog)
