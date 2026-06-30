@@ -8,10 +8,35 @@
 liyan-lucky/ComicReader_Rules
 ```
 
+## 分支策略
+
+```text
+main      正式稳定分支，App 默认读取
+ develop  开发测试分支，新功能先提交到这里，确认 OK 后再合并 main
+```
+
+当前“公开漫画目录 + 分类汇总”功能只在 `develop` 开发分支实现和测试，不自动合并到 `main`。
+
 ## App 默认读取地址
+
+正式规则索引：
 
 ```text
 https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/index.json
+```
+
+开发目录索引：
+
+```text
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_categories.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_delta.json
+```
+
+确认 OK 并合并到主分支后，App 可改读：
+
+```text
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog.json
 ```
 
 ## 目录结构
@@ -19,10 +44,16 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/i
 ```text
 rules/                         手工规则、模板和当前可读取 index.json
 generated/index.json            App 远程更新使用的标准规则索引
+generated/catalog.json          公开漫画目录索引，供 App 分类浏览和添加来源
+generated/catalog_categories.json 分类汇总索引
+generated/catalog_delta.json    目录增量更新文件
+generated/catalog_report.json   目录生成报告
 generated/rulebot_report.json   自动审计报告
 generated/GeneratedSourceRules.ets ArkTS 规则文件
 tools/rule_discovery/           公开源搜索、审计、规则生成脚本
 scripts/generate_remote_rules.sh 本地生成规则脚本
+scripts/generate_catalog.py      本地生成公开漫画目录脚本
+docs/catalog_api.md              目录接口设计说明
 .github/workflows/              GitHub Actions 自动生成、打标签、发布 Release
 ```
 
@@ -47,6 +78,23 @@ generated/rulebot_report.json
 generated/GeneratedSourceRules.ets
 ```
 
+## 本地生成公开漫画目录
+
+```bash
+bash scripts/generate_catalog.sh
+```
+
+生成后会更新：
+
+```text
+generated/catalog.json
+generated/catalog_categories.json
+generated/catalog_delta.json
+generated/catalog_report.json
+```
+
+目录功能只保存漫画名、别名、分类、标签、公开来源 URL、规则 ID 和更新时间，不保存漫画图片、章节正文、付费内容或账号数据。
+
 ## GitHub Actions 一键生成 + 标签发布
 
 进入 GitHub 仓库：
@@ -66,7 +114,7 @@ Actions → 生成远程漫画规则 → Run workflow
 默认内置域名：
 
 ```text
-kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangadna.com
+kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com
 ```
 
 运行完成后会自动：
@@ -89,6 +137,16 @@ https://github.com/liyan-lucky/ComicReader_Rules/releases
 ```
 
 App 默认读取 main 分支最新规则。如果需要固定版本，可以把 App 的远程规则地址改成某个 tag 对应的 raw 地址。
+
+## GitHub Actions 生成公开漫画目录
+
+开发分支目录生成任务：
+
+```text
+Actions → 生成公开漫画目录 → Run workflow
+```
+
+该任务固定检出并提交到 `develop` 分支，不会自动合并或推送到 `main`。
 
 ## 规则边界
 
