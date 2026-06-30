@@ -8,6 +8,7 @@
 - 不下载、不保存漫画图片、章节正文、付费内容、账号数据。
 - 默认从 generated/index.json 与 generated/rulebot_report.json 中提取公开来源信息。
 - 每本漫画只固定到一个主分类，避免分类重复计数。
+- 每本漫画生成可点击链接，App 可直接根据 primaryUrl 或 links[] 打开。
 """
 
 from __future__ import annotations
@@ -136,7 +137,6 @@ def normalize_single_category(title: str, item: Optional[Dict[str, Any]] = None)
     if guessed != "weifenlei":
         return guessed
 
-    # 对历史目录做兼容：如果之前已有分类，但现在无法重新命中关键词，只保留第一个有效分类。
     previous_categories = item.get("categories", []) if isinstance(item, dict) else []
     if isinstance(previous_categories, str):
         previous_categories = [previous_categories]
@@ -176,7 +176,6 @@ def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]
 
     for query in index.get("queries", []) if isinstance(index, dict) else []:
         query_text = safe_str(query)
-        # query 示例：site:kaixinman.com 斗罗大陆 漫画 在线阅读
         m = re.search(r"site:([^\s]+)\s+(.+)$", query_text)
         if not m:
             continue
@@ -202,6 +201,28 @@ def make_source(record: Dict[str, Any]) -> Dict[str, str]:
     return source
 
 
+def source_url(source: Dict[str, Any]) -> str:
+    return safe_str(source.get("detailUrl") or source.get("siteUrl") or source.get("url"))
+
+
+def build_item_links(sources: List[Dict[str, Any]]) -> List[Dict[str, str]]:
+    links: List[Dict[str, str]] = []
+    seen = set()
+    for source in sources:
+        url = source_url(source)
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        link_type = "detail" if source.get("detailUrl") else "site"
+        links.append({
+            "title": safe_str(source.get("siteName") or source.get("ruleId") or url),
+            "url": url,
+            "type": link_type,
+            "ruleId": safe_str(source.get("ruleId")),
+        })
+    return links
+
+
 def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str, Any], timestamp: str) -> List[Dict[str, Any]]:
     by_title: Dict[str, Dict[str, Any]] = {}
 
@@ -210,6 +231,8 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
         if title:
             item["primaryCategory"] = normalize_single_category(title, item)
             item["categories"] = [item["primaryCategory"]]
+            item["links"] = build_item_links(item.get("sources", []))
+            item["primaryUrl"] = item["links"][0]["url"] if item["links"] else ""
             by_title[title.lower()] = item
 
     for title, record in records:
@@ -223,6 +246,8 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
             "status": "unknown",
             "cover": "",
             "sources": [],
+            "links": [],
+            "primaryUrl": "",
             "firstSeenAt": timestamp,
         }
         item["primaryCategory"] = normalize_single_category(title, item)
@@ -233,7 +258,10 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
         source_key = (source.get("ruleId"), source.get("detailUrl") or source.get("siteUrl"))
         if source_key not in existing:
             item.setdefault("sources", []).append(source)
+        item["links"] = build_item_links(item.get("sources", []))
+        item["primaryUrl"] = item["links"][0]["url"] if item["links"] else ""
         item["sourceCount"] = len(item.get("sources", []))
+        item["linkCount"] = len(item.get("links", []))
         item["lastSeenAt"] = timestamp
         by_title[key] = item
 
@@ -303,6 +331,7 @@ def main() -> int:
             "noAccountData": True,
             "noAccessControlBypass": True,
             "singlePrimaryCategory": True,
+            "clickableLinks": True,
         },
         "categories": categories,
         "items": items,
@@ -326,6 +355,7 @@ def main() -> int:
         "sourceRecordCount": len(records),
         "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"),
         "singlePrimaryCategory": True,
+        "clickableLinks": True,
     }
 
     dump_json(ROOT / args.output, catalog)
