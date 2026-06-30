@@ -4,18 +4,12 @@
 
 ## 读取地址
 
-开发分支测试地址：
-
-```text
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_categories.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_delta.json
-```
-
-主分支正式地址需要在确认 OK 并合并后再使用：
+主分支正式地址：
 
 ```text
 https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_categories.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_delta.json
 ```
 
 ## catalog.json
@@ -25,6 +19,15 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
   "schema": "comic_catalog_v1",
   "version": "20260630T000000Z",
   "updatedAt": "2026-06-30T00:00:00Z",
+  "compliance": {
+    "publicOnly": true,
+    "noBundledComicContent": true,
+    "noImages": true,
+    "noChapterText": true,
+    "noAccountData": true,
+    "noAccessControlBypass": true,
+    "singlePrimaryCategory": true
+  },
   "categories": [
     { "id": "xuanhuan", "name": "玄幻", "count": 10 }
   ],
@@ -33,7 +36,8 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
       "id": "comic-xxxx",
       "title": "斗罗大陆",
       "aliases": ["Soul Land", "Douluo Dalu"],
-      "categories": ["xuanhuan", "rexue"],
+      "primaryCategory": "xuanhuan",
+      "categories": ["xuanhuan"],
       "tags": [],
       "status": "unknown",
       "cover": "",
@@ -53,6 +57,15 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 }
 ```
 
+## 分类唯一性规则
+
+每本漫画只能固定归入一个主分类，避免同一本漫画在多个题材里重复计数。
+
+- `primaryCategory` 是唯一主分类。
+- `categories` 为兼容旧版 App 保留，但数组长度固定为 1。
+- 如果一本漫画同时命中多个题材，按照生成脚本里的分类优先级选择第一个命中的分类。
+- 例如一本漫画同时符合“古风”和“穿越”，会固定归入优先级更靠前的分类，不会同时出现在两个分类计数里。
+
 ## App 读取流程
 
 1. App 启动或用户点击“更新目录”。
@@ -60,7 +73,7 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 3. 对比本地缓存的 `version` / `updatedAt`。
 4. 缓存 `categories` 和 `items`。
 5. 首页展示分类列表。
-6. 点击分类后按 `items[].categories` 过滤。
+6. 点击分类后按 `items[].primaryCategory` 过滤，旧版也可以按 `items[].categories[0]` 过滤。
 7. 点击漫画后展示 `sources`。
 8. 根据 `sources[].ruleId` 关联 `generated/index.json` 里的规则。
 9. App 使用规则打开详情页、搜索页或章节页。
@@ -98,7 +111,7 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 
 - 漫画名；
 - 别名；
-- 分类；
+- 唯一主分类；
 - 标签；
 - 来源站点；
 - 来源规则 ID；
