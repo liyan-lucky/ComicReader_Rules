@@ -1,0 +1,64 @@
+name: 生成公开漫画目录
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comic-reader-catalog-develop
+  cancel-in-progress: false
+
+jobs:
+  generate-catalog:
+    name: 生成并校验公开漫画目录
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出 develop 代码
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: 安装 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 校验目录生成脚本
+        run: python -m py_compile scripts/generate_catalog.py
+
+      - name: 生成公开漫画目录
+        run: python scripts/generate_catalog.py
+
+      - name: 校验目录 JSON 文件
+        run: |
+          python -c "import json, pathlib; files=['generated/catalog.json','generated/catalog_categories.json','generated/catalog_delta.json','generated/catalog_report.json']; [json.loads(pathlib.Path(f).read_text('utf-8')) for f in files]; c=json.loads(pathlib.Path('generated/catalog.json').read_text('utf-8')); assert c.get('schema') == 'comic_catalog_v1'; assert isinstance(c.get('categories'), list); assert isinstance(c.get('items'), list); print('目录 JSON 校验通过')"
+
+      - name: 提交生成结果到 develop
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin develop
+          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
+          if git diff --cached --quiet; then
+            echo "目录没有变化，无需提交。"
+          else
+            git commit -m "chore: update public comic catalog"
+            git push origin HEAD:develop
+          fi
+
+      - name: 上传目录产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: 漫画目录-develop
+          path: |
+            generated/catalog.json
+            generated/catalog_categories.json
+            generated/catalog_delta.json
+            generated/catalog_report.json
