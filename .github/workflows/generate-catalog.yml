@@ -4,24 +4,48 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '30 3 * * *'
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'scripts/generate_catalog.py'
+      - 'generated/catalog_discovery_sources.json'
+      - 'generated/index.json'
+      - 'generated/rulebot_report.json'
+      - 'rules/manual/index.json'
+      - '.github/workflows/generate-catalog.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'scripts/generate_catalog.py'
+      - 'generated/catalog_discovery_sources.json'
+      - 'generated/index.json'
+      - 'generated/rulebot_report.json'
+      - 'rules/manual/index.json'
+      - '.github/workflows/generate-catalog.yml'
 
 permissions:
   contents: write
 
 concurrency:
-  group: comic-reader-catalog-develop
+  group: comic-reader-catalog-${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'schedule' && 'develop' || github.ref_name) }}
   cancel-in-progress: false
 
 jobs:
   generate-catalog:
     name: 生成并校验公开漫画目录
     runs-on: ubuntu-latest
+    env:
+      CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'schedule' && 'develop' || github.ref_name) }}
 
     steps:
-      - name: 检出 develop 代码
+      - name: 检出目标代码
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: ${{ env.CATALOG_BRANCH }}
           fetch-depth: 0
 
       - name: 安装 Python 环境
@@ -37,26 +61,46 @@ jobs:
 
       - name: 校验目录 JSON 文件
         run: |
-          python -c "import json, pathlib; files=['generated/catalog.json','generated/catalog_categories.json','generated/catalog_delta.json','generated/catalog_report.json']; [json.loads(pathlib.Path(f).read_text('utf-8')) for f in files]; c=json.loads(pathlib.Path('generated/catalog.json').read_text('utf-8')); assert c.get('schema') == 'comic_catalog_v1'; assert isinstance(c.get('categories'), list); assert isinstance(c.get('items'), list); print('目录 JSON 校验通过')"
+          python - <<'PY'
+          import json
+          from pathlib import Path
 
-      - name: 提交生成结果到 develop
+          files = [
+              'generated/catalog.json',
+              'generated/catalog_categories.json',
+              'generated/catalog_delta.json',
+              'generated/catalog_report.json',
+          ]
+          payloads = {f: json.loads(Path(f).read_text('utf-8')) for f in files}
+          catalog = payloads['generated/catalog.json']
+          assert catalog.get('schema') == 'comic_catalog_v1'
+          assert isinstance(catalog.get('categories'), list)
+          assert isinstance(catalog.get('items'), list)
+          assert catalog.get('compliance', {}).get('publicOnly') is True
+          assert catalog.get('compliance', {}).get('noImages') is True
+          assert catalog.get('compliance', {}).get('noChapterText') is True
+          print('目录 JSON 校验通过')
+          PY
+
+      - name: 提交生成结果到目标分支
+        if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin develop
+          git pull --rebase --autostash origin "${CATALOG_BRANCH}"
           git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
           if git diff --cached --quiet; then
             echo "目录没有变化，无需提交。"
           else
             git commit -m "chore: update public comic catalog"
-            git push origin HEAD:develop
+            git push origin "HEAD:${CATALOG_BRANCH}"
           fi
 
       - name: 上传目录产物
         uses: actions/upload-artifact@v4
         with:
-          name: 漫画目录-develop
+          name: 漫画目录-${{ env.CATALOG_BRANCH }}
           path: |
             generated/catalog.json
             generated/catalog_categories.json
@@ -70,26 +114,41 @@ jobs:
           import os
           from pathlib import Path
 
-          categories = json.loads(Path('generated/catalog_categories.json').read_text('utf-8')).get('categories', [])
+          categories_payload = json.loads(Path('generated/catalog_categories.json').read_text('utf-8'))
+          categories = categories_payload.get('categories', [])
+          tags = categories_payload.get('tags', [])
           report = json.loads(Path('generated/catalog_report.json').read_text('utf-8'))
           discovery = report.get('discovery', {}) or {}
+          category_search = report.get('categorySearch', {}) or {}
+          detail_metadata = report.get('detailMetadata', {}) or {}
 
           lines = [
               '## 公开漫画目录题材数量汇总',
               '',
+              f"- 目标分支：{os.environ.get('CATALOG_BRANCH', '')}",
               f"- 更新时间：{report.get('updatedAt', '')}",
               f"- 漫画总数：{report.get('itemCount', 0)}",
               f"- 来源记录数：{report.get('sourceRecordCount', 0)}",
               f"- 目录发现记录数：{report.get('discoveryRecordCount', 0)}",
+              f"- 分类搜索记录数：{report.get('categorySearchRecordCount', 0)}",
               f"- 目录发现已抓取页面：{discovery.get('pagesFetched', 0)}",
               f"- 目录发现失败页面：{discovery.get('pagesFailed', 0)}",
+              f"- 分类搜索已抓取页面：{category_search.get('searchPagesFetched', 0)}",
+              f"- 分类搜索失败页面：{category_search.get('searchPagesFailed', 0)}",
+              f"- 详情页元数据抓取：{detail_metadata.get('detailPagesFetched', 0)} 成功 / {detail_metadata.get('detailPagesFailed', 0)} 失败",
+              f"- 详情页元数据命中：{detail_metadata.get('metadataHits', 0)}",
               f"- 未分类数量：{report.get('uncategorizedCount', 0)}",
               '',
-              '| 题材 | 数量 |',
+              '| 主分类 | 数量 |',
               '|---|---:|',
           ]
           for item in categories:
               lines.append(f"| {item.get('name', item.get('id', ''))} | {item.get('count', 0)} |")
+
+          if tags:
+              lines.extend(['', '| 标签 | 数量 |', '|---|---:|'])
+              for item in tags:
+                  lines.append(f"| {item.get('name', item.get('id', ''))} | {item.get('count', 0)} |")
 
           output = '\n'.join(lines) + '\n'
           print(output)
