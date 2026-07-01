@@ -1,20 +1,54 @@
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
-.venv/
-venv/
-env/
-.env
-.env.*
-!.env.example
-.DS_Store
-.idea/
-.vscode/
-*.log
-*.tmp
-*.bak
+*.pyd
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node / frontend build cache
+node_modules/
 dist/
 build/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local secrets / env
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+secrets.*
+
+# Temporary outputs
+*.log
+*.tmp
+*.bak
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# GitHub Actions local tooling
+.act/
+
+# Project rule:
+# Generated outputs are tracked only under generated/ by workflows.
+# Do not add ad-hoc generated files outside generated/.
