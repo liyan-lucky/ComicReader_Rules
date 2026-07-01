@@ -6,7 +6,6 @@ on:
     - cron: '30 3 * * *'
   push:
     branches:
-      - main
       - develop
     paths:
       - 'scripts/generate_catalog.py'
@@ -33,7 +32,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: comic-reader-catalog-${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'schedule' && 'develop' || github.ref_name) }}
+  group: comic-reader-catalog-${{ github.event_name == 'pull_request' && github.head_ref || 'develop' }}
   cancel-in-progress: false
 
 jobs:
@@ -41,7 +40,7 @@ jobs:
     name: 生成并校验公开漫画目录
     runs-on: ubuntu-latest
     env:
-      CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'schedule' && 'develop' || github.ref_name) }}
+      CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'develop' }}
       CATALOG_TARGET_COUNT: '220'
       CATALOG_MIN_TARGET_COUNT: '200'
 
@@ -94,7 +93,7 @@ jobs:
           print('目录 JSON 校验通过')
           PY
 
-      - name: 提交生成结果到目标分支
+      - name: 提交生成结果到 develop
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
