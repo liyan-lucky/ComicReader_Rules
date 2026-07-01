@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: '是否只预览不删除；默认 false = 直接执行清理'
+        description: '是否只预览不删除； false = 直接执行清理'
         required: true
-        default: 'false'
+        default: 'true'
         type: choice
         options:
           - 'false'
