@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: comic-reader-rules-main
+  group: comic-reader-rules-develop
   cancel-in-progress: false
 
 defaults:
@@ -18,16 +18,18 @@ defaults:
 
 jobs:
   generate:
-    name: 生成并发布远程规则
+    name: 生成并同步远程规则到 develop
     runs-on: ubuntu-latest
     env:
+      RULES_BRANCH: develop
       DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下'
       DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com'
       DEFAULT_MAX_GENERATED: '50'
     steps:
-      - name: 检出仓库
+      - name: 检出 develop
         uses: actions/checkout@v4
         with:
+          ref: ${{ env.RULES_BRANCH }}
           fetch-depth: 0
 
       - name: 设置 Python
@@ -123,6 +125,7 @@ jobs:
           lines = [
               '## 远程漫画规则数量汇总',
               '',
+              f'- 目标分支：{os.environ.get("RULES_BRANCH", "develop")}',
               f'- 规则总数：{total_count}',
               f'- 手工规则数：{manual_count}',
               f'- 自动生成规则数：{generated_count}',
@@ -170,14 +173,14 @@ jobs:
               f.write(f'query_count={len(queries)}\n')
           PY
 
-      - name: 提交生成规则
+      - name: 提交生成规则到 develop
         id: commit
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git pull --rebase --autostash origin main
+          git pull --rebase --autostash origin "${RULES_BRANCH}"
 
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
           if git diff --cached --quiet; then
@@ -187,12 +190,12 @@ jobs:
             git commit -m "chore: update generated comic rules"
             pushed=false
             for i in 1 2 3; do
-              if git push origin HEAD:main; then
+              if git push origin "HEAD:${RULES_BRANCH}"; then
                 pushed=true
                 break
               fi
-              echo "Push rejected, pulling latest main and retrying ($i/3)..."
-              git pull --rebase origin main
+              echo "Push rejected, pulling latest ${RULES_BRANCH} and retrying ($i/3)..."
+              git pull --rebase origin "${RULES_BRANCH}"
             done
             if [ "$pushed" != "true" ]; then
               echo "Failed to push generated rules after retries."
@@ -202,7 +205,7 @@ jobs:
           fi
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: 准备 Release 元数据和压缩包
+      - name: 准备产物元数据和压缩包
         id: release_meta
         run: |
           TAG="comic-reader-rules-$(date -u +'%Y%m%d-%H%M%S')"
@@ -217,14 +220,14 @@ jobs:
           {
             echo "# Comic Reader Rules $TAG"
             echo ""
-            echo "- Tag：$TAG"
+            echo "- Label：$TAG"
             echo "- English name：Comic Reader Rules"
+            echo "- Target branch：$RULES_BRANCH"
             echo "- 默认关键词：$DEFAULT_KEYWORDS"
             echo "- 默认域名：$DEFAULT_DOMAINS"
             echo "- 规则索引：generated/index.json"
             echo "- 审计报告：generated/rulebot_report.json"
             echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
-            echo "- Release附件名已去重：generated-index.json / rules-index.json"
             echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
             echo "- Commit：$(git rev-parse HEAD)"
             echo ""
@@ -248,38 +251,20 @@ jobs:
             dist/rules-index.json
             dist/rule-count-summary.md
             dist/rule-sanitize-summary.md
+            dist/release-notes.md
             dist/*.zip
-
-      - name: 创建 tag 和 GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ steps.release_meta.outputs.tag }}
-        run: |
-          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
-          git push origin ":refs/tags/$TAG" 2>/dev/null || true
-          git tag -d "$TAG" 2>/dev/null || true
-
-          git tag "$TAG"
-          git push origin "refs/tags/$TAG"
-          gh release create "$TAG" \
-            --target "$(git rev-parse HEAD)" \
-            --title "Comic Reader Rules $TAG" \
-            --notes-file dist/release-notes.md \
-            dist/generated-index.json \
-            dist/rulebot-report.json \
-            dist/GeneratedSourceRules.ets \
-            dist/rules-index.json \
-            dist/rule-count-summary.md \
-            dist/rule-sanitize-summary.md \
-            dist/$TAG.zip
 
       - name: 显示规则数量汇总
         run: |
           cat dist/rule-sanitize-summary.md
           echo ""
           cat dist/rule-count-summary.md
+          echo ""
+          echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。"
           if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
             cat dist/rule-sanitize-summary.md >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。" >> "$GITHUB_STEP_SUMMARY"
           fi
