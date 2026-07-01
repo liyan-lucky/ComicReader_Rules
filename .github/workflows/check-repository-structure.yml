@@ -1,0 +1,103 @@
+name: 检查仓库结构
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-repository-structure-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: 检查根目录和文件放置规则
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 检查仓库结构
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          allowed_root_files = {
+              'README.md',
+              'LICENSE',
+              '.gitignore',
+              '.editorconfig',
+          }
+          allowed_root_dirs = {
+              '.git',
+              '.github',
+              'docs',
+              'generated',
+              'rules',
+              'scripts',
+              'tools',
+          }
+          forbidden_patterns = [
+              '*.zip', '*.tar', '*.tar.gz', '*.tgz', '*.log', '*.tmp', '*.bak',
+          ]
+          required_files = [
+              'README.md',
+              'LICENSE',
+              '.gitignore',
+              '.editorconfig',
+              'docs/development_standards.md',
+              'docs/maintenance.md',
+              'docs/catalog_api.md',
+              'docs/rule_generation.md',
+              'docs/cleanup_workflows.md',
+              '.github/pull_request_template.md',
+              '.github/ISSUE_TEMPLATE/rule_problem.yml',
+              '.github/workflows/generate-catalog.yml',
+              '.github/workflows/generate-remote-rules.yml',
+              '.github/workflows/backup-main-to-backup.yml',
+              '.github/workflows/Clean-Actions-record.yml',
+          ]
+
+          errors = []
+          root = Path('.')
+          for item in root.iterdir():
+              name = item.name
+              if item.is_file() and name not in allowed_root_files:
+                  errors.append(f'根目录不允许的文件：{name}')
+              if item.is_dir() and name not in allowed_root_dirs:
+                  errors.append(f'根目录不允许的目录：{name}')
+
+          for pattern in forbidden_patterns:
+              for path in root.rglob(pattern):
+                  if '.git' in path.parts:
+                      continue
+                  errors.append(f'不允许提交临时/压缩/日志文件：{path.as_posix()}')
+
+          for file in required_files:
+              if not Path(file).exists():
+                  errors.append(f'缺少必要规范文件：{file}')
+
+          generated = Path('generated')
+          if generated.exists():
+              for path in generated.rglob('*'):
+                  if path.is_file() and path.suffix not in {'.json', '.ets'}:
+                      errors.append(f'generated 目录只允许 JSON/ETS 产物：{path.as_posix()}')
+
+          if errors:
+              print('仓库结构检查失败：')
+              for error in errors:
+                  print(f'- {error}')
+              raise SystemExit(1)
+
+          print('仓库结构检查通过。')
+          PY
