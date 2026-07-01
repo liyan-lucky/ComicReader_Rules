@@ -25,7 +25,10 @@ ROOT = Path(__file__).resolve().parents[1]
 USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalog/5.5"
 
 # 分类顺序即唯一主分类优先级。
-# 玄幻作为大类不再自动匹配，避免吞掉修仙、热血、冒险、穿越、科幻等具体题材。
+# 玄幻/穿越/重生属于大类或剧情设定，不再靠标题自动匹配。
+# 它们保留为分类入口，后续只在详情页明确标签命中时再归类。
+BROAD_AUTO_DISABLED_CATEGORY_IDS = {"xuanhuan", "chuanyue", "chongsheng"}
+
 CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "immortal", "cultivation", "cultivator", "cultivate", "martial peak", "dao", "taoist"]},
     {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠", "一人之下", "剑", "刀", "拳", "kung fu", "martial arts", "sword", "blade", "fist"]},
@@ -34,13 +37,13 @@ CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "关系", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
     {"id": "gongdou", "name": "宫斗", "keywords": ["宫斗", "后宫", "皇后", "妃", "嫔", "宫廷", "palace", "harem", "empress", "concubine"]},
     {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "ancient", "prince", "princess", "duke", "emperor", "royal"]},
-    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "异世界", "转生", "isekai", "another world", "transmigration", "transmigrated", "villainess"]},
-    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "回归", "归来", "轮回", "rebirth", "reborn", "regression", "regressor", "returner", "retrogression", "second life", "time loop", "reincarnation", "reincarnated"]},
+    {"id": "chuanyue", "name": "穿越", "keywords": []},
+    {"id": "chongsheng", "name": "重生", "keywords": []},
     {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "杀手", "斗罗", "斗破", "武动乾坤", "soul land", "douluo", "battle through", "martial universe", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "完美世界", "perfect world", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "完美世界", "perfect world", "isekai", "another world", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
     {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "case", "crime"]},
     {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "吞噬星空", "swallowed star", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "吞噬星空", "swallowed star", "time loop", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
     {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"]},
     {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "猫", "slice of life", "daily life", "leisurely", "cat"]},
     {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
@@ -116,7 +119,7 @@ def slugify(title: str) -> str:
 def guess_primary_category(title: str, tags: Optional[List[str]] = None) -> str:
     text = (title + " " + " ".join(tags or [])).lower()
     for rule in CATEGORY_RULES:
-        if rule["id"] in {"xuanhuan", "weifenlei"}:
+        if rule["id"] in BROAD_AUTO_DISABLED_CATEGORY_IDS or rule["id"] == "weifenlei":
             continue
         if any(keyword.lower() in text for keyword in rule["keywords"]):
             return rule["id"]
@@ -444,7 +447,7 @@ def main() -> int:
 
     catalog = {"schema": "comic_catalog_v1", "version": timestamp.replace("-", "").replace(":", "").replace("Z", "Z"), "updatedAt": timestamp, "compliance": {"publicOnly": True, "noBundledComicContent": True, "noImages": True, "noChapterText": True, "noAccountData": True, "noAccessControlBypass": True, "singlePrimaryCategory": True, "clickableLinks": True}, "categories": categories, "items": items, "itemCount": len(items), "sourceRecordCount": len(records), "discoveryRecordCount": len(discovery_records)}
     categories_payload = {"schema": "comic_catalog_categories_v1", "updatedAt": timestamp, "categories": categories}
-    report_payload = {"schema": "comic_catalog_report_v1", "updatedAt": timestamp, "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources}, "itemCount": len(items), "categoryCount": len(categories), "sourceRecordCount": len(records), "indexRecordCount": len(index_records), "reportRecordCount": len(report_records), "discoveryRecordCount": len(discovery_records), "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"), "uncategorizedSamples": uncategorized_samples, "singlePrimaryCategory": True, "clickableLinks": True, "classificationPolicy": {"specificCategoriesBeforeBroadCategories": True, "xuanhuanAutoMatchDisabled": True, "xuanhuanKeywords": [], "redistributeFormerXuanhuanSeeds": {"rexue": ["斗罗", "斗破", "武动乾坤", "soul land", "douluo", "battle through", "martial universe"], "maoxian": ["完美世界", "perfect world"], "kehuan": ["吞噬星空", "swallowed star"]}, "rebuildFromCurrentValidDiscoveries": True, "reusePreviousMetadataOnlyForSeenTitles": True, "priority": [rule["id"] for rule in CATEGORY_RULES]}, "discovery": discovery_stats}
+    report_payload = {"schema": "comic_catalog_report_v1", "updatedAt": timestamp, "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources}, "itemCount": len(items), "categoryCount": len(categories), "sourceRecordCount": len(records), "indexRecordCount": len(index_records), "reportRecordCount": len(report_records), "discoveryRecordCount": len(discovery_records), "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"), "uncategorizedSamples": uncategorized_samples, "singlePrimaryCategory": True, "clickableLinks": True, "classificationPolicy": {"specificCategoriesBeforeBroadCategories": True, "broadAutoMatchDisabledIds": sorted(BROAD_AUTO_DISABLED_CATEGORY_IDS), "xuanhuanKeywords": [], "chuanyueKeywords": [], "chongshengKeywords": [], "redistributeFormerXuanhuanSeeds": {"rexue": ["斗罗", "斗破", "武动乾坤", "soul land", "douluo", "battle through", "martial universe"], "maoxian": ["完美世界", "perfect world"], "kehuan": ["吞噬星空", "swallowed star"]}, "rebuildFromCurrentValidDiscoveries": True, "reusePreviousMetadataOnlyForSeenTitles": True, "priority": [rule["id"] for rule in CATEGORY_RULES]}, "discovery": discovery_stats}
 
     dump_json(ROOT / args.output, catalog)
     dump_json(ROOT / args.categories_output, categories_payload)
