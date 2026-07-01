@@ -34,25 +34,25 @@ ROOT = Path(__file__).resolve().parents[1]
 CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "immortal", "cultivation", "cultivator", "cultivate", "martial peak", "dao", "taoist"]},
     {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠", "一人之下", "剑", "刀", "拳", "kung fu", "martial arts", "sword", "blade", "fist"]},
-    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "city", "urban", "manager", "office", "company", "ceo", "doctor", "bodyguard"]},
+    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "city", "urban", "manager", "office", "company", "ceo", "doctor", "bodyguard", "tycoon"]},
     {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "同桌", "校花", "学生", "老师", "班长", "school", "campus", "student", "teacher", "classmate"]},
-    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée"]},
+    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "关系", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
     {"id": "gongdou", "name": "宫斗", "keywords": ["宫斗", "后宫", "皇后", "妃", "嫔", "宫廷", "palace", "harem", "empress", "concubine"]},
     {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "ancient", "prince", "princess", "duke", "emperor", "royal"]},
     {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "异世界", "转生", "isekai", "another world", "transmigration", "transmigrated", "villainess"]},
-    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "回归", "归来", "轮回", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "time loop", "reincarnation", "reincarnated"]},
-    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "adventure", "dungeon", "quest", "journey"]},
+    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "回归", "归来", "轮回", "rebirth", "reborn", "regression", "regressor", "returner", "retrogression", "second life", "time loop", "reincarnation", "reincarnated"]},
+    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "杀手", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
     {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "case", "crime"]},
     {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster"]},
     {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
     {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"]},
-    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "slice of life", "daily life"]},
+    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "猫", "slice of life", "daily life", "leisurely", "cat"]},
     {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
-    {"id": "shaonv", "name": "少女", "keywords": ["少女", "shojo", "shoujo"]},
+    {"id": "shaonv", "name": "少女", "keywords": ["少女", "小姐姐", "shojo", "shoujo"]},
     {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love"]},
     {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
-    {"id": "xuanhuan", "name": "玄幻", "keywords": ["斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo", "battle through", "perfect world", "swallowed star", "martial universe", "magic", "demon", "dragon", "spirit", "soul", "mage", "wizard"]},
+    {"id": "xuanhuan", "name": "玄幻", "keywords": ["斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo", "battle through", "perfect world", "swallowed star", "martial universe"]},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
 
@@ -76,8 +76,9 @@ ID_KEYS = ("id", "ruleId", "sourceId")
 SITE_KEYS = ("siteName", "name", "domain", "host")
 USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalog/5.5"
 BAD_TITLE_WORDS = {
-    "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre",
-    "privacy", "contact", "about", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
+    "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
+    "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
+    "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history",
 }
 BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/tag/", "/author/", "/login", "/register")
 IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
@@ -144,18 +145,7 @@ def guess_primary_category(title: str, tags: Optional[List[str]] = None) -> str:
 
 def normalize_single_category(title: str, item: Optional[Dict[str, Any]] = None) -> str:
     tags = item.get("tags", []) if isinstance(item, dict) else []
-    guessed = guess_primary_category(title, tags)
-    if guessed != "weifenlei":
-        return guessed
-
-    previous_categories = item.get("categories", []) if isinstance(item, dict) else []
-    if isinstance(previous_categories, str):
-        previous_categories = [previous_categories]
-    for cid in previous_categories:
-        cid = safe_str(cid)
-        if cid in CATEGORY_IDS:
-            return cid
-    return "weifenlei"
+    return guess_primary_category(title, tags)
 
 
 def guess_categories(title: str, tags: Optional[List[str]] = None) -> List[str]:
@@ -202,7 +192,7 @@ def title_from_url(url: str) -> str:
 
 def clean_title(value: str) -> str:
     title = strip_html(value)
-    title = re.sub(r"\s+(漫画|manhua|manga|read online|online|chapter|chapters)$", "", title, flags=re.I).strip()
+    title = re.sub(r"\s+(漫画|manhua|manga|read online|online|chapter|chapters|raw|raws)$", "", title, flags=re.I).strip()
     title = title.strip("-_|·•[]【】()（）")
     lowered = title.lower()
     if not title or len(title) < 2 or len(title) > 120:
@@ -390,6 +380,7 @@ def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]
         url = first_text(record, URL_KEYS)
         if not title and url:
             title = normalize_host(url)
+        title = clean_title(title)
         if not title:
             continue
         records.append((title, record))
@@ -401,6 +392,7 @@ def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]
             continue
         domain, rest = m.groups()
         title = re.sub(r"\s+(漫画|在线阅读|manga|chapter|read|online|manhua).*$", "", rest, flags=re.I).strip()
+        title = clean_title(title)
         if not title:
             continue
         records.append((title, {"domain": domain, "ruleId": normalize_host(domain), "siteName": normalize_host(domain)}))
@@ -444,20 +436,20 @@ def build_item_links(sources: List[Dict[str, Any]]) -> List[Dict[str, str]]:
 
 
 def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str, Any], timestamp: str) -> List[Dict[str, Any]]:
+    previous_by_title: Dict[str, Dict[str, Any]] = {}
     by_title: Dict[str, Dict[str, Any]] = {}
 
     for item in previous.get("items", []) if isinstance(previous, dict) else []:
-        title = safe_str(item.get("title"))
+        title = clean_title(safe_str(item.get("title")))
         if title:
-            item["primaryCategory"] = normalize_single_category(title, item)
-            item["categories"] = [item["primaryCategory"]]
-            item["links"] = build_item_links(item.get("sources", []))
-            item["primaryUrl"] = item["links"][0]["url"] if item["links"] else ""
-            by_title[title.lower()] = item
+            previous_by_title[title.lower()] = item
 
     for title, record in records:
+        title = clean_title(title)
+        if not title:
+            continue
         key = title.lower()
-        item = by_title.get(key) or {
+        item = by_title.get(key) or previous_by_title.get(key) or {
             "id": slugify(title),
             "title": title,
             "aliases": [],
@@ -470,6 +462,8 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
             "primaryUrl": "",
             "firstSeenAt": timestamp,
         }
+        item["title"] = title
+        item.setdefault("firstSeenAt", timestamp)
         item["primaryCategory"] = normalize_single_category(title, item)
         item["categories"] = [item["primaryCategory"]]
 
@@ -505,15 +499,17 @@ def build_category_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 def build_delta(previous: Dict[str, Any], items: List[Dict[str, Any]], timestamp: str) -> Dict[str, Any]:
     old_ids = {safe_str(item.get("id")) for item in previous.get("items", [])} if isinstance(previous, dict) else set()
     new_items = [item for item in items if item.get("id") not in old_ids]
+    new_ids = {safe_str(item.get("id")) for item in items}
+    removed_ids = sorted(i for i in old_ids if i and i not in new_ids)
     return {
         "schema": "comic_catalog_delta_v1",
         "updatedAt": timestamp,
         "added": new_items,
         "updated": [],
-        "removed": [],
+        "removed": removed_ids[:200],
         "addedCount": len(new_items),
         "updatedCount": 0,
-        "removedCount": 0,
+        "removedCount": len(removed_ids),
     }
 
 
@@ -592,6 +588,8 @@ def main() -> int:
             "broadCategoryFallbackIds": ["xuanhuan"],
             "genericBroadTitleKeywordDisabledForXuanhuan": True,
             "opaqueSlugTitleFilter": True,
+            "rebuildFromCurrentValidDiscoveries": True,
+            "reusePreviousMetadataOnlyForSeenTitles": True,
             "priority": [rule["id"] for rule in CATEGORY_RULES],
         },
         "discovery": discovery_stats,
