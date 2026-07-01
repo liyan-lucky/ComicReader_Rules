@@ -24,9 +24,24 @@ on:
         default: 'all'
         type: string
 
+      clean_tags:
+        description: '是否清理标签；默认 false = 不清理标签'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+      tag_prefix:
+        description: '只清理指定前缀标签；all = 全部标签'
+        required: true
+        default: 'comic-reader-rules-'
+        type: string
+
 permissions:
   actions: write
-  contents: read
+  contents: write
 
 concurrency:
   group: 清理-actions-运行记录
@@ -44,8 +59,15 @@ jobs:
       DRY_RUN: ${{ inputs.dry_run }}
       KEEP_LATEST_RUNS: ${{ inputs.keep_latest_runs }}
       WORKFLOW_NAME_FILTER: ${{ inputs.workflow_name_filter }}
+      CLEAN_TAGS: ${{ inputs.clean_tags }}
+      TAG_PREFIX: ${{ inputs.tag_prefix }}
 
     steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: 清理所有脚本运行记录
         run: |
           set -euo pipefail
@@ -69,7 +91,8 @@ jobs:
               f"- keep_latest_runs：{keep_latest}",
               f"- workflow_name_filter：{name_filter}",
               "- 清理范围：GitHub Actions workflow runs",
-              "- 不清理：Release / Tag / 仓库文件",
+              "- 不清理：Release / 仓库文件",
+              "- 标签清理：由 clean_tags 单独控制，默认不清理",
               "- 当前这一次清理任务本身不会删除",
               "",
           ]
@@ -174,8 +197,74 @@ jobs:
           output = "\n".join(summary_lines) + "\n"
           print(output)
 
+          with open("cleanup-summary.md", "w", encoding="utf-8") as f:
+              f.write(output)
+
           summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
           if summary_path:
               with open(summary_path, "a", encoding="utf-8") as f:
                   f.write(output)
           PY
+
+      - name: 清理标签
+        if: inputs.clean_tags == 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## 标签清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "- clean_tags: ${{ inputs.clean_tags }}" | tee -a cleanup-summary.md
+          echo "- tag_prefix: ${{ inputs.tag_prefix }}" | tee -a cleanup-summary.md
+          echo "- dry_run: ${{ inputs.dry_run }}" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+
+          git fetch --tags --force
+
+          deleted=0
+          skipped=0
+
+          for tag in $(git tag); do
+            if [ "${{ inputs.tag_prefix }}" != "all" ]; then
+              case "$tag" in
+                ${{ inputs.tag_prefix }}*) ;;
+                *)
+                  skipped=$((skipped + 1))
+                  continue
+                  ;;
+              esac
+            fi
+
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "[dry-run] 删除标签: $tag" | tee -a cleanup-summary.md
+              deleted=$((deleted + 1))
+              continue
+            fi
+
+            echo "删除标签: $tag" | tee -a cleanup-summary.md
+            git push origin ":refs/tags/$tag" || true
+            deleted=$((deleted + 1))
+          done
+
+          echo "" | tee -a cleanup-summary.md
+          echo "已清理标签数量：$deleted" | tee -a cleanup-summary.md
+          echo "已跳过标签数量：$skipped" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: 不清理标签提示
+        if: inputs.clean_tags != 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## 标签清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "clean_tags=false，默认不清理任何标签。" | tee -a cleanup-summary.md
+          echo "Release 不会被清理。" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
