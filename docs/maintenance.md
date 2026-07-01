@@ -7,8 +7,10 @@
 ```text
 main    主工作分支，App 默认读取，所有日常修改和生成结果写入这里。
 backup  备份分支，用于保存 main 的同步备份。
-develop 旧开发分支，不再作为主要开发分支使用。
+develop 旧开发分支，不再作为主要开发、生成或备份分支使用。
 ```
+
+当前事实入口：`docs/CURRENT_STATUS.md`。
 
 ## 2. 日常修改流程
 
@@ -57,6 +59,7 @@ deep
 generated/index.json
 generated/rulebot_report.json
 generated/GeneratedSourceRules.ets
+generated/rule_targets.json
 rules/index.json
 ```
 
@@ -64,6 +67,13 @@ rules/index.json
 
 ```text
 main
+```
+
+生成数据变化后同步更新：
+
+```text
+docs/CURRENT_STATUS.md
+README.md
 ```
 
 ## 4. 生成目录
@@ -90,40 +100,40 @@ generated/catalog_target_gaps.json
 main
 ```
 
-## 5. 备份 main 到 backup
+目录统计变化后同步更新：
+
+```text
+docs/CURRENT_STATUS.md
+README.md
+```
+
+## 5. 强制覆盖 backup 分支
 
 使用 workflow：
 
 ```text
-备份 main 到 backup
+强制覆盖 backup 分支
 ```
-
-默认：
-
-```text
-dry_run=true
-```
-
-只预览，不覆盖。
 
 真正覆盖时填写：
 
 ```text
-dry_run=false
-confirm=BACKUP_BRANCH_FROM_MAIN
+confirm=YES
 ```
 
 执行效果：
 
 ```text
-backup = main
+backup = main 当前提交
 ```
 
 内部使用：
 
 ```bash
-git push origin "origin/main:refs/heads/backup" --force-with-lease
+git push --force origin HEAD:backup
 ```
+
+注意：当前强制备份 workflow 没有 dry-run 模式；未输入 `YES` 会直接失败并取消执行。
 
 ## 6. 清理 Actions / Release / Tags
 
@@ -158,29 +168,10 @@ git push origin "origin/main:refs/heads/backup" --force-with-lease
 ```text
 .github/workflows/    GitHub Actions workflow
 docs/                 文档和维护说明
-rules/manual/         手工稳定规则
-generated/            自动生成产物
-scripts/              本地和 CI 入口脚本
-tools/                复杂工具实现
+rules/manual/         手工规则
+generated/            自动生成规则、目录和报告
+scripts/              本地或 CI 入口脚本
+tools/                规则发现、清洗、生成和审计工具
 ```
 
-禁止：
-
-```text
-根目录乱放脚本
-根目录乱放 JSON 报告
-提交 dist/
-提交 zip/log/tmp 文件
-提交账号、Cookie、Token、密钥
-```
-
-## 8. 修改前检查
-
-```text
-1. 文件是否放在正确目录？
-2. 是否会影响 App 读取 main？
-3. 是否误把临时文件提交到仓库？
-4. 是否包含账号、Cookie、Token、密钥？
-5. 清理类 workflow 是否默认 dry_run=true？
-6. 生成类 workflow 是否提交到 main？
-```
+禁止把临时文件、下载缓存、压缩包、调试报告或未清洗输出直接放到仓库根目录。
