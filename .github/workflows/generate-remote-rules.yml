@@ -70,7 +70,7 @@ jobs:
           mkdir -p generated rules dist
           eval "python tools/rule_discovery/generate_rules.py ${{ steps.args.outputs.PY_ARGS }} --max-generated ${{ steps.args.outputs.MAX_GENERATED }} --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
-          cp generated/index.json rules/index.json
+          python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
       - name: 统计规则数量
         id: rule_stats
@@ -90,6 +90,7 @@ jobs:
           queries = index.get('queries', []) or []
           audit = index.get('audit', {}) or {}
           report_queries = report.get('queries', []) or []
+          sanitize = report.get('sanitize', {}) or {}
 
           def host_from_url(value):
               if not value:
@@ -126,6 +127,8 @@ jobs:
               f'- 手工规则数：{manual_count}',
               f'- 自动生成规则数：{generated_count}',
               f'- 排除规则数：{excluded_count}',
+              f'- 清洗移除规则数：{audit.get("sanitizeRemovedRules", 0)}',
+              f'- 清洗移除报告记录数：{sanitize.get("removedCount", 0)}',
               f'- 可搜索规则数：{searchable_count}',
               f'- URL 直连兜底规则数：{url_only_count}',
               f'- 章节目录解析规则数：{detail_rule_count}',
@@ -174,7 +177,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # 运行过程中 main 可能被其他提交更新；先自动暂存生成文件并 rebase 到最新 main，避免 push rejected。
           git pull --rebase --autostash origin main
 
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
@@ -203,7 +205,7 @@ jobs:
       - name: 准备 Release 元数据和压缩包
         id: release_meta
         run: |
-          TAG="rules-$(date -u +'%Y%m%d-%H%M%S')-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
+          TAG="comic-reader-rules-$(date -u +'%Y%m%d-%H%M%S')"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           mkdir -p dist
@@ -211,10 +213,12 @@ jobs:
           cp generated/rulebot_report.json dist/rulebot-report.json
           cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
           cp rules/index.json dist/rules-index.json
-          (cd dist && zip -r "comic-reader-rules-$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json rule-count-summary.md)
+          (cd dist && zip -r "$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json rule-count-summary.md rule-sanitize-summary.md)
           {
-            echo "# 漫画浏览器远程规则 $TAG"
+            echo "# Comic Reader Rules $TAG"
             echo ""
+            echo "- Tag：$TAG"
+            echo "- English name：Comic Reader Rules"
             echo "- 默认关键词：$DEFAULT_KEYWORDS"
             echo "- 默认域名：$DEFAULT_DOMAINS"
             echo "- 规则索引：generated/index.json"
@@ -223,6 +227,8 @@ jobs:
             echo "- Release附件名已去重：generated-index.json / rules-index.json"
             echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
             echo "- Commit：$(git rev-parse HEAD)"
+            echo ""
+            cat dist/rule-sanitize-summary.md
             echo ""
             cat dist/rule-count-summary.md
           } > dist/release-notes.md
@@ -241,6 +247,7 @@ jobs:
             dist/GeneratedSourceRules.ets
             dist/rules-index.json
             dist/rule-count-summary.md
+            dist/rule-sanitize-summary.md
             dist/*.zip
 
       - name: 创建 tag 和 GitHub Release
@@ -248,7 +255,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release_meta.outputs.tag }}
         run: |
-          # 如果重跑同一次任务时留下了半成品 Release/tag，先清理再重新发布。
           gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
           git push origin ":refs/tags/$TAG" 2>/dev/null || true
           git tag -d "$TAG" 2>/dev/null || true
@@ -257,18 +263,23 @@ jobs:
           git push origin "refs/tags/$TAG"
           gh release create "$TAG" \
             --target "$(git rev-parse HEAD)" \
-            --title "漫画浏览器远程规则 $TAG" \
+            --title "Comic Reader Rules $TAG" \
             --notes-file dist/release-notes.md \
             dist/generated-index.json \
             dist/rulebot-report.json \
             dist/GeneratedSourceRules.ets \
             dist/rules-index.json \
             dist/rule-count-summary.md \
-            dist/comic-reader-rules-$TAG.zip
+            dist/rule-sanitize-summary.md \
+            dist/$TAG.zip
 
       - name: 显示规则数量汇总
         run: |
+          cat dist/rule-sanitize-summary.md
+          echo ""
           cat dist/rule-count-summary.md
           if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat dist/rule-sanitize-summary.md >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
             cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
