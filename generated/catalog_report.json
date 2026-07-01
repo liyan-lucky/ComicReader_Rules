@@ -1,26 +1,90 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-06-30T23:59:01Z",
+  "updatedAt": "2026-07-01T00:32:18Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json"
   },
-  "itemCount": 685,
+  "itemCount": 820,
   "categoryCount": 22,
-  "sourceRecordCount": 1587,
+  "sourceRecordCount": 1537,
   "indexRecordCount": 291,
   "reportRecordCount": 288,
-  "discoveryRecordCount": 1008,
-  "uncategorizedCount": 414,
+  "discoveryRecordCount": 958,
+  "uncategorizedCount": 473,
+  "uncategorizedSamples": [
+    "12星座小姐姐吃鸡大战",
+    "21st Century Retrogression",
+    "21st-century-retrogression-read-manhwa",
+    "2P1ZGB3d3m",
+    "2wykxYzpM9",
+    "35ym538ynL",
+    "35ym5YoynL",
+    "9Vy5PXGdXB",
+    "9gpMoModoE",
+    "9号杀手赤色拦截",
+    "A Diary of Our Leisurely VRMMO Playthrough",
+    "A Quiet Cat Raw",
+    "A-Z",
+    "ABOUT US",
+    "ADyANoZpkM",
+    "APPLICATION",
+    "AVp7agjdR4",
+    "Adult",
+    "Advanced",
+    "All My Alter Egos Are Tycoons",
+    "Amateur Vigilante",
+    "An Awkward Relationship",
+    "And2girls安菟",
+    "Ano Shima no Uminesou",
+    "ArpVR7npZ4",
+    "Avant Garde",
+    "BXpx4Z6pNg",
+    "BXpxR8LdNg",
+    "Banging My Way Through Sexpedia",
+    "Be the Bad Boss's Man"
+  ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
+  "classificationPolicy": {
+    "specificCategoriesBeforeBroadCategories": true,
+    "broadCategoryFallbackIds": [
+      "xuanhuan"
+    ],
+    "genericBroadTitleKeywordDisabledForXuanhuan": true,
+    "opaqueSlugTitleFilter": true,
+    "priority": [
+      "xiuxian",
+      "wuxia",
+      "dushi",
+      "xiaoyuan",
+      "lianai",
+      "gongdou",
+      "gufeng",
+      "chuanyue",
+      "chongsheng",
+      "rexue",
+      "maoxian",
+      "xuanyi",
+      "kongbu",
+      "kehuan",
+      "gaoxiao",
+      "richang",
+      "shaonian",
+      "shaonv",
+      "danmei",
+      "baihe",
+      "xuanhuan",
+      "weifenlei"
+    ]
+  },
   "discovery": {
     "enabledSourceCount": 8,
     "entryUrlCount": 24,
-    "pagesFetched": 10,
-    "pagesFailed": 8,
-    "recordsFound": 1008,
+    "pagesFetched": 8,
+    "pagesFailed": 10,
+    "recordsFound": 958,
     "errors": [
       {
         "source": "mgeko.cc",
@@ -61,6 +125,16 @@
         "source": "happymh.com",
         "url": "https://happymh.com/latest",
         "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "mangadna.com",
+        "url": "https://mangadna.com/manga",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "source": "mangadna.com",
+        "url": "https://mangadna.com/latest",
+        "error": "HTTP Error 404: Not Found"
       }
     ]
   }
