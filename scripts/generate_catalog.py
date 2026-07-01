@@ -29,28 +29,30 @@ from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# 分类顺序同时也是唯一主分类优先级。
+# 规则：先判定具体题材，再判定玄幻这种大类，避免玄幻抢走修仙/穿越/热血等条目。
 CATEGORY_RULES: List[Dict[str, Any]] = [
-    {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo"]},
-    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "immortal", "cultivation"]},
-    {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "一人之下", "kung fu", "martial"]},
-    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "city", "urban"]},
-    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "同桌", "校花", "学生", "school", "campus"]},
-    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "love", "romance"]},
-    {"id": "gongdou", "name": "宫斗", "keywords": ["宫斗", "后宫", "皇后", "妃", "宫廷", "palace", "harem"]},
-    {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "ancient"]},
-    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "异世界", "isekai", "transmigration"]},
-    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "rebirth", "regression"]},
-    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "少年", "battle", "action", "shonen"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "adventure"]},
-    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "mystery", "detective"]},
-    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "horror", "thriller"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "sci-fi", "science fiction", "mecha"]},
-    {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "comedy", "funny"]},
-    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "slice of life"]},
+    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "immortal", "cultivation", "cultivator", "cultivate", "martial peak", "dao", "taoist"]},
+    {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠", "一人之下", "剑", "刀", "拳", "kung fu", "martial arts", "sword", "blade", "fist"]},
+    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "city", "urban", "manager", "office", "company", "ceo", "doctor", "bodyguard"]},
+    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "同桌", "校花", "学生", "老师", "班长", "school", "campus", "student", "teacher", "classmate"]},
+    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée"]},
+    {"id": "gongdou", "name": "宫斗", "keywords": ["宫斗", "后宫", "皇后", "妃", "嫔", "宫廷", "palace", "harem", "empress", "concubine"]},
+    {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "ancient", "prince", "princess", "duke", "emperor", "royal"]},
+    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "异世界", "转生", "isekai", "another world", "transmigration", "transmigrated", "villainess"]},
+    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "回归", "归来", "轮回", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "time loop", "reincarnation", "reincarnated"]},
+    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "adventure", "dungeon", "quest", "journey"]},
+    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "case", "crime"]},
+    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
+    {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"]},
+    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "slice of life", "daily life"]},
     {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
     {"id": "shaonv", "name": "少女", "keywords": ["少女", "shojo", "shoujo"]},
-    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love"]},
-    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "yuri"]},
+    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love"]},
+    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
+    {"id": "xuanhuan", "name": "玄幻", "keywords": ["斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo", "battle through", "perfect world", "swallowed star", "martial universe", "magic", "demon", "dragon", "spirit", "soul", "mage", "wizard"]},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
 
@@ -172,11 +174,29 @@ def strip_html(raw: str) -> str:
     return value
 
 
+def looks_like_opaque_slug(value: str) -> bool:
+    title = safe_str(value)
+    if not title or " " in title or re.search(r"[\u4e00-\u9fff]", title):
+        return False
+    compact = re.sub(r"[^A-Za-z0-9]", "", title)
+    if len(compact) < 6 or len(compact) > 20:
+        return False
+    has_alpha = bool(re.search(r"[A-Za-z]", compact))
+    has_digit = bool(re.search(r"\d", compact))
+    has_upper = bool(re.search(r"[A-Z]", compact))
+    has_lower = bool(re.search(r"[a-z]", compact))
+    if has_alpha and has_digit and (has_upper and has_lower or len(compact) >= 8):
+        return True
+    return False
+
+
 def title_from_url(url: str) -> str:
     path = urlparse(url).path.rstrip("/")
     slug = path.split("/")[-1]
     slug = re.sub(r"\.(html?|php|aspx?)$", "", slug, flags=re.I)
     slug = re.sub(r"[-_]+", " ", slug).strip()
+    if looks_like_opaque_slug(slug):
+        return ""
     return html_lib.unescape(slug)
 
 
@@ -186,6 +206,8 @@ def clean_title(value: str) -> str:
     title = title.strip("-_|·•[]【】()（）")
     lowered = title.lower()
     if not title or len(title) < 2 or len(title) > 120:
+        return ""
+    if looks_like_opaque_slug(title):
         return ""
     if lowered in BAD_TITLE_WORDS:
         return ""
@@ -521,6 +543,7 @@ def main() -> int:
 
     items = merge_catalog(records, previous, timestamp)
     categories = build_category_summary(items)
+    uncategorized_samples = [safe_str(item.get("title")) for item in items if item.get("primaryCategory") == "weifenlei"][:30]
 
     catalog = {
         "schema": "comic_catalog_v1",
@@ -561,8 +584,16 @@ def main() -> int:
         "reportRecordCount": len(report_records),
         "discoveryRecordCount": len(discovery_records),
         "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"),
+        "uncategorizedSamples": uncategorized_samples,
         "singlePrimaryCategory": True,
         "clickableLinks": True,
+        "classificationPolicy": {
+            "specificCategoriesBeforeBroadCategories": True,
+            "broadCategoryFallbackIds": ["xuanhuan"],
+            "genericBroadTitleKeywordDisabledForXuanhuan": True,
+            "opaqueSlugTitleFilter": True,
+            "priority": [rule["id"] for rule in CATEGORY_RULES],
+        },
         "discovery": discovery_stats,
     }
 
