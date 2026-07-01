@@ -20,18 +20,50 @@ develop  旧开发分支，不再作为主要开发分支使用。
 
 ## 2. 顶层目录职责
 
+### 2.1 根目录白名单
+
+根目录只允许以下文件：
+
 ```text
-.github/workflows/              GitHub Actions 流程，只放 workflow yml/yaml
-.github/ISSUE_TEMPLATE/         Issue 模板
+README.md
+LICENSE
+.gitignore
+.editorconfig
+```
+
+根目录只允许以下目录：
+
+```text
+.github/
+docs/
+generated/
+rules/
+scripts/
+tools/
+```
+
+说明：
+
+- `README.md` 是仓库入口，必须留在根目录。
+- `LICENSE` 是许可证文件，必须留在根目录。
+- `.gitignore` 是 Git 忽略规则，必须留在根目录。
+- `.editorconfig` 是编辑器统一格式配置，必须留在根目录。
+- 其他脚本、JSON、临时文件、压缩包、报告文件不得放在根目录。
+
+### 2.2 目录职责
+
+```text
+.github/workflows/               GitHub Actions 流程，只放 workflow yml/yaml
+.github/ISSUE_TEMPLATE/          Issue 模板
 .github/pull_request_template.md PR 模板
-docs/                           文档、接口说明、开发规范、维护说明
-rules/                          App 当前可读取规则索引和手工稳定规则
-rules/manual/                   手工维护的稳定公开规则
-rules/templates/                规则模板，只有模板文件才放这里
-generated/                      自动生成产物，禁止手工维护业务内容
-scripts/                        本地/CI 入口脚本，负责调度生成任务
-tools/rule_discovery/           RuleBot 搜索、审计、规则生成、规则清洗工具
-tools/catalog/                  预留：目录生成工具拆分后放这里
+docs/                            文档、接口说明、开发规范、维护说明
+rules/                           App 当前可读取规则索引和手工稳定规则
+rules/manual/                    手工维护的稳定公开规则
+rules/templates/                 规则模板，只有模板文件才放这里
+generated/                       自动生成产物，禁止手工维护业务内容
+scripts/                         本地/CI 入口脚本，负责调度生成任务
+tools/rule_discovery/            RuleBot 搜索、审计、规则生成、规则清洗工具
+tools/catalog/                   预留：目录生成工具拆分后放这里
 ```
 
 禁止在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。
@@ -53,6 +85,7 @@ generate-catalog.yml             生成公开漫画目录
 generate-remote-rules.yml        生成远程漫画规则
 backup-main-to-backup.yml        将 main 强制备份到 backup
 Clean-Actions-record.yml         清理 Actions / Release / Tags
+check-repository-structure.yml   检查仓库结构和根目录白名单
 ```
 
 要求：
@@ -252,7 +285,22 @@ workflow：
 - 真正覆盖必须填写确认文本：`BACKUP_BRANCH_FROM_MAIN`。
 - 覆盖目标为 `backup`，不再覆盖 `develop`。
 
-### 4.4 清理流程
+### 4.4 仓库结构检查
+
+workflow：
+
+```text
+.github/workflows/check-repository-structure.yml
+```
+
+作用：
+
+- 检查根目录是否只包含白名单文件和目录。
+- 检查必要规范文件是否存在。
+- 检查是否提交了 zip、log、tmp、bak 等临时文件。
+- 检查 `generated/` 下是否混入非 JSON/ETS 文件。
+
+### 4.5 清理流程
 
 workflow：
 
@@ -317,6 +365,7 @@ UI 名称可以中文，文件名建议稳定：
 generate-catalog.yml
 generate-remote-rules.yml
 backup-main-to-backup.yml
+check-repository-structure.yml
 Clean-Actions-record.yml
 ```
 
@@ -342,12 +391,13 @@ Clean-Actions-record.yml
 
 ```text
 1. 文件是否放在正确目录？
-2. 是否新增了 generated 之外的自动产物？不允许。
-3. 是否含账号、Cookie、Token、密钥？不允许。
-4. 是否需要更新 README 或 docs？需要。
-5. 生成类 workflow 是否默认写 main？需要。
-6. 备份 workflow 是否只覆盖 backup？需要。
-7. 删除类 workflow 是否默认 dry_run=true？需要。
+2. 根目录是否只保留 README.md、LICENSE、.gitignore、.editorconfig？
+3. 是否新增了 generated 之外的自动产物？不允许。
+4. 是否含账号、Cookie、Token、密钥？不允许。
+5. 是否需要更新 README 或 docs？需要。
+6. 生成类 workflow 是否默认写 main？需要。
+7. 备份 workflow 是否只覆盖 backup？需要。
+8. 删除类 workflow 是否默认 dry_run=true？需要。
 ```
 
 Python 脚本至少通过：
