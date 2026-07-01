@@ -1,62 +1,59 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-01T02:08:40Z",
+  "updatedAt": "2026-07-01T02:23:01Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 740,
+  "itemCount": 489,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 4580,
+  "sourceRecordCount": 4389,
   "indexRecordCount": 291,
   "reportRecordCount": 288,
-  "discoveryRecordCount": 1001,
+  "discoveryRecordCount": 810,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 237,
+  "uncategorizedCount": 25,
   "uncategorizedSamples": [
     "And2girls安菟",
     "Douluo Dalu",
-    "Manga Updates",
-    "Mangafire",
     "Soul Land",
-    "Soul Land : Douluo Dalu ,Chapter 154",
-    "Soul Land : Douluo Dalu ,Chapter 155",
-    "Soul Land : Douluo Dalu ,Chapter 156",
-    "Soul Land : Douluo Dalu ,Chapter 157",
-    "Soul Land : Douluo Dalu ,Chapter 158",
-    "Soul Land : Douluo Dalu ,Chapter 159",
-    "Soul Land : Douluo Dalu ,Chapter 160",
-    "Soul Land : Douluo Dalu ,Chapter 161",
-    "Soul Land : Douluo Dalu ,Chapter 162",
-    "Soul Land : Douluo Dalu ,Chapter 163",
-    "Soul Land : Douluo Dalu ,Chapter 164",
-    "Soul Land : Douluo Dalu ,Chapter 165",
-    "Soul Land : Douluo Dalu ,Chapter 166",
-    "Soul Land : Douluo Dalu ,Chapter 167",
-    "Soul Land : Douluo Dalu ,Chapter 168",
-    "Soul Land : Douluo Dalu ,Chapter 169",
-    "Soul Land : Douluo Dalu ,Chapter 170",
-    "Soul Land : Douluo Dalu ,Chapter 171",
-    "Soul Land : Douluo Dalu ,Chapter 172",
-    "Soul Land : Douluo Dalu ,Chapter 173",
-    "Soul Land : Douluo Dalu ,Chapter 174",
-    "Soul Land : Douluo Dalu ,Chapter 175",
-    "Soul Land : Douluo Dalu ,Chapter 176",
-    "Soul Land : Douluo Dalu ,Chapter 177",
-    "Soul Land : Douluo Dalu ,Chapter 178"
+    "browse comics",
+    "mangadna",
+    "mangadnacom",
+    "一人之下",
+    "吞噬星空",
+    "完美世界",
+    "开心漫公开访问源",
+    "斗破苍穹",
+    "斗罗大陆",
+    "武动乾坤",
+    "试着在维也纳歌唱吧",
+    "连载 1 恶人想要抢救一下",
+    "连载 12 兄妹间的相爱相杀~三匹甜蜜的小狼~",
+    "连载 16 歌舞伎町bad trip",
+    "连载 16 绝色道侣都说吾皇体质无敌",
+    "连载 3 异梦",
+    "连载 一起学湘菜16",
+    "连载 仙子不仁，那就沦为鼎炉吧！",
+    "连载 想逗濑户同学笑的小䌷",
+    "连载 请告诉我 执事先生",
+    "通用公开网页源",
+    "金融大佬的天才孙子"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
   "classificationPolicy": {
-    "primaryCategoryModel": "common_public_comic_genres_v2",
+    "primaryCategoryModel": "common_public_comic_genres_v3_balanced_fallback",
     "targetPerCategory": 200,
     "categoryTargetedSearchEnabled": true,
-    "categorySearchOnlyDiscovery": true,
+    "categorySearchFallbackEnabled": true,
+    "categorySearchFallbackOnlyForUnclassified": true,
     "forcedCategoryFromCategorySearch": false,
     "detailMetadataFirst": true,
+    "chapterTitleFilter": true,
     "broadStorySettingsMovedToTags": [
       "xuanhuan",
       "chuanyue",
@@ -67,21 +64,21 @@
       "shuangwen"
     ],
     "primaryCategoryPriority": [
-      "xiuxian",
-      "wuxia_gedou",
-      "xiaoyuan",
-      "dushi",
-      "lishi_gufeng",
+      "dongzuo",
+      "maoxian",
       "lianai",
       "xiju",
-      "xuanyi",
-      "kongbu",
-      "kehuan",
-      "richang",
-      "maoxian",
-      "dongzuo",
-      "qihuan",
       "juqing",
+      "qihuan",
+      "xiaoyuan",
+      "richang",
+      "wuxia_gedou",
+      "kehuan",
+      "kongbu",
+      "xuanyi",
+      "lishi_gufeng",
+      "dushi",
+      "xiuxian",
       "weifenlei"
     ],
     "tagIds": [
@@ -102,9 +99,9 @@
   "discovery": {
     "enabledSourceCount": 8,
     "entryUrlCount": 24,
-    "pagesFetched": 10,
+    "pagesFetched": 12,
     "pagesFailed": 9,
-    "recordsFound": 1001,
+    "recordsFound": 810,
     "errors": [
       {
         "source": "mgeko.cc",
@@ -161,7 +158,7 @@
     "recordsFound": 3000,
     "errors": [],
     "targetPerCategory": 200,
-    "searchOnlyDiscovery": true,
+    "searchDiscoveryWithFallbackClassification": true,
     "hintRecordCounts": {
       "dongzuo": 200,
       "dushi": 200,
@@ -181,10 +178,28 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 732,
-    "detailPagesFailed": 2,
-    "metadataHits": 725,
-    "metadataLimit": 900
+    "detailPagesFetched": 482,
+    "detailPagesFailed": 1,
+    "metadataHits": 477,
+    "metadataLimit": 900,
+    "categorySearchFallbackAssigned": 6,
+    "categoryCountsAfterFallback": {
+      "dongzuo": 275,
+      "dushi": 6,
+      "juqing": 4,
+      "kehuan": 7,
+      "kongbu": 2,
+      "lianai": 48,
+      "lishi_gufeng": 6,
+      "maoxian": 34,
+      "qihuan": 22,
+      "richang": 13,
+      "wuxia_gedou": 7,
+      "xiaoyuan": 7,
+      "xiju": 31,
+      "xiuxian": 1,
+      "xuanyi": 1
+    }
   },
   "tags": [
     {
@@ -195,7 +210,7 @@
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 17
+      "count": 21
     },
     {
       "id": "chongsheng",
@@ -205,47 +220,47 @@
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 285
+      "count": 233
     },
     {
       "id": "xitong",
       "name": "系统",
-      "count": 13
+      "count": 16
     },
     {
       "id": "fuchou",
       "name": "复仇",
-      "count": 7
+      "count": 8
     },
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 4
+      "count": 5
     },
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 277
+      "count": 224
     },
     {
       "id": "danmei",
       "name": "耽美",
-      "count": 133
+      "count": 89
     },
     {
       "id": "baihe",
       "name": "百合",
-      "count": 127
+      "count": 81
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 173
+      "count": 178
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 255
+      "count": 213
     }
   ]
 }
