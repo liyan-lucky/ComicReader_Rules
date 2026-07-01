@@ -10,6 +10,7 @@ on:
       - develop
     paths:
       - 'scripts/generate_catalog.py'
+      - 'scripts/boost_catalog_targets.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
       - 'generated/rulebot_report.json'
@@ -21,6 +22,7 @@ on:
       - develop
     paths:
       - 'scripts/generate_catalog.py'
+      - 'scripts/boost_catalog_targets.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
       - 'generated/rulebot_report.json'
@@ -40,6 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || (github.event_name == 'schedule' && 'develop' || github.ref_name) }}
+      CATALOG_TARGET_COUNT: '220'
+      CATALOG_MIN_TARGET_COUNT: '200'
 
     steps:
       - name: 检出目标代码
@@ -54,10 +58,15 @@ jobs:
           python-version: '3.11'
 
       - name: 校验目录生成脚本
-        run: python -m py_compile scripts/generate_catalog.py
+        run: |
+          python -m py_compile scripts/generate_catalog.py
+          python -m py_compile scripts/boost_catalog_targets.py
 
       - name: 生成公开漫画目录
         run: python scripts/generate_catalog.py
+
+      - name: 整理目录超目标
+        run: python scripts/boost_catalog_targets.py
 
       - name: 校验目录 JSON 文件
         run: |
@@ -70,15 +79,18 @@ jobs:
               'generated/catalog_categories.json',
               'generated/catalog_delta.json',
               'generated/catalog_report.json',
+              'generated/catalog_target_gaps.json',
           ]
           payloads = {f: json.loads(Path(f).read_text('utf-8')) for f in files}
           catalog = payloads['generated/catalog.json']
+          gaps = payloads['generated/catalog_target_gaps.json']
           assert catalog.get('schema') == 'comic_catalog_v1'
           assert isinstance(catalog.get('categories'), list)
           assert isinstance(catalog.get('items'), list)
           assert catalog.get('compliance', {}).get('publicOnly') is True
           assert catalog.get('compliance', {}).get('noImages') is True
           assert catalog.get('compliance', {}).get('noChapterText') is True
+          assert gaps.get('schema') == 'comic_catalog_target_gaps_v1'
           print('目录 JSON 校验通过')
           PY
 
@@ -89,7 +101,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin "${CATALOG_BRANCH}"
-          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json
+          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json generated/catalog_target_gaps.json
           if git diff --cached --quiet; then
             echo "目录没有变化，无需提交。"
           else
@@ -106,6 +118,7 @@ jobs:
             generated/catalog_categories.json
             generated/catalog_delta.json
             generated/catalog_report.json
+            generated/catalog_target_gaps.json
 
       - name: 显示题材数量汇总
         run: |
@@ -118,9 +131,11 @@ jobs:
           categories = categories_payload.get('categories', [])
           tags = categories_payload.get('tags', [])
           report = json.loads(Path('generated/catalog_report.json').read_text('utf-8'))
+          gaps = json.loads(Path('generated/catalog_target_gaps.json').read_text('utf-8'))
           discovery = report.get('discovery', {}) or {}
           category_search = report.get('categorySearch', {}) or {}
           detail_metadata = report.get('detailMetadata', {}) or {}
+          target_boost = report.get('targetBoost', {}) or {}
 
           lines = [
               '## 公开漫画目录题材数量汇总',
@@ -137,13 +152,24 @@ jobs:
               f"- 分类搜索失败页面：{category_search.get('searchPagesFailed', 0)}",
               f"- 详情页元数据抓取：{detail_metadata.get('detailPagesFetched', 0)} 成功 / {detail_metadata.get('detailPagesFailed', 0)} 失败",
               f"- 详情页元数据命中：{detail_metadata.get('metadataHits', 0)}",
+              f"- 超目标增强目标：{gaps.get('targetCount', 0)} / 可见目标：{gaps.get('minimumVisibleTarget', 0)}",
+              f"- 超目标新增条目：{target_boost.get('newItems', 0)}",
+              f"- 超目标重分配：{target_boost.get('reassignedFromOverflow', 0)}",
+              f"- 达到超目标分类数：{target_boost.get('categoriesAtOrAboveTarget', 0)}",
+              f"- 达到可见目标分类数：{target_boost.get('categoriesAtOrAboveVisibleTarget', 0)}",
+              f"- 剩余总缺口：{target_boost.get('remainingTotalGap', 0)}",
               f"- 未分类数量：{report.get('uncategorizedCount', 0)}",
               '',
-              '| 主分类 | 数量 |',
-              '|---|---:|',
+              '| 主分类 | 数量 | 目标 | 缺口 | 达标 |',
+              '|---|---:|---:|---:|---:|',
           ]
+          gap_by_id = {item.get('id'): item for item in gaps.get('categories', [])}
           for item in categories:
-              lines.append(f"| {item.get('name', item.get('id', ''))} | {item.get('count', 0)} |")
+              gap = gap_by_id.get(item.get('id'), {})
+              lines.append(
+                  f"| {item.get('name', item.get('id', ''))} | {item.get('count', 0)} | "
+                  f"{gap.get('target', 0)} | {gap.get('gap', 0)} | {'是' if gap.get('overTarget') else '否'} |"
+              )
 
           if tags:
               lines.extend(['', '| 标签 | 数量 |', '|---|---:|'])
