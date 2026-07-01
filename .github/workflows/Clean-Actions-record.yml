@@ -1,0 +1,270 @@
+name: 清理 Actions 运行记录
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '是否只预览不删除；默认 false = 直接执行清理'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+      keep_latest_runs:
+        description: '每个 workflow 保留最近 N 条；0 = 不保留，清理所有可清理记录'
+        required: true
+        default: '0'
+        type: string
+
+      workflow_name_filter:
+        description: '只清理名称包含此文本的 workflow；all = 全部 workflow'
+        required: true
+        default: 'all'
+        type: string
+
+      clean_tags:
+        description: '是否清理标签；默认 false = 不清理标签'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+      tag_prefix:
+        description: '只清理指定前缀标签；all = 全部标签'
+        required: true
+        default: 'comic-reader-rules-'
+        type: string
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: 清理-actions-运行记录
+  cancel-in-progress: false
+
+jobs:
+  cleanup-actions-runs:
+    name: 清理脚本运行记录
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      CURRENT_RUN_ID: ${{ github.run_id }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      KEEP_LATEST_RUNS: ${{ inputs.keep_latest_runs }}
+      WORKFLOW_NAME_FILTER: ${{ inputs.workflow_name_filter }}
+      CLEAN_TAGS: ${{ inputs.clean_tags }}
+      TAG_PREFIX: ${{ inputs.tag_prefix }}
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 清理所有脚本运行记录
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+
+          repo = os.environ["REPO"]
+          current_run_id = str(os.environ.get("CURRENT_RUN_ID", ""))
+          dry_run = os.environ.get("DRY_RUN", "false") == "true"
+          keep_latest = int(os.environ.get("KEEP_LATEST_RUNS") or "0")
+          name_filter = (os.environ.get("WORKFLOW_NAME_FILTER") or "all").strip().lower()
+
+          summary_lines = [
+              "## Actions 运行记录清理汇总",
+              "",
+              "- 默认行为：直接执行清理，不是预览",
+              f"- dry_run：{dry_run}",
+              f"- keep_latest_runs：{keep_latest}",
+              f"- workflow_name_filter：{name_filter}",
+              "- 清理范围：GitHub Actions workflow runs",
+              "- 不清理：Release / 仓库文件",
+              "- 标签清理：由 clean_tags 单独控制，默认不清理",
+              "- 当前这一次清理任务本身不会删除",
+              "",
+          ]
+
+          def gh_json(args):
+              raw = subprocess.check_output(["gh", "api", *args], text=True)
+              return json.loads(raw) if raw.strip() else {}
+
+          def gh_delete(path):
+              if dry_run:
+                  print(f"[dry-run] DELETE {path}")
+                  return True
+
+              completed = subprocess.run(
+                  ["gh", "api", "-X", "DELETE", path],
+                  text=True,
+                  capture_output=True,
+              )
+
+              if completed.returncode != 0:
+                  print(f"[skip] {path}: {completed.stderr.strip()}")
+                  return False
+
+              return True
+
+          workflows = gh_json([f"/repos/{repo}/actions/workflows?per_page=100"]).get("workflows", [])
+
+          total_deleted = 0
+          total_skipped = 0
+          total_seen = 0
+
+          for workflow in workflows:
+              workflow_id = workflow.get("id")
+              workflow_name = workflow.get("name") or workflow.get("path") or str(workflow_id)
+
+              if name_filter != "all" and name_filter not in str(workflow_name).lower():
+                  continue
+
+              runs = []
+              page = 1
+
+              while True:
+                  payload = gh_json([
+                      f"/repos/{repo}/actions/workflows/{workflow_id}/runs?per_page=100&page={page}"
+                  ])
+                  batch = payload.get("workflow_runs", [])
+
+                  if not batch:
+                      break
+
+                  runs.extend(batch)
+                  page += 1
+
+                  if page > 100:
+                      break
+
+              runs.sort(key=lambda item: item.get("created_at") or "", reverse=True)
+
+              protected = set(str(item.get("id")) for item in runs[:keep_latest]) if keep_latest > 0 else set()
+
+              deleted_for_workflow = 0
+              skipped_for_workflow = 0
+
+              for run in runs:
+                  run_id = str(run.get("id"))
+
+                  if not run_id:
+                      continue
+
+                  # 不删除当前正在执行的清理流程
+                  if run_id == current_run_id:
+                      skipped_for_workflow += 1
+                      total_skipped += 1
+                      continue
+
+                  # 保留最近 N 条
+                  if run_id in protected:
+                      skipped_for_workflow += 1
+                      total_skipped += 1
+                      continue
+
+                  total_seen += 1
+
+                  if gh_delete(f"/repos/{repo}/actions/runs/{run_id}"):
+                      deleted_for_workflow += 1
+                      total_deleted += 1
+                  else:
+                      skipped_for_workflow += 1
+                      total_skipped += 1
+
+              summary_lines.append(
+                  f"- {workflow_name}: 清理 {deleted_for_workflow} 条，跳过 {skipped_for_workflow} 条"
+              )
+
+          summary_lines.extend([
+              "",
+              f"总计可清理运行记录：{total_seen}",
+              f"总计已清理运行记录：{total_deleted}",
+              f"总计跳过运行记录：{total_skipped}",
+          ])
+
+          output = "\n".join(summary_lines) + "\n"
+          print(output)
+
+          with open("cleanup-summary.md", "w", encoding="utf-8") as f:
+              f.write(output)
+
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary_path:
+              with open(summary_path, "a", encoding="utf-8") as f:
+                  f.write(output)
+          PY
+
+      - name: 清理标签
+        if: inputs.clean_tags == 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## 标签清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "- clean_tags: ${{ inputs.clean_tags }}" | tee -a cleanup-summary.md
+          echo "- tag_prefix: ${{ inputs.tag_prefix }}" | tee -a cleanup-summary.md
+          echo "- dry_run: ${{ inputs.dry_run }}" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+
+          git fetch --tags --force
+
+          deleted=0
+          skipped=0
+
+          for tag in $(git tag); do
+            if [ "${{ inputs.tag_prefix }}" != "all" ]; then
+              case "$tag" in
+                ${{ inputs.tag_prefix }}*) ;;
+                *)
+                  skipped=$((skipped + 1))
+                  continue
+                  ;;
+              esac
+            fi
+
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "[dry-run] 删除标签: $tag" | tee -a cleanup-summary.md
+              deleted=$((deleted + 1))
+              continue
+            fi
+
+            echo "删除标签: $tag" | tee -a cleanup-summary.md
+            git push origin ":refs/tags/$tag" || true
+            deleted=$((deleted + 1))
+          done
+
+          echo "" | tee -a cleanup-summary.md
+          echo "已清理标签数量：$deleted" | tee -a cleanup-summary.md
+          echo "已跳过标签数量：$skipped" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: 不清理标签提示
+        if: inputs.clean_tags != 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## 标签清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "clean_tags=false，默认不清理任何标签。" | tee -a cleanup-summary.md
+          echo "Release 不会被清理。" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
