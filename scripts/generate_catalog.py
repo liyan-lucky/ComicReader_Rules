@@ -3,10 +3,10 @@
 """生成公开漫画目录索引。
 
 设计原则：
-- 主分类使用公开漫画站常见且数量更稳定的类型：动作、冒险、恋爱、喜剧、剧情、奇幻、校园、日常、格斗、科幻、恐怖、悬疑、历史/古风、都市、修仙。
-- 玄幻、穿越、重生、异世界、系统、复仇等不再作为主分类，改为标签。
-- 分类搜索只负责发现更多公开漫画，不直接强制主分类。
-- 主分类优先使用详情页 genre/tag/category/meta keywords，其次才使用标题关键词。
+- 主分类使用公开漫画站常见且数量更稳定的类型：动作、冒险、恋爱、喜剧、剧情、奇幻、校园、日常、武侠/格斗、科幻、恐怖、悬疑、历史/古风、都市、修仙。
+- 玄幻、穿越、重生、异世界、系统、复仇等作为标签，不作为主分类。
+- 分类搜索用于扩大公开作品发现量；分类归属优先按详情页 genre/tag/category/meta keywords，其次标题关键词，最后用分类搜索来源兜底补齐。
+- 每个主分类兜底补齐目标为 200，避免一个宽泛分类无限吞数据。
 - 只保存公开元数据、来源规则和链接；不保存图片、章节正文、账号数据或付费内容。
 """
 
@@ -36,21 +36,21 @@ DETAIL_METADATA_LIMIT = 900
 DETAIL_TIMEOUT_SECONDS = 10
 
 CATEGORY_RULES: List[Dict[str, Any]] = [
-    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "cultivation", "cultivator", "cultivate", "immortal cultivation", "martial peak", "daoist", "taoist"]},
-    {"id": "wuxia_gedou", "name": "武侠/格斗", "keywords": ["武侠", "江湖", "侠", "格斗", "武术", "拳", "剑客", "刀客", "kung fu", "martial arts", "hand to hand", "fighter", "fist", "swordman", "swordsman"]},
-    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "校花", "同桌", "学生", "老师", "班长", "school life", "school", "campus", "student", "teacher", "classmate"]},
-    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "现代", "city", "urban", "office", "company", "ceo", "doctor", "bodyguard", "tycoon", "metropolitan", "modern"]},
-    {"id": "lishi_gufeng", "name": "历史/古风", "keywords": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "duke"]},
+    {"id": "dongzuo", "name": "动作", "keywords": ["动作", "战斗", "热血", "竞技", "杀手", "action", "battle", "fight", "fighting", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "expedition", "exploration"]},
     {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
     {"id": "xiju", "name": "喜剧", "keywords": ["喜剧", "搞笑", "沙雕", "爆笑", "吐槽", "comedy", "funny", "gag", "humor", "humour", "parody"]},
-    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "犯罪", "mystery", "detective", "crime", "case", "investigation", "suspense"]},
-    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "supernatural horror", "creepy"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien"]},
-    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "治愈", "slice of life", "daily life", "leisurely", "healing", "iyashikei"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "expedition", "exploration"]},
-    {"id": "dongzuo", "name": "动作", "keywords": ["动作", "战斗", "热血", "竞技", "杀手", "action", "battle", "fight", "fighting", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
+    {"id": "juqing", "name": "剧情", "keywords": ["剧情", "drama", "dramatic", "family", "tragedy", "psychological"]},
     {"id": "qihuan", "name": "奇幻", "keywords": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch"]},
-    {"id": "juqing", "name": "剧情", "keywords": ["剧情", "drama", "dramatic", "family", "life", "tragedy", "psychological"]},
+    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "校花", "同桌", "学生", "老师", "班长", "school life", "campus", "classmate"]},
+    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "治愈", "slice of life", "daily life", "leisurely", "healing", "iyashikei"]},
+    {"id": "wuxia_gedou", "name": "武侠/格斗", "keywords": ["武侠", "江湖", "侠客", "格斗", "武术", "剑客", "刀客", "kung fu", "martial arts", "hand to hand"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien"]},
+    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "supernatural horror", "creepy"]},
+    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "犯罪", "mystery", "detective", "crime", "case", "investigation", "suspense"]},
+    {"id": "lishi_gufeng", "name": "历史/古风", "keywords": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "duke"]},
+    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "现代", "urban", "office", "company", "ceo", "doctor", "bodyguard", "tycoon", "metropolitan", "modern"]},
+    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "cultivation", "cultivator", "cultivate", "immortal cultivation", "martial peak", "daoist", "taoist"]},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
 CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
@@ -79,9 +79,12 @@ BAD_TITLE_WORDS = {
     "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
     "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
     "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history",
-    "browse", "chat", "comic", "comics", "manga", "manhua", "completed", "cookie policy",
+    "browse", "chat", "comic", "comics", "manga", "manhua", "manga updates", "mangafire", "completed", "cookie policy",
 }
-BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/tag/author", "/author/", "/login", "/register")
+BAD_URL_PARTS = (
+    "/chapter", "/chapters", "/episode", "/episodes", "/read/", "/reader/", "/tag/author", "/author/",
+    "/login", "/register",
+)
 IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
 
 SEED_TITLES = ["斗罗大陆", "Soul Land", "Douluo Dalu", "完美世界", "吞噬星空", "凡人修仙传", "斗破苍穹", "武动乾坤", "一人之下"]
@@ -95,7 +98,7 @@ CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = {
     "qihuan": ["奇幻", "魔法", "魔王", "fantasy", "magic", "demon", "dragon", "wizard"],
     "xiaoyuan": ["校园", "学生", "老师", "school life", "school", "campus", "student"],
     "richang": ["日常", "生活", "治愈", "slice of life", "daily life", "healing"],
-    "wuxia_gedou": ["武侠", "江湖", "格斗", "kung fu", "martial arts", "fighter", "sword"],
+    "wuxia_gedou": ["武侠", "江湖", "格斗", "kung fu", "martial arts"],
     "kehuan": ["科幻", "机甲", "末世", "robot", "sci-fi", "science fiction", "mecha", "space"],
     "kongbu": ["恐怖", "惊悚", "灵异", "horror", "thriller", "ghost", "monster"],
     "xuanyi": ["悬疑", "推理", "侦探", "mystery", "detective", "crime", "case"],
@@ -176,6 +179,15 @@ def looks_like_opaque_slug(value: str) -> bool:
     return has_alpha and has_digit and (has_upper and has_lower or len(compact) >= 8)
 
 
+def is_chapter_title(title: str) -> bool:
+    text = safe_str(title)
+    return bool(
+        re.search(r"\b(chapter|chapters|episode|ep)\s*[\d.]+", text, flags=re.I)
+        or re.search(r"第\s*[\d一二三四五六七八九十百千万]+\s*[话話章节回]", text)
+        or re.search(r",\s*chapter\s*[\d.]+", text, flags=re.I)
+    )
+
+
 def title_from_url(url: str) -> str:
     slug = urlparse(url).path.rstrip("/").split("/")[-1]
     slug = re.sub(r"\.(html?|php|aspx?)$", "", slug, flags=re.I)
@@ -190,7 +202,7 @@ def clean_title(value: str) -> str:
     lowered = title.lower()
     if not title or len(title) < 2 or len(title) > 120:
         return ""
-    if looks_like_opaque_slug(title) or lowered in BAD_TITLE_WORDS:
+    if looks_like_opaque_slug(title) or lowered in BAD_TITLE_WORDS or is_chapter_title(title):
         return ""
     if re.fullmatch(r"https?://.+", lowered) or re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", lowered):
         return ""
@@ -210,14 +222,33 @@ def match_tags(text: str) -> List[str]:
     return tags
 
 
-def guess_primary_category(title: str, metadata_text: str = "", tags: Optional[List[str]] = None) -> str:
-    text = f"{metadata_text} {title} {' '.join(tags or [])}".lower()
+def category_from_text(text: str) -> str:
     for rule in CATEGORY_RULES:
         if rule["id"] == "weifenlei":
             continue
         if text_matches_keywords(text, rule["keywords"]):
             return rule["id"]
     return "weifenlei"
+
+
+def category_hints_from_item(item: Dict[str, Any]) -> List[str]:
+    hints: List[str] = []
+    for source in item.get("sources", []):
+        hint = safe_str(source.get("categorySearchHint"))
+        if hint in CATEGORY_IDS and hint != "weifenlei":
+            hints.append(hint)
+    return hints
+
+
+def choose_hint_category(item: Dict[str, Any], category_counts: Dict[str, int]) -> str:
+    hints = category_hints_from_item(item)
+    if not hints:
+        return "weifenlei"
+    ranked = Counter(hints).most_common()
+    for cid, _count in ranked:
+        if category_counts.get(cid, 0) < CATEGORY_TARGET_COUNT:
+            return cid
+    return ranked[0][0]
 
 
 def group_value(match: re.Match[str], groups: Iterable[int]) -> str:
@@ -247,7 +278,10 @@ def is_catalog_candidate_url(url: str) -> bool:
 
 
 def fetch_public_text(url: str, timeout: int) -> Tuple[str, str]:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
+    )
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             content_type = response.headers.get("content-type", "")
@@ -271,7 +305,15 @@ def compile_regex(pattern: str) -> Optional[re.Pattern[str]]:
         return None
 
 
-def extract_links_from_html(html_text: str, base_url: str, item_regex: re.Pattern[str], title_groups: Iterable[int], url_groups: Iterable[int], base_record: Dict[str, Any], max_items: int) -> List[Tuple[str, Dict[str, Any]]]:
+def extract_links_from_html(
+    html_text: str,
+    base_url: str,
+    item_regex: re.Pattern[str],
+    title_groups: Iterable[int],
+    url_groups: Iterable[int],
+    base_record: Dict[str, Any],
+    max_items: int,
+) -> List[Tuple[str, Dict[str, Any]]]:
     records: List[Tuple[str, Dict[str, Any]]] = []
     for match in item_regex.finditer(html_text):
         detail_url = safe_abs_url(base_url, group_value(match, url_groups))
@@ -336,7 +378,12 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
                         stats["errors"].append({"source": source_id, "url": current_url, "error": error[:180]})
                     break
                 stats["pagesFetched"] += 1
-                base_record = {"ruleId": rule_id, "siteName": site_name, "domain": source_id, "discoveryType": safe_str(entry.get("type") if isinstance(entry, dict) else "list")}
+                base_record = {
+                    "ruleId": rule_id,
+                    "siteName": site_name,
+                    "domain": source_id,
+                    "discoveryType": safe_str(entry.get("type") if isinstance(entry, dict) else "list"),
+                }
                 found = extract_links_from_html(html_text, current_url, item_regex, title_groups, url_groups, base_record, max_items - source_found)
                 records.extend(found)
                 source_found += len(found)
@@ -369,7 +416,7 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
         "recordsFound": 0,
         "errors": [],
         "targetPerCategory": CATEGORY_TARGET_COUNT,
-        "searchOnlyDiscovery": True,
+        "searchDiscoveryWithFallbackClassification": True,
     }
     rules = load_manual_search_rules()
     stats["enabledRuleCount"] = len(rules)
@@ -438,7 +485,8 @@ def extract_detail_metadata(detail_url: str) -> Tuple[str, List[str], str]:
             if text:
                 bits.append(text)
 
-    for match in re.finditer(r"(?:genres?|tags?|categories?|题材|类型|标签|分类)\s*[:：]\s*([\s\S]{0,260})", strip_html(html_text), flags=re.I):
+    page_text = strip_html(html_text)
+    for match in re.finditer(r"(?:genres?|tags?|categories?|题材|类型|标签|分类)\s*[:：]\s*([\s\S]{0,260})", page_text, flags=re.I):
         for text in re.split(r"[,，/|;；\s]+", match.group(1)):
             text = clean_title(text)
             if text:
@@ -599,9 +647,29 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
         tag_ids = sorted(set(existing_tags) | set(match_tags(f"{item.get('title', '')} {metadata_text} {' '.join(detail_tags)}")))
         item["tags"] = tag_ids
         item["genreText"] = metadata_text.strip()
-        item["primaryCategory"] = guess_primary_category(safe_str(item.get("title")), metadata_text, tag_ids)
+
+        natural_category = category_from_text(f"{metadata_text} {item.get('title', '')}")
+        item["naturalCategory"] = natural_category
+        item["primaryCategory"] = natural_category
+        item["classificationSource"] = "detailOrTitle" if natural_category != "weifenlei" else "unclassified"
         item["categories"] = [item["primaryCategory"]]
 
+    category_counts = Counter(item.get("primaryCategory") for item in by_title.values() if item.get("primaryCategory") != "weifenlei")
+    fallback_assigned = 0
+    for item in sorted(by_title.values(), key=lambda x: (-len(category_hints_from_item(x)), safe_str(x.get("title")))):
+        if item.get("primaryCategory") != "weifenlei":
+            continue
+        hint_category = choose_hint_category(item, category_counts)
+        if hint_category == "weifenlei":
+            continue
+        item["primaryCategory"] = hint_category
+        item["categories"] = [hint_category]
+        item["classificationSource"] = "categorySearchFallback"
+        category_counts[hint_category] += 1
+        fallback_assigned += 1
+
+    detail_stats["categorySearchFallbackAssigned"] = fallback_assigned
+    detail_stats["categoryCountsAfterFallback"] = dict(sorted(category_counts.items()))
     return sorted(by_title.values(), key=lambda x: safe_str(x.get("title"))), detail_stats
 
 
@@ -672,9 +740,10 @@ def main() -> int:
             "clickableLinks": True,
         },
         "classification": {
-            "primaryCategoryModel": "common_public_comic_genres_v2",
+            "primaryCategoryModel": "common_public_comic_genres_v3_balanced_fallback",
             "broadStorySettingsMovedToTags": True,
-            "categorySearchOnlyDiscovery": True,
+            "categorySearchFallback": True,
+            "categorySearchFallbackTarget": CATEGORY_TARGET_COUNT,
             "detailMetadataFirst": True,
         },
         "categories": categories,
@@ -704,12 +773,14 @@ def main() -> int:
         "singlePrimaryCategory": True,
         "clickableLinks": True,
         "classificationPolicy": {
-            "primaryCategoryModel": "common_public_comic_genres_v2",
+            "primaryCategoryModel": "common_public_comic_genres_v3_balanced_fallback",
             "targetPerCategory": CATEGORY_TARGET_COUNT,
             "categoryTargetedSearchEnabled": True,
-            "categorySearchOnlyDiscovery": True,
+            "categorySearchFallbackEnabled": True,
+            "categorySearchFallbackOnlyForUnclassified": True,
             "forcedCategoryFromCategorySearch": False,
             "detailMetadataFirst": True,
+            "chapterTitleFilter": True,
             "broadStorySettingsMovedToTags": ["xuanhuan", "chuanyue", "chongsheng", "yishijie", "xitong", "fuchou", "shuangwen"],
             "primaryCategoryPriority": [rule["id"] for rule in CATEGORY_RULES],
             "tagIds": [rule["id"] for rule in TAG_RULES],
