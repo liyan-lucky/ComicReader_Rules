@@ -1,7 +1,21 @@
 name: 生成远程漫画规则
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: '运行模式：quick=快速；deep=深度'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick
+          - deep
+      max_generated:
+        description: '最大生成规则数；留空则 quick=30，deep=100'
+        required: false
+        default: ''
+        type: string
   schedule:
     - cron: '0 3 * * 1'
 
@@ -9,7 +23,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: comic-reader-rules-develop
+  group: comic-reader-rules-main
   cancel-in-progress: false
 
 defaults:
@@ -18,18 +32,24 @@ defaults:
 
 jobs:
   generate:
-    name: 生成并同步远程规则到 develop
+    name: 生成并同步远程规则到 main
     runs-on: ubuntu-latest
     env:
-      RULES_BRANCH: develop
-      DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下'
-      DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com'
-      DEFAULT_MAX_GENERATED: '50'
+      RULES_BRANCH: main
+      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
+      QUICK_MAX_GENERATED: '30'
+      DEEP_MAX_GENERATED: '100'
+      QUICK_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak'
+      QUICK_DOMAINS: 'kaixinman.com,soullandmanga.com,mgeko.cc,mangafire.to,mangadna.com,mangaread.org,comick.io,mangadex.org,chapmanganato.to,mangakakalot.com'
+      DEEP_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End'
+      DEEP_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,chapmanganato.to,webtoons.com,tapas.io'
+
     steps:
-      - name: 检出 develop
+      - name: 检出 main
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.RULES_BRANCH }}
+          ref: main
           fetch-depth: 0
 
       - name: 设置 Python
@@ -42,229 +62,59 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: 构建默认参数列表
-        id: args
+      - name: 生成公开规则
         run: |
-          PY_ARGS=""
-          IFS=',' read -ra KW_ARR <<< "$DEFAULT_KEYWORDS"
+          set -euo pipefail
+          if [ "$RULE_RUN_MODE" = "deep" ]; then
+            SELECTED_KEYWORDS="$DEEP_KEYWORDS"
+            SELECTED_DOMAINS="$DEEP_DOMAINS"
+            SELECTED_MAX_GENERATED="$DEEP_MAX_GENERATED"
+          else
+            SELECTED_KEYWORDS="$QUICK_KEYWORDS"
+            SELECTED_DOMAINS="$QUICK_DOMAINS"
+            SELECTED_MAX_GENERATED="$QUICK_MAX_GENERATED"
+          fi
+          if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
+            SELECTED_MAX_GENERATED="$RULE_MAX_GENERATED_INPUT"
+          fi
+
+          ARGS=""
+          IFS=',' read -ra KW_ARR <<< "$SELECTED_KEYWORDS"
           for kw in "${KW_ARR[@]}"; do
             kw="$(echo "$kw" | xargs)"
-            if [ -n "$kw" ]; then
-              PY_ARGS="$PY_ARGS --keyword '$kw'"
-            fi
+            [ -n "$kw" ] && ARGS="$ARGS --keyword '$kw'"
           done
-          IFS=',' read -ra DM_ARR <<< "$DEFAULT_DOMAINS"
+          IFS=',' read -ra DM_ARR <<< "$SELECTED_DOMAINS"
           for dm in "${DM_ARR[@]}"; do
             dm="$(echo "$dm" | xargs)"
-            if [ -n "$dm" ]; then
-              PY_ARGS="$PY_ARGS --domain '$dm'"
-            fi
+            [ -n "$dm" ] && ARGS="$ARGS --domain '$dm'"
           done
-          echo "PY_ARGS=$PY_ARGS" >> "$GITHUB_OUTPUT"
-          echo "MAX_GENERATED=$DEFAULT_MAX_GENERATED" >> "$GITHUB_OUTPUT"
 
-      - name: 生成公开规则
-        env:
-          BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
-        run: |
           mkdir -p generated rules dist
-          eval "python tools/rule_discovery/generate_rules.py ${{ steps.args.outputs.PY_ARGS }} --max-generated ${{ steps.args.outputs.MAX_GENERATED }} --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
-      - name: 统计规则数量
-        id: rule_stats
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-          from urllib.parse import urlparse
-
-          index_path = Path('generated/index.json')
-          report_path = Path('generated/rulebot_report.json')
-          index = json.loads(index_path.read_text('utf-8'))
-          report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
-
-          rules = index.get('rules', []) or []
-          queries = index.get('queries', []) or []
-          audit = index.get('audit', {}) or {}
-          report_queries = report.get('queries', []) or []
-          sanitize = report.get('sanitize', {}) or {}
-
-          def host_from_url(value):
-              if not value:
-                  return ''
-              text = str(value).strip()
-              if not text:
-                  return ''
-              parsed = urlparse(text if '://' in text else 'https://' + text)
-              return (parsed.netloc or parsed.path).lower().replace('www.', '').strip('/')
-
-          domains = set()
-          for rule in rules:
-              for key in ('homepage', 'searchUrl', 'referer'):
-                  host = host_from_url(rule.get(key, ''))
-                  if host:
-                      domains.add(host)
-
-          searchable_count = sum(1 for r in rules if str(r.get('searchUrl', '')).strip())
-          url_only_count = sum(1 for r in rules if str(r.get('searchMethod', '')).strip().lower() == 'url-only')
-          detail_rule_count = sum(1 for r in rules if str(r.get('detailChapterRegex', '')).strip())
-          reader_rule_count = sum(1 for r in rules if str(r.get('readerImageRegex', '')).strip())
-          next_page_count = sum(1 for r in rules if str(r.get('readerNextPageRegex', '')).strip())
-          public_only_count = sum(1 for r in rules if (r.get('compliance') or {}).get('publicOnly') is True)
-
-          total_count = int(audit.get('totalCount') or len(rules))
-          generated_count = int(audit.get('generatedCount') or 0)
-          manual_count = int(audit.get('manualCount') or max(0, len(rules) - generated_count))
-          excluded_count = int(audit.get('excludedCount') or 0)
-
-          lines = [
-              '## 远程漫画规则数量汇总',
-              '',
-              f'- 目标分支：{os.environ.get("RULES_BRANCH", "develop")}',
-              f'- 规则总数：{total_count}',
-              f'- 手工规则数：{manual_count}',
-              f'- 自动生成规则数：{generated_count}',
-              f'- 排除规则数：{excluded_count}',
-              f'- 清洗移除规则数：{audit.get("sanitizeRemovedRules", 0)}',
-              f'- 清洗移除报告记录数：{sanitize.get("removedCount", 0)}',
-              f'- 可搜索规则数：{searchable_count}',
-              f'- URL 直连兜底规则数：{url_only_count}',
-              f'- 章节目录解析规则数：{detail_rule_count}',
-              f'- 图片解析规则数：{reader_rule_count}',
-              f'- 下一页追踪规则数：{next_page_count}',
-              f'- publicOnly 合规规则数：{public_only_count}',
-              f'- 覆盖域名数：{len(domains)}',
-              f'- 查询词条数：{len(queries)}',
-              f'- 报告查询词条数：{len(report_queries)}',
-              '',
-              '| 规则 ID | 名称 | 域名 | 搜索 | 章节 | 图片 | 下一页 |',
-              '|---|---|---|---:|---:|---:|---:|',
-          ]
-          for rule in rules:
-              rule_id = str(rule.get('id', ''))
-              name = str(rule.get('name', ''))
-              domain = host_from_url(rule.get('homepage') or rule.get('searchUrl') or rule.get('referer') or '')
-              lines.append(
-                  f"| {rule_id} | {name} | {domain} | "
-                  f"{'是' if str(rule.get('searchUrl', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('detailChapterRegex', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('readerImageRegex', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('readerNextPageRegex', '')).strip() else '否'} |"
-              )
-
-          output = '\n'.join(lines) + '\n'
-          Path('dist').mkdir(parents=True, exist_ok=True)
-          Path('dist/rule-count-summary.md').write_text(output, 'utf-8')
-          print(output)
-
-          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
-              f.write(f'total_count={total_count}\n')
-              f.write(f'manual_count={manual_count}\n')
-              f.write(f'generated_count={generated_count}\n')
-              f.write(f'excluded_count={excluded_count}\n')
-              f.write(f'searchable_count={searchable_count}\n')
-              f.write(f'url_only_count={url_only_count}\n')
-              f.write(f'domain_count={len(domains)}\n')
-              f.write(f'query_count={len(queries)}\n')
-          PY
-
-      - name: 提交生成规则到 develop
-        id: commit
+      - name: 提交生成规则到 main
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git pull --rebase --autostash origin "${RULES_BRANCH}"
-
+          git pull --rebase --autostash origin main
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
           if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No generated rule changes."
           else
             git commit -m "chore: update generated comic rules"
-            pushed=false
-            for i in 1 2 3; do
-              if git push origin "HEAD:${RULES_BRANCH}"; then
-                pushed=true
-                break
-              fi
-              echo "Push rejected, pulling latest ${RULES_BRANCH} and retrying ($i/3)..."
-              git pull --rebase origin "${RULES_BRANCH}"
-            done
-            if [ "$pushed" != "true" ]; then
-              echo "Failed to push generated rules after retries."
-              exit 1
-            fi
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git push origin HEAD:main
           fi
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-
-      - name: 准备产物元数据和压缩包
-        id: release_meta
-        run: |
-          TAG="comic-reader-rules-$(date -u +'%Y%m%d-%H%M%S')"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          mkdir -p dist
-          cp generated/index.json dist/generated-index.json
-          cp generated/rulebot_report.json dist/rulebot-report.json
-          cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
-          cp rules/index.json dist/rules-index.json
-          (cd dist && zip -r "$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json rule-count-summary.md rule-sanitize-summary.md)
-          {
-            echo "# Comic Reader Rules $TAG"
-            echo ""
-            echo "- Label：$TAG"
-            echo "- English name：Comic Reader Rules"
-            echo "- Target branch：$RULES_BRANCH"
-            echo "- 默认关键词：$DEFAULT_KEYWORDS"
-            echo "- 默认域名：$DEFAULT_DOMAINS"
-            echo "- 规则索引：generated/index.json"
-            echo "- 审计报告：generated/rulebot_report.json"
-            echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
-            echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
-            echo "- Commit：$(git rev-parse HEAD)"
-            echo ""
-            cat dist/rule-sanitize-summary.md
-            echo ""
-            cat dist/rule-count-summary.md
-          } > dist/release-notes.md
 
       - name: 上传生成规则 artifact
         uses: actions/upload-artifact@v4
         with:
-          name: comic-reader-generated-rules-${{ steps.release_meta.outputs.tag }}
+          name: comic-reader-generated-rules-${{ env.RULE_RUN_MODE }}
           path: |
             generated/index.json
             generated/rulebot_report.json
             generated/GeneratedSourceRules.ets
             rules/index.json
-            dist/generated-index.json
-            dist/rulebot-report.json
-            dist/GeneratedSourceRules.ets
-            dist/rules-index.json
-            dist/rule-count-summary.md
-            dist/rule-sanitize-summary.md
-            dist/release-notes.md
-            dist/*.zip
-
-      - name: 显示规则数量汇总
-        run: |
-          cat dist/rule-sanitize-summary.md
-          echo ""
-          cat dist/rule-count-summary.md
-          echo ""
-          echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。"
-          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
-            cat dist/rule-sanitize-summary.md >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。" >> "$GITHUB_STEP_SUMMARY"
-          fi
