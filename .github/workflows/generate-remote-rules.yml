@@ -72,6 +72,101 @@ jobs:
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           cp generated/index.json rules/index.json
 
+      - name: 统计规则数量
+        id: rule_stats
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          index_path = Path('generated/index.json')
+          report_path = Path('generated/rulebot_report.json')
+          index = json.loads(index_path.read_text('utf-8'))
+          report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
+
+          rules = index.get('rules', []) or []
+          queries = index.get('queries', []) or []
+          audit = index.get('audit', {}) or {}
+          report_queries = report.get('queries', []) or []
+
+          def host_from_url(value):
+              if not value:
+                  return ''
+              text = str(value).strip()
+              if not text:
+                  return ''
+              parsed = urlparse(text if '://' in text else 'https://' + text)
+              return (parsed.netloc or parsed.path).lower().replace('www.', '').strip('/')
+
+          domains = set()
+          for rule in rules:
+              for key in ('homepage', 'searchUrl', 'referer'):
+                  host = host_from_url(rule.get(key, ''))
+                  if host:
+                      domains.add(host)
+
+          searchable_count = sum(1 for r in rules if str(r.get('searchUrl', '')).strip())
+          url_only_count = sum(1 for r in rules if str(r.get('searchMethod', '')).strip().lower() == 'url-only')
+          detail_rule_count = sum(1 for r in rules if str(r.get('detailChapterRegex', '')).strip())
+          reader_rule_count = sum(1 for r in rules if str(r.get('readerImageRegex', '')).strip())
+          next_page_count = sum(1 for r in rules if str(r.get('readerNextPageRegex', '')).strip())
+          public_only_count = sum(1 for r in rules if (r.get('compliance') or {}).get('publicOnly') is True)
+
+          total_count = int(audit.get('totalCount') or len(rules))
+          generated_count = int(audit.get('generatedCount') or 0)
+          manual_count = int(audit.get('manualCount') or max(0, len(rules) - generated_count))
+          excluded_count = int(audit.get('excludedCount') or 0)
+
+          lines = [
+              '## 远程漫画规则数量汇总',
+              '',
+              f'- 规则总数：{total_count}',
+              f'- 手工规则数：{manual_count}',
+              f'- 自动生成规则数：{generated_count}',
+              f'- 排除规则数：{excluded_count}',
+              f'- 可搜索规则数：{searchable_count}',
+              f'- URL 直连兜底规则数：{url_only_count}',
+              f'- 章节目录解析规则数：{detail_rule_count}',
+              f'- 图片解析规则数：{reader_rule_count}',
+              f'- 下一页追踪规则数：{next_page_count}',
+              f'- publicOnly 合规规则数：{public_only_count}',
+              f'- 覆盖域名数：{len(domains)}',
+              f'- 查询词条数：{len(queries)}',
+              f'- 报告查询词条数：{len(report_queries)}',
+              '',
+              '| 规则 ID | 名称 | 域名 | 搜索 | 章节 | 图片 | 下一页 |',
+              '|---|---|---|---:|---:|---:|---:|',
+          ]
+          for rule in rules:
+              rule_id = str(rule.get('id', ''))
+              name = str(rule.get('name', ''))
+              domain = host_from_url(rule.get('homepage') or rule.get('searchUrl') or rule.get('referer') or '')
+              lines.append(
+                  f"| {rule_id} | {name} | {domain} | "
+                  f"{'是' if str(rule.get('searchUrl', '')).strip() else '否'} | "
+                  f"{'是' if str(rule.get('detailChapterRegex', '')).strip() else '否'} | "
+                  f"{'是' if str(rule.get('readerImageRegex', '')).strip() else '否'} | "
+                  f"{'是' if str(rule.get('readerNextPageRegex', '')).strip() else '否'} |"
+              )
+
+          output = '\n'.join(lines) + '\n'
+          Path('dist').mkdir(parents=True, exist_ok=True)
+          Path('dist/rule-count-summary.md').write_text(output, 'utf-8')
+          print(output)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write(f'total_count={total_count}\n')
+              f.write(f'manual_count={manual_count}\n')
+              f.write(f'generated_count={generated_count}\n')
+              f.write(f'excluded_count={excluded_count}\n')
+              f.write(f'searchable_count={searchable_count}\n')
+              f.write(f'url_only_count={url_only_count}\n')
+              f.write(f'domain_count={len(domains)}\n')
+              f.write(f'query_count={len(queries)}\n')
+          PY
+
       - name: 提交生成规则
         id: commit
         run: |
@@ -116,7 +211,7 @@ jobs:
           cp generated/rulebot_report.json dist/rulebot-report.json
           cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
           cp rules/index.json dist/rules-index.json
-          (cd dist && zip -r "comic-reader-rules-$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json)
+          (cd dist && zip -r "comic-reader-rules-$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json rule-count-summary.md)
           {
             echo "# 漫画浏览器远程规则 $TAG"
             echo ""
@@ -128,6 +223,8 @@ jobs:
             echo "- Release附件名已去重：generated-index.json / rules-index.json"
             echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
             echo "- Commit：$(git rev-parse HEAD)"
+            echo ""
+            cat dist/rule-count-summary.md
           } > dist/release-notes.md
 
       - name: 上传生成规则 artifact
@@ -143,6 +240,7 @@ jobs:
             dist/rulebot-report.json
             dist/GeneratedSourceRules.ets
             dist/rules-index.json
+            dist/rule-count-summary.md
             dist/*.zip
 
       - name: 创建 tag 和 GitHub Release
@@ -165,4 +263,12 @@ jobs:
             dist/rulebot-report.json \
             dist/GeneratedSourceRules.ets \
             dist/rules-index.json \
+            dist/rule-count-summary.md \
             dist/comic-reader-rules-$TAG.zip
+
+      - name: 显示规则数量汇总
+        run: |
+          cat dist/rule-count-summary.md
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
