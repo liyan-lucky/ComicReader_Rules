@@ -8,12 +8,16 @@
 liyan-lucky/ComicReader_Rules
 ```
 
+## 当前状态
+
+当前事实以 [`docs/CURRENT_STATUS.md`](docs/CURRENT_STATUS.md) 为准。该文件记录最新生成数据、目录职责、分支/备份策略和合规边界。
+
 ## 分支策略
 
 ```text
 main      主工作分支、正式稳定分支，App 默认读取，后续功能和生成结果直接维护在这里。
 backup    备份分支，只用于备份 main。
-develop   旧开发分支，不再作为主要开发分支使用。
+develop   旧开发分支，不再作为主要开发、生成或备份分支使用。
 ```
 
 当前策略：
@@ -22,15 +26,16 @@ develop   旧开发分支，不再作为主要开发分支使用。
 所有后续修改默认直接进入 main。
 backup 只作为 main 的备份分支。
 develop 不再参与默认开发和备份流程。
-如需大改，可先运行“备份 main 到 backup”，再修改 main。
+如需大改，可先运行“强制覆盖 backup 分支”，再修改 main。
 ```
 
 详细文档：
 
 ```text
-docs/development_standards.md    仓库开发规范
-docs/maintenance.md              日常维护说明
-docs/catalog_api.md              公开漫画目录接口说明
+docs/CURRENT_STATUS.md          当前仓库状态
+docs/development_standards.md   仓库开发规范
+docs/maintenance.md             日常维护说明
+docs/catalog_api.md             公开漫画目录接口说明
 ```
 
 ## App 默认读取地址
@@ -72,6 +77,30 @@ scripts/                           本地/CI 入口脚本
 ```
 
 不允许在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。详细规则见 `docs/development_standards.md`。
+
+## 当前生成数据摘要
+
+当前 `generated/index.json`：
+
+```text
+schema: womh_comic_rules_index_v1
+version: 2026.07.01.1815
+updatedAt: 2026-07-01T18:15:33.994005+00:00
+```
+
+当前 `generated/catalog_report.json`：
+
+```text
+itemCount: 486
+categoryCount: 16
+tagCount: 12
+sourceRecordCount: 4388
+indexRecordCount: 291
+reportRecordCount: 288
+discoveryRecordCount: 809
+categorySearchRecordCount: 3000
+uncategorizedCount: 26
+```
 
 ## 本地生成规则
 
@@ -162,25 +191,30 @@ Actions → 生成公开漫画目录 → Run workflow
 
 该任务固定检出并提交到 `main` 分支。
 
-## GitHub Actions 备份 main 到 backup
+## GitHub Actions 强制覆盖 backup 分支
 
 备份流程：
 
 ```text
-Actions → 备份 main 到 backup → Run workflow
-```
-
-默认：
-
-```text
-dry_run=true，只预览，不覆盖 backup。
+Actions → 强制覆盖 backup 分支 → Run workflow
 ```
 
 真正覆盖 backup 时填写：
 
 ```text
-dry_run=false
-confirm=BACKUP_BRANCH_FROM_MAIN
+confirm=YES
+```
+
+执行效果：
+
+```text
+backup = main 当前提交
+```
+
+该流程没有 dry-run 模式。它会在校验 `confirm=YES` 后执行：
+
+```bash
+git push --force origin HEAD:backup
 ```
 
 ## GitHub Actions 清理运行记录
