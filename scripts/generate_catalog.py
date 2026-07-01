@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 """生成公开漫画目录索引。
 
-只生成公开作品元数据、分类、来源规则和可点击链接；不保存漫画图片、章节正文、账号数据或付费内容。
+设计原则：
+- 主分类使用公开漫画站常见且数量更稳定的类型：动作、冒险、恋爱、喜剧、剧情、奇幻、校园、日常、格斗、科幻、恐怖、悬疑、历史/古风、都市、修仙。
+- 玄幻、穿越、重生、异世界、系统、复仇等不再作为主分类，改为标签。
+- 分类搜索只负责发现更多公开漫画，不直接强制主分类。
+- 主分类优先使用详情页 genre/tag/category/meta keywords，其次才使用标题关键词。
+- 只保存公开元数据、来源规则和链接；不保存图片、章节正文、账号数据或付费内容。
 """
 
 from __future__ import annotations
@@ -15,79 +20,88 @@ import re
 import time
 import urllib.error
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 from urllib.parse import quote_plus, urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalog/5.5"
 
-# 这些是大类/剧情设定，标题里出现时不自动归类，避免误分。
-BROAD_AUTO_DISABLED_CATEGORY_IDS = {"xuanhuan", "chuanyue", "chongsheng"}
 CATEGORY_TARGET_COUNT = 200
 MAX_CATEGORY_SEARCH_RESULTS_PER_KEYWORD = 80
 MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY = 10
+DETAIL_METADATA_LIMIT = 900
+DETAIL_TIMEOUT_SECONDS = 10
 
 CATEGORY_RULES: List[Dict[str, Any]] = [
-    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "immortal", "cultivation", "cultivator", "cultivate", "martial peak", "dao", "taoist"]},
-    {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠", "一人之下", "剑", "刀", "拳", "kung fu", "martial arts", "sword", "blade", "fist"]},
-    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "city", "urban", "manager", "office", "company", "ceo", "doctor", "bodyguard", "tycoon"]},
-    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "同桌", "校花", "学生", "老师", "班长", "school", "campus", "student", "teacher", "classmate"]},
-    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "关系", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
-    {"id": "gongdou", "name": "宫斗", "keywords": ["宫斗", "后宫", "皇后", "妃", "嫔", "宫廷", "palace", "harem", "empress", "concubine"]},
-    {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "ancient", "prince", "princess", "duke", "emperor", "royal"]},
-    {"id": "chuanyue", "name": "穿越", "keywords": []},
-    {"id": "chongsheng", "name": "重生", "keywords": []},
-    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "杀手", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "isekai", "another world", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
-    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "case", "crime"]},
-    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "time loop", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
-    {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"]},
-    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "猫", "slice of life", "daily life", "leisurely", "cat"]},
-    {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
-    {"id": "shaonv", "name": "少女", "keywords": ["少女", "小姐姐", "shojo", "shoujo"]},
-    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love"]},
-    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
-    {"id": "xuanhuan", "name": "玄幻", "keywords": []},
+    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "cultivation", "cultivator", "cultivate", "immortal cultivation", "martial peak", "daoist", "taoist"]},
+    {"id": "wuxia_gedou", "name": "武侠/格斗", "keywords": ["武侠", "江湖", "侠", "格斗", "武术", "拳", "剑客", "刀客", "kung fu", "martial arts", "hand to hand", "fighter", "fist", "swordman", "swordsman"]},
+    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "校花", "同桌", "学生", "老师", "班长", "school life", "school", "campus", "student", "teacher", "classmate"]},
+    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "现代", "city", "urban", "office", "company", "ceo", "doctor", "bodyguard", "tycoon", "metropolitan", "modern"]},
+    {"id": "lishi_gufeng", "name": "历史/古风", "keywords": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "duke"]},
+    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
+    {"id": "xiju", "name": "喜剧", "keywords": ["喜剧", "搞笑", "沙雕", "爆笑", "吐槽", "comedy", "funny", "gag", "humor", "humour", "parody"]},
+    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "犯罪", "mystery", "detective", "crime", "case", "investigation", "suspense"]},
+    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "supernatural horror", "creepy"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien"]},
+    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "治愈", "slice of life", "daily life", "leisurely", "healing", "iyashikei"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "expedition", "exploration"]},
+    {"id": "dongzuo", "name": "动作", "keywords": ["动作", "战斗", "热血", "竞技", "杀手", "action", "battle", "fight", "fighting", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
+    {"id": "qihuan", "name": "奇幻", "keywords": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch"]},
+    {"id": "juqing", "name": "剧情", "keywords": ["剧情", "drama", "dramatic", "family", "life", "tragedy", "psychological"]},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
-
 CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
+
+TAG_RULES: List[Dict[str, Any]] = [
+    {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "xuanhuan", "eastern fantasy"]},
+    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "transmigration", "transmigrated", "time travel"]},
+    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "reincarnation", "reincarnated"]},
+    {"id": "yishijie", "name": "异世界", "keywords": ["异世界", "isekai", "another world", "other world"]},
+    {"id": "xitong", "name": "系统", "keywords": ["系统", "system", "leveling", "level up", "game system"]},
+    {"id": "fuchou", "name": "复仇", "keywords": ["复仇", "revenge", "vengeance", "avenger"]},
+    {"id": "shuangwen", "name": "爽文", "keywords": ["爽文", "overpowered", "op mc", "cheat skill", "strongest", "invincible"]},
+    {"id": "hougong", "name": "后宫", "keywords": ["后宫", "harem"]},
+    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love", "yaoi"]},
+    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
+    {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
+    {"id": "shaonv", "name": "少女", "keywords": ["少女", "shojo", "shoujo"]},
+]
+
 TEXT_KEYS = ("title", "name", "comicName", "bookName", "displayName", "keyword")
 URL_KEYS = ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")
 ID_KEYS = ("id", "ruleId", "sourceId")
 SITE_KEYS = ("siteName", "name", "domain", "host")
+
 BAD_TITLE_WORDS = {
     "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
     "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
-    "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history", "browse", "chat", "comic", "completed", "cookie policy",
+    "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history",
+    "browse", "chat", "comic", "comics", "manga", "manhua", "completed", "cookie policy",
 }
-BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/tag/", "/author/", "/login", "/register")
+BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/tag/author", "/author/", "/login", "/register")
 IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
+
 SEED_TITLES = ["斗罗大陆", "Soul Land", "Douluo Dalu", "完美世界", "吞噬星空", "凡人修仙传", "斗破苍穹", "武动乾坤", "一人之下"]
 
 CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = {
-    "xiuxian": ["修仙", "修真", "仙侠", "仙尊", "仙帝", "cultivation", "cultivator", "immortal", "martial peak", "dao"],
-    "wuxia": ["武侠", "江湖", "剑", "刀", "侠", "kung fu", "martial arts", "sword", "blade"],
-    "dushi": ["都市", "总裁", "职场", "神医", "保镖", "赘婿", "urban", "ceo", "manager", "doctor"],
-    "xiaoyuan": ["校园", "学生", "老师", "校花", "同桌", "school", "campus", "student", "teacher"],
-    "lianai": ["恋爱", "爱情", "甜宠", "婚约", "新娘", "love", "romance", "romantic", "marriage", "wife"],
-    "gongdou": ["宫斗", "后宫", "皇后", "王妃", "palace", "harem", "empress", "concubine"],
-    "gufeng": ["古风", "古代", "王爷", "公主", "皇帝", "ancient", "prince", "princess", "royal"],
-    "rexue": ["热血", "战斗", "格斗", "动作", "battle", "fight", "action", "hero", "hunter", "ranker"],
-    "maoxian": ["冒险", "探险", "地下城", "游戏", "adventure", "dungeon", "quest", "journey", "vrmmo"],
+    "dongzuo": ["动作", "战斗", "热血", "battle", "fight", "action", "hero", "hunter", "ranker", "warrior"],
+    "maoxian": ["冒险", "探险", "地下城", "adventure", "dungeon", "quest", "journey", "exploration"],
+    "lianai": ["恋爱", "爱情", "甜宠", "love", "romance", "romantic", "marriage", "wife"],
+    "xiju": ["搞笑", "喜剧", "comedy", "funny", "gag", "parody"],
+    "juqing": ["剧情", "drama", "family", "psychological", "tragedy"],
+    "qihuan": ["奇幻", "魔法", "魔王", "fantasy", "magic", "demon", "dragon", "wizard"],
+    "xiaoyuan": ["校园", "学生", "老师", "school life", "school", "campus", "student"],
+    "richang": ["日常", "生活", "治愈", "slice of life", "daily life", "healing"],
+    "wuxia_gedou": ["武侠", "江湖", "格斗", "kung fu", "martial arts", "fighter", "sword"],
+    "kehuan": ["科幻", "机甲", "末世", "robot", "sci-fi", "science fiction", "mecha", "space"],
+    "kongbu": ["恐怖", "惊悚", "灵异", "horror", "thriller", "ghost", "monster"],
     "xuanyi": ["悬疑", "推理", "侦探", "mystery", "detective", "crime", "case"],
-    "kongbu": ["恐怖", "惊悚", "灵异", "鬼", "horror", "thriller", "ghost", "monster"],
-    "kehuan": ["科幻", "机甲", "末世", "星际", "robot", "sci-fi", "science fiction", "mecha", "apocalypse", "space"],
-    "gaoxiao": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"],
-    "richang": ["日常", "生活", "休闲", "slice of life", "daily life", "leisurely"],
-    "shaonian": ["少年", "shonen", "shounen"],
-    "shaonv": ["少女", "shojo", "shoujo"],
-    "danmei": ["耽美", "bl", "boys love", "boy love"],
-    "baihe": ["百合", "gl", "girls love", "yuri"],
+    "lishi_gufeng": ["历史", "古风", "古代", "ancient", "historical", "palace", "royal"],
+    "dushi": ["都市", "总裁", "职场", "urban", "ceo", "office", "doctor", "bodyguard"],
+    "xiuxian": ["修仙", "修真", "仙侠", "cultivation", "cultivator", "immortal", "martial peak"],
 }
 
 
@@ -137,19 +151,6 @@ def slugify(title: str) -> str:
     return text or hashlib.sha1(title.encode("utf-8")).hexdigest()[:12]
 
 
-def guess_primary_category(title: str, tags: Optional[List[str]] = None, forced: str = "") -> str:
-    forced = safe_str(forced)
-    if forced in CATEGORY_IDS and forced not in BROAD_AUTO_DISABLED_CATEGORY_IDS and forced != "weifenlei":
-        return forced
-    text = (title + " " + " ".join(tags or [])).lower()
-    for rule in CATEGORY_RULES:
-        if rule["id"] in BROAD_AUTO_DISABLED_CATEGORY_IDS or rule["id"] == "weifenlei":
-            continue
-        if any(keyword.lower() in text for keyword in rule["keywords"]):
-            return rule["id"]
-    return "weifenlei"
-
-
 def strip_html(raw: str) -> str:
     value = safe_str(raw)
     value = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", value, flags=re.I)
@@ -194,6 +195,29 @@ def clean_title(value: str) -> str:
     if re.fullmatch(r"https?://.+", lowered) or re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", lowered):
         return ""
     return title
+
+
+def text_matches_keywords(text: str, keywords: Sequence[str]) -> bool:
+    lowered = text.lower()
+    return any(keyword.lower() in lowered for keyword in keywords)
+
+
+def match_tags(text: str) -> List[str]:
+    tags: List[str] = []
+    for rule in TAG_RULES:
+        if text_matches_keywords(text, rule["keywords"]):
+            tags.append(rule["id"])
+    return tags
+
+
+def guess_primary_category(title: str, metadata_text: str = "", tags: Optional[List[str]] = None) -> str:
+    text = f"{metadata_text} {title} {' '.join(tags or [])}".lower()
+    for rule in CATEGORY_RULES:
+        if rule["id"] == "weifenlei":
+            continue
+        if text_matches_keywords(text, rule["keywords"]):
+            return rule["id"]
+    return "weifenlei"
 
 
 def group_value(match: re.Match[str], groups: Iterable[int]) -> str:
@@ -279,11 +303,13 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
         site_name = safe_str(source.get("name")) or source_id
         entries = source.get("entryUrls", []) or []
         stats["entryUrlCount"] += len(entries)
+
         item_regex = compile_regex(safe_str(source.get("itemRegex") or defaults.get("itemRegex")))
         next_regex = compile_regex(safe_str(source.get("nextPageRegex") or defaults.get("nextPageRegex")))
         if not item_regex:
             stats["errors"].append({"source": source_id, "error": "itemRegex 无效"})
             continue
+
         title_groups = source.get("titleGroups") or defaults.get("titleGroups") or [2]
         url_groups = source.get("urlGroups") or defaults.get("urlGroups") or [1]
         next_groups = source.get("nextPageUrlGroups") or defaults.get("nextPageUrlGroups") or [1]
@@ -291,11 +317,11 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
         max_items = int(source.get("maxItemsPerSource") or defaults.get("maxItemsPerSource") or 500)
         timeout = int(source.get("requestTimeoutSeconds") or defaults.get("requestTimeoutSeconds") or 12)
         source_found = 0
+
         for entry in entries:
             if source_found >= max_items:
                 break
             current_url = safe_str(entry.get("url") if isinstance(entry, dict) else entry)
-            forced_category = safe_str(entry.get("category") if isinstance(entry, dict) else "")
             seen_pages = set()
             page_no = 0
             while current_url and page_no < max_pages and source_found < max_items:
@@ -310,10 +336,11 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
                         stats["errors"].append({"source": source_id, "url": current_url, "error": error[:180]})
                     break
                 stats["pagesFetched"] += 1
-                base_record = {"ruleId": rule_id, "siteName": site_name, "domain": source_id, "discoveryType": safe_str(entry.get("type") if isinstance(entry, dict) else "list"), "forcedCategory": forced_category}
+                base_record = {"ruleId": rule_id, "siteName": site_name, "domain": source_id, "discoveryType": safe_str(entry.get("type") if isinstance(entry, dict) else "list")}
                 found = extract_links_from_html(html_text, current_url, item_regex, title_groups, url_groups, base_record, max_items - source_found)
                 records.extend(found)
                 source_found += len(found)
+
                 next_url = ""
                 if next_regex:
                     next_match = next_regex.search(html_text)
@@ -321,6 +348,7 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
                         next_url = safe_abs_url(current_url, group_value(next_match, next_groups))
                 current_url = next_url if next_url and next_url not in seen_pages else ""
                 time.sleep(0.25)
+
     stats["recordsFound"] = len(records)
     return records, stats
 
@@ -333,19 +361,27 @@ def load_manual_search_rules() -> List[Dict[str, Any]]:
 
 def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]]], Dict[str, Any]]:
     records: List[Tuple[str, Dict[str, Any]]] = []
-    stats = {"enabledRuleCount": 0, "categoryCount": 0, "searchPagesFetched": 0, "searchPagesFailed": 0, "recordsFound": 0, "errors": [], "targetPerCategory": CATEGORY_TARGET_COUNT}
+    stats = {
+        "enabledRuleCount": 0,
+        "categoryCount": 0,
+        "searchPagesFetched": 0,
+        "searchPagesFailed": 0,
+        "recordsFound": 0,
+        "errors": [],
+        "targetPerCategory": CATEGORY_TARGET_COUNT,
+        "searchOnlyDiscovery": True,
+    }
     rules = load_manual_search_rules()
     stats["enabledRuleCount"] = len(rules)
-    category_counts: Dict[str, int] = defaultdict(int)
+    hint_counts: Dict[str, int] = defaultdict(int)
+
     for cid, keywords in CATEGORY_SEARCH_KEYWORDS.items():
         stats["categoryCount"] += 1
-        if cid in BROAD_AUTO_DISABLED_CATEGORY_IDS:
-            continue
         for keyword in keywords[:MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY]:
-            if category_counts[cid] >= CATEGORY_TARGET_COUNT:
+            if hint_counts[cid] >= CATEGORY_TARGET_COUNT:
                 break
             for rule in rules:
-                if category_counts[cid] >= CATEGORY_TARGET_COUNT:
+                if hint_counts[cid] >= CATEGORY_TARGET_COUNT:
                     break
                 search_url = safe_str(rule.get("searchUrl")).replace("{keyword}", quote_plus(keyword)).replace("{query}", quote_plus(keyword))
                 item_regex = compile_regex(safe_str(rule.get("searchItemRegex")))
@@ -358,15 +394,64 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
                         stats["errors"].append({"ruleId": safe_str(rule.get("id")), "url": search_url, "error": error[:180]})
                     continue
                 stats["searchPagesFetched"] += 1
-                base_record = {"ruleId": safe_str(rule.get("id")), "siteName": safe_str(rule.get("name")) or safe_str(rule.get("id")), "domain": normalize_host(rule.get("homepage", "")), "forcedCategory": cid, "discoveryType": "categorySearch", "categoryKeyword": keyword}
-                found = extract_links_from_html(html_text, search_url, item_regex, rule.get("searchTitleGroups") or [2], rule.get("searchUrlGroups") or [1], base_record, min(MAX_CATEGORY_SEARCH_RESULTS_PER_KEYWORD, CATEGORY_TARGET_COUNT - category_counts[cid]))
+                base_record = {
+                    "ruleId": safe_str(rule.get("id")),
+                    "siteName": safe_str(rule.get("name")) or safe_str(rule.get("id")),
+                    "domain": normalize_host(rule.get("homepage", "")),
+                    "discoveryType": "categorySearch",
+                    "categorySearchHint": cid,
+                    "categoryKeyword": keyword,
+                }
+                found = extract_links_from_html(
+                    html_text,
+                    search_url,
+                    item_regex,
+                    rule.get("searchTitleGroups") or [2],
+                    rule.get("searchUrlGroups") or [1],
+                    base_record,
+                    min(MAX_CATEGORY_SEARCH_RESULTS_PER_KEYWORD, CATEGORY_TARGET_COUNT - hint_counts[cid]),
+                )
                 for title, record in found:
                     records.append((title, record))
-                    category_counts[cid] += 1
+                    hint_counts[cid] += 1
                 time.sleep(0.25)
+
     stats["recordsFound"] = len(records)
-    stats["categoryRecordCounts"] = dict(sorted(category_counts.items()))
+    stats["hintRecordCounts"] = dict(sorted(hint_counts.items()))
     return records, stats
+
+
+def extract_detail_metadata(detail_url: str) -> Tuple[str, List[str], str]:
+    html_text, error = fetch_public_text(detail_url, DETAIL_TIMEOUT_SECONDS)
+    if error or not html_text:
+        return "", [], error
+
+    bits: List[str] = []
+    for match in re.finditer(r"<a[^>]+href=[\"'][^\"']*(?:genre|tag|category|categories)[^\"']*[\"'][^>]*>([\s\S]{0,120}?)</a>", html_text, flags=re.I):
+        text = clean_title(match.group(1))
+        if text:
+            bits.append(text)
+
+    for match in re.finditer(r"<meta[^>]+(?:name|property)=[\"'](?:keywords|article:tag)[\"'][^>]+content=[\"']([^\"']+)[\"']", html_text, flags=re.I):
+        for text in re.split(r"[,，/|;；]+", html_lib.unescape(match.group(1))):
+            text = clean_title(text)
+            if text:
+                bits.append(text)
+
+    for match in re.finditer(r"(?:genres?|tags?|categories?|题材|类型|标签|分类)\s*[:：]\s*([\s\S]{0,260})", strip_html(html_text), flags=re.I):
+        for text in re.split(r"[,，/|;；\s]+", match.group(1)):
+            text = clean_title(text)
+            if text:
+                bits.append(text)
+
+    deduped: List[str] = []
+    seen = set()
+    for bit in bits:
+        key = bit.lower()
+        if key not in seen and key not in BAD_TITLE_WORDS:
+            seen.add(key)
+            deduped.append(bit)
+    return " ".join(deduped[:30]), deduped[:30], ""
 
 
 def walk_records(obj: Any) -> Iterable[Dict[str, Any]]:
@@ -390,6 +475,7 @@ def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]
         title = clean_title(title)
         if title:
             records.append((title, record))
+
     for query in index.get("queries", []) if isinstance(index, dict) else []:
         query_text = safe_str(query)
         m = re.search(r"site:([^\s]+)\s+(.+)$", query_text)
@@ -413,6 +499,12 @@ def make_source(record: Dict[str, Any]) -> Dict[str, str]:
         source["detailUrl"] = url
     elif host:
         source["siteUrl"] = f"https://{host}"
+    hint = safe_str(record.get("categorySearchHint"))
+    keyword = safe_str(record.get("categoryKeyword"))
+    if hint:
+        source["categorySearchHint"] = hint
+    if keyword:
+        source["categoryKeyword"] = keyword
     return source
 
 
@@ -428,39 +520,89 @@ def build_item_links(sources: List[Dict[str, Any]]) -> List[Dict[str, str]]:
         if not url or url in seen:
             continue
         seen.add(url)
-        links.append({"title": safe_str(source.get("siteName") or source.get("ruleId") or url), "url": url, "type": "detail" if source.get("detailUrl") else "site", "ruleId": safe_str(source.get("ruleId"))})
+        links.append({
+            "title": safe_str(source.get("siteName") or source.get("ruleId") or url),
+            "url": url,
+            "type": "detail" if source.get("detailUrl") else "site",
+            "ruleId": safe_str(source.get("ruleId")),
+        })
     return links
 
 
-def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str, Any], timestamp: str) -> List[Dict[str, Any]]:
+def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str, Any], timestamp: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     previous_by_title: Dict[str, Dict[str, Any]] = {}
     by_title: Dict[str, Dict[str, Any]] = {}
+    detail_stats = {"detailPagesFetched": 0, "detailPagesFailed": 0, "metadataHits": 0, "metadataLimit": DETAIL_METADATA_LIMIT}
+
     for item in previous.get("items", []) if isinstance(previous, dict) else []:
         title = clean_title(safe_str(item.get("title")))
         if title:
             previous_by_title[title.lower()] = item
+
     for title, record in records:
         title = clean_title(title)
         if not title:
             continue
         key = title.lower()
-        item = by_title.get(key) or previous_by_title.get(key) or {"id": slugify(title), "title": title, "aliases": [], "categories": [], "tags": [], "status": "unknown", "cover": "", "sources": [], "links": [], "primaryUrl": "", "firstSeenAt": timestamp}
+        item = by_title.get(key) or previous_by_title.get(key) or {
+            "id": slugify(title),
+            "title": title,
+            "aliases": [],
+            "categories": [],
+            "tags": [],
+            "status": "unknown",
+            "cover": "",
+            "sources": [],
+            "links": [],
+            "primaryUrl": "",
+            "firstSeenAt": timestamp,
+        }
         item["title"] = title
         item.setdefault("firstSeenAt", timestamp)
-        item["primaryCategory"] = guess_primary_category(title, item.get("tags", []), safe_str(record.get("forcedCategory")))
-        item["categories"] = [item["primaryCategory"]]
+
         source = make_source(record)
         existing = {(s.get("ruleId"), s.get("detailUrl") or s.get("siteUrl")) for s in item.get("sources", [])}
         source_key = (source.get("ruleId"), source.get("detailUrl") or source.get("siteUrl"))
         if source_key not in existing:
             item.setdefault("sources", []).append(source)
+
         item["links"] = build_item_links(item.get("sources", []))
         item["primaryUrl"] = item["links"][0]["url"] if item["links"] else ""
         item["sourceCount"] = len(item.get("sources", []))
         item["linkCount"] = len(item.get("links", []))
         item["lastSeenAt"] = timestamp
         by_title[key] = item
-    return sorted(by_title.values(), key=lambda x: safe_str(x.get("title")))
+
+    for item in by_title.values():
+        metadata_text = ""
+        detail_tags: List[str] = []
+        for link in item.get("links", []):
+            if link.get("type") != "detail":
+                continue
+            if detail_stats["detailPagesFetched"] + detail_stats["detailPagesFailed"] >= DETAIL_METADATA_LIMIT:
+                break
+            meta_text, found_tags, error = extract_detail_metadata(link.get("url", ""))
+            if error:
+                detail_stats["detailPagesFailed"] += 1
+                continue
+            detail_stats["detailPagesFetched"] += 1
+            if meta_text:
+                metadata_text += " " + meta_text
+                detail_tags.extend(found_tags)
+                detail_stats["metadataHits"] += 1
+                break
+            time.sleep(0.15)
+
+        existing_tags = item.get("tags", [])
+        if not isinstance(existing_tags, list):
+            existing_tags = []
+        tag_ids = sorted(set(existing_tags) | set(match_tags(f"{item.get('title', '')} {metadata_text} {' '.join(detail_tags)}")))
+        item["tags"] = tag_ids
+        item["genreText"] = metadata_text.strip()
+        item["primaryCategory"] = guess_primary_category(safe_str(item.get("title")), metadata_text, tag_ids)
+        item["categories"] = [item["primaryCategory"]]
+
+    return sorted(by_title.values(), key=lambda x: safe_str(x.get("title"))), detail_stats
 
 
 def build_category_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -469,6 +611,11 @@ def build_category_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         cid = safe_str(item.get("primaryCategory"))
         counts[cid if cid in CATEGORY_IDS else "weifenlei"] += 1
     return [{"id": rule["id"], "name": rule["name"], "count": counts.get(rule["id"], 0)} for rule in CATEGORY_RULES]
+
+
+def build_tag_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    counts = Counter(tag for item in items for tag in item.get("tags", []) if isinstance(item.get("tags"), list))
+    return [{"id": rule["id"], "name": rule["name"], "count": counts.get(rule["id"], 0)} for rule in TAG_RULES]
 
 
 def build_delta(previous: Dict[str, Any], items: List[Dict[str, Any]], timestamp: str) -> Dict[str, Any]:
@@ -489,11 +636,13 @@ def main() -> int:
     parser.add_argument("--delta-output", default="generated/catalog_delta.json")
     parser.add_argument("--report-output", default="generated/catalog_report.json")
     args = parser.parse_args()
+
     timestamp = now_iso()
     index = load_json(ROOT / args.index, {})
     report = load_json(ROOT / args.report, {})
     discovery_sources = load_json(ROOT / args.discovery_sources, {})
     previous = load_json(ROOT / args.output, {})
+
     discovery_records, discovery_stats = extract_from_discovery_sources(discovery_sources)
     category_search_records, category_search_stats = extract_from_category_search_rules()
     index_records = extract_from_index(index)
@@ -501,13 +650,76 @@ def main() -> int:
     records = category_search_records + discovery_records + index_records + report_records
     if not records:
         records = [(title, {"ruleId": "seed", "siteName": "seed"}) for title in SEED_TITLES]
-    items = merge_catalog(records, previous, timestamp)
+
+    items, detail_stats = merge_catalog(records, previous, timestamp)
     categories = build_category_summary(items)
+    tags = build_tag_summary(items)
     uncategorized_samples = [safe_str(item.get("title")) for item in items if item.get("primaryCategory") == "weifenlei"][:30]
     delta = build_delta(previous, items, timestamp)
-    catalog = {"schema": "comic_catalog_v1", "version": timestamp.replace("-", "").replace(":", "").replace("Z", "Z"), "updatedAt": timestamp, "compliance": {"publicOnly": True, "noBundledComicContent": True, "noImages": True, "noChapterText": True, "noAccountData": True, "noAccessControlBypass": True, "singlePrimaryCategory": True, "clickableLinks": True}, "categories": categories, "items": items, "itemCount": len(items), "sourceRecordCount": len(records), "discoveryRecordCount": len(discovery_records), "categorySearchRecordCount": len(category_search_records)}
-    categories_payload = {"schema": "comic_catalog_categories_v1", "updatedAt": timestamp, "categories": categories}
-    report_payload = {"schema": "comic_catalog_report_v1", "updatedAt": timestamp, "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources, "manualRules": "rules/manual/index.json"}, "itemCount": len(items), "categoryCount": len(categories), "sourceRecordCount": len(records), "indexRecordCount": len(index_records), "reportRecordCount": len(report_records), "discoveryRecordCount": len(discovery_records), "categorySearchRecordCount": len(category_search_records), "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"), "uncategorizedSamples": uncategorized_samples, "singlePrimaryCategory": True, "clickableLinks": True, "classificationPolicy": {"targetPerCategory": CATEGORY_TARGET_COUNT, "categoryTargetedSearchEnabled": True, "broadAutoMatchDisabledIds": sorted(BROAD_AUTO_DISABLED_CATEGORY_IDS), "xuanhuanKeywords": [], "chuanyueKeywords": [], "chongshengKeywords": [], "formerXuanhuanSeedsNotRedistributed": True, "forcedCategoryFromCategorySearch": True, "rebuildFromCurrentValidDiscoveries": True, "reusePreviousMetadataOnlyForSeenTitles": True, "priority": [rule["id"] for rule in CATEGORY_RULES]}, "discovery": discovery_stats, "categorySearch": category_search_stats}
+
+    catalog = {
+        "schema": "comic_catalog_v1",
+        "version": timestamp.replace("-", "").replace(":", "").replace("Z", "Z"),
+        "updatedAt": timestamp,
+        "compliance": {
+            "publicOnly": True,
+            "noBundledComicContent": True,
+            "noImages": True,
+            "noChapterText": True,
+            "noAccountData": True,
+            "noAccessControlBypass": True,
+            "singlePrimaryCategory": True,
+            "clickableLinks": True,
+        },
+        "classification": {
+            "primaryCategoryModel": "common_public_comic_genres_v2",
+            "broadStorySettingsMovedToTags": True,
+            "categorySearchOnlyDiscovery": True,
+            "detailMetadataFirst": True,
+        },
+        "categories": categories,
+        "tags": tags,
+        "items": items,
+        "itemCount": len(items),
+        "sourceRecordCount": len(records),
+        "discoveryRecordCount": len(discovery_records),
+        "categorySearchRecordCount": len(category_search_records),
+    }
+
+    categories_payload = {"schema": "comic_catalog_categories_v1", "updatedAt": timestamp, "categories": categories, "tags": tags}
+    report_payload = {
+        "schema": "comic_catalog_report_v1",
+        "updatedAt": timestamp,
+        "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources, "manualRules": "rules/manual/index.json"},
+        "itemCount": len(items),
+        "categoryCount": len(categories),
+        "tagCount": len(tags),
+        "sourceRecordCount": len(records),
+        "indexRecordCount": len(index_records),
+        "reportRecordCount": len(report_records),
+        "discoveryRecordCount": len(discovery_records),
+        "categorySearchRecordCount": len(category_search_records),
+        "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"),
+        "uncategorizedSamples": uncategorized_samples,
+        "singlePrimaryCategory": True,
+        "clickableLinks": True,
+        "classificationPolicy": {
+            "primaryCategoryModel": "common_public_comic_genres_v2",
+            "targetPerCategory": CATEGORY_TARGET_COUNT,
+            "categoryTargetedSearchEnabled": True,
+            "categorySearchOnlyDiscovery": True,
+            "forcedCategoryFromCategorySearch": False,
+            "detailMetadataFirst": True,
+            "broadStorySettingsMovedToTags": ["xuanhuan", "chuanyue", "chongsheng", "yishijie", "xitong", "fuchou", "shuangwen"],
+            "primaryCategoryPriority": [rule["id"] for rule in CATEGORY_RULES],
+            "tagIds": [rule["id"] for rule in TAG_RULES],
+        },
+        "discovery": discovery_stats,
+        "categorySearch": category_search_stats,
+        "detailMetadata": detail_stats,
+        "tags": tags,
+    }
+
     dump_json(ROOT / args.output, catalog)
     dump_json(ROOT / args.categories_output, categories_payload)
     dump_json(ROOT / args.delta_output, delta)
