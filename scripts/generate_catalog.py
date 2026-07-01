@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-生成公开漫画目录索引。
+"""生成公开漫画目录索引。
 
-边界：
-- 只生成作品元数据、分类、标签、来源规则引用。
-- 不下载、不保存漫画图片、章节正文、付费内容、账号数据。
-- 默认从 generated/index.json、generated/rulebot_report.json 与 generated/catalog_discovery_sources.json 中提取公开来源信息。
-- 每本漫画只固定到一个主分类，避免分类重复计数。
-- 每本漫画生成可点击链接，App 可直接根据 primaryUrl 或 links[] 打开。
+只生成公开作品元数据、分类、来源规则和可点击链接；不保存漫画图片、章节正文、账号数据或付费内容。
 """
 
 from __future__ import annotations
@@ -28,9 +22,10 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalog/5.5"
 
-# 分类顺序同时也是唯一主分类优先级。
-# 规则：先判定具体题材，再判定玄幻这种大类，避免玄幻抢走修仙/穿越/热血等条目。
+# 分类顺序即唯一主分类优先级。
+# 玄幻作为大类不再自动匹配，避免吞掉修仙、热血、冒险、穿越、科幻等具体题材。
 CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "immortal", "cultivation", "cultivator", "cultivate", "martial peak", "dao", "taoist"]},
     {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠", "一人之下", "剑", "刀", "拳", "kung fu", "martial arts", "sword", "blade", "fist"]},
@@ -41,40 +36,26 @@ CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "gufeng", "name": "古风", "keywords": ["古风", "古代", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "ancient", "prince", "princess", "duke", "emperor", "royal"]},
     {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "异世界", "转生", "isekai", "another world", "transmigration", "transmigrated", "villainess"]},
     {"id": "chongsheng", "name": "重生", "keywords": ["重生", "回归", "归来", "轮回", "rebirth", "reborn", "regression", "regressor", "returner", "retrogression", "second life", "time loop", "reincarnation", "reincarnated"]},
-    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "杀手", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
+    {"id": "rexue", "name": "热血", "keywords": ["热血", "战斗", "格斗", "竞技", "杀手", "斗罗", "斗破", "武动乾坤", "soul land", "douluo", "battle through", "martial universe", "battle", "fight", "fighting", "action", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "游戏", "完美世界", "perfect world", "adventure", "dungeon", "quest", "journey", "vrmmo", "playthrough"]},
     {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "case", "crime"]},
     {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "吞噬星空", "swallowed star", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space"]},
     {"id": "gaoxiao", "name": "搞笑", "keywords": ["搞笑", "喜剧", "沙雕", "comedy", "funny", "gag"]},
     {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "猫", "slice of life", "daily life", "leisurely", "cat"]},
     {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
     {"id": "shaonv", "name": "少女", "keywords": ["少女", "小姐姐", "shojo", "shoujo"]},
     {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love"]},
     {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
-    {"id": "xuanhuan", "name": "玄幻", "keywords": ["斗罗", "斗破", "完美世界", "武动乾坤", "吞噬星空", "soul land", "douluo", "battle through", "perfect world", "swallowed star", "martial universe"]},
+    {"id": "xuanhuan", "name": "玄幻", "keywords": []},
     {"id": "weifenlei", "name": "未分类", "keywords": []},
 ]
 
 CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
-
-SEED_TITLES = [
-    "斗罗大陆",
-    "Soul Land",
-    "Douluo Dalu",
-    "完美世界",
-    "吞噬星空",
-    "凡人修仙传",
-    "斗破苍穹",
-    "武动乾坤",
-    "一人之下",
-]
-
 TEXT_KEYS = ("title", "name", "comicName", "bookName", "displayName", "keyword")
 URL_KEYS = ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")
 ID_KEYS = ("id", "ruleId", "sourceId")
 SITE_KEYS = ("siteName", "name", "domain", "host")
-USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalog/5.5"
 BAD_TITLE_WORDS = {
     "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
     "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
@@ -83,9 +64,15 @@ BAD_TITLE_WORDS = {
 BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/tag/", "/author/", "/login", "/register")
 IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
 
+SEED_TITLES = ["斗罗大陆", "Soul Land", "Douluo Dalu", "完美世界", "吞噬星空", "凡人修仙传", "斗破苍穹", "武动乾坤", "一人之下"]
+
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def safe_str(value: Any) -> str:
+    return "" if value is None else str(value).strip()
 
 
 def load_json(path: Path, default: Any) -> Any:
@@ -102,10 +89,12 @@ def dump_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", "utf-8")
 
 
-def safe_str(value: Any) -> str:
-    if value is None:
+def normalize_host(url_or_host: str) -> str:
+    value = safe_str(url_or_host)
+    if not value:
         return ""
-    return str(value).strip()
+    parsed = urlparse(value if "://" in value else "https://" + value)
+    return (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
 
 
 def first_text(record: Dict[str, Any], keys: Iterable[str]) -> str:
@@ -116,27 +105,18 @@ def first_text(record: Dict[str, Any], keys: Iterable[str]) -> str:
     return ""
 
 
-def normalize_host(url_or_host: str) -> str:
-    value = safe_str(url_or_host)
-    if not value:
-        return ""
-    parsed = urlparse(value if "://" in value else "https://" + value)
-    return (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
-
-
 def slugify(title: str) -> str:
     text = title.lower().strip()
     text = re.sub(r"[^0-9a-zA-Z\u4e00-\u9fff]+", "-", text).strip("-")
     if re.search(r"[\u4e00-\u9fff]", text):
-        digest = hashlib.sha1(title.encode("utf-8")).hexdigest()[:10]
-        return f"comic-{digest}"
+        return f"comic-{hashlib.sha1(title.encode('utf-8')).hexdigest()[:10]}"
     return text or hashlib.sha1(title.encode("utf-8")).hexdigest()[:12]
 
 
 def guess_primary_category(title: str, tags: Optional[List[str]] = None) -> str:
     text = (title + " " + " ".join(tags or [])).lower()
     for rule in CATEGORY_RULES:
-        if rule["id"] == "weifenlei":
+        if rule["id"] in {"xuanhuan", "weifenlei"}:
             continue
         if any(keyword.lower() in text for keyword in rule["keywords"]):
             return rule["id"]
@@ -148,10 +128,6 @@ def normalize_single_category(title: str, item: Optional[Dict[str, Any]] = None)
     return guess_primary_category(title, tags)
 
 
-def guess_categories(title: str, tags: Optional[List[str]] = None) -> List[str]:
-    return [guess_primary_category(title, tags)]
-
-
 def strip_html(raw: str) -> str:
     value = safe_str(raw)
     value = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", value, flags=re.I)
@@ -160,8 +136,7 @@ def strip_html(raw: str) -> str:
         value = " ".join(alt_values) + " " + value
     value = re.sub(r"<[^>]+>", " ", value)
     value = html_lib.unescape(value)
-    value = re.sub(r"\s+", " ", value).strip()
-    return value
+    return re.sub(r"\s+", " ", value).strip()
 
 
 def looks_like_opaque_slug(value: str) -> bool:
@@ -175,19 +150,14 @@ def looks_like_opaque_slug(value: str) -> bool:
     has_digit = bool(re.search(r"\d", compact))
     has_upper = bool(re.search(r"[A-Z]", compact))
     has_lower = bool(re.search(r"[a-z]", compact))
-    if has_alpha and has_digit and (has_upper and has_lower or len(compact) >= 8):
-        return True
-    return False
+    return has_alpha and has_digit and (has_upper and has_lower or len(compact) >= 8)
 
 
 def title_from_url(url: str) -> str:
-    path = urlparse(url).path.rstrip("/")
-    slug = path.split("/")[-1]
+    slug = urlparse(url).path.rstrip("/").split("/")[-1]
     slug = re.sub(r"\.(html?|php|aspx?)$", "", slug, flags=re.I)
     slug = re.sub(r"[-_]+", " ", slug).strip()
-    if looks_like_opaque_slug(slug):
-        return ""
-    return html_lib.unescape(slug)
+    return "" if looks_like_opaque_slug(slug) else html_lib.unescape(slug)
 
 
 def clean_title(value: str) -> str:
@@ -197,9 +167,7 @@ def clean_title(value: str) -> str:
     lowered = title.lower()
     if not title or len(title) < 2 or len(title) > 120:
         return ""
-    if looks_like_opaque_slug(title):
-        return ""
-    if lowered in BAD_TITLE_WORDS:
+    if looks_like_opaque_slug(title) or lowered in BAD_TITLE_WORDS:
         return ""
     if re.fullmatch(r"https?://.+", lowered) or re.fullmatch(r"[a-z0-9.-]+\.[a-z]{2,}", lowered):
         return ""
@@ -209,10 +177,9 @@ def clean_title(value: str) -> str:
 def group_value(match: re.Match[str], groups: Iterable[int]) -> str:
     for group in groups:
         try:
-            value = match.group(int(group))
+            value = safe_str(match.group(int(group)))
         except Exception:
             value = ""
-        value = safe_str(value)
         if value:
             return value
     return ""
@@ -230,21 +197,11 @@ def is_catalog_candidate_url(url: str) -> bool:
     if parsed.scheme not in {"http", "https"}:
         return False
     path = parsed.path.lower()
-    if any(part in path for part in BAD_URL_PARTS):
-        return False
-    if path.endswith(IMAGE_SUFFIXES):
-        return False
-    return True
+    return not any(part in path for part in BAD_URL_PARTS) and not path.endswith(IMAGE_SUFFIXES)
 
 
 def fetch_public_text(url: str, timeout: int) -> Tuple[str, str]:
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        },
-    )
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             content_type = response.headers.get("content-type", "")
@@ -272,14 +229,7 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
     records: List[Tuple[str, Dict[str, Any]]] = []
     defaults = discovery.get("defaults", {}) if isinstance(discovery, dict) else {}
     sources = discovery.get("sources", []) if isinstance(discovery, dict) else []
-    stats = {
-        "enabledSourceCount": 0,
-        "entryUrlCount": 0,
-        "pagesFetched": 0,
-        "pagesFailed": 0,
-        "recordsFound": 0,
-        "errors": [],
-    }
+    stats = {"enabledSourceCount": 0, "entryUrlCount": 0, "pagesFetched": 0, "pagesFailed": 0, "recordsFound": 0, "errors": []}
 
     for source in sources:
         if not isinstance(source, dict) or not source.get("enabled", True):
@@ -290,7 +240,6 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
         site_name = safe_str(source.get("name")) or source_id
         entries = source.get("entryUrls", []) or []
         stats["entryUrlCount"] += len(entries)
-
         item_regex = compile_regex(safe_str(source.get("itemRegex") or defaults.get("itemRegex")))
         next_regex = compile_regex(safe_str(source.get("nextPageRegex") or defaults.get("nextPageRegex")))
         if not item_regex:
@@ -308,10 +257,9 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
         for entry in entries:
             if source_found >= max_items:
                 break
-            entry_url = safe_str(entry.get("url") if isinstance(entry, dict) else entry)
+            current_url = safe_str(entry.get("url") if isinstance(entry, dict) else entry)
             entry_type = safe_str(entry.get("type") if isinstance(entry, dict) else "list") or "list"
             entry_category = safe_str(entry.get("category") if isinstance(entry, dict) else "")
-            current_url = entry_url
             seen_pages = set()
             page_no = 0
 
@@ -320,7 +268,6 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
                     break
                 seen_pages.add(current_url)
                 page_no += 1
-
                 html_text, error = fetch_public_text(current_url, timeout)
                 if error:
                     stats["pagesFailed"] += 1
@@ -330,21 +277,13 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
                 stats["pagesFetched"] += 1
 
                 for match in item_regex.finditer(html_text):
-                    raw_url = group_value(match, url_groups)
-                    detail_url = safe_abs_url(current_url, raw_url)
+                    detail_url = safe_abs_url(current_url, group_value(match, url_groups))
                     if not detail_url or not is_catalog_candidate_url(detail_url):
                         continue
                     title = clean_title(group_value(match, title_groups)) or clean_title(title_from_url(detail_url))
                     if not title:
                         continue
-                    records.append((title, {
-                        "ruleId": rule_id,
-                        "siteName": site_name,
-                        "detailUrl": detail_url,
-                        "domain": source_id,
-                        "discoveryType": entry_type,
-                        "discoveryCategory": entry_category,
-                    }))
+                    records.append((title, {"ruleId": rule_id, "siteName": site_name, "detailUrl": detail_url, "domain": source_id, "discoveryType": entry_type, "discoveryCategory": entry_category}))
                     source_found += 1
                     if source_found >= max_items:
                         break
@@ -374,16 +313,14 @@ def walk_records(obj: Any) -> Iterable[Dict[str, Any]]:
 
 def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
     records: List[Tuple[str, Dict[str, Any]]] = []
-
     for record in walk_records(index):
         title = first_text(record, TEXT_KEYS)
         url = first_text(record, URL_KEYS)
         if not title and url:
             title = normalize_host(url)
         title = clean_title(title)
-        if not title:
-            continue
-        records.append((title, record))
+        if title:
+            records.append((title, record))
 
     for query in index.get("queries", []) if isinstance(index, dict) else []:
         query_text = safe_str(query)
@@ -393,10 +330,8 @@ def extract_from_index(index: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]
         domain, rest = m.groups()
         title = re.sub(r"\s+(漫画|在线阅读|manga|chapter|read|online|manhua).*$", "", rest, flags=re.I).strip()
         title = clean_title(title)
-        if not title:
-            continue
-        records.append((title, {"domain": domain, "ruleId": normalize_host(domain), "siteName": normalize_host(domain)}))
-
+        if title:
+            records.append((title, {"domain": domain, "ruleId": normalize_host(domain), "siteName": normalize_host(domain)}))
     return records
 
 
@@ -425,20 +360,13 @@ def build_item_links(sources: List[Dict[str, Any]]) -> List[Dict[str, str]]:
         if not url or url in seen:
             continue
         seen.add(url)
-        link_type = "detail" if source.get("detailUrl") else "site"
-        links.append({
-            "title": safe_str(source.get("siteName") or source.get("ruleId") or url),
-            "url": url,
-            "type": link_type,
-            "ruleId": safe_str(source.get("ruleId")),
-        })
+        links.append({"title": safe_str(source.get("siteName") or source.get("ruleId") or url), "url": url, "type": "detail" if source.get("detailUrl") else "site", "ruleId": safe_str(source.get("ruleId"))})
     return links
 
 
 def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str, Any], timestamp: str) -> List[Dict[str, Any]]:
     previous_by_title: Dict[str, Dict[str, Any]] = {}
     by_title: Dict[str, Dict[str, Any]] = {}
-
     for item in previous.get("items", []) if isinstance(previous, dict) else []:
         title = clean_title(safe_str(item.get("title")))
         if title:
@@ -449,24 +377,11 @@ def merge_catalog(records: List[Tuple[str, Dict[str, Any]]], previous: Dict[str,
         if not title:
             continue
         key = title.lower()
-        item = by_title.get(key) or previous_by_title.get(key) or {
-            "id": slugify(title),
-            "title": title,
-            "aliases": [],
-            "categories": [],
-            "tags": [],
-            "status": "unknown",
-            "cover": "",
-            "sources": [],
-            "links": [],
-            "primaryUrl": "",
-            "firstSeenAt": timestamp,
-        }
+        item = by_title.get(key) or previous_by_title.get(key) or {"id": slugify(title), "title": title, "aliases": [], "categories": [], "tags": [], "status": "unknown", "cover": "", "sources": [], "links": [], "primaryUrl": "", "firstSeenAt": timestamp}
         item["title"] = title
         item.setdefault("firstSeenAt", timestamp)
         item["primaryCategory"] = normalize_single_category(title, item)
         item["categories"] = [item["primaryCategory"]]
-
         source = make_source(record)
         existing = {(s.get("ruleId"), s.get("detailUrl") or s.get("siteUrl")) for s in item.get("sources", [])}
         source_key = (source.get("ruleId"), source.get("detailUrl") or source.get("siteUrl"))
@@ -486,31 +401,16 @@ def build_category_summary(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     counts = defaultdict(int)
     for item in items:
         cid = safe_str(item.get("primaryCategory"))
-        if not cid:
-            categories = item.get("categories", []) or []
-            cid = safe_str(categories[0]) if categories else "weifenlei"
         counts[cid if cid in CATEGORY_IDS else "weifenlei"] += 1
-    return [
-        {"id": rule["id"], "name": rule["name"], "count": counts.get(rule["id"], 0)}
-        for rule in CATEGORY_RULES
-    ]
+    return [{"id": rule["id"], "name": rule["name"], "count": counts.get(rule["id"], 0)} for rule in CATEGORY_RULES]
 
 
 def build_delta(previous: Dict[str, Any], items: List[Dict[str, Any]], timestamp: str) -> Dict[str, Any]:
     old_ids = {safe_str(item.get("id")) for item in previous.get("items", [])} if isinstance(previous, dict) else set()
-    new_items = [item for item in items if item.get("id") not in old_ids]
     new_ids = {safe_str(item.get("id")) for item in items}
+    new_items = [item for item in items if item.get("id") not in old_ids]
     removed_ids = sorted(i for i in old_ids if i and i not in new_ids)
-    return {
-        "schema": "comic_catalog_delta_v1",
-        "updatedAt": timestamp,
-        "added": new_items,
-        "updated": [],
-        "removed": removed_ids[:200],
-        "addedCount": len(new_items),
-        "updatedCount": 0,
-        "removedCount": len(removed_ids),
-    }
+    return {"schema": "comic_catalog_delta_v1", "updatedAt": timestamp, "added": new_items, "updated": [], "removed": removed_ids[:200], "addedCount": len(new_items), "updatedCount": 0, "removedCount": len(removed_ids)}
 
 
 def main() -> int:
@@ -540,60 +440,11 @@ def main() -> int:
     items = merge_catalog(records, previous, timestamp)
     categories = build_category_summary(items)
     uncategorized_samples = [safe_str(item.get("title")) for item in items if item.get("primaryCategory") == "weifenlei"][:30]
-
-    catalog = {
-        "schema": "comic_catalog_v1",
-        "version": timestamp.replace("-", "").replace(":", "").replace("Z", "Z"),
-        "updatedAt": timestamp,
-        "compliance": {
-            "publicOnly": True,
-            "noBundledComicContent": True,
-            "noImages": True,
-            "noChapterText": True,
-            "noAccountData": True,
-            "noAccessControlBypass": True,
-            "singlePrimaryCategory": True,
-            "clickableLinks": True,
-        },
-        "categories": categories,
-        "items": items,
-        "itemCount": len(items),
-        "sourceRecordCount": len(records),
-        "discoveryRecordCount": len(discovery_records),
-    }
-
-    categories_payload = {
-        "schema": "comic_catalog_categories_v1",
-        "updatedAt": timestamp,
-        "categories": categories,
-    }
-
     delta = build_delta(previous, items, timestamp)
-    report_payload = {
-        "schema": "comic_catalog_report_v1",
-        "updatedAt": timestamp,
-        "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources},
-        "itemCount": len(items),
-        "categoryCount": len(categories),
-        "sourceRecordCount": len(records),
-        "indexRecordCount": len(index_records),
-        "reportRecordCount": len(report_records),
-        "discoveryRecordCount": len(discovery_records),
-        "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"),
-        "uncategorizedSamples": uncategorized_samples,
-        "singlePrimaryCategory": True,
-        "clickableLinks": True,
-        "classificationPolicy": {
-            "specificCategoriesBeforeBroadCategories": True,
-            "broadCategoryFallbackIds": ["xuanhuan"],
-            "genericBroadTitleKeywordDisabledForXuanhuan": True,
-            "opaqueSlugTitleFilter": True,
-            "rebuildFromCurrentValidDiscoveries": True,
-            "reusePreviousMetadataOnlyForSeenTitles": True,
-            "priority": [rule["id"] for rule in CATEGORY_RULES],
-        },
-        "discovery": discovery_stats,
-    }
+
+    catalog = {"schema": "comic_catalog_v1", "version": timestamp.replace("-", "").replace(":", "").replace("Z", "Z"), "updatedAt": timestamp, "compliance": {"publicOnly": True, "noBundledComicContent": True, "noImages": True, "noChapterText": True, "noAccountData": True, "noAccessControlBypass": True, "singlePrimaryCategory": True, "clickableLinks": True}, "categories": categories, "items": items, "itemCount": len(items), "sourceRecordCount": len(records), "discoveryRecordCount": len(discovery_records)}
+    categories_payload = {"schema": "comic_catalog_categories_v1", "updatedAt": timestamp, "categories": categories}
+    report_payload = {"schema": "comic_catalog_report_v1", "updatedAt": timestamp, "input": {"index": args.index, "report": args.report, "discoverySources": args.discovery_sources}, "itemCount": len(items), "categoryCount": len(categories), "sourceRecordCount": len(records), "indexRecordCount": len(index_records), "reportRecordCount": len(report_records), "discoveryRecordCount": len(discovery_records), "uncategorizedCount": sum(1 for item in items if item.get("primaryCategory") == "weifenlei"), "uncategorizedSamples": uncategorized_samples, "singlePrimaryCategory": True, "clickableLinks": True, "classificationPolicy": {"specificCategoriesBeforeBroadCategories": True, "xuanhuanAutoMatchDisabled": True, "xuanhuanKeywords": [], "redistributeFormerXuanhuanSeeds": {"rexue": ["斗罗", "斗破", "武动乾坤", "soul land", "douluo", "battle through", "martial universe"], "maoxian": ["完美世界", "perfect world"], "kehuan": ["吞噬星空", "swallowed star"]}, "rebuildFromCurrentValidDiscoveries": True, "reusePreviousMetadataOnlyForSeenTitles": True, "priority": [rule["id"] for rule in CATEGORY_RULES]}, "discovery": discovery_stats}
 
     dump_json(ROOT / args.output, catalog)
     dump_json(ROOT / args.categories_output, categories_payload)
