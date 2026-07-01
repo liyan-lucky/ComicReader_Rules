@@ -1,12 +1,251 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-06-30T22:31:22Z",
+  "updatedAt": "2026-07-01T02:08:40Z",
   "input": {
     "index": "generated/index.json",
-    "report": "generated/rulebot_report.json"
+    "report": "generated/rulebot_report.json",
+    "discoverySources": "generated/catalog_discovery_sources.json",
+    "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 12,
-  "categoryCount": 22,
-  "sourceRecordCount": 579,
-  "uncategorizedCount": 3
+  "itemCount": 740,
+  "categoryCount": 16,
+  "tagCount": 12,
+  "sourceRecordCount": 4580,
+  "indexRecordCount": 291,
+  "reportRecordCount": 288,
+  "discoveryRecordCount": 1001,
+  "categorySearchRecordCount": 3000,
+  "uncategorizedCount": 237,
+  "uncategorizedSamples": [
+    "And2girls安菟",
+    "Douluo Dalu",
+    "Manga Updates",
+    "Mangafire",
+    "Soul Land",
+    "Soul Land : Douluo Dalu ,Chapter 154",
+    "Soul Land : Douluo Dalu ,Chapter 155",
+    "Soul Land : Douluo Dalu ,Chapter 156",
+    "Soul Land : Douluo Dalu ,Chapter 157",
+    "Soul Land : Douluo Dalu ,Chapter 158",
+    "Soul Land : Douluo Dalu ,Chapter 159",
+    "Soul Land : Douluo Dalu ,Chapter 160",
+    "Soul Land : Douluo Dalu ,Chapter 161",
+    "Soul Land : Douluo Dalu ,Chapter 162",
+    "Soul Land : Douluo Dalu ,Chapter 163",
+    "Soul Land : Douluo Dalu ,Chapter 164",
+    "Soul Land : Douluo Dalu ,Chapter 165",
+    "Soul Land : Douluo Dalu ,Chapter 166",
+    "Soul Land : Douluo Dalu ,Chapter 167",
+    "Soul Land : Douluo Dalu ,Chapter 168",
+    "Soul Land : Douluo Dalu ,Chapter 169",
+    "Soul Land : Douluo Dalu ,Chapter 170",
+    "Soul Land : Douluo Dalu ,Chapter 171",
+    "Soul Land : Douluo Dalu ,Chapter 172",
+    "Soul Land : Douluo Dalu ,Chapter 173",
+    "Soul Land : Douluo Dalu ,Chapter 174",
+    "Soul Land : Douluo Dalu ,Chapter 175",
+    "Soul Land : Douluo Dalu ,Chapter 176",
+    "Soul Land : Douluo Dalu ,Chapter 177",
+    "Soul Land : Douluo Dalu ,Chapter 178"
+  ],
+  "singlePrimaryCategory": true,
+  "clickableLinks": true,
+  "classificationPolicy": {
+    "primaryCategoryModel": "common_public_comic_genres_v2",
+    "targetPerCategory": 200,
+    "categoryTargetedSearchEnabled": true,
+    "categorySearchOnlyDiscovery": true,
+    "forcedCategoryFromCategorySearch": false,
+    "detailMetadataFirst": true,
+    "broadStorySettingsMovedToTags": [
+      "xuanhuan",
+      "chuanyue",
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen"
+    ],
+    "primaryCategoryPriority": [
+      "xiuxian",
+      "wuxia_gedou",
+      "xiaoyuan",
+      "dushi",
+      "lishi_gufeng",
+      "lianai",
+      "xiju",
+      "xuanyi",
+      "kongbu",
+      "kehuan",
+      "richang",
+      "maoxian",
+      "dongzuo",
+      "qihuan",
+      "juqing",
+      "weifenlei"
+    ],
+    "tagIds": [
+      "xuanhuan",
+      "chuanyue",
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen",
+      "hougong",
+      "danmei",
+      "baihe",
+      "shaonian",
+      "shaonv"
+    ]
+  },
+  "discovery": {
+    "enabledSourceCount": 8,
+    "entryUrlCount": 24,
+    "pagesFetched": 10,
+    "pagesFailed": 9,
+    "recordsFound": 1001,
+    "errors": [
+      {
+        "source": "mgeko.cc",
+        "url": "https://www.mgeko.cc/latest",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "source": "mgeko.cc",
+        "url": "https://www.mgeko.cc/manga",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "source": "manhuaus.com",
+        "url": "https://manhuaus.com",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "manhuaus.com",
+        "url": "https://manhuaus.com/manga",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "manhuaus.com",
+        "url": "https://manhuaus.com/latest",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "happymh.com",
+        "url": "https://happymh.com",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "happymh.com",
+        "url": "https://happymh.com/manga",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "happymh.com",
+        "url": "https://happymh.com/latest",
+        "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "mangaread.org",
+        "url": "https://mangaread.org/latest",
+        "error": "跳过非文本响应：image/png"
+      }
+    ]
+  },
+  "categorySearch": {
+    "enabledRuleCount": 2,
+    "categoryCount": 15,
+    "searchPagesFetched": 105,
+    "searchPagesFailed": 0,
+    "recordsFound": 3000,
+    "errors": [],
+    "targetPerCategory": 200,
+    "searchOnlyDiscovery": true,
+    "hintRecordCounts": {
+      "dongzuo": 200,
+      "dushi": 200,
+      "juqing": 200,
+      "kehuan": 200,
+      "kongbu": 200,
+      "lianai": 200,
+      "lishi_gufeng": 200,
+      "maoxian": 200,
+      "qihuan": 200,
+      "richang": 200,
+      "wuxia_gedou": 200,
+      "xiaoyuan": 200,
+      "xiju": 200,
+      "xiuxian": 200,
+      "xuanyi": 200
+    }
+  },
+  "detailMetadata": {
+    "detailPagesFetched": 732,
+    "detailPagesFailed": 2,
+    "metadataHits": 725,
+    "metadataLimit": 900
+  },
+  "tags": [
+    {
+      "id": "xuanhuan",
+      "name": "玄幻",
+      "count": 9
+    },
+    {
+      "id": "chuanyue",
+      "name": "穿越",
+      "count": 17
+    },
+    {
+      "id": "chongsheng",
+      "name": "重生",
+      "count": 32
+    },
+    {
+      "id": "yishijie",
+      "name": "异世界",
+      "count": 285
+    },
+    {
+      "id": "xitong",
+      "name": "系统",
+      "count": 13
+    },
+    {
+      "id": "fuchou",
+      "name": "复仇",
+      "count": 7
+    },
+    {
+      "id": "shuangwen",
+      "name": "爽文",
+      "count": 4
+    },
+    {
+      "id": "hougong",
+      "name": "后宫",
+      "count": 277
+    },
+    {
+      "id": "danmei",
+      "name": "耽美",
+      "count": 133
+    },
+    {
+      "id": "baihe",
+      "name": "百合",
+      "count": 127
+    },
+    {
+      "id": "shaonian",
+      "name": "少年",
+      "count": 173
+    },
+    {
+      "id": "shaonv",
+      "name": "少女",
+      "count": 255
+    }
+  ]
 }
