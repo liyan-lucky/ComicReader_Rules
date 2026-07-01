@@ -11,11 +11,23 @@ liyan-lucky/ComicReader_Rules
 ## 分支策略
 
 ```text
-main      正式稳定分支，App 默认读取
- develop  开发测试分支，新功能先提交到这里，确认 OK 后再合并 main
+main      主工作分支、正式稳定分支，App 默认读取，后续功能和生成结果直接维护在这里。
+develop   备份分支，只用于备份 main，不再作为主要开发分支。
 ```
 
-当前“公开漫画目录 + 分类汇总”功能只在 `develop` 开发分支实现和测试，不自动合并到 `main`。
+当前策略：
+
+```text
+所有后续修改默认直接进入 main。
+develop 只作为 main 的备份分支。
+如需大改，可先备份 main，再修改 main。
+```
+
+详细开发规范见：
+
+```text
+docs/development_standards.md
+```
 
 ## App 默认读取地址
 
@@ -25,37 +37,35 @@ main      正式稳定分支，App 默认读取
 https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/index.json
 ```
 
-开发目录索引：
-
-```text
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_categories.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/develop/generated/catalog_delta.json
-```
-
-确认 OK 并合并到主分支后，App 可改读：
+正式目录索引：
 
 ```text
 https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_categories.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_delta.json
 ```
 
 ## 目录结构
 
 ```text
-rules/                         手工规则、模板和当前可读取 index.json
-generated/index.json            App 远程更新使用的标准规则索引
-generated/catalog.json          公开漫画目录索引，供 App 分类浏览和添加来源
-generated/catalog_categories.json 分类汇总索引
-generated/catalog_delta.json    目录增量更新文件
-generated/catalog_report.json   目录生成报告
-generated/rulebot_report.json   自动审计报告
+.github/workflows/               GitHub Actions 流程，只放 workflow yml/yaml
+docs/                            文档、接口说明、开发规范、维护说明
+rules/                           App 当前可读取规则索引和手工稳定规则
+rules/manual/index.json           手工维护的稳定公开规则
+generated/index.json              App 远程更新使用的标准规则索引
+generated/rulebot_report.json     自动规则审计报告
 generated/GeneratedSourceRules.ets ArkTS 规则文件
-tools/rule_discovery/           公开源搜索、审计、规则生成脚本
-scripts/generate_remote_rules.sh 本地生成规则脚本
-scripts/generate_catalog.py      本地生成公开漫画目录脚本
-docs/catalog_api.md              目录接口设计说明
-.github/workflows/              GitHub Actions 自动生成、打标签、发布 Release
+generated/rule_targets.json       规则数量目标和缺口统计
+generated/catalog.json            公开漫画目录索引，供 App 分类浏览和添加来源
+generated/catalog_categories.json 分类汇总索引
+generated/catalog_delta.json      目录增量更新文件
+generated/catalog_report.json     目录生成报告
+generated/catalog_target_gaps.json 分类目标缺口报告
+tools/rule_discovery/             公开源搜索、审计、规则生成、规则清洗工具
+scripts/                          本地/CI 入口脚本
 ```
+
+不允许在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。详细规则见 `docs/development_standards.md`。
 
 ## 本地生成规则
 
@@ -91,11 +101,12 @@ generated/catalog.json
 generated/catalog_categories.json
 generated/catalog_delta.json
 generated/catalog_report.json
+generated/catalog_target_gaps.json
 ```
 
 目录功能只保存漫画名、别名、分类、标签、公开来源 URL、规则 ID 和更新时间，不保存漫画图片、章节正文、付费内容或账号数据。
 
-## GitHub Actions 一键生成 + 标签发布
+## GitHub Actions 生成远程漫画规则
 
 进入 GitHub 仓库：
 
@@ -103,18 +114,16 @@ generated/catalog_report.json
 Actions → 生成远程漫画规则 → Run workflow
 ```
 
-现在不需要填写任何信息，直接点绿色按钮运行即可。
-
-默认内置关键词：
+默认模式：
 
 ```text
-斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下
+quick：快速冲 10 条可搜索漫画规则，默认运行，适合日常生成。
 ```
 
-默认内置域名：
+手动深度模式：
 
 ```text
-kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com
+deep：深度冲 100 条可搜索漫画规则，耗时更长，只在需要扩充规则时手动选择。
 ```
 
 运行完成后会自动：
@@ -123,30 +132,47 @@ kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,m
 1. 生成 generated/index.json
 2. 生成 generated/rulebot_report.json
 3. 生成 generated/GeneratedSourceRules.ets
-4. 同步 rules/index.json
-5. commit 并 push 到 main
-6. 自动生成 tag，例如 rules-20260624-233000
-7. 自动创建 GitHub Release
-8. 上传 index.json、审计报告、ArkTS 文件和 zip 包
+4. 生成 generated/rule_targets.json
+5. 同步 rules/index.json
+6. 清洗非漫画源规则
+7. commit 并 push 到 main
+8. 上传 artifact
 ```
 
-Release 页面：
+默认不会：
 
 ```text
-https://github.com/liyan-lucky/ComicReader_Rules/releases
+1. 不自动创建 Release
+2. 不自动创建 tag
 ```
-
-App 默认读取 main 分支最新规则。如果需要固定版本，可以把 App 的远程规则地址改成某个 tag 对应的 raw 地址。
 
 ## GitHub Actions 生成公开漫画目录
 
-开发分支目录生成任务：
+目录生成任务：
 
 ```text
 Actions → 生成公开漫画目录 → Run workflow
 ```
 
-该任务固定检出并提交到 `develop` 分支，不会自动合并或推送到 `main`。
+该任务固定检出并提交到 `main` 分支。
+
+## GitHub Actions 清理运行记录
+
+清理流程：
+
+```text
+Actions → 清理 Actions 运行记录 → Run workflow
+```
+
+默认：
+
+```text
+dry_run=true，只预览，不删除。
+clean_tags=false，不清理标签。
+clean_releases=false，不清理 Release。
+```
+
+只有手动把 `dry_run=false` 时才会执行实际删除。删除标签和 Release 必须分别打开对应选项。
 
 ## 规则边界
 
