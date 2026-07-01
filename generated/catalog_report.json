@@ -1,99 +1,110 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-01T01:17:51Z",
+  "updatedAt": "2026-07-01T02:04:30Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 746,
-  "categoryCount": 22,
-  "sourceRecordCount": 5105,
+  "itemCount": 740,
+  "categoryCount": 16,
+  "tagCount": 12,
+  "sourceRecordCount": 4581,
   "indexRecordCount": 291,
   "reportRecordCount": 288,
-  "discoveryRecordCount": 1008,
-  "categorySearchRecordCount": 3518,
-  "uncategorizedCount": 389,
+  "discoveryRecordCount": 1002,
+  "categorySearchRecordCount": 3000,
+  "uncategorizedCount": 234,
   "uncategorizedSamples": [
-    "A RETURNER’S MAGIC SHOULD BE SPECIAL",
-    "A Returner",
-    "A Returner's Magic Should Be Special",
-    "ADyANoZpkM",
-    "Ai no Senbiki: Mamakatsu Shitara Mama ga Dekita Hanashi",
     "And2girls安菟",
-    "Angnyeoneun Baengmanjangja Haegyeolsa",
-    "Arafo Boukensha, Densetsu Ni Naru – SS Rank No Musume Ni Kyouka Saretara SSS Rank Ni Narimashita",
-    "Avant Garde",
-    "Banging My Way Through Sexpedia",
-    "Beginning After the End",
-    "Boyish Girlfriend",
-    "Call of the Spear",
-    "Chibikoro Tenseisha no Mofumofu Morigurashi Chibikoro Tenseisha no Mofumofu Morigurashi",
-    "Chronicles of Heavenly Demon",
-    "Common Sense Manipulation Program",
-    "Cooking",
-    "Demons",
-    "Doing Secret Things with the Holy Maidens",
-    "Domination Game Domination Game",
-    "Doujinshi",
-    "Drama",
-    "Dreamcore: Still Life",
-    "Ecchi",
-    "Eleceed",
-    "Fantasy",
-    "Gatekeeper of the Boundless Worlds",
-    "Gender Bender",
-    "Go! Go! Loser Ranger!",
-    "God-Level Assassin, I'm the Shadow"
+    "Douluo Dalu",
+    "Manga Updates",
+    "Mangafire",
+    "Soul Land",
+    "Soul Land : Douluo Dalu ,Chapter 154",
+    "Soul Land : Douluo Dalu ,Chapter 155",
+    "Soul Land : Douluo Dalu ,Chapter 156",
+    "Soul Land : Douluo Dalu ,Chapter 157",
+    "Soul Land : Douluo Dalu ,Chapter 158",
+    "Soul Land : Douluo Dalu ,Chapter 159",
+    "Soul Land : Douluo Dalu ,Chapter 160",
+    "Soul Land : Douluo Dalu ,Chapter 161",
+    "Soul Land : Douluo Dalu ,Chapter 162",
+    "Soul Land : Douluo Dalu ,Chapter 163",
+    "Soul Land : Douluo Dalu ,Chapter 164",
+    "Soul Land : Douluo Dalu ,Chapter 165",
+    "Soul Land : Douluo Dalu ,Chapter 166",
+    "Soul Land : Douluo Dalu ,Chapter 167",
+    "Soul Land : Douluo Dalu ,Chapter 168",
+    "Soul Land : Douluo Dalu ,Chapter 169",
+    "Soul Land : Douluo Dalu ,Chapter 170",
+    "Soul Land : Douluo Dalu ,Chapter 171",
+    "Soul Land : Douluo Dalu ,Chapter 172",
+    "Soul Land : Douluo Dalu ,Chapter 173",
+    "Soul Land : Douluo Dalu ,Chapter 174",
+    "Soul Land : Douluo Dalu ,Chapter 175",
+    "Soul Land : Douluo Dalu ,Chapter 176",
+    "Soul Land : Douluo Dalu ,Chapter 177",
+    "Soul Land : Douluo Dalu ,Chapter 178"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
   "classificationPolicy": {
+    "primaryCategoryModel": "common_public_comic_genres_v2",
     "targetPerCategory": 200,
     "categoryTargetedSearchEnabled": true,
-    "broadAutoMatchDisabledIds": [
-      "chongsheng",
+    "categorySearchOnlyDiscovery": true,
+    "forcedCategoryFromCategorySearch": false,
+    "detailMetadataFirst": true,
+    "broadStorySettingsMovedToTags": [
+      "xuanhuan",
       "chuanyue",
-      "xuanhuan"
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen"
     ],
-    "xuanhuanKeywords": [],
-    "chuanyueKeywords": [],
-    "chongshengKeywords": [],
-    "forcedCategoryFromCategorySearch": true,
-    "rebuildFromCurrentValidDiscoveries": true,
-    "reusePreviousMetadataOnlyForSeenTitles": true,
-    "priority": [
+    "primaryCategoryPriority": [
       "xiuxian",
-      "wuxia",
-      "dushi",
+      "wuxia_gedou",
       "xiaoyuan",
+      "dushi",
+      "lishi_gufeng",
       "lianai",
-      "gongdou",
-      "gufeng",
-      "chuanyue",
-      "chongsheng",
-      "rexue",
-      "maoxian",
+      "xiju",
       "xuanyi",
       "kongbu",
       "kehuan",
-      "gaoxiao",
       "richang",
-      "shaonian",
-      "shaonv",
+      "maoxian",
+      "dongzuo",
+      "qihuan",
+      "juqing",
+      "weifenlei"
+    ],
+    "tagIds": [
+      "xuanhuan",
+      "chuanyue",
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen",
+      "hougong",
       "danmei",
       "baihe",
-      "xuanhuan",
-      "weifenlei"
+      "shaonian",
+      "shaonv"
     ]
   },
   "discovery": {
     "enabledSourceCount": 8,
     "entryUrlCount": 24,
-    "pagesFetched": 9,
-    "pagesFailed": 8,
-    "recordsFound": 1008,
+    "pagesFetched": 10,
+    "pagesFailed": 9,
+    "recordsFound": 1002,
     "errors": [
       {
         "source": "mgeko.cc",
@@ -134,36 +145,107 @@
         "source": "happymh.com",
         "url": "https://happymh.com/latest",
         "error": "HTTP Error 403: Forbidden"
+      },
+      {
+        "source": "mangaread.org",
+        "url": "https://mangaread.org/latest",
+        "error": "跳过非文本响应：image/png"
       }
     ]
   },
   "categorySearch": {
     "enabledRuleCount": 2,
-    "categoryCount": 18,
-    "searchPagesFetched": 124,
+    "categoryCount": 15,
+    "searchPagesFetched": 105,
     "searchPagesFailed": 0,
-    "recordsFound": 3518,
+    "recordsFound": 3000,
     "errors": [],
     "targetPerCategory": 200,
-    "categoryRecordCounts": {
-      "baihe": 200,
-      "danmei": 200,
+    "searchOnlyDiscovery": true,
+    "hintRecordCounts": {
+      "dongzuo": 200,
       "dushi": 200,
-      "gaoxiao": 200,
-      "gongdou": 200,
-      "gufeng": 200,
+      "juqing": 200,
       "kehuan": 200,
       "kongbu": 200,
       "lianai": 200,
+      "lishi_gufeng": 200,
       "maoxian": 200,
-      "rexue": 200,
+      "qihuan": 200,
       "richang": 200,
-      "shaonian": 159,
-      "shaonv": 159,
-      "wuxia": 200,
+      "wuxia_gedou": 200,
       "xiaoyuan": 200,
+      "xiju": 200,
       "xiuxian": 200,
       "xuanyi": 200
     }
-  }
+  },
+  "detailMetadata": {
+    "detailPagesFetched": 732,
+    "detailPagesFailed": 2,
+    "metadataHits": 725,
+    "metadataLimit": 900
+  },
+  "tags": [
+    {
+      "id": "xuanhuan",
+      "name": "玄幻",
+      "count": 9
+    },
+    {
+      "id": "chuanyue",
+      "name": "穿越",
+      "count": 16
+    },
+    {
+      "id": "chongsheng",
+      "name": "重生",
+      "count": 29
+    },
+    {
+      "id": "yishijie",
+      "name": "异世界",
+      "count": 284
+    },
+    {
+      "id": "xitong",
+      "name": "系统",
+      "count": 12
+    },
+    {
+      "id": "fuchou",
+      "name": "复仇",
+      "count": 10
+    },
+    {
+      "id": "shuangwen",
+      "name": "爽文",
+      "count": 4
+    },
+    {
+      "id": "hougong",
+      "name": "后宫",
+      "count": 277
+    },
+    {
+      "id": "danmei",
+      "name": "耽美",
+      "count": 137
+    },
+    {
+      "id": "baihe",
+      "name": "百合",
+      "count": 128
+    },
+    {
+      "id": "shaonian",
+      "name": "少年",
+      "count": 172
+    },
+    {
+      "id": "shaonv",
+      "name": "少女",
+      "count": 257
+    }
+  ]
 }
