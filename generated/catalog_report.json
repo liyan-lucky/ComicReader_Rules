@@ -1,54 +1,57 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-01T00:56:14Z",
+  "updatedAt": "2026-07-01T01:17:51Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
-    "discoverySources": "generated/catalog_discovery_sources.json"
+    "discoverySources": "generated/catalog_discovery_sources.json",
+    "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 699,
+  "itemCount": 746,
   "categoryCount": 22,
-  "sourceRecordCount": 1587,
+  "sourceRecordCount": 5105,
   "indexRecordCount": 291,
   "reportRecordCount": 288,
   "discoveryRecordCount": 1008,
-  "uncategorizedCount": 390,
+  "categorySearchRecordCount": 3518,
+  "uncategorizedCount": 389,
   "uncategorizedSamples": [
     "A RETURNER’S MAGIC SHOULD BE SPECIAL",
     "A Returner",
     "A Returner's Magic Should Be Special",
     "ADyANoZpkM",
+    "Ai no Senbiki: Mamakatsu Shitara Mama ga Dekita Hanashi",
     "And2girls安菟",
-    "Ano Shima no Uminesou",
+    "Angnyeoneun Baengmanjangja Haegyeolsa",
+    "Arafo Boukensha, Densetsu Ni Naru – SS Rank No Musume Ni Kyouka Saretara SSS Rank Ni Narimashita",
     "Avant Garde",
     "Banging My Way Through Sexpedia",
-    "Be the Bad Boss's Man",
     "Beginning After the End",
-    "Break New World",
-    "Browse",
-    "COMPLETED",
-    "COOKIE POLICY",
+    "Boyish Girlfriend",
     "Call of the Spear",
-    "Chat",
     "Chibikoro Tenseisha no Mofumofu Morigurashi Chibikoro Tenseisha no Mofumofu Morigurashi",
     "Chronicles of Heavenly Demon",
-    "Comic",
     "Common Sense Manipulation Program",
     "Cooking",
     "Demons",
     "Doing Secret Things with the Holy Maidens",
     "Domination Game Domination Game",
-    "Don't Look for the Resurrected Villainess",
     "Doujinshi",
-    "Dragon no I de Oyasumi",
     "Drama",
     "Dreamcore: Still Life",
-    "Ecchi"
+    "Ecchi",
+    "Eleceed",
+    "Fantasy",
+    "Gatekeeper of the Boundless Worlds",
+    "Gender Bender",
+    "Go! Go! Loser Ranger!",
+    "God-Level Assassin, I'm the Shadow"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
   "classificationPolicy": {
-    "specificCategoriesBeforeBroadCategories": true,
+    "targetPerCategory": 200,
+    "categoryTargetedSearchEnabled": true,
     "broadAutoMatchDisabledIds": [
       "chongsheng",
       "chuanyue",
@@ -57,25 +60,7 @@
     "xuanhuanKeywords": [],
     "chuanyueKeywords": [],
     "chongshengKeywords": [],
-    "redistributeFormerXuanhuanSeeds": {
-      "rexue": [
-        "斗罗",
-        "斗破",
-        "武动乾坤",
-        "soul land",
-        "douluo",
-        "battle through",
-        "martial universe"
-      ],
-      "maoxian": [
-        "完美世界",
-        "perfect world"
-      ],
-      "kehuan": [
-        "吞噬星空",
-        "swallowed star"
-      ]
-    },
+    "forcedCategoryFromCategorySearch": true,
     "rebuildFromCurrentValidDiscoveries": true,
     "reusePreviousMetadataOnlyForSeenTitles": true,
     "priority": [
@@ -151,5 +136,34 @@
         "error": "HTTP Error 403: Forbidden"
       }
     ]
+  },
+  "categorySearch": {
+    "enabledRuleCount": 2,
+    "categoryCount": 18,
+    "searchPagesFetched": 124,
+    "searchPagesFailed": 0,
+    "recordsFound": 3518,
+    "errors": [],
+    "targetPerCategory": 200,
+    "categoryRecordCounts": {
+      "baihe": 200,
+      "danmei": 200,
+      "dushi": 200,
+      "gaoxiao": 200,
+      "gongdou": 200,
+      "gufeng": 200,
+      "kehuan": 200,
+      "kongbu": 200,
+      "lianai": 200,
+      "maoxian": 200,
+      "rexue": 200,
+      "richang": 200,
+      "shaonian": 159,
+      "shaonv": 159,
+      "wuxia": 200,
+      "xiaoyuan": 200,
+      "xiuxian": 200,
+      "xuanyi": 200
+    }
   }
 }
