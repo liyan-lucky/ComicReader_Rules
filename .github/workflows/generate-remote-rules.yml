@@ -22,9 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RULES_BRANCH: develop
-      DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下'
-      DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com'
-      DEFAULT_MAX_GENERATED: '50'
+      RULE_TARGET_FIRST: '10'
+      RULE_TARGET_FINAL: '100'
+      DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End'
+      DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangasee123.com,readm.org,chapmanganato.to,webtoons.com,tapas.io'
+      DEFAULT_MAX_GENERATED: '100'
     steps:
       - name: 检出 develop
         uses: actions/checkout@v4
@@ -74,7 +76,7 @@ jobs:
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
-      - name: 统计规则数量
+      - name: 统计规则数量和目标缺口
         id: rule_stats
         run: |
           python - <<'PY'
@@ -93,6 +95,8 @@ jobs:
           audit = index.get('audit', {}) or {}
           report_queries = report.get('queries', []) or []
           sanitize = report.get('sanitize', {}) or {}
+          target_first = int(os.environ.get('RULE_TARGET_FIRST', '10'))
+          target_final = int(os.environ.get('RULE_TARGET_FINAL', '100'))
 
           def host_from_url(value):
               if not value:
@@ -116,23 +120,55 @@ jobs:
           reader_rule_count = sum(1 for r in rules if str(r.get('readerImageRegex', '')).strip())
           next_page_count = sum(1 for r in rules if str(r.get('readerNextPageRegex', '')).strip())
           public_only_count = sum(1 for r in rules if (r.get('compliance') or {}).get('publicOnly') is True)
+          full_rule_count = sum(
+              1 for r in rules
+              if str(r.get('searchUrl', '')).strip()
+              and str(r.get('detailChapterRegex', '')).strip()
+              and str(r.get('readerImageRegex', '')).strip()
+          )
 
           total_count = int(audit.get('totalCount') or len(rules))
           generated_count = int(audit.get('generatedCount') or 0)
           manual_count = int(audit.get('manualCount') or max(0, len(rules) - generated_count))
           excluded_count = int(audit.get('excludedCount') or 0)
+          first_gap = max(0, target_first - searchable_count)
+          final_gap = max(0, target_final - searchable_count)
+          total_first_gap = max(0, target_first - total_count)
+          total_final_gap = max(0, target_final - total_count)
+
+          target_payload = {
+              'schema': 'comic_rule_targets_v1',
+              'targetFirst': target_first,
+              'targetFinal': target_final,
+              'totalCount': total_count,
+              'searchableCount': searchable_count,
+              'fullRuleCount': full_rule_count,
+              'domainCount': len(domains),
+              'firstTargetReachedBySearchableRules': searchable_count >= target_first,
+              'finalTargetReachedBySearchableRules': searchable_count >= target_final,
+              'searchableFirstGap': first_gap,
+              'searchableFinalGap': final_gap,
+              'totalFirstGap': total_first_gap,
+              'totalFinalGap': total_final_gap,
+          }
+          Path('generated/rule_targets.json').write_text(json.dumps(target_payload, ensure_ascii=False, indent=2) + '\n', 'utf-8')
 
           lines = [
               '## 远程漫画规则数量汇总',
               '',
               f'- 目标分支：{os.environ.get("RULES_BRANCH", "develop")}',
+              f'- 第一目标：{target_first} 条可搜索漫画规则',
+              f'- 最终目标：{target_final} 条可搜索漫画规则',
               f'- 规则总数：{total_count}',
+              f'- 可搜索规则数：{searchable_count}',
+              f'- 完整解析规则数：{full_rule_count}',
+              f'- 第一目标缺口：{first_gap}',
+              f'- 最终目标缺口：{final_gap}',
               f'- 手工规则数：{manual_count}',
               f'- 自动生成规则数：{generated_count}',
               f'- 排除规则数：{excluded_count}',
               f'- 清洗移除规则数：{audit.get("sanitizeRemovedRules", 0)}',
               f'- 清洗移除报告记录数：{sanitize.get("removedCount", 0)}',
-              f'- 可搜索规则数：{searchable_count}',
               f'- URL 直连兜底规则数：{url_only_count}',
               f'- 章节目录解析规则数：{detail_rule_count}',
               f'- 图片解析规则数：{reader_rule_count}',
@@ -142,24 +178,36 @@ jobs:
               f'- 查询词条数：{len(queries)}',
               f'- 报告查询词条数：{len(report_queries)}',
               '',
-              '| 规则 ID | 名称 | 域名 | 搜索 | 章节 | 图片 | 下一页 |',
-              '|---|---|---|---:|---:|---:|---:|',
+              '| 目标 | 当前可搜索规则 | 缺口 | 达标 |',
+              '|---|---:|---:|---:|',
+              f'| 第一目标 {target_first} | {searchable_count} | {first_gap} | {"是" if searchable_count >= target_first else "否"} |',
+              f'| 最终目标 {target_final} | {searchable_count} | {final_gap} | {"是" if searchable_count >= target_final else "否"} |',
+              '',
+              '| 规则 ID | 名称 | 域名 | 搜索 | 章节 | 图片 | 下一页 | 完整 |',
+              '|---|---|---|---:|---:|---:|---:|---:|',
           ]
           for rule in rules:
               rule_id = str(rule.get('id', ''))
               name = str(rule.get('name', ''))
               domain = host_from_url(rule.get('homepage') or rule.get('searchUrl') or rule.get('referer') or '')
+              has_search = bool(str(rule.get('searchUrl', '')).strip())
+              has_detail = bool(str(rule.get('detailChapterRegex', '')).strip())
+              has_reader = bool(str(rule.get('readerImageRegex', '')).strip())
+              has_next = bool(str(rule.get('readerNextPageRegex', '')).strip())
+              is_full = has_search and has_detail and has_reader
               lines.append(
                   f"| {rule_id} | {name} | {domain} | "
-                  f"{'是' if str(rule.get('searchUrl', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('detailChapterRegex', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('readerImageRegex', '')).strip() else '否'} | "
-                  f"{'是' if str(rule.get('readerNextPageRegex', '')).strip() else '否'} |"
+                  f"{'是' if has_search else '否'} | "
+                  f"{'是' if has_detail else '否'} | "
+                  f"{'是' if has_reader else '否'} | "
+                  f"{'是' if has_next else '否'} | "
+                  f"{'是' if is_full else '否'} |"
               )
 
           output = '\n'.join(lines) + '\n'
           Path('dist').mkdir(parents=True, exist_ok=True)
           Path('dist/rule-count-summary.md').write_text(output, 'utf-8')
+          Path('dist/rule-target-summary.md').write_text(json.dumps(target_payload, ensure_ascii=False, indent=2) + '\n', 'utf-8')
           print(output)
 
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
@@ -168,7 +216,9 @@ jobs:
               f.write(f'generated_count={generated_count}\n')
               f.write(f'excluded_count={excluded_count}\n')
               f.write(f'searchable_count={searchable_count}\n')
-              f.write(f'url_only_count={url_only_count}\n')
+              f.write(f'full_rule_count={full_rule_count}\n')
+              f.write(f'first_gap={first_gap}\n')
+              f.write(f'final_gap={final_gap}\n')
               f.write(f'domain_count={len(domains)}\n')
               f.write(f'query_count={len(queries)}\n')
           PY
@@ -182,7 +232,7 @@ jobs:
 
           git pull --rebase --autostash origin "${RULES_BRANCH}"
 
-          git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json
+          git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets generated/rule_targets.json rules/index.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No generated rule changes."
@@ -215,17 +265,21 @@ jobs:
           cp generated/index.json dist/generated-index.json
           cp generated/rulebot_report.json dist/rulebot-report.json
           cp generated/GeneratedSourceRules.ets dist/GeneratedSourceRules.ets
+          cp generated/rule_targets.json dist/rule-targets.json
           cp rules/index.json dist/rules-index.json
-          (cd dist && zip -r "$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rules-index.json rule-count-summary.md rule-sanitize-summary.md)
+          (cd dist && zip -r "$TAG.zip" generated-index.json rulebot-report.json GeneratedSourceRules.ets rule-targets.json rules-index.json rule-count-summary.md rule-sanitize-summary.md rule-target-summary.md)
           {
             echo "# Comic Reader Rules $TAG"
             echo ""
             echo "- Label：$TAG"
             echo "- English name：Comic Reader Rules"
             echo "- Target branch：$RULES_BRANCH"
+            echo "- First target：$RULE_TARGET_FIRST searchable comic rules"
+            echo "- Final target：$RULE_TARGET_FINAL searchable comic rules"
             echo "- 默认关键词：$DEFAULT_KEYWORDS"
             echo "- 默认域名：$DEFAULT_DOMAINS"
             echo "- 规则索引：generated/index.json"
+            echo "- 规则目标：generated/rule_targets.json"
             echo "- 审计报告：generated/rulebot_report.json"
             echo "- ArkTS规则：generated/GeneratedSourceRules.ets"
             echo "- 本次是否有规则变更：${{ steps.commit.outputs.changed }}"
@@ -244,13 +298,16 @@ jobs:
             generated/index.json
             generated/rulebot_report.json
             generated/GeneratedSourceRules.ets
+            generated/rule_targets.json
             rules/index.json
             dist/generated-index.json
             dist/rulebot-report.json
             dist/GeneratedSourceRules.ets
+            dist/rule-targets.json
             dist/rules-index.json
             dist/rule-count-summary.md
             dist/rule-sanitize-summary.md
+            dist/rule-target-summary.md
             dist/release-notes.md
             dist/*.zip
 
@@ -260,11 +317,15 @@ jobs:
           echo ""
           cat dist/rule-count-summary.md
           echo ""
+          echo "规则第一目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FIRST，缺口 ${{ steps.rule_stats.outputs.first_gap }}。"
+          echo "规则最终目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FINAL，缺口 ${{ steps.rule_stats.outputs.final_gap }}。"
           echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。"
           if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
             cat dist/rule-sanitize-summary.md >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "规则第一目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FIRST，缺口 ${{ steps.rule_stats.outputs.first_gap }}。" >> "$GITHUB_STEP_SUMMARY"
+            echo "规则最终目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FINAL，缺口 ${{ steps.rule_stats.outputs.final_gap }}。" >> "$GITHUB_STEP_SUMMARY"
             echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。" >> "$GITHUB_STEP_SUMMARY"
           fi
