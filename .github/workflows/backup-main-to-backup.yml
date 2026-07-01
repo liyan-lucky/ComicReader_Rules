@@ -1,0 +1,82 @@
+name: 备份 main 到 backup
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '【安全预览】true=只预览；false=强制覆盖 backup。默认 true'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      confirm:
+        description: '确认文本；真正执行时必须填写 BACKUP_BRANCH_FROM_MAIN'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: backup-branch-from-main
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    name: 将 main 备份到 backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 显示当前分支状态
+        run: |
+          set -euo pipefail
+          git fetch origin main backup --prune
+          echo "main 最新提交：$(git rev-parse origin/main)"
+          echo "backup 当前提交：$(git rev-parse origin/backup)"
+          echo "本流程用途：把 backup 强制同步为 main 的备份分支。"
+
+      - name: 预览或覆盖 backup
+        run: |
+          set -euo pipefail
+          git fetch origin main backup --prune
+          MAIN_SHA="$(git rev-parse origin/main)"
+          BACKUP_SHA="$(git rev-parse origin/backup)"
+
+          echo "## 备份 main 到 backup" | tee backup-summary.md
+          echo "" | tee -a backup-summary.md
+          echo "- dry_run: ${{ inputs.dry_run }}" | tee -a backup-summary.md
+          echo "- main: $MAIN_SHA" | tee -a backup-summary.md
+          echo "- backup 当前: $BACKUP_SHA" | tee -a backup-summary.md
+          echo "- backup 目标: $MAIN_SHA" | tee -a backup-summary.md
+          echo "" | tee -a backup-summary.md
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "预览模式：不会修改 backup。" | tee -a backup-summary.md
+            echo "如需真正覆盖，重新运行并设置 dry_run=false，同时 confirm 填 BACKUP_BRANCH_FROM_MAIN。" | tee -a backup-summary.md
+            [ -n "${GITHUB_STEP_SUMMARY:-}" ] && cat backup-summary.md >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          if [ "${{ inputs.confirm }}" != "BACKUP_BRANCH_FROM_MAIN" ]; then
+            echo "确认文本不正确，已拒绝执行。" | tee -a backup-summary.md
+            echo "真正执行必须填写：BACKUP_BRANCH_FROM_MAIN" | tee -a backup-summary.md
+            [ -n "${GITHUB_STEP_SUMMARY:-}" ] && cat backup-summary.md >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          echo "开始覆盖 backup，使 backup 指向 main。" | tee -a backup-summary.md
+          git push origin "origin/main:refs/heads/backup" --force-with-lease
+          echo "完成：backup 已同步为 main 的备份。" | tee -a backup-summary.md
+          [ -n "${GITHUB_STEP_SUMMARY:-}" ] && cat backup-summary.md >> "$GITHUB_STEP_SUMMARY"
