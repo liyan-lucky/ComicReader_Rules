@@ -1,7 +1,21 @@
 name: 生成远程漫画规则
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: '运行模式：quick=快速冲10条；deep=深度冲100条'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick
+          - deep
+      max_generated:
+        description: '最大生成规则数；留空则 quick=30，deep=100'
+        required: false
+        default: ''
+        type: string
   schedule:
     - cron: '0 3 * * 1'
 
@@ -22,11 +36,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RULES_BRANCH: develop
+      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
       RULE_TARGET_FIRST: '10'
       RULE_TARGET_FINAL: '100'
-      DEFAULT_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End'
-      DEFAULT_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangasee123.com,readm.org,chapmanganato.to,webtoons.com,tapas.io'
-      DEFAULT_MAX_GENERATED: '100'
+      QUICK_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak'
+      QUICK_DOMAINS: 'kaixinman.com,soullandmanga.com,mgeko.cc,mangafire.to,mangadna.com,mangaread.org,comick.io,mangadex.org,chapmanganato.to,mangakakalot.com'
+      QUICK_MAX_GENERATED: '30'
+      DEEP_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End'
+      DEEP_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangasee123.com,readm.org,chapmanganato.to,webtoons.com,tapas.io'
+      DEEP_MAX_GENERATED: '100'
     steps:
       - name: 检出 develop
         uses: actions/checkout@v4
@@ -44,26 +63,57 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: 构建默认参数列表
+      - name: 构建运行模式和默认参数
         id: args
         run: |
+          set -euo pipefail
+
+          MODE="${RULE_RUN_MODE:-quick}"
+          if [ "$MODE" != "quick" ] && [ "$MODE" != "deep" ]; then
+            echo "未知运行模式：$MODE，回退 quick"
+            MODE="quick"
+          fi
+
+          if [ "$MODE" = "deep" ]; then
+            SELECTED_KEYWORDS="$DEEP_KEYWORDS"
+            SELECTED_DOMAINS="$DEEP_DOMAINS"
+            SELECTED_MAX_GENERATED="$DEEP_MAX_GENERATED"
+          else
+            SELECTED_KEYWORDS="$QUICK_KEYWORDS"
+            SELECTED_DOMAINS="$QUICK_DOMAINS"
+            SELECTED_MAX_GENERATED="$QUICK_MAX_GENERATED"
+          fi
+
+          if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
+            SELECTED_MAX_GENERATED="$RULE_MAX_GENERATED_INPUT"
+          fi
+
           PY_ARGS=""
-          IFS=',' read -ra KW_ARR <<< "$DEFAULT_KEYWORDS"
+          IFS=',' read -ra KW_ARR <<< "$SELECTED_KEYWORDS"
           for kw in "${KW_ARR[@]}"; do
             kw="$(echo "$kw" | xargs)"
             if [ -n "$kw" ]; then
               PY_ARGS="$PY_ARGS --keyword '$kw'"
             fi
           done
-          IFS=',' read -ra DM_ARR <<< "$DEFAULT_DOMAINS"
+          IFS=',' read -ra DM_ARR <<< "$SELECTED_DOMAINS"
           for dm in "${DM_ARR[@]}"; do
             dm="$(echo "$dm" | xargs)"
             if [ -n "$dm" ]; then
               PY_ARGS="$PY_ARGS --domain '$dm'"
             fi
           done
+
           echo "PY_ARGS=$PY_ARGS" >> "$GITHUB_OUTPUT"
-          echo "MAX_GENERATED=$DEFAULT_MAX_GENERATED" >> "$GITHUB_OUTPUT"
+          echo "MAX_GENERATED=$SELECTED_MAX_GENERATED" >> "$GITHUB_OUTPUT"
+          echo "RUN_MODE=$MODE" >> "$GITHUB_OUTPUT"
+          echo "SELECTED_KEYWORDS=$SELECTED_KEYWORDS" >> "$GITHUB_OUTPUT"
+          echo "SELECTED_DOMAINS=$SELECTED_DOMAINS" >> "$GITHUB_OUTPUT"
+
+          echo "运行模式：$MODE"
+          echo "最大生成规则数：$SELECTED_MAX_GENERATED"
+          echo "关键词数：$(awk -F',' '{print NF}' <<< "$SELECTED_KEYWORDS")"
+          echo "域名数：$(awk -F',' '{print NF}' <<< "$SELECTED_DOMAINS")"
 
       - name: 生成公开规则
         env:
@@ -97,6 +147,7 @@ jobs:
           sanitize = report.get('sanitize', {}) or {}
           target_first = int(os.environ.get('RULE_TARGET_FIRST', '10'))
           target_final = int(os.environ.get('RULE_TARGET_FINAL', '100'))
+          run_mode = os.environ.get('RULE_RUN_MODE', 'quick')
 
           def host_from_url(value):
               if not value:
@@ -138,6 +189,7 @@ jobs:
 
           target_payload = {
               'schema': 'comic_rule_targets_v1',
+              'runMode': run_mode,
               'targetFirst': target_first,
               'targetFinal': target_final,
               'totalCount': total_count,
@@ -157,6 +209,7 @@ jobs:
               '## 远程漫画规则数量汇总',
               '',
               f'- 目标分支：{os.environ.get("RULES_BRANCH", "develop")}',
+              f'- 运行模式：{run_mode}',
               f'- 第一目标：{target_first} 条可搜索漫画规则',
               f'- 最终目标：{target_final} 条可搜索漫画规则',
               f'- 规则总数：{total_count}',
@@ -274,10 +327,12 @@ jobs:
             echo "- Label：$TAG"
             echo "- English name：Comic Reader Rules"
             echo "- Target branch：$RULES_BRANCH"
+            echo "- Run mode：${{ steps.args.outputs.RUN_MODE }}"
+            echo "- Max generated：${{ steps.args.outputs.MAX_GENERATED }}"
             echo "- First target：$RULE_TARGET_FIRST searchable comic rules"
             echo "- Final target：$RULE_TARGET_FINAL searchable comic rules"
-            echo "- 默认关键词：$DEFAULT_KEYWORDS"
-            echo "- 默认域名：$DEFAULT_DOMAINS"
+            echo "- 默认关键词：${{ steps.args.outputs.SELECTED_KEYWORDS }}"
+            echo "- 默认域名：${{ steps.args.outputs.SELECTED_DOMAINS }}"
             echo "- 规则索引：generated/index.json"
             echo "- 规则目标：generated/rule_targets.json"
             echo "- 审计报告：generated/rulebot_report.json"
@@ -317,6 +372,7 @@ jobs:
           echo ""
           cat dist/rule-count-summary.md
           echo ""
+          echo "运行模式：${{ steps.args.outputs.RUN_MODE }}，最大生成规则数：${{ steps.args.outputs.MAX_GENERATED }}。"
           echo "规则第一目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FIRST，缺口 ${{ steps.rule_stats.outputs.first_gap }}。"
           echo "规则最终目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FINAL，缺口 ${{ steps.rule_stats.outputs.final_gap }}。"
           echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。"
@@ -325,6 +381,7 @@ jobs:
             echo "" >> "$GITHUB_STEP_SUMMARY"
             cat dist/rule-count-summary.md >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "运行模式：${{ steps.args.outputs.RUN_MODE }}，最大生成规则数：${{ steps.args.outputs.MAX_GENERATED }}。" >> "$GITHUB_STEP_SUMMARY"
             echo "规则第一目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FIRST，缺口 ${{ steps.rule_stats.outputs.first_gap }}。" >> "$GITHUB_STEP_SUMMARY"
             echo "规则最终目标：${{ steps.rule_stats.outputs.searchable_count }}/$RULE_TARGET_FINAL，缺口 ${{ steps.rule_stats.outputs.final_gap }}。" >> "$GITHUB_STEP_SUMMARY"
             echo "Release：未发布；默认只同步到 develop，主分支和发布内容等待手动许可。" >> "$GITHUB_STEP_SUMMARY"
