@@ -4,28 +4,28 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: '是否只预览不删除； false = 直接执行清理'
+        description: '【安全预览】true=只预览不删除；false=真的执行删除。默认 true'
         required: true
         default: 'true'
         type: choice
         options:
-          - 'false'
           - 'true'
+          - 'false'
 
       keep_latest_runs:
-        description: '每个 workflow 保留最近 N 条；0 = 不保留，清理所有可清理记录'
+        description: '【运行记录】每个 workflow 保留最近 N 条；0=不保留旧记录'
         required: true
         default: '0'
         type: string
 
       workflow_name_filter:
-        description: '只清理名称包含此文本的 workflow；all = 全部 workflow'
+        description: '【运行记录】只清理名称包含此文本的 workflow；all=全部 workflow'
         required: true
         default: 'all'
         type: string
 
       clean_tags:
-        description: '是否清理标签；默认 false = 不清理标签'
+        description: '【标签】是否清理 Git tag；默认 false=不清理标签'
         required: true
         default: 'false'
         type: choice
@@ -34,7 +34,22 @@ on:
           - 'true'
 
       tag_prefix:
-        description: '只清理指定前缀标签；all = 全部标签'
+        description: '【标签】只清理指定前缀的 tag；all=全部 tag，危险'
+        required: true
+        default: 'comic-reader-rules-'
+        type: string
+
+      clean_releases:
+        description: '【Release】是否清理 GitHub Release；默认 false=不清理发布'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+      release_tag_prefix:
+        description: '【Release】只清理指定前缀的 Release；all=全部 Release，危险'
         required: true
         default: 'comic-reader-rules-'
         type: string
@@ -61,6 +76,8 @@ jobs:
       WORKFLOW_NAME_FILTER: ${{ inputs.workflow_name_filter }}
       CLEAN_TAGS: ${{ inputs.clean_tags }}
       TAG_PREFIX: ${{ inputs.tag_prefix }}
+      CLEAN_RELEASES: ${{ inputs.clean_releases }}
+      RELEASE_TAG_PREFIX: ${{ inputs.release_tag_prefix }}
 
     steps:
       - name: 检出仓库
@@ -79,20 +96,19 @@ jobs:
 
           repo = os.environ["REPO"]
           current_run_id = str(os.environ.get("CURRENT_RUN_ID", ""))
-          dry_run = os.environ.get("DRY_RUN", "false") == "true"
+          dry_run = os.environ.get("DRY_RUN", "true") == "true"
           keep_latest = int(os.environ.get("KEEP_LATEST_RUNS") or "0")
           name_filter = (os.environ.get("WORKFLOW_NAME_FILTER") or "all").strip().lower()
 
           summary_lines = [
               "## Actions 运行记录清理汇总",
               "",
-              "- 默认行为：直接执行清理，不是预览",
+              "- 默认行为：安全预览，不会真的删除；只有 dry_run=false 才会执行删除",
               f"- dry_run：{dry_run}",
               f"- keep_latest_runs：{keep_latest}",
               f"- workflow_name_filter：{name_filter}",
               "- 清理范围：GitHub Actions workflow runs",
-              "- 不清理：Release / 仓库文件",
-              "- 标签清理：由 clean_tags 单独控制，默认不清理",
+              "- 不清理：Release / Tag / 仓库文件，除非单独开启对应选项",
               "- 当前这一次清理任务本身不会删除",
               "",
           ]
@@ -206,6 +222,82 @@ jobs:
                   f.write(output)
           PY
 
+      - name: 清理 Release
+        if: inputs.clean_releases == 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## Release 清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "- clean_releases: ${{ inputs.clean_releases }}" | tee -a cleanup-summary.md
+          echo "- release_tag_prefix: ${{ inputs.release_tag_prefix }}" | tee -a cleanup-summary.md
+          echo "- dry_run: ${{ inputs.dry_run }}" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+
+          deleted=0
+          skipped=0
+
+          gh release list --limit 1000 --json tagName,name,isDraft,isPrerelease > /tmp/releases.json
+
+          python - <<'PY' > /tmp/releases-to-delete.txt
+          import json
+          import os
+
+          prefix = os.environ.get("RELEASE_TAG_PREFIX", "comic-reader-rules-")
+
+          with open("/tmp/releases.json", "r", encoding="utf-8") as f:
+              releases = json.load(f)
+
+          for release in releases:
+              tag = release.get("tagName") or ""
+              if not tag:
+                  continue
+
+              if prefix != "all" and not tag.startswith(prefix):
+                  continue
+
+              print(tag)
+          PY
+
+          while IFS= read -r tag; do
+            if [ -z "$tag" ]; then
+              continue
+            fi
+
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "[dry-run] 删除 Release: $tag" | tee -a cleanup-summary.md
+              deleted=$((deleted + 1))
+              continue
+            fi
+
+            echo "删除 Release: $tag" | tee -a cleanup-summary.md
+            gh release delete "$tag" --yes || true
+            deleted=$((deleted + 1))
+          done < /tmp/releases-to-delete.txt
+
+          echo "" | tee -a cleanup-summary.md
+          echo "已清理 Release 数量：$deleted" | tee -a cleanup-summary.md
+          echo "已跳过 Release 数量：$skipped" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: 不清理 Release 提示
+        if: inputs.clean_releases != 'true'
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## Release 清理汇总" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "clean_releases=false，默认不清理任何 Release。" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: 清理标签
         if: inputs.clean_tags == 'true'
         run: |
@@ -263,7 +355,23 @@ jobs:
           echo "## 标签清理汇总" | tee -a cleanup-summary.md
           echo "" | tee -a cleanup-summary.md
           echo "clean_tags=false，默认不清理任何标签。" | tee -a cleanup-summary.md
-          echo "Release 不会被清理。" | tee -a cleanup-summary.md
+
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: 清理安全提示
+        run: |
+          set -euo pipefail
+
+          echo "" | tee -a cleanup-summary.md
+          echo "## 清理安全提示" | tee -a cleanup-summary.md
+          echo "" | tee -a cleanup-summary.md
+          echo "默认 dry_run=true，只预览，不会真的删除。" | tee -a cleanup-summary.md
+          echo "只有 dry_run=false 时才会执行实际删除。" | tee -a cleanup-summary.md
+          echo "Release：默认不清理；只有 clean_releases=true 才会清理。" | tee -a cleanup-summary.md
+          echo "标签：默认不清理；只有 clean_tags=true 才会清理。" | tee -a cleanup-summary.md
+          echo "建议先预览确认，再第二次执行真实清理。" | tee -a cleanup-summary.md
 
           if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
             cat cleanup-summary.md >> "$GITHUB_STEP_SUMMARY"
