@@ -1,6 +1,6 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-01T00:45:21Z",
+  "updatedAt": "2026-07-01T00:56:14Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
@@ -12,10 +12,12 @@
   "indexRecordCount": 291,
   "reportRecordCount": 288,
   "discoveryRecordCount": 1008,
-  "uncategorizedCount": 374,
+  "uncategorizedCount": 390,
   "uncategorizedSamples": [
+    "A RETURNER’S MAGIC SHOULD BE SPECIAL",
+    "A Returner",
+    "A Returner's Magic Should Be Special",
     "ADyANoZpkM",
-    "An Ideal Lazy Life",
     "And2girls安菟",
     "Ano Shima no Uminesou",
     "Avant Garde",
@@ -36,24 +38,44 @@
     "Demons",
     "Doing Secret Things with the Holy Maidens",
     "Domination Game Domination Game",
+    "Don't Look for the Resurrected Villainess",
     "Doujinshi",
     "Dragon no I de Oyasumi",
     "Drama",
     "Dreamcore: Still Life",
-    "Ecchi",
-    "Eleceed",
-    "Fantasy",
-    "Fate/Samurai Remnant"
+    "Ecchi"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
   "classificationPolicy": {
     "specificCategoriesBeforeBroadCategories": true,
-    "broadCategoryFallbackIds": [
+    "broadAutoMatchDisabledIds": [
+      "chongsheng",
+      "chuanyue",
       "xuanhuan"
     ],
-    "genericBroadTitleKeywordDisabledForXuanhuan": true,
-    "opaqueSlugTitleFilter": true,
+    "xuanhuanKeywords": [],
+    "chuanyueKeywords": [],
+    "chongshengKeywords": [],
+    "redistributeFormerXuanhuanSeeds": {
+      "rexue": [
+        "斗罗",
+        "斗破",
+        "武动乾坤",
+        "soul land",
+        "douluo",
+        "battle through",
+        "martial universe"
+      ],
+      "maoxian": [
+        "完美世界",
+        "perfect world"
+      ],
+      "kehuan": [
+        "吞噬星空",
+        "swallowed star"
+      ]
+    },
     "rebuildFromCurrentValidDiscoveries": true,
     "reusePreviousMetadataOnlyForSeenTitles": true,
     "priority": [
