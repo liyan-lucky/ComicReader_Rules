@@ -6,20 +6,24 @@
 
 ```text
 main     主工作分支、正式稳定分支，App 默认读取，后续功能和生成结果直接维护在这里。
-develop  备份分支，只用于备份 main，不再作为主要开发分支。
+backup   备份分支，只用于备份 main。
+develop  旧开发分支，不再作为主要开发分支使用。
 ```
 
 默认要求：
 
 - 新功能、新脚本、新规则、新 workflow 直接提交到 `main`。
-- `develop` 只用于备份 `main`，不再作为主要开发分支。
-- 大改之前应先确认 `main` 当前状态，必要时再备份。
+- `backup` 只用于备份 `main`。
+- `develop` 不再作为默认开发分支，也不再作为默认备份分支。
+- 大改之前应先确认 `main` 当前状态，必要时运行“备份 main 到 backup”。
 - 生成类 workflow 默认只提交到 `main`。
 
 ## 2. 顶层目录职责
 
 ```text
 .github/workflows/              GitHub Actions 流程，只放 workflow yml/yaml
+.github/ISSUE_TEMPLATE/         Issue 模板
+.github/pull_request_template.md PR 模板
 docs/                           文档、接口说明、开发规范、维护说明
 rules/                          App 当前可读取规则索引和手工稳定规则
 rules/manual/                   手工维护的稳定公开规则
@@ -42,26 +46,22 @@ tools/catalog/                  预留：目录生成工具拆分后放这里
 .github/workflows/
 ```
 
-命名规则：
+当前固定 workflow：
 
 ```text
-业务名-动作.yml
-```
-
-推荐：
-
-```text
-generate-catalog.yml
-generate-remote-rules.yml
-Clean-Actions-record.yml
+generate-catalog.yml             生成公开漫画目录
+generate-remote-rules.yml        生成远程漫画规则
+backup-main-to-backup.yml        将 main 强制备份到 backup
+Clean-Actions-record.yml         清理 Actions / Release / Tags
 ```
 
 要求：
 
-- workflow 名称可以中文，文件名建议英文或中英混合但必须稳定。
+- workflow 名称可以中文，文件名必须稳定、清楚、和用途一致。
+- 生成类 workflow 默认写入 `main`。
+- 备份类 workflow 默认 `dry_run=true`，真正覆盖必须填写确认文本。
 - 清理类 workflow 必须默认 `dry_run=true`，先预览再删除。
-- 删除 Release、Tag、运行记录必须是手动触发，不允许 schedule 自动执行。
-- 写入仓库的 workflow 默认写 `main`。
+- 删除 Release、Tag、运行记录必须手动触发，不允许 schedule 自动执行。
 
 ### 3.2 文档
 
@@ -71,13 +71,14 @@ Clean-Actions-record.yml
 docs/
 ```
 
-推荐命名：
+当前文档：
 
 ```text
-catalog_api.md                  目录接口说明
+catalog_api.md                  公开漫画目录接口说明
 development_standards.md        仓库开发规范
+maintenance.md                  日常维护说明
 rule_generation.md              规则生成说明
-release_cleanup.md              清理和发布说明
+cleanup_workflows.md            清理流程说明
 ```
 
 README 只写入口说明，不堆大量细节；详细规范放 `docs/`。
@@ -235,7 +236,23 @@ generated/catalog_target_gaps.json
 - 不保存图片、章节正文、付费内容、账号数据。
 - 默认提交到 `main`。
 
-### 4.3 清理流程
+### 4.3 main 备份到 backup
+
+workflow：
+
+```text
+.github/workflows/backup-main-to-backup.yml
+```
+
+要求：
+
+- 必须手动触发。
+- 默认 `dry_run=true`，只预览。
+- 真正覆盖必须设置 `dry_run=false`。
+- 真正覆盖必须填写确认文本：`BACKUP_BRANCH_FROM_MAIN`。
+- 覆盖目标为 `backup`，不再覆盖 `develop`。
+
+### 4.4 清理流程
 
 workflow：
 
@@ -299,6 +316,7 @@ UI 名称可以中文，文件名建议稳定：
 ```text
 generate-catalog.yml
 generate-remote-rules.yml
+backup-main-to-backup.yml
 Clean-Actions-record.yml
 ```
 
@@ -327,8 +345,9 @@ Clean-Actions-record.yml
 2. 是否新增了 generated 之外的自动产物？不允许。
 3. 是否含账号、Cookie、Token、密钥？不允许。
 4. 是否需要更新 README 或 docs？需要。
-5. workflow 是否默认写 main？需要。
-6. 删除类 workflow 是否默认 dry_run=true？需要。
+5. 生成类 workflow 是否默认写 main？需要。
+6. 备份 workflow 是否只覆盖 backup？需要。
+7. 删除类 workflow 是否默认 dry_run=true？需要。
 ```
 
 Python 脚本至少通过：
@@ -345,7 +364,6 @@ python -m py_compile tools/rule_discovery/*.py
 ```text
 1. 将 scripts/generate_catalog.py 拆到 tools/catalog/，scripts 只保留入口。
 2. 将 boost_catalog_targets.py 拆为 tools/catalog/boost_targets.py。
-3. 增加 docs/rule_generation.md，专门说明 RuleBot 规则生成。
-4. 增加 docs/cleanup_workflows.md，专门说明清理 workflow。
-5. 增加 PR 模板，要求说明文件放置位置和合规边界。
+3. 继续补充更多手工稳定公开规则，提高可搜索规则数量。
+4. 定期运行“备份 main 到 backup”，保持 backup 与 main 同步。
 ```
