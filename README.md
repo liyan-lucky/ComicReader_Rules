@@ -12,21 +12,25 @@ liyan-lucky/ComicReader_Rules
 
 ```text
 main      主工作分支、正式稳定分支，App 默认读取，后续功能和生成结果直接维护在这里。
-develop   备份分支，只用于备份 main，不再作为主要开发分支。
+backup    备份分支，只用于备份 main。
+develop   旧开发分支，不再作为主要开发分支使用。
 ```
 
 当前策略：
 
 ```text
 所有后续修改默认直接进入 main。
-develop 只作为 main 的备份分支。
-如需大改，可先备份 main，再修改 main。
+backup 只作为 main 的备份分支。
+develop 不再参与默认开发和备份流程。
+如需大改，可先运行“备份 main 到 backup”，再修改 main。
 ```
 
-详细开发规范见：
+详细文档：
 
 ```text
-docs/development_standards.md
+docs/development_standards.md    仓库开发规范
+docs/maintenance.md              日常维护说明
+docs/catalog_api.md              公开漫画目录接口说明
 ```
 
 ## App 默认读取地址
@@ -48,21 +52,23 @@ https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/c
 ## 目录结构
 
 ```text
-.github/workflows/               GitHub Actions 流程，只放 workflow yml/yaml
-docs/                            文档、接口说明、开发规范、维护说明
-rules/                           App 当前可读取规则索引和手工稳定规则
-rules/manual/index.json           手工维护的稳定公开规则
-generated/index.json              App 远程更新使用的标准规则索引
-generated/rulebot_report.json     自动规则审计报告
+.github/workflows/                GitHub Actions 流程，只放 workflow yml/yaml
+.github/ISSUE_TEMPLATE/           Issue 模板
+.github/pull_request_template.md  PR 模板
+docs/                             文档、接口说明、开发规范、维护说明
+rules/                            App 当前可读取规则索引和手工稳定规则
+rules/manual/index.json            手工维护的稳定公开规则
+generated/index.json               App 远程更新使用的标准规则索引
+generated/rulebot_report.json      自动规则审计报告
 generated/GeneratedSourceRules.ets ArkTS 规则文件
-generated/rule_targets.json       规则数量目标和缺口统计
-generated/catalog.json            公开漫画目录索引，供 App 分类浏览和添加来源
-generated/catalog_categories.json 分类汇总索引
-generated/catalog_delta.json      目录增量更新文件
-generated/catalog_report.json     目录生成报告
+generated/rule_targets.json        规则数量目标和缺口统计
+generated/catalog.json             公开漫画目录索引，供 App 分类浏览和添加来源
+generated/catalog_categories.json  分类汇总索引
+generated/catalog_delta.json       目录增量更新文件
+generated/catalog_report.json      目录生成报告
 generated/catalog_target_gaps.json 分类目标缺口报告
-tools/rule_discovery/             公开源搜索、审计、规则生成、规则清洗工具
-scripts/                          本地/CI 入口脚本
+tools/rule_discovery/              公开源搜索、审计、规则生成、规则清洗工具
+scripts/                           本地/CI 入口脚本
 ```
 
 不允许在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。详细规则见 `docs/development_standards.md`。
@@ -155,6 +161,27 @@ Actions → 生成公开漫画目录 → Run workflow
 ```
 
 该任务固定检出并提交到 `main` 分支。
+
+## GitHub Actions 备份 main 到 backup
+
+备份流程：
+
+```text
+Actions → 备份 main 到 backup → Run workflow
+```
+
+默认：
+
+```text
+dry_run=true，只预览，不覆盖 backup。
+```
+
+真正覆盖 backup 时填写：
+
+```text
+dry_run=false
+confirm=BACKUP_BRANCH_FROM_MAIN
+```
 
 ## GitHub Actions 清理运行记录
 
