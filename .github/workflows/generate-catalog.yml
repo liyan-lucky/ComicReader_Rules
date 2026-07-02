@@ -10,6 +10,7 @@ on:
     paths:
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
+      - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
       - 'generated/rulebot_report.json'
@@ -21,6 +22,7 @@ on:
     paths:
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
+      - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
       - 'generated/rulebot_report.json'
@@ -59,6 +61,7 @@ jobs:
         run: |
           python -m py_compile scripts/generate_catalog.py
           python -m py_compile scripts/boost_catalog_targets.py
+          python -m py_compile scripts/update_manifest.py
 
       - name: 生成公开漫画目录
         run: |
@@ -96,13 +99,28 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin "${CATALOG_BRANCH}"
-          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json generated/catalog_target_gaps.json
+          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
+          python scripts/update_manifest.py --section catalog --tag "$TAG_NAME"
+          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json generated/catalog_target_gaps.json generated/update_manifest.json
           if git diff --cached --quiet; then
             echo "目录没有变化，无需提交。"
           else
             git commit -m "chore: update public comic catalog"
             git push origin "HEAD:${CATALOG_BRANCH}"
           fi
+
+      - name: 发布目录日期标签
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          git fetch --tags origin
+          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" >/dev/null 2>&1; then
+            git push origin ":refs/tags/$TAG_NAME"
+          fi
+          git tag -f -a "$TAG_NAME" -m "Catalog $TAG_NAME"
+          git push --force origin "$TAG_NAME"
+          echo "Published tag: $TAG_NAME"
 
       - name: 上传目录产物
         uses: actions/upload-artifact@v4
@@ -114,6 +132,7 @@ jobs:
             generated/catalog_delta.json
             generated/catalog_report.json
             generated/catalog_target_gaps.json
+            generated/update_manifest.json
 
       - name: 显示目录摘要
         run: |
