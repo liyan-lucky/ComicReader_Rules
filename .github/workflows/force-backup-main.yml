@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: 输入 YES 才会把 main 强制覆盖到 backup
+        description: 输入 YES 才会把 main 强制覆盖到 backup；其他值只输出跳过结果，不标记失败
         required: true
         default: "NO"
         type: string
@@ -21,15 +21,32 @@ jobs:
       DEFAULT_PUSH_TOKEN: ${{ github.token }}
     steps:
       - name: 校验确认参数
+        id: confirm
         shell: bash
         run: |
           set -euo pipefail
-          if [ "${{ github.event.inputs.confirm }}" != "YES" ]; then
-            echo "未输入 YES，取消执行。"
-            exit 1
+          INPUT_CONFIRM="${{ github.event.inputs.confirm }}"
+          if [ "$INPUT_CONFIRM" != "YES" ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "skip_reason=确认参数不是 YES，本次不执行 backup 覆盖。" >> "$GITHUB_OUTPUT"
+            echo "确认参数不是 YES，本次不执行 backup 覆盖。"
+            {
+              echo "## 强制备份结果"
+              echo ""
+              echo "- 状态：已跳过"
+              echo "- 原因：确认参数不是 YES"
+              echo "- 输入值：$INPUT_CONFIRM"
+              echo "- 说明：这是安全跳过，不是执行失败。"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
 
+          echo "should_run=true" >> "$GITHUB_OUTPUT"
+          echo "skip_reason=" >> "$GITHUB_OUTPUT"
+          echo "确认参数为 YES，继续执行 backup 覆盖。"
+
       - name: 检出 main
+        if: steps.confirm.outputs.should_run == 'true'
         uses: actions/checkout@v4
         with:
           ref: main
@@ -37,6 +54,7 @@ jobs:
           persist-credentials: false
 
       - name: 显示即将备份的提交
+        if: steps.confirm.outputs.should_run == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -48,6 +66,7 @@ jobs:
           git rev-parse origin/backup
 
       - name: 检查是否包含 workflow 文件变化
+        if: steps.confirm.outputs.should_run == 'true'
         id: check_workflows
         shell: bash
         run: |
@@ -67,6 +86,7 @@ jobs:
           fi
 
       - name: 强制覆盖 backup 分支
+        if: steps.confirm.outputs.should_run == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -76,11 +96,18 @@ jobs:
 
           if [ "$HAS_WORKFLOW_CHANGES" = "true" ]; then
             if [ -z "${BACKUP_PUSH_TOKEN:-}" ]; then
-              echo "::error::本次 main -> backup 包含 .github/workflows/ 文件变化。默认 GITHUB_TOKEN 通常只有 contents:write，不能推送包含 workflow 文件变更的提交。"
+              echo "本次 main -> backup 包含 .github/workflows/ 文件变化。默认 GITHUB_TOKEN 通常只有 contents:write，不能推送包含 workflow 文件变更的提交。"
               echo "请在仓库 Settings -> Secrets and variables -> Actions 中新增 secret：BACKUP_PUSH_TOKEN。"
               echo "BACKUP_PUSH_TOKEN 建议使用 Fine-grained PAT，并授予当前仓库 Contents: Read and write、Workflows: Read and write；或使用 classic PAT，勾选 repo 和 workflow。"
               echo "配置后重新手动运行本 workflow，confirm 输入 YES。"
-              exit 1
+              {
+                echo "## 强制备份结果"
+                echo ""
+                echo "- 状态：已跳过"
+                echo "- 原因：检测到 workflow 文件变化，但未配置 BACKUP_PUSH_TOKEN"
+                echo "- 说明：这是安全跳过，不是执行失败。"
+              } >> "$GITHUB_STEP_SUMMARY"
+              exit 0
             fi
             PUSH_TOKEN="${BACKUP_PUSH_TOKEN}"
             echo "检测到 workflow 文件变化，将使用 BACKUP_PUSH_TOKEN 推送。"
@@ -90,3 +117,10 @@ jobs:
 
           git push --force "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:backup
           echo "backup 已被 main 当前提交强制覆盖。"
+          {
+            echo "## 强制备份结果"
+            echo ""
+            echo "- 状态：已执行"
+            echo "- 结果：backup 已被 main 当前提交强制覆盖"
+            echo "- main：$(git rev-parse HEAD)"
+          } >> "$GITHUB_STEP_SUMMARY"
