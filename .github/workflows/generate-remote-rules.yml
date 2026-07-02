@@ -113,8 +113,12 @@ jobs:
           index = json.loads(Path('generated/index.json').read_text('utf-8'))
           report = json.loads(Path('generated/rulebot_report.json').read_text('utf-8'))
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
-          generated_count = report.get('generatedCount', len(rules))
-          excluded_count = report.get('excludedCount', 0)
+          audit = index.get('audit') or {}
+          auto_generated_count = int(report.get('generatedCount', audit.get('generatedCount', 0)) or 0)
+          manual_count = int(audit.get('manualCount', max(0, len(rules) - auto_generated_count)) or 0)
+          total_count = int(audit.get('totalCount', len(rules)) or len(rules))
+          excluded_count = int(report.get('excludedCount', audit.get('excludedCount', 0)) or 0)
+          removed_count = int((report.get('sanitize') or {}).get('removedCount', audit.get('sanitizeRemovedRules', 0)) or 0)
           query_count = len(report.get('queries') or index.get('queries') or [])
           tag_name = f"search-rules-{os.popen('date -u +%Y%m%d').read().strip()}"
 
@@ -124,9 +128,11 @@ jobs:
               f"运行模式：{os.environ.get('RULE_RUN_MODE', '')}",
               f"版本：{index.get('version', '')}",
               f"更新时间：{index.get('updatedAt', '')}",
-              f"生成规则数：{generated_count}",
-              f"索引规则数：{len(rules)}",
-              f"排除数量：{excluded_count}",
+              f"本次自动发现生成规则数：{auto_generated_count}",
+              f"手工稳定规则数：{manual_count}",
+              f"最终索引总规则数：{total_count}",
+              f"排除候选数量：{excluded_count}",
+              f"清洗移除规则数：{removed_count}",
               f"搜索查询数：{query_count}",
               f"日期标签：{tag_name}",
           ]
