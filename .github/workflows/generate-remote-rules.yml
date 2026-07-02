@@ -117,13 +117,16 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: 发布漫画搜索规则标签
+      - name: 发布搜索规则日期标签
         run: |
           set -euo pipefail
           git fetch --tags origin
-          TAG_NAME="comic-search-rules-$(date -u +'%Y%m%d-%H%M%S')"
-          git tag -a "$TAG_NAME" -m "Comic search rules $TAG_NAME"
-          git push origin "$TAG_NAME"
+          TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" >/dev/null 2>&1; then
+            git push origin ":refs/tags/$TAG_NAME"
+          fi
+          git tag -f -a "$TAG_NAME" -m "Search rules $TAG_NAME"
+          git push --force origin "$TAG_NAME"
           echo "Published tag: $TAG_NAME"
 
       - name: 上传生成规则 artifact
