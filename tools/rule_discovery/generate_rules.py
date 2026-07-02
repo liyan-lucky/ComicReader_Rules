@@ -5,9 +5,10 @@
 
 用途：
   1) 使用搜索引擎/API 发现公开漫画详情页/章节页；
-  2) 抓取公开 HTML，统计章节、图片、登录/付费风险；
-  3) 为通过审计的域名生成 ArkTS ComicSourceRule；
-  4) 写入 entry/src/main/ets/common/GeneratedSourceRules.ets，App 构建后直接可用。
+  2) 从已知公开站点首页/分类/更新页直接抓取候选链接；
+  3) 抓取公开 HTML，统计章节、图片、登录/付费风险；
+  4) 为通过审计的域名生成 ArkTS ComicSourceRule；
+  5) 写入 GeneratedSourceRules.ets，App 构建后直接可用。
 
 边界：
   - 只请求公开 HTTP/HTTPS 页面；
@@ -26,7 +27,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
-from urllib.parse import quote, urlencode, urljoin, urlparse
+from urllib.parse import urlencode, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -37,9 +38,51 @@ JS_ESCAPED_IMAGE_RE = re.compile(r"https?:\\/\\/[^\s'\"<>]+?\.(?:jpg|jpeg|png|we
 CHAPTER_TEXT_RE = re.compile(r"(第\s*[0-9一二三四五六七八九十百千零〇两]+\s*[话章回]|Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|阅读|开始阅读|Read\s*Chapter)", re.I)
 CHAPTER_URL_RE = re.compile(r"/(chapter|chap|read|viewer|episode|episodes|cid|manga|comic)[/_\-?=0-9A-Za-z.%]+", re.I)
 DETAIL_URL_RE = re.compile(r"/(comic|manga|book|manhua|series|detail|cartoon|webtoon)/?[^/#?]*", re.I)
+PUBLIC_WORK_URL_RE = re.compile(r"/(comic|manga|manhua|book|series|webtoon|title|en/[^/]+/[^/]+/list|read|chapter|episode)/?[^/#?]*", re.I)
 PAY_LOGIN_TEXT_RE = re.compile(r"(登录后|请登录|注册|充值|VIP|付费|购买|金币|订阅|premium|sign\s*in|log\s*in|subscribe|membership|captcha|验证码|下载APP|客户端)", re.I)
 EXCLUDE_URL_RE = re.compile(r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)", re.I)
 EXCLUDE_IMAGE_RE = re.compile(r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)", re.I)
+
+KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = {
+    "kaixinman.com": [
+        "https://www.kaixinman.com/",
+        "https://www.kaixinman.com/update",
+        "https://www.kaixinman.com/rank",
+        "https://www.kaixinman.com/category",
+    ],
+    "mgeko.cc": [
+        "https://www.mgeko.cc/",
+        "https://www.mgeko.cc/manga",
+        "https://www.mgeko.cc/latest",
+    ],
+    "mangafire.to": [
+        "https://mangafire.to/",
+        "https://mangafire.to/filter",
+        "https://mangafire.to/updated",
+        "https://mangafire.to/newest",
+    ],
+    "comick.io": [
+        "https://comick.io/",
+        "https://comick.io/home",
+        "https://comick.io/search",
+    ],
+    "soullandmanga.com": [
+        "https://soullandmanga.com/",
+        "https://www.soullandmanga.com/",
+    ],
+    "webtoons.com": [
+        "https://www.webtoons.com/en/",
+        "https://www.webtoons.com/en/dailySchedule",
+        "https://www.webtoons.com/en/originals",
+        "https://www.webtoons.com/en/canvas",
+    ],
+    "tapas.io": [
+        "https://tapas.io/",
+        "https://tapas.io/comics",
+        "https://tapas.io/novels",
+        "https://tapas.io/new",
+    ],
+}
 
 
 @dataclasses.dataclass
@@ -98,6 +141,19 @@ def canonical_url(url: str, base: str = "") -> str:
 
 def domain_of(url: str) -> str:
     return urlparse(url).netloc.lower().replace("www.", "")
+
+
+def normalize_domain(domain: str) -> str:
+    domain = domain.strip().lower()
+    domain = domain.replace("https://", "").replace("http://", "")
+    domain = domain.split("/", 1)[0]
+    return domain.replace("www.", "")
+
+
+def same_site(url: str, domain: str) -> bool:
+    host = domain_of(url)
+    domain = normalize_domain(domain)
+    return host == domain or host.endswith("." + domain)
 
 
 def base_of(url: str) -> str:
@@ -169,7 +225,6 @@ def search_google_cse(query: str, limit: int) -> List[Candidate]:
 
 
 def search_duckduckgo_html(query: str, limit: int) -> List[Candidate]:
-    # 兜底搜索。公共搜索页可能被限流；建议 GitHub Secrets 配置 Brave 或 Google CSE。
     url = "https://duckduckgo.com/html/?" + urlencode({"q": query})
     txt = fetch(url, timeout=20)
     if not txt:
@@ -224,6 +279,92 @@ def likely_content_url(url: str) -> bool:
     if any(bad in host for bad in ["youtube.", "bilibili.", "facebook.", "twitter.", "x.com", "reddit.", "wikipedia.", "baike."]):
         return False
     return bool(DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url) or re.search(r"(comic|manga|manhua|webtoon|chapter|douluo|soul-land)", url, re.I))
+
+
+def likely_seed_candidate_url(url: str) -> bool:
+    if not url.startswith(("http://", "https://")):
+        return False
+    if EXCLUDE_URL_RE.search(url):
+        return False
+    return bool(PUBLIC_WORK_URL_RE.search(url) or likely_content_url(url))
+
+
+def seed_urls_for_domains(domains: Sequence[str], explicit_seed_urls: Sequence[str]) -> List[str]:
+    urls: List[str] = []
+    for u in explicit_seed_urls:
+        if u.strip():
+            urls.append(u.strip())
+    for domain in domains:
+        d = normalize_domain(domain)
+        if not d:
+            continue
+        urls.extend(KNOWN_SOURCE_SEEDS.get(d, []))
+        urls.append(f"https://{d}/")
+        urls.append(f"https://www.{d}/")
+    seen = set()
+    out: List[str] = []
+    for u in urls:
+        if not u or u in seen:
+            continue
+        seen.add(u)
+        out.append(u)
+    return out
+
+
+def extract_seed_candidates(html_text: str, seed_url: str, target_domain: str, limit: int) -> List[Candidate]:
+    soup = BeautifulSoup(html_text, "lxml")
+    out: List[Candidate] = []
+    for a in soup.select("a[href]"):
+        href = canonical_url(a.get("href", ""), seed_url)
+        title = clean_text(a.get_text(" "))[:160]
+        if not href or not same_site(href, target_domain):
+            continue
+        if not likely_seed_candidate_url(href):
+            continue
+        out.append(Candidate(url=href, title=title, snippet=f"seed:{seed_url}", engine="seed_page"))
+    for m in re.finditer(r"['\"]((?:https?:)?//[^'\"<>]+|/[^'\"<>\s]+)['\"]", html_text):
+        href = canonical_url(m.group(1), seed_url)
+        if not href or not same_site(href, target_domain):
+            continue
+        if not likely_seed_candidate_url(href):
+            continue
+        out.append(Candidate(url=href, title="", snippet=f"seed-json:{seed_url}", engine="seed_page"))
+    return unique_candidates(out)[:limit]
+
+
+def discover_seed_candidates(
+    domains: Sequence[str],
+    explicit_seed_urls: Sequence[str],
+    per_seed_limit: int,
+    max_seed_candidates: int,
+    sleep: float,
+) -> Tuple[List[Candidate], Dict[str, object]]:
+    seed_urls = seed_urls_for_domains(domains, explicit_seed_urls)
+    out: List[Candidate] = []
+    seed_stats = []
+    for seed_url in seed_urls:
+        target_domain = normalize_domain(domain_of(seed_url) or urlparse(seed_url).netloc)
+        log(f"[seed] {seed_url}")
+        txt = fetch(seed_url, timeout=20)
+        if not txt:
+            seed_stats.append({"seedUrl": seed_url, "status": "fetch_failed", "candidateCount": 0})
+            time.sleep(sleep)
+            continue
+        found = extract_seed_candidates(txt, seed_url, target_domain, per_seed_limit)
+        seed_stats.append({"seedUrl": seed_url, "status": "ok", "candidateCount": len(found)})
+        out.extend(found)
+        out = unique_candidates(out)
+        if len(out) >= max_seed_candidates:
+            out = out[:max_seed_candidates]
+            break
+        time.sleep(sleep)
+    return out, {
+        "enabled": True,
+        "seedUrlCount": len(seed_urls),
+        "seedPageStats": seed_stats,
+        "candidateCount": len(out),
+        "candidateSamples": [dataclasses.asdict(c) for c in out[:30]],
+    }
 
 
 def extract_meta_title(soup: BeautifulSoup, html_text: str) -> str:
@@ -281,7 +422,6 @@ def extract_chapters(soup: BeautifulSoup, base: str) -> List[Tuple[str, str]]:
         is_noise = bool(re.search(r"(分类|标签|首页|排行|评论|推荐|更多|作者|登录|注册|上一章|下一章)", text)) and not CHAPTER_TEXT_RE.search(text)
         if is_chapter and not is_noise:
             out.append((text or href.rsplit("/", 1)[-1], href))
-    # 去重保序
     seen = set()
     uniq: List[Tuple[str, str]] = []
     for title, url in out:
@@ -344,23 +484,18 @@ def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
     title = extract_meta_title(detail_soup, detail_html) or candidate.title
     cover = extract_cover(detail_soup, base)
     chapters = extract_chapters(detail_soup, candidate.url)
-
-    # 如果候选本身就是章节页，也要验证图片。
     chapter_url = chapters[0][1] if chapters else candidate.url
     chapter_title = chapters[0][0] if chapters else title
     chapter_html = fetch(chapter_url, referer=candidate.url) if chapter_url else None
     images = extract_images_from_html(chapter_html or "", chapter_url or base) if chapter_html else []
-
     if not chapters and not images:
         return None
-    # 登录/付费明显站点：不生成默认规则。
     if requires and not images:
         status = "excluded_login_or_pay"
     elif images:
         status = "native_scroll_ok"
     else:
         status = "render_fallback_needed"
-
     return PageAudit(
         domain=domain_of(candidate.url),
         base_url=base,
@@ -404,7 +539,6 @@ def json_str(s: str) -> str:
 def ets_rule_for_audit(a: PageAudit) -> str:
     rid = safe_id(a.domain)
     name = f"{a.domain} 自动公开规则"
-    # 这些正则和现有 App 的 ComicSourceRule 模型匹配，重点支持搜索引擎发现后按域名解析详情/章节。
     detail_chapter_regex = r"<a[^>]+href=[\"']([^\"']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^\"']*)[\"'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>"
     reader_image_regex = r"<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|<source[^>]+srcset=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\/\/[^\"']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])"
     next_regex = r"<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\s*下一页\s*|\s*下页\s*|\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*)<\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']"
@@ -451,7 +585,7 @@ const COMMON_USER_AGENT = 'Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/53
 /**
  * 自动生成文件：请不要手工修改。
  * 生成命令：python3 tools/rule_discovery/generate_rules.py --keyword "斗罗大陆"
- * 生成逻辑：搜索公开网页 → 审计详情/章节/图片 → 生成 ComicSourceRule。
+ * 生成逻辑：搜索公开网页 / 公开站点种子 → 审计详情/章节/图片 → 生成 ComicSourceRule。
  */
 export const GENERATED_SOURCES: ComicSourceRule[] = [
 {body}];
@@ -460,16 +594,10 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     out.write_text(text, encoding="utf-8")
 
 
-def write_report(
-    audits: List[PageAudit],
-    excluded: List[PageAudit],
-    out: Path,
-    queries: List[str],
-    stats: Dict[str, object],
-) -> None:
+def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, queries: List[str], stats: Dict[str, object]) -> None:
     data = {
         "tool": "ComicReaderHarmony RuleBot",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "queries": queries,
         "generatedCount": len(audits),
         "excludedCount": len(excluded),
@@ -506,6 +634,10 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成漫画浏览器规则")
     ap.add_argument("--keyword", action="append", default=[], help="搜索关键词，可重复，如：--keyword 斗罗大陆 --keyword 'Soul Land'")
     ap.add_argument("--domain", action="append", default=[], help="限定域名，可重复，如：--domain kaixinman.com")
+    ap.add_argument("--seed-url", action="append", default=[], help="公开站点入口种子页，可重复；脚本会从页面抓取站内漫画候选链接")
+    ap.add_argument("--no-seed-discovery", action="store_true", help="关闭公开站点种子抓取，只使用搜索引擎候选")
+    ap.add_argument("--seed-limit", type=int, default=300, help="最多保留多少个种子候选链接")
+    ap.add_argument("--per-seed-limit", type=int, default=80, help="每个种子页最多抓取多少个候选链接")
     ap.add_argument("--limit", type=int, default=20, help="每个查询最多取多少搜索结果")
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
     ap.add_argument("--output-ets", default="entry/src/main/ets/common/GeneratedSourceRules.ets")
@@ -524,15 +656,25 @@ def main() -> int:
     for q in queries:
         log(f"[search] {q}")
         found = search_web(q, args.limit)
-        query_stats.append({
-            "query": q,
-            "candidateCount": len(found),
-            "engines": sorted(set(c.engine for c in found if c.engine)),
-        })
+        query_stats.append({"query": q, "candidateCount": len(found), "engines": sorted(set(c.engine for c in found if c.engine))})
         for c in found:
             search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
         raw_candidates += found
         time.sleep(args.sleep)
+
+    seed_stats: Dict[str, object] = {"enabled": False, "candidateCount": 0}
+    if not args.no_seed_discovery:
+        seed_candidates, seed_stats = discover_seed_candidates(
+            domains=domains,
+            explicit_seed_urls=args.seed_url,
+            per_seed_limit=args.per_seed_limit,
+            max_seed_candidates=args.seed_limit,
+            sleep=args.sleep,
+        )
+        for c in seed_candidates:
+            search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
+        raw_candidates += seed_candidates
+
     raw_candidate_count = len(raw_candidates)
     raw_candidates = unique_candidates(raw_candidates)
     log(f"[info] candidates: {len(raw_candidates)}")
@@ -569,6 +711,7 @@ def main() -> int:
         "uniqueCandidateCount": len(raw_candidates),
         "searchEngineCounts": dict(sorted(search_engine_counts.items())),
         "queryStats": query_stats,
+        "seedDiscovery": seed_stats,
         "audit": audit_stats,
         "passedAuditBeforeDomainDedupe": len(audits),
         "excludedLoginOrPayCount": len(excluded),
