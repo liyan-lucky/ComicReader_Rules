@@ -16,6 +16,9 @@ jobs:
   overwrite-backup:
     name: main 强制覆盖 backup
     runs-on: ubuntu-latest
+    env:
+      BACKUP_PUSH_TOKEN: ${{ secrets.BACKUP_PUSH_TOKEN }}
+      DEFAULT_PUSH_TOKEN: ${{ github.token }}
     steps:
       - name: 校验确认参数
         shell: bash
@@ -31,19 +34,59 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: 显示即将备份的提交
         shell: bash
         run: |
           set -euo pipefail
+          git fetch origin main backup --prune
           echo "main commit:"
           git rev-parse HEAD
           git log -1 --oneline
+          echo "backup commit:"
+          git rev-parse origin/backup
+
+      - name: 检查是否包含 workflow 文件变化
+        id: check_workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main backup --prune
+          BACKUP_SHA="$(git rev-parse origin/backup)"
+          MAIN_SHA="$(git rev-parse HEAD)"
+          echo "main:   $MAIN_SHA"
+          echo "backup: $BACKUP_SHA"
+
+          if git diff --name-only "$BACKUP_SHA" "$MAIN_SHA" | grep -q '^\.github/workflows/'; then
+            echo "has_workflow_changes=true" >> "$GITHUB_OUTPUT"
+            echo "检测到 .github/workflows/ 文件变化。"
+          else
+            echo "has_workflow_changes=false" >> "$GITHUB_OUTPUT"
+            echo "未检测到 .github/workflows/ 文件变化。"
+          fi
 
       - name: 强制覆盖 backup 分支
         shell: bash
         run: |
           set -euo pipefail
-          git push --force origin HEAD:backup
+
+          HAS_WORKFLOW_CHANGES="${{ steps.check_workflows.outputs.has_workflow_changes }}"
+          PUSH_TOKEN="${DEFAULT_PUSH_TOKEN}"
+
+          if [ "$HAS_WORKFLOW_CHANGES" = "true" ]; then
+            if [ -z "${BACKUP_PUSH_TOKEN:-}" ]; then
+              echo "::error::本次 main -> backup 包含 .github/workflows/ 文件变化。默认 GITHUB_TOKEN 通常只有 contents:write，不能推送包含 workflow 文件变更的提交。"
+              echo "请在仓库 Settings -> Secrets and variables -> Actions 中新增 secret：BACKUP_PUSH_TOKEN。"
+              echo "BACKUP_PUSH_TOKEN 建议使用 Fine-grained PAT，并授予当前仓库 Contents: Read and write、Workflows: Read and write；或使用 classic PAT，勾选 repo 和 workflow。"
+              echo "配置后重新手动运行本 workflow，confirm 输入 YES。"
+              exit 1
+            fi
+            PUSH_TOKEN="${BACKUP_PUSH_TOKEN}"
+            echo "检测到 workflow 文件变化，将使用 BACKUP_PUSH_TOKEN 推送。"
+          else
+            echo "未检测到 workflow 文件变化，使用默认 GITHUB_TOKEN 推送。"
+          fi
+
+          git push --force "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:backup
           echo "backup 已被 main 当前提交强制覆盖。"
