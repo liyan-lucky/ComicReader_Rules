@@ -53,6 +53,12 @@ jobs:
       DEEP_SEED_LIMIT: '800'
       QUICK_PER_SEED_LIMIT: '60'
       DEEP_PER_SEED_LIMIT: '120'
+      QUICK_MAX_AUDIT_CANDIDATES: '80'
+      DEEP_MAX_AUDIT_CANDIDATES: '260'
+      QUICK_PER_DOMAIN_AUDIT_LIMIT: '8'
+      DEEP_PER_DOMAIN_AUDIT_LIMIT: '12'
+      QUICK_TIME_BUDGET_SECONDS: '1800'
+      DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.2'
       DEEP_SLEEP: '0.6'
       QUICK_KEYWORDS: '斗罗大陆,Soul Land,完美世界,吞噬星空,斗破苍穹'
@@ -87,6 +93,9 @@ jobs:
             SELECTED_LIMIT="$DEEP_LIMIT"
             SELECTED_SEED_LIMIT="$DEEP_SEED_LIMIT"
             SELECTED_PER_SEED_LIMIT="$DEEP_PER_SEED_LIMIT"
+            SELECTED_MAX_AUDIT_CANDIDATES="$DEEP_MAX_AUDIT_CANDIDATES"
+            SELECTED_PER_DOMAIN_AUDIT_LIMIT="$DEEP_PER_DOMAIN_AUDIT_LIMIT"
+            SELECTED_TIME_BUDGET_SECONDS="$DEEP_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$DEEP_SLEEP"
           else
             SELECTED_KEYWORDS="$QUICK_KEYWORDS"
@@ -95,6 +104,9 @@ jobs:
             SELECTED_LIMIT="$QUICK_LIMIT"
             SELECTED_SEED_LIMIT="$QUICK_SEED_LIMIT"
             SELECTED_PER_SEED_LIMIT="$QUICK_PER_SEED_LIMIT"
+            SELECTED_MAX_AUDIT_CANDIDATES="$QUICK_MAX_AUDIT_CANDIDATES"
+            SELECTED_PER_DOMAIN_AUDIT_LIMIT="$QUICK_PER_DOMAIN_AUDIT_LIMIT"
+            SELECTED_TIME_BUDGET_SECONDS="$QUICK_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$QUICK_SLEEP"
           fi
           if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
@@ -114,7 +126,7 @@ jobs:
           done
 
           mkdir -p generated rules dist
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
@@ -130,6 +142,7 @@ jobs:
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
           audit = index.get('audit') or {}
           stats = report.get('stats') or {}
+          runtime = stats.get('runtime') or {}
           audit_stats = stats.get('audit') or {}
           seed = stats.get('seedDiscovery') or {}
           seed_pages = seed.get('seedPageStats') or []
@@ -141,6 +154,7 @@ jobs:
           excluded_count = int(report.get('excludedCount', audit.get('excludedCount', 0)) or 0)
           removed_count = int((report.get('sanitize') or {}).get('removedCount', audit.get('sanitizeRemovedRules', 0)) or 0)
           query_count = len(report.get('queries') or index.get('queries') or [])
+          executed_query_count = stats.get('executedQueryCount', query_count)
           tag_name = f"search-rules-{os.popen('date -u +%Y%m%d').read().strip()}"
           engines = stats.get('searchEngineCounts') or {}
           engine_text = ', '.join(f"{k}:{v}" for k, v in engines.items()) if engines else '无'
@@ -155,7 +169,9 @@ jobs:
               f"本次自动发现生成规则数：{auto_generated_count}",
               f"手工稳定规则数：{manual_count}",
               f"最终索引总规则数：{total_count}",
-              f"搜索查询数：{query_count}",
+              f"计划搜索查询数：{query_count}",
+              f"实际搜索查询数：{executed_query_count}",
+              f"搜索阶段是否触发时间预算停止：{stats.get('searchStoppedByTimeBudget', '旧报告未记录')}",
               f"搜索原始候选数：{stats.get('rawCandidateCount', '旧报告未记录')}",
               f"搜索去重候选数：{stats.get('uniqueCandidateCount', '旧报告未记录')}",
               f"种子页启用：{seed.get('enabled', False)}",
@@ -163,7 +179,13 @@ jobs:
               f"种子页成功/失败：{seed_ok}/{seed_failed}",
               f"种子候选数：{seed.get('candidateCount', 0)}",
               f"实际审计候选数：{audit_stats.get('auditedCandidateCount', '旧报告未记录')}",
+              f"运行耗时秒数：{runtime.get('elapsedSeconds', '旧报告未记录')}",
+              f"运行预算秒数：{runtime.get('timeBudgetSeconds', '旧报告未记录')}",
+              f"审计候选上限：{runtime.get('maxAuditCandidates', '旧报告未记录')}",
+              f"每域名审计上限：{runtime.get('perDomainAuditLimit', '旧报告未记录')}",
+              f"是否触发时间预算停止：{audit_stats.get('timeBudgetExceeded', '旧报告未记录')}",
               f"非内容 URL 跳过数：{audit_stats.get('skippedNonContentUrl', '旧报告未记录')}",
+              f"每域名审计上限跳过数：{audit_stats.get('skippedPerDomainAuditLimit', '旧报告未记录')}",
               f"无公开章节/图片未通过审计数：{audit_stats.get('auditFailedNoPublicChapterOrImage', '旧报告未记录')}",
               f"审计通过但域名去重前数量：{stats.get('passedAuditBeforeDomainDedupe', '旧报告未记录')}",
               f"排除候选数量：{excluded_count}",

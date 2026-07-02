@@ -33,6 +33,11 @@ import requests
 from bs4 import BeautifulSoup
 
 DEFAULT_UA = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicRuleBot/1.0"
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 IMAGE_RE = re.compile(r"(?:(?:https?:)?//|/)['\"\\/A-Za-z0-9._~:/?#\[\]@!$&()*+,;=%-]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\s'\"<>]*)?", re.I)
 JS_ESCAPED_IMAGE_RE = re.compile(r"https?:\\/\\/[^\s'\"<>]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\\?[^\s'\"<>]*)?", re.I)
 CHAPTER_TEXT_RE = re.compile(r"(第\s*[0-9一二三四五六七八九十百千零〇两]+\s*[话章回]|Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|阅读|开始阅读|Read\s*Chapter)", re.I)
@@ -338,11 +343,17 @@ def discover_seed_candidates(
     per_seed_limit: int,
     max_seed_candidates: int,
     sleep: float,
+    deadline_monotonic: Optional[float] = None,
 ) -> Tuple[List[Candidate], Dict[str, object]]:
     seed_urls = seed_urls_for_domains(domains, explicit_seed_urls)
     out: List[Candidate] = []
     seed_stats = []
+    stopped_by_deadline = False
     for seed_url in seed_urls:
+        if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
+            stopped_by_deadline = True
+            log("[stop] time budget reached during seed discovery")
+            break
         target_domain = normalize_domain(domain_of(seed_url) or urlparse(seed_url).netloc)
         log(f"[seed] {seed_url}")
         txt = fetch(seed_url, timeout=20)
@@ -361,6 +372,7 @@ def discover_seed_candidates(
     return out, {
         "enabled": True,
         "seedUrlCount": len(seed_urls),
+        "stoppedByTimeBudget": stopped_by_deadline,
         "seedPageStats": seed_stats,
         "candidateCount": len(out),
         "candidateSamples": [dataclasses.asdict(c) for c in out[:30]],
@@ -631,6 +643,7 @@ def build_queries(keywords: List[str], domains: List[str]) -> List[str]:
 
 
 def main() -> int:
+    started_at = time.monotonic()
     ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成漫画浏览器规则")
     ap.add_argument("--keyword", action="append", default=[], help="搜索关键词，可重复，如：--keyword 斗罗大陆 --keyword 'Soul Land'")
     ap.add_argument("--domain", action="append", default=[], help="限定域名，可重复，如：--domain kaixinman.com")
@@ -639,11 +652,22 @@ def main() -> int:
     ap.add_argument("--seed-limit", type=int, default=300, help="最多保留多少个种子候选链接")
     ap.add_argument("--per-seed-limit", type=int, default=80, help="每个种子页最多抓取多少个候选链接")
     ap.add_argument("--limit", type=int, default=20, help="每个查询最多取多少搜索结果")
+    ap.add_argument("--max-audit-candidates", type=int, default=0, help="最多审计多少个候选页；0 表示不限制")
+    ap.add_argument("--per-domain-audit-limit", type=int, default=0, help="每个域名最多审计多少个候选页；0 表示不限制")
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
     ap.add_argument("--output-ets", default="entry/src/main/ets/common/GeneratedSourceRules.ets")
     ap.add_argument("--report", default="entry/src/main/resources/rawfile/audit/generated_rulebot_report.json")
     ap.add_argument("--sleep", type=float, default=0.6, help="请求间隔，避免压测公开站点")
+    ap.add_argument("--time-budget-seconds", type=int, default=0, help="最多运行秒数；达到后写出已有结果并正常结束，0 表示不限制")
     args = ap.parse_args()
+
+    def elapsed_seconds() -> int:
+        return int(time.monotonic() - started_at)
+
+    def budget_exceeded() -> bool:
+        return args.time_budget_seconds > 0 and elapsed_seconds() >= args.time_budget_seconds
+
+    deadline_monotonic = started_at + args.time_budget_seconds if args.time_budget_seconds > 0 else None
 
     keywords = args.keyword or ["斗罗大陆", "Soul Land", "Douluo Dalu"]
     domains = args.domain or []
@@ -653,7 +677,12 @@ def main() -> int:
     raw_candidates: List[Candidate] = []
     query_stats = []
     search_engine_counts: Dict[str, int] = {}
+    search_stopped_by_time_budget = False
     for q in queries:
+        if budget_exceeded():
+            search_stopped_by_time_budget = True
+            log(f"[stop] time budget reached during search after {elapsed_seconds()}s")
+            break
         log(f"[search] {q}")
         found = search_web(q, args.limit)
         query_stats.append({"query": q, "candidateCount": len(found), "engines": sorted(set(c.engine for c in found if c.engine))})
@@ -670,6 +699,7 @@ def main() -> int:
             per_seed_limit=args.per_seed_limit,
             max_seed_candidates=args.seed_limit,
             sleep=args.sleep,
+            deadline_monotonic=deadline_monotonic,
         )
         for c in seed_candidates:
             search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
@@ -683,15 +713,32 @@ def main() -> int:
     excluded: List[PageAudit] = []
     audit_stats = {
         "skippedNonContentUrl": 0,
+        "skippedPerDomainAuditLimit": 0,
+        "skippedMaxAuditCandidates": 0,
         "auditFailedNoPublicChapterOrImage": 0,
         "auditedCandidateCount": 0,
+        "timeBudgetExceeded": False,
         "candidateSamples": [dataclasses.asdict(c) for c in raw_candidates[:30]],
     }
+    per_domain_audit_counts: Dict[str, int] = {}
     for c in raw_candidates:
+        if budget_exceeded():
+            audit_stats["timeBudgetExceeded"] = True
+            log(f"[stop] time budget reached after {elapsed_seconds()}s; writing partial results")
+            break
         if not likely_content_url(c.url):
             audit_stats["skippedNonContentUrl"] += 1
             continue
+        if args.max_audit_candidates > 0 and audit_stats["auditedCandidateCount"] >= args.max_audit_candidates:
+            audit_stats["skippedMaxAuditCandidates"] += 1
+            log(f"[stop] max audit candidates reached: {args.max_audit_candidates}")
+            break
+        candidate_domain = domain_of(c.url)
+        if args.per_domain_audit_limit > 0 and per_domain_audit_counts.get(candidate_domain, 0) >= args.per_domain_audit_limit:
+            audit_stats["skippedPerDomainAuditLimit"] += 1
+            continue
         log(f"[audit] {c.url}")
+        per_domain_audit_counts[candidate_domain] = per_domain_audit_counts.get(candidate_domain, 0) + 1
         audit_stats["auditedCandidateCount"] += 1
         a = audit_candidate(c, keywords[0])
         if not a:
@@ -707,12 +754,21 @@ def main() -> int:
     stats = {
         "requestedMaxGenerated": args.max_generated,
         "queryCount": len(queries),
+        "executedQueryCount": len(query_stats),
+        "searchStoppedByTimeBudget": search_stopped_by_time_budget,
         "rawCandidateCount": raw_candidate_count,
         "uniqueCandidateCount": len(raw_candidates),
         "searchEngineCounts": dict(sorted(search_engine_counts.items())),
         "queryStats": query_stats,
         "seedDiscovery": seed_stats,
         "audit": audit_stats,
+        "runtime": {
+            "elapsedSeconds": elapsed_seconds(),
+            "timeBudgetSeconds": args.time_budget_seconds,
+            "maxAuditCandidates": args.max_audit_candidates,
+            "perDomainAuditLimit": args.per_domain_audit_limit,
+            "perDomainAuditCounts": dict(sorted(per_domain_audit_counts.items())),
+        },
         "passedAuditBeforeDomainDedupe": len(audits),
         "excludedLoginOrPayCount": len(excluded),
         "chosenDomainRuleCount": len(chosen),

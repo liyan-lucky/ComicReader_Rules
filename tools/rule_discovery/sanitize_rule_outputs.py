@@ -12,10 +12,14 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 from urllib.parse import urlparse
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 BLOCKED_DOMAIN_KEYWORDS = [
     "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",

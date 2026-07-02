@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 """把规则审计报告转换成 App 可读取的远程规则索引。"""
 from __future__ import annotations
-import argparse, json, re
+import argparse, json, re, sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
 UA = 'Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules'
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 REQUIRED_RULE_FIELDS = [
     'id', 'name', 'homepage', 'searchUrl', 'searchMethod', 'searchItemRegex',
