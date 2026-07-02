@@ -460,7 +460,13 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     out.write_text(text, encoding="utf-8")
 
 
-def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, queries: List[str]) -> None:
+def write_report(
+    audits: List[PageAudit],
+    excluded: List[PageAudit],
+    out: Path,
+    queries: List[str],
+    stats: Dict[str, object],
+) -> None:
     data = {
         "tool": "ComicReaderHarmony RuleBot",
         "version": "1.0.0",
@@ -469,6 +475,7 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
         "excludedCount": len(excluded),
         "generated": [dataclasses.asdict(a) for a in audits],
         "excluded": [dataclasses.asdict(a) for a in excluded],
+        "stats": stats,
         "limits": [
             "只请求公开 HTTP/HTTPS 页面",
             "不登录、不付费、不绕验证码、不解析加密接口、不伪造 App 协议",
@@ -512,21 +519,41 @@ def main() -> int:
     log(f"[info] queries: {len(queries)}")
 
     raw_candidates: List[Candidate] = []
+    query_stats = []
+    search_engine_counts: Dict[str, int] = {}
     for q in queries:
         log(f"[search] {q}")
-        raw_candidates += search_web(q, args.limit)
+        found = search_web(q, args.limit)
+        query_stats.append({
+            "query": q,
+            "candidateCount": len(found),
+            "engines": sorted(set(c.engine for c in found if c.engine)),
+        })
+        for c in found:
+            search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
+        raw_candidates += found
         time.sleep(args.sleep)
+    raw_candidate_count = len(raw_candidates)
     raw_candidates = unique_candidates(raw_candidates)
     log(f"[info] candidates: {len(raw_candidates)}")
 
     audits: List[PageAudit] = []
     excluded: List[PageAudit] = []
+    audit_stats = {
+        "skippedNonContentUrl": 0,
+        "auditFailedNoPublicChapterOrImage": 0,
+        "auditedCandidateCount": 0,
+        "candidateSamples": [dataclasses.asdict(c) for c in raw_candidates[:30]],
+    }
     for c in raw_candidates:
         if not likely_content_url(c.url):
+            audit_stats["skippedNonContentUrl"] += 1
             continue
         log(f"[audit] {c.url}")
+        audit_stats["auditedCandidateCount"] += 1
         a = audit_candidate(c, keywords[0])
         if not a:
+            audit_stats["auditFailedNoPublicChapterOrImage"] += 1
             continue
         if a.status == "excluded_login_or_pay":
             excluded.append(a)
@@ -535,10 +562,23 @@ def main() -> int:
         time.sleep(args.sleep)
 
     chosen = choose_best_by_domain(audits)[: args.max_generated]
+    stats = {
+        "requestedMaxGenerated": args.max_generated,
+        "queryCount": len(queries),
+        "rawCandidateCount": raw_candidate_count,
+        "uniqueCandidateCount": len(raw_candidates),
+        "searchEngineCounts": dict(sorted(search_engine_counts.items())),
+        "queryStats": query_stats,
+        "audit": audit_stats,
+        "passedAuditBeforeDomainDedupe": len(audits),
+        "excludedLoginOrPayCount": len(excluded),
+        "chosenDomainRuleCount": len(chosen),
+        "manualRulesAreMergedLater": True,
+    }
     out_ets = Path(args.output_ets)
     report = Path(args.report)
     write_ets(chosen, out_ets)
-    write_report(chosen, excluded, report, queries)
+    write_report(chosen, excluded, report, queries, stats)
     log(f"[done] generated rules: {len(chosen)} -> {out_ets}")
     log(f"[done] report -> {report}")
     return 0
