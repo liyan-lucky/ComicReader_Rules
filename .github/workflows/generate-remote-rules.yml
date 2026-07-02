@@ -103,6 +103,40 @@ jobs:
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
+      - name: 统计生成规则
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          index = json.loads(Path('generated/index.json').read_text('utf-8'))
+          report = json.loads(Path('generated/rulebot_report.json').read_text('utf-8'))
+          rules = index.get('rules') or index.get('sources') or index.get('items') or []
+          generated_count = report.get('generatedCount', len(rules))
+          excluded_count = report.get('excludedCount', 0)
+          query_count = len(report.get('queries') or index.get('queries') or [])
+          tag_name = f"search-rules-{os.popen('date -u +%Y%m%d').read().strip()}"
+
+          lines = [
+              '## 搜索规则生成统计',
+              '',
+              f"运行模式：{os.environ.get('RULE_RUN_MODE', '')}",
+              f"版本：{index.get('version', '')}",
+              f"更新时间：{index.get('updatedAt', '')}",
+              f"生成规则数：{generated_count}",
+              f"索引规则数：{len(rules)}",
+              f"排除数量：{excluded_count}",
+              f"搜索查询数：{query_count}",
+              f"日期标签：{tag_name}",
+          ]
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          PY
+
       - name: 提交生成规则到 main
         run: |
           set -euo pipefail
