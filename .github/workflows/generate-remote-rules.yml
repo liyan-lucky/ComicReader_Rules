@@ -166,6 +166,18 @@ jobs:
           git push --force origin "$TAG_NAME"
           echo "Published tag: $TAG_NAME"
 
+      - name: 准备 Release 附件
+        run: |
+          set -euo pipefail
+          rm -rf dist/release
+          mkdir -p dist/release
+          cp generated/index.json dist/release/generated-index.json
+          cp generated/rulebot_report.json dist/release/rulebot-report.json
+          cp generated/GeneratedSourceRules.ets dist/release/generated-source-rules.ets
+          cp rules/index.json dist/release/rules-index.json
+          cp generated/update_manifest.json dist/release/update-manifest.json
+          ls -la dist/release
+
       - name: 发布或更新 Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -173,25 +185,18 @@ jobs:
           set -euo pipefail
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
           RELEASE_TITLE="Search Rules $(date -u +'%Y-%m-%d')"
+          RELEASE_FILES=(
+            dist/release/generated-index.json
+            dist/release/rulebot-report.json
+            dist/release/generated-source-rules.ets
+            dist/release/rules-index.json
+            dist/release/update-manifest.json
+          )
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
             gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest
-            gh release upload "$TAG_NAME" \
-              generated/index.json \
-              generated/rulebot_report.json \
-              generated/GeneratedSourceRules.ets \
-              rules/index.json \
-              generated/update_manifest.json \
-              --clobber
+            gh release upload "$TAG_NAME" "${RELEASE_FILES[@]}" --clobber
           else
-            gh release create "$TAG_NAME" \
-              generated/index.json \
-              generated/rulebot_report.json \
-              generated/GeneratedSourceRules.ets \
-              rules/index.json \
-              generated/update_manifest.json \
-              --title "$RELEASE_TITLE" \
-              --notes-file release_notes.md \
-              --latest
+            gh release create "$TAG_NAME" "${RELEASE_FILES[@]}" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest
           fi
           echo "Published release: $TAG_NAME"
 
@@ -214,6 +219,7 @@ jobs:
             echo "标签：$TAG_NAME"
             echo "远端对象：$TAG_REF"
             echo "Release：已发布"
+            echo "附件：generated-index.json, rulebot-report.json, generated-source-rules.ets, rules-index.json, update-manifest.json"
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传生成规则 artifact
@@ -226,3 +232,4 @@ jobs:
             generated/GeneratedSourceRules.ets
             rules/index.json
             generated/update_manifest.json
+            dist/release/*
