@@ -117,6 +117,15 @@ jobs:
             git push origin HEAD:main
           fi
 
+      - name: 发布漫画搜索规则标签
+        run: |
+          set -euo pipefail
+          git fetch --tags origin
+          TAG_NAME="comic-search-rules-$(date -u +'%Y%m%d-%H%M%S')"
+          git tag -a "$TAG_NAME" -m "Comic search rules $TAG_NAME"
+          git push origin "$TAG_NAME"
+          echo "Published tag: $TAG_NAME"
+
       - name: 上传生成规则 artifact
         uses: actions/upload-artifact@v4
         with:
