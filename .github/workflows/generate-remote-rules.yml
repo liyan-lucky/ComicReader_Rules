@@ -114,6 +114,8 @@ jobs:
           report = json.loads(Path('generated/rulebot_report.json').read_text('utf-8'))
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
           audit = index.get('audit') or {}
+          stats = report.get('stats') or {}
+          audit_stats = stats.get('audit') or {}
           auto_generated_count = int(report.get('generatedCount', audit.get('generatedCount', 0)) or 0)
           manual_count = int(audit.get('manualCount', max(0, len(rules) - auto_generated_count)) or 0)
           total_count = int(audit.get('totalCount', len(rules)) or len(rules))
@@ -121,6 +123,8 @@ jobs:
           removed_count = int((report.get('sanitize') or {}).get('removedCount', audit.get('sanitizeRemovedRules', 0)) or 0)
           query_count = len(report.get('queries') or index.get('queries') or [])
           tag_name = f"search-rules-{os.popen('date -u +%Y%m%d').read().strip()}"
+          engines = stats.get('searchEngineCounts') or {}
+          engine_text = ', '.join(f"{k}:{v}" for k, v in engines.items()) if engines else '无'
 
           lines = [
               '## 搜索规则生成统计',
@@ -128,12 +132,20 @@ jobs:
               f"运行模式：{os.environ.get('RULE_RUN_MODE', '')}",
               f"版本：{index.get('version', '')}",
               f"更新时间：{index.get('updatedAt', '')}",
+              f"目标上限：{stats.get('requestedMaxGenerated', os.environ.get('DEEP_MAX_GENERATED' if os.environ.get('RULE_RUN_MODE') == 'deep' else 'QUICK_MAX_GENERATED', ''))}",
               f"本次自动发现生成规则数：{auto_generated_count}",
               f"手工稳定规则数：{manual_count}",
               f"最终索引总规则数：{total_count}",
+              f"搜索查询数：{query_count}",
+              f"搜索原始候选数：{stats.get('rawCandidateCount', '旧报告未记录')}",
+              f"搜索去重候选数：{stats.get('uniqueCandidateCount', '旧报告未记录')}",
+              f"实际审计候选数：{audit_stats.get('auditedCandidateCount', '旧报告未记录')}",
+              f"非内容 URL 跳过数：{audit_stats.get('skippedNonContentUrl', '旧报告未记录')}",
+              f"无公开章节/图片未通过审计数：{audit_stats.get('auditFailedNoPublicChapterOrImage', '旧报告未记录')}",
+              f"审计通过但域名去重前数量：{stats.get('passedAuditBeforeDomainDedupe', '旧报告未记录')}",
               f"排除候选数量：{excluded_count}",
               f"清洗移除规则数：{removed_count}",
-              f"搜索查询数：{query_count}",
+              f"搜索引擎候选来源：{engine_text}",
               f"日期标签：{tag_name}",
           ]
           output = '\n'.join(lines) + '\n'
