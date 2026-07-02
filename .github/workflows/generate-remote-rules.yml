@@ -196,6 +196,8 @@ jobs:
           echo "Published release: $TAG_NAME"
 
       - name: 校验标签和 Release 发布状态
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
