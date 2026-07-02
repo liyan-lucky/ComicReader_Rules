@@ -6,7 +6,7 @@ on:
       run_mode:
         description: '运行模式：quick=快速；deep=深度'
         required: true
-        default: 'quick'
+        default: 'deep'
         type: choice
         options:
           - quick
@@ -43,12 +43,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RULES_BRANCH: main
-      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
       RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
       QUICK_MAX_GENERATED: '10'
       DEEP_MAX_GENERATED: '1000'
       QUICK_LIMIT: '8'
       DEEP_LIMIT: '20'
+      QUICK_SEED_LIMIT: '150'
+      DEEP_SEED_LIMIT: '800'
+      QUICK_PER_SEED_LIMIT: '60'
+      DEEP_PER_SEED_LIMIT: '120'
       QUICK_SLEEP: '0.2'
       DEEP_SLEEP: '0.6'
       QUICK_KEYWORDS: '斗罗大陆,Soul Land,完美世界,吞噬星空,斗破苍穹'
@@ -81,12 +85,16 @@ jobs:
             SELECTED_DOMAINS="$DEEP_DOMAINS"
             SELECTED_MAX_GENERATED="$DEEP_MAX_GENERATED"
             SELECTED_LIMIT="$DEEP_LIMIT"
+            SELECTED_SEED_LIMIT="$DEEP_SEED_LIMIT"
+            SELECTED_PER_SEED_LIMIT="$DEEP_PER_SEED_LIMIT"
             SELECTED_SLEEP="$DEEP_SLEEP"
           else
             SELECTED_KEYWORDS="$QUICK_KEYWORDS"
             SELECTED_DOMAINS="$QUICK_DOMAINS"
             SELECTED_MAX_GENERATED="$QUICK_MAX_GENERATED"
             SELECTED_LIMIT="$QUICK_LIMIT"
+            SELECTED_SEED_LIMIT="$QUICK_SEED_LIMIT"
+            SELECTED_PER_SEED_LIMIT="$QUICK_PER_SEED_LIMIT"
             SELECTED_SLEEP="$QUICK_SLEEP"
           fi
           if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
@@ -106,7 +114,7 @@ jobs:
           done
 
           mkdir -p generated rules dist
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
           python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
           python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
 
@@ -123,6 +131,10 @@ jobs:
           audit = index.get('audit') or {}
           stats = report.get('stats') or {}
           audit_stats = stats.get('audit') or {}
+          seed = stats.get('seedDiscovery') or {}
+          seed_pages = seed.get('seedPageStats') or []
+          seed_ok = sum(1 for item in seed_pages if item.get('status') == 'ok')
+          seed_failed = sum(1 for item in seed_pages if item.get('status') != 'ok')
           auto_generated_count = int(report.get('generatedCount', audit.get('generatedCount', 0)) or 0)
           manual_count = int(audit.get('manualCount', max(0, len(rules) - auto_generated_count)) or 0)
           total_count = int(audit.get('totalCount', len(rules)) or len(rules))
@@ -146,6 +158,10 @@ jobs:
               f"搜索查询数：{query_count}",
               f"搜索原始候选数：{stats.get('rawCandidateCount', '旧报告未记录')}",
               f"搜索去重候选数：{stats.get('uniqueCandidateCount', '旧报告未记录')}",
+              f"种子页启用：{seed.get('enabled', False)}",
+              f"种子页数量：{seed.get('seedUrlCount', 0)}",
+              f"种子页成功/失败：{seed_ok}/{seed_failed}",
+              f"种子候选数：{seed.get('candidateCount', 0)}",
               f"实际审计候选数：{audit_stats.get('auditedCandidateCount', '旧报告未记录')}",
               f"非内容 URL 跳过数：{audit_stats.get('skippedNonContentUrl', '旧报告未记录')}",
               f"无公开章节/图片未通过审计数：{audit_stats.get('auditFailedNoPublicChapterOrImage', '旧报告未记录')}",
