@@ -184,12 +184,14 @@ jobs:
           set -euo pipefail
           git fetch --tags origin
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
-          if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" >/dev/null 2>&1; then
-            git push origin ":refs/tags/$TAG_NAME"
-          fi
           git tag -f -a "$TAG_NAME" -m "Search rules $TAG_NAME"
-          git push --force origin "$TAG_NAME"
-          echo "Published tag: $TAG_NAME"
+          if git push --force origin "refs/tags/$TAG_NAME"; then
+            echo "Published tag: $TAG_NAME"
+            echo "TAG_UPDATE_STATUS=updated" >> "$GITHUB_ENV"
+          else
+            echo "Tag update failed, keep existing tag and continue to publish Release: $TAG_NAME" >&2
+            echo "TAG_UPDATE_STATUS=failed_keep_existing" >> "$GITHUB_ENV"
+          fi
 
       - name: 准备 Release 附件
         run: |
@@ -243,6 +245,7 @@ jobs:
             echo ""
             echo "标签：$TAG_NAME"
             echo "远端对象：$TAG_REF"
+            echo "标签更新状态：${TAG_UPDATE_STATUS:-unknown}"
             echo "Release：已发布"
             echo "附件：generated-index.json, rulebot-report.json, generated-source-rules.ets, rules-index.json, update-manifest.json"
           } | tee -a "$GITHUB_STEP_SUMMARY"
