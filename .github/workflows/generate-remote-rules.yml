@@ -165,6 +165,24 @@ jobs:
           git push --force origin "$TAG_NAME"
           echo "Published tag: $TAG_NAME"
 
+      - name: 校验标签发布状态
+        run: |
+          set -euo pipefail
+          TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
+          TAG_REF="$(git ls-remote --tags origin "refs/tags/$TAG_NAME" | awk '{print $1}')"
+          if [ -z "$TAG_REF" ]; then
+            echo "Tag not found after publish: $TAG_NAME" >&2
+            exit 1
+          fi
+          {
+            echo ""
+            echo "## 标签发布校验"
+            echo ""
+            echo "标签：$TAG_NAME"
+            echo "远端对象：$TAG_REF"
+            echo "状态：已发布"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
       - name: 上传生成规则 artifact
         uses: actions/upload-artifact@v4
         with:
