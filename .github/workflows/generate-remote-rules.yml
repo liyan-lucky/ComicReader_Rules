@@ -132,6 +132,7 @@ jobs:
           ]
           output = '\n'.join(lines) + '\n'
           print(output)
+          Path('release_notes.md').write_text(output, encoding='utf-8')
           summary = os.environ.get('GITHUB_STEP_SUMMARY')
           if summary:
               Path(summary).write_text(output, encoding='utf-8')
@@ -165,7 +166,36 @@ jobs:
           git push --force origin "$TAG_NAME"
           echo "Published tag: $TAG_NAME"
 
-      - name: 校验标签发布状态
+      - name: 发布或更新 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
+          RELEASE_TITLE="Search Rules $(date -u +'%Y-%m-%d')"
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest
+            gh release upload "$TAG_NAME" \
+              generated/index.json \
+              generated/rulebot_report.json \
+              generated/GeneratedSourceRules.ets \
+              rules/index.json \
+              generated/update_manifest.json \
+              --clobber
+          else
+            gh release create "$TAG_NAME" \
+              generated/index.json \
+              generated/rulebot_report.json \
+              generated/GeneratedSourceRules.ets \
+              rules/index.json \
+              generated/update_manifest.json \
+              --title "$RELEASE_TITLE" \
+              --notes-file release_notes.md \
+              --latest
+          fi
+          echo "Published release: $TAG_NAME"
+
+      - name: 校验标签和 Release 发布状态
         run: |
           set -euo pipefail
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
@@ -174,13 +204,14 @@ jobs:
             echo "Tag not found after publish: $TAG_NAME" >&2
             exit 1
           fi
+          gh release view "$TAG_NAME" >/dev/null
           {
             echo ""
-            echo "## 标签发布校验"
+            echo "## 标签和 Release 发布校验"
             echo ""
             echo "标签：$TAG_NAME"
             echo "远端对象：$TAG_REF"
-            echo "状态：已发布"
+            echo "Release：已发布"
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传生成规则 artifact
