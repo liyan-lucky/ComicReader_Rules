@@ -657,6 +657,8 @@ def main() -> int:
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
     ap.add_argument("--output-ets", default="entry/src/main/ets/common/GeneratedSourceRules.ets")
     ap.add_argument("--report", default="entry/src/main/resources/rawfile/audit/generated_rulebot_report.json")
+    ap.add_argument("--language-code", default="mixed", help="本次生成使用的语种代码，如 zh-Hans / zh-Hant / en")
+    ap.add_argument("--language-name", default="Mixed", help="本次生成使用的语种名称")
     ap.add_argument("--sleep", type=float, default=0.6, help="请求间隔，避免压测公开站点")
     ap.add_argument("--time-budget-seconds", type=int, default=0, help="最多运行秒数；达到后写出已有结果并正常结束，0 表示不限制")
     args = ap.parse_args()
@@ -752,6 +754,10 @@ def main() -> int:
 
     chosen = choose_best_by_domain(audits)[: args.max_generated]
     stats = {
+        "language": {
+            "code": args.language_code,
+            "name": args.language_name,
+        },
         "requestedMaxGenerated": args.max_generated,
         "queryCount": len(queries),
         "executedQueryCount": len(query_stats),

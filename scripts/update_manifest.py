@@ -61,9 +61,21 @@ def write_json(path: Path, data: Dict[str, Any]) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def build_section(section: str, tag: str) -> Dict[str, Any]:
+def language_file(path: Path, language_code: str) -> Path:
+    if not language_code:
+        return path
+    return path.with_name(f"{path.stem}.{language_code}{path.suffix}")
+
+
+def raw_url(path: Path) -> str:
+    return f"{REPO_RAW_BASE}/{path.as_posix()}"
+
+
+def build_section(section: str, tag: str, language_code: str = "", language_name: str = "") -> Dict[str, Any]:
     config = SECTION_CONFIG[section]
     source_path: Path = config["source"]
+    if section == "rules" and language_code:
+        source_path = language_file(source_path, language_code)
     source = load_json(source_path)
     version = str(source.get("version") or "")
     updated_at = str(source.get("updatedAt") or "")
@@ -76,9 +88,23 @@ def build_section(section: str, tag: str) -> Dict[str, Any]:
         "version": version,
         "updatedAt": updated_at,
         "tag": tag,
-        "url": config["url"],
+        "url": raw_url(source_path) if section == "rules" and language_code else config["url"],
     }
-    data.update(config["extra"])
+    if section == "rules" and language_code:
+        rules_path = language_file(Path("rules/index.json"), language_code)
+        report_path = language_file(Path("generated/rulebot_report.json"), language_code)
+        ets_path = language_file(Path("generated/GeneratedSourceRules.ets"), language_code)
+        data["language"] = {
+            "code": language_code,
+            "name": language_name or language_code,
+        }
+        data.update({
+            "rulesUrl": raw_url(rules_path),
+            "reportUrl": raw_url(report_path),
+            "etsUrl": raw_url(ets_path),
+        })
+    else:
+        data.update(config["extra"])
     return data
 
 
@@ -86,6 +112,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Update generated/update_manifest.json")
     parser.add_argument("--section", choices=sorted(SECTION_CONFIG), required=True)
     parser.add_argument("--tag", required=True)
+    parser.add_argument("--language-code", default="")
+    parser.add_argument("--language-name", default="")
     args = parser.parse_args()
 
     manifest = load_json(MANIFEST_PATH)
@@ -98,7 +126,16 @@ def main() -> int:
             "catalog": None,
         }
     manifest["schema"] = MANIFEST_SCHEMA
-    manifest[args.section] = build_section(args.section, args.tag)
+    section_data = build_section(args.section, args.tag, args.language_code, args.language_name)
+    if args.section == "rules" and args.language_code:
+        current_rules = manifest.get("rules") if isinstance(manifest.get("rules"), dict) else {}
+        languages = current_rules.get("languages") if isinstance(current_rules.get("languages"), dict) else {}
+        languages[args.language_code] = section_data
+        top_level_section = dict(section_data)
+        top_level_section["languages"] = languages
+        manifest[args.section] = top_level_section
+    else:
+        manifest[args.section] = section_data
     manifest["updatedAt"] = now_iso()
     write_json(MANIFEST_PATH, manifest)
     print(f"Updated {MANIFEST_PATH}: {args.section} -> {args.tag}")

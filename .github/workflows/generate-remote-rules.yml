@@ -23,6 +23,15 @@ on:
           - '300'
           - '500'
           - '1000'
+      rule_language:
+        description: '规则语种：每次只按一个语种搜索并生成独立文件'
+        required: true
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - zh-Hans
+          - zh-Hant
+          - en
   schedule:
     - cron: '0 3 * * 1'
 
@@ -45,6 +54,7 @@ jobs:
       RULES_BRANCH: main
       RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
       RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
+      RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.rule_language || 'zh-Hans' }}
       QUICK_MAX_GENERATED: '10'
       DEEP_MAX_GENERATED: '1000'
       QUICK_LIMIT: '8'
@@ -61,10 +71,18 @@ jobs:
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.2'
       DEEP_SLEEP: '0.6'
-      QUICK_KEYWORDS: '斗罗大陆,Soul Land,完美世界,吞噬星空,斗破苍穹'
-      QUICK_DOMAINS: 'kaixinman.com,soullandmanga.com,mgeko.cc,mangafire.to,comick.io'
-      DEEP_KEYWORDS: '斗罗大陆,Soul Land,Douluo Dalu,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End'
-      DEEP_DOMAINS: 'kaixinman.com,soullandmanga.com,manhuaus.com,mangafire.to,mgeko.cc,happymh.com,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,chapmanganato.to,webtoons.com,tapas.io'
+      QUICK_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,斗破苍穹,凡人修仙传'
+      QUICK_DOMAINS_ZH_HANS: 'kaixinman.com,mgeko.cc,happymh.com'
+      DEEP_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,大奉打更人,沧元图,遮天'
+      DEEP_DOMAINS_ZH_HANS: 'kaixinman.com,manhuaus.com,mgeko.cc,happymh.com,chapmanganato.to'
+      QUICK_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,鬥破蒼穹,凡人修仙傳'
+      QUICK_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to'
+      DEEP_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,凡人修仙傳,鬥破蒼穹,武動乾坤,一人之下,大奉打更人,滄元圖,遮天'
+      DEEP_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to,mangapark.net'
+      QUICK_KEYWORDS_EN: 'Soul Land,Martial Peak,Apotheosis,Solo Leveling,Magic Emperor'
+      QUICK_DOMAINS_EN: 'soullandmanga.com,mangafire.to,comick.io,mangadex.org'
+      DEEP_KEYWORDS_EN: 'Soul Land,Douluo Dalu,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End,Tales of Demons and Gods,Against the Gods'
+      DEEP_DOMAINS_EN: 'soullandmanga.com,mangafire.to,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,webtoons.com,tapas.io'
 
     steps:
       - name: 检出 main
@@ -86,6 +104,36 @@ jobs:
       - name: 生成公开规则
         run: |
           set -euo pipefail
+          case "$RULE_LANGUAGE" in
+            zh-Hans)
+              RULE_LANGUAGE_NAME="简体中文"
+              QUICK_KEYWORDS="$QUICK_KEYWORDS_ZH_HANS"
+              QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANS"
+              DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANS"
+              DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANS"
+              ;;
+            zh-Hant)
+              RULE_LANGUAGE_NAME="繁体中文"
+              QUICK_KEYWORDS="$QUICK_KEYWORDS_ZH_HANT"
+              QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANT"
+              DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANT"
+              DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANT"
+              ;;
+            en)
+              RULE_LANGUAGE_NAME="English"
+              QUICK_KEYWORDS="$QUICK_KEYWORDS_EN"
+              QUICK_DOMAINS="$QUICK_DOMAINS_EN"
+              DEEP_KEYWORDS="$DEEP_KEYWORDS_EN"
+              DEEP_DOMAINS="$DEEP_DOMAINS_EN"
+              ;;
+            *)
+              echo "Unsupported rule language: $RULE_LANGUAGE" >&2
+              exit 1
+              ;;
+          esac
+          echo "RULE_LANGUAGE_NAME=$RULE_LANGUAGE_NAME" >> "$GITHUB_ENV"
+          echo "RULE_FILE_SUFFIX=$RULE_LANGUAGE" >> "$GITHUB_ENV"
+
           if [ "$RULE_RUN_MODE" = "deep" ]; then
             SELECTED_KEYWORDS="$DEEP_KEYWORDS"
             SELECTED_DOMAINS="$DEEP_DOMAINS"
@@ -126,9 +174,18 @@ jobs:
           done
 
           mkdir -p generated rules dist
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --output-ets generated/GeneratedSourceRules.ets --report generated/rulebot_report.json"
-          python tools/rule_discovery/build_index_from_report.py --report generated/rulebot_report.json --output generated/index.json
-          python tools/rule_discovery/sanitize_rule_outputs.py --report generated/rulebot_report.json --index generated/index.json --ets generated/GeneratedSourceRules.ets --rules-output rules/index.json
+          REPORT_FILE="generated/rulebot_report.${RULE_LANGUAGE}.json"
+          INDEX_FILE="generated/index.${RULE_LANGUAGE}.json"
+          ETS_FILE="generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets"
+          RULES_FILE="rules/index.${RULE_LANGUAGE}.json"
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --output-ets \"$ETS_FILE\" --report \"$REPORT_FILE\""
+          python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
+          python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
+
+          cp "$REPORT_FILE" generated/rulebot_report.json
+          cp "$INDEX_FILE" generated/index.json
+          cp "$ETS_FILE" generated/GeneratedSourceRules.ets
+          cp "$RULES_FILE" rules/index.json
 
       - name: 统计生成规则
         run: |
@@ -142,6 +199,7 @@ jobs:
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
           audit = index.get('audit') or {}
           stats = report.get('stats') or {}
+          language = index.get('language') or stats.get('language') or {}
           runtime = stats.get('runtime') or {}
           audit_stats = stats.get('audit') or {}
           seed = stats.get('seedDiscovery') or {}
@@ -163,6 +221,7 @@ jobs:
               '## 搜索规则生成统计',
               '',
               f"运行模式：{os.environ.get('RULE_RUN_MODE', '')}",
+              f"规则语种：{language.get('name', os.environ.get('RULE_LANGUAGE_NAME', ''))} ({language.get('code', os.environ.get('RULE_LANGUAGE', ''))})",
               f"版本：{index.get('version', '')}",
               f"更新时间：{index.get('updatedAt', '')}",
               f"目标上限：{stats.get('requestedMaxGenerated', os.environ.get('DEEP_MAX_GENERATED' if os.environ.get('RULE_RUN_MODE') == 'deep' else 'QUICK_MAX_GENERATED', ''))}",
@@ -208,12 +267,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
-          python scripts/update_manifest.py --section rules --tag "$TAG_NAME"
+          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json generated/update_manifest.json
+          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json"
           if git diff --cached --quiet; then
             echo "No generated rule changes."
           else
-            git commit -m "chore: update generated comic rules"
+            git commit -m "chore: update generated comic rules ($RULE_LANGUAGE)"
             git push origin HEAD:main
           fi
 
@@ -240,6 +300,10 @@ jobs:
           cp generated/rulebot_report.json dist/release/rulebot-report.json
           cp generated/GeneratedSourceRules.ets dist/release/generated-source-rules.ets
           cp rules/index.json dist/release/rules-index.json
+          cp "generated/index.${RULE_LANGUAGE}.json" "dist/release/generated-index-${RULE_LANGUAGE}.json"
+          cp "generated/rulebot_report.${RULE_LANGUAGE}.json" "dist/release/rulebot-report-${RULE_LANGUAGE}.json"
+          cp "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
+          cp "rules/index.${RULE_LANGUAGE}.json" "dist/release/rules-index-${RULE_LANGUAGE}.json"
           cp generated/update_manifest.json dist/release/update-manifest.json
           ls -la dist/release
 
@@ -255,6 +319,10 @@ jobs:
             dist/release/rulebot-report.json
             dist/release/generated-source-rules.ets
             dist/release/rules-index.json
+            "dist/release/generated-index-${RULE_LANGUAGE}.json"
+            "dist/release/rulebot-report-${RULE_LANGUAGE}.json"
+            "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
+            "dist/release/rules-index-${RULE_LANGUAGE}.json"
             dist/release/update-manifest.json
           )
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
@@ -285,7 +353,7 @@ jobs:
             echo "远端对象：$TAG_REF"
             echo "标签更新状态：${TAG_UPDATE_STATUS:-unknown}"
             echo "Release：已发布"
-            echo "附件：generated-index.json, rulebot-report.json, generated-source-rules.ets, rules-index.json, update-manifest.json"
+            echo "附件：generated-index.json, rulebot-report.json, generated-source-rules.ets, rules-index.json, generated-index-${RULE_LANGUAGE}.json, rulebot-report-${RULE_LANGUAGE}.json, generated-source-rules-${RULE_LANGUAGE}.ets, rules-index-${RULE_LANGUAGE}.json, update-manifest.json"
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传生成规则 artifact
@@ -294,8 +362,12 @@ jobs:
           name: comic-reader-generated-rules-${{ env.RULE_RUN_MODE }}
           path: |
             generated/index.json
+            generated/index.*.json
             generated/rulebot_report.json
+            generated/rulebot_report.*.json
             generated/GeneratedSourceRules.ets
+            generated/GeneratedSourceRules.*.ets
             rules/index.json
+            rules/index.*.json
             generated/update_manifest.json
             dist/release/*

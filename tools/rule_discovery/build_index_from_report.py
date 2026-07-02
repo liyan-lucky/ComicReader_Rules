@@ -108,10 +108,15 @@ def main() -> int:
     ap.add_argument('--report', default='generated/rulebot_report.json')
     ap.add_argument('--output', default='generated/index.json')
     ap.add_argument('--manual', default='rules/manual/index.json')
+    ap.add_argument('--language-code', default='')
+    ap.add_argument('--language-name', default='')
     args = ap.parse_args()
 
     report_path = Path(args.report)
     data = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {'generated': [], 'excluded': [], 'queries': []}
+    report_language = ((data.get('stats') or {}).get('language') or {})
+    language_code = args.language_code or str(report_language.get('code') or 'mixed')
+    language_name = args.language_name or str(report_language.get('name') or language_code)
     manual_rules = load_manual_rules(args.manual)
 
     rules: list[dict] = []
@@ -135,6 +140,10 @@ def main() -> int:
         'version': datetime.now(timezone.utc).strftime('%Y.%m.%d.%H%M'),
         'updatedAt': datetime.now(timezone.utc).isoformat(),
         'license': 'MIT',
+        'language': {
+            'code': language_code,
+            'name': language_name,
+        },
         'compliance': PROJECT_COMPLIANCE,
         'queries': data.get('queries', []),
         'rules': rules,
