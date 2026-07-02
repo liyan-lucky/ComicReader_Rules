@@ -1,10 +1,39 @@
 # 当前仓库状态
 
-更新时间：2026-07-01
+更新时间：2026-07-02
 
 ## 定位
 
-`ComicReader_Rules` 是漫画浏览器的公开源规则仓库。App 主仓库 `ComicReader_HarmonyOS` 不直接维护大量漫画站规则，默认从本仓库 `generated/index.json` 读取远程规则索引。
+`ComicReader_Rules` 是漫画浏览器的公开源规则仓库。App 主仓库 `ComicReader_HarmonyOS` 不直接维护大量漫画站规则，默认从本仓库读取 App 更新总清单、远程规则索引和公开漫画目录。
+
+## App 更新入口
+
+App 推荐固定读取：
+
+```text
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/update_manifest.json
+```
+
+`generated/update_manifest.json` 是唯一推荐总入口，分别包含：
+
+```text
+rules    搜索规则更新状态
+catalog  公开目录更新状态
+```
+
+App 更新判断规则：
+
+```text
+本地 rules.version   != 远程 rules.version   → 更新搜索规则
+本地 catalog.version != 远程 catalog.version → 更新公开目录
+```
+
+标签只用于备份快照和追溯，不作为 App 主更新入口：
+
+```text
+search-rules-YYYYMMDD   搜索规则日期标签，同一天重复运行会更新到最新提交。
+catalog-YYYYMMDD        公开目录日期标签，同一天重复运行会更新到最新提交。
+```
 
 ## 当前生成数据
 
@@ -12,8 +41,8 @@
 
 - `generated/index.json`
   - schema：`womh_comic_rules_index_v1`
-  - version：`2026.07.01.1815`
-  - updatedAt：`2026-07-01T18:15:33.994005+00:00`
+  - version：`2026.07.01.2318`
+  - updatedAt：`2026-07-01T23:18:08.625974+00:00`
 - `generated/catalog_report.json`
   - itemCount：`486`
   - categoryCount：`16`
@@ -28,11 +57,14 @@
 ## 当前目录职责
 
 - `rules/manual/`：手工维护的稳定公开规则。
+- `generated/update_manifest.json`：App 更新总入口，合并 `rules` 和 `catalog` 两类更新状态。
 - `generated/index.json`：App 远程更新使用的标准规则索引。
+- `rules/index.json`：App 兼容读取路径，同步规则索引。
 - `generated/catalog.json`：公开漫画目录索引。
 - `generated/catalog_categories.json`：分类汇总索引。
 - `generated/catalog_delta.json`：目录增量更新文件。
 - `tools/rule_discovery/`：公开源搜索、审计、规则生成和清洗工具。
+- `scripts/update_manifest.py`：合并更新 `generated/update_manifest.json`，避免两个 workflow 互相覆盖。
 - `scripts/`：本地/CI 入口脚本。
 - `docs/`：维护、接口、规范和状态文档。
 
@@ -45,8 +77,8 @@
 
 ## 当前工作流说明
 
-- 规则生成：生成 `generated/index.json`、`generated/rulebot_report.json`、`generated/GeneratedSourceRules.ets`、`generated/rule_targets.json`，并同步 `rules/index.json`。
-- 目录生成：生成 `generated/catalog.json`、`generated/catalog_categories.json`、`generated/catalog_delta.json`、`generated/catalog_report.json`、`generated/catalog_target_gaps.json`。
+- 规则生成：生成 `generated/index.json`、`generated/rulebot_report.json`、`generated/GeneratedSourceRules.ets`，同步 `rules/index.json`，更新 `generated/update_manifest.json` 的 `rules` 区块，并发布或更新 `search-rules-YYYYMMDD` 标签。
+- 目录生成：生成 `generated/catalog.json`、`generated/catalog_categories.json`、`generated/catalog_delta.json`、`generated/catalog_report.json`、`generated/catalog_target_gaps.json`，更新 `generated/update_manifest.json` 的 `catalog` 区块，并发布或更新 `catalog-YYYYMMDD` 标签。
 - 强制备份：运行 `强制覆盖 backup 分支`，输入 `YES` 后执行 `git push --force origin HEAD:backup`。
 
 ## 合规边界
