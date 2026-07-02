@@ -10,6 +10,7 @@ on:
     paths:
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
+      - 'scripts/summarize_catalog_report.py'
       - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
@@ -22,6 +23,7 @@ on:
     paths:
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
+      - 'scripts/summarize_catalog_report.py'
       - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
       - 'generated/index.json'
@@ -42,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
-      CATALOG_TARGET_COUNT: '220'
+      CATALOG_TARGET_COUNT: '200'
       CATALOG_MIN_TARGET_COUNT: '200'
 
     steps:
@@ -61,6 +63,7 @@ jobs:
         run: |
           python -m py_compile scripts/generate_catalog.py
           python -m py_compile scripts/boost_catalog_targets.py
+          python -m py_compile scripts/summarize_catalog_report.py
           python -m py_compile scripts/update_manifest.py
 
       - name: 生成公开漫画目录
@@ -89,8 +92,13 @@ jobs:
           assert catalog.get('compliance', {}).get('noImages') is True
           assert catalog.get('compliance', {}).get('noChapterText') is True
           assert gaps.get('schema') == 'comic_catalog_target_gaps_v1'
+          assert gaps.get('targetCount') == 200
           print('目录 JSON 校验通过')
           PY
+
+      - name: 输出目录分析统计
+        run: |
+          python scripts/summarize_catalog_report.py --target 200
 
       - name: 提交生成结果到 main
         if: github.event_name != 'pull_request'
@@ -133,27 +141,3 @@ jobs:
             generated/catalog_report.json
             generated/catalog_target_gaps.json
             generated/update_manifest.json
-
-      - name: 显示目录摘要
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-          report = json.loads(Path('generated/catalog_report.json').read_text('utf-8'))
-          gaps = json.loads(Path('generated/catalog_target_gaps.json').read_text('utf-8'))
-          lines = [
-              '## 公开漫画目录摘要',
-              '',
-              f"目标分支：{os.environ.get('CATALOG_BRANCH', '')}",
-              f"漫画总数：{report.get('itemCount', 0)}",
-              f"未分类数量：{report.get('uncategorizedCount', 0)}",
-              f"目标数量：{gaps.get('targetCount', 0)}",
-              f"剩余总缺口：{gaps.get('remainingTotalGap', 0)}",
-          ]
-          output = '\n'.join(lines) + '\n'
-          print(output)
-          summary = os.environ.get('GITHUB_STEP_SUMMARY')
-          if summary:
-              Path(summary).write_text(output, encoding='utf-8')
-          PY
