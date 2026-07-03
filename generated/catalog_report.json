@@ -1,46 +1,46 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-02T07:04:46Z",
+  "updatedAt": "2026-07-03T06:56:06Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 487,
+  "itemCount": 481,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 4013,
-  "indexRecordCount": 103,
-  "reportRecordCount": 100,
-  "discoveryRecordCount": 810,
+  "sourceRecordCount": 3957,
+  "indexRecordCount": 70,
+  "reportRecordCount": 79,
+  "discoveryRecordCount": 808,
   "categorySearchRecordCount": 3000,
   "uncategorizedCount": 26,
   "uncategorizedSamples": [
     "And2girls安菟",
     "Soul Land",
     "browse comics",
+    "kaixinman.com 远程公开源",
     "mangadna",
     "mangadnacom",
+    "伍拾是只烦人的猫",
     "吞噬星空",
     "完结 17 母女",
     "完美世界",
     "开心漫公开访问源",
     "斗破苍穹",
     "斗罗大陆",
+    "简体中文",
     "试着在维也纳歌唱吧",
+    "连载 10 lily of the valley（铃兰",
     "连载 12 兄妹间的相爱相杀~三匹甜蜜的小狼~",
     "连载 14 天狼双星|Sirius:Twin Stars",
     "连载 16 歌舞伎町bad trip",
     "连载 17 绝色道侣都说吾皇体质无敌",
-    "连载 2 阴沉的我被双子爱慕的缘由",
     "连载 3 异梦",
-    "连载 3 爱意初绽",
     "连载 8 家庭教师太XX，已经学不进去了~",
     "连载 一起学湘菜16",
     "连载 仙子不仁，那就沦为鼎炉吧！",
-    "连载 刃牙外传 烈海王对于转生异世界一向是无所谓的",
-    "连载 阿德勒与露奈塔",
     "通用公开网页源",
     "金融大佬的天才孙子"
   ],
@@ -105,7 +105,7 @@
     "entryUrlCount": 24,
     "pagesFetched": 12,
     "pagesFailed": 9,
-    "recordsFound": 810,
+    "recordsFound": 808,
     "errors": [
       {
         "source": "mgeko.cc",
@@ -182,26 +182,27 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 484,
-    "detailPagesFailed": 0,
-    "metadataHits": 478,
+    "detailPagesFetched": 476,
+    "detailPagesFailed": 1,
+    "metadataHits": 470,
     "metadataLimit": 900,
-    "categorySearchFallbackAssigned": 9,
+    "categorySearchFallbackAssigned": 2,
     "categoryCountsAfterFallback": {
-      "dongzuo": 271,
-      "dushi": 4,
+      "dongzuo": 263,
+      "dushi": 6,
       "juqing": 3,
-      "kehuan": 10,
-      "kongbu": 8,
-      "lianai": 45,
-      "lishi_gufeng": 7,
-      "maoxian": 40,
-      "qihuan": 16,
-      "richang": 10,
-      "wuxia_gedou": 7,
-      "xiaoyuan": 4,
+      "kehuan": 7,
+      "kongbu": 6,
+      "lianai": 44,
+      "lishi_gufeng": 5,
+      "maoxian": 35,
+      "qihuan": 21,
+      "richang": 14,
+      "wuxia_gedou": 9,
+      "xiaoyuan": 6,
       "xiju": 30,
-      "xuanyi": 5
+      "xiuxian": 3,
+      "xuanyi": 3
     }
   },
   "tags": [
@@ -213,17 +214,17 @@
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 38
+      "count": 44
     },
     {
       "id": "chongsheng",
       "name": "重生",
-      "count": 37
+      "count": 32
     },
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 239
+      "count": 235
     },
     {
       "id": "xitong",
@@ -233,17 +234,17 @@
     {
       "id": "fuchou",
       "name": "复仇",
-      "count": 15
+      "count": 16
     },
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 5
+      "count": 2
     },
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 226
+      "count": 223
     },
     {
       "id": "danmei",
@@ -253,17 +254,17 @@
     {
       "id": "baihe",
       "name": "百合",
-      "count": 93
+      "count": 98
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 199
+      "count": 195
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 241
+      "count": 235
     }
   ],
   "targetBoost": {
@@ -273,64 +274,65 @@
     "searchRules": 2,
     "searchPagesFetched": 586,
     "searchPagesFailed": 0,
-    "newItems": 1,
-    "existingItemsTouched": 15821,
-    "reassignedFromOverflow": 4,
+    "newItems": 0,
+    "existingItemsTouched": 14943,
+    "reassignedFromOverflow": 1,
     "errors": [],
     "countsBefore": {
-      "dongzuo": 271,
-      "dushi": 4,
+      "dongzuo": 263,
+      "dushi": 6,
       "juqing": 3,
-      "kehuan": 10,
-      "kongbu": 8,
-      "lianai": 45,
-      "lishi_gufeng": 7,
-      "maoxian": 40,
-      "qihuan": 16,
-      "richang": 10,
+      "kehuan": 7,
+      "kongbu": 6,
+      "lianai": 44,
+      "lishi_gufeng": 5,
+      "maoxian": 35,
+      "qihuan": 21,
+      "richang": 14,
       "weifenlei": 26,
-      "wuxia_gedou": 7,
-      "xiaoyuan": 4,
+      "wuxia_gedou": 9,
+      "xiaoyuan": 6,
       "xiju": 30,
-      "xuanyi": 5
+      "xiuxian": 3,
+      "xuanyi": 3
     },
     "countsAfter": {
-      "dongzuo": 266,
-      "dushi": 4,
+      "dongzuo": 262,
+      "dushi": 6,
       "juqing": 2,
-      "kehuan": 10,
-      "kongbu": 10,
-      "lianai": 45,
-      "lishi_gufeng": 7,
-      "maoxian": 40,
+      "kehuan": 7,
+      "kongbu": 7,
+      "lianai": 44,
+      "lishi_gufeng": 5,
+      "maoxian": 35,
       "qihuan": 15,
-      "richang": 10,
+      "richang": 14,
       "weifenlei": 26,
-      "wuxia_gedou": 6,
-      "xiaoyuan": 5,
+      "wuxia_gedou": 7,
+      "xiaoyuan": 6,
       "xiju": 30,
-      "xiuxian": 4,
-      "xuanyi": 7
+      "xiuxian": 3,
+      "xuanyi": 12
     },
     "categoriesAtOrAboveTarget": 1,
     "categoriesAtOrAboveVisibleTarget": 1,
-    "remainingTotalGap": 2605
+    "remainingTotalGap": 2607
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 266
+      "count": 262
     },
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 40
+      "count": 35
     },
     {
       "id": "lianai",
       "name": "恋爱",
-      "count": 45
+      "count": 44
     },
     {
       "id": "xiju",
@@ -350,47 +352,47 @@
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 5
+      "count": 6
     },
     {
       "id": "richang",
       "name": "日常",
-      "count": 10
+      "count": 14
     },
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 6
+      "count": 7
     },
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 10
+      "count": 7
     },
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 10
+      "count": 7
     },
     {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 7
+      "count": 12
     },
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 7
+      "count": 5
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 4
+      "count": 6
     },
     {
       "id": "xiuxian",
       "name": "修仙",
-      "count": 4
+      "count": 3
     },
     {
       "id": "weifenlei",
