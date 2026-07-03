@@ -465,7 +465,7 @@ def extract_chapters(soup: BeautifulSoup, base: str) -> List[Tuple[str, str]]:
     return uniq[:500]
 
 
-def extract_images_from_html(html_text: str, base: str) -> List[str]:
+def extract_images_from_html(html_text: str, base: str, depth: int = 0) -> List[str]:
     soup = BeautifulSoup(html_text, "lxml")
     imgs: List[str] = []
     for img in soup.select("img"):
@@ -484,8 +484,11 @@ def extract_images_from_html(html_text: str, base: str) -> List[str]:
             src = part.strip().split()[0] if part.strip() else ""
             if src:
                 imgs.append(canonical_url(src, base))
-    for nos in soup.select("noscript"):
-        imgs.extend(extract_images_from_html(str(nos), base))
+    if depth < 2:
+        for nos in soup.select("noscript"):
+            inner = nos.decode_contents()
+            if inner and inner != html_text:
+                imgs.extend(extract_images_from_html(inner, base, depth + 1))
     for m in IMAGE_RE.finditer(html_text):
         imgs.append(canonical_url(m.group(0), base))
     for m in JS_ESCAPED_IMAGE_RE.finditer(html_text):
@@ -505,51 +508,55 @@ def extract_images_from_html(html_text: str, base: str) -> List[str]:
 
 
 def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
-    if not likely_content_url(candidate.url):
+    try:
+        if not likely_content_url(candidate.url):
+            return None
+        detail_html = fetch(candidate.url)
+        if not detail_html:
+            return None
+        detail_soup = BeautifulSoup(detail_html, "lxml")
+        base = base_of(candidate.url)
+        text = clean_text(detail_html[:50000])
+        requires = bool(PAY_LOGIN_TEXT_RE.search(text))
+        title = extract_meta_title(detail_soup, detail_html) or candidate.title
+        cover = extract_cover(detail_soup, base)
+        chapters = extract_chapters(detail_soup, candidate.url)
+        chapter_url = chapters[0][1] if chapters else candidate.url
+        chapter_title = chapters[0][0] if chapters else title
+        chapter_html = fetch(chapter_url, referer=candidate.url) if chapter_url else None
+        images = extract_images_from_html(chapter_html or "", chapter_url or base) if chapter_html else []
+        if not chapters and not images:
+            return None
+        if requires and not images:
+            status = "excluded_login_or_pay"
+        elif images:
+            status = "native_scroll_ok"
+        else:
+            status = "render_fallback_needed"
+        return PageAudit(
+            domain=domain_of(candidate.url),
+            base_url=base,
+            detail_url=candidate.url,
+            detail_title=title,
+            cover_url=cover,
+            chapter_count=len(chapters),
+            first_chapter_title=chapter_title,
+            first_chapter_url=chapter_url,
+            static_image_count=len(images),
+            first_image_url=images[0] if images else None,
+            needs_render_fallback=(len(images) == 0 and bool(chapter_html)),
+            requires_login_or_pay=requires,
+            status=status,
+            evidence={
+                "candidateTitle": candidate.title,
+                "candidateSnippet": candidate.snippet,
+                "engine": candidate.engine,
+                "keyword": keyword,
+            },
+        )
+    except Exception as exc:
+        log(f"[skip] audit failed {candidate.url}: {exc}")
         return None
-    detail_html = fetch(candidate.url)
-    if not detail_html:
-        return None
-    detail_soup = BeautifulSoup(detail_html, "lxml")
-    base = base_of(candidate.url)
-    text = clean_text(detail_html[:50000])
-    requires = bool(PAY_LOGIN_TEXT_RE.search(text))
-    title = extract_meta_title(detail_soup, detail_html) or candidate.title
-    cover = extract_cover(detail_soup, base)
-    chapters = extract_chapters(detail_soup, candidate.url)
-    chapter_url = chapters[0][1] if chapters else candidate.url
-    chapter_title = chapters[0][0] if chapters else title
-    chapter_html = fetch(chapter_url, referer=candidate.url) if chapter_url else None
-    images = extract_images_from_html(chapter_html or "", chapter_url or base) if chapter_html else []
-    if not chapters and not images:
-        return None
-    if requires and not images:
-        status = "excluded_login_or_pay"
-    elif images:
-        status = "native_scroll_ok"
-    else:
-        status = "render_fallback_needed"
-    return PageAudit(
-        domain=domain_of(candidate.url),
-        base_url=base,
-        detail_url=candidate.url,
-        detail_title=title,
-        cover_url=cover,
-        chapter_count=len(chapters),
-        first_chapter_title=chapter_title,
-        first_chapter_url=chapter_url,
-        static_image_count=len(images),
-        first_image_url=images[0] if images else None,
-        needs_render_fallback=(len(images) == 0 and bool(chapter_html)),
-        requires_login_or_pay=requires,
-        status=status,
-        evidence={
-            "candidateTitle": candidate.title,
-            "candidateSnippet": candidate.snippet,
-            "engine": candidate.engine,
-            "keyword": keyword,
-        },
-    )
 
 
 def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1) -> List[PageAudit]:
