@@ -67,6 +67,8 @@ jobs:
       DEEP_MAX_AUDIT_CANDIDATES: '260'
       QUICK_PER_DOMAIN_AUDIT_LIMIT: '8'
       DEEP_PER_DOMAIN_AUDIT_LIMIT: '12'
+      QUICK_PER_DOMAIN_GENERATED_LIMIT: '3'
+      DEEP_PER_DOMAIN_GENERATED_LIMIT: '5'
       QUICK_TIME_BUDGET_SECONDS: '1800'
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.2'
@@ -143,6 +145,7 @@ jobs:
             SELECTED_PER_SEED_LIMIT="$DEEP_PER_SEED_LIMIT"
             SELECTED_MAX_AUDIT_CANDIDATES="$DEEP_MAX_AUDIT_CANDIDATES"
             SELECTED_PER_DOMAIN_AUDIT_LIMIT="$DEEP_PER_DOMAIN_AUDIT_LIMIT"
+            SELECTED_PER_DOMAIN_GENERATED_LIMIT="$DEEP_PER_DOMAIN_GENERATED_LIMIT"
             SELECTED_TIME_BUDGET_SECONDS="$DEEP_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$DEEP_SLEEP"
           else
@@ -154,6 +157,7 @@ jobs:
             SELECTED_PER_SEED_LIMIT="$QUICK_PER_SEED_LIMIT"
             SELECTED_MAX_AUDIT_CANDIDATES="$QUICK_MAX_AUDIT_CANDIDATES"
             SELECTED_PER_DOMAIN_AUDIT_LIMIT="$QUICK_PER_DOMAIN_AUDIT_LIMIT"
+            SELECTED_PER_DOMAIN_GENERATED_LIMIT="$QUICK_PER_DOMAIN_GENERATED_LIMIT"
             SELECTED_TIME_BUDGET_SECONDS="$QUICK_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$QUICK_SLEEP"
           fi
@@ -178,7 +182,7 @@ jobs:
           INDEX_FILE="generated/index.${RULE_LANGUAGE}.json"
           ETS_FILE="generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets"
           RULES_FILE="rules/index.${RULE_LANGUAGE}.json"
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --output-ets \"$ETS_FILE\" --report \"$REPORT_FILE\""
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --output-ets \"$ETS_FILE\" --report \"$REPORT_FILE\""
           python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
 
@@ -242,6 +246,7 @@ jobs:
               f"运行预算秒数：{runtime.get('timeBudgetSeconds', '旧报告未记录')}",
               f"审计候选上限：{runtime.get('maxAuditCandidates', '旧报告未记录')}",
               f"每域名审计上限：{runtime.get('perDomainAuditLimit', '旧报告未记录')}",
+              f"每域名生成规则上限：{runtime.get('perDomainGeneratedLimit', '旧报告未记录')}",
               f"是否触发时间预算停止：{audit_stats.get('timeBudgetExceeded', '旧报告未记录')}",
               f"非内容 URL 跳过数：{audit_stats.get('skippedNonContentUrl', '旧报告未记录')}",
               f"每域名审计上限跳过数：{audit_stats.get('skippedPerDomainAuditLimit', '旧报告未记录')}",
@@ -254,7 +259,6 @@ jobs:
           ]
           output = '\n'.join(lines) + '\n'
           print(output)
-          Path('release_notes.md').write_text(output, encoding='utf-8')
           summary = os.environ.get('GITHUB_STEP_SUMMARY')
           if summary:
               Path(summary).write_text(output, encoding='utf-8')
@@ -305,6 +309,20 @@ jobs:
           cp "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
           cp "rules/index.${RULE_LANGUAGE}.json" "dist/release/rules-index-${RULE_LANGUAGE}.json"
           cp generated/update_manifest.json dist/release/update-manifest.json
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          tag_name = f"search-rules-{os.popen('date -u +%Y%m%d').read().strip()}"
+          template = Path('.github/release_templates/search-rules.md').read_text('utf-8')
+          notes = template.format(
+              tag_name=tag_name,
+              rule_language=os.environ.get('RULE_LANGUAGE', ''),
+              rule_language_name=os.environ.get('RULE_LANGUAGE_NAME', ''),
+              run_mode=os.environ.get('RULE_RUN_MODE', ''),
+          )
+          Path('release_notes.md').write_text(notes, encoding='utf-8')
+          PY
           ls -la dist/release
 
       - name: 发布或更新 Release

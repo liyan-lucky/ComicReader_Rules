@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """把规则审计报告转换成 App 可读取的远程规则索引。"""
 from __future__ import annotations
-import argparse, json, re, sys
+import argparse, hashlib, json, re, sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -31,10 +31,13 @@ PROJECT_COMPLIANCE = {
     'rightsPolicy': 'See README.md, DISCLAIMER.md and COMPLIANCE.md'
 }
 
-def safe_id(domain: str) -> str:
+def safe_id(domain: str, seed: str = '') -> str:
     core = domain.lower().replace('www.', '')
     core = re.sub(r'[^a-z0-9]+', '_', core).strip('_')
-    return (core or 'generated')[:48] + '_remote_public'
+    suffix = ''
+    if seed:
+        suffix = '_' + hashlib.sha1(seed.encode('utf-8', errors='ignore')).hexdigest()[:8]
+    return (core or 'generated')[:40] + suffix + '_remote_public'
 
 def is_valid_rule(rule: dict) -> bool:
     for field in REQUIRED_RULE_FIELDS:
@@ -71,7 +74,7 @@ def rule_for_audit(a: dict) -> dict:
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
     return add_rule_compliance({
-        'id': safe_id(domain),
+        'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{domain} 远程公开源',
         'description': '规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。',
         'homepage': base,

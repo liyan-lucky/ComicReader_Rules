@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import hashlib
 import html
 import json
 import os
@@ -166,10 +167,13 @@ def base_of(url: str) -> str:
     return f"{p.scheme}://{p.netloc}"
 
 
-def safe_id(domain: str) -> str:
+def safe_id(domain: str, seed: str = "") -> str:
     core = domain.lower().replace("www.", "")
     core = re.sub(r"[^a-z0-9]+", "_", core).strip("_")
-    return (core or "generated")[:48] + "_auto_public"
+    suffix = ""
+    if seed:
+        suffix = "_" + hashlib.sha1(seed.encode("utf-8", errors="ignore")).hexdigest()[:8]
+    return (core or "generated")[:40] + suffix + "_auto_public"
 
 
 def fetch(url: str, timeout: int = 15, referer: str = "") -> Optional[str]:
@@ -349,6 +353,9 @@ def discover_seed_candidates(
     out: List[Candidate] = []
     seed_stats = []
     stopped_by_deadline = False
+    target_domain_count = len({normalize_domain(domain_of(u) or urlparse(u).netloc) for u in seed_urls}) or 1
+    per_domain_seed_limit = max(per_seed_limit, max_seed_candidates // target_domain_count)
+    seed_candidate_counts: Dict[str, int] = {}
     for seed_url in seed_urls:
         if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
             stopped_by_deadline = True
@@ -362,8 +369,20 @@ def discover_seed_candidates(
             time.sleep(sleep)
             continue
         found = extract_seed_candidates(txt, seed_url, target_domain, per_seed_limit)
-        seed_stats.append({"seedUrl": seed_url, "status": "ok", "candidateCount": len(found)})
-        out.extend(found)
+        selected: List[Candidate] = []
+        for item in found:
+            if seed_candidate_counts.get(target_domain, 0) >= per_domain_seed_limit:
+                break
+            selected.append(item)
+            seed_candidate_counts[target_domain] = seed_candidate_counts.get(target_domain, 0) + 1
+        seed_stats.append({
+            "seedUrl": seed_url,
+            "status": "ok",
+            "candidateCount": len(found),
+            "selectedCount": len(selected),
+            "targetDomain": target_domain,
+        })
+        out.extend(selected)
         out = unique_candidates(out)
         if len(out) >= max_seed_candidates:
             out = out[:max_seed_candidates]
@@ -374,6 +393,8 @@ def discover_seed_candidates(
         "seedUrlCount": len(seed_urls),
         "stoppedByTimeBudget": stopped_by_deadline,
         "seedPageStats": seed_stats,
+        "perDomainSeedLimit": per_domain_seed_limit,
+        "seedCandidateCounts": dict(sorted(seed_candidate_counts.items())),
         "candidateCount": len(out),
         "candidateSamples": [dataclasses.asdict(c) for c in out[:30]],
     }
@@ -531,17 +552,19 @@ def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
     )
 
 
-def choose_best_by_domain(audits: List[PageAudit]) -> List[PageAudit]:
-    best: Dict[str, PageAudit] = {}
+def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1) -> List[PageAudit]:
+    grouped: Dict[str, List[PageAudit]] = {}
     def score(a: PageAudit) -> int:
         return (1000 if a.status == "native_scroll_ok" else 500 if a.status == "render_fallback_needed" else 0) + a.static_image_count * 3 + a.chapter_count
     for a in audits:
         if a.status == "excluded_login_or_pay":
             continue
-        old = best.get(a.domain)
-        if old is None or score(a) > score(old):
-            best[a.domain] = a
-    return sorted(best.values(), key=lambda a: (-a.static_image_count, -a.chapter_count, a.domain))
+        grouped.setdefault(a.domain, []).append(a)
+    chosen: List[PageAudit] = []
+    for domain, items in grouped.items():
+        ranked = sorted(items, key=lambda a: (-score(a), a.detail_url))
+        chosen.extend(ranked[:max(1, per_domain_limit)])
+    return sorted(chosen, key=lambda a: (a.domain, -a.static_image_count, -a.chapter_count, a.detail_url))
 
 
 def json_str(s: str) -> str:
@@ -549,7 +572,7 @@ def json_str(s: str) -> str:
 
 
 def ets_rule_for_audit(a: PageAudit) -> str:
-    rid = safe_id(a.domain)
+    rid = safe_id(a.domain, a.detail_url)
     name = f"{a.domain} 自动公开规则"
     detail_chapter_regex = r"<a[^>]+href=[\"']([^\"']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^\"']*)[\"'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>"
     reader_image_regex = r"<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|<source[^>]+srcset=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\/\/[^\"']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])"
@@ -654,6 +677,7 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=20, help="每个查询最多取多少搜索结果")
     ap.add_argument("--max-audit-candidates", type=int, default=0, help="最多审计多少个候选页；0 表示不限制")
     ap.add_argument("--per-domain-audit-limit", type=int, default=0, help="每个域名最多审计多少个候选页；0 表示不限制")
+    ap.add_argument("--per-domain-generated-limit", type=int, default=1, help="每个域名最多保留多少条通过审计的规则")
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
     ap.add_argument("--output-ets", default="entry/src/main/ets/common/GeneratedSourceRules.ets")
     ap.add_argument("--report", default="entry/src/main/resources/rawfile/audit/generated_rulebot_report.json")
@@ -752,7 +776,7 @@ def main() -> int:
             audits.append(a)
         time.sleep(args.sleep)
 
-    chosen = choose_best_by_domain(audits)[: args.max_generated]
+    chosen = choose_best_by_domain(audits, args.per_domain_generated_limit)[: args.max_generated]
     stats = {
         "language": {
             "code": args.language_code,
@@ -773,6 +797,7 @@ def main() -> int:
             "timeBudgetSeconds": args.time_budget_seconds,
             "maxAuditCandidates": args.max_audit_candidates,
             "perDomainAuditLimit": args.per_domain_audit_limit,
+            "perDomainGeneratedLimit": args.per_domain_generated_limit,
             "perDomainAuditCounts": dict(sorted(per_domain_audit_counts.items())),
         },
         "passedAuditBeforeDomainDedupe": len(audits),
