@@ -1,21 +1,21 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-03T06:56:06Z",
+  "updatedAt": "2026-07-04T06:44:03Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 481,
+  "itemCount": 445,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 3957,
+  "sourceRecordCount": 3761,
   "indexRecordCount": 70,
   "reportRecordCount": 79,
-  "discoveryRecordCount": 808,
+  "discoveryRecordCount": 612,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 26,
+  "uncategorizedCount": 22,
   "uncategorizedSamples": [
     "And2girls安菟",
     "Soul Land",
@@ -23,16 +23,13 @@
     "kaixinman.com 远程公开源",
     "mangadna",
     "mangadnacom",
-    "伍拾是只烦人的猫",
     "吞噬星空",
-    "完结 17 母女",
     "完美世界",
     "开心漫公开访问源",
     "斗破苍穹",
     "斗罗大陆",
     "简体中文",
     "试着在维也纳歌唱吧",
-    "连载 10 lily of the valley（铃兰",
     "连载 12 兄妹间的相爱相杀~三匹甜蜜的小狼~",
     "连载 14 天狼双星|Sirius:Twin Stars",
     "连载 16 歌舞伎町bad trip",
@@ -40,7 +37,6 @@
     "连载 3 异梦",
     "连载 8 家庭教师太XX，已经学不进去了~",
     "连载 一起学湘菜16",
-    "连载 仙子不仁，那就沦为鼎炉吧！",
     "通用公开网页源",
     "金融大佬的天才孙子"
   ],
@@ -103,9 +99,9 @@
   "discovery": {
     "enabledSourceCount": 8,
     "entryUrlCount": 24,
-    "pagesFetched": 12,
-    "pagesFailed": 9,
-    "recordsFound": 808,
+    "pagesFetched": 9,
+    "pagesFailed": 12,
+    "recordsFound": 612,
     "errors": [
       {
         "source": "mgeko.cc",
@@ -133,6 +129,21 @@
         "error": "HTTP Error 403: Forbidden"
       },
       {
+        "source": "mangafire.to",
+        "url": "https://mangafire.to",
+        "error": "HTTP Error 503: Service Unavailable"
+      },
+      {
+        "source": "mangafire.to",
+        "url": "https://mangafire.to/filter",
+        "error": "HTTP Error 503: Service Unavailable"
+      },
+      {
+        "source": "mangafire.to",
+        "url": "https://mangafire.to/updated",
+        "error": "HTTP Error 503: Service Unavailable"
+      },
+      {
         "source": "happymh.com",
         "url": "https://happymh.com",
         "error": "HTTP Error 403: Forbidden"
@@ -157,7 +168,7 @@
   "categorySearch": {
     "enabledRuleCount": 2,
     "categoryCount": 15,
-    "searchPagesFetched": 105,
+    "searchPagesFetched": 135,
     "searchPagesFailed": 0,
     "recordsFound": 3000,
     "errors": [],
@@ -182,26 +193,26 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 476,
-    "detailPagesFailed": 1,
-    "metadataHits": 470,
+    "detailPagesFetched": 439,
+    "detailPagesFailed": 24,
+    "metadataHits": 433,
     "metadataLimit": 900,
     "categorySearchFallbackAssigned": 2,
     "categoryCountsAfterFallback": {
-      "dongzuo": 263,
-      "dushi": 6,
+      "dongzuo": 232,
+      "dushi": 3,
       "juqing": 3,
-      "kehuan": 7,
-      "kongbu": 6,
-      "lianai": 44,
-      "lishi_gufeng": 5,
-      "maoxian": 35,
-      "qihuan": 21,
-      "richang": 14,
-      "wuxia_gedou": 9,
-      "xiaoyuan": 6,
-      "xiju": 30,
-      "xiuxian": 3,
+      "kehuan": 9,
+      "kongbu": 5,
+      "lianai": 50,
+      "lishi_gufeng": 6,
+      "maoxian": 30,
+      "qihuan": 25,
+      "richang": 9,
+      "wuxia_gedou": 8,
+      "xiaoyuan": 5,
+      "xiju": 32,
+      "xiuxian": 1,
       "xuanyi": 3
     }
   },
@@ -214,22 +225,22 @@
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 44
+      "count": 43
     },
     {
       "id": "chongsheng",
       "name": "重生",
-      "count": 32
+      "count": 35
     },
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 235
+      "count": 197
     },
     {
       "id": "xitong",
       "name": "系统",
-      "count": 20
+      "count": 19
     },
     {
       "id": "fuchou",
@@ -239,32 +250,32 @@
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 2
+      "count": 3
     },
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 223
+      "count": 186
     },
     {
       "id": "danmei",
       "name": "耽美",
-      "count": 95
+      "count": 48
     },
     {
       "id": "baihe",
       "name": "百合",
-      "count": 98
+      "count": 48
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 195
+      "count": 231
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 235
+      "count": 199
     }
   ],
   "targetBoost": {
@@ -272,72 +283,91 @@
     "targetCount": 200,
     "minimumVisibleTarget": 200,
     "searchRules": 2,
-    "searchPagesFetched": 586,
-    "searchPagesFailed": 0,
-    "newItems": 0,
-    "existingItemsTouched": 14943,
+    "searchPagesFetched": 583,
+    "searchPagesFailed": 3,
+    "newItems": 2,
+    "existingItemsTouched": 13918,
     "reassignedFromOverflow": 1,
-    "errors": [],
+    "errors": [
+      {
+        "category": "xiuxian",
+        "keyword": "cultivation",
+        "ruleId": "kaixinman_public_access",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      },
+      {
+        "category": "xiuxian",
+        "keyword": "cultivator",
+        "ruleId": "kaixinman_public_access",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      },
+      {
+        "category": "juqing",
+        "keyword": "tragedy",
+        "ruleId": "kaixinman_public_access",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      }
+    ],
     "countsBefore": {
-      "dongzuo": 263,
-      "dushi": 6,
+      "dongzuo": 232,
+      "dushi": 3,
       "juqing": 3,
-      "kehuan": 7,
-      "kongbu": 6,
-      "lianai": 44,
-      "lishi_gufeng": 5,
-      "maoxian": 35,
-      "qihuan": 21,
-      "richang": 14,
-      "weifenlei": 26,
-      "wuxia_gedou": 9,
-      "xiaoyuan": 6,
-      "xiju": 30,
-      "xiuxian": 3,
+      "kehuan": 9,
+      "kongbu": 5,
+      "lianai": 50,
+      "lishi_gufeng": 6,
+      "maoxian": 30,
+      "qihuan": 25,
+      "richang": 9,
+      "weifenlei": 22,
+      "wuxia_gedou": 8,
+      "xiaoyuan": 5,
+      "xiju": 32,
+      "xiuxian": 1,
       "xuanyi": 3
     },
     "countsAfter": {
-      "dongzuo": 262,
-      "dushi": 6,
+      "dongzuo": 226,
+      "dushi": 3,
       "juqing": 2,
-      "kehuan": 7,
-      "kongbu": 7,
-      "lianai": 44,
-      "lishi_gufeng": 5,
-      "maoxian": 35,
-      "qihuan": 15,
-      "richang": 14,
-      "weifenlei": 26,
-      "wuxia_gedou": 7,
-      "xiaoyuan": 6,
-      "xiju": 30,
-      "xiuxian": 3,
-      "xuanyi": 12
+      "kehuan": 9,
+      "kongbu": 6,
+      "lianai": 50,
+      "lishi_gufeng": 6,
+      "maoxian": 30,
+      "qihuan": 18,
+      "richang": 9,
+      "weifenlei": 22,
+      "wuxia_gedou": 8,
+      "xiaoyuan": 5,
+      "xiju": 32,
+      "xiuxian": 14,
+      "xuanyi": 5
     },
     "categoriesAtOrAboveTarget": 1,
     "categoriesAtOrAboveVisibleTarget": 1,
-    "remainingTotalGap": 2607
+    "remainingTotalGap": 2603
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 262
+      "count": 226
     },
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 35
+      "count": 30
     },
     {
       "id": "lianai",
       "name": "恋爱",
-      "count": 44
+      "count": 50
     },
     {
       "id": "xiju",
       "name": "喜剧",
-      "count": 30
+      "count": 32
     },
     {
       "id": "juqing",
@@ -347,57 +377,57 @@
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 15
+      "count": 18
     },
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 6
+      "count": 5
     },
     {
       "id": "richang",
       "name": "日常",
-      "count": 14
+      "count": 9
     },
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 7
+      "count": 8
     },
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 7
+      "count": 9
     },
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 7
+      "count": 6
     },
     {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 12
+      "count": 5
     },
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 5
+      "count": 6
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 6
+      "count": 3
     },
     {
       "id": "xiuxian",
       "name": "修仙",
-      "count": 3
+      "count": 14
     },
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 26
+      "count": 22
     }
   ]
 }
