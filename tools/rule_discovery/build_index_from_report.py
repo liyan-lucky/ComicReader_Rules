@@ -40,7 +40,7 @@ def safe_id(domain: str, seed: str = '') -> str:
     suffix = ''
     if seed:
         suffix = '_' + hashlib.sha1(seed.encode('utf-8', errors='ignore')).hexdigest()[:8]
-    return (core or 'generated')[:40] + suffix + '_remote_public'
+    return (core or 'generated')[:40] + suffix + '_auto_public'
 
 def is_valid_rule(rule: dict) -> bool:
     for field in REQUIRED_RULE_FIELDS:

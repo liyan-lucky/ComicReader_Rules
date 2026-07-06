@@ -22,10 +22,17 @@ if [[ ${#KEYWORDS[@]} -eq 0 ]]; then
 fi
 python3 tools/rule_discovery/generate_rules.py \
   "${KEYWORDS[@]}" "${DOMAINS[@]}" \
-  --max-generated 30 \
-  --output-ets generated/GeneratedSourceRules.ets \
+  --max-generated 1000 \
   --report generated/rulebot_report.json
 python3 tools/rule_discovery/build_index_from_report.py \
   --report generated/rulebot_report.json \
-  --output generated/index.json
-cp generated/index.json rules/index.json
+  --output generated/index.json \
+  --language-code zh-Hans --language-name 简体中文
+python3 tools/rule_discovery/sanitize_rule_outputs.py \
+  --report generated/rulebot_report.json \
+  --index generated/index.json \
+  --ets generated/GeneratedSourceRules.ets \
+  --rules-output rules/index.json
+python3 scripts/update_manifest.py \
+  --index generated/index.json \
+  --language-code zh-Hans

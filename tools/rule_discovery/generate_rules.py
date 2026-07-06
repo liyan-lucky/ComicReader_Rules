@@ -57,6 +57,13 @@ PAY_LOGIN_TEXT_RE = re.compile(r"(登录后|请登录|注册|充值|VIP|付费|�
 EXCLUDE_URL_RE = re.compile(r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)", re.I)
 EXCLUDE_IMAGE_RE = re.compile(r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)", re.I)
 
+BLOCKED_DOMAIN_KEYWORDS = [
+    "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
+    "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
+    "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
+    "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com",
+]
+
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = {
     "kaixinman.com": [
         "https://www.kaixinman.com/",
@@ -428,7 +435,7 @@ def likely_content_url(url: str) -> bool:
     if EXCLUDE_URL_RE.search(url):
         return False
     host = domain_of(url)
-    if any(bad in host for bad in ["youtube.", "bilibili.", "facebook.", "twitter.", "x.com", "reddit.", "wikipedia.", "baike."]):
+    if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
         return False
     if DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url):
         return True
@@ -444,6 +451,9 @@ def likely_seed_candidate_url(url: str, seed_domain: str = "") -> bool:
     if not url.startswith(("http://", "https://")):
         return False
     if EXCLUDE_URL_RE.search(url):
+        return False
+    host = domain_of(url)
+    if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
         return False
     if PUBLIC_WORK_URL_RE.search(url) or likely_content_url(url):
         return True
@@ -679,6 +689,16 @@ def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
         title = extract_meta_title(detail_soup, detail_html) or candidate.title
         cover = extract_cover(detail_soup, base)
         chapters = extract_chapters(detail_soup, candidate.url)
+        if requires and not chapters:
+            return PageAudit(
+                domain=domain_of(candidate.url), base_url=base, detail_url=candidate.url,
+                detail_title=title, cover_url=cover, chapter_count=0,
+                first_chapter_title=None, first_chapter_url=None,
+                static_image_count=0, first_image_url=None,
+                needs_render_fallback=False, requires_login_or_pay=True,
+                status="excluded_login_or_pay",
+                evidence={"candidateTitle": candidate.title, "candidateSnippet": candidate.snippet, "engine": candidate.engine, "keyword": keyword},
+            )
         chapter_url = chapters[0][1] if chapters else candidate.url
         chapter_title = chapters[0][0] if chapters else title
         chapter_html = fetch(chapter_url, referer=candidate.url) if chapter_url else None
@@ -815,9 +835,10 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def build_queries(keywords: List[str], domains: List[str]) -> List[str]:
+def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
     queries: List[str] = []
     has_paid_api = bool(os.getenv("BRAVE_SEARCH_API_KEY", "").strip() or os.getenv("GOOGLE_API_KEY", "").strip())
+    seeded = seeded_domains or set()
     for kw in keywords:
         kw = kw.strip()
         if not kw:
@@ -833,6 +854,8 @@ def build_queries(keywords: List[str], domains: List[str]) -> List[str]:
             for b in bases:
                 if domains:
                     for d in domains:
+                        if d in seeded:
+                            continue
                         queries.append(f"site:{d} {b}")
                 else:
                     queries.append(b)
@@ -853,7 +876,6 @@ def main() -> int:
     ap.add_argument("--per-domain-audit-limit", type=int, default=0, help="每个域名最多审计多少个候选页；0 表示不限制")
     ap.add_argument("--per-domain-generated-limit", type=int, default=1, help="每个域名最多保留多少条通过审计的规则")
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
-    ap.add_argument("--output-ets", default="entry/src/main/ets/common/GeneratedSourceRules.ets")
     ap.add_argument("--report", default="entry/src/main/resources/rawfile/audit/generated_rulebot_report.json")
     ap.add_argument("--language-code", default="mixed", help="本次生成使用的语种代码，如 zh-Hans / zh-Hant / en")
     ap.add_argument("--language-name", default="Mixed", help="本次生成使用的语种名称")
@@ -871,8 +893,9 @@ def main() -> int:
 
     keywords = args.keyword or ["斗罗大陆", "Soul Land", "Douluo Dalu"]
     domains = args.domain or []
-    queries = build_queries(keywords, domains)
-    log(f"[info] queries: {len(queries)}")
+    seeded_domains = set(KNOWN_SOURCE_SEEDS.keys()) if not args.no_seed_discovery else set()
+    queries = build_queries(keywords, domains, seeded_domains)
+    log(f"[info] queries: {len(queries)} (seeded domains excluded from site: queries: {len(seeded_domains)})")
 
     raw_candidates: List[Candidate] = []
     query_stats = []
@@ -991,12 +1014,9 @@ def main() -> int:
         "chosenDomainRuleCount": len(chosen),
         "manualRulesAreMergedLater": True,
     }
-    out_ets = Path(args.output_ets)
     report = Path(args.report)
-    write_ets(chosen, out_ets)
     write_report(chosen, excluded, report, queries, stats)
-    log(f"[done] generated rules: {len(chosen)} -> {out_ets}")
-    log(f"[done] report -> {report}")
+    log(f"[done] generated rules: {len(chosen)} -> {report}")
     return 0
 
 
