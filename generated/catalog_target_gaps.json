@@ -1,6 +1,6 @@
 {
   "schema": "comic_catalog_target_gaps_v1",
-  "updatedAt": "2026-07-05T07:04:21Z",
+  "updatedAt": "2026-07-06T08:09:54Z",
   "targetCount": 200,
   "minimumVisibleTarget": 200,
   "summary": {
@@ -11,87 +11,69 @@
     "searchPagesFetched": 627,
     "searchPagesFailed": 1,
     "newItems": 0,
-    "existingItemsTouched": 15650,
+    "existingItemsTouched": 15337,
     "reassignedFromOverflow": 2,
     "errors": [
       {
-        "category": "kongbu",
-        "keyword": "thriller",
+        "category": "xiaoyuan",
+        "keyword": "老师",
         "ruleId": "kaixinman_public_access",
         "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
       }
     ],
     "countsBefore": {
-      "dongzuo": 212,
-      "dushi": 2,
-      "juqing": 11,
+      "dongzuo": 207,
+      "dushi": 4,
+      "juqing": 6,
       "kehuan": 9,
-      "kongbu": 6,
-      "lianai": 46,
-      "lishi_gufeng": 8,
-      "maoxian": 31,
-      "qihuan": 22,
+      "kongbu": 4,
+      "lianai": 43,
+      "lishi_gufeng": 6,
+      "maoxian": 36,
+      "qihuan": 23,
       "richang": 11,
-      "weifenlei": 36,
-      "wuxia_gedou": 8,
-      "xiaoyuan": 5,
-      "xiju": 36,
+      "weifenlei": 37,
+      "wuxia_gedou": 12,
+      "xiaoyuan": 7,
+      "xiju": 35,
       "xiuxian": 1,
       "xuanyi": 2
     },
     "countsAfter": {
-      "dongzuo": 197,
-      "dushi": 2,
-      "juqing": 5,
+      "dongzuo": 194,
+      "dushi": 4,
+      "juqing": 4,
       "kehuan": 9,
-      "kongbu": 7,
-      "lianai": 46,
-      "lishi_gufeng": 8,
-      "maoxian": 31,
-      "qihuan": 20,
+      "kongbu": 5,
+      "lianai": 43,
+      "lishi_gufeng": 6,
+      "maoxian": 36,
+      "qihuan": 18,
       "richang": 11,
-      "weifenlei": 36,
-      "wuxia_gedou": 7,
-      "xiaoyuan": 5,
-      "xiju": 36,
+      "weifenlei": 37,
+      "wuxia_gedou": 8,
+      "xiaoyuan": 7,
+      "xiju": 35,
       "xiuxian": 2,
       "xuanyi": 24
     },
     "categoriesAtOrAboveTarget": 0,
     "categoriesAtOrAboveVisibleTarget": 0,
-    "remainingTotalGap": 2590
+    "remainingTotalGap": 2594
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 197,
+      "count": 194,
       "target": 200,
-      "gap": 3,
+      "gap": 6,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 31,
-      "target": 200,
-      "gap": 169,
-      "overTarget": false,
-      "visibleTargetReached": false
-    },
-    {
-      "id": "lianai",
-      "name": "恋爱",
-      "count": 46,
-      "target": 200,
-      "gap": 154,
-      "overTarget": false,
-      "visibleTargetReached": false
-    },
-    {
-      "id": "xiju",
-      "name": "喜剧",
       "count": 36,
       "target": 200,
       "gap": 164,
@@ -99,29 +81,47 @@
       "visibleTargetReached": false
     },
     {
+      "id": "lianai",
+      "name": "恋爱",
+      "count": 43,
+      "target": 200,
+      "gap": 157,
+      "overTarget": false,
+      "visibleTargetReached": false
+    },
+    {
+      "id": "xiju",
+      "name": "喜剧",
+      "count": 35,
+      "target": 200,
+      "gap": 165,
+      "overTarget": false,
+      "visibleTargetReached": false
+    },
+    {
       "id": "juqing",
       "name": "剧情",
-      "count": 5,
+      "count": 4,
       "target": 200,
-      "gap": 195,
+      "gap": 196,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 20,
+      "count": 18,
       "target": 200,
-      "gap": 180,
+      "gap": 182,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 5,
+      "count": 7,
       "target": 200,
-      "gap": 195,
+      "gap": 193,
       "overTarget": false,
       "visibleTargetReached": false
     },
@@ -137,9 +137,9 @@
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 7,
+      "count": 8,
       "target": 200,
-      "gap": 193,
+      "gap": 192,
       "overTarget": false,
       "visibleTargetReached": false
     },
@@ -155,9 +155,9 @@
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 7,
+      "count": 5,
       "target": 200,
-      "gap": 193,
+      "gap": 195,
       "overTarget": false,
       "visibleTargetReached": false
     },
@@ -173,18 +173,18 @@
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 8,
+      "count": 6,
       "target": 200,
-      "gap": 192,
+      "gap": 194,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 2,
+      "count": 4,
       "target": 200,
-      "gap": 198,
+      "gap": 196,
       "overTarget": false,
       "visibleTargetReached": false
     },
@@ -200,7 +200,7 @@
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 36,
+      "count": 37,
       "target": 0,
       "gap": 0,
       "overTarget": false,
