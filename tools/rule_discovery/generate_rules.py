@@ -712,18 +712,6 @@ def main() -> int:
     query_stats = []
     search_engine_counts: Dict[str, int] = {}
     search_stopped_by_time_budget = False
-    for q in queries:
-        if budget_exceeded():
-            search_stopped_by_time_budget = True
-            log(f"[stop] time budget reached during search after {elapsed_seconds()}s")
-            break
-        log(f"[search] {q}")
-        found = search_web(q, args.limit)
-        query_stats.append({"query": q, "candidateCount": len(found), "engines": sorted(set(c.engine for c in found if c.engine))})
-        for c in found:
-            search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
-        raw_candidates += found
-        time.sleep(args.sleep)
 
     seed_stats: Dict[str, object] = {"enabled": False, "candidateCount": 0}
     if not args.no_seed_discovery:
@@ -738,6 +726,27 @@ def main() -> int:
         for c in seed_candidates:
             search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
         raw_candidates += seed_candidates
+
+    consecutive_search_403 = 0
+    for q in queries:
+        if budget_exceeded():
+            search_stopped_by_time_budget = True
+            log(f"[stop] time budget reached during search after {elapsed_seconds()}s")
+            break
+        if consecutive_search_403 >= 5:
+            log(f"[stop] search engine consistently returning 403, skipping remaining {len(queries) - len(query_stats)} queries")
+            break
+        log(f"[search] {q}")
+        found = search_web(q, args.limit)
+        if not found and not os.getenv("BRAVE_SEARCH_API_KEY", "").strip() and not os.getenv("GOOGLE_API_KEY", "").strip():
+            consecutive_search_403 += 1
+        else:
+            consecutive_search_403 = 0
+        query_stats.append({"query": q, "candidateCount": len(found), "engines": sorted(set(c.engine for c in found if c.engine))})
+        for c in found:
+            search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
+        raw_candidates += found
+        time.sleep(args.sleep)
 
     raw_candidate_count = len(raw_candidates)
     raw_candidates = unique_candidates(raw_candidates)
