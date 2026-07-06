@@ -31,6 +31,9 @@ PROJECT_COMPLIANCE = {
     'rightsPolicy': 'See README.md, DISCLAIMER.md and COMPLIANCE.md'
 }
 
+def safe_str(value) -> str:
+    return '' if value is None else str(value).strip()
+
 def safe_id(domain: str, seed: str = '') -> str:
     core = domain.lower().replace('www.', '')
     core = re.sub(r'[^a-z0-9]+', '_', core).strip('_')
