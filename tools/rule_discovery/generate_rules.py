@@ -61,20 +61,101 @@ KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = {
         "https://www.mgeko.cc/manga",
         "https://www.mgeko.cc/latest",
     ],
+    "manhuaus.com": [
+        "https://manhuaus.com/",
+        "https://manhuaus.com/manga/",
+        "https://manhuaus.com/latest/",
+    ],
+    "happymh.com": [
+        "https://www.happymh.com/",
+        "https://www.happymh.com/update",
+        "https://www.happymh.com/category",
+    ],
+    "chapmanganato.to": [
+        "https://chapmanganato.to/",
+        "https://chapmanganato.to/manga-list/",
+        "https://chapmanganato.to/latest/",
+    ],
+    "mangabuddy.com": [
+        "https://mangabuddy.com/",
+        "https://mangabuddy.com/latest",
+        "https://mangabuddy.com/genre/",
+    ],
+    "mangapark.net": [
+        "https://mangapark.net/",
+        "https://mangapark.net/latest",
+        "https://mangapark.net/genre/",
+    ],
+    "comick.io": [
+        "https://comick.io/",
+        "https://comick.io/home",
+        "https://comick.io/search",
+        "https://comick.io/list?sort=update",
+    ],
+    "mangadex.org": [
+        "https://mangadex.org/",
+        "https://mangadex.org/titles/latest",
+        "https://mangadex.org/titles/popular",
+    ],
+    "mangahere.cc": [
+        "https://www.mangahere.cc/",
+        "https://www.mangahere.cc/latest/",
+        "https://www.mangahere.cc/mangalist/",
+    ],
+    "mangase123.com": [
+        "https://mangase123.com/",
+        "https://mangase123.com/manga-list/",
+        "https://mangase123.com/latest/",
+    ],
+    "readm.org": [
+        "https://readm.org/",
+        "https://readm.org/latest-releases",
+        "https://readm.org/manga-list",
+    ],
+    "mangakakalot.com": [
+        "https://mangakakalot.com/",
+        "https://mangakakalot.com/manga_list/",
+        "https://mangakakalot.com/latest/",
+    ],
+    "manganato.com": [
+        "https://manganato.com/",
+        "https://manganato.com/manga-list/",
+        "https://manganato.com/latest/",
+    ],
+    "bato.to": [
+        "https://bato.to/",
+        "https://bato.to/browse",
+        "https://bato.to/latest",
+    ],
     "mangafire.to": [
         "https://mangafire.to/",
         "https://mangafire.to/filter",
         "https://mangafire.to/updated",
         "https://mangafire.to/newest",
     ],
-    "comick.io": [
-        "https://comick.io/",
-        "https://comick.io/home",
-        "https://comick.io/search",
-    ],
     "soullandmanga.com": [
         "https://soullandmanga.com/",
         "https://www.soullandmanga.com/",
+    ],
+    "asuracomic.net": [
+        "https://asuracomic.net/",
+        "https://asuracomic.net/comics",
+        "https://asuracomic.net/latest",
+    ],
+    "asuratoon.com": [
+        "https://asuratoon.com/",
+        "https://asuratoon.com/comics",
+        "https://asuratoon.com/latest",
+    ],
+    "mangaread.org": [
+        "https://mangaread.org/",
+        "https://mangaread.org/manga/",
+        "https://mangaread.org/latest/",
+    ],
+    "mangadna.com": [
+        "https://mangadna.com/",
+        "https://mangadna.com/manga/",
+        "https://mangadna.com/latest/",
     ],
     "webtoons.com": [
         "https://www.webtoons.com/en/",
@@ -287,15 +368,30 @@ def likely_content_url(url: str) -> bool:
     host = domain_of(url)
     if any(bad in host for bad in ["youtube.", "bilibili.", "facebook.", "twitter.", "x.com", "reddit.", "wikipedia.", "baike."]):
         return False
-    return bool(DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url) or re.search(r"(comic|manga|manhua|webtoon|chapter|douluo|soul-land)", url, re.I))
+    if DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url):
+        return True
+    path = urlparse(url).path.lower()
+    if re.search(r"/(comic|manga|manhua|webtoon|chapter|title|work|story|read|episode|douluo|soul-land)", path, re.I):
+        return True
+    if re.search(r"(comic|manga|manhua|webtoon|chapter|douluo|soul-land)", url, re.I):
+        return True
+    return False
 
 
-def likely_seed_candidate_url(url: str) -> bool:
+def likely_seed_candidate_url(url: str, seed_domain: str = "") -> bool:
     if not url.startswith(("http://", "https://")):
         return False
     if EXCLUDE_URL_RE.search(url):
         return False
-    return bool(PUBLIC_WORK_URL_RE.search(url) or likely_content_url(url))
+    if PUBLIC_WORK_URL_RE.search(url) or likely_content_url(url):
+        return True
+    if seed_domain and same_site(url, seed_domain):
+        path = urlparse(url).path.lower()
+        if re.search(r"/\d+|/title/|/work/|/story/|/comic/|/manga/|/manhua/|/read/|/chapter/|/episode/|/webtoon/", path):
+            return True
+        if path.count("/") >= 2 and not path.endswith(("/", ".html", ".htm", ".php")):
+            return True
+    return False
 
 
 def seed_urls_for_domains(domains: Sequence[str], explicit_seed_urls: Sequence[str]) -> List[str]:
@@ -328,14 +424,14 @@ def extract_seed_candidates(html_text: str, seed_url: str, target_domain: str, l
         title = clean_text(a.get_text(" "))[:160]
         if not href or not same_site(href, target_domain):
             continue
-        if not likely_seed_candidate_url(href):
+        if not likely_seed_candidate_url(href, target_domain):
             continue
         out.append(Candidate(url=href, title=title, snippet=f"seed:{seed_url}", engine="seed_page"))
     for m in re.finditer(r"['\"]((?:https?:)?//[^'\"<>]+|/[^'\"<>\s]+)['\"]", html_text):
         href = canonical_url(m.group(1), seed_url)
         if not href or not same_site(href, target_domain):
             continue
-        if not likely_seed_candidate_url(href):
+        if not likely_seed_candidate_url(href, target_domain):
             continue
         out.append(Candidate(url=href, title="", snippet=f"seed-json:{seed_url}", engine="seed_page"))
     return unique_candidates(out)[:limit]

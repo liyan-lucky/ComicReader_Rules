@@ -30,6 +30,8 @@ on:
         type: choice
         options:
           - zh-Hans
+          - zh-Hant
+          - en
       search_result_limit:
         description: '每个搜索查询最多取多少条结果；留空使用模式默认值'
         required: false
@@ -110,6 +112,14 @@ jobs:
       QUICK_DOMAINS_ZH_HANS: 'kaixinman.com,mgeko.cc,happymh.com,manhuaus.com,chapmanganato.to,mangabuddy.com,mangapark.net,comick.io,mangadex.org,bato.to'
       DEEP_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,大奉打更人,沧元图,遮天'
       DEEP_DOMAINS_ZH_HANS: 'kaixinman.com,manhuaus.com,mgeko.cc,happymh.com,chapmanganato.to,mangabuddy.com,mangapark.net,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,mangakakalot.com,manganato.com,bato.to'
+      QUICK_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,鬥破蒼穹,凡人修仙傳'
+      QUICK_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to,mangapark.net'
+      DEEP_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,凡人修仙傳,鬥破蒼穹,武動乾坤,一人之下,大奉打更人,滄元圖,遮天'
+      DEEP_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to,mangapark.net'
+      QUICK_KEYWORDS_EN: 'Soul Land,Martial Peak,Apotheosis,Solo Leveling,Magic Emperor'
+      QUICK_DOMAINS_EN: 'soullandmanga.com,mangafire.to,comick.io,mangadex.org,mangabuddy.com,mangapark.net,bato.to'
+      DEEP_KEYWORDS_EN: 'Soul Land,Douluo Dalu,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End,Tales of Demons and Gods,Against the Gods'
+      DEEP_DOMAINS_EN: 'soullandmanga.com,mangafire.to,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,webtoons.com,tapas.io'
 
     steps:
       - name: 检出 main
@@ -138,6 +148,20 @@ jobs:
               QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANS"
               DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANS"
               DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANS"
+              ;;
+            zh-Hant)
+              RULE_LANGUAGE_NAME="繁体中文"
+              QUICK_KEYWORDS="$QUICK_KEYWORDS_ZH_HANT"
+              QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANT"
+              DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANT"
+              DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANT"
+              ;;
+            en)
+              RULE_LANGUAGE_NAME="English"
+              QUICK_KEYWORDS="$QUICK_KEYWORDS_EN"
+              QUICK_DOMAINS="$QUICK_DOMAINS_EN"
+              DEEP_KEYWORDS="$DEEP_KEYWORDS_EN"
+              DEEP_DOMAINS="$DEEP_DOMAINS_EN"
               ;;
             *)
               echo "Unsupported rule language: $RULE_LANGUAGE" >&2
