@@ -33,7 +33,15 @@ from urllib.parse import urlencode, urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
-DEFAULT_UA = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicRuleBot/1.0"
+try:
+    import cloudscraper
+    _SCRAPER = cloudscraper.create_scraper(
+        browser={"browser": "chrome", "platform": "android", "desktop": False}
+    )
+except Exception:
+    _SCRAPER = None
+
+DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -258,11 +266,14 @@ def safe_id(domain: str, seed: str = "") -> str:
 
 
 def fetch(url: str, timeout: int = 15, referer: str = "") -> Optional[str]:
-    headers = {"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}
+    headers = {"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
     if referer:
         headers["Referer"] = referer
     try:
-        r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
+        if _SCRAPER is not None:
+            r = _SCRAPER.get(url, headers=headers, timeout=timeout, allow_redirects=True)
+        else:
+            r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
         if r.status_code >= 400:
             log(f"[skip] HTTP {r.status_code}: {url}")
             return None
