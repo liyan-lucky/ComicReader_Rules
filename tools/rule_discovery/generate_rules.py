@@ -817,17 +817,25 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
 
 def build_queries(keywords: List[str], domains: List[str]) -> List[str]:
     queries: List[str] = []
+    has_paid_api = bool(os.getenv("BRAVE_SEARCH_API_KEY", "").strip() or os.getenv("GOOGLE_API_KEY", "").strip())
     for kw in keywords:
         kw = kw.strip()
         if not kw:
             continue
-        bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
-        for b in bases:
-            if domains:
-                for d in domains:
-                    queries.append(f"site:{d} {b}")
-            else:
-                queries.append(b)
+        if has_paid_api:
+            queries.append(kw)
+            queries.append(f"{kw} manga read online")
+            if re.search(r"[\u4e00-\u9fff]", kw):
+                queries.append(f"{kw} 漫画 在线阅读")
+                queries.append(f"{kw} manhua")
+        else:
+            bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
+            for b in bases:
+                if domains:
+                    for d in domains:
+                        queries.append(f"site:{d} {b}")
+                else:
+                    queries.append(b)
     return list(dict.fromkeys(queries))
 
 
