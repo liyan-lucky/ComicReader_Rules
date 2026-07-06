@@ -7,6 +7,57 @@ import { ComicSourceRule } from '../model/ComicModels';
  */
 export const GENERATED_SOURCES: ComicSourceRule[] = [
   {
+    "id": "comick_io_218a2a62_remote_public",
+    "name": "(globalThis.TURBOPACK||(globalThis.TURBOPACK=[]) - comick.io 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://comick.io",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://comick.io/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
     "id": "comick_io_d12408c6_remote_public",
     "name": "(globalThis.TURBOPACK||(globalThis.TURBOPACK=[]) - comick.io 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
@@ -160,8 +211,59 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_7320c9d1_remote_public",
-    "name": "逆天邪神 9.9 - kaixinman.com 远程公开源",
+    "id": "comick_io_f72e112c_remote_public",
+    "name": "(globalThis.TURBOPACK||(globalThis.TURBOPACK=[]) - comick.io 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://comick.io",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://comick.io/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_8e5ebab7_remote_public",
+    "name": "小智怪谈 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -262,57 +364,6 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_a9169a29_remote_public",
-    "name": "一人之下 9.9 - kaixinman.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.kaixinman.com",
-    "searchUrl": "",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": false,
-    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
-    "referer": "https://www.kaixinman.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    }
-  },
-  {
     "id": "kaixinman_com_b730231e_remote_public",
     "name": "斗罗大陆 II 绝世唐门 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
@@ -364,8 +415,59 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_8d19df72_remote_public",
-    "name": "血姬与骑士 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_ef0757ed_remote_public",
+    "name": "开局吻上裂口女 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_720f39d4_remote_public",
+    "name": "终结的炽天使 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -517,8 +619,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_ab15a87b_remote_public",
-    "name": "大逆之门 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_7953f9a8_remote_public",
+    "name": "末日重生后我疯狂升级 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -568,8 +670,59 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_7659fdfd_remote_public",
-    "name": "少女天师 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_b9859613_remote_public",
+    "name": "末日物流中心 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_660c5624_remote_public",
+    "name": "终将成为最强炼金术师？ 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -772,8 +925,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_5bc19480_remote_public",
-    "name": "全球诡异时代 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_ce09a2e2_remote_public",
+    "name": "牙医姐姐总想撩我 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -823,8 +976,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_faeef865_remote_public",
-    "name": "摊牌了，我全职业系统！ 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_5d1a640f_remote_public",
+    "name": "奇兽异闻录 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -874,8 +1027,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_ef0757ed_remote_public",
-    "name": "开局吻上裂口女 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_fca5087a_remote_public",
+    "name": "lonely planet 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -925,8 +1078,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_720f39d4_remote_public",
-    "name": "终结的炽天使 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_3e6cd58d_remote_public",
+    "name": "黑8王 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -976,8 +1129,110 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_7953f9a8_remote_public",
-    "name": "末日重生后我疯狂升级 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_eefa9049_remote_public",
+    "name": "我是个球 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_7320c9d1_remote_public",
+    "name": "逆天邪神 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_ab15a87b_remote_public",
+    "name": "大逆之门 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -1078,8 +1333,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_b9859613_remote_public",
-    "name": "末日物流中心 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_b64eecfd_remote_public",
+    "name": "七城八宗 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -1129,8 +1384,671 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "kaixinman_com_660c5624_remote_public",
-    "name": "终将成为最强炼金术师？ 9.9 - kaixinman.com 远程公开源",
+    "id": "kaixinman_com_c1a7bca3_remote_public",
+    "name": "不灭的大师 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_05ea219b_remote_public",
+    "name": "夏花学园：少女反抗军 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_7f889798_remote_public",
+    "name": "在ai世界里寻找爱可以吗? 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_7f30bfb3_remote_public",
+    "name": "今天吃什么? 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_bad3be17_remote_public",
+    "name": "亘渡 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_ddf3f872_remote_public",
+    "name": "13分15秒 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_6565931b_remote_public",
+    "name": "泳池趣事 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_f02a280b_remote_public",
+    "name": "狐妖小红娘 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_ea780fbe_remote_public",
+    "name": "我！天命大反派（隔周双更） 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_83b6b6b0_remote_public",
+    "name": "兄妹间的相爱相杀~三匹甜蜜的小狼~ 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_814f6cff_remote_public",
+    "name": "乌龙棋友 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_f56f0012_remote_public",
+    "name": "《当你沉睡时》 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_dd8d797b_remote_public",
+    "name": "童贞夺取淫乱姐妹们 ~好色家族里的后宫生活 9.9 - kaixinman.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kaixinman.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.kaixinman.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "kaixinman_com_d64d0a98_remote_public",
+    "name": "重生成殊死游戏中的黑手党千金后痴情叛徒将我囚禁侵犯 9.9 - kaixinman.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.kaixinman.com",
     "searchUrl": "",
@@ -1486,8 +2404,8 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "manhuagui_com_62cf587d_remote_public",
-    "name": "其它漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
+    "id": "manhuagui_com_60b27cdd_remote_public",
+    "name": "韩国漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.manhuagui.com",
     "searchUrl": "",
@@ -1537,8 +2455,110 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     }
   },
   {
-    "id": "manhuagui_com_60b27cdd_remote_public",
-    "name": "韩国漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
+    "id": "manhuagui_com_a1bab396_remote_public",
+    "name": "冒险漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.manhuagui.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.manhuagui.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "manhuagui_com_f496d871_remote_public",
+    "name": "魔幻漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.manhuagui.com",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.manhuagui.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "manhuagui_com_62cf587d_remote_public",
+    "name": "其它漫画_漫画大全 - 看漫画手机版 - manhuagui.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
     "homepage": "https://www.manhuagui.com",
     "searchUrl": "",
@@ -2641,6 +3661,210 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
     "referer": "https://mgeko.cc/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "mgeko_cc_c279e8a7_remote_public",
+    "name": "Clearing Dungeons Faster Than Anyone With the Bu - mgeko.cc 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.mgeko.cc",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.mgeko.cc/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "mgeko_cc_4117656b_remote_public",
+    "name": "Reincarnation Isn’t Enough to Fill the Hole in M - mgeko.cc 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.mgeko.cc",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.mgeko.cc/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "mgeko_cc_b62eba23_remote_public",
+    "name": "Isekai Parlor ~The Story of a Former Salaryman W - mgeko.cc 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.mgeko.cc",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.mgeko.cc/",
+    "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    }
+  },
+  {
+    "id": "mgeko_cc_32977d9a_remote_public",
+    "name": "Exorcist Reincarnation ～What’s a Fox-Faced, Kans - mgeko.cc 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.mgeko.cc",
+    "searchUrl": "",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|[\"\\']((?:https?:)?//[^\"\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"\\']*)?)[\"\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules",
+    "referer": "https://www.mgeko.cc/",
     "readerNextPageRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"\\']next[\"\\'][^>]+href=[\"\\']([^\"\\']+)[\"\\']|href=[\"\\']([^\"\\']+)[\"\\'][^>]+rel=[\"\\']next[\"\\']",
     "readerNextPageUrlGroups": [
       1,
