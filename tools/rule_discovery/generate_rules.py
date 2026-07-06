@@ -580,7 +580,8 @@ def json_str(s: str) -> str:
 
 def ets_rule_for_audit(a: PageAudit) -> str:
     rid = safe_id(a.domain, a.detail_url)
-    name = f"{a.domain} 自动公开规则"
+    title = clean_text(a.detail_title or a.first_chapter_title or a.domain)[:48]
+    name = f"{title} - {a.domain} 自动公开规则"
     detail_chapter_regex = r"<a[^>]+href=[\"']([^\"']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^\"']*)[\"'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>"
     reader_image_regex = r"<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|<source[^>]+srcset=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\/\/[^\"']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])"
     next_regex = r"<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\s*下一页\s*|\s*下页\s*|\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*)<\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']"
@@ -802,6 +803,9 @@ def main() -> int:
         "runtime": {
             "elapsedSeconds": elapsed_seconds(),
             "timeBudgetSeconds": args.time_budget_seconds,
+            "searchResultLimit": args.limit,
+            "seedLimit": args.seed_limit,
+            "perSeedLimit": args.per_seed_limit,
             "maxAuditCandidates": args.max_audit_candidates,
             "perDomainAuditLimit": args.per_domain_audit_limit,
             "perDomainGeneratedLimit": args.per_domain_generated_limit,

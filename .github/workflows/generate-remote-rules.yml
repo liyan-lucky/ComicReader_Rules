@@ -32,6 +32,34 @@ on:
           - zh-Hans
           - zh-Hant
           - en
+      search_result_limit:
+        description: '每个搜索查询最多取多少条结果；留空使用模式默认值'
+        required: false
+        default: ''
+      seed_limit:
+        description: '最多保留多少个种子候选；留空使用模式默认值'
+        required: false
+        default: ''
+      per_seed_limit:
+        description: '每个种子页最多抓取多少个候选；留空使用模式默认值'
+        required: false
+        default: ''
+      max_audit_candidates:
+        description: '最多审计多少个候选；留空使用模式默认值，0=不限制'
+        required: false
+        default: ''
+      per_domain_audit_limit:
+        description: '每个域名最多审计多少个候选；留空使用模式默认值，0=不限制'
+        required: false
+        default: ''
+      per_domain_generated_limit:
+        description: '每个域名最多保留多少条规则；留空使用模式默认值'
+        required: false
+        default: ''
+      time_budget_seconds:
+        description: '生成阶段时间预算秒数；留空使用模式默认值'
+        required: false
+        default: ''
   schedule:
     - cron: '0 3 * * 1'
 
@@ -55,20 +83,27 @@ jobs:
       RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
       RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
       RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.rule_language || 'zh-Hans' }}
+      RULE_SEARCH_RESULT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_result_limit || '' }}
+      RULE_SEED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.seed_limit || '' }}
+      RULE_PER_SEED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_seed_limit || '' }}
+      RULE_MAX_AUDIT_CANDIDATES_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_audit_candidates || '' }}
+      RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_audit_limit || '' }}
+      RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_generated_limit || '' }}
+      RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
       QUICK_MAX_GENERATED: '10'
       DEEP_MAX_GENERATED: '1000'
       QUICK_LIMIT: '8'
-      DEEP_LIMIT: '20'
+      DEEP_LIMIT: '30'
       QUICK_SEED_LIMIT: '150'
-      DEEP_SEED_LIMIT: '800'
+      DEEP_SEED_LIMIT: '3000'
       QUICK_PER_SEED_LIMIT: '60'
-      DEEP_PER_SEED_LIMIT: '120'
+      DEEP_PER_SEED_LIMIT: '400'
       QUICK_MAX_AUDIT_CANDIDATES: '80'
-      DEEP_MAX_AUDIT_CANDIDATES: '260'
+      DEEP_MAX_AUDIT_CANDIDATES: '1000'
       QUICK_PER_DOMAIN_AUDIT_LIMIT: '8'
-      DEEP_PER_DOMAIN_AUDIT_LIMIT: '12'
+      DEEP_PER_DOMAIN_AUDIT_LIMIT: '120'
       QUICK_PER_DOMAIN_GENERATED_LIMIT: '3'
-      DEEP_PER_DOMAIN_GENERATED_LIMIT: '5'
+      DEEP_PER_DOMAIN_GENERATED_LIMIT: '100'
       QUICK_TIME_BUDGET_SECONDS: '1800'
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.2'
@@ -76,7 +111,7 @@ jobs:
       QUICK_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,斗破苍穹,凡人修仙传'
       QUICK_DOMAINS_ZH_HANS: 'kaixinman.com,mgeko.cc,happymh.com'
       DEEP_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,大奉打更人,沧元图,遮天'
-      DEEP_DOMAINS_ZH_HANS: 'kaixinman.com,manhuaus.com,mgeko.cc,happymh.com,chapmanganato.to'
+      DEEP_DOMAINS_ZH_HANS: 'kaixinman.com,manhuaus.com,mgeko.cc,happymh.com,chapmanganato.to,mangabuddy.com,mangapark.net,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,mangakakalot.com,manganato.com,bato.to'
       QUICK_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,鬥破蒼穹,凡人修仙傳'
       QUICK_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to'
       DEEP_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,凡人修仙傳,鬥破蒼穹,武動乾坤,一人之下,大奉打更人,滄元圖,遮天'
@@ -164,6 +199,27 @@ jobs:
           if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
             SELECTED_MAX_GENERATED="$RULE_MAX_GENERATED_INPUT"
           fi
+          if [ -n "${RULE_SEARCH_RESULT_LIMIT_INPUT:-}" ]; then
+            SELECTED_LIMIT="$RULE_SEARCH_RESULT_LIMIT_INPUT"
+          fi
+          if [ -n "${RULE_SEED_LIMIT_INPUT:-}" ]; then
+            SELECTED_SEED_LIMIT="$RULE_SEED_LIMIT_INPUT"
+          fi
+          if [ -n "${RULE_PER_SEED_LIMIT_INPUT:-}" ]; then
+            SELECTED_PER_SEED_LIMIT="$RULE_PER_SEED_LIMIT_INPUT"
+          fi
+          if [ -n "${RULE_MAX_AUDIT_CANDIDATES_INPUT:-}" ]; then
+            SELECTED_MAX_AUDIT_CANDIDATES="$RULE_MAX_AUDIT_CANDIDATES_INPUT"
+          fi
+          if [ -n "${RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT:-}" ]; then
+            SELECTED_PER_DOMAIN_AUDIT_LIMIT="$RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT"
+          fi
+          if [ -n "${RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT:-}" ]; then
+            SELECTED_PER_DOMAIN_GENERATED_LIMIT="$RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT"
+          fi
+          if [ -n "${RULE_TIME_BUDGET_SECONDS_INPUT:-}" ]; then
+            SELECTED_TIME_BUDGET_SECONDS="$RULE_TIME_BUDGET_SECONDS_INPUT"
+          fi
 
           ARGS=""
           IFS=',' read -ra KW_ARR <<< "$SELECTED_KEYWORDS"
@@ -229,6 +285,9 @@ jobs:
               f"版本：{index.get('version', '')}",
               f"更新时间：{index.get('updatedAt', '')}",
               f"目标上限：{stats.get('requestedMaxGenerated', os.environ.get('DEEP_MAX_GENERATED' if os.environ.get('RULE_RUN_MODE') == 'deep' else 'QUICK_MAX_GENERATED', ''))}",
+              f"每查询搜索结果上限：{runtime.get('searchResultLimit', '旧报告未记录')}",
+              f"种子候选上限：{runtime.get('seedLimit', '旧报告未记录')}",
+              f"每种子页候选上限：{runtime.get('perSeedLimit', '旧报告未记录')}",
               f"本次自动发现生成规则数：{auto_generated_count}",
               f"手工稳定规则数：{manual_count}",
               f"最终索引总规则数：{total_count}",
