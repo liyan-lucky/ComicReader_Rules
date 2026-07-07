@@ -407,9 +407,13 @@ def boost_catalog(catalog: Dict[str, Any], report: Dict[str, Any], delta: Dict[s
         if counts.get(cid, 0) >= TARGET_COUNT:
             continue
         keywords = CATEGORY_SEARCH_KEYWORDS.get(cid, [])[:MAX_KEYWORDS_PER_CATEGORY]
+        consecutive_no_new = 0
         for keyword in keywords:
             if counts.get(cid, 0) >= TARGET_COUNT:
                 break
+            if consecutive_no_new >= 10:
+                break
+            keyword_had_new = False
             for rule in rules:
                 if counts.get(cid, 0) >= TARGET_COUNT:
                     break
@@ -461,7 +465,12 @@ def boost_catalog(catalog: Dict[str, Any], report: Dict[str, Any], delta: Dict[s
                     counts[cid] += 1
                     stats["newItems"] += 1
                     new_delta_items.append(item)
+                    keyword_had_new = True
                 time.sleep(REQUEST_SLEEP_SECONDS)
+            if keyword_had_new:
+                consecutive_no_new = 0
+            else:
+                consecutive_no_new += 1
 
     final_items = sorted(items_by_title.values(), key=lambda item: safe_str(item.get("title")))
     final_counts = category_counts(final_items)

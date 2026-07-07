@@ -366,12 +366,11 @@ def search_serper(query: str, limit: int) -> List[Candidate]:
     if not key:
         return []
     out: List[Candidate] = []
-    batch = 100
+    page_size = min(limit, 10)
     for page in range(1, 11):
         if len(out) >= limit:
             break
-        num = min(batch, limit - len(out))
-        payload = {"q": query, "num": num, "gl": "cn", "hl": "zh-cn"}
+        payload = {"q": query, "num": page_size, "gl": "cn", "hl": "zh-cn"}
         if page > 1:
             payload["page"] = page
         try:
@@ -381,12 +380,14 @@ def search_serper(query: str, limit: int) -> List[Candidate]:
             items = data.get("organic", [])
             if not items:
                 break
-            for item in items[:num]:
+            for item in items:
                 out.append(Candidate(url=item.get("link", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("snippet", "")), engine="serper"))
+            if len(items) < page_size:
+                break
         except Exception as e:
             log(f"[warn] Serper search page {page} failed: {e}")
             break
-    return [c for c in out if c.url]
+    return [c for c in out if c.url][:limit]
 
 
 def search_google_cse(query: str, limit: int) -> List[Candidate]:
@@ -435,7 +436,22 @@ def search_duckduckgo_html(query: str, limit: int) -> List[Candidate]:
     return unique_candidates(out)
 
 
-def unique_candidates(items: Iterable[Candidate]) -> List[Candidate]:
+def search_searxng(query: str, limit: int) -> List[Candidate]:
+    base_url = os.getenv("SEARXNG_URL", "").strip()
+    if not base_url:
+        return []
+    try:
+        url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
+        r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=15)
+        r.raise_for_status()
+        data = r.json()
+        out: List[Candidate] = []
+        for item in data.get("results", [])[:limit]:
+            out.append(Candidate(url=item.get("url", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("content", "")), engine="searxng"))
+        return [c for c in out if c.url]
+    except Exception as e:
+        log(f"[warn] SearXNG search failed: {e}")
+        return [](items: Iterable[Candidate]) -> List[Candidate]:
     seen = set()
     out = []
     for c in items:
@@ -457,13 +473,35 @@ def _has_paid_search_api() -> bool:
 
 
 def search_web(query: str, limit: int) -> List[Candidate]:
-    candidates = []
-    candidates += search_brave(query, limit)
-    candidates += search_serper(query, limit)
-    candidates += search_google_cse(query, limit)
-    if len(candidates) < limit:
-        candidates += search_duckduckgo_html(query, limit)
-    return unique_candidates(candidates)[:limit]
+    candidates: List[Candidate] = []
+    seen_urls: set = set()
+    def _merge(items: List[Candidate]) -> None:
+        for c in items:
+            u = c.url.split("#", 1)[0]
+            if u and u not in seen_urls:
+                seen_urls.add(u)
+                c.url = u
+                candidates.append(c)
+
+    _merge(search_searxng(query, limit))
+    if len(candidates) >= limit:
+        return candidates[:limit]
+
+    _merge(search_duckduckgo_html(query, limit))
+    if len(candidates) >= limit:
+        return candidates[:limit]
+
+    per_engine = max(limit // 2, 5)
+    _merge(search_brave(query, per_engine))
+    if len(candidates) >= limit:
+        return candidates[:limit]
+
+    _merge(search_serper(query, per_engine))
+    if len(candidates) >= limit:
+        return candidates[:limit]
+
+    _merge(search_google_cse(query, per_engine))
+    return candidates[:limit]
 
 
 def likely_content_url(url: str) -> bool:
@@ -882,10 +920,10 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
             continue
         if has_paid_api:
             queries.append(kw)
-            queries.append(f"{kw} manga read online")
             if re.search(r"[\u4e00-\u9fff]", kw):
-                queries.append(f"{kw} 漫画 在线阅读")
-                queries.append(f"{kw} manhua")
+                queries.append(f"{kw} 漫画")
+            else:
+                queries.append(f"{kw} manga read")
         else:
             bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
             for b in bases:
@@ -954,8 +992,23 @@ def main() -> int:
             if line and not line.startswith("#"):
                 domains.append(line)
     seeded_domains = set(KNOWN_SOURCE_SEEDS.keys()) if not args.no_seed_discovery else set()
-    queries = build_queries(keywords, domains, seeded_domains)
-    log(f"[info] queries: {len(queries)} (seeded domains excluded from site: queries: {len(seeded_domains)})")
+
+    already_audited_domains: set = set()
+    report_path = Path(args.report)
+    if report_path.exists():
+        try:
+            old = json.loads(report_path.read_text(encoding="utf-8"))
+            for item in old.get("generated", []):
+                d = item.get("domain", "")
+                if d:
+                    already_audited_domains.add(normalize_domain(d))
+            if already_audited_domains:
+                log(f"[info] loaded {len(already_audited_domains)} previously audited domains from existing report")
+        except Exception:
+            pass
+
+    queries = build_queries(keywords, domains, seeded_domains | already_audited_domains)
+    log(f"[info] queries: {len(queries)} (seeded+audited domains excluded from site: queries: {len(seeded_domains | already_audited_domains)})")
 
     raw_candidates: List[Candidate] = []
     query_stats = []
@@ -1021,11 +1074,15 @@ def main() -> int:
         if not likely_content_url(c.url):
             audit_stats["skippedNonContentUrl"] += 1
             continue
+        candidate_domain = domain_of(c.url)
+        if normalize_domain(candidate_domain) in already_audited_domains:
+            audit_stats.setdefault("skippedAlreadyAuditedDomain", 0)
+            audit_stats["skippedAlreadyAuditedDomain"] += 1
+            continue
         if args.max_audit_candidates > 0 and audit_stats["auditedCandidateCount"] >= args.max_audit_candidates:
             audit_stats["skippedMaxAuditCandidates"] += 1
             log(f"[stop] max audit candidates reached: {args.max_audit_candidates}")
             break
-        candidate_domain = domain_of(c.url)
         if args.per_domain_audit_limit > 0 and per_domain_audit_counts.get(candidate_domain, 0) >= args.per_domain_audit_limit:
             audit_stats["skippedPerDomainAuditLimit"] += 1
             continue

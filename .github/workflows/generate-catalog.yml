@@ -8,28 +8,22 @@ on:
     branches:
       - main
     paths:
-      - 'scripts/generate_catalog.sh'
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
       - 'scripts/summarize_catalog_report.py'
       - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
-      - 'generated/index.json'
-      - 'generated/rulebot_report.json'
       - 'rules/manual/index.json'
       - '.github/workflows/generate-catalog.yml'
   pull_request:
     branches:
       - main
     paths:
-      - 'scripts/generate_catalog.sh'
       - 'scripts/generate_catalog.py'
       - 'scripts/boost_catalog_targets.py'
       - 'scripts/summarize_catalog_report.py'
       - 'scripts/update_manifest.py'
       - 'generated/catalog_discovery_sources.json'
-      - 'generated/index.json'
-      - 'generated/rulebot_report.json'
       - 'rules/manual/index.json'
       - '.github/workflows/generate-catalog.yml'
 
@@ -131,6 +125,67 @@ jobs:
           git tag -f -a "$TAG_NAME" -m "Catalog $TAG_NAME"
           git push --force origin "$TAG_NAME"
           echo "Published tag: $TAG_NAME"
+
+      - name: 准备目录 Release 附件
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          rm -rf dist/release
+          mkdir -p dist/release
+          cp generated/catalog.json dist/release/catalog.json
+          cp generated/catalog_categories.json dist/release/catalog-categories.json
+          cp generated/catalog_delta.json dist/release/catalog-delta.json
+          cp generated/catalog_report.json dist/release/catalog-report.json
+          cp generated/catalog_target_gaps.json dist/release/catalog-target-gaps.json
+          cp generated/update_manifest.json dist/release/update-manifest.json
+          ls -la dist/release
+
+      - name: 发布或更新目录 Release
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
+          RELEASE_TITLE="Comic Catalog $(date -u +'%Y-%m-%d')"
+          RELEASE_FILES=(
+            dist/release/catalog.json
+            dist/release/catalog-categories.json
+            dist/release/catalog-delta.json
+            dist/release/catalog-report.json
+            dist/release/catalog-target-gaps.json
+            dist/release/update-manifest.json
+          )
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes "Automated comic catalog update." --latest=false
+            gh release upload "$TAG_NAME" "${RELEASE_FILES[@]}" --clobber
+          else
+            gh release create "$TAG_NAME" "${RELEASE_FILES[@]}" --title "$RELEASE_TITLE" --notes "Automated comic catalog update." --latest=false
+          fi
+          echo "Published catalog release: $TAG_NAME"
+
+      - name: 校验标签和 Release 发布状态
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
+          TAG_REF="$(git ls-remote --tags origin "refs/tags/$TAG_NAME" | awk '{print $1}')"
+          if [ -z "$TAG_REF" ]; then
+            echo "Tag not found after publish: $TAG_NAME" >&2
+            exit 1
+          fi
+          gh release view "$TAG_NAME" >/dev/null
+          {
+            echo ""
+            echo "## 标签和 Release 发布校验"
+            echo ""
+            echo "标签：$TAG_NAME"
+            echo "远端对象：$TAG_REF"
+            echo "Release：已发布"
+            echo "附件：catalog.json, catalog-categories.json, catalog-delta.json, catalog-report.json, catalog-target-gaps.json, update-manifest.json"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传目录产物
         uses: actions/upload-artifact@v4

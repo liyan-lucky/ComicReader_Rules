@@ -424,9 +424,13 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
 
     for cid, keywords in CATEGORY_SEARCH_KEYWORDS.items():
         stats["categoryCount"] += 1
+        consecutive_no_new = 0
         for keyword in keywords[:MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY]:
             if hint_counts[cid] >= CATEGORY_TARGET_COUNT:
                 break
+            if consecutive_no_new >= 10:
+                break
+            keyword_had_new = False
             for rule in rules:
                 if hint_counts[cid] >= CATEGORY_TARGET_COUNT:
                     break
@@ -461,7 +465,12 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
                 for title, record in found:
                     records.append((title, record))
                     hint_counts[cid] += 1
+                    keyword_had_new = True
                 time.sleep(0.25)
+            if keyword_had_new:
+                consecutive_no_new = 0
+            else:
+                consecutive_no_new += 1
 
     stats["recordsFound"] = len(records)
     stats["hintRecordCounts"] = dict(sorted(hint_counts.items()))

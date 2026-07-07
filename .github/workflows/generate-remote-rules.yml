@@ -78,7 +78,15 @@ jobs:
   generate:
     name: 生成并同步远程规则到 main
     runs-on: ubuntu-latest
+
+    services:
+      searxng:
+        image: searxng/searxng:latest
+        ports:
+          - 8080:8080
+
     env:
+      SEARXNG_URL: http://localhost:8080
       RULES_BRANCH: main
       RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
       RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
@@ -125,6 +133,19 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: 等待 SearXNG 就绪
+        run: |
+          echo "等待 SearXNG 启动..."
+          for i in $(seq 1 30); do
+            if curl -fs http://localhost:8080 >/dev/null 2>&1; then
+              echo "SearXNG 已启动"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "SearXNG 启动超时，将回退到付费API"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
       - name: 生成公开规则
         run: |
