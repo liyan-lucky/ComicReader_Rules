@@ -436,8 +436,24 @@ def search_duckduckgo_html(query: str, limit: int) -> List[Candidate]:
     return unique_candidates(out)
 
 
+def _searxng_url() -> str:
+    url = os.getenv("SEARXNG_URL", "").strip()
+    if url:
+        return url
+    cfg_path = Path(__file__).resolve().parents[2] / "config" / "search.json"
+    if cfg_path.exists():
+        try:
+            cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+            url = (cfg.get("searxng") or {}).get("url", "").strip()
+            if url:
+                return url
+        except Exception:
+            pass
+    return ""
+
+
 def search_searxng(query: str, limit: int) -> List[Candidate]:
-    base_url = os.getenv("SEARXNG_URL", "").strip()
+    base_url = _searxng_url()
     if not base_url:
         return []
     try:

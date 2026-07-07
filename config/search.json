@@ -1,0 +1,29 @@
+{
+  "searxng": {
+    "enabled": true,
+    "url": "",
+    "description": "自建SearXNG实例URL，留空则CI自动启动service container。本地运行设为 http://localhost:8080"
+  },
+  "brave": {
+    "enabled": true,
+    "envKey": "BRAVE_SEARCH_API_KEY",
+    "description": "Brave Search API，免费2000次/月"
+  },
+  "serper": {
+    "enabled": true,
+    "envKey": "SERPER_API_KEY",
+    "description": "Serper Google搜索API，免费2500次/月"
+  },
+  "googleCse": {
+    "enabled": true,
+    "envKey": "GOOGLE_API_KEY",
+    "envKeyCx": "GOOGLE_CX",
+    "description": "Google Custom Search API，免费100次/天"
+  },
+  "duckduckgo": {
+    "enabled": true,
+    "description": "DuckDuckGo HTML抓取，免费但不稳定（易403）"
+  },
+  "priority": ["searxng", "duckduckgo", "brave", "serper", "googleCse"],
+  "description": "搜索优先级：免费优先，付费互补，结果够用即停"
+}
