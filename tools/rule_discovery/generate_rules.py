@@ -483,9 +483,10 @@ def unique_candidates(items: Iterable[Candidate]) -> List[Candidate]:
     return out
 
 
-def _has_paid_search_api() -> bool:
+def _has_search_api() -> bool:
     return bool(
-        os.getenv("BRAVE_SEARCH_API_KEY", "").strip()
+        _searxng_url()
+        or os.getenv("BRAVE_SEARCH_API_KEY", "").strip()
         or os.getenv("SERPER_API_KEY", "").strip()
         or os.getenv("GOOGLE_API_KEY", "").strip()
     )
@@ -931,13 +932,13 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
     queries: List[str] = []
-    has_paid_api = _has_paid_search_api()
+    has_search_api = _has_search_api()
     seeded = seeded_domains or set()
     for kw in keywords:
         kw = kw.strip()
         if not kw:
             continue
-        if has_paid_api:
+        if has_search_api:
             queries.append(kw)
             if re.search(r"[\u4e00-\u9fff]", kw):
                 queries.append(f"{kw} 漫画")
@@ -1013,14 +1014,16 @@ def main() -> int:
     seeded_domains = set(KNOWN_SOURCE_SEEDS.keys()) if not args.no_seed_discovery else set()
 
     already_audited_domains: set = set()
+    already_generated_per_domain: Dict[str, int] = {}
     report_path = Path(args.report)
     if report_path.exists():
         try:
             old = json.loads(report_path.read_text(encoding="utf-8"))
             for item in old.get("generated", []):
-                d = item.get("domain", "")
+                d = normalize_domain(item.get("domain", ""))
                 if d:
-                    already_audited_domains.add(normalize_domain(d))
+                    already_audited_domains.add(d)
+                    already_generated_per_domain[d] = already_generated_per_domain.get(d, 0) + 1
             if already_audited_domains:
                 log(f"[info] loaded {len(already_audited_domains)} previously audited domains from existing report")
         except Exception:
@@ -1059,7 +1062,7 @@ def main() -> int:
             break
         log(f"[search] {q}")
         found = search_web(q, args.limit)
-        if not found and not _has_paid_search_api():
+        if not found and not _has_search_api():
             consecutive_search_403 += 1
         else:
             consecutive_search_403 = 0
@@ -1094,9 +1097,10 @@ def main() -> int:
             audit_stats["skippedNonContentUrl"] += 1
             continue
         candidate_domain = domain_of(c.url)
-        if normalize_domain(candidate_domain) in already_audited_domains:
-            audit_stats.setdefault("skippedAlreadyAuditedDomain", 0)
-            audit_stats["skippedAlreadyAuditedDomain"] += 1
+        nd = normalize_domain(candidate_domain)
+        if already_generated_per_domain.get(nd, 0) >= args.per_domain_generated_limit:
+            audit_stats.setdefault("skippedDomainAtLimit", 0)
+            audit_stats["skippedDomainAtLimit"] += 1
             continue
         if args.max_audit_candidates > 0 and audit_stats["auditedCandidateCount"] >= args.max_audit_candidates:
             audit_stats["skippedMaxAuditCandidates"] += 1
