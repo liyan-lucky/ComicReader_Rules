@@ -1,52 +1,52 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-06T08:09:54Z",
+  "updatedAt": "2026-07-07T00:40:12Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 443,
+  "itemCount": 931,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 4043,
-  "indexRecordCount": 214,
-  "reportRecordCount": 223,
-  "discoveryRecordCount": 606,
+  "sourceRecordCount": 4520,
+  "indexRecordCount": 110,
+  "reportRecordCount": 137,
+  "discoveryRecordCount": 1273,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 37,
+  "uncategorizedCount": 373,
   "uncategorizedSamples": [
-    "And2girls安菟",
-    "Ecchi",
-    "Harem",
-    "Isekai",
-    "Josei",
-    "Seinen",
-    "Shoujo",
-    "Shounen",
-    "Soul Land",
-    "Sports",
-    "Supernatural",
-    "browse comics",
-    "kaixinman.com 远程公开源",
-    "mangadna",
-    "mangadnacom",
-    "一人之下",
-    "吞噬星空",
-    "完美世界",
-    "开心漫公开访问源",
-    "斗破苍穹",
-    "斗罗大陆",
-    "武动乾坤",
-    "沧元图",
-    "简体中文",
-    "试着在维也纳歌唱吧",
-    "连载 12 兄妹间的相爱相杀~三匹甜蜜的小狼~",
-    "连载 16 歌舞伎町bad trip",
-    "连载 16 绝色道侣都说吾皇体质无敌",
-    "连载 17 韩漫短篇合集",
-    "连载 2 阴沉的我被双子爱慕的缘由"
+    "1128",
+    "13分15秒 9.9 - kaixinman.com 远程公开源",
+    "17023",
+    "17965",
+    "19300",
+    "19785",
+    "1:49:49 9.9 - kaixinman.com 远程公开源",
+    "20515",
+    "20568",
+    "23394",
+    "2863",
+    "31239",
+    "34795",
+    "37798",
+    "46088",
+    "4685",
+    "48652",
+    "49796",
+    "5035",
+    "50813",
+    "52842",
+    "53901",
+    "56179",
+    "58842",
+    "58877",
+    "59271",
+    "59786",
+    "59913",
+    "60387",
+    "60388"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
@@ -105,63 +105,93 @@
     "targetBoostMinimumVisibleTarget": 200
   },
   "discovery": {
-    "enabledSourceCount": 8,
-    "entryUrlCount": 24,
-    "pagesFetched": 12,
-    "pagesFailed": 9,
-    "recordsFound": 606,
+    "enabledSourceCount": 14,
+    "entryUrlCount": 42,
+    "pagesFetched": 29,
+    "pagesFailed": 15,
+    "recordsFound": 1273,
     "errors": [
       {
-        "source": "mgeko.cc",
-        "url": "https://www.mgeko.cc/latest",
+        "source": "kaixinman.com",
+        "url": "https://www.kaixinman.com/latest",
         "error": "HTTP Error 404: Not Found"
-      },
-      {
-        "source": "mgeko.cc",
-        "url": "https://www.mgeko.cc/manga",
-        "error": "HTTP Error 404: Not Found"
-      },
-      {
-        "source": "manhuaus.com",
-        "url": "https://manhuaus.com",
-        "error": "HTTP Error 403: Forbidden"
-      },
-      {
-        "source": "manhuaus.com",
-        "url": "https://manhuaus.com/manga",
-        "error": "HTTP Error 403: Forbidden"
-      },
-      {
-        "source": "manhuaus.com",
-        "url": "https://manhuaus.com/latest",
-        "error": "HTTP Error 403: Forbidden"
-      },
-      {
-        "source": "happymh.com",
-        "url": "https://happymh.com",
-        "error": "HTTP Error 403: Forbidden"
-      },
-      {
-        "source": "happymh.com",
-        "url": "https://happymh.com/manga",
-        "error": "HTTP Error 403: Forbidden"
-      },
-      {
-        "source": "happymh.com",
-        "url": "https://happymh.com/latest",
-        "error": "HTTP Error 403: Forbidden"
       },
       {
         "source": "mangaread.org",
         "url": "https://mangaread.org/latest",
         "error": "跳过非文本响应：image/png"
+      },
+      {
+        "source": "mangadna.com",
+        "url": "https://mangadna.com/latest",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "source": "mangakakalot.com",
+        "url": "https://mangakakalot.com",
+        "error": "The read operation timed out"
+      },
+      {
+        "source": "manganato.com",
+        "url": "https://manganato.com",
+        "error": "The read operation timed out"
+      },
+      {
+        "source": "readm.org",
+        "url": "https://readm.org",
+        "error": "The read operation timed out"
+      },
+      {
+        "source": "readm.org",
+        "url": "https://readm.org/latest-releases",
+        "error": "The read operation timed out"
+      },
+      {
+        "source": "readm.org",
+        "url": "https://readm.org/manga-list",
+        "error": "The read operation timed out"
+      },
+      {
+        "source": "manhuadb.com",
+        "url": "https://www.manhuadb.com",
+        "error": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "source": "manhuadb.com",
+        "url": "https://www.manhuadb.com/manhua-list",
+        "error": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "source": "manhuadb.com",
+        "url": "https://www.manhuadb.com/update",
+        "error": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "source": "manhuacat.com",
+        "url": "https://www.manhuacat.com",
+        "error": "<urlopen error timed out>"
+      },
+      {
+        "source": "comicextra.com",
+        "url": "https://www.comicextra.com",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)>"
+      },
+      {
+        "source": "comicextra.com",
+        "url": "https://www.comicextra.com/comic-list",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)>"
+      },
+      {
+        "source": "comicextra.com",
+        "url": "https://www.comicextra.com/popular-comic",
+        "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)>"
       }
     ]
   },
   "categorySearch": {
-    "enabledRuleCount": 2,
+    "enabledRuleCount": 4,
     "categoryCount": 15,
-    "searchPagesFetched": 135,
+    "searchPagesFetched": 255,
     "searchPagesFailed": 0,
     "recordsFound": 3000,
     "errors": [],
@@ -186,229 +216,227 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 435,
-    "detailPagesFailed": 0,
-    "metadataHits": 429,
-    "metadataLimit": 900,
+    "detailPagesFetched": 865,
+    "detailPagesFailed": 66,
+    "metadataHits": 857,
+    "metadataLimit": 3000,
     "categorySearchFallbackAssigned": 6,
     "categoryCountsAfterFallback": {
-      "dongzuo": 207,
-      "dushi": 4,
-      "juqing": 6,
-      "kehuan": 9,
-      "kongbu": 4,
-      "lianai": 43,
-      "lishi_gufeng": 6,
-      "maoxian": 36,
-      "qihuan": 23,
-      "richang": 11,
+      "dongzuo": 235,
+      "dushi": 11,
+      "juqing": 12,
+      "kehuan": 13,
+      "kongbu": 13,
+      "lianai": 57,
+      "lishi_gufeng": 16,
+      "maoxian": 42,
+      "qihuan": 64,
+      "richang": 17,
       "wuxia_gedou": 12,
-      "xiaoyuan": 7,
-      "xiju": 35,
-      "xiuxian": 1,
-      "xuanyi": 2
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xuanyi": 9
     }
   },
   "tags": [
     {
       "id": "xuanhuan",
       "name": "玄幻",
-      "count": 9
+      "count": 11
     },
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 45
+      "count": 48
     },
     {
       "id": "chongsheng",
       "name": "重生",
-      "count": 34
+      "count": 60
     },
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 196
+      "count": 214
     },
     {
       "id": "xitong",
       "name": "系统",
-      "count": 19
+      "count": 25
     },
     {
       "id": "fuchou",
       "name": "复仇",
-      "count": 16
+      "count": 20
     },
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 2
+      "count": 3
     },
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 180
+      "count": 194
     },
     {
       "id": "danmei",
       "name": "耽美",
-      "count": 50
+      "count": 67
     },
     {
       "id": "baihe",
       "name": "百合",
-      "count": 47
+      "count": 56
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 227
+      "count": 250
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 197
+      "count": 216
     }
   ],
   "targetBoost": {
     "enabled": true,
     "targetCount": 200,
     "minimumVisibleTarget": 200,
-    "searchRules": 2,
-    "searchPagesFetched": 627,
+    "searchRules": 4,
+    "searchPagesFetched": 1171,
     "searchPagesFailed": 1,
     "newItems": 0,
-    "existingItemsTouched": 15337,
-    "reassignedFromOverflow": 2,
+    "existingItemsTouched": 14064,
+    "reassignedFromOverflow": 7,
     "errors": [
       {
-        "category": "xiaoyuan",
-        "keyword": "老师",
-        "ruleId": "kaixinman_public_access",
-        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+        "category": "qihuan",
+        "keyword": "fairy",
+        "ruleId": "mangafire_public_search",
+        "error": "The read operation timed out"
       }
     ],
     "countsBefore": {
-      "dongzuo": 207,
-      "dushi": 4,
-      "juqing": 6,
-      "kehuan": 9,
-      "kongbu": 4,
-      "lianai": 43,
-      "lishi_gufeng": 6,
-      "maoxian": 36,
-      "qihuan": 23,
-      "richang": 11,
-      "weifenlei": 37,
+      "dongzuo": 235,
+      "dushi": 11,
+      "juqing": 12,
+      "kehuan": 13,
+      "kongbu": 13,
+      "lianai": 57,
+      "lishi_gufeng": 16,
+      "maoxian": 42,
+      "qihuan": 64,
+      "richang": 17,
+      "weifenlei": 373,
       "wuxia_gedou": 12,
-      "xiaoyuan": 7,
-      "xiju": 35,
-      "xiuxian": 1,
-      "xuanyi": 2
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xuanyi": 9
     },
     "countsAfter": {
-      "dongzuo": 194,
-      "dushi": 4,
-      "juqing": 4,
-      "kehuan": 9,
-      "kongbu": 5,
-      "lianai": 43,
-      "lishi_gufeng": 6,
-      "maoxian": 36,
-      "qihuan": 18,
-      "richang": 11,
-      "weifenlei": 37,
-      "wuxia_gedou": 8,
-      "xiaoyuan": 7,
-      "xiju": 35,
-      "xiuxian": 2,
-      "xuanyi": 24
+      "dongzuo": 226,
+      "dushi": 11,
+      "juqing": 10,
+      "kehuan": 13,
+      "kongbu": 14,
+      "lianai": 57,
+      "lishi_gufeng": 16,
+      "maoxian": 42,
+      "qihuan": 60,
+      "richang": 17,
+      "weifenlei": 373,
+      "wuxia_gedou": 9,
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xiuxian": 12,
+      "xuanyi": 14
     },
-    "categoriesAtOrAboveTarget": 0,
-    "categoriesAtOrAboveVisibleTarget": 0,
-    "remainingTotalGap": 2594
+    "categoriesAtOrAboveTarget": 1,
+    "categoriesAtOrAboveVisibleTarget": 1,
+    "remainingTotalGap": 2468
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 194
+      "count": 226
     },
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 36
+      "count": 42
     },
     {
       "id": "lianai",
       "name": "恋爱",
-      "count": 43
+      "count": 57
     },
     {
       "id": "xiju",
       "name": "喜剧",
-      "count": 35
+      "count": 45
     },
     {
       "id": "juqing",
       "name": "剧情",
-      "count": 4
+      "count": 10
     },
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 18
+      "count": 60
     },
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 7
+      "count": 12
     },
     {
       "id": "richang",
       "name": "日常",
-      "count": 11
+      "count": 17
     },
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 8
+      "count": 9
     },
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 9
+      "count": 13
     },
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 5
+      "count": 14
     },
     {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 24
+      "count": 14
     },
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 6
+      "count": 16
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 4
+      "count": 11
     },
     {
       "id": "xiuxian",
       "name": "修仙",
-      "count": 2
+      "count": 12
     },
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 37
+      "count": 373
     }
   ]
 }
