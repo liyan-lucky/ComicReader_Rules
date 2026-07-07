@@ -1,52 +1,52 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-07T01:24:53Z",
+  "updatedAt": "2026-07-07T07:29:06Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 956,
+  "itemCount": 923,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 4520,
+  "sourceRecordCount": 4517,
   "indexRecordCount": 110,
   "reportRecordCount": 137,
-  "discoveryRecordCount": 1273,
+  "discoveryRecordCount": 1270,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 369,
+  "uncategorizedCount": 368,
   "uncategorizedSamples": [
+    "\">Isekai Merchant: Living a Rich Slow ...",
     "+ Tic Neesan",
+    "10739",
     "1128",
-    "130公分的帅哥 第01卷 [完",
     "13分15秒 9.9 - kaixinman.com 远程公开源",
     "17023",
     "17965",
     "19300",
     "19785",
     "1:49:49 9.9 - kaixinman.com 远程公开源",
-    "20515",
+    "20007",
+    "20145",
     "20568",
+    "23363",
     "23394",
     "2863",
-    "31239",
-    "45030",
-    "46088",
+    "30543",
+    "31643",
+    "39001",
+    "39192",
+    "39903",
+    "43585",
+    "43885",
     "4685",
-    "48652",
+    "47122",
+    "49986",
     "5035",
-    "50813",
-    "52357",
-    "52842",
-    "53901",
-    "56179",
-    "58842",
-    "59111",
-    "59271",
-    "59786",
-    "59913",
-    "60387"
+    "51985",
+    "52120",
+    "56024"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
@@ -109,7 +109,7 @@
     "entryUrlCount": 42,
     "pagesFetched": 29,
     "pagesFailed": 15,
-    "recordsFound": 1273,
+    "recordsFound": 1270,
     "errors": [
       {
         "source": "kaixinman.com",
@@ -191,10 +191,26 @@
   "categorySearch": {
     "enabledRuleCount": 4,
     "categoryCount": 15,
-    "searchPagesFetched": 255,
-    "searchPagesFailed": 0,
+    "searchPagesFetched": 204,
+    "searchPagesFailed": 3,
     "recordsFound": 3000,
-    "errors": [],
+    "errors": [
+      {
+        "ruleId": "kaixinman_public_access",
+        "url": "https://www.kaixinman.com/search?keyword=%E7%94%9C%E5%AE%A0",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      },
+      {
+        "ruleId": "kaixinman_public_access",
+        "url": "https://www.kaixinman.com/search?keyword=%E5%91%8A%E7%99%BD",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      },
+      {
+        "ruleId": "kaixinman_public_access",
+        "url": "https://www.kaixinman.com/search?keyword=%E5%A9%9A%E7%BA%A6",
+        "error": "<urlopen error _ssl.c:999: The handshake operation timed out>"
+      }
+    ],
     "targetPerCategory": 200,
     "searchDiscoveryWithFallbackClassification": true,
     "hintRecordCounts": {
@@ -216,27 +232,27 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 873,
-    "detailPagesFailed": 61,
-    "metadataHits": 865,
+    "detailPagesFetched": 879,
+    "detailPagesFailed": 44,
+    "metadataHits": 869,
     "metadataLimit": 3000,
-    "categorySearchFallbackAssigned": 6,
+    "categorySearchFallbackAssigned": 7,
     "categoryCountsAfterFallback": {
-      "dongzuo": 235,
-      "dushi": 10,
-      "juqing": 12,
-      "kehuan": 10,
-      "kongbu": 12,
-      "lianai": 69,
-      "lishi_gufeng": 16,
-      "maoxian": 44,
-      "qihuan": 58,
-      "richang": 12,
-      "wuxia_gedou": 13,
-      "xiaoyuan": 15,
-      "xiju": 49,
-      "xiuxian": 2,
-      "xuanyi": 8
+      "dongzuo": 232,
+      "dushi": 8,
+      "juqing": 10,
+      "kehuan": 15,
+      "kongbu": 17,
+      "lianai": 66,
+      "lishi_gufeng": 13,
+      "maoxian": 54,
+      "qihuan": 53,
+      "richang": 14,
+      "wuxia_gedou": 9,
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xiuxian": 1,
+      "xuanyi": 6
     }
   },
   "tags": [
@@ -248,12 +264,12 @@
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 55
+      "count": 51
     },
     {
       "id": "chongsheng",
       "name": "重生",
-      "count": 61
+      "count": 57
     },
     {
       "id": "yishijie",
@@ -263,12 +279,12 @@
     {
       "id": "xitong",
       "name": "系统",
-      "count": 26
+      "count": 27
     },
     {
       "id": "fuchou",
       "name": "复仇",
-      "count": 21
+      "count": 24
     },
     {
       "id": "shuangwen",
@@ -278,7 +294,7 @@
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 197
+      "count": 190
     },
     {
       "id": "danmei",
@@ -293,12 +309,12 @@
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 257
+      "count": 254
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 227
+      "count": 236
     }
   ],
   "targetBoost": {
@@ -308,130 +324,130 @@
     "searchRules": 4,
     "searchPagesFetched": 1172,
     "searchPagesFailed": 0,
-    "newItems": 22,
-    "existingItemsTouched": 14628,
-    "reassignedFromOverflow": 6,
+    "newItems": 0,
+    "existingItemsTouched": 14650,
+    "reassignedFromOverflow": 3,
     "errors": [],
     "countsBefore": {
-      "dongzuo": 235,
-      "dushi": 10,
-      "juqing": 12,
-      "kehuan": 10,
-      "kongbu": 12,
-      "lianai": 69,
-      "lishi_gufeng": 16,
-      "maoxian": 44,
-      "qihuan": 58,
-      "richang": 12,
-      "weifenlei": 369,
-      "wuxia_gedou": 13,
-      "xiaoyuan": 15,
-      "xiju": 49,
-      "xiuxian": 2,
-      "xuanyi": 8
+      "dongzuo": 232,
+      "dushi": 8,
+      "juqing": 10,
+      "kehuan": 15,
+      "kongbu": 17,
+      "lianai": 66,
+      "lishi_gufeng": 13,
+      "maoxian": 54,
+      "qihuan": 53,
+      "richang": 14,
+      "weifenlei": 368,
+      "wuxia_gedou": 9,
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xiuxian": 1,
+      "xuanyi": 6
     },
     "countsAfter": {
-      "dongzuo": 229,
-      "dushi": 10,
-      "juqing": 11,
-      "kehuan": 10,
-      "kongbu": 13,
-      "lianai": 69,
-      "lishi_gufeng": 16,
-      "maoxian": 44,
-      "qihuan": 56,
-      "richang": 12,
-      "weifenlei": 369,
-      "wuxia_gedou": 11,
-      "xiaoyuan": 15,
-      "xiju": 49,
-      "xiuxian": 31,
-      "xuanyi": 11
+      "dongzuo": 224,
+      "dushi": 8,
+      "juqing": 8,
+      "kehuan": 15,
+      "kongbu": 18,
+      "lianai": 66,
+      "lishi_gufeng": 14,
+      "maoxian": 54,
+      "qihuan": 46,
+      "richang": 14,
+      "weifenlei": 368,
+      "wuxia_gedou": 8,
+      "xiaoyuan": 12,
+      "xiju": 45,
+      "xiuxian": 17,
+      "xuanyi": 6
     },
     "categoriesAtOrAboveTarget": 1,
     "categoriesAtOrAboveVisibleTarget": 1,
-    "remainingTotalGap": 2442
+    "remainingTotalGap": 2469
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 229
+      "count": 224
     },
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 44
+      "count": 54
     },
     {
       "id": "lianai",
       "name": "恋爱",
-      "count": 69
+      "count": 66
     },
     {
       "id": "xiju",
       "name": "喜剧",
-      "count": 49
+      "count": 45
     },
     {
       "id": "juqing",
       "name": "剧情",
-      "count": 11
+      "count": 8
     },
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 56
+      "count": 46
     },
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 15
+      "count": 12
     },
     {
       "id": "richang",
       "name": "日常",
-      "count": 12
+      "count": 14
     },
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 11
+      "count": 8
     },
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 10
+      "count": 15
     },
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 13
+      "count": 18
     },
     {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 11
+      "count": 6
     },
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 16
+      "count": 14
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 10
+      "count": 8
     },
     {
       "id": "xiuxian",
       "name": "修仙",
-      "count": 31
+      "count": 17
     },
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 369
+      "count": 368
     }
   ]
 }
