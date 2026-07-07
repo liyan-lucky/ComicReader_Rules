@@ -10,9 +10,9 @@
     "noAccountData": true
   },
   "defaults": {
-    "maxPages": 2,
-    "maxItemsPerSource": 200,
-    "requestTimeoutSeconds": 12,
+    "maxPages": 5,
+    "maxItemsPerSource": 500,
+    "requestTimeoutSeconds": 15,
     "itemRegex": "<a[^>]+href=[\"']([^\"']*(?:comic|manga|manhua|book|series|title|read)[^\"']*)[\"'][^>]*>([\\s\\S]{0,320}?)<\\/a>",
     "urlGroups": [1],
     "titleGroups": [2],
@@ -37,7 +37,7 @@
       "name": "Mgeko公开目录",
       "ruleId": "mgeko_public_access",
       "homepage": "https://www.mgeko.cc",
-      "enabled": true,
+      "enabled": false,
       "entryUrls": [
         { "type": "home", "url": "https://www.mgeko.cc" },
         { "type": "latest", "url": "https://www.mgeko.cc/latest" },
@@ -61,7 +61,7 @@
       "name": "ManhuaUS公开目录",
       "ruleId": "manhuaus.com",
       "homepage": "https://manhuaus.com",
-      "enabled": true,
+      "enabled": false,
       "entryUrls": [
         { "type": "home", "url": "https://manhuaus.com" },
         { "type": "manga", "url": "https://manhuaus.com/manga" },
@@ -85,7 +85,7 @@
       "name": "HappyMH公开目录",
       "ruleId": "happymh.com",
       "homepage": "https://happymh.com",
-      "enabled": true,
+      "enabled": false,
       "entryUrls": [
         { "type": "home", "url": "https://happymh.com" },
         { "type": "manga", "url": "https://happymh.com/manga" },
@@ -114,6 +114,114 @@
         { "type": "home", "url": "https://mangadna.com" },
         { "type": "manga", "url": "https://mangadna.com/manga" },
         { "type": "latest", "url": "https://mangadna.com/latest" }
+      ]
+    },
+    {
+      "id": "comick.io",
+      "name": "Comick公开目录",
+      "ruleId": "comick.io",
+      "homepage": "https://comick.io",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://comick.io/home" },
+        { "type": "latest", "url": "https://comick.io/list?sort=update" },
+        { "type": "popular", "url": "https://comick.io/list?sort=popular" }
+      ]
+    },
+    {
+      "id": "mangahere.cc",
+      "name": "MangaHere公开目录",
+      "ruleId": "mangahere.cc",
+      "homepage": "https://www.mangahere.cc",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.mangahere.cc" },
+        { "type": "latest", "url": "https://www.mangahere.cc/latest" },
+        { "type": "mangalist", "url": "https://www.mangahere.cc/mangalist" }
+      ]
+    },
+    {
+      "id": "mangakakalot.com",
+      "name": "MangaKakalot公开目录",
+      "ruleId": "mangakakalot.com",
+      "homepage": "https://mangakakalot.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://mangakakalot.com" },
+        { "type": "latest", "url": "https://mangakakalot.com/latest" },
+        { "type": "mangalist", "url": "https://mangakakalot.com/manga_list" }
+      ]
+    },
+    {
+      "id": "manganato.com",
+      "name": "MangaNato公开目录",
+      "ruleId": "manganato.com",
+      "homepage": "https://manganato.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://manganato.com" },
+        { "type": "latest", "url": "https://manganato.com/latest" },
+        { "type": "mangalist", "url": "https://manganato.com/manga-list" }
+      ]
+    },
+    {
+      "id": "readm.org",
+      "name": "ReadM公开目录",
+      "ruleId": "readm.org",
+      "homepage": "https://readm.org",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://readm.org" },
+        { "type": "latest", "url": "https://readm.org/latest-releases" },
+        { "type": "mangalist", "url": "https://readm.org/manga-list" }
+      ]
+    },
+    {
+      "id": "manhuagui.com",
+      "name": "漫画柜公开目录",
+      "ruleId": "manhuagui.com",
+      "homepage": "https://www.manhuagui.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.manhuagui.com" },
+        { "type": "list", "url": "https://www.manhuagui.com/list" },
+        { "type": "latest", "url": "https://www.manhuagui.com/update" }
+      ]
+    },
+    {
+      "id": "manhuadb.com",
+      "name": "漫画DB公开目录",
+      "ruleId": "manhuadb.com",
+      "homepage": "https://www.manhuadb.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.manhuadb.com" },
+        { "type": "mangalist", "url": "https://www.manhuadb.com/manhua-list" },
+        { "type": "latest", "url": "https://www.manhuadb.com/update" }
+      ]
+    },
+    {
+      "id": "manhuacat.com",
+      "name": "漫画猫公开目录",
+      "ruleId": "manhuacat.com",
+      "homepage": "https://www.manhuacat.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.manhuacat.com" },
+        { "type": "latest", "url": "https://www.manhuacat.com/update" },
+        { "type": "category", "url": "https://www.manhuacat.com/category" }
+      ]
+    },
+    {
+      "id": "comicextra.com",
+      "name": "ComicExtra公开目录",
+      "ruleId": "comicextra.com",
+      "homepage": "https://www.comicextra.com",
+      "enabled": true,
+      "entryUrls": [
+        { "type": "home", "url": "https://www.comicextra.com" },
+        { "type": "mangalist", "url": "https://www.comicextra.com/comic-list" },
+        { "type": "popular", "url": "https://www.comicextra.com/popular-comic" }
       ]
     }
   ]

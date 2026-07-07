@@ -32,10 +32,10 @@ ROOT = Path(__file__).resolve().parents[1]
 USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalogTargetBoost/1.0"
 TARGET_COUNT = int(os.environ.get("CATALOG_TARGET_COUNT", "220"))
 MIN_VISIBLE_TARGET = int(os.environ.get("CATALOG_MIN_TARGET_COUNT", "200"))
-MAX_RESULTS_PER_KEYWORD = int(os.environ.get("CATALOG_BOOST_RESULTS_PER_KEYWORD", "120"))
-MAX_KEYWORDS_PER_CATEGORY = int(os.environ.get("CATALOG_BOOST_KEYWORDS_PER_CATEGORY", "36"))
-REQUEST_TIMEOUT = int(os.environ.get("CATALOG_BOOST_TIMEOUT", "12"))
-REQUEST_SLEEP_SECONDS = float(os.environ.get("CATALOG_BOOST_SLEEP", "0.2"))
+MAX_RESULTS_PER_KEYWORD = int(os.environ.get("CATALOG_BOOST_RESULTS_PER_KEYWORD", "200"))
+MAX_KEYWORDS_PER_CATEGORY = int(os.environ.get("CATALOG_BOOST_KEYWORDS_PER_CATEGORY", "50"))
+REQUEST_TIMEOUT = int(os.environ.get("CATALOG_BOOST_TIMEOUT", "15"))
+REQUEST_SLEEP_SECONDS = float(os.environ.get("CATALOG_BOOST_SLEEP", "0.15"))
 
 CATEGORY_RULES: List[Dict[str, Any]] = [
     {"id": "dongzuo", "name": "动作"},
