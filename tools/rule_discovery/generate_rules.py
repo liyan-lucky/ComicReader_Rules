@@ -361,6 +361,24 @@ def search_brave(query: str, limit: int) -> List[Candidate]:
         return []
 
 
+def search_serper(query: str, limit: int) -> List[Candidate]:
+    key = os.getenv("SERPER_API_KEY", "").strip()
+    if not key:
+        return []
+    url = "https://google.serper.dev/search"
+    try:
+        r = requests.post(url, headers={"X-API-KEY": key, "Content-Type": "application/json"}, json={"q": query, "num": min(limit, 10), "gl": "cn", "hl": "zh-cn"}, timeout=15)
+        r.raise_for_status()
+        data = r.json()
+        out: List[Candidate] = []
+        for item in data.get("organic", [])[:limit]:
+            out.append(Candidate(url=item.get("link", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("snippet", "")), engine="serper"))
+        return [c for c in out if c.url]
+    except Exception as e:
+        log(f"[warn] Serper search failed: {e}")
+        return []
+
+
 def search_google_cse(query: str, limit: int) -> List[Candidate]:
     key = os.getenv("GOOGLE_API_KEY", "").strip()
     cx = os.getenv("GOOGLE_CX", "").strip()
@@ -420,9 +438,18 @@ def unique_candidates(items: Iterable[Candidate]) -> List[Candidate]:
     return out
 
 
+def _has_paid_search_api() -> bool:
+    return bool(
+        os.getenv("BRAVE_SEARCH_API_KEY", "").strip()
+        or os.getenv("SERPER_API_KEY", "").strip()
+        or os.getenv("GOOGLE_API_KEY", "").strip()
+    )
+
+
 def search_web(query: str, limit: int) -> List[Candidate]:
     candidates = []
     candidates += search_brave(query, limit)
+    candidates += search_serper(query, limit)
     candidates += search_google_cse(query, limit)
     if len(candidates) < limit:
         candidates += search_duckduckgo_html(query, limit)
@@ -837,7 +864,7 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
     queries: List[str] = []
-    has_paid_api = bool(os.getenv("BRAVE_SEARCH_API_KEY", "").strip() or os.getenv("GOOGLE_API_KEY", "").strip())
+    has_paid_api = _has_paid_search_api()
     seeded = seeded_domains or set()
     for kw in keywords:
         kw = kw.strip()
@@ -927,7 +954,7 @@ def main() -> int:
             break
         log(f"[search] {q}")
         found = search_web(q, args.limit)
-        if not found and not os.getenv("BRAVE_SEARCH_API_KEY", "").strip() and not os.getenv("GOOGLE_API_KEY", "").strip():
+        if not found and not _has_paid_search_api():
             consecutive_search_403 += 1
         else:
             consecutive_search_403 = 0
