@@ -140,6 +140,44 @@ jobs:
           cp generated/update_manifest.json dist/release/update-manifest.json
           ls -la dist/release
 
+      - name: 生成目录 Release Notes
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          tag_name = f"catalog-{os.popen('date -u +%Y%m%d').read().strip()}"
+          gaps = json.loads(Path('generated/catalog_target_gaps.json').read_text('utf-8'))
+          cats = gaps.get('categories', [])
+          total_comics = sum(c['count'] for c in cats)
+          at_target = sum(1 for c in cats if c['id'] != 'weifenlei' and c['overTarget'])
+          total_cats = sum(1 for c in cats if c['id'] != 'weifenlei')
+
+          table_lines = ["| 分类 | 数量 | 目标 | 缺口 |", "|------|------|------|------|"]
+          for c in cats:
+              if c['id'] == 'weifenlei':
+                  continue
+              mark = " ✓" if c['overTarget'] else ""
+              table_lines.append(f"| {c['name']} | {c['count']}{mark} | {c['target']} | {c['gap']} |")
+          weifenlei = next((c for c in cats if c['id'] == 'weifenlei'), {})
+          if weifenlei:
+              table_lines.append(f"| 未分类 | {weifenlei.get('count', 0)} | - | - |")
+
+          template = Path('.github/release_templates/comic-catalog.md').read_text('utf-8')
+          notes = template.format(
+              tag_name=tag_name,
+              category_count=total_cats,
+              total_comics=total_comics,
+              categories_at_target=at_target,
+              total_categories=total_cats,
+              category_table='\n'.join(table_lines),
+          )
+          Path('release_notes.md').write_text(notes, encoding='utf-8')
+          print(f"Release notes generated: {total_comics} comics, {at_target}/{total_cats} categories at target")
+          PY
+
       - name: 发布或更新目录 Release
         if: github.event_name != 'pull_request'
         env:
@@ -157,10 +195,10 @@ jobs:
             dist/release/update-manifest.json
           )
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
-            gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes "Automated comic catalog update." --latest=false
+            gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest=false
             gh release upload "$TAG_NAME" "${RELEASE_FILES[@]}" --clobber
           else
-            gh release create "$TAG_NAME" "${RELEASE_FILES[@]}" --title "$RELEASE_TITLE" --notes "Automated comic catalog update." --latest=false
+            gh release create "$TAG_NAME" "${RELEASE_FILES[@]}" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest=false
           fi
           echo "Published catalog release: $TAG_NAME"
 

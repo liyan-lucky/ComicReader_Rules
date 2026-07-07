@@ -369,6 +369,51 @@ def reassign_overflow_items(items_by_title: Dict[str, Dict[str, Any]], stats: Di
     stats["reassignedFromOverflow"] = changed
 
 
+def reassign_uncategorized_items(items_by_title: Dict[str, Dict[str, Any]], stats: Dict[str, Any]) -> None:
+    counts = category_counts(list(items_by_title.values()))
+    under = {cid for cid in TARGET_CATEGORY_IDS if counts.get(cid, 0) < TARGET_COUNT}
+    changed = 0
+    for item in sorted(items_by_title.values(), key=lambda x: safe_str(x.get("title"))):
+        current = safe_str(item.get("primaryCategory"))
+        if current != "weifenlei":
+            continue
+        for hint, _count in Counter(category_hints(item)).most_common():
+            if hint == "weifenlei" or hint not in under or counts.get(hint, 0) >= TARGET_COUNT:
+                continue
+            item["previousPrimaryCategory"] = current
+            item["primaryCategory"] = hint
+            item["categories"] = [hint]
+            item["classificationSource"] = "targetBoostReassignUncategorized"
+            counts[current] -= 1
+            counts[hint] += 1
+            changed += 1
+            if counts.get(hint, 0) >= TARGET_COUNT:
+                under.discard(hint)
+            break
+        else:
+            tags = item.get("tags", []) if isinstance(item.get("tags"), list) else []
+            for tag in tags:
+                tag_to_cat = {
+                    "xuanhuan": "qihuan", "chuanyue": "maoxian", "chongsheng": "qihuan",
+                    "yishijie": "qihuan", "xitong": "qihuan", "fuchou": "juqing",
+                    "shuangwen": "dongzuo", "hougong": "lianai", "danmei": "lianai",
+                    "baihe": "lianai", "shaonian": "dongzuo", "shaonv": "lianai",
+                }
+                target = tag_to_cat.get(tag)
+                if target and target in under and counts.get(target, 0) < TARGET_COUNT:
+                    item["previousPrimaryCategory"] = current
+                    item["primaryCategory"] = target
+                    item["categories"] = [target]
+                    item["classificationSource"] = "targetBoostTagReassign"
+                    counts[current] -= 1
+                    counts[target] += 1
+                    changed += 1
+                    if counts.get(target, 0) >= TARGET_COUNT:
+                        under.discard(target)
+                    break
+    stats["reassignedFromUncategorized"] = changed
+
+
 def boost_catalog(catalog: Dict[str, Any], report: Dict[str, Any], delta: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     timestamp = now_iso()
     items = catalog.get("items", []) if isinstance(catalog, dict) else []
@@ -396,6 +441,7 @@ def boost_catalog(catalog: Dict[str, Any], report: Dict[str, Any], delta: Dict[s
     }
     stats["countsBefore"] = dict(sorted(category_counts(list(items_by_title.values())).items()))
     reassign_overflow_items(items_by_title, stats)
+    reassign_uncategorized_items(items_by_title, stats)
 
     rules = load_manual_search_rules()
     stats["searchRules"] = len(rules)
