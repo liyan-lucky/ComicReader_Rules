@@ -365,18 +365,28 @@ def search_serper(query: str, limit: int) -> List[Candidate]:
     key = os.getenv("SERPER_API_KEY", "").strip()
     if not key:
         return []
-    url = "https://google.serper.dev/search"
-    try:
-        r = requests.post(url, headers={"X-API-KEY": key, "Content-Type": "application/json"}, json={"q": query, "num": min(limit, 10), "gl": "cn", "hl": "zh-cn"}, timeout=15)
-        r.raise_for_status()
-        data = r.json()
-        out: List[Candidate] = []
-        for item in data.get("organic", [])[:limit]:
-            out.append(Candidate(url=item.get("link", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("snippet", "")), engine="serper"))
-        return [c for c in out if c.url]
-    except Exception as e:
-        log(f"[warn] Serper search failed: {e}")
-        return []
+    out: List[Candidate] = []
+    batch = 100
+    for page in range(1, 11):
+        if len(out) >= limit:
+            break
+        num = min(batch, limit - len(out))
+        payload = {"q": query, "num": num, "gl": "cn", "hl": "zh-cn"}
+        if page > 1:
+            payload["page"] = page
+        try:
+            r = requests.post("https://google.serper.dev/search", headers={"X-API-KEY": key, "Content-Type": "application/json"}, json=payload, timeout=15)
+            r.raise_for_status()
+            data = r.json()
+            items = data.get("organic", [])
+            if not items:
+                break
+            for item in items[:num]:
+                out.append(Candidate(url=item.get("link", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("snippet", "")), engine="serper"))
+        except Exception as e:
+            log(f"[warn] Serper search page {page} failed: {e}")
+            break
+    return [c for c in out if c.url]
 
 
 def search_google_cse(query: str, limit: int) -> List[Candidate]:
@@ -893,7 +903,9 @@ def main() -> int:
     started_at = time.monotonic()
     ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成漫画浏览器规则")
     ap.add_argument("--keyword", action="append", default=[], help="搜索关键词，可重复，如：--keyword 斗罗大陆 --keyword 'Soul Land'")
+    ap.add_argument("--keywords-file", action="append", default=[], help="关键词文件路径（每行一个，#注释），可重复，如：config/keywords/zh-Hans.txt")
     ap.add_argument("--domain", action="append", default=[], help="限定域名，可重复，如：--domain kaixinman.com")
+    ap.add_argument("--domains-file", action="append", default=[], help="域名文件路径（每行一个，#注释），可重复，如：config/domains/zh-Hans.txt")
     ap.add_argument("--seed-url", action="append", default=[], help="公开站点入口种子页，可重复；脚本会从页面抓取站内漫画候选链接")
     ap.add_argument("--no-seed-discovery", action="store_true", help="关闭公开站点种子抓取，只使用搜索引擎候选")
     ap.add_argument("--seed-limit", type=int, default=300, help="最多保留多少个种子候选链接")
@@ -918,8 +930,29 @@ def main() -> int:
 
     deadline_monotonic = started_at + args.time_budget_seconds if args.time_budget_seconds > 0 else None
 
-    keywords = args.keyword or ["斗罗大陆", "Soul Land", "Douluo Dalu"]
+    keywords = args.keyword or []
+    for kf in args.keywords_file:
+        kf_path = Path(kf)
+        if not kf_path.exists():
+            log(f"[warn] keywords file not found: {kf}")
+            continue
+        for line in kf_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                keywords.append(line)
+    if not keywords:
+        keywords = ["斗罗大陆", "Soul Land", "Douluo Dalu"]
+    log(f"[info] keywords: {len(keywords)} (from args: {len(args.keyword)}, from files: {len(args.keywords_file)})")
     domains = args.domain or []
+    for df in args.domains_file:
+        df_path = Path(df)
+        if not df_path.exists():
+            log(f"[warn] domains file not found: {df}")
+            continue
+        for line in df_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                domains.append(line)
     seeded_domains = set(KNOWN_SOURCE_SEEDS.keys()) if not args.no_seed_discovery else set()
     queries = build_queries(keywords, domains, seeded_domains)
     log(f"[info] queries: {len(queries)} (seeded domains excluded from site: queries: {len(seeded_domains)})")

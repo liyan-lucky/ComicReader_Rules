@@ -108,18 +108,6 @@ jobs:
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.15'
       DEEP_SLEEP: '0.4'
-      QUICK_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,斗破苍穹,凡人修仙传,武动乾坤,一人之下,大奉打更人,沧元图,遮天,鬼灭之刃,咒术回战,进击的巨人,海贼王,火影忍者,死神,妖精的尾巴,一拳超人,我的英雄学院,钢之炼金术师,全职猎人,银魂,七大罪,黑色五叶草,电锯人,间谍过家家,国王排名,蓝色监狱,东京复仇者,灌篮高手'
-      QUICK_DOMAINS_ZH_HANS: 'kaixinman.com,mgeko.cc,happymh.com,manhuaus.com,chapmanganato.to,mangabuddy.com,mangapark.net,comick.io,mangadex.org,bato.to,manhuagui.com,manhuadb.com,pufei8.com,manhuacat.com,comicextra.com,readcomicsonline.ru'
-      DEEP_KEYWORDS_ZH_HANS: '斗罗大陆,完美世界,吞噬星空,凡人修仙传,斗破苍穹,武动乾坤,一人之下,大奉打更人,沧元图,遮天,鬼灭之刃,咒术回战,进击的巨人,海贼王,火影忍者,死神,妖精的尾巴,一拳超人,我的英雄学院,钢之炼金术师,全职猎人,银魂,七大罪,黑色五叶草,电锯人,间谍过家家,国王排名,蓝色监狱,东京复仇者,灌篮高手'
-      DEEP_DOMAINS_ZH_HANS: 'kaixinman.com,manhuaus.com,mgeko.cc,happymh.com,chapmanganato.to,mangabuddy.com,mangapark.net,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,mangakakalot.com,manganato.com,bato.to,manhuagui.com,manhuadb.com,pufei8.com,manhuacat.com,comicextra.com,readcomicsonline.ru'
-      QUICK_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,鬥破蒼穹,凡人修仙傳,鬼滅之刃,咒術回戰,進擊的巨人,海賊王,火影忍者,一拳超人,電鋸人,間諜過家家'
-      QUICK_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to,mangapark.net'
-      DEEP_KEYWORDS_ZH_HANT: '斗羅大陸,完美世界,吞噬星空,凡人修仙傳,鬥破蒼穹,武動乾坤,一人之下,大奉打更人,滄元圖,遮天,鬼滅之刃,咒術回戰,進擊的巨人,海賊王,火影忍者,一拳超人,電鋸人,間諜過家家'
-      DEEP_DOMAINS_ZH_HANT: 'comick.io,mangadex.org,bato.to,mangapark.net'
-      QUICK_KEYWORDS_EN: 'Soul Land,Martial Peak,Apotheosis,Solo Leveling,Magic Emperor,Demon Slayer,Jujutsu Kaisen,Attack on Titan,One Piece,Naruto,One Punch Man,Chainsaw Man,My Hero Academia'
-      QUICK_DOMAINS_EN: 'soullandmanga.com,mangafire.to,comick.io,mangadex.org,mangabuddy.com,mangapark.net,bato.to'
-      DEEP_KEYWORDS_EN: 'Soul Land,Douluo Dalu,Martial Peak,Apotheosis,Magic Emperor,Solo Leveling,Omniscient Reader,The Beginning After The End,Tales of Demons and Gods,Against the Gods,Demon Slayer,Jujutsu Kaisen,Attack on Titan,One Piece,Naruto,One Punch Man,Chainsaw Man,My Hero Academia'
-      DEEP_DOMAINS_EN: 'soullandmanga.com,mangafire.to,mangaread.org,mangadna.com,asuracomic.net,asuratoon.com,mangakakalot.com,manganato.com,mangabuddy.com,mangapark.net,bato.to,comick.io,mangadex.org,mangahere.cc,mangase123.com,readm.org,webtoons.com,tapas.io'
 
     steps:
       - name: 检出 main
@@ -144,24 +132,12 @@ jobs:
           case "$RULE_LANGUAGE" in
             zh-Hans)
               RULE_LANGUAGE_NAME="简体中文"
-              QUICK_KEYWORDS="$QUICK_KEYWORDS_ZH_HANS"
-              QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANS"
-              DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANS"
-              DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANS"
               ;;
             zh-Hant)
               RULE_LANGUAGE_NAME="繁体中文"
-              QUICK_KEYWORDS="$QUICK_KEYWORDS_ZH_HANT"
-              QUICK_DOMAINS="$QUICK_DOMAINS_ZH_HANT"
-              DEEP_KEYWORDS="$DEEP_KEYWORDS_ZH_HANT"
-              DEEP_DOMAINS="$DEEP_DOMAINS_ZH_HANT"
               ;;
             en)
               RULE_LANGUAGE_NAME="English"
-              QUICK_KEYWORDS="$QUICK_KEYWORDS_EN"
-              QUICK_DOMAINS="$QUICK_DOMAINS_EN"
-              DEEP_KEYWORDS="$DEEP_KEYWORDS_EN"
-              DEEP_DOMAINS="$DEEP_DOMAINS_EN"
               ;;
             *)
               echo "Unsupported rule language: $RULE_LANGUAGE" >&2
@@ -172,8 +148,6 @@ jobs:
           echo "RULE_FILE_SUFFIX=$RULE_LANGUAGE" >> "$GITHUB_ENV"
 
           if [ "$RULE_RUN_MODE" = "deep" ]; then
-            SELECTED_KEYWORDS="$DEEP_KEYWORDS"
-            SELECTED_DOMAINS="$DEEP_DOMAINS"
             SELECTED_MAX_GENERATED="$DEEP_MAX_GENERATED"
             SELECTED_LIMIT="$DEEP_LIMIT"
             SELECTED_SEED_LIMIT="$DEEP_SEED_LIMIT"
@@ -184,8 +158,6 @@ jobs:
             SELECTED_TIME_BUDGET_SECONDS="$DEEP_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$DEEP_SLEEP"
           else
-            SELECTED_KEYWORDS="$QUICK_KEYWORDS"
-            SELECTED_DOMAINS="$QUICK_DOMAINS"
             SELECTED_MAX_GENERATED="$QUICK_MAX_GENERATED"
             SELECTED_LIMIT="$QUICK_LIMIT"
             SELECTED_SEED_LIMIT="$QUICK_SEED_LIMIT"
@@ -221,17 +193,9 @@ jobs:
             SELECTED_TIME_BUDGET_SECONDS="$RULE_TIME_BUDGET_SECONDS_INPUT"
           fi
 
-          ARGS=""
-          IFS=',' read -ra KW_ARR <<< "$SELECTED_KEYWORDS"
-          for kw in "${KW_ARR[@]}"; do
-            kw="$(echo "$kw" | xargs)"
-            [ -n "$kw" ] && ARGS="$ARGS --keyword '$kw'"
-          done
-          IFS=',' read -ra DM_ARR <<< "$SELECTED_DOMAINS"
-          for dm in "${DM_ARR[@]}"; do
-            dm="$(echo "$dm" | xargs)"
-            [ -n "$dm" ] && ARGS="$ARGS --domain '$dm'"
-          done
+          KEYWORDS_FILE="config/keywords/${RULE_LANGUAGE}.txt"
+          DOMAINS_FILE="config/domains/${RULE_LANGUAGE}.txt"
+          ARGS="--keywords-file '${KEYWORDS_FILE}' --domains-file '${DOMAINS_FILE}'"
 
           mkdir -p generated rules dist
           REPORT_FILE="generated/rulebot_report.${RULE_LANGUAGE}.json"
