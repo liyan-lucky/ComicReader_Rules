@@ -467,7 +467,10 @@ def search_searxng(query: str, limit: int) -> List[Candidate]:
         return [c for c in out if c.url]
     except Exception as e:
         log(f"[warn] SearXNG search failed: {e}")
-        return [](items: Iterable[Candidate]) -> List[Candidate]:
+        return []
+
+
+def unique_candidates(items: Iterable[Candidate]) -> List[Candidate]:
     seen = set()
     out = []
     for c in items:
