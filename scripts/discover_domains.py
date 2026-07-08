@@ -202,70 +202,94 @@ def is_blocked_domain(domain: str) -> bool:
 
 
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
-MANGA_INDICATOR_KEYWORDS = {
-    lang: _MANGA_KW_CFG.get(lang, kws)
-    for lang, kws in {
-        "zh-Hans": ["漫画", "manhua", "manga", "comic"],
-        "zh-Hant": ["漫畫", "manhua", "manga", "comic"],
-        "en": ["manga", "manhwa", "manhua", "comic", "webtoon", "chapter"],
-    }.items()
-}
-
-MANGA_INDICATOR_URL_PATTERNS = [
+_MANGA_URL_PATTERNS = [
     "/manga/", "/manhua/", "/manhwa/", "/comic/", "/webtoon/",
-    "/chapter/", "/read/", "/viewer/", "/title/", "/series/",
-    "/genre/", "/category/", "/list/", "/manga-list",
+    "/chapter-", "/chapter/", "/read-", "/viewer/", "/title/",
+    "/series/", "/genre-", "/genre/", "/category/", "/manga-list",
 ]
 
 
+def _get_kw_sets(language: str):
+    cfg = _MANGA_KW_CFG.get(language, {})
+    if isinstance(cfg, list):
+        return set(kw.lower() for kw in cfg), set(), set()
+    primary = set(kw.lower() for kw in cfg.get("primary", []))
+    secondary = set(kw.lower() for kw in cfg.get("secondary", []))
+    anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
+    return primary, secondary, anti
+
+
+def _check_homepage(domain: str, language: str, primary: set, secondary: set, anti: set) -> str:
+    try:
+        url = f"https://{domain}"
+        headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
+        if _SCRAPER is not None:
+            r = _SCRAPER.get(url, headers=headers, timeout=10, allow_redirects=True)
+        else:
+            r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
+        if r.status_code >= 400:
+            return f"http_{r.status_code}"
+    except Exception as e:
+        return f"fetch_failed:{e}"
+
+    text = r.text.lower()[:80000]
+    final_url = r.url.lower()
+
+    for kw in primary:
+        if kw in text:
+            return "primary_match"
+
+    for pat in _MANGA_URL_PATTERNS:
+        if pat in final_url or pat in text:
+            return "url_pattern_match"
+
+    secondary_hits = sum(1 for kw in secondary if kw in text)
+    if secondary_hits >= 3:
+        return "secondary_3+"
+
+    for ap in anti:
+        if ap in text:
+            return "anti_pattern"
+
+    return "no_indicators"
+
+
 def validate_domains(domains: List[str], existing: Set[str], language: str) -> List[str]:
-    indicator_kw = MANGA_INDICATOR_KEYWORDS.get(language, MANGA_INDICATOR_KEYWORDS["en"])
-    indicator_kw_lower = [kw.lower() for kw in indicator_kw]
+    primary, secondary, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
+    reasons = {"existing": 0, "primary_match": 0, "url_pattern_match": 0, "secondary_3+": 0, "network_issue": 0}
+    reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0}
+
     for d in domains:
         if d in existing:
             validated.append(d)
+            reasons["existing"] += 1
             continue
-        is_manga = False
-        for kw in indicator_kw_lower:
-            if kw in d.lower():
-                is_manga = True
-                break
-        if is_manga:
+
+        result = _check_homepage(d, language, primary, secondary, anti)
+
+        if result in ("primary_match", "url_pattern_match", "secondary_3+"):
             validated.append(d)
-            continue
-        try:
-            url = f"https://{d}"
-            headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
-            if _SCRAPER is not None:
-                r = _SCRAPER.get(url, headers=headers, timeout=10, allow_redirects=True)
-            else:
-                r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
-            if r.status_code >= 400:
-                print(f"  ✗ {d} (HTTP {r.status_code})")
-                skipped += 1
-                continue
-            text = r.text.lower()[:50000]
-            for kw in indicator_kw_lower:
-                if kw in text:
-                    is_manga = True
-                    break
-            if not is_manga:
-                for pat in MANGA_INDICATOR_URL_PATTERNS:
-                    if pat in r.url.lower() or pat in text:
-                        is_manga = True
-                        break
-            if is_manga:
-                validated.append(d)
-                print(f"  ✓ {d} (homepage contains manga keywords)")
-            else:
-                print(f"  ✗ {d} (no manga indicators found)")
-                skipped += 1
-        except Exception as e:
-            print(f"  ? {d} (fetch failed: {e})")
+            reasons[result] += 1
+            print(f"  ✓ {d} ({result})")
+        elif result.startswith("fetch_failed") or result in ("http_520", "http_403", "http_503"):
             validated.append(d)
-    print(f"  Validation: {len(validated)} kept, {skipped} removed as non-manga")
+            reasons["network_issue"] += 1
+            print(f"  ? {d} ({result}, kept - network issue)")
+        else:
+            skipped += 1
+            if result.startswith("http_"):
+                reject_reasons["http_error"] += 1
+            elif result == "anti_pattern":
+                reject_reasons["anti_pattern"] += 1
+            else:
+                reject_reasons["no_indicators"] += 1
+            print(f"  ✗ {d} ({result})")
+
+    print(f"  Validation: {len(validated)} kept, {skipped} removed")
+    print(f"    Kept reasons: {reasons}")
+    print(f"    Reject reasons: {reject_reasons}")
     return validated
 
 

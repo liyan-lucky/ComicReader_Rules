@@ -1,25 +1,58 @@
 {
-  "zh-Hans": [
-    "漫画", "manhua", "manga", "comic", "看漫", "漫客", "漫吧", "漫岛", "漫阁",
-    "漫屋", "漫库", "漫天", "漫本", "追漫", "读漫", "章节", "连载", "更新",
-    "修仙", "玄幻", "热血", "恋爱", "古风", "校园", "都市",
-    "动漫", "番剧", "轻小说", "webtoon", "manhwa",
-    "漫画人", "漫客栈", "快看", "有妖气", "腾讯动漫",
-    "在线阅读", "免费漫画", "漫画大全", "最新章节",
-    "国漫", "日漫", "韩漫", "美漫"
-  ],
-  "zh-Hant": [
-    "漫畫", "manhua", "manga", "comic", "看漫", "漫客", "連載", "更新",
-    "修仙", "玄幻", "熱血", "戀愛", "古風", "校園", "都市",
-    "動漫", "番劇", "輕小說", "webtoon", "manhwa",
-    "線上閱讀", "免費漫畫", "漫畫大全", "最新章節",
-    "國漫", "日漫", "韓漫", "美漫"
-  ],
-  "en": [
-    "manga", "manhwa", "manhua", "comic", "webtoon", "chapter", "scanlation",
-    "read online", "manga list", "manga reader", "manga site",
-    "action", "romance", "fantasy", "adventure", "isekai",
-    "latest chapter", "manga directory", "read manga",
-    "manga online", "free manga", "manga updates"
-  ]
+  "zh-Hans": {
+    "primary": [
+      "漫画", "看漫", "漫客", "漫吧", "漫岛", "漫阁", "漫屋", "漫库",
+      "漫天", "漫本", "追漫", "读漫", "漫画人", "漫客栈", "快看漫画",
+      "有妖气", "腾讯动漫", "免费漫画", "漫画大全", "国漫", "日漫",
+      "韩漫", "在线漫画", "漫画在线", "manhua"
+    ],
+    "secondary": [
+      "manhua", "manga", "comic", "webtoon", "manhwa",
+      "章节", "连载", "更新", "修仙", "玄幻", "热血", "恋爱",
+      "古风", "校园", "都市", "动漫", "番剧", "轻小说",
+      "最新章节", "美漫"
+    ],
+    "anti_patterns": [
+      "下载app", "app下载", "应用商店", "google play", "app store",
+      "新闻报道", "新闻资讯", "购物车", "加入购物车",
+      "酒店预订", "机票预订", "旅游攻略"
+    ]
+  },
+  "zh-Hant": {
+    "primary": [
+      "漫畫", "看漫", "漫客", "免費漫畫", "漫畫大全", "線上漫畫",
+      "國漫", "日漫", "韓漫", "線上閱讀", "最新章節", "連載中",
+      "manhua"
+    ],
+    "secondary": [
+      "manhua", "manga", "comic", "webtoon", "manhwa",
+      "漫畫", "連載", "更新", "修仙", "玄幻", "熱血", "戀愛",
+      "古風", "校園", "都市", "動漫", "番劇", "輕小說",
+      "美漫"
+    ],
+    "anti_patterns": [
+      "下載app", "app下載", "應用商店", "google play", "app store",
+      "新聞報導", "新聞資訊", "購物車", "加入購物車",
+      "酒店預訂", "機票預訂", "旅遊攻略"
+    ]
+  },
+  "en": {
+    "primary": [
+      "read manga", "manga online", "free manga", "manga reader",
+      "manga list", "manga chapter", "latest chapter", "read online",
+      "manga site", "manga directory", "manga updates",
+      "read manhwa", "manhwa online", "read webtoon"
+    ],
+    "secondary": [
+      "manga", "manhwa", "manhua", "comic", "webtoon", "chapter",
+      "scanlation", "action", "romance", "fantasy", "adventure", "isekai"
+    ],
+    "anti_patterns": [
+      "download app", "get the app", "app store", "google play",
+      "shopping cart", "add to cart",
+      "book hotel", "flight booking", "travel guide",
+      "publishing house", "book publisher", "bookstore",
+      "insurance quote", "mortgage rate"
+    ]
+  }
 }
