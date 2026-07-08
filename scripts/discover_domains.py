@@ -201,6 +201,74 @@ def is_blocked_domain(domain: str) -> bool:
     return False
 
 
+_MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
+MANGA_INDICATOR_KEYWORDS = {
+    lang: _MANGA_KW_CFG.get(lang, kws)
+    for lang, kws in {
+        "zh-Hans": ["漫画", "manhua", "manga", "comic"],
+        "zh-Hant": ["漫畫", "manhua", "manga", "comic"],
+        "en": ["manga", "manhwa", "manhua", "comic", "webtoon", "chapter"],
+    }.items()
+}
+
+MANGA_INDICATOR_URL_PATTERNS = [
+    "/manga/", "/manhua/", "/manhwa/", "/comic/", "/webtoon/",
+    "/chapter/", "/read/", "/viewer/", "/title/", "/series/",
+    "/genre/", "/category/", "/list/", "/manga-list",
+]
+
+
+def validate_domains(domains: List[str], existing: Set[str], language: str) -> List[str]:
+    indicator_kw = MANGA_INDICATOR_KEYWORDS.get(language, MANGA_INDICATOR_KEYWORDS["en"])
+    indicator_kw_lower = [kw.lower() for kw in indicator_kw]
+    validated = []
+    skipped = 0
+    for d in domains:
+        if d in existing:
+            validated.append(d)
+            continue
+        is_manga = False
+        for kw in indicator_kw_lower:
+            if kw in d.lower():
+                is_manga = True
+                break
+        if is_manga:
+            validated.append(d)
+            continue
+        try:
+            url = f"https://{d}"
+            headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
+            if _SCRAPER is not None:
+                r = _SCRAPER.get(url, headers=headers, timeout=10, allow_redirects=True)
+            else:
+                r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
+            if r.status_code >= 400:
+                print(f"  ✗ {d} (HTTP {r.status_code})")
+                skipped += 1
+                continue
+            text = r.text.lower()[:50000]
+            for kw in indicator_kw_lower:
+                if kw in text:
+                    is_manga = True
+                    break
+            if not is_manga:
+                for pat in MANGA_INDICATOR_URL_PATTERNS:
+                    if pat in r.url.lower() or pat in text:
+                        is_manga = True
+                        break
+            if is_manga:
+                validated.append(d)
+                print(f"  ✓ {d} (homepage contains manga keywords)")
+            else:
+                print(f"  ✗ {d} (no manga indicators found)")
+                skipped += 1
+        except Exception as e:
+            print(f"  ? {d} (fetch failed: {e})")
+            validated.append(d)
+    print(f"  Validation: {len(validated)} kept, {skipped} removed as non-manga")
+    return validated
+
+
 def load_existing_domains(filepath: Path) -> Set[str]:
     domains = set()
     if not filepath.exists():
@@ -292,7 +360,11 @@ def main() -> int:
     print(f"Blocked domains removed: {len(blocked)}")
     print(f"Clean domains: {len(clean)}")
 
-    added = save_domains(filepath, existing, clean)
+    print(f"\n=== Phase 3: Domain reasonableness validation ===")
+    validated = validate_domains(clean, existing, args.language)
+    print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
+
+    added = save_domains(filepath, existing, validated)
     print(f"\nNew domains added to {filepath.name}: {len(added)}")
 
     if added:
@@ -308,6 +380,8 @@ def main() -> int:
             "totalUrls": len(all_urls),
             "uniqueDomains": len(domains),
             "blockedCount": len(blocked),
+            "validatedCount": len(validated),
+            "validationRemovedCount": len(clean) - len(validated),
             "newDomains": sorted(added),
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
