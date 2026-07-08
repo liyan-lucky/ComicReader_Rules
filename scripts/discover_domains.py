@@ -29,85 +29,29 @@ except ImportError:
 
 DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
-LANGUAGE_QUERIES: Dict[str, List[str]] = {
+DEFAULT_LANGUAGE_QUERIES: Dict[str, List[str]] = {
     "zh-Hans": [
-        "漫画网站",
-        "免费漫画",
-        "在线漫画",
-        "国漫网站",
-        "漫画阅读",
-        "漫画大全",
-        "看漫画",
-        "漫画连载",
-        "日漫在线",
-        "韩漫在线",
-        "漫画更新",
-        "热门漫画",
-        "漫画app推荐",
-        "webtoon中文",
-        "漫画网站推荐",
-        "manhua website",
-        "chinese manga read",
-        "read manhua online",
-        "manhua site",
-        "漫画网站大全",
-        "漫画源",
-        "免费看漫画网站",
-        "漫画在线阅读网站",
-        "国漫在线",
-        "修仙漫画",
-        "玄幻漫画",
-        "热血漫画",
-        "恋爱漫画",
-        "搞笑漫画",
-        "恐怖漫画",
+        "漫画网站", "免费漫画", "在线漫画", "国漫网站", "漫画阅读",
     ],
     "zh-Hant": [
-        "漫畫網站",
-        "免費漫畫",
-        "線上漫畫",
-        "看漫畫",
-        "漫畫連載",
-        "熱門漫畫",
-        "漫畫app",
-        "webtoon繁體",
-        "漫畫網站推薦",
-        "manga website traditional chinese",
-        "看漫畫網站",
-        "漫畫線上看",
-        "港漫網站",
-        "台灣漫畫網站",
+        "漫畫網站", "免費漫畫", "線上漫畫", "看漫畫", "漫畫連載",
     ],
     "en": [
-        "manga sites",
-        "read manga online",
-        "free manga websites",
-        "manga reader",
-        "manga website list",
-        "best manga sites",
-        "manga online free",
-        "manhwa sites",
-        "read manhwa online",
-        "webtoon sites",
-        "manhua sites",
-        "read manhua english",
-        "manga aggregator",
-        "manga scanlation sites",
-        "new manga sites",
-        "manga reader app",
-        "manga list website",
-        "popular manga sites",
-        "manga reading sites",
-        "free manhwa reading",
-        "light novel manga sites",
-        "manga recommendation sites",
-        "manga tracker sites",
-        "webtoon reading sites",
-        "korean manhwa sites",
-        "chinese manhua english",
-        "manga database sites",
+        "manga sites", "read manga online", "free manga websites", "manga reader",
     ],
 }
+def load_queries(language: str) -> List[str]:
+    queries_path = ROOT / "config" / "queries" / f"{language}.txt"
+    if queries_path.exists():
+        queries = []
+        for line in queries_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                queries.append(line)
+        if queries:
+            return queries
+    return DEFAULT_LANGUAGE_QUERIES.get(language, [])
+
 
 BLOCKED_DOMAIN_KEYWORDS = [
     "google", "bing", "yahoo", "baidu", "sogou", "duckduckgo", "yandex", "searx",
@@ -247,7 +191,7 @@ def main() -> int:
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     args = parser.parse_args()
 
-    queries = LANGUAGE_QUERIES.get(args.language, [])
+    queries = load_queries(args.language)
     if not queries:
         print(f"No queries defined for {args.language}", file=sys.stderr)
         return 1
