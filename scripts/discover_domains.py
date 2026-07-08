@@ -29,15 +29,73 @@ except ImportError:
 
 DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
-DEFAULT_LANGUAGE_QUERIES: Dict[str, List[str]] = {
+AGGREGATOR_SITES: Dict[str, List[str]] = {
     "zh-Hans": [
-        "漫画网站", "免费漫画", "在线漫画", "国漫网站", "漫画阅读",
+        "https://www.manhuagui.com/list/",
+        "https://www.kaixinman.com/category",
+        "https://manhuaplus.com/manga/",
+        "https://manhuaplus.top/manga/",
+        "https://www.manhuadb.com/manhua-list",
+        "https://www.manhuacat.com/category",
+        "https://manhuafast.com/manga/",
+        "https://manhuaus.com/manga/",
+        "https://www.happymh.com/category",
+        "https://readmanhua.net/manga/",
+        "https://topmanhua.com/manga/",
+        "https://manhuascan.io/manga/",
+        "https://www.pufei8.com/manhua-list/",
+        "https://www.wuxiaworld.co/",
     ],
     "zh-Hant": [
-        "漫畫網站", "免費漫畫", "線上漫畫", "看漫畫", "漫畫連載",
+        "https://comick.io/list?sort=update&lang=zh-hant",
+        "https://mangadex.org/titles?lang=zh-hant",
+        "https://bato.to/browse?lang=zh_tw",
+        "https://mangapark.net/browse?lang=zh-hant",
+        "https://mangafire.to/filter?lang=zh-hant",
+        "https://manhuaplus.com/manga/",
     ],
     "en": [
-        "manga sites", "read manga online", "free manga websites", "manga reader",
+        "https://mangahere.cc/mangalist/",
+        "https://mangahub.io/browse",
+        "https://asuracomic.net/comics",
+        "https://mangatown.com/manga/",
+        "https://comick.io/list?sort=update&lang=en",
+        "https://mangadex.org/titles?lang=en",
+        "https://bato.to/browse",
+        "https://mangapark.net/browse",
+        "https://mangafire.to/filter",
+        "https://mangabuddy.com/genre/",
+        "https://mangasee123.com/manga-list/",
+        "https://mangalife.us/directory/",
+        "https://mangakakalot.com/manga_list/",
+        "https://manganato.com/manga-list/",
+        "https://readm.org/manga-list",
+        "https://mangareader.tv/manga-list",
+        "https://mangaclash.com/manga/",
+        "https://mangakomi.io/manga/",
+        "https://manhuascan.io/manga/",
+        "https://mangaus.com/manga/",
+        "https://manganelo.com/manga/",
+        "https://mangabat.com/manga/",
+        "https://mangairo.com/manga/",
+        "https://toonily.com/manga/",
+        "https://webtoon.xyz/manga/",
+        "https://manhwascan.net/manga/",
+        "https://flamescans.org/manga/",
+        "https://luminousscans.com/manga/",
+        "https://mangatx.com/manga/",
+        "https://mangaeffect.com/manga/",
+        "https://readkomik.com/manga/",
+        "https://kunmanga.com/manga/",
+        "https://mangasthrill.com/manga/",
+        "https://chapmanganato.to/manga-list/",
+        "https://comicextra.com/comic-list",
+        "https://readcomicsonline.ru/comic-list",
+        "https://soullandmanga.com/",
+        "https://mangaread.org/manga/",
+        "https://mangadna.com/manga/",
+        "https://webtoons.com/en/dailySchedule",
+        "https://tapas.io/comics",
     ],
 }
 def load_queries(language: str) -> List[str]:
@@ -50,7 +108,32 @@ def load_queries(language: str) -> List[str]:
                 queries.append(line)
         if queries:
             return queries
-    return DEFAULT_LANGUAGE_QUERIES.get(language, [])
+    return []
+
+
+def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
+    sites = AGGREGATOR_SITES.get(language, [])
+    if not sites:
+        return []
+    all_urls: List[str] = []
+    for site_url in sites:
+        print(f"  Crawling: {site_url}")
+        try:
+            r = requests.get(site_url, headers={"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}, timeout=15, allow_redirects=True)
+            if r.status_code >= 400:
+                print(f"    HTTP {r.status_code}", file=sys.stderr)
+                continue
+            found = 0
+            for m in re.finditer(r'href="(https?://[^"]+)"', r.text):
+                u = m.group(1)
+                skip = any(s in u.lower() for s in ["javascript:", "mailto:", "twitter.com", "facebook.com", "discord", "patreon", "paypal"])
+                if not skip and u.startswith("http") and len(all_urls) < limit * len(sites):
+                    all_urls.append(u)
+                    found += 1
+            print(f"    Found {found} links")
+        except Exception as e:
+            print(f"    Failed: {e}", file=sys.stderr)
+    return all_urls
 
 
 BLOCKED_DOMAIN_KEYWORDS = [
@@ -208,13 +291,22 @@ def main() -> int:
     print(f"Existing domains in {filepath.name}: {len(existing)}")
 
     all_urls: List[str] = []
-    for q in queries:
-        print(f"  Searching: {q}")
-        urls = search_searxng(q, args.limit)
-        if len(urls) < 3:
-            urls += search_duckduckgo(q, args.limit)
-        all_urls.extend(urls)
-        print(f"    Found {len(urls)} URLs")
+
+    print(f"\n=== Phase 1: Crawl aggregator sites ===")
+    agg_urls = crawl_aggregator_sites(args.language, args.limit)
+    all_urls.extend(agg_urls)
+    print(f"Aggregator URLs: {len(agg_urls)}")
+
+    queries = load_queries(args.language)
+    if queries:
+        print(f"\n=== Phase 2: Search engines ({len(queries)} queries) ===")
+        for q in queries:
+            print(f"  Searching: {q}")
+            urls = search_searxng(q, args.limit)
+            if len(urls) < 3:
+                urls += search_duckduckgo(q, args.limit)
+            all_urls.extend(urls)
+            print(f"    Found {len(urls)} URLs")
 
     print(f"\nTotal URLs collected: {len(all_urls)}")
 
@@ -244,6 +336,7 @@ def main() -> int:
     if args.report:
         report = {
             "language": args.language,
+            "aggregatorSites": len(AGGREGATOR_SITES.get(args.language, [])),
             "queryCount": len(queries),
             "totalUrls": len(all_urls),
             "uniqueDomains": len(domains),

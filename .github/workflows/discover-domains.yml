@@ -13,7 +13,7 @@ on:
           - zh-Hant
           - en
       limit:
-        description: '每个搜索查询取多少条结果'
+        description: '每个来源取多少条链接'
         required: true
         default: '30'
         type: choice
@@ -40,17 +40,8 @@ jobs:
     name: 发现 ${{ inputs.language }} 漫画域名
     runs-on: ubuntu-latest
 
-    services:
-      searxng:
-        image: searxng/searxng:latest
-        ports:
-          - 8080:8080
-        env:
-          SEARXNG_BASE_URL: http://localhost:8080/
-          SEARXNG_SECRET: ci-domain-discovery-secret
-
     env:
-      SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
+      SEARXNG_URL: ${{ secrets.SEARXNG_URL || '' }}
       DISCOVER_LANGUAGE: ${{ inputs.language }}
       DISCOVER_LIMIT: ${{ inputs.limit }}
 
@@ -69,37 +60,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
-
-      - name: 等待 SearXNG 就绪
-        run: |
-          if [ "$SEARXNG_URL" != "http://localhost:8080" ]; then
-            echo "使用自建SearXNG: $SEARXNG_URL，跳过本地等待"
-            exit 0
-          fi
-          echo "等待本地 SearXNG 启动..."
-          for i in $(seq 1 30); do
-            if curl -fs http://localhost:8080 >/dev/null 2>&1; then
-              echo "SearXNG 已启动"
-              break
-            fi
-            sleep 2
-          done
-          CID=$(docker ps -q --filter ancestor=searxng/searxng:latest | head -1)
-          if [ -n "$CID" ]; then
-            echo "注入 settings.yml 禁用 limiter..."
-            docker cp config/searxng/settings.yml "$CID:/etc/searxng/settings.yml"
-            docker restart "$CID" || true
-            sleep 5
-          fi
-          for i in $(seq 1 20); do
-            if curl -fs http://localhost:8080/search?q=test\&format=json >/dev/null 2>&1; then
-              echo "SearXNG 就绪"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "SearXNG 启动超时，将回退到DDG"
-          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
       - name: 发现域名
         run: |
@@ -136,8 +96,9 @@ jobs:
               '## 域名发现统计',
               '',
               f'语种：{lang}',
+              f'爬取聚合站数：{report.get(\"aggregatorSites\", 0)}',
               f'搜索查询数：{report.get(\"queryCount\", 0)}',
-              f'搜索结果URL总数：{report.get(\"totalUrls\", 0)}',
+              f'收集URL总数：{report.get(\"totalUrls\", 0)}',
               f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
               f'屏蔽域名数：{report.get(\"blockedCount\", 0)}',
               f'新增域名数：{len(new_domains)}',
