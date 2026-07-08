@@ -456,18 +456,31 @@ def search_searxng(query: str, limit: int) -> List[Candidate]:
     base_url = _searxng_url()
     if not base_url:
         return []
-    try:
-        url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
-        r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=15)
-        r.raise_for_status()
-        data = r.json()
-        out: List[Candidate] = []
-        for item in data.get("results", [])[:limit]:
-            out.append(Candidate(url=item.get("url", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("content", "")), engine="searxng"))
-        return [c for c in out if c.url]
-    except Exception as e:
-        log(f"[warn] SearXNG search failed: {e}")
-        return []
+    all_out: List[Candidate] = []
+    seen_urls: set = set()
+    max_pages = 3
+    for page in range(1, max_pages + 1):
+        if len(all_out) >= limit:
+            break
+        try:
+            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page})
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=15)
+            r.raise_for_status()
+            data = r.json()
+            results = data.get("results", [])
+            if not results:
+                break
+            for item in results:
+                u = item.get("url", "")
+                if u and u not in seen_urls:
+                    seen_urls.add(u)
+                    all_out.append(Candidate(url=u, title=clean_text(item.get("title", "")), snippet=clean_text(item.get("content", "")), engine="searxng"))
+        except Exception as e:
+            log(f"[warn] SearXNG page {page} failed: {e}")
+            break
+    if not all_out:
+        log(f"[warn] SearXNG returned 0 results for '{query}'")
+    return [c for c in all_out if c.url][:limit]
 
 
 def unique_candidates(items: Iterable[Candidate]) -> List[Candidate]:
