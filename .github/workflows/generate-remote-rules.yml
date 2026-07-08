@@ -103,9 +103,10 @@ jobs:
 
     services:
       searxng:
-        image: searxng/searxng:latest
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
         ports:
           - 8080:8080
+        options: --health-cmd "curl -f http://localhost:8080/search?q=test || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5
 
     env:
       SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
@@ -163,23 +164,9 @@ jobs:
             echo "使用自建SearXNG: $SEARXNG_URL，跳过本地等待"
             exit 0
           fi
-          echo "等待本地 SearXNG 启动..."
+          echo "等待本地 SearXNG 启动（自建镜像已预禁用limiter）..."
           for i in $(seq 1 30); do
-            if curl -fs http://localhost:8080 >/dev/null 2>&1; then
-              echo "SearXNG 已启动"
-              break
-            fi
-            sleep 2
-          done
-          CID=$(docker ps -q --filter ancestor=searxng/searxng:latest | head -1)
-          if [ -n "$CID" ]; then
-            echo "注入 settings.yml 禁用 limiter..."
-            docker cp config/searxng/settings.yml "$CID:/etc/searxng/settings.yml"
-            docker restart "$CID" || true
-            sleep 5
-          fi
-          for i in $(seq 1 20); do
-            if curl -fs http://localhost:8080/search?q=test\&format=json >/dev/null 2>&1; then
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
               echo "SearXNG 就绪"
               exit 0
             fi

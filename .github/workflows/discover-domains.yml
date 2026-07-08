@@ -34,7 +34,7 @@ on:
       searxng_image:
         description: 'SearXNG容器镜像（GHCR地址）'
         required: false
-        default: 'ghcr.io/liyan-lucky/searxng-ci:latest'
+        default: 'ghcr.io/liyan-lucky/searxng_diy:latest'
         type: string
 
 permissions:
