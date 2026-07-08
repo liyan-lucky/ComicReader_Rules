@@ -1,6 +1,8 @@
 name: 发现漫画域名
 
 on:
+  schedule:
+    - cron: '0 2 1 * *'
   workflow_dispatch:
     inputs:
       language:
@@ -50,20 +52,20 @@ defaults:
 
 jobs:
   discover:
-    name: 发现 ${{ inputs.language }} 漫画域名
+    name: 发现 ${{ inputs.language || 'zh-Hans' }} 漫画域名
     runs-on: ubuntu-latest
 
     services:
       searxng:
-        image: ${{ inputs.searxng_image }}
+        image: ${{ inputs.searxng_image || 'ghcr.io/liyan-lucky/searxng_diy:latest' }}
         ports:
           - 8080:8080
         options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
 
     env:
-      SEARXNG_URL: ${{ inputs.use_searxng_container == 'true' && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
-      DISCOVER_LANGUAGE: ${{ inputs.language }}
-      DISCOVER_LIMIT: ${{ inputs.limit }}
+      SEARXNG_URL: ${{ (inputs.use_searxng_container || 'true') == 'true' && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
+      DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
+      DISCOVER_LIMIT: ${{ inputs.limit || '50' }}
 
     steps:
       - name: 检出 main

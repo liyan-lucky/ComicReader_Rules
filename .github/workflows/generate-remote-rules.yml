@@ -83,7 +83,7 @@ on:
         required: false
         default: '0.4'
   schedule:
-    - cron: '0 3 * * 1'
+    - cron: '0 3 1,15 * *'
 
 permissions:
   contents: write
@@ -355,6 +355,15 @@ jobs:
               Path(summary).write_text(output, encoding='utf-8')
           PY
 
+      - name: 修剪无效域名
+        run: |
+          REPORT_FILE="generated/rulebot_report.${RULE_LANGUAGE}.json"
+          if [ -f "$REPORT_FILE" ]; then
+            python scripts/prune_domains.py --language "$RULE_LANGUAGE" --report "$REPORT_FILE"
+          else
+            echo "报告文件不存在，跳过域名修剪"
+          fi
+
       - name: 提交生成规则到 main
         run: |
           set -euo pipefail
@@ -365,6 +374,7 @@ jobs:
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json generated/update_manifest.json
           git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json"
+          git add config/domains/
           if git diff --cached --quiet; then
             echo "No generated rule changes."
           else
