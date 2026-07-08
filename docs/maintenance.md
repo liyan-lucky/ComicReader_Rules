@@ -68,13 +68,19 @@ rules/manual/
 默认模式：
 
 ```text
+deep
+```
+
+快速模式：
+
+```text
 quick
 ```
 
-深度模式：
+所有运行参数均有默认值，可在 Run workflow 时自定义：
 
 ```text
-deep
+max_generated=2000, per_domain_generated_limit=500, time_budget_seconds=19800 等
 ```
 
 输出位置：
@@ -99,7 +105,7 @@ main
 python scripts/update_manifest.py --section rules --tag search-rules-YYYYMMDD
 ```
 
-然后发布或更新当天标签：
+然后发布或更新当天标签和 Release：
 
 ```text
 search-rules-YYYYMMDD
@@ -138,7 +144,7 @@ main
 python scripts/update_manifest.py --section catalog --tag catalog-YYYYMMDD
 ```
 
-然后发布或更新当天标签：
+然后发布或更新当天标签和 Release：
 
 ```text
 catalog-YYYYMMDD
@@ -227,10 +233,11 @@ git push --force origin HEAD:backup
 ```text
 .github/workflows/    GitHub Actions workflow
 docs/                 文档和维护说明
-rules/manual/         手工规则
+rules/manual/         手工规则（7条）
 generated/            自动生成规则、目录、manifest 和报告
 scripts/              本地或 CI 入口脚本
 tools/                规则发现、清洗、生成和审计工具
+config/               关键词、域名、搜索API配置
 ```
 
 禁止把临时文件、下载缓存、压缩包、调试报告或未清洗输出直接放到仓库根目录。

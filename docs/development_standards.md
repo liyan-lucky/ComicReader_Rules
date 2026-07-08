@@ -42,6 +42,7 @@ generated/
 rules/
 scripts/
 tools/
+config/
 ```
 
 说明：
@@ -58,14 +59,18 @@ tools/
 .github/workflows/               GitHub Actions 流程，只放 workflow yml/yaml
 .github/ISSUE_TEMPLATE/          Issue 模板
 .github/pull_request_template.md PR 模板
+.github/release_templates/       Release Notes 模板
 docs/                            文档、接口说明、开发规范、维护说明
 rules/                           App 当前可读取规则索引和手工稳定规则
-rules/manual/                    手工维护的稳定公开规则
+rules/manual/                    手工维护的稳定公开规则（7条）
 rules/templates/                 规则模板，只有模板文件才放这里
 generated/                       自动生成产物，禁止手工维护业务内容
 scripts/                         本地/CI 入口脚本，负责调度生成任务
 tools/rule_discovery/            RuleBot 搜索、审计、规则生成、规则清洗工具
 tools/catalog/                   预留：目录生成工具拆分后放这里
+config/keywords/                 搜索关键词配置（zh-Hans/zh-Hant/en）
+config/domains/                  搜索域名配置（zh-Hans/zh-Hant/en）
+config/search.json               搜索API配置（SearXNG/Brave/Serper/Google CSE）
 ```
 
 禁止在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。

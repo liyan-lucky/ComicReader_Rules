@@ -25,41 +25,60 @@ main
 ### quick
 
 ```text
-quick：快速模式，默认运行，用于日常规则生成。
+quick：快速模式，用于快速验证。
 ```
 
 特点：
 
 ```text
-默认 max_generated=1000
-30个关键词，16+个域名
+默认 max_generated=2000
+关键词和域名从 config/keywords/ 和 config/domains/ 读取
 Brave API 可用时用宽泛查询（不用 site: 前缀）
 种子发现优先于搜索
 时间预算 5400 秒（1.5小时）
 无审计上限限制
-每域名最多100条规则
+每域名最多500条规则
 ```
 
 ### deep
 
 ```text
-deep：深度模式，用于定时全量生成。
+deep：深度模式，默认选项，用于全量生成。
 ```
 
 特点：
 
 ```text
-默认 max_generated=1000
+默认 max_generated=2000
 关键词和域名数量更多
 耗时更长，适合每周定时运行
 时间预算 19800 秒（5.5小时）
+每域名最多500条规则
 ```
+
+## 2.1 可配置参数
+
+所有参数在 Run workflow 时均可自定义，默认值如下：
+
+| 参数 | quick 默认 | deep 默认 | 说明 |
+|------|-----------|----------|------|
+| max_generated | 2000 | 2000 | 最多生成规则数上限 |
+| per_domain_generated_limit | 500 | 500 | 每域名最多保留规则数 |
+| time_budget_seconds | 5400 | 19800 | 时间预算秒数 |
+| search_result_limit | 20 | 30 | 每搜索查询结果上限 |
+| seed_limit | 500 | 3000 | 种子候选上限 |
+| per_seed_limit | 100 | 400 | 每种子页候选上限 |
+| max_audit_candidates | 0 | 0 | 审计候选上限（0=不限） |
+| per_domain_audit_limit | 0 | 0 | 每域名审计上限（0=不限） |
+| sleep | 0.15 | 0.4 | 请求间隔秒数 |
 
 ## 3. 当前目标
 
 ```text
-目标：1000 条可搜索漫画规则
-当前：55+ 条（持续增长中）
+目标：2000 条可搜索漫画规则
+当前：1007 条（17个成功域名）
+搜索规则：6 条（kaixinman/mgeko/comick/mangafire/manhuaplus/mangahere）
+手工稳定规则：7 条
 ```
 
 可搜索规则指：
@@ -86,11 +105,14 @@ update_manifest.py         更新 update_manifest.json 版本入口
 数据流：
 
 ```text
-keywords + domains + API keys
+config/keywords/*.txt + config/domains/*.txt + config/search.json
   → generate_rules.py
-    → 种子发现（29个漫画站分类页）
-    → Brave API 搜索（宽泛查询，1条覆盖多域名）
+    → 种子发现（29+个漫画站分类页）
+    → SearXNG 搜索（免费无限制，最优先）
     → DuckDuckGo HTML 兜底（连续403自动跳过）
+    → Brave API 搜索（付费，宽泛查询）
+    → Serper API 搜索（付费，分页翻页）
+    → Google CSE 搜索（付费，备选）
     → 候选去重 + 前置过滤（屏蔽非漫画域名）
     → 审计候选（登录/付费早退出）
     → rulebot_report.json
@@ -112,16 +134,39 @@ generated/rulebot_report.json         自动发现和审计报告
 generated/GeneratedSourceRules.ets    ArkTS 规则文件（由 sanitize 生成）
 generated/update_manifest.json        App 更新版本入口
 rules/index.json                      兼容旧读取路径的规则索引
-rules/manual/index.json               手工稳定规则（3条）
+rules/manual/index.json               手工稳定规则（7条）
 ```
 
 ## 6. 搜索 API 配置
 
-### Brave Search API（推荐）
+搜索优先级（短路逻辑，免费优先，结果够用即停）：
+
+```text
+1. SearXNG（自建，免费无限制）— 最优先
+2. DuckDuckGo HTML（免费，不稳定，易403）
+3. Brave Search API（付费，每月2000次免费额度）
+4. Serper API（付费，分页翻页节约配额）
+5. Google CSE API（付费，备选）
+```
+
+### SearXNG（推荐，免费无限制）
+
+1. 自建 SearXNG 实例（Docker 一键部署）
+2. 在仓库 Settings → Secrets → Actions 添加 `SEARXNG_URL`
+3. workflow 内置 service container 自动启动本地 SearXNG
+4. 配置后搜索阶段正常返回结果，不依赖付费API
+
+### Brave Search API
 
 1. 访问 https://brave.com/search/api/ 注册，Free 计划每月2000次
 2. 在仓库 Settings → Secrets → Actions 添加 `BRAVE_SEARCH_API_KEY`
-3. 配置后搜索阶段正常返回结果，不再依赖被拦截的 DuckDuckGo
+3. 配置后搜索阶段正常返回结果
+
+### Serper API
+
+1. 访问 https://serper.dev/ 注册
+2. 在仓库 Settings → Secrets → Actions 添加 `SERPER_API_KEY`
+3. 分页翻页（10条/页按需翻页），节约API配额
 
 ### Google CSE API（备选）
 
@@ -129,12 +174,13 @@ rules/manual/index.json               手工稳定规则（3条）
 
 ### 无 API Key 时
 
+- SearXNG service container 自动启动（workflow 内置）
 - DuckDuckGo HTML 抓取（不稳定，易被403）
-- 仅依赖种子发现（29个漫画站分类页抓取）
+- 仅依赖种子发现（29+个漫画站分类页抓取）
 
 ## 7. 种子站点
 
-当前配置29个漫画站种子（`KNOWN_SOURCE_SEEDS`）：
+当前配置29+个漫画站种子（`KNOWN_SOURCE_SEEDS`）：
 
 ```text
 kaixinman.com    mgeko.cc         comick.io        manhuaus.com
@@ -144,10 +190,22 @@ mangakakalot.com manganato.com    bato.to          mangafire.to
 soullandmanga.com asuracomic.net  asuratoon.com    mangaread.org
 mangadna.com     webtoons.com     tapas.io         manhuagui.com
 manhuadb.com     pufei8.com       manhuacat.com    comicextra.com
-readcomicsonline.ru
+readcomicsonline.ru  manhuaplus.com  manhuaplus.top  mangahub.io
+mangatown.com    mangakomi.io     ...
 ```
 
 种子发现优先于搜索执行，有种子的域名不再生成 `site:` 搜索查询（节省 API 配额）。
+
+关键词和域名配置已提取到独立文件：
+
+```text
+config/keywords/zh-Hans.txt    简体中文关键词（150+个）
+config/keywords/zh-Hant.txt    繁体中文关键词（50+个）
+config/keywords/en.txt         英文关键词（100+个）
+config/domains/zh-Hans.txt     简体中文域名（50+个）
+config/domains/zh-Hant.txt     繁体中文域名
+config/domains/en.txt          英文域名（30+个）
+```
 
 ## 8. 效率优化
 
@@ -159,7 +217,13 @@ readcomicsonline.ru
 | 登录/付费早退出 | 检测到付费且无章节时直接返回 excluded，省掉章节页 HTTP 请求 |
 | 移除冗余 .ets 生成 | generate_rules.py 不再生成 .ets（由 sanitize 统一生成） |
 | DuckDuckGo 403 快速失败 | 连续5次403后跳过剩余搜索查询 |
-| 统一规则ID后缀 | `_auto_public` 统一，避免同站产生两条不同ID规则 |
+| SearXNG 免费搜索 | 自建实例免费无限制，workflow内置service container |
+| Serper API 分页 | 10条/页按需翻页，节约API配额 |
+| 搜索查询变体优化 | 中文2个/关键词（原词+漫画），节省50% API配额 |
+| 已审计域名过滤 | 审计阶段只跳过已达上限的域名，不过滤所有已审计域名 |
+| 连续无新发现退出 | boost/generate_catalog连续10次无新发现提前退出 |
+| 未分类再分配 | 标签→分类映射自动再分配未分类条目 |
+| tag push容错 | tag push失败不阻塞Release发布 |
 
 ## 9. 清洗规则
 
@@ -241,6 +305,7 @@ quick 模式约1.5小时，deep 模式约5.5小时。
 优先方案：
 
 ```text
+配置 SearXNG（自建免费无限制，workflow内置）
 配置 Brave Search API Key（每月2000次免费）
 ```
 
@@ -248,8 +313,8 @@ quick 模式约1.5小时，deep 模式约5.5小时。
 
 ```text
 补更多手工稳定公开规则
-增加公开漫画站域名到 KNOWN_SOURCE_SEEDS
-增加关键词
+增加公开漫画站域名到 config/domains/
+增加关键词到 config/keywords/
 检查候选站点是否公开可访问
 ```
 
