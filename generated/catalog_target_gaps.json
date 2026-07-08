@@ -1,65 +1,198 @@
 {
   "schema": "comic_catalog_target_gaps_v1",
-  "updatedAt": "2026-07-08T04:48:57Z",
+  "updatedAt": "2026-07-08T05:55:36Z",
   "targetCount": 200,
   "minimumVisibleTarget": 200,
   "summary": {
     "enabled": true,
     "targetCount": 200,
     "minimumVisibleTarget": 200,
-    "searchRules": 4,
-    "searchPagesFetched": 560,
-    "searchPagesFailed": 0,
-    "newItems": 0,
-    "existingItemsTouched": 7280,
-    "reassignedFromOverflow": 6,
-    "errors": [],
+    "searchRules": 6,
+    "searchPagesFetched": 1140,
+    "searchPagesFailed": 22,
+    "newItems": 1740,
+    "existingItemsTouched": 15844,
+    "reassignedFromOverflow": 19,
+    "errors": [
+      {
+        "category": "xuanyi",
+        "keyword": "case",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "kongbu",
+        "keyword": "鬼",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "kongbu",
+        "keyword": "ghost",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "richang",
+        "keyword": "生活",
+        "ruleId": "mangafire_public_search",
+        "error": "HTTP Error 521: <none>"
+      },
+      {
+        "category": "richang",
+        "keyword": "iyashikei",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "richang",
+        "keyword": "leisurely",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "richang",
+        "keyword": "family life",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "richang",
+        "keyword": "pet",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dushi",
+        "keyword": "职场",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dushi",
+        "keyword": "神医",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "xiaoyuan",
+        "keyword": "老师",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiaoyuan",
+        "keyword": "同桌",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiaoyuan",
+        "keyword": "school",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiaoyuan",
+        "keyword": "campus",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "xiaoyuan",
+        "keyword": "college",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "wuxia_gedou",
+        "keyword": "kung fu",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "kehuan",
+        "keyword": "cyberpunk",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "kehuan",
+        "keyword": "future",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "lishi_gufeng",
+        "keyword": "历史",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "maoxian",
+        "keyword": "quest",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "maoxian",
+        "keyword": "tower",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "qihuan",
+        "keyword": "wizard",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      }
+    ],
     "countsBefore": {
-      "dongzuo": 361,
-      "dushi": 6,
-      "juqing": 10,
-      "kehuan": 12,
-      "kongbu": 10,
-      "lianai": 61,
-      "lishi_gufeng": 16,
-      "maoxian": 57,
-      "qihuan": 58,
-      "richang": 16,
-      "weifenlei": 389,
-      "wuxia_gedou": 8,
-      "xiaoyuan": 11,
-      "xiju": 46,
-      "xiuxian": 2,
-      "xuanyi": 5
+      "dongzuo": 388,
+      "dushi": 44,
+      "juqing": 36,
+      "kehuan": 46,
+      "kongbu": 40,
+      "lianai": 126,
+      "lishi_gufeng": 48,
+      "maoxian": 88,
+      "qihuan": 90,
+      "richang": 43,
+      "weifenlei": 348,
+      "wuxia_gedou": 40,
+      "xiaoyuan": 46,
+      "xiju": 76,
+      "xiuxian": 23,
+      "xuanyi": 35
     },
-    "reassignedFromUncategorized": 66,
+    "reassignedFromUncategorized": 65,
     "countsAfter": {
-      "dongzuo": 355,
-      "dushi": 6,
-      "juqing": 13,
-      "kehuan": 12,
-      "kongbu": 11,
-      "lianai": 97,
-      "lishi_gufeng": 16,
-      "maoxian": 59,
-      "qihuan": 77,
-      "richang": 16,
-      "weifenlei": 323,
-      "wuxia_gedou": 8,
-      "xiaoyuan": 11,
-      "xiju": 46,
-      "xiuxian": 6,
-      "xuanyi": 12
+      "dongzuo": 344,
+      "dushi": 200,
+      "juqing": 111,
+      "kehuan": 200,
+      "kongbu": 200,
+      "lianai": 200,
+      "lishi_gufeng": 200,
+      "maoxian": 200,
+      "qihuan": 200,
+      "richang": 200,
+      "weifenlei": 243,
+      "wuxia_gedou": 183,
+      "xiaoyuan": 200,
+      "xiju": 176,
+      "xiuxian": 200,
+      "xuanyi": 200
     },
-    "categoriesAtOrAboveTarget": 1,
-    "categoriesAtOrAboveVisibleTarget": 1,
-    "remainingTotalGap": 2410
+    "categoriesAtOrAboveTarget": 12,
+    "categoriesAtOrAboveVisibleTarget": 12,
+    "remainingTotalGap": 130
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 355,
+      "count": 344,
       "target": 200,
       "gap": 0,
       "overTarget": true,
@@ -68,133 +201,133 @@
     {
       "id": "maoxian",
       "name": "冒险",
-      "count": 59,
+      "count": 200,
       "target": 200,
-      "gap": 141,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "lianai",
       "name": "恋爱",
-      "count": 97,
+      "count": 200,
       "target": 200,
-      "gap": 103,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "xiju",
       "name": "喜剧",
-      "count": 46,
+      "count": 176,
       "target": 200,
-      "gap": 154,
+      "gap": 24,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "juqing",
       "name": "剧情",
-      "count": 13,
+      "count": 111,
       "target": 200,
-      "gap": 187,
+      "gap": 89,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 77,
+      "count": 200,
       "target": 200,
-      "gap": 123,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "xiaoyuan",
       "name": "校园",
-      "count": 11,
+      "count": 200,
       "target": 200,
-      "gap": 189,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "richang",
       "name": "日常",
-      "count": 16,
+      "count": 200,
       "target": 200,
-      "gap": 184,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 8,
+      "count": 183,
       "target": 200,
-      "gap": 192,
+      "gap": 17,
       "overTarget": false,
       "visibleTargetReached": false
     },
     {
       "id": "kehuan",
       "name": "科幻",
-      "count": 12,
+      "count": 200,
       "target": 200,
-      "gap": 188,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 11,
+      "count": 200,
       "target": 200,
-      "gap": 189,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 12,
+      "count": 200,
       "target": 200,
-      "gap": 188,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "lishi_gufeng",
       "name": "历史/古风",
-      "count": 16,
+      "count": 200,
       "target": 200,
-      "gap": 184,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "dushi",
       "name": "都市",
-      "count": 6,
+      "count": 200,
       "target": 200,
-      "gap": 194,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "xiuxian",
       "name": "修仙",
-      "count": 6,
+      "count": 200,
       "target": 200,
-      "gap": 194,
-      "overTarget": false,
-      "visibleTargetReached": false
+      "gap": 0,
+      "overTarget": true,
+      "visibleTargetReached": true
     },
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 323,
+      "count": 243,
       "target": 0,
       "gap": 0,
       "overTarget": false,
