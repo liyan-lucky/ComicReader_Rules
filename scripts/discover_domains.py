@@ -93,8 +93,8 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
     if not base_url:
         return []
     try:
-        url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
-        r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=15)
+        url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1, "language": "all"})
+        r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
         r.raise_for_status()
         data = r.json()
         urls = []
@@ -102,6 +102,8 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
             u = item.get("url", "")
             if u:
                 urls.append(u)
+        if not urls:
+            print(f"  [warn] SearXNG returned 0 results for '{query}'", file=sys.stderr)
         return urls
     except Exception as e:
         print(f"  [warn] SearXNG failed for '{query}': {e}", file=sys.stderr)
@@ -113,12 +115,17 @@ def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
         url = "https://html.duckduckgo.com/html/?" + urlencode({"q": query})
         r = requests.get(url, headers={"User-Agent": DEFAULT_UA}, timeout=15, allow_redirects=True)
         if r.status_code >= 400:
+            print(f"  [warn] DDG HTTP {r.status_code} for '{query}'", file=sys.stderr)
             return []
         urls = []
-        for m in re.finditer(r'class="result__a"[^>]*href="([^"]+)"', r.text):
+        for m in re.finditer(r'href="(https?://[^"]+)"', r.text):
             u = m.group(1)
+            if any(skip in u.lower() for skip in ["duckduckgo", "ddg", "javascript:", "mailto:"]):
+                continue
             if u.startswith("http") and len(urls) < limit:
                 urls.append(u)
+        if not urls:
+            print(f"  [warn] DDG returned 0 results for '{query}'", file=sys.stderr)
         return urls
     except Exception as e:
         print(f"  [warn] DDG failed for '{query}': {e}", file=sys.stderr)
@@ -204,7 +211,7 @@ def main() -> int:
     for q in queries:
         print(f"  Searching: {q}")
         urls = search_searxng(q, args.limit)
-        if len(urls) < 5:
+        if len(urls) < 3:
             urls += search_duckduckgo(q, args.limit)
         all_urls.extend(urls)
         print(f"    Found {len(urls)} URLs")
