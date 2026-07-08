@@ -58,7 +58,7 @@ jobs:
         image: ${{ inputs.searxng_image }}
         ports:
           - 8080:8080
-        options: --health-cmd "curl -f http://localhost:8080/search?q=test || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
 
     env:
       SEARXNG_URL: ${{ inputs.use_searxng_container == 'true' && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
