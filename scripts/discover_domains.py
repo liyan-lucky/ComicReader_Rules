@@ -259,7 +259,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> L
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "url_pattern_match": 0, "secondary_3+": 0, "network_issue": 0}
-    reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0}
+    reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "blocked": 0}
 
     for d in domains:
         if d in existing:
@@ -273,10 +273,15 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> L
             validated.append(d)
             reasons[result] += 1
             print(f"  ✓ {d} ({result})")
-        elif result.startswith("fetch_failed") or result in ("http_520", "http_403", "http_503"):
-            validated.append(d)
-            reasons["network_issue"] += 1
-            print(f"  ? {d} ({result}, kept - network issue)")
+        elif result.startswith("fetch_failed") or result.startswith("http_4") or result.startswith("http_5"):
+            if is_blocked_domain(d):
+                skipped += 1
+                reject_reasons["blocked"] += 1
+                print(f"  ✗ {d} (blocked + {result})")
+            else:
+                validated.append(d)
+                reasons["network_issue"] += 1
+                print(f"  ? {d} ({result}, kept - network issue)")
         else:
             skipped += 1
             if result.startswith("http_"):
