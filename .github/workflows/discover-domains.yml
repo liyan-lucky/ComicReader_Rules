@@ -3,15 +3,26 @@ name: 发现漫画域名
 on:
   workflow_dispatch:
     inputs:
-      languages:
-        description: '要发现的语种（逗号分隔）'
+      language:
+        description: '发现语种'
         required: true
-        default: 'zh-Hans,zh-Hant,en'
-        type: string
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - zh-Hans
+          - zh-Hant
+          - en
       limit:
         description: '每个搜索查询取多少条结果'
-        required: false
+        required: true
         default: '30'
+        type: choice
+        options:
+          - '10'
+          - '20'
+          - '30'
+          - '50'
+          - '100'
 
 permissions:
   contents: write
@@ -26,7 +37,7 @@ defaults:
 
 jobs:
   discover:
-    name: 按语种搜索漫画网站域名
+    name: 发现 ${{ inputs.language }} 漫画域名
     runs-on: ubuntu-latest
 
     services:
@@ -37,6 +48,8 @@ jobs:
 
     env:
       SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
+      DISCOVER_LANGUAGE: ${{ inputs.language }}
+      DISCOVER_LIMIT: ${{ inputs.limit }}
 
     steps:
       - name: 检出 main
@@ -73,24 +86,74 @@ jobs:
 
       - name: 发现域名
         run: |
-          IFS=',' read -ra LANGS <<< "${{ inputs.languages }}"
-          for lang in "${LANGS[@]}"; do
-            lang=$(echo "$lang" | xargs)
-            if [ -z "$lang" ]; then continue; fi
-            echo "=== 发现 $lang 域名 ==="
-            python scripts/discover_domains.py --language "$lang" --limit "${{ inputs.limit }}" || true
-          done
+          python scripts/discover_domains.py \
+            --language "$DISCOVER_LANGUAGE" \
+            --limit "$DISCOVER_LIMIT" \
+            --report generated/domain_discovery_report.json
 
       - name: 统计发现结果
         run: |
-          echo "## 域名发现统计"
-          echo ""
-          for f in config/domains/*.txt; do
-            lang=$(basename "$f" .txt)
-            total=$(grep -cE '^[a-z0-9]' "$f" 2>/dev/null || echo 0)
-            new=$(grep -c 'Auto-discovered' "$f" 2>/dev/null || echo 0)
-            echo "- $lang: $total 个域名"
-          done
+          python -c "
+          import json, os
+          from pathlib import Path
+
+          lang = os.environ.get('DISCOVER_LANGUAGE', '')
+          report_path = Path('generated/domain_discovery_report.json')
+          report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
+
+          filepath = Path(f'config/domains/{lang}.txt')
+          existing = set()
+          if filepath.exists():
+              for line in filepath.read_text(encoding='utf-8').splitlines():
+                  line = line.strip()
+                  if not line or line.startswith('#'):
+                      continue
+                  d = line.replace('https://','').replace('http://','').split('/')[0].replace('www.','').lower()
+                  if d:
+                      existing.add(d)
+
+          new_domains = report.get('newDomains', [])
+          all_domains = sorted(existing)
+
+          lines = [
+              '## 域名发现统计',
+              '',
+              f'语种：{lang}',
+              f'搜索查询数：{report.get(\"queryCount\", 0)}',
+              f'搜索结果URL总数：{report.get(\"totalUrls\", 0)}',
+              f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
+              f'屏蔽域名数：{report.get(\"blockedCount\", 0)}',
+              f'新增域名数：{len(new_domains)}',
+              f'当前域名总数：{len(existing)}',
+              '',
+              '### 新增域名列表',
+              '',
+          ]
+          if new_domains:
+              lines.append('| 域名 |')
+              lines.append('|------|')
+              for d in sorted(new_domains):
+                  lines.append(f'| {d} |')
+          else:
+              lines.append('无新增域名')
+
+          lines += [
+              '',
+              '### 当前全部域名列表',
+              '',
+              '| 域名 |',
+              '|------|',
+          ]
+          for d in all_domains:
+              mark = ' ✨' if d in set(new_domains) else ''
+              lines.append(f'| {d}{mark} |')
+
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          "
 
       - name: 提交域名更新
         run: |
@@ -101,6 +164,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "域名没有变化，无需提交。"
           else
-            git commit -m "chore: discover and update manga domains"
+            git commit -m "chore: discover and update $DISCOVER_LANGUAGE manga domains"
             git push origin HEAD:main
           fi

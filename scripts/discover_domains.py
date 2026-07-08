@@ -5,6 +5,7 @@
 用法：
     python scripts/discover_domains.py --language zh-Hans
     python scripts/discover_domains.py --language en --limit 50
+    python scripts/discover_domains.py --language zh-Hans --report generated/domain_discovery_report.json
 """
 from __future__ import annotations
 
@@ -213,7 +214,7 @@ def load_existing_domains(filepath: Path) -> Set[str]:
     return domains
 
 
-def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> int:
+def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> List[str]:
     added = []
     for d in new_domains:
         if d not in existing and not is_blocked_domain(d):
@@ -221,7 +222,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> 
             added.append(d)
 
     if not added:
-        return 0
+        return added
 
     header = ""
     if filepath.exists():
@@ -236,13 +237,14 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> 
         section += d + "\n"
 
     filepath.write_text(header + section, encoding="utf-8")
-    return len(added)
+    return added
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="按语种搜索漫画网站域名")
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
     parser.add_argument("--limit", type=int, default=30, help="每个搜索查询取多少条结果")
+    parser.add_argument("--report", default="", help="JSON报告输出路径")
     args = parser.parse_args()
 
     queries = LANGUAGE_QUERIES.get(args.language, [])
@@ -281,13 +283,29 @@ def main() -> int:
     print(f"Clean domains: {len(clean)}")
 
     added = save_domains(filepath, existing, clean)
-    print(f"\nNew domains added to {filepath.name}: {added}")
+    print(f"\nNew domains added to {filepath.name}: {len(added)}")
 
-    if added > 0:
+    if added:
         print("Added domains:")
-        for d in sorted(clean):
-            if d not in existing - set(clean):
-                print(f"  + {d}")
+        for d in sorted(added):
+            print(f"  + {d}")
+
+    if args.report:
+        report = {
+            "language": args.language,
+            "queryCount": len(queries),
+            "totalUrls": len(all_urls),
+            "uniqueDomains": len(domains),
+            "blockedCount": len(blocked),
+            "newDomains": sorted(added),
+            "existingDomainCount": len(existing),
+            "blockedDomains": sorted(blocked),
+            "allDiscoveredDomains": sorted(clean),
+        }
+        report_path = Path(args.report)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"Report saved to {args.report}")
 
     return 0
 
