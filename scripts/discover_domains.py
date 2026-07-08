@@ -51,6 +51,14 @@ AGGREGATOR_SITES: Dict[str, List[str]] = {
         "https://manhuascan.io/manga/",
         "https://www.pufei8.com/manhua-list/",
         "https://www.wuxiaworld.co/",
+        "https://www.mangabz.com/manga-list",
+        "https://www.gufengmh.com/manhua/",
+        "https://www.36mh.com/manga-list/",
+        "https://www.1kkk.com/manhua-list/",
+        "https://www.tohomh.com/wap/list/",
+        "https://www.kuaikanmanhua.com/web/topic/",
+        "https://ac.qq.com/Comic/all",
+        "https://www.bilibili.com/anime/",
     ],
     "zh-Hant": [
         "https://comick.io/list?sort=update&lang=zh-hant",
@@ -122,7 +130,10 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
     if not sites:
         return []
     all_urls: List[str] = []
+    max_total = limit * len(sites)
     for site_url in sites:
+        if len(all_urls) >= max_total:
+            break
         print(f"  Crawling: {site_url}")
         try:
             headers = {"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}
@@ -134,13 +145,18 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
                 print(f"    HTTP {r.status_code}", file=sys.stderr)
                 continue
             found = 0
-            for m in re.finditer(r'href="(https?://[^"]+)"', r.text):
+            for m in re.finditer(r'href=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
                 u = m.group(1)
                 skip = any(s in u.lower() for s in ["javascript:", "mailto:", "twitter.com", "facebook.com", "discord", "patreon", "paypal"])
-                if not skip and u.startswith("http") and len(all_urls) < limit * len(sites):
+                if not skip and u.startswith("http") and len(all_urls) < max_total:
                     all_urls.append(u)
                     found += 1
-            print(f"    Found {found} links")
+            for m in re.finditer(r'src=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
+                u = m.group(1)
+                if u.startswith("http") and len(all_urls) < max_total:
+                    all_urls.append(u)
+                    found += 1
+            print(f"    Found {found} links (HTTP {r.status_code})")
         except Exception as e:
             print(f"    Failed: {e}", file=sys.stderr)
     return all_urls
@@ -185,22 +201,29 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
     base_url = _searxng_url()
     if not base_url:
         return []
-    try:
-        url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1, "language": "all"})
-        r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
-        r.raise_for_status()
-        data = r.json()
-        urls = []
-        for item in data.get("results", [])[:limit]:
-            u = item.get("url", "")
-            if u:
-                urls.append(u)
-        if not urls:
-            print(f"  [warn] SearXNG returned 0 results for '{query}'", file=sys.stderr)
-        return urls
-    except Exception as e:
-        print(f"  [warn] SearXNG failed for '{query}': {e}", file=sys.stderr)
-        return []
+    all_urls: List[str] = []
+    max_pages = 3
+    for page in range(1, max_pages + 1):
+        if len(all_urls) >= limit:
+            break
+        try:
+            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": "all"})
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
+            r.raise_for_status()
+            data = r.json()
+            results = data.get("results", [])
+            if not results:
+                break
+            for item in results:
+                u = item.get("url", "")
+                if u and len(all_urls) < limit:
+                    all_urls.append(u)
+        except Exception as e:
+            print(f"  [warn] SearXNG page {page} failed for '{query}': {e}", file=sys.stderr)
+            break
+    if not all_urls:
+        print(f"  [warn] SearXNG returned 0 results for '{query}'", file=sys.stderr)
+    return all_urls
 
 
 def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
