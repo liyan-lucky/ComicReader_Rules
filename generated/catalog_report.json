@@ -1,21 +1,21 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-08T05:55:36Z",
+  "updatedAt": "2026-07-08T06:45:12Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 3257,
+  "itemCount": 3262,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 5005,
-  "indexRecordCount": 352,
-  "reportRecordCount": 387,
+  "sourceRecordCount": 5007,
+  "indexRecordCount": 366,
+  "reportRecordCount": 375,
   "discoveryRecordCount": 1266,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 243,
+  "uncategorizedCount": 249,
   "uncategorizedSamples": [
     "/*! jQuery v1.8.3 jquery.com | jquery.org/licens - static.mangahere.cc 远程公开源",
     "1128",
@@ -25,28 +25,28 @@
     "17965",
     "19300",
     "19785",
+    "20562",
     "20568",
     "23394",
     "25946",
     "2863",
-    "34523",
     "37130",
     "38611",
     "38991",
     "41296",
-    "41937",
+    "41751",
     "45387",
     "4685",
+    "48329",
     "49267",
     "50340",
     "5035",
     "51450",
-    "51660",
     "52174",
     "52823",
+    "53902",
     "55137",
-    "56178",
-    "58210"
+    "56178"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
@@ -197,12 +197,12 @@
     "errors": [
       {
         "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%AD%A6%E7%94%9F&post_type=wp-manga",
-        "error": "HTTP Error 520: <none>"
+        "url": "https://manhuaplus.com/?s=%E6%88%98%E6%96%97&post_type=wp-manga",
+        "error": "HTTP Error 500: Internal Server Error"
       },
       {
         "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%9C%BA%E7%94%B2&post_type=wp-manga",
+        "url": "https://manhuaplus.com/?s=%E6%8E%A2%E9%99%A9&post_type=wp-manga",
         "error": "HTTP Error 520: <none>"
       }
     ],
@@ -227,54 +227,54 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 1445,
-    "detailPagesFailed": 72,
-    "metadataHits": 1425,
+    "detailPagesFetched": 1418,
+    "detailPagesFailed": 92,
+    "metadataHits": 1399,
     "metadataLimit": 3000,
-    "categorySearchFallbackAssigned": 372,
+    "categorySearchFallbackAssigned": 418,
     "categoryCountsAfterFallback": {
-      "dongzuo": 388,
-      "dushi": 44,
-      "juqing": 36,
-      "kehuan": 46,
-      "kongbu": 40,
-      "lianai": 126,
-      "lishi_gufeng": 48,
-      "maoxian": 88,
-      "qihuan": 90,
-      "richang": 43,
-      "wuxia_gedou": 40,
-      "xiaoyuan": 46,
-      "xiju": 76,
-      "xiuxian": 23,
-      "xuanyi": 35
+      "dongzuo": 373,
+      "dushi": 54,
+      "juqing": 37,
+      "kehuan": 47,
+      "kongbu": 44,
+      "lianai": 120,
+      "lishi_gufeng": 55,
+      "maoxian": 85,
+      "qihuan": 88,
+      "richang": 50,
+      "wuxia_gedou": 46,
+      "xiaoyuan": 49,
+      "xiju": 78,
+      "xiuxian": 33,
+      "xuanyi": 44
     }
   },
   "tags": [
     {
       "id": "xuanhuan",
       "name": "玄幻",
-      "count": 13
+      "count": 14
     },
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 77
+      "count": 82
     },
     {
       "id": "chongsheng",
       "name": "重生",
-      "count": 104
+      "count": 109
     },
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 256
+      "count": 255
     },
     {
       "id": "xitong",
       "name": "系统",
-      "count": 55
+      "count": 60
     },
     {
       "id": "fuchou",
@@ -284,32 +284,32 @@
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 23
+      "count": 21
     },
     {
       "id": "hougong",
       "name": "后宫",
-      "count": 259
+      "count": 262
     },
     {
       "id": "danmei",
       "name": "耽美",
-      "count": 292
+      "count": 291
     },
     {
       "id": "baihe",
       "name": "百合",
-      "count": 203
+      "count": 205
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 325
+      "count": 333
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 313
+      "count": 322
     }
   ],
   "targetBoost": {
@@ -317,123 +317,135 @@
     "targetCount": 200,
     "minimumVisibleTarget": 200,
     "searchRules": 6,
-    "searchPagesFetched": 1140,
-    "searchPagesFailed": 22,
-    "newItems": 1740,
-    "existingItemsTouched": 15844,
-    "reassignedFromOverflow": 19,
+    "searchPagesFetched": 1121,
+    "searchPagesFailed": 25,
+    "newItems": 1752,
+    "existingItemsTouched": 15648,
+    "reassignedFromOverflow": 32,
     "errors": [
       {
-        "category": "xuanyi",
-        "keyword": "case",
+        "category": "juqing",
+        "keyword": "家庭",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
         "category": "kongbu",
-        "keyword": "鬼",
+        "keyword": "thriller",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "kongbu",
-        "keyword": "ghost",
+        "category": "kehuan",
+        "keyword": "末世",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "kehuan",
+        "keyword": "mecha",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 500: Internal Server Error"
       },
       {
-        "category": "richang",
-        "keyword": "生活",
-        "ruleId": "mangafire_public_search",
-        "error": "HTTP Error 521: <none>"
-      },
-      {
-        "category": "richang",
-        "keyword": "iyashikei",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "richang",
-        "keyword": "leisurely",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "richang",
-        "keyword": "family life",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "richang",
-        "keyword": "pet",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "dushi",
-        "keyword": "职场",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "dushi",
-        "keyword": "神医",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 500: Internal Server Error"
-      },
-      {
-        "category": "xiaoyuan",
-        "keyword": "老师",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiaoyuan",
-        "keyword": "同桌",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiaoyuan",
-        "keyword": "school",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiaoyuan",
-        "keyword": "campus",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 500: Internal Server Error"
-      },
-      {
-        "category": "xiaoyuan",
-        "keyword": "college",
+        "category": "wuxia_gedou",
+        "keyword": "武术",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
         "category": "wuxia_gedou",
-        "keyword": "kung fu",
+        "keyword": "martial arts",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "kehuan",
-        "keyword": "cyberpunk",
+        "category": "wuxia_gedou",
+        "keyword": "wuxia",
         "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 500: Internal Server Error"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "kehuan",
-        "keyword": "future",
+        "category": "dushi",
+        "keyword": "都市",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dushi",
+        "keyword": "company",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dushi",
+        "keyword": "doctor",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dushi",
+        "keyword": "bodyguard",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
         "category": "lishi_gufeng",
-        "keyword": "历史",
+        "keyword": "王妃",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "lishi_gufeng",
+        "keyword": "period",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiju",
+        "keyword": "humor",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiju",
+        "keyword": "romantic comedy",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "xiju",
+        "keyword": "absurd",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiju",
+        "keyword": "joke",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "xiju",
+        "keyword": "comic relief",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "xiju",
+        "keyword": "family comedy",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      },
+      {
+        "category": "maoxian",
+        "keyword": "探险",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "maoxian",
+        "keyword": "地下城",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
@@ -441,44 +453,50 @@
         "category": "maoxian",
         "keyword": "quest",
         "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 500: Internal Server Error"
+        "error": "HTTP Error 520: <none>"
       },
       {
         "category": "maoxian",
-        "keyword": "tower",
+        "keyword": "journey",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "qihuan",
-        "keyword": "wizard",
+        "category": "maoxian",
+        "keyword": "expedition",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "lianai",
+        "keyword": "爱情",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       }
     ],
     "countsBefore": {
-      "dongzuo": 388,
-      "dushi": 44,
-      "juqing": 36,
-      "kehuan": 46,
-      "kongbu": 40,
-      "lianai": 126,
-      "lishi_gufeng": 48,
-      "maoxian": 88,
-      "qihuan": 90,
-      "richang": 43,
-      "weifenlei": 348,
-      "wuxia_gedou": 40,
-      "xiaoyuan": 46,
-      "xiju": 76,
-      "xiuxian": 23,
-      "xuanyi": 35
+      "dongzuo": 373,
+      "dushi": 54,
+      "juqing": 37,
+      "kehuan": 47,
+      "kongbu": 44,
+      "lianai": 120,
+      "lishi_gufeng": 55,
+      "maoxian": 85,
+      "qihuan": 88,
+      "richang": 50,
+      "weifenlei": 307,
+      "wuxia_gedou": 46,
+      "xiaoyuan": 49,
+      "xiju": 78,
+      "xiuxian": 33,
+      "xuanyi": 44
     },
-    "reassignedFromUncategorized": 65,
+    "reassignedFromUncategorized": 58,
     "countsAfter": {
-      "dongzuo": 344,
+      "dongzuo": 341,
       "dushi": 200,
-      "juqing": 111,
+      "juqing": 107,
       "kehuan": 200,
       "kongbu": 200,
       "lianai": 200,
@@ -486,8 +504,8 @@
       "maoxian": 200,
       "qihuan": 200,
       "richang": 200,
-      "weifenlei": 243,
-      "wuxia_gedou": 183,
+      "weifenlei": 249,
+      "wuxia_gedou": 189,
       "xiaoyuan": 200,
       "xiju": 176,
       "xiuxian": 200,
@@ -495,13 +513,13 @@
     },
     "categoriesAtOrAboveTarget": 12,
     "categoriesAtOrAboveVisibleTarget": 12,
-    "remainingTotalGap": 130
+    "remainingTotalGap": 128
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 344
+      "count": 341
     },
     {
       "id": "maoxian",
@@ -521,7 +539,7 @@
     {
       "id": "juqing",
       "name": "剧情",
-      "count": 111
+      "count": 107
     },
     {
       "id": "qihuan",
@@ -541,7 +559,7 @@
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 183
+      "count": 189
     },
     {
       "id": "kehuan",
@@ -576,7 +594,7 @@
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 243
+      "count": 249
     }
   ]
 }
