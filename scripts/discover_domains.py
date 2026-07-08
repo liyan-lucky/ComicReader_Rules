@@ -35,83 +35,28 @@ except Exception:
 
 DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
-AGGREGATOR_SITES: Dict[str, List[str]] = {
-    "zh-Hans": [
-        "https://www.manhuagui.com/list/",
-        "https://www.kaixinman.com/category",
-        "https://manhuaplus.com/manga/",
-        "https://manhuaplus.top/manga/",
-        "https://www.manhuadb.com/manhua-list",
-        "https://www.manhuacat.com/category",
-        "https://manhuafast.com/manga/",
-        "https://manhuaus.com/manga/",
-        "https://www.happymh.com/category",
-        "https://readmanhua.net/manga/",
-        "https://topmanhua.com/manga/",
-        "https://manhuascan.io/manga/",
-        "https://www.pufei8.com/manhua-list/",
-        "https://www.wuxiaworld.co/",
-        "https://www.mangabz.com/manga-list",
-        "https://www.gufengmh.com/manhua/",
-        "https://www.36mh.com/manga-list/",
-        "https://www.1kkk.com/manhua-list/",
-        "https://www.tohomh.com/wap/list/",
-        "https://www.kuaikanmanhua.com/web/topic/",
-        "https://ac.qq.com/Comic/all",
-        "https://www.bilibili.com/anime/",
-    ],
-    "zh-Hant": [
-        "https://comick.io/list?sort=update&lang=zh-hant",
-        "https://mangadex.org/titles?lang=zh-hant",
-        "https://bato.to/browse?lang=zh_tw",
-        "https://mangapark.net/browse?lang=zh-hant",
-        "https://mangafire.to/filter?lang=zh-hant",
-        "https://manhuaplus.com/manga/",
-    ],
-    "en": [
-        "https://mangahere.cc/mangalist/",
-        "https://mangahub.io/browse",
-        "https://asuracomic.net/comics",
-        "https://mangatown.com/manga/",
-        "https://comick.io/list?sort=update&lang=en",
-        "https://mangadex.org/titles?lang=en",
-        "https://bato.to/browse",
-        "https://mangapark.net/browse",
-        "https://mangafire.to/filter",
-        "https://mangabuddy.com/genre/",
-        "https://mangasee123.com/manga-list/",
-        "https://mangalife.us/directory/",
-        "https://mangakakalot.com/manga_list/",
-        "https://manganato.com/manga-list/",
-        "https://readm.org/manga-list",
-        "https://mangareader.tv/manga-list",
-        "https://mangaclash.com/manga/",
-        "https://mangakomi.io/manga/",
-        "https://manhuascan.io/manga/",
-        "https://mangaus.com/manga/",
-        "https://manganelo.com/manga/",
-        "https://mangabat.com/manga/",
-        "https://mangairo.com/manga/",
-        "https://toonily.com/manga/",
-        "https://webtoon.xyz/manga/",
-        "https://manhwascan.net/manga/",
-        "https://flamescans.org/manga/",
-        "https://luminousscans.com/manga/",
-        "https://mangatx.com/manga/",
-        "https://mangaeffect.com/manga/",
-        "https://readkomik.com/manga/",
-        "https://kunmanga.com/manga/",
-        "https://mangasthrill.com/manga/",
-        "https://chapmanganato.to/manga-list/",
-        "https://comicextra.com/comic-list",
-        "https://readcomicsonline.ru/comic-list",
-        "https://soullandmanga.com/",
-        "https://mangaread.org/manga/",
-        "https://mangadna.com/manga/",
-        "https://webtoons.com/en/dailySchedule",
-        "https://tapas.io/comics",
-    ],
-}
+def _load_config(name: str, default: Any = None) -> Any:
+    p = ROOT / "config" / name
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return default
+
+_HEADERS_CFG = _load_config("headers.json", {})
+DEFAULT_UA = _HEADERS_CFG.get("default_ua", DEFAULT_UA)
+_ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
+
+AGGREGATOR_SITES: Dict[str, List[str]] = _load_config("aggregator_sites.json", {})
+
+_CRAWL_SKIP = _load_config("crawl_skip_keywords.json", {})
+_CRAWL_SKIP_KW = _CRAWL_SKIP.get("crawl_skip_keywords", ["javascript:", "mailto:", "twitter.com", "facebook.com", "discord", "patreon", "paypal"])
+_DDG_SKIP_KW = _CRAWL_SKIP.get("ddg_skip_keywords", ["duckduckgo", "ddg", "javascript:", "mailto:"])
+
+_SEARCH_CFG = _load_config("search_endpoints.json", {}).get("searxng", {})
+_SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 3)
+_SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
 def load_queries(language: str) -> List[str]:
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
     if queries_path.exists():
@@ -136,7 +81,7 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
             break
         print(f"  Crawling: {site_url}")
         try:
-            headers = {"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}
+            headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
             if _SCRAPER is not None:
                 r = _SCRAPER.get(site_url, headers=headers, timeout=20, allow_redirects=True)
             else:
@@ -147,7 +92,7 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
             found = 0
             for m in re.finditer(r'href=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
                 u = m.group(1)
-                skip = any(s in u.lower() for s in ["javascript:", "mailto:", "twitter.com", "facebook.com", "discord", "patreon", "paypal"])
+                skip = any(s in u.lower() for s in _CRAWL_SKIP_KW)
                 if not skip and u.startswith("http") and len(all_urls) < max_total:
                     all_urls.append(u)
                     found += 1
@@ -162,58 +107,8 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
     return all_urls
 
 
-BLOCKED_DOMAIN_KEYWORDS = [
-    "google", "bing", "yahoo", "baidu", "sogou", "duckduckgo", "yandex", "searx",
-    "youtube", "tiktok", "douyin", "bilibili", "weibo", "twitter", "facebook",
-    "instagram", "reddit", "pinterest", "tumblr", "snapchat", "whatsapp",
-    "telegram", "discord", "slack", "linkedin", "github", "gitlab",
-    "amazon", "ebay", "taobao", "jd.com", "pinduoduo", "aliexpress",
-    "wikipedia", "zhihu", "quora", "stackoverflow", "stackexchange",
-    "apple", "microsoft", "samsung", "huawei", "xiaomi",
-    "netflix", "hulu", "disney", "crunchyroll", "funimation",
-    "spotify", "soundcloud", "deezer",
-    "porn", "xxx", "adult", "hentai", "doujin",
-    "gov", "edu", "mil",
-    "cloudflare", "wordpress.com", "blogspot", "medium",
-    "play.google", "apps.apple", "microsoft.com/store",
-    "patreon", "ko-fi", "buymeacoffee", "paypal",
-    "fandom", "wikia",
-    "outlook.com", "office.com", "live.com", "signup.live",
-    "x.com", "xbox.com",
-    "10086.cn", "sina.cn", "sohu.com", "163.com", "qq.com",
-    "iqiyi.com", "youku.com", "tudou.com",
-    "etsy.com", "jared.com", "amazonaws.com",
-    "goodreads.com", "librarything.com",
-    "nypl.org", "britishmuseum.org", "vam.ac.uk",
-    "substack.com",
-    "gmpg.org", "browsehappy.com", "skenzo.com",
-    "reverso.net", "yourdictionary.com",
-    "hsdlb.com", "cdn-go.cn", "cdndm5.com",
-    "guancha.cn", "huxiu.com", "bjnews.com.cn", "cyzone.cn",
-    "17173.com", "jiemian.com", "news.cn",
-    "line.me", "zendesk.com",
-    "mcdonalds", "sothebys", "luxurytravelmagazine",
-    "greenlakejewelry", "gardeniajewel", "kellyrosie",
-    "tracyminifigs", "thecaratcut", "laceanddagger",
-    "rachelsandell", "thebookwyrmsden",
-    "clip-studio.com", "shirakawa.lg.jp",
-    "ldplayer.net", "uptodown.com",
-    "qurrex.com", "cytekbio.com",
-    "pishu.com.cn", "hanspub.org",
-    "friday.tw", "myvideo.net.tw",
-    "eslite.com", "books.com.tw",
-    "pixiv.net", "anilist.co",
-    "shueisha.co.jp", "kodansha.co.jp",
-    "viz.com", "shonenjump.com",
-    "marvel.com", "dc.com",
-    "peanuts.com", "xkcd.com",
-    "phdcomics.com", "theoatmeal.com",
-    "comic-con.org", "comic-relief",
-    "webtoon.zendesk", "about.webtoon",
-    "hoyoverse.com", "genshin",
-    "tongji.", "aegis.cdn",
-    "platform.pubadx",
-]
+_BLOCKED_CFG = _load_config("blocked_domains.json", {})
+BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("discover_domains", [])
 
 
 def _searxng_url() -> str:
@@ -237,12 +132,12 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
     if not base_url:
         return []
     all_urls: List[str] = []
-    max_pages = 3
+    max_pages = _SEARXNG_MAX_PAGES
     for page in range(1, max_pages + 1):
         if len(all_urls) >= limit:
             break
         try:
-            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": "all"})
+            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": _SEARXNG_LANGUAGE})
             r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
             r.raise_for_status()
             data = r.json()
@@ -275,7 +170,7 @@ def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
         urls = []
         for m in re.finditer(r'href="(https?://[^"]+)"', r.text):
             u = m.group(1)
-            if any(skip in u.lower() for skip in ["duckduckgo", "ddg", "javascript:", "mailto:"]):
+            if any(skip in u.lower() for skip in _DDG_SKIP_KW):
                 continue
             if u.startswith("http") and len(urls) < limit:
                 urls.append(u)

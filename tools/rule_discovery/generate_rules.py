@@ -43,6 +43,21 @@ except Exception:
 
 DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
+def _load_config(name: str, default: Any = None) -> Any:
+    p = Path(__file__).resolve().parents[2] / "config" / name
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return default
+
+_HEADERS_CFG = _load_config("headers.json", {})
+DEFAULT_UA = _HEADERS_CFG.get("default_ua", DEFAULT_UA)
+_ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
+_ACCEPT_HTML = _HEADERS_CFG.get("accept_html", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+_RULE_BOT_UA = _HEADERS_CFG.get("rule_bot_ua", "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot")
+
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
@@ -57,185 +72,15 @@ PAY_LOGIN_TEXT_RE = re.compile(r"(登录后|请登录|注册|充值|VIP|付费|�
 EXCLUDE_URL_RE = re.compile(r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)", re.I)
 EXCLUDE_IMAGE_RE = re.compile(r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)", re.I)
 
-BLOCKED_DOMAIN_KEYWORDS = [
+_BLOCKED_CFG = _load_config("blocked_domains.json", {})
+BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("generate_rules", [
     "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
     "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
     "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
     "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com",
-]
+])
 
-KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = {
-    "kaixinman.com": [
-        "https://www.kaixinman.com/",
-        "https://www.kaixinman.com/update",
-        "https://www.kaixinman.com/category",
-        "https://www.kaixinman.com/category/1",
-        "https://www.kaixinman.com/category/2",
-        "https://www.kaixinman.com/category/3",
-        "https://www.kaixinman.com/category/4",
-        "https://www.kaixinman.com/category/5",
-        "https://www.kaixinman.com/category/6",
-        "https://www.kaixinman.com/category/7",
-        "https://www.kaixinman.com/category/8",
-    ],
-    "mgeko.cc": [
-        "https://www.mgeko.cc/",
-        "https://www.mgeko.cc/manga",
-        "https://www.mgeko.cc/latest",
-        "https://www.mgeko.cc/category/action",
-        "https://www.mgeko.cc/category/adventure",
-        "https://www.mgeko.cc/category/comedy",
-        "https://www.mgeko.cc/category/drama",
-        "https://www.mgeko.cc/category/fantasy",
-        "https://www.mgeko.cc/category/romance",
-    ],
-    "comick.io": [
-        "https://comick.io/",
-        "https://comick.io/home",
-        "https://comick.io/search",
-        "https://comick.io/list?sort=update",
-        "https://comick.io/list?sort=popular",
-        "https://comick.io/list?sort=create",
-        "https://comick.io/genre/Action",
-        "https://comick.io/genre/Adventure",
-        "https://comick.io/genre/Comedy",
-        "https://comick.io/genre/Drama",
-        "https://comick.io/genre/Fantasy",
-        "https://comick.io/genre/Romance",
-    ],
-    "manhuaus.com": [
-        "https://manhuaus.com/",
-        "https://manhuaus.com/manga/",
-        "https://manhuaus.com/latest/",
-    ],
-    "happymh.com": [
-        "https://www.happymh.com/",
-        "https://www.happymh.com/update",
-        "https://www.happymh.com/category",
-    ],
-    "chapmanganato.to": [
-        "https://chapmanganato.to/",
-        "https://chapmanganato.to/manga-list/",
-        "https://chapmanganato.to/latest/",
-    ],
-    "mangabuddy.com": [
-        "https://mangabuddy.com/",
-        "https://mangabuddy.com/latest",
-        "https://mangabuddy.com/genre/",
-    ],
-    "mangapark.net": [
-        "https://mangapark.net/",
-        "https://mangapark.net/latest",
-        "https://mangapark.net/genre/",
-    ],
-    "mangadex.org": [
-        "https://mangadex.org/",
-        "https://mangadex.org/titles/latest",
-        "https://mangadex.org/titles/popular",
-    ],
-    "mangahere.cc": [
-        "https://www.mangahere.cc/",
-        "https://www.mangahere.cc/latest/",
-        "https://www.mangahere.cc/mangalist/",
-    ],
-    "mangase123.com": [
-        "https://mangase123.com/",
-        "https://mangase123.com/manga-list/",
-        "https://mangase123.com/latest/",
-    ],
-    "readm.org": [
-        "https://readm.org/",
-        "https://readm.org/latest-releases",
-        "https://readm.org/manga-list",
-    ],
-    "mangakakalot.com": [
-        "https://mangakakalot.com/",
-        "https://mangakakalot.com/manga_list/",
-        "https://mangakakalot.com/latest/",
-    ],
-    "manganato.com": [
-        "https://manganato.com/",
-        "https://manganato.com/manga-list/",
-        "https://manganato.com/latest/",
-    ],
-    "bato.to": [
-        "https://bato.to/",
-        "https://bato.to/browse",
-        "https://bato.to/latest",
-    ],
-    "mangafire.to": [
-        "https://mangafire.to/",
-        "https://mangafire.to/filter",
-        "https://mangafire.to/updated",
-        "https://mangafire.to/newest",
-    ],
-    "soullandmanga.com": [
-        "https://soullandmanga.com/",
-        "https://www.soullandmanga.com/",
-    ],
-    "asuracomic.net": [
-        "https://asuracomic.net/",
-        "https://asuracomic.net/comics",
-        "https://asuracomic.net/latest",
-    ],
-    "asuratoon.com": [
-        "https://asuratoon.com/",
-        "https://asuratoon.com/comics",
-        "https://asuratoon.com/latest",
-    ],
-    "mangaread.org": [
-        "https://mangaread.org/",
-        "https://mangaread.org/manga/",
-        "https://mangaread.org/latest/",
-    ],
-    "mangadna.com": [
-        "https://mangadna.com/",
-        "https://mangadna.com/manga/",
-        "https://mangadna.com/latest/",
-    ],
-    "webtoons.com": [
-        "https://www.webtoons.com/en/",
-        "https://www.webtoons.com/en/dailySchedule",
-        "https://www.webtoons.com/en/originals",
-        "https://www.webtoons.com/en/canvas",
-    ],
-    "tapas.io": [
-        "https://tapas.io/",
-        "https://tapas.io/comics",
-        "https://tapas.io/novels",
-        "https://tapas.io/new",
-    ],
-    "manhuagui.com": [
-        "https://www.manhuagui.com/",
-        "https://www.manhuagui.com/list/",
-        "https://www.manhuagui.com/update/",
-    ],
-    "manhuadb.com": [
-        "https://www.manhuadb.com/",
-        "https://www.manhuadb.com/manhua-list",
-        "https://www.manhuadb.com/update",
-    ],
-    "pufei8.com": [
-        "https://www.pufei8.com/",
-        "https://www.pufei8.com/manhua-list/",
-        "https://www.pufei8.com/update/",
-    ],
-    "manhuacat.com": [
-        "https://www.manhuacat.com/",
-        "https://www.manhuacat.com/update",
-        "https://www.manhuacat.com/category",
-    ],
-    "comicextra.com": [
-        "https://www.comicextra.com/",
-        "https://www.comicextra.com/comic-list",
-        "https://www.comicextra.com/popular-comic",
-    ],
-    "readcomicsonline.ru": [
-        "https://readcomicsonline.ru/",
-        "https://readcomicsonline.ru/comic-list",
-        "https://readcomicsonline.ru/popular-comic",
-    ],
-}
+KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
 
 
 @dataclasses.dataclass
@@ -458,7 +303,7 @@ def search_searxng(query: str, limit: int) -> List[Candidate]:
         return []
     all_out: List[Candidate] = []
     seen_urls: set = set()
-    max_pages = 3
+    max_pages = _load_config("search_endpoints.json", {}).get("searxng", {}).get("max_pages", 3)
     for page in range(1, max_pages + 1):
         if len(all_out) >= limit:
             break

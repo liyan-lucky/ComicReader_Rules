@@ -1,0 +1,26 @@
+{
+  "searxng": {
+    "default_url": "http://localhost:8080",
+    "max_pages": 3,
+    "language": "all",
+    "timeout": 20
+  },
+  "duckduckgo": {
+    "html_url": "https://html.duckduckgo.com/html/",
+    "timeout": 20
+  },
+  "brave": {
+    "api_url": "https://api.search.brave.com/res/v1/web/search",
+    "timeout": 15
+  },
+  "serper": {
+    "api_url": "https://google.serper.dev/search",
+    "gl": "cn",
+    "hl": "zh-cn",
+    "timeout": 15
+  },
+  "google_cse": {
+    "api_url": "https://www.googleapis.com/customsearch/v1",
+    "timeout": 15
+  }
+}

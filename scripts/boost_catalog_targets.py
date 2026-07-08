@@ -29,7 +29,18 @@ from typing import Any, Dict, Iterable, List, Sequence, Tuple
 from urllib.parse import quote_plus, urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-USER_AGENT = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalogTargetBoost/1.0"
+
+def _load_config(name: str, default: Any = None) -> Any:
+    p = ROOT / "config" / name
+    if p.exists():
+        try:
+            return json.loads(p.read_text("utf-8"))
+        except Exception:
+            pass
+    return default
+
+_HEADERS_CFG = _load_config("headers.json", {})
+USER_AGENT = _HEADERS_CFG.get("boost_ua", "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderCatalogTargetBoost/1.0")
 TARGET_COUNT = int(os.environ.get("CATALOG_TARGET_COUNT", "220"))
 MIN_VISIBLE_TARGET = int(os.environ.get("CATALOG_MIN_TARGET_COUNT", "200"))
 MAX_RESULTS_PER_KEYWORD = int(os.environ.get("CATALOG_BOOST_RESULTS_PER_KEYWORD", "200"))
@@ -38,69 +49,22 @@ REQUEST_TIMEOUT = int(os.environ.get("CATALOG_BOOST_TIMEOUT", "15"))
 MAX_CONSECUTIVE_NO_NEW = int(os.environ.get("CATALOG_MAX_CONSECUTIVE_NO_NEW", "10"))
 REQUEST_SLEEP_SECONDS = float(os.environ.get("CATALOG_BOOST_SLEEP", "0.15"))
 
-CATEGORY_RULES: List[Dict[str, Any]] = [
-    {"id": "dongzuo", "name": "动作"},
-    {"id": "maoxian", "name": "冒险"},
-    {"id": "lianai", "name": "恋爱"},
-    {"id": "xiju", "name": "喜剧"},
-    {"id": "juqing", "name": "剧情"},
-    {"id": "qihuan", "name": "奇幻"},
-    {"id": "xiaoyuan", "name": "校园"},
-    {"id": "richang", "name": "日常"},
-    {"id": "wuxia_gedou", "name": "武侠/格斗"},
-    {"id": "kehuan", "name": "科幻"},
-    {"id": "kongbu", "name": "恐怖"},
-    {"id": "xuanyi", "name": "悬疑"},
-    {"id": "lishi_gufeng", "name": "历史/古风"},
-    {"id": "dushi", "name": "都市"},
-    {"id": "xiuxian", "name": "修仙"},
-    {"id": "weifenlei", "name": "未分类"},
-]
+_CAT_CFG = _load_config("catalog_categories.json", {})
+CATEGORY_RULES: List[Dict[str, Any]] = _CAT_CFG.get("categories", [])
 CATEGORY_IDS = {item["id"] for item in CATEGORY_RULES}
 TARGET_CATEGORY_IDS = [item["id"] for item in CATEGORY_RULES if item["id"] != "weifenlei"]
-BROAD_OVERFLOW_CATEGORIES = {"dongzuo", "qihuan", "juqing", "wuxia_gedou"}
+BROAD_OVERFLOW_CATEGORIES = set(_CAT_CFG.get("broad_overflow_categories", ["dongzuo", "qihuan", "juqing", "wuxia_gedou"]))
 
-TAG_RULES: List[Dict[str, Any]] = [
-    {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "xuanhuan", "eastern fantasy"]},
-    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "transmigration", "transmigrated", "time travel"]},
-    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "reincarnation", "reincarnated"]},
-    {"id": "yishijie", "name": "异世界", "keywords": ["异世界", "isekai", "another world", "other world"]},
-    {"id": "xitong", "name": "系统", "keywords": ["系统", "system", "leveling", "level up", "game system"]},
-    {"id": "fuchou", "name": "复仇", "keywords": ["复仇", "revenge", "vengeance", "avenger"]},
-    {"id": "shuangwen", "name": "爽文", "keywords": ["爽文", "overpowered", "op mc", "cheat skill", "strongest", "invincible"]},
-    {"id": "hougong", "name": "后宫", "keywords": ["后宫", "harem"]},
-    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love", "yaoi"]},
-    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
-    {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
-    {"id": "shaonv", "name": "少女", "keywords": ["少女", "shojo", "shoujo"]},
-]
+_TAG_CFG = _load_config("catalog_tags.json", {})
+TAG_RULES: List[Dict[str, Any]] = _TAG_CFG.get("tags", [])
+TAG_TO_CATEGORY_MAP = _TAG_CFG.get("tag_to_category_map", {})
 
-CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = {
-    "dongzuo": ["动作", "战斗", "热血", "格斗", "battle", "fight", "action", "hero", "hunter", "ranker", "warrior", "killer", "assassin", "martial", "strongest", "vigilante", "revenge battle", "superhero", "demon king", "sword battle", "monster fight"],
-    "maoxian": ["冒险", "探险", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "exploration", "expedition", "fantasy adventure", "tower", "raid", "party", "guild", "labyrinth", "treasure", "survival", "monster", "isekai adventure", "game world"],
-    "lianai": ["恋爱", "爱情", "甜宠", "婚约", "新娘", "love", "romance", "romantic", "marriage", "wife", "husband", "bride", "boyfriend", "girlfriend", "dating", "couple", "lover", "fiance", "contract marriage", "office romance", "school romance", "villainess romance"],
-    "xiju": ["搞笑", "喜剧", "沙雕", "爆笑", "comedy", "funny", "gag", "parody", "humor", "humour", "daily comedy", "romantic comedy", "school comedy", "absurd", "joke", "comic relief", "slice comedy", "family comedy"],
-    "juqing": ["剧情", "家庭", "人生", "drama", "dramatic", "family", "psychological", "tragedy", "life", "revenge drama", "human drama", "melodrama", "coming of age", "tearjerker", "betrayal", "redemption", "relationship drama", "work drama"],
-    "qihuan": ["奇幻", "魔法", "魔王", "恶魔", "fantasy", "magic", "demon", "dragon", "wizard", "mage", "witch", "elf", "spirit", "summoner", "sorcerer", "beast", "monster", "fairy", "curse", "blessing", "hero party", "fantasy world", "eastern fantasy"],
-    "xiaoyuan": ["校园", "学生", "老师", "校花", "同桌", "school life", "school", "campus", "student", "teacher", "classmate", "academy", "high school", "college", "club", "classroom", "school romance", "school comedy", "senpai", "junior", "transfer student"],
-    "richang": ["日常", "生活", "治愈", "休闲", "slice of life", "daily life", "healing", "iyashikei", "leisurely", "slow life", "cooking", "food", "family life", "pet", "cat", "daily", "ordinary", "work life", "cafe", "farming", "countryside"],
-    "wuxia_gedou": ["武侠", "江湖", "侠客", "武术", "格斗", "kung fu", "martial arts", "hand to hand", "wuxia", "murim", "swordmaster", "blade", "fist", "sect", "martial sect", "qi", "jianghu", "warrior clan", "martial master", "dao", "saber"],
-    "kehuan": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien", "future", "ai", "android", "virtual reality", "vr", "galaxy", "spaceship", "post apocalyptic", "time loop"],
-    "kongbu": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "creepy", "supernatural horror", "zombie", "haunted", "curse", "nightmare", "survival horror", "dark", "terror", "demon horror", "urban legend"],
-    "xuanyi": ["悬疑", "推理", "侦探", "谜案", "犯罪", "mystery", "detective", "crime", "case", "investigation", "suspense", "murder", "police", "clue", "secret", "conspiracy", "thriller mystery", "forensic", "criminal", "mind game"],
-    "lishi_gufeng": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "duke", "empress", "dynasty", "kingdom", "imperial", "noble", "court", "regency"],
-    "dushi": ["都市", "职场", "总裁", "老板", "赘婿", "神医", "保镖", "urban", "office", "company", "ceo", "doctor", "bodyguard", "tycoon", "metropolitan", "modern", "business", "manager", "workplace", "rich", "medical", "son in law"],
-    "xiuxian": ["修仙", "修真", "仙侠", "仙尊", "仙帝", "cultivation", "cultivator", "immortal", "martial peak", "daoist", "taoist", "qi refining", "foundation establishment", "nascent soul", "immortal emperor", "sect cultivation", "xianxia", "wuxia cultivation", "alchemy", "spiritual root", "heavenly dao"],
-}
+CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _load_config("catalog_search_keywords.json", {})
 
-BAD_TITLE_WORDS = {
-    "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
-    "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
-    "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history", "browse",
-    "chat", "comic", "comics", "manga", "manhua", "manga updates", "completed", "cookie policy",
-}
-BAD_URL_PARTS = ("/chapter", "/chapters", "/episode", "/episodes", "/read/", "/reader/", "/login", "/register")
-IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
+_FILTER_CFG = _load_config("catalog_filters.json", {})
+BAD_TITLE_WORDS = set(_FILTER_CFG.get("bad_title_words", []))
+BAD_URL_PARTS = tuple(_FILTER_CFG.get("bad_url_parts", []))
+IMAGE_SUFFIXES = tuple(_FILTER_CFG.get("image_suffixes", []))
 
 
 def now_iso() -> str:

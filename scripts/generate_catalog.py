@@ -27,7 +27,19 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 from urllib.parse import quote_plus, urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-USER_AGENT = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
+
+def _load_config(name: str, default: Any = None) -> Any:
+    p = ROOT / "config" / name
+    if p.exists():
+        try:
+            return json.loads(p.read_text("utf-8"))
+        except Exception:
+            pass
+    return default
+
+_HEADERS_CFG = _load_config("headers.json", {})
+USER_AGENT = _HEADERS_CFG.get("default_ua", "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36")
+_ACCEPT_HTML = _HEADERS_CFG.get("accept_html", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 
 CATEGORY_TARGET_COUNT = 200
 MAX_CONSECUTIVE_NO_NEW = 10
@@ -36,77 +48,25 @@ MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY = 30
 DETAIL_METADATA_LIMIT = 3000
 DETAIL_TIMEOUT_SECONDS = 15
 
-CATEGORY_RULES: List[Dict[str, Any]] = [
-    {"id": "dongzuo", "name": "动作", "keywords": ["动作", "战斗", "热血", "竞技", "杀手", "action", "battle", "fight", "fighting", "warrior", "hero", "hunter", "ranker", "vigilante", "killer"]},
-    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "expedition", "exploration"]},
-    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
-    {"id": "xiju", "name": "喜剧", "keywords": ["喜剧", "搞笑", "沙雕", "爆笑", "吐槽", "comedy", "funny", "gag", "humor", "humour", "parody"]},
-    {"id": "juqing", "name": "剧情", "keywords": ["剧情", "drama", "dramatic", "family", "tragedy", "psychological"]},
-    {"id": "qihuan", "name": "奇幻", "keywords": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch"]},
-    {"id": "xiaoyuan", "name": "校园", "keywords": ["校园", "校花", "同桌", "学生", "老师", "班长", "school life", "campus", "classmate"]},
-    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "治愈", "slice of life", "daily life", "leisurely", "healing", "iyashikei"]},
-    {"id": "wuxia_gedou", "name": "武侠/格斗", "keywords": ["武侠", "江湖", "侠客", "格斗", "武术", "剑客", "刀客", "kung fu", "martial arts", "hand to hand"]},
-    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien"]},
-    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "supernatural horror", "creepy"]},
-    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "犯罪", "mystery", "detective", "crime", "case", "investigation", "suspense"]},
-    {"id": "lishi_gufeng", "name": "历史/古风", "keywords": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "duke"]},
-    {"id": "dushi", "name": "都市", "keywords": ["都市", "职场", "总裁", "老板", "经理", "赘婿", "神医", "保镖", "现代", "urban", "office", "company", "ceo", "doctor", "bodyguard", "tycoon", "metropolitan", "modern"]},
-    {"id": "xiuxian", "name": "修仙", "keywords": ["修仙", "凡人修仙", "仙侠", "修真", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "cultivation", "cultivator", "cultivate", "immortal cultivation", "martial peak", "daoist", "taoist"]},
-    {"id": "weifenlei", "name": "未分类", "keywords": []},
-]
+_CAT_CFG = _load_config("catalog_categories.json", {})
+CATEGORY_RULES: List[Dict[str, Any]] = _CAT_CFG.get("categories", [])
 CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
 
-TAG_RULES: List[Dict[str, Any]] = [
-    {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "xuanhuan", "eastern fantasy"]},
-    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "transmigration", "transmigrated", "time travel"]},
-    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "reincarnation", "reincarnated"]},
-    {"id": "yishijie", "name": "异世界", "keywords": ["异世界", "isekai", "another world", "other world"]},
-    {"id": "xitong", "name": "系统", "keywords": ["系统", "system", "leveling", "level up", "game system"]},
-    {"id": "fuchou", "name": "复仇", "keywords": ["复仇", "revenge", "vengeance", "avenger"]},
-    {"id": "shuangwen", "name": "爽文", "keywords": ["爽文", "overpowered", "op mc", "cheat skill", "strongest", "invincible"]},
-    {"id": "hougong", "name": "后宫", "keywords": ["后宫", "harem"]},
-    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love", "yaoi"]},
-    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]},
-    {"id": "shaonian", "name": "少年", "keywords": ["少年", "shonen", "shounen"]},
-    {"id": "shaonv", "name": "少女", "keywords": ["少女", "shojo", "shoujo"]},
-]
+_TAG_CFG = _load_config("catalog_tags.json", {})
+TAG_RULES: List[Dict[str, Any]] = _TAG_CFG.get("tags", [])
 
-TEXT_KEYS = ("title", "name", "comicName", "bookName", "displayName", "keyword")
-URL_KEYS = ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")
-ID_KEYS = ("id", "ruleId", "sourceId")
-SITE_KEYS = ("siteName", "name", "domain", "host")
+_FILTER_CFG = _load_config("catalog_filters.json", {})
+TEXT_KEYS = tuple(_FILTER_CFG.get("text_keys", ("title", "name", "comicName", "bookName", "displayName", "keyword")))
+URL_KEYS = tuple(_FILTER_CFG.get("url_keys", ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")))
+ID_KEYS = tuple(_FILTER_CFG.get("id_keys", ("id", "ruleId", "sourceId")))
+SITE_KEYS = tuple(_FILTER_CFG.get("site_keys", ("siteName", "name", "domain", "host")))
 
-BAD_TITLE_WORDS = {
-    "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册", "search", "genre", "genres",
-    "privacy", "contact", "about", "about us", "dmca", "terms", "chapter", "章节", "下一页", "上一页", "more",
-    "a-z", "application", "applications", "advanced", "adult", "raw", "bookmark", "bookmarks", "history",
-    "browse", "chat", "comic", "comics", "manga", "manhua", "manga updates", "mangafire", "completed", "cookie policy",
-}
-BAD_URL_PARTS = (
-    "/chapter", "/chapters", "/episode", "/episodes", "/read/", "/reader/", "/tag/author", "/author/",
-    "/login", "/register",
-)
-IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg")
+BAD_TITLE_WORDS = set(_FILTER_CFG.get("bad_title_words", []))
+BAD_URL_PARTS = tuple(_FILTER_CFG.get("bad_url_parts", []))
+IMAGE_SUFFIXES = tuple(_FILTER_CFG.get("image_suffixes", []))
+SEED_TITLES = _FILTER_CFG.get("seed_titles", [])
 
-SEED_TITLES = ["斗罗大陆", "Soul Land", "Douluo Dalu", "完美世界", "吞噬星空", "凡人修仙传", "斗破苍穹", "武动乾坤", "一人之下"]
-
-CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = {
-    "dongzuo": ["动作", "战斗", "热血", "竞技", "杀手", "格斗", "拳击", "剑术", "枪战", "战争", "battle", "fight", "action", "hero", "hunter", "ranker", "warrior", "combat", "tournament", "martial", "assassin", "gladiator", "brawl", "duel", "champion", "vanguard", "striker", "berserker"],
-    "maoxian": ["冒险", "探险", "地下城", "秘境", "寻宝", "旅途", "异域", "荒野", "adventure", "dungeon", "quest", "journey", "exploration", "treasure", "expedition", "wilderness", "survival", "ruins", "labyrinth", "frontier", "odyssey", "pilgrimage", "voyage", "explore", "discovery", "uncharted", "quest"],
-    "lianai": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老公", "初恋", "暗恋", "青梅竹马", "契约婚姻", "love", "romance", "romantic", "marriage", "wife", "husband", "fiance", "bride", "dating", "couple", "sweet", "first love", "confession", "heart", "kiss", "wedding", "proposal"],
-    "xiju": ["搞笑", "喜剧", "沙雕", "爆笑", "吐槽", "欢乐", "整蛊", "comedy", "funny", "gag", "parody", "humor", "slapstick", "prank", "joke", "laugh", "hilarious", "witty", "satire", "absurd", "silly", "lighthearted", "cheerful", "amusing"],
-    "juqing": ["剧情", "家庭", "悲剧", "心理", "成长", "命运", "救赎", "背叛", "复仇", "阴谋", "drama", "family", "psychological", "tragedy", "betrayal", "redemption", "fate", "destiny", "conspiracy", "sacrifice", "legacy", "heritage", "struggle", "hardship", "overcome", "resolve"],
-    "qihuan": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "巫师", "咒语", "神器", "异族", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch", "sorcery", "enchant", "mythical", "legend", "fairy", "talisman", "artifact", "summon", "beast"],
-    "xiaoyuan": ["校园", "学生", "老师", "班长", "校花", "社团", "考试", "毕业", "青春", "同桌", "school life", "school", "campus", "student", "teacher", "classroom", "club", "exam", "graduation", "youth", "classmate", "academy", "homework", "prom", "sports festival"],
-    "richang": ["日常", "生活", "治愈", "休闲", "美食", "宠物", "邻里", "温馨", "slice of life", "daily life", "healing", "leisurely", "cozy", "wholesome", "pet", "food", "neighbor", "warm", "gentle", "calm", "peaceful", "comfort", "simple", "relaxing", "quiet"],
-    "wuxia_gedou": ["武侠", "江湖", "侠客", "格斗", "武术", "剑客", "刀客", "拳法", "宗师", "门派", "kung fu", "martial arts", "hand to hand", "sword", "blade", "sect", "master", "disciple", "dojo", "warrior", "monk", "ninja", "samurai", "combat", "arena"],
-    "kehuan": ["科幻", "机甲", "末世", "星际", "机器人", "未来", "克隆", "变异", "虚拟", "时空", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien", "future", "clone", "mutant", "virtual", "time travel", "dystopia", "AI", "android"],
-    "kongbu": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "丧尸", "诅咒", "凶宅", "噩梦", "horror", "thriller", "ghost", "monster", "supernatural", "creepy", "zombie", "curse", "haunted", "nightmare", "demon", "undead", "blood", "gore", "sinister", "dread"],
-    "xuanyi": ["悬疑", "推理", "侦探", "谜案", "犯罪", "密室", "线索", "真相", "诡计", "mystery", "detective", "crime", "case", "investigation", "suspense", "clue", "truth", "trick", "puzzle", "riddle", "whodunit", "evidence", "witness", "alibi", "suspect"],
-    "lishi_gufeng": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "朝代", "战国", "三国", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "dynasty", "medieval", "sengoku", "samurai era", "imperial"],
-    "dushi": ["都市", "总裁", "职场", "老板", "经理", "赘婿", "神医", "保镖", "现代", "商战", "都市修仙", "urban", "ceo", "office", "doctor", "bodyguard", "tycoon", "metropolitan", "modern", "business", "corporate", "boss", "manager", "hospital", "lawyer", "police"],
-    "xiuxian": ["修仙", "修真", "仙侠", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "渡劫", "道友", "灵气", "cultivation", "cultivator", "immortal", "martial peak", "daoist", "taoist", "ascension", "tribulation", "spiritual", "qi", "realm", "breakthrough", "enlightenment"],
-}
+CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _load_config("catalog_search_keywords.json", {})
 
 
 def now_iso() -> str:
