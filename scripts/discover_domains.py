@@ -27,6 +27,12 @@ except ImportError:
     print("requests not installed", file=sys.stderr)
     sys.exit(1)
 
+try:
+    import cloudscraper
+    _SCRAPER = cloudscraper.create_scraper(browser={"browser": "chrome", "platform": "android", "desktop": False})
+except Exception:
+    _SCRAPER = None
+
 DEFAULT_UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
 AGGREGATOR_SITES: Dict[str, List[str]] = {
@@ -119,7 +125,11 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
     for site_url in sites:
         print(f"  Crawling: {site_url}")
         try:
-            r = requests.get(site_url, headers={"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}, timeout=15, allow_redirects=True)
+            headers = {"User-Agent": DEFAULT_UA, "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}
+            if _SCRAPER is not None:
+                r = _SCRAPER.get(site_url, headers=headers, timeout=20, allow_redirects=True)
+            else:
+                r = requests.get(site_url, headers=headers, timeout=20, allow_redirects=True)
             if r.status_code >= 400:
                 print(f"    HTTP {r.status_code}", file=sys.stderr)
                 continue
@@ -196,7 +206,11 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
 def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
     try:
         url = "https://html.duckduckgo.com/html/?" + urlencode({"q": query})
-        r = requests.get(url, headers={"User-Agent": DEFAULT_UA}, timeout=15, allow_redirects=True)
+        headers = {"User-Agent": DEFAULT_UA}
+        if _SCRAPER is not None:
+            r = _SCRAPER.get(url, headers=headers, timeout=20, allow_redirects=True)
+        else:
+            r = requests.get(url, headers=headers, timeout=20, allow_redirects=True)
         if r.status_code >= 400:
             print(f"  [warn] DDG HTTP {r.status_code} for '{query}'", file=sys.stderr)
             return []
