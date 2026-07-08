@@ -45,6 +45,9 @@ jobs:
         image: searxng/searxng:latest
         ports:
           - 8080:8080
+        env:
+          SEARXNG_BASE_URL: http://localhost:8080/
+          SEARXNG_SECRET: random-secret-for-ci
 
     env:
       SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
@@ -73,7 +76,9 @@ jobs:
             echo "使用自建SearXNG: $SEARXNG_URL，跳过本地等待"
             exit 0
           fi
-          echo "等待本地 SearXNG 启动..."
+          docker cp config/searxng/settings.yml $(docker ps -q --filter ancestor=searxng/searxng:latest):/etc/searxng/settings.yml
+          docker restart $(docker ps -q --filter ancestor=searxng/searxng:latest)
+          echo "等待本地 SearXNG 重启..."
           for i in $(seq 1 30); do
             if curl -fs http://localhost:8080 >/dev/null 2>&1; then
               echo "SearXNG 已启动"
