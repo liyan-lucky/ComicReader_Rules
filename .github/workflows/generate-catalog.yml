@@ -23,35 +23,13 @@ on:
         required: false
         default: '0.5'
   schedule:
-    - cron: '30 3 * * *'
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/generate_catalog.py'
-      - 'scripts/boost_catalog_targets.py'
-      - 'scripts/summarize_catalog_report.py'
-      - 'scripts/update_manifest.py'
-      - 'generated/catalog_discovery_sources.json'
-      - 'rules/manual/index.json'
-      - '.github/workflows/generate-catalog.yml'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'scripts/generate_catalog.py'
-      - 'scripts/boost_catalog_targets.py'
-      - 'scripts/summarize_catalog_report.py'
-      - 'scripts/update_manifest.py'
-      - 'generated/catalog_discovery_sources.json'
-      - 'rules/manual/index.json'
-      - '.github/workflows/generate-catalog.yml'
+    - cron: '0 0 * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: comic-reader-catalog-${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
+  group: comic-reader-catalog-main
   cancel-in-progress: false
 
 jobs:
@@ -91,8 +69,9 @@ jobs:
 
       - name: 校验目录 JSON
         run: |
-          python - <<'PY'
-          import json
+          CATALOG_TARGET="${CATALOG_TARGET_COUNT}"
+          python -c "
+          import json, os
           from pathlib import Path
           files = [
               'generated/catalog.json',
@@ -110,9 +89,9 @@ jobs:
           assert catalog.get('compliance', {}).get('noImages') is True
           assert catalog.get('compliance', {}).get('noChapterText') is True
           assert gaps.get('schema') == 'comic_catalog_target_gaps_v1'
-          assert gaps.get('targetCount') == int("${CATALOG_TARGET_COUNT}")
+          assert gaps.get('targetCount') == int(os.environ.get('CATALOG_TARGET', '200'))
           print('目录 JSON 校验通过')
-          PY
+          "
 
       - name: 输出目录分析统计
         run: |
