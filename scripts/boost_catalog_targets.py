@@ -35,6 +35,7 @@ MIN_VISIBLE_TARGET = int(os.environ.get("CATALOG_MIN_TARGET_COUNT", "200"))
 MAX_RESULTS_PER_KEYWORD = int(os.environ.get("CATALOG_BOOST_RESULTS_PER_KEYWORD", "200"))
 MAX_KEYWORDS_PER_CATEGORY = int(os.environ.get("CATALOG_BOOST_KEYWORDS_PER_CATEGORY", "50"))
 REQUEST_TIMEOUT = int(os.environ.get("CATALOG_BOOST_TIMEOUT", "15"))
+MAX_CONSECUTIVE_NO_NEW = int(os.environ.get("CATALOG_MAX_CONSECUTIVE_NO_NEW", "10"))
 REQUEST_SLEEP_SECONDS = float(os.environ.get("CATALOG_BOOST_SLEEP", "0.15"))
 
 CATEGORY_RULES: List[Dict[str, Any]] = [
@@ -457,7 +458,7 @@ def boost_catalog(catalog: Dict[str, Any], report: Dict[str, Any], delta: Dict[s
         for keyword in keywords:
             if counts.get(cid, 0) >= TARGET_COUNT:
                 break
-            if consecutive_no_new >= 10:
+            if consecutive_no_new >= MAX_CONSECUTIVE_NO_NEW:
                 break
             keyword_had_new = False
             for rule in rules:
@@ -582,7 +583,16 @@ def main() -> int:
     parser.add_argument("--delta", default="generated/catalog_delta.json")
     parser.add_argument("--report", default="generated/catalog_report.json")
     parser.add_argument("--gaps-output", default="generated/catalog_target_gaps.json")
+    parser.add_argument("--target", type=int, default=0, help="每个分类目标漫画数（0=使用环境变量或内置默认值）")
+    parser.add_argument("--max-consecutive-no-new", type=int, default=0, help="连续多少轮无新发现后提前退出（0=使用内置默认值10）")
     args = parser.parse_args()
+
+    global TARGET_COUNT, MIN_VISIBLE_TARGET
+    if args.target > 0:
+        TARGET_COUNT = args.target
+        MIN_VISIBLE_TARGET = args.target
+    global MAX_CONSECUTIVE_NO_NEW
+    MAX_CONSECUTIVE_NO_NEW = args.max_consecutive_no_new if args.max_consecutive_no_new > 0 else 10
 
     catalog_path = ROOT / args.catalog
     report_path = ROOT / args.report

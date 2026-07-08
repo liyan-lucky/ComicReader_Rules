@@ -12,9 +12,9 @@ on:
           - quick
           - deep
       max_generated:
-        description: '最多生成规则数上限；1000 只是放宽上限，不保证生成满'
+        description: '最多生成规则数上限（不保证生成满）'
         required: true
-        default: '1000'
+        default: '2000'
         type: choice
         options:
           - '10'
@@ -23,6 +23,18 @@ on:
           - '300'
           - '500'
           - '1000'
+          - '2000'
+      per_domain_generated_limit:
+        description: '每个域名最多保留多少条规则'
+        required: true
+        default: '500'
+        type: choice
+        options:
+          - '50'
+          - '100'
+          - '200'
+          - '300'
+          - '500'
       rule_language:
         description: '规则语种：每次只按一个语种搜索并生成独立文件'
         required: true
@@ -32,34 +44,44 @@ on:
           - zh-Hans
           - zh-Hant
           - en
-      search_result_limit:
-        description: '每个搜索查询最多取多少条结果；留空使用模式默认值'
-        required: false
-        default: ''
-      seed_limit:
-        description: '最多保留多少个种子候选；留空使用模式默认值'
-        required: false
-        default: ''
-      per_seed_limit:
-        description: '每个种子页最多抓取多少个候选；留空使用模式默认值'
-        required: false
-        default: ''
-      max_audit_candidates:
-        description: '最多审计多少个候选；留空使用模式默认值，0=不限制'
-        required: false
-        default: ''
-      per_domain_audit_limit:
-        description: '每个域名最多审计多少个候选；留空使用模式默认值，0=不限制'
-        required: false
-        default: ''
-      per_domain_generated_limit:
-        description: '每个域名最多保留多少条规则；留空使用模式默认值'
-        required: false
-        default: ''
       time_budget_seconds:
-        description: '生成阶段时间预算秒数；留空使用模式默认值'
+        description: '生成阶段时间预算秒数（deep默认19800=5.5h）'
+        required: true
+        default: '19800'
+        type: choice
+        options:
+          - '3600'
+          - '5400'
+          - '7200'
+          - '10800'
+          - '14400'
+          - '19800'
+          - '21600'
+          - '28800'
+      search_result_limit:
+        description: '每个搜索查询最多取多少条结果（quick默认20, deep默认30）'
         required: false
-        default: ''
+        default: '30'
+      seed_limit:
+        description: '最多保留多少个种子候选（quick默认500, deep默认3000）'
+        required: false
+        default: '3000'
+      per_seed_limit:
+        description: '每个种子页最多抓取多少个候选（quick默认100, deep默认400）'
+        required: false
+        default: '400'
+      max_audit_candidates:
+        description: '最多审计多少个候选（0=不限制）'
+        required: false
+        default: '0'
+      per_domain_audit_limit:
+        description: '每个域名最多审计多少个候选（0=不限制）'
+        required: false
+        default: '0'
+      sleep:
+        description: '每次请求间隔秒数（quick默认0.15, deep默认0.4）'
+        required: false
+        default: '0.4'
   schedule:
     - cron: '0 3 * * 1'
 
@@ -89,7 +111,7 @@ jobs:
       SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
       RULES_BRANCH: main
       RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
-      RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '' }}
+      RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
       RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.rule_language || 'zh-Hans' }}
       RULE_SEARCH_RESULT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_result_limit || '' }}
       RULE_SEED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.seed_limit || '' }}
@@ -98,8 +120,9 @@ jobs:
       RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_audit_limit || '' }}
       RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_generated_limit || '' }}
       RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
-      QUICK_MAX_GENERATED: '1000'
-      DEEP_MAX_GENERATED: '1000'
+      RULE_SLEEP_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.sleep || '' }}
+      QUICK_MAX_GENERATED: '2000'
+      DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
       DEEP_LIMIT: '30'
       QUICK_SEED_LIMIT: '500'
@@ -110,8 +133,8 @@ jobs:
       DEEP_MAX_AUDIT_CANDIDATES: '0'
       QUICK_PER_DOMAIN_AUDIT_LIMIT: '0'
       DEEP_PER_DOMAIN_AUDIT_LIMIT: '0'
-      QUICK_PER_DOMAIN_GENERATED_LIMIT: '200'
-      DEEP_PER_DOMAIN_GENERATED_LIMIT: '200'
+      QUICK_PER_DOMAIN_GENERATED_LIMIT: '500'
+      DEEP_PER_DOMAIN_GENERATED_LIMIT: '500'
       QUICK_TIME_BUDGET_SECONDS: '5400'
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.15'
@@ -217,6 +240,9 @@ jobs:
           if [ -n "${RULE_TIME_BUDGET_SECONDS_INPUT:-}" ]; then
             SELECTED_TIME_BUDGET_SECONDS="$RULE_TIME_BUDGET_SECONDS_INPUT"
           fi
+          if [ -n "${RULE_SLEEP_INPUT:-}" ]; then
+            SELECTED_SLEEP="$RULE_SLEEP_INPUT"
+          fi
 
           KEYWORDS_FILE="config/keywords/${RULE_LANGUAGE}.txt"
           DOMAINS_FILE="config/domains/${RULE_LANGUAGE}.txt"
@@ -266,6 +292,18 @@ jobs:
           engines = stats.get('searchEngineCounts') or {}
           engine_text = ', '.join(f"{k}:{v}" for k, v in engines.items()) if engines else '无'
 
+          domain_counts = {}
+          for r in rules:
+              hp = r.get('homepage') or r.get('url') or ''
+              import re
+              m = re.search('://([^/]+)', hp)
+              dom = m.group(1) if m else 'unknown'
+              domain_counts[dom] = domain_counts.get(dom, 0) + 1
+          sorted_domains = sorted(domain_counts.items(), key=lambda x: -x[1])
+          domain_table_lines = ['| 域名 | 规则数 |', '|------|--------|']
+          for dom, cnt in sorted_domains:
+              domain_table_lines.append(f'| {dom} | {cnt} |')
+
           lines = [
               '## 搜索规则生成统计',
               '',
@@ -280,6 +318,7 @@ jobs:
               f"本次自动发现生成规则数：{auto_generated_count}",
               f"手工稳定规则数：{manual_count}",
               f"最终索引总规则数：{total_count}",
+              f"成功域名数：{len(domain_counts)}",
               f"计划搜索查询数：{query_count}",
               f"实际搜索查询数：{executed_query_count}",
               f"搜索阶段是否触发时间预算停止：{stats.get('searchStoppedByTimeBudget', '旧报告未记录')}",
@@ -304,7 +343,10 @@ jobs:
               f"清洗移除规则数：{removed_count}",
               f"搜索引擎候选来源：{engine_text}",
               f"日期标签：{tag_name}",
-          ]
+              '',
+              '## 成功域名列表',
+              '',
+          ] + domain_table_lines
           output = '\n'.join(lines) + '\n'
           print(output)
           summary = os.environ.get('GITHUB_STEP_SUMMARY')

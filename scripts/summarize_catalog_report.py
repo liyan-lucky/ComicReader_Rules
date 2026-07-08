@@ -139,6 +139,20 @@ def main() -> int:
         lines += ["", "### 采集错误样例", ""]
         lines += rows_to_table(["阶段", "来源", "关键词/URL", "错误"], errors[:15])
 
+    import re
+    domain_counts: Dict[str, int] = {}
+    for item in catalog.get("items", []):
+        for src in item.get("sources", []):
+            url = src.get("url") or src.get("detailUrl") or ""
+            m = re.search('://([^/]+)', url)
+            if m:
+                dom = m.group(1)
+                domain_counts[dom] = domain_counts.get(dom, 0) + 1
+    if domain_counts:
+        sorted_domains = sorted(domain_counts.items(), key=lambda x: -x[1])
+        lines += ["", "### 漫画来源域名统计", ""]
+        lines += rows_to_table(["域名", "漫画数"], sorted_domains)
+
     output = "\n".join(lines) + "\n"
     print(output)
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

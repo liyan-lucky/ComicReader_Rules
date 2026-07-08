@@ -2,6 +2,26 @@ name: 生成公开漫画目录
 
 on:
   workflow_dispatch:
+    inputs:
+      target_count:
+        description: '每个分类目标漫画数'
+        required: true
+        default: '200'
+        type: choice
+        options:
+          - '50'
+          - '100'
+          - '200'
+          - '300'
+          - '500'
+      max_consecutive_no_new:
+        description: '连续多少轮无新发现后提前退出'
+        required: false
+        default: '10'
+      request_delay:
+        description: '每次请求间隔秒数'
+        required: false
+        default: '0.5'
   schedule:
     - cron: '30 3 * * *'
   push:
@@ -40,8 +60,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
-      CATALOG_TARGET_COUNT: '200'
-      CATALOG_MIN_TARGET_COUNT: '200'
+      CATALOG_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
+      CATALOG_MIN_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
+      CATALOG_MAX_CONSECUTIVE_NO_NEW: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_no_new || '10' }}
+      CATALOG_REQUEST_DELAY: ${{ github.event_name == 'workflow_dispatch' && inputs.request_delay || '0.5' }}
 
     steps:
       - name: 检出目标代码
@@ -64,8 +86,8 @@ jobs:
 
       - name: 生成公开漫画目录
         run: |
-          python scripts/generate_catalog.py
-          python scripts/boost_catalog_targets.py
+          python scripts/generate_catalog.py --target "${CATALOG_TARGET_COUNT}" --max-consecutive-no-new "${CATALOG_MAX_CONSECUTIVE_NO_NEW}" --request-delay "${CATALOG_REQUEST_DELAY}"
+          python scripts/boost_catalog_targets.py --target "${CATALOG_TARGET_COUNT}" --max-consecutive-no-new "${CATALOG_MAX_CONSECUTIVE_NO_NEW}"
 
       - name: 校验目录 JSON
         run: |
@@ -88,13 +110,13 @@ jobs:
           assert catalog.get('compliance', {}).get('noImages') is True
           assert catalog.get('compliance', {}).get('noChapterText') is True
           assert gaps.get('schema') == 'comic_catalog_target_gaps_v1'
-          assert gaps.get('targetCount') == 200
+          assert gaps.get('targetCount') == int("${CATALOG_TARGET_COUNT}")
           print('目录 JSON 校验通过')
           PY
 
       - name: 输出目录分析统计
         run: |
-          python scripts/summarize_catalog_report.py --target 200
+          python scripts/summarize_catalog_report.py --target "${CATALOG_TARGET_COUNT}"
 
       - name: 提交生成结果到 main
         if: github.event_name != 'pull_request'

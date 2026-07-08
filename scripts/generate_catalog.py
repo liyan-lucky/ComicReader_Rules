@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 USER_AGENT = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36"
 
 CATEGORY_TARGET_COUNT = 200
+MAX_CONSECUTIVE_NO_NEW = 10
 MAX_CATEGORY_SEARCH_RESULTS_PER_KEYWORD = 200
 MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY = 30
 DETAIL_METADATA_LIMIT = 3000
@@ -428,7 +429,7 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
         for keyword in keywords[:MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY]:
             if hint_counts[cid] >= CATEGORY_TARGET_COUNT:
                 break
-            if consecutive_no_new >= 10:
+            if consecutive_no_new >= MAX_CONSECUTIVE_NO_NEW:
                 break
             keyword_had_new = False
             for rule in rules:
@@ -712,7 +713,16 @@ def main() -> int:
     parser.add_argument("--categories-output", default="generated/catalog_categories.json")
     parser.add_argument("--delta-output", default="generated/catalog_delta.json")
     parser.add_argument("--report-output", default="generated/catalog_report.json")
+    parser.add_argument("--target", type=int, default=0, help="每个分类目标漫画数（0=使用内置默认值200）")
+    parser.add_argument("--max-consecutive-no-new", type=int, default=10, help="连续多少轮无新发现后提前退出")
+    parser.add_argument("--request-delay", type=float, default=0.5, help="每次请求间隔秒数")
     args = parser.parse_args()
+
+    global CATEGORY_TARGET_COUNT, MAX_CONSECUTIVE_NO_NEW
+    if args.target > 0:
+        CATEGORY_TARGET_COUNT = args.target
+    if args.max_consecutive_no_new > 0:
+        MAX_CONSECUTIVE_NO_NEW = args.max_consecutive_no_new
 
     timestamp = now_iso()
     index = load_json(ROOT / args.index, {})
