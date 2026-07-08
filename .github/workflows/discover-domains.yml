@@ -130,10 +130,10 @@ jobs:
               '',
           ]
           if new_domains:
-              lines.append('| 域名 |')
-              lines.append('|------|')
+              lines.append('| 域名 | 链接 |')
+              lines.append('|------|------|')
               for d in sorted(new_domains):
-                  lines.append(f'| {d} |')
+                  lines.append(f'| {d} | [https://{d}](https://{d}) |')
           else:
               lines.append('无新增域名')
 
@@ -141,12 +141,12 @@ jobs:
               '',
               '### 当前全部域名列表',
               '',
-              '| 域名 |',
-              '|------|',
+              '| 域名 | 链接 |',
+              '|------|------|',
           ]
           for d in all_domains:
               mark = ' ✨' if d in set(new_domains) else ''
-              lines.append(f'| {d}{mark} |')
+              lines.append(f'| {d}{mark} | [https://{d}](https://{d}) |')
 
           output = '\n'.join(lines) + '\n'
           print(output)
