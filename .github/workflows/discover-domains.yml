@@ -1,0 +1,106 @@
+name: 发现漫画域名
+
+on:
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: '要发现的语种（逗号分隔）'
+        required: true
+        default: 'zh-Hans,zh-Hant,en'
+        type: string
+      limit:
+        description: '每个搜索查询取多少条结果'
+        required: false
+        default: '30'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comic-reader-domains
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  discover:
+    name: 按语种搜索漫画网站域名
+    runs-on: ubuntu-latest
+
+    services:
+      searxng:
+        image: searxng/searxng:latest
+        ports:
+          - 8080:8080
+
+    env:
+      SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
+
+    steps:
+      - name: 检出 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: 等待 SearXNG 就绪
+        run: |
+          if [ "$SEARXNG_URL" != "http://localhost:8080" ]; then
+            echo "使用自建SearXNG: $SEARXNG_URL，跳过本地等待"
+            exit 0
+          fi
+          echo "等待本地 SearXNG 启动..."
+          for i in $(seq 1 30); do
+            if curl -fs http://localhost:8080 >/dev/null 2>&1; then
+              echo "SearXNG 已启动"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "SearXNG 启动超时，将回退到DDG"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: 发现域名
+        run: |
+          IFS=',' read -ra LANGS <<< "${{ inputs.languages }}"
+          for lang in "${LANGS[@]}"; do
+            lang=$(echo "$lang" | xargs)
+            if [ -z "$lang" ]; then continue; fi
+            echo "=== 发现 $lang 域名 ==="
+            python scripts/discover_domains.py --language "$lang" --limit "${{ inputs.limit }}" || true
+          done
+
+      - name: 统计发现结果
+        run: |
+          echo "## 域名发现统计"
+          echo ""
+          for f in config/domains/*.txt; do
+            lang=$(basename "$f" .txt)
+            total=$(grep -cE '^[a-z0-9]' "$f" 2>/dev/null || echo 0)
+            new=$(grep -c 'Auto-discovered' "$f" 2>/dev/null || echo 0)
+            echo "- $lang: $total 个域名"
+          done
+
+      - name: 提交域名更新
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/domains/
+          if git diff --cached --quiet; then
+            echo "域名没有变化，无需提交。"
+          else
+            git commit -m "chore: discover and update manga domains"
+            git push origin HEAD:main
+          fi
