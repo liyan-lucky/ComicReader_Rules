@@ -74,7 +74,7 @@ jobs:
     env:
       SEARXNG_URL: ${{ (inputs.use_searxng_container || 'true') == 'true' && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
-      DISCOVER_LIMIT: ${{ inputs.limit || '50' }}
+      DISCOVER_LIMIT: ${{ inputs.limit || '0' }}
       DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || 'false' }}
 
     steps:
@@ -214,6 +214,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
           git add config/domains/
           if git diff --cached --quiet; then
             echo "域名没有变化，无需提交。"

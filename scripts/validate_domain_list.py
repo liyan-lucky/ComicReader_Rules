@@ -33,7 +33,7 @@ _HEADERS_CFG = json.loads((ROOT / "config" / "headers.json").read_text(encoding=
 DEFAULT_UA = _HEADERS_CFG.get("default_ua", "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36")
 ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
 
-_MANGA_KW_CFG = json.loads((ROOT / "config" / "manga_indicator_keywords.json").read_text(encoding="utf-8"))
+_MANGA_KW_CFG = json.loads((ROOT / "config" / "manga_indicator_keywords.json").read_text(encoding="utf-8")) if (ROOT / "config" / "manga_indicator_keywords.json").exists() else {}
 
 _MANGA_URL_PATTERNS = [
     "/manga/", "/manhua/", "/manhwa/", "/comic/", "/webtoon/",

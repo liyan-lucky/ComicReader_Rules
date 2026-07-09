@@ -300,7 +300,8 @@ def search_searxng(query: str, limit: int, suppress_zero: bool = False) -> List[
         return []
     all_out: List[Candidate] = []
     seen_urls: set = set()
-    max_pages = _load_config("search_endpoints.json", {}).get("searxng", {}).get("max_pages", 3)
+    max_pages_raw = _load_config("search_endpoints.json", {}).get("searxng", {}).get("max_pages", 3)
+    max_pages = max_pages_raw if max_pages_raw and max_pages_raw > 0 else 999
     for page in range(1, max_pages + 1):
         if len(all_out) >= limit:
             break
@@ -786,10 +787,15 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _is_blocked_domain(domain: str) -> bool:
+    return any(kw in domain.lower() for kw in BLOCKED_DOMAIN_KEYWORDS)
+
+
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
     queries: List[str] = []
     has_search_api = _has_search_api()
     seeded = seeded_domains or set()
+    clean_domains = [d for d in domains if not _is_blocked_domain(d)]
     for kw in keywords:
         kw = kw.strip()
         if not kw:
@@ -800,16 +806,16 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
                 queries.append(f"{kw} 漫画")
             else:
                 queries.append(f"{kw} manga read")
-            if domains:
-                for d in domains:
+            if clean_domains:
+                for d in clean_domains:
                     if d in seeded:
                         continue
                     queries.append(f"site:{d} {kw}")
         else:
             bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
             for b in bases:
-                if domains:
-                    for d in domains:
+                if clean_domains:
+                    for d in clean_domains:
                         if d in seeded:
                             continue
                         queries.append(f"site:{d} {b}")

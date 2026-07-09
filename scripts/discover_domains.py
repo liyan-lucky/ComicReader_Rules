@@ -15,7 +15,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Any, Dict, List, Set
 from urllib.parse import urlparse, urlencode
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -132,7 +132,7 @@ def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> L
     if not base_url:
         return []
     all_urls: List[str] = []
-    max_pages = _SEARXNG_MAX_PAGES
+    max_pages = _SEARXNG_MAX_PAGES if _SEARXNG_MAX_PAGES > 0 else 999
     for page in range(1, max_pages + 1):
         if limit > 0 and len(all_urls) >= limit:
             break
