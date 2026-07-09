@@ -371,11 +371,66 @@ jobs:
       - name: 修剪无效域名
         run: |
           REPORT_FILE="generated/rulebot_report.${RULE_LANGUAGE}.json"
+          CLEANUP_REPORT="generated/domain_cleanup_report.${RULE_LANGUAGE}.json"
           if [ -f "$REPORT_FILE" ]; then
-            python scripts/prune_domains.py --language "$RULE_LANGUAGE" --report "$REPORT_FILE"
+            python scripts/prune_domains.py --language "$RULE_LANGUAGE" --report "$REPORT_FILE" --cleanup-report "$CLEANUP_REPORT"
           else
             echo "报告文件不存在，跳过域名修剪"
           fi
+
+      - name: 输出域名修剪统计
+        if: always()
+        run: |
+          python -c "
+          import json, os
+          from pathlib import Path
+
+          lang = os.environ.get('RULE_LANGUAGE', '')
+          cleanup_path = Path(f'generated/domain_cleanup_report.{lang}.json')
+          if not cleanup_path.exists():
+              cleanup_path = Path('generated/domain_cleanup_report.json')
+
+          if not cleanup_path.exists():
+              print('No cleanup report found.')
+              exit(0)
+
+          report = json.loads(cleanup_path.read_text('utf-8'))
+          removed = report.get('removedDomains', [])
+
+          lines = [
+              '## 域名修剪统计',
+              '',
+              f'语种：{report.get(\"language\", lang)}',
+              f'修剪前域名数：{report.get(\"domainsBeforeCount\", 0)}',
+              f'修剪后域名数：{report.get(\"domainsAfterCount\", 0)}',
+              f'移除域名数：{report.get(\"prunedCount\", 0)}',
+              '',
+          ]
+
+          if removed:
+              by_reason = {}
+              for item in removed:
+                  r = item.get('reason', 'unknown').split(' ')[0]
+                  by_reason.setdefault(r, []).append(item)
+
+              for reason in sorted(by_reason.keys()):
+                  items = by_reason[reason]
+                  lines.append(f'### {reason} ({len(items)} domains)')
+                  lines.append('')
+                  lines.append('| 域名 | 详情 |')
+                  lines.append('|------|------|')
+                  for item in sorted(items, key=lambda x: x.get('domain', '')):
+                      detail = item.get('reason', '')
+                      lines.append(f'| {item.get(\"domain\", \"\")} | {detail} |')
+                  lines.append('')
+
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              existing = Path(summary).read_text(encoding='utf-8') if Path(summary).exists() else ''
+              Path(summary).write_text(existing + '\n' + output, encoding='utf-8')
+          "
 
       - name: 提交生成规则到 main
         run: |

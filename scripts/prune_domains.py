@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """域名修剪脚本：从审计报告中提取无效域名，从config/domains/中移除。
 
+修剪条件：
+  1. 种子页全部抓取失败（域名不可达）
+  2. 有候选生成但无一条通过审计（域名无公开漫画内容）
+  3. 域名只有excluded规则（全部需登录/付费）
+  4. 域名在domains文件中但不在审计报告中（从未被搜索到）
+
 用法：
     python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.json
     python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.json --dry-run
@@ -31,7 +37,7 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
         if not domain:
             continue
         if domain not in domain_stats:
-            domain_stats[domain] = {"generated": 0, "ok": 0, "failed": 0}
+            domain_stats[domain] = {"generated": 0, "ok": 0, "failed": 0, "excluded": 0}
         domain_stats[domain]["generated"] += 1
         status = rule.get("status", "")
         if "ok" in status or "fallback" in status:
@@ -39,7 +45,19 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
         else:
             domain_stats[domain]["failed"] += 1
 
-    for seed in report.get("seedResults", []):
+    for rule in report.get("excluded", []):
+        domain = rule.get("domain", "")
+        if not domain:
+            continue
+        if domain not in domain_stats:
+            domain_stats[domain] = {"generated": 0, "ok": 0, "failed": 0, "excluded": 0}
+        domain_stats[domain]["excluded"] += 1
+
+    seed_pages = []
+    seed_data = report.get("stats", {}).get("seedDiscovery", {})
+    if isinstance(seed_data, dict):
+        seed_pages = seed_data.get("seedPageStats", [])
+    for seed in seed_pages:
         domain = seed.get("targetDomain", "")
         if not domain:
             url = seed.get("seedUrl", "")
@@ -48,7 +66,7 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
         if not domain:
             continue
         if domain not in domain_stats:
-            domain_stats[domain] = {"generated": 0, "ok": 0, "failed": 0, "seeds_total": 0, "seeds_failed": 0}
+            domain_stats[domain] = {"generated": 0, "ok": 0, "failed": 0, "excluded": 0, "seeds_total": 0, "seeds_failed": 0}
         domain_stats[domain]["seeds_total"] = domain_stats[domain].get("seeds_total", 0) + 1
         if seed.get("status") == "fetch_failed":
             domain_stats[domain]["seeds_failed"] = domain_stats[domain].get("seeds_failed", 0) + 1
@@ -56,12 +74,18 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
     return domain_stats
 
 
-def identify_dead_domains(domain_stats: Dict[str, Dict], min_seed_fail_ratio: float = 1.0) -> Tuple[Set[str], List[Dict]]:
+def identify_dead_domains(
+    domain_stats: Dict[str, Dict],
+    domains_in_file: Set[str],
+    min_seed_fail_ratio: float = 1.0,
+) -> Tuple[Set[str], List[Dict]]:
     dead = set()
     details = []
+
     for domain, stats in domain_stats.items():
         generated = stats.get("generated", 0)
         ok = stats.get("ok", 0)
+        excluded = stats.get("excluded", 0)
         seeds_total = stats.get("seeds_total", 0)
         seeds_failed = stats.get("seeds_failed", 0)
 
@@ -71,9 +95,12 @@ def identify_dead_domains(domain_stats: Dict[str, Dict], min_seed_fail_ratio: fl
             if fail_ratio >= min_seed_fail_ratio:
                 dead.add(domain)
                 reason = f"all_seeds_failed ({seeds_failed}/{seeds_total})"
-        elif generated > 0 and ok == 0:
+        elif generated > 0 and ok == 0 and excluded == 0:
             dead.add(domain)
-            reason = f"generated_but_none_ok (generated:{generated}, ok:0)"
+            reason = f"generated_none_ok (generated:{generated}, ok:0)"
+        elif generated == 0 and excluded > 0 and ok == 0:
+            dead.add(domain)
+            reason = f"all_excluded_login_pay (excluded:{excluded})"
 
         if reason:
             details.append({
@@ -81,31 +108,40 @@ def identify_dead_domains(domain_stats: Dict[str, Dict], min_seed_fail_ratio: fl
                 "reason": reason,
                 "generated": generated,
                 "ok": ok,
+                "excluded": excluded,
                 "seedsTotal": seeds_total,
                 "seedsFailed": seeds_failed,
+            })
+
+    audited_domains = set(domain_stats.keys())
+    for d in domains_in_file:
+        if d not in audited_domains:
+            dead.add(d)
+            details.append({
+                "domain": d,
+                "reason": "not_in_audit_report (never_searched)",
+                "generated": 0,
+                "ok": 0,
+                "excluded": 0,
+                "seedsTotal": 0,
+                "seedsFailed": 0,
             })
 
     return dead, details
 
 
-def load_domains_file(filepath: Path) -> Tuple[List[str], List[str]]:
+def load_domains_from_file(filepath: Path) -> Set[str]:
+    domains = set()
     if not filepath.exists():
-        return [], []
-    lines = filepath.read_text(encoding="utf-8").splitlines()
-    header = []
-    domains = []
-    in_header = True
-    for line in lines:
+        return domains
+    for line in filepath.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
-        if in_header and (not stripped or stripped.startswith("#")):
-            header.append(line)
-        elif stripped and not stripped.startswith("#"):
-            in_header = False
-            d = stripped.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
-            domains.append(d)
-        else:
-            header.append(line)
-    return header, domains
+        if not stripped or stripped.startswith("#"):
+            continue
+        d = stripped.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
+        if d:
+            domains.add(d)
+    return domains
 
 
 def prune_domains_file(filepath: Path, dead_domains: Set[str], dry_run: bool = False) -> Tuple[int, List[Dict]]:
@@ -123,7 +159,7 @@ def prune_domains_file(filepath: Path, dead_domains: Set[str], dry_run: bool = F
         d = stripped.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
         if d in dead_domains:
             removed += 1
-            removed_details.append({"domain": d, "reason": "dead_domain"})
+            removed_details.append({"domain": d, "line": stripped})
         else:
             new_lines.append(line)
 
@@ -138,7 +174,7 @@ def main() -> int:
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
     parser.add_argument("--report", default="generated/rulebot_report.json")
     parser.add_argument("--dry-run", action="store_true", help="只预览，不修改文件")
-    parser.add_argument("--min-seed-fail-ratio", type=float, default=1.0, help="种子全部失败才判定域名死亡(默认1.0)")
+    parser.add_argument("--min-seed-fail-ratio", type=float, default=1.0, help="种子失败比例阈值(默认1.0=全部失败)")
     parser.add_argument("--cleanup-report", default="", help="JSON清理报告输出路径")
     args = parser.parse_args()
 
@@ -148,17 +184,19 @@ def main() -> int:
         print(f"报告文件不存在或为空: {report_path}", file=sys.stderr)
         return 1
 
+    filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
+    domains_in_file = load_domains_from_file(filepath)
+
     domain_stats = extract_domain_stats(report)
-    dead_domains, dead_details = identify_dead_domains(domain_stats, args.min_seed_fail_ratio)
+    dead_domains, dead_details = identify_dead_domains(domain_stats, domains_in_file, args.min_seed_fail_ratio)
 
-    print(f"审计报告中域名统计：")
-    print(f"  总域名数：{len(domain_stats)}")
-    print(f"  有规则生成的域名：{sum(1 for s in domain_stats.values() if s.get('generated', 0) > 0)}")
-    print(f"  无规则生成的域名：{sum(1 for s in domain_stats.values() if s.get('generated', 0) == 0)}")
-    print(f"  判定为死亡的域名：{len(dead_domains)}")
+    print(f"域名修剪统计：")
+    print(f"  域名文件中的域名数：{len(domains_in_file)}")
+    print(f"  审计报告中的域名数：{len(domain_stats)}")
+    print(f"  判定为死亡的域名数：{len(dead_domains)}")
 
-    if dead_domains:
-        print(f"\n--- 死亡域名列表 ({len(dead_domains)}) ---")
+    if dead_details:
+        print(f"\n--- 删除域名列表 ({len(dead_details)}) ---")
         by_reason = {}
         for item in dead_details:
             r = item["reason"].split(" ")[0]
@@ -166,11 +204,19 @@ def main() -> int:
         for reason in sorted(by_reason.keys()):
             items = by_reason[reason]
             print(f"\n  [{reason}] ({len(items)} domains):")
-            for item in items:
-                print(f"    ✗ {item['domain']} ({item['reason']})")
+            for item in sorted(items, key=lambda x: x["domain"]):
+                detail_parts = []
+                if item.get("generated"):
+                    detail_parts.append(f"gen:{item['generated']}")
+                if item.get("ok"):
+                    detail_parts.append(f"ok:{item['ok']}")
+                if item.get("excluded"):
+                    detail_parts.append(f"excl:{item['excluded']}")
+                if item.get("seedsTotal"):
+                    detail_parts.append(f"seeds:{item['seedsFailed']}/{item['seedsTotal']}")
+                detail_str = f" ({', '.join(detail_parts)})" if detail_parts else ""
+                print(f"    ✗ {item['domain']}{detail_str}")
 
-    filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
-    _, domains_before = load_domains_file(filepath)
     removed, removed_details = prune_domains_file(filepath, dead_domains, dry_run=args.dry_run)
 
     if args.dry_run:
@@ -178,21 +224,18 @@ def main() -> int:
     else:
         print(f"\n从 {filepath.name} 移除了 {removed} 个死亡域名")
 
-    _, domains_after = load_domains_file(filepath) if not args.dry_run else ([], domains_before)
-    if not args.dry_run:
-        _, domains_after = load_domains_file(filepath)
+    domains_after = load_domains_from_file(filepath) if not args.dry_run else (domains_in_file - dead_domains)
 
     if args.cleanup_report:
         cleanup_data = {
             "language": args.language,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "sourceReport": str(report_path),
-            "totalAuditedDomains": len(domain_stats),
-            "deadDomainCount": len(dead_domains),
-            "prunedFromFile": removed,
-            "domainsBeforeCount": len(domains_before),
-            "domainsAfterCount": len(domains_after) if not args.dry_run else len(domains_before) - removed,
-            "removedDomains": dead_details + removed_details,
+            "domainsBeforeCount": len(domains_in_file),
+            "domainsAfterCount": len(domains_after),
+            "prunedCount": removed,
+            "removedDomains": dead_details,
+            "removedLines": removed_details,
         }
         cleanup_path = Path(args.cleanup_report)
         cleanup_path.parent.mkdir(parents=True, exist_ok=True)
