@@ -36,7 +36,7 @@ on:
       tag_prefix:
         description: '【标签】只清理指定前缀的 tag；all=全部 tag，危险'
         required: true
-        default: 'comic-reader-rules-'
+        default: 'search-rules-'
         type: string
 
       clean_releases:
@@ -51,7 +51,7 @@ on:
       release_tag_prefix:
         description: '【Release】只清理指定前缀的 Release；all=全部 Release，危险'
         required: true
-        default: 'comic-reader-rules-'
+        default: 'search-rules-'
         type: string
 
 permissions:

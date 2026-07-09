@@ -102,6 +102,14 @@ on:
         description: '覆盖域名列表（逗号分隔，留空则使用domains文件）'
         required: false
         default: ''
+      publish_release:
+        description: '是否发布Release和标签（默认关闭，仅提交代码）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   schedule:
     - cron: '0 3 1,15 * *'
 
@@ -146,6 +154,7 @@ jobs:
       RULE_SEARCH_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_budget_seconds || '' }}
       RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_zero_search || '' }}
       RULE_DOMAIN_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.domain_override || '' }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || 'false' }}
       QUICK_MAX_GENERATED: '2000'
       DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
@@ -494,6 +503,7 @@ jobs:
           fi
 
       - name: 发布搜索规则日期标签
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -504,6 +514,7 @@ jobs:
           echo "Published tag: $TAG_NAME"
 
       - name: 准备 Release 附件
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         run: |
           set -euo pipefail
           rm -rf dist/release
@@ -534,6 +545,7 @@ jobs:
           ls -la dist/release
 
       - name: 发布或更新 Release
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -560,6 +572,7 @@ jobs:
           echo "Published release: $TAG_NAME"
 
       - name: 校验标签和 Release 发布状态
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -583,6 +596,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传生成规则 artifact
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: comic-reader-generated-rules-${{ env.RULE_RUN_MODE }}

@@ -22,6 +22,14 @@ on:
         description: '每次请求间隔秒数'
         required: false
         default: '0.5'
+      publish_release:
+        description: '是否发布Release和标签（默认关闭，仅提交代码）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   schedule:
     - cron: '0 1 * * 0'
 
@@ -42,6 +50,8 @@ jobs:
       CATALOG_MIN_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
       CATALOG_MAX_CONSECUTIVE_NO_NEW: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_no_new || '10' }}
       CATALOG_REQUEST_DELAY: ${{ github.event_name == 'workflow_dispatch' && inputs.request_delay || '0.5' }}
+      CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.catalog_language || 'zh-Hans' }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || 'false' }}
 
     steps:
       - name: 检出目标代码
@@ -115,6 +125,7 @@ jobs:
           fi
 
       - name: 发布目录日期标签
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
@@ -128,6 +139,7 @@ jobs:
           echo "Published tag: $TAG_NAME"
 
       - name: 准备目录 Release 附件
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
@@ -180,6 +192,7 @@ jobs:
           PY
 
       - name: 发布或更新目录 Release
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -204,6 +217,7 @@ jobs:
           echo "Published catalog release: $TAG_NAME"
 
       - name: 校验标签和 Release 发布状态
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -227,6 +241,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: 上传目录产物
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: comic-catalog-${{ env.CATALOG_BRANCH }}

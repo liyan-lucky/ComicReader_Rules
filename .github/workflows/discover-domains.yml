@@ -47,6 +47,14 @@ on:
         options:
           - 'true'
           - 'false'
+      commit_changes:
+        description: '是否提交域名变更到main（默认关闭，仅输出结果）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 permissions:
   contents: write
@@ -76,6 +84,7 @@ jobs:
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
       DISCOVER_LIMIT: ${{ inputs.limit || '0' }}
       DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || 'false' }}
+      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes || 'false' }}
 
     steps:
       - name: 检出 main
@@ -210,6 +219,7 @@ jobs:
           "
 
       - name: 提交域名更新
+        if: ${{ env.COMMIT_CHANGES == 'true' }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
