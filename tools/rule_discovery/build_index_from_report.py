@@ -9,6 +9,20 @@ from urllib.parse import urlparse
 
 UA = 'Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules'
 
+_BAD_TITLE_RE = re.compile(r'^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)', re.I)
+
+def _clean_rule_title(detail_title: str, first_chapter_title: str, domain: str) -> str:
+    for t in [detail_title, first_chapter_title]:
+        t = safe_str(t)[:48]
+        if not t:
+            continue
+        if _BAD_TITLE_RE.match(t):
+            continue
+        if len(t) < 2:
+            continue
+        return t
+    return domain
+
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
@@ -76,7 +90,7 @@ def load_manual_rules(path: str) -> list[dict]:
 def rule_for_audit(a: dict) -> dict:
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
-    title = safe_str(a.get('detail_title') or a.get('first_chapter_title') or domain)[:48]
+    title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
     rule = add_rule_compliance({
         'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{title} - {domain} 远程公开源',

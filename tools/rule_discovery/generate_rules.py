@@ -735,9 +735,24 @@ def json_str(s: str) -> str:
     return json.dumps(s, ensure_ascii=False)
 
 
+_BAD_TITLE_RE = re.compile(r"^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)", re.I)
+
+def _clean_rule_title(detail_title: str, first_chapter_title: str, domain: str) -> str:
+    candidates = [detail_title, first_chapter_title]
+    for t in candidates:
+        t = clean_text(t or "")[:48]
+        if not t:
+            continue
+        if _BAD_TITLE_RE.match(t):
+            continue
+        if len(t) < 2:
+            continue
+        return t
+    return domain
+
 def ets_rule_for_audit(a: PageAudit, domain_applicability_list: Optional[List[str]] = None) -> str:
     rid = safe_id(a.domain, a.detail_url)
-    title = clean_text(a.detail_title or a.first_chapter_title or a.domain)[:48]
+    title = _clean_rule_title(a.detail_title, a.first_chapter_title, a.domain)
     name = f"{title} - {a.domain} 自动公开规则"
     detail_chapter_regex = r"<a[^>]+href=[\"']([^\"']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^\"']*)[\"'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>"
     reader_image_regex = r"<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|<source[^>]+srcset=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\/\/[^\"']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])"

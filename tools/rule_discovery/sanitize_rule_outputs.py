@@ -149,13 +149,19 @@ def is_allowed_audit(audit: Dict[str, Any]) -> Tuple[bool, str]:
     return True, ""
 
 
+_BAD_RULE_NAME_RE = re.compile(r"^(登录|注册|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found)", re.I)
+
+
 def is_allowed_rule(rule: Dict[str, Any]) -> Tuple[bool, str]:
     urls = value_urls_from_rule(rule)
     if any(is_blocked_url(url) for url in urls):
         return False, "blocked_non_comic_domain_or_path"
+    name = safe_str(rule.get("name", ""))
+    if _BAD_RULE_NAME_RE.match(name.split(" - ")[0].strip()):
+        return False, "bad_rule_name"
     text = " ".join([
         safe_str(rule.get("id")),
-        safe_str(rule.get("name")),
+        name,
         safe_str(rule.get("description")),
         safe_str(rule.get("homepage")),
         safe_str(rule.get("searchUrl")),
