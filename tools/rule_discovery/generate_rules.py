@@ -27,7 +27,7 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 from urllib.parse import urlencode, urljoin, urlparse
 
 import requests
@@ -716,7 +716,7 @@ def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
         return None
 
 
-def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1) -> List[PageAudit]:
+def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1, new_rule_domains_by_sig: Optional[Dict[tuple, List[str]]] = None) -> List[PageAudit]:
     grouped: Dict[str, List[PageAudit]] = {}
     def score(a: PageAudit) -> int:
         return (1000 if a.status == "native_scroll_ok" else 500 if a.status == "render_fallback_needed" else 0) + a.static_image_count * 3 + a.chapter_count
@@ -735,7 +735,7 @@ def json_str(s: str) -> str:
     return json.dumps(s, ensure_ascii=False)
 
 
-def ets_rule_for_audit(a: PageAudit) -> str:
+def ets_rule_for_audit(a: PageAudit, domain_applicability_list: Optional[List[str]] = None) -> str:
     rid = safe_id(a.domain, a.detail_url)
     title = clean_text(a.detail_title or a.first_chapter_title or a.domain)[:48]
     name = f"{title} - {a.domain} 自动公开规则"
@@ -747,6 +747,10 @@ def ets_rule_for_audit(a: PageAudit) -> str:
         f"静态图片数 {a.static_image_count}，渲染兜底 {'需要' if a.needs_render_fallback else '可选'}；"
         "只处理公开页面，不登录、不付费、不绕验证码/反爬。"
     )
+    dal_lines = ""
+    if domain_applicability_list:
+        dal_json = json.dumps(sorted(set(domain_applicability_list)), ensure_ascii=False)
+        dal_lines = f",\n    domainApplicabilityList: {dal_json}"
     return f"""  {{
     id: {json_str(rid)},
     name: {json_str(name)},
@@ -770,12 +774,16 @@ def ets_rule_for_audit(a: PageAudit) -> str:
     referer: {json_str(a.base_url + '/')},
     readerNextPageRegex: `{next_regex}`,
     readerNextPageUrlGroups: [1, 2, 3],
-    maxReaderPages: 12
+    maxReaderPages: 12{dal_lines}
   }}"""
 
 
-def write_ets(audits: List[PageAudit], out: Path) -> None:
-    body = ",\n".join(ets_rule_for_audit(a) for a in audits)
+def write_ets(audits: List[PageAudit], out: Path, domain_applicability_map: Optional[Dict[str, List[str]]] = None) -> None:
+    def _dal_for(a: PageAudit) -> Optional[List[str]]:
+        if domain_applicability_map:
+            return domain_applicability_map.get(a.domain)
+        return None
+    body = ",\n".join(ets_rule_for_audit(a, domain_applicability_list=_dal_for(a)) for a in audits)
     if body:
         body = body + "\n"
     text = f"""import {{ ComicSourceRule }} from '../model/ComicModels';
@@ -794,14 +802,19 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
     out.write_text(text, encoding="utf-8")
 
 
-def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, queries: List[str], stats: Dict[str, object]) -> None:
+def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, queries: List[str], stats: Dict[str, object], domain_applicability_map: Optional[Dict[str, List[str]]] = None) -> None:
+    def _enrich(a: PageAudit) -> Dict[str, object]:
+        d = dataclasses.asdict(a)
+        if domain_applicability_map and a.domain in domain_applicability_map:
+            d["domainApplicabilityList"] = domain_applicability_map[a.domain]
+        return d
     data = {
         "tool": "ComicReaderHarmony RuleBot",
         "version": "1.1.0",
         "queries": queries,
         "generatedCount": len(audits),
         "excludedCount": len(excluded),
-        "generated": [dataclasses.asdict(a) for a in audits],
+        "generated": [_enrich(a) for a in audits],
         "excluded": [dataclasses.asdict(a) for a in excluded],
         "stats": stats,
         "limits": [
@@ -853,6 +866,28 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
                 else:
                     queries.append(b)
     return list(dict.fromkeys(queries))
+
+
+def _rule_signature_from_dict(rule: Dict[str, Any]) -> tuple:
+    return (
+        rule.get("detailChapterRegex", ""),
+        rule.get("readerImageRegex", ""),
+        rule.get("readerNextPageRegex", ""),
+        rule.get("searchUrl", ""),
+        rule.get("searchItemRegex", ""),
+    )
+
+
+def _rule_domain_from_dict(rule: Dict[str, Any]) -> str:
+    h = rule.get("homepage", "")
+    return normalize_domain(h.replace("https://", "").replace("http://", "").split("/")[0])
+
+
+def _audit_rule_signature(a: PageAudit) -> tuple:
+    detail_chapter_regex = r"<a[^>]+href=[\"']([^\"']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^\"']*)[\"'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>"
+    reader_image_regex = r"<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|<source[^>]+srcset=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\/\/[^\"']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])"
+    next_regex = r"<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\s*下一页\s*|\s*下页\s*|\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*)<\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']"
+    return (detail_chapter_regex, reader_image_regex, next_regex, "", "")
 
 
 def main() -> int:
@@ -916,6 +951,7 @@ def main() -> int:
 
     already_audited_domains: set = set()
     already_generated_per_domain: Dict[str, int] = {}
+    existing_rule_signatures: Dict[tuple, List[str]] = {}
     report_path = Path(args.report)
     if report_path.exists():
         try:
@@ -927,6 +963,29 @@ def main() -> int:
                     already_generated_per_domain[d] = already_generated_per_domain.get(d, 0) + 1
             if already_audited_domains:
                 log(f"[info] loaded {len(already_audited_domains)} previously audited domains from existing report")
+        except Exception:
+            pass
+
+    existing_rules_paths = [
+        Path(f"rules/index.{args.language_code}.json") if args.language_code != "mixed" else None,
+        Path("rules/index.json"),
+        Path("generated/index.json"),
+    ]
+    for erp in existing_rules_paths:
+        if erp is None or not erp.exists():
+            continue
+        try:
+            er_data = json.loads(erp.read_text(encoding="utf-8"))
+            for rule in er_data.get("rules", []):
+                sig = _rule_signature_from_dict(rule)
+                domain = _rule_domain_from_dict(rule)
+                if sig and domain:
+                    existing_rule_signatures.setdefault(sig, []).append(domain)
+                    for ad in rule.get("domainApplicabilityList", []):
+                        existing_rule_signatures.setdefault(sig, []).append(normalize_domain(ad))
+            if existing_rule_signatures:
+                log(f"[info] loaded existing rule signatures from {erp}: {len(existing_rule_signatures)} unique patterns covering {sum(len(v) for v in existing_rule_signatures.values())} domain entries")
+                break
         except Exception:
             pass
 
@@ -996,12 +1055,14 @@ def main() -> int:
         "skippedNonContentUrl": 0,
         "skippedPerDomainAuditLimit": 0,
         "skippedMaxAuditCandidates": 0,
+        "skippedDomainCoveredByExistingRule": 0,
         "auditFailedNoPublicChapterOrImage": 0,
         "auditedCandidateCount": 0,
         "timeBudgetExceeded": False,
         "candidateSamples": [dataclasses.asdict(c) for c in raw_candidates[:30]],
     }
     per_domain_audit_counts: Dict[str, int] = {}
+    new_rule_domains_by_sig: Dict[tuple, List[str]] = {}
     for c in raw_candidates:
         if budget_exceeded():
             audit_stats["timeBudgetExceeded"] = True
@@ -1016,6 +1077,15 @@ def main() -> int:
             audit_stats.setdefault("skippedDomainAtLimit", 0)
             audit_stats["skippedDomainAtLimit"] += 1
             continue
+        if existing_rule_signatures:
+            covered = False
+            for sig, domains in existing_rule_signatures.items():
+                if nd in domains or nd in [normalize_domain(d) for d in domains]:
+                    covered = True
+                    break
+            if covered:
+                audit_stats["skippedDomainCoveredByExistingRule"] += 1
+                continue
         if args.max_audit_candidates > 0 and audit_stats["auditedCandidateCount"] >= args.max_audit_candidates:
             audit_stats["skippedMaxAuditCandidates"] += 1
             log(f"[stop] max audit candidates reached: {args.max_audit_candidates}")
@@ -1034,9 +1104,17 @@ def main() -> int:
             excluded.append(a)
         else:
             audits.append(a)
+            sig = _audit_rule_signature(a)
+            new_rule_domains_by_sig.setdefault(sig, []).append(a.domain)
         time.sleep(args.sleep)
 
-    chosen = choose_best_by_domain(audits, args.per_domain_generated_limit)[: args.max_generated]
+    chosen = choose_best_by_domain(audits, args.per_domain_generated_limit, new_rule_domains_by_sig)[: args.max_generated]
+
+    domain_applicability_map: Dict[str, List[str]] = {}
+    for a in chosen:
+        sig = _audit_rule_signature(a)
+        dal = list(dict.fromkeys(new_rule_domains_by_sig.get(sig, []) + existing_rule_signatures.get(sig, [])))
+        domain_applicability_map[a.domain] = dal
     stats = {
         "language": {
             "code": args.language_code,
@@ -1069,8 +1147,9 @@ def main() -> int:
         "manualRulesAreMergedLater": True,
     }
     report = Path(args.report)
-    write_report(chosen, excluded, report, queries, stats)
+    write_report(chosen, excluded, report, queries, stats, domain_applicability_map)
     log(f"[done] generated rules: {len(chosen)} -> {report}")
+    log(f"[info] domainApplicabilityList: {sum(len(v) for v in domain_applicability_map.values())} domain entries across {len(domain_applicability_map)} rules")
     return 0
 
 

@@ -74,7 +74,14 @@ def deduplicate_rules(rules: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]]
         domain_kept = []
         for sig, sig_rules in by_sig.items():
             sig_rules.sort(key=lambda r: rule_score(r), reverse=True)
-            best = sig_rules[0]
+            best = dict(sig_rules[0])
+            dal = list(dict.fromkeys(
+                best.get("domainApplicabilityList", [])
+                + [d for r in sig_rules[1:] for d in r.get("domainApplicabilityList", [])]
+                + [rule_domain(r) for r in sig_rules]
+            ))
+            if dal:
+                best["domainApplicabilityList"] = dal
             domain_kept.append(best)
 
         removed = len(domain_rules) - len(domain_kept)

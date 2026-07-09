@@ -77,7 +77,7 @@ def rule_for_audit(a: dict) -> dict:
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
     title = safe_str(a.get('detail_title') or a.get('first_chapter_title') or domain)[:48]
-    return add_rule_compliance({
+    rule = add_rule_compliance({
         'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{title} - {domain} 远程公开源',
         'description': '规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。',
@@ -102,6 +102,10 @@ def rule_for_audit(a: dict) -> dict:
         'readerNextPageUrlGroups': [1, 2, 3],
         'maxReaderPages': 12
     })
+    dal = a.get('domainApplicabilityList')
+    if dal and isinstance(dal, list):
+        rule['domainApplicabilityList'] = dal
+    return rule
 
 def append_unique(target: list[dict], seen: set[str], rule: dict) -> None:
     rule_id = str(rule.get('id', '')).strip()
