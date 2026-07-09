@@ -205,7 +205,7 @@ _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
 _MANGA_URL_PATTERNS = [
     "/manga/", "/manhua/", "/manhwa/", "/comic/", "/webtoon/",
     "/chapter-", "/chapter/", "/read-", "/viewer/", "/title/",
-    "/series/", "/genre-", "/genre/", "/category/", "/manga-list",
+    "/genre-", "/genre/", "/manga-list",
 ]
 
 
