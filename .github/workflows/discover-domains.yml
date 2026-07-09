@@ -15,11 +15,12 @@ on:
           - zh-Hant
           - en
       limit:
-        description: '每个来源取多少条链接'
+        description: '每个来源取多少条链接（0=不限制）'
         required: true
-        default: '30'
+        default: '0'
         type: choice
         options:
+          - '0'
           - '10'
           - '20'
           - '30'

@@ -55,7 +55,7 @@ _CRAWL_SKIP_KW = _CRAWL_SKIP.get("crawl_skip_keywords", ["javascript:", "mailto:
 _DDG_SKIP_KW = _CRAWL_SKIP.get("ddg_skip_keywords", ["duckduckgo", "ddg", "javascript:", "mailto:"])
 
 _SEARCH_CFG = _load_config("search_endpoints.json", {}).get("searxng", {})
-_SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 3)
+_SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 0)
 _SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
 def load_queries(language: str) -> List[str]:
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
@@ -70,14 +70,14 @@ def load_queries(language: str) -> List[str]:
     return []
 
 
-def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
+def crawl_aggregator_sites(language: str, limit: int = 0) -> List[str]:
     sites = AGGREGATOR_SITES.get(language, [])
     if not sites:
         return []
     all_urls: List[str] = []
-    max_total = limit * len(sites)
+    max_total = limit * len(sites) if limit > 0 else 0
     for site_url in sites:
-        if len(all_urls) >= max_total:
+        if max_total > 0 and len(all_urls) >= max_total:
             break
         print(f"  Crawling: {site_url}")
         try:
@@ -93,12 +93,12 @@ def crawl_aggregator_sites(language: str, limit: int = 30) -> List[str]:
             for m in re.finditer(r'href=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
                 u = m.group(1)
                 skip = any(s in u.lower() for s in _CRAWL_SKIP_KW)
-                if not skip and u.startswith("http") and len(all_urls) < max_total:
+                if not skip and u.startswith("http") and (max_total == 0 or len(all_urls) < max_total):
                     all_urls.append(u)
                     found += 1
             for m in re.finditer(r'src=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
                 u = m.group(1)
-                if u.startswith("http") and len(all_urls) < max_total:
+                if u.startswith("http") and (max_total == 0 or len(all_urls) < max_total):
                     all_urls.append(u)
                     found += 1
             print(f"    Found {found} links (HTTP {r.status_code})")
@@ -127,14 +127,14 @@ def _searxng_url() -> str:
     return ""
 
 
-def search_searxng(query: str, limit: int = 30, suppress_zero: bool = False) -> List[str]:
+def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> List[str]:
     base_url = _searxng_url()
     if not base_url:
         return []
     all_urls: List[str] = []
     max_pages = _SEARXNG_MAX_PAGES
     for page in range(1, max_pages + 1):
-        if len(all_urls) >= limit:
+        if limit > 0 and len(all_urls) >= limit:
             break
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": _SEARXNG_LANGUAGE})
@@ -146,7 +146,7 @@ def search_searxng(query: str, limit: int = 30, suppress_zero: bool = False) -> 
                 break
             for item in results:
                 u = item.get("url", "")
-                if u and len(all_urls) < limit:
+                if u and (limit == 0 or len(all_urls) < limit):
                     all_urls.append(u)
         except Exception as e:
             if not suppress_zero:
@@ -157,7 +157,7 @@ def search_searxng(query: str, limit: int = 30, suppress_zero: bool = False) -> 
     return all_urls
 
 
-def search_duckduckgo(query: str, limit: int = 20, suppress_zero: bool = False) -> List[str]:
+def search_duckduckgo(query: str, limit: int = 0, suppress_zero: bool = False) -> List[str]:
     try:
         url = "https://html.duckduckgo.com/html/?" + urlencode({"q": query})
         headers = {"User-Agent": DEFAULT_UA}
@@ -174,7 +174,7 @@ def search_duckduckgo(query: str, limit: int = 20, suppress_zero: bool = False) 
             u = m.group(1)
             if any(skip in u.lower() for skip in _DDG_SKIP_KW):
                 continue
-            if u.startswith("http") and len(urls) < limit:
+            if u.startswith("http") and (limit == 0 or len(urls) < limit):
                 urls.append(u)
         if not urls and not suppress_zero:
             print(f"  [warn] DDG returned 0 results for '{query}'", file=sys.stderr)
@@ -342,7 +342,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> 
 def main() -> int:
     parser = argparse.ArgumentParser(description="按语种搜索漫画网站域名")
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
-    parser.add_argument("--limit", type=int, default=30, help="每个搜索查询取多少条结果")
+    parser.add_argument("--limit", type=int, default=0, help="每个搜索查询取多少条结果，0=不限制")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     args = parser.parse_args()
