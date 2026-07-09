@@ -312,6 +312,12 @@ def search_searxng(query: str, limit: int, suppress_zero: bool = False) -> List[
             data = r.json()
             results = data.get("results", [])
             if not results:
+                if page == 1 and not suppress_zero:
+                    unresponsive = data.get("unresponsive_engines", [])
+                    if unresponsive:
+                        log(f"[warn] SearXNG 0 results for '{query[:50]}', unresponsive engines: {unresponsive}")
+                    else:
+                        log(f"[warn] SearXNG 0 results for '{query[:50]}', no unresponsive engines reported")
                 break
             for item in results:
                 u = item.get("url", "")
