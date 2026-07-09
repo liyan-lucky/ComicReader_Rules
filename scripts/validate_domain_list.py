@@ -4,6 +4,7 @@
     python scripts/validate_domain_list.py --language zh-Hans
     python scripts/validate_domain_list.py --language en --dry-run
     python scripts/validate_domain_list.py --language zh-Hans --workers 10
+    python scripts/validate_domain_list.py --language zh-Hans --report generated/domain_cleanup_report.json
 """
 from __future__ import annotations
 
@@ -11,6 +12,7 @@ import argparse
 import json
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,6 +41,9 @@ _MANGA_URL_PATTERNS = [
     "/genre-", "/genre/", "/manga-list",
 ]
 
+_BLOCKED_CFG = json.loads((ROOT / "config" / "blocked_domains.json").read_text(encoding="utf-8")) if (ROOT / "config" / "blocked_domains.json").exists() else {}
+BLOCKED_KEYWORDS = _BLOCKED_CFG.get("discover_domains", [])
+
 
 def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
@@ -50,7 +55,19 @@ def _get_kw_sets(language: str):
     return primary, secondary, anti
 
 
+def is_blocked(domain: str) -> tuple:
+    d = domain.lower()
+    for kw in BLOCKED_KEYWORDS:
+        if kw in d:
+            return True, kw
+    return False, ""
+
+
 def check_domain(domain: str, primary: set, secondary: set, anti: set) -> tuple:
+    blocked, blocked_kw = is_blocked(domain)
+    if blocked:
+        return domain, "blocked_domain", blocked_kw
+
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": ACCEPT_LANG}
@@ -117,6 +134,7 @@ def main() -> int:
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
     parser.add_argument("--dry-run", action="store_true", help="只输出结果不写文件")
     parser.add_argument("--workers", type=int, default=8, help="并发数")
+    parser.add_argument("--report", default="", help="JSON清理报告输出路径")
     args = parser.parse_args()
 
     filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
@@ -127,6 +145,7 @@ def main() -> int:
     print(f"  Primary keywords ({len(primary)}): {', '.join(list(primary)[:8])}...")
     print(f"  Secondary keywords ({len(secondary)}): {', '.join(list(secondary)[:6])}...")
     print(f"  Anti-patterns ({len(anti)}): {', '.join(list(anti)[:6])}...")
+    print(f"  Blocked keywords ({len(BLOCKED_KEYWORDS)})")
     print()
 
     results = {}
@@ -138,6 +157,7 @@ def main() -> int:
 
     kept = []
     removed = []
+    removed_details = []
     reasons = {}
 
     for domain in sorted(results.keys()):
@@ -153,7 +173,9 @@ def main() -> int:
             print(f"  ? {domain} ({result}, kept)")
         else:
             removed.append(domain)
-            print(f"  ✗ {domain} ({result})")
+            removed_details.append({"domain": domain, "reason": result, "detail": detail})
+            detail_str = f" [{detail}]" if detail else ""
+            print(f"  ✗ {domain} ({result}{detail_str})")
 
     print(f"\n{'='*60}")
     print(f"Results: {len(kept)} kept, {len(removed)} removed")
@@ -162,9 +184,33 @@ def main() -> int:
         print(f"  {k}: {v}")
 
     if removed:
-        print(f"\nRemoved domains ({len(removed)}):")
-        for d in removed:
-            print(f"  - {d} ({results[d][0]})")
+        print(f"\n--- Removed domains ({len(removed)}) ---")
+        by_reason = {}
+        for item in removed_details:
+            by_reason.setdefault(item["reason"], []).append(item)
+        for reason in sorted(by_reason.keys()):
+            items = by_reason[reason]
+            print(f"\n  [{reason}] ({len(items)} domains):")
+            for item in items:
+                detail_str = f' (matched: {item["detail"]})' if item["detail"] else ""
+                print(f'    - {item["domain"]}{detail_str}')
+
+    report_data = {
+        "language": args.language,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "totalDomains": len(domains),
+        "keptCount": len(kept),
+        "removedCount": len(removed),
+        "reasonBreakdown": reasons,
+        "keptDomains": sorted(kept),
+        "removedDomains": removed_details,
+    }
+
+    if args.report:
+        report_path = Path(args.report)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(report_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"\nReport saved to {args.report}")
 
     if not args.dry_run and removed:
         lines = [f"# {args.language} domain list\n"]

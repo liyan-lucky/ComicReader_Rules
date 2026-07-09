@@ -257,12 +257,13 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, an
     return "no_indicators"
 
 
-def validate_domains(domains: List[str], existing: Set[str], language: str) -> List[str]:
+def validate_domains(domains: List[str], existing: Set[str], language: str) -> tuple:
     primary, secondary, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "url_pattern_match": 0, "secondary_3+": 0}
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
+    removed_details = []
 
     for d in domains:
         if d in existing:
@@ -279,6 +280,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> L
         elif result.startswith("fetch_failed") or result.startswith("http_4") or result.startswith("http_5"):
             skipped += 1
             reject_reasons["network_issue"] += 1
+            removed_details.append({"domain": d, "reason": "network_issue", "detail": result})
             print(f"  ✗ {d} ({result}, skipped - cannot verify)")
         else:
             skipped += 1
@@ -288,12 +290,13 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> L
                 reject_reasons["anti_pattern"] += 1
             else:
                 reject_reasons["no_indicators"] += 1
+            removed_details.append({"domain": d, "reason": result, "detail": ""})
             print(f"  ✗ {d} ({result})")
 
     print(f"  Validation: {len(validated)} kept, {skipped} removed")
     print(f"    Kept reasons: {reasons}")
     print(f"    Reject reasons: {reject_reasons}")
-    return validated
+    return validated, removed_details
 
 
 def load_existing_domains(filepath: Path) -> Set[str]:
@@ -389,8 +392,20 @@ def main() -> int:
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated = validate_domains(clean, existing, args.language)
+    validated, removed_details = validate_domains(clean, existing, args.language)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
+
+    if removed_details:
+        print(f"\n--- Phase 3 removed domains ({len(removed_details)}) ---")
+        by_reason = {}
+        for item in removed_details:
+            by_reason.setdefault(item["reason"], []).append(item)
+        for reason in sorted(by_reason.keys()):
+            items = by_reason[reason]
+            print(f"  [{reason}] ({len(items)}):")
+            for item in items:
+                detail_str = f' ({item["detail"]})' if item["detail"] else ""
+                print(f'    - {item["domain"]}{detail_str}')
 
     added = save_domains(filepath, existing, validated)
     print(f"\nNew domains added to {filepath.name}: {len(added)}")
@@ -401,8 +416,18 @@ def main() -> int:
             print(f"  + {d}")
 
     if args.report:
+        blocked_details = []
+        for d in blocked:
+            matched_kw = ""
+            for kw in BLOCKED_DOMAIN_KEYWORDS:
+                if kw in d.lower():
+                    matched_kw = kw
+                    break
+            blocked_details.append({"domain": d, "matchedKeyword": matched_kw})
+
         report = {
             "language": args.language,
+            "timestamp": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
             "aggregatorSites": len(AGGREGATOR_SITES.get(args.language, [])),
             "queryCount": len(queries),
             "totalUrls": len(all_urls),
@@ -413,7 +438,9 @@ def main() -> int:
             "newDomains": sorted(added),
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
+            "blockedDetails": blocked_details,
             "allDiscoveredDomains": sorted(clean),
+            "removedDomains": removed_details,
         }
         report_path = Path(args.report)
         report_path.parent.mkdir(parents=True, exist_ok=True)

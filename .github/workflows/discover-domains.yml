@@ -176,6 +176,31 @@ jobs:
               mark = ' ✨' if d in set(new_domains) else ''
               lines.append(f'| {d}{mark} | [https://{d}](https://{d}) |')
 
+          blocked_details = report.get('blockedDetails', [])
+          if blocked_details:
+              lines += [
+                  '',
+                  '### 被屏蔽域名详情（blocked_domains.json 匹配）',
+                  '',
+                  '| 域名 | 匹配关键词 |',
+                  '|------|-----------|',
+              ]
+              for item in sorted(blocked_details, key=lambda x: x['domain']):
+                  lines.append(f'| {item[\"domain\"]} | {item[\"matchedKeyword\"]} |')
+
+          removed_details = report.get('removedDomains', [])
+          if removed_details:
+              lines += [
+                  '',
+                  '### Phase 3 验证移除域名详情',
+                  '',
+                  '| 域名 | 移除原因 |',
+                  '|------|---------|',
+              ]
+              for item in sorted(removed_details, key=lambda x: x['domain']):
+                  detail_str = f' ({item[\"detail\"]})' if item.get('detail') else ''
+                  lines.append(f'| {item[\"domain\"]} | {item[\"reason\"]}{detail_str} |')
+
           output = '\n'.join(lines) + '\n'
           print(output)
           summary = os.environ.get('GITHUB_STEP_SUMMARY')
