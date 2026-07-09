@@ -358,7 +358,7 @@ def reassign_uncategorized_items(items_by_title: Dict[str, Dict[str, Any]], stat
         else:
             tags = item.get("tags", []) if isinstance(item.get("tags"), list) else []
             for tag in tags:
-                tag_to_cat = dict(CATALOG_TAGS.get("tag_to_category_map", {}))
+                tag_to_cat = dict(TAG_TO_CATEGORY_MAP)
                 tag_to_cat.update({
                     "xuanhuan": "qihuan", "chuanyue": "maoxian", "chongsheng": "qihuan",
                     "yishijie": "qihuan", "xitong": "qihuan", "fuchou": "juqing",
