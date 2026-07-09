@@ -461,6 +461,12 @@ def extract_seed_candidates(html_text: str, seed_url: str, target_domain: str, l
     return unique_candidates(out)[:limit]
 
 
+def _fetch_seed_page(seed_url: str) -> Tuple[str, Optional[str], str]:
+    target_domain = normalize_domain(domain_of(seed_url) or urlparse(seed_url).netloc)
+    txt = fetch(seed_url, timeout=20)
+    return seed_url, txt, target_domain
+
+
 def discover_seed_candidates(
     domains: Sequence[str],
     explicit_seed_urls: Sequence[str],
@@ -468,7 +474,10 @@ def discover_seed_candidates(
     max_seed_candidates: int,
     sleep: float,
     deadline_monotonic: Optional[float] = None,
+    max_workers: int = 6,
 ) -> Tuple[List[Candidate], Dict[str, object]]:
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     seed_urls = seed_urls_for_domains(domains, explicit_seed_urls)
     out: List[Candidate] = []
     seed_stats = []
@@ -476,17 +485,30 @@ def discover_seed_candidates(
     target_domain_count = len({normalize_domain(domain_of(u) or urlparse(u).netloc) for u in seed_urls}) or 1
     per_domain_seed_limit = max(per_seed_limit, max_seed_candidates // target_domain_count)
     seed_candidate_counts: Dict[str, int] = {}
+
+    seed_results: Dict[str, Tuple[Optional[str], str]] = {}
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(_fetch_seed_page, u): u for u in seed_urls}
+        for fut in as_completed(futures):
+            if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
+                stopped_by_deadline = True
+                log("[stop] time budget reached during seed discovery")
+                break
+            try:
+                url, txt, target_domain = fut.result()
+                seed_results[url] = (txt, target_domain)
+            except Exception:
+                url = futures[fut]
+                seed_results[url] = (None, "")
+
     for seed_url in seed_urls:
-        if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
-            stopped_by_deadline = True
-            log("[stop] time budget reached during seed discovery")
-            break
-        target_domain = normalize_domain(domain_of(seed_url) or urlparse(seed_url).netloc)
-        log(f"[seed] {seed_url}")
-        txt = fetch(seed_url, timeout=20)
+        if seed_url not in seed_results:
+            continue
+        txt, target_domain = seed_results[seed_url]
+        if not target_domain:
+            target_domain = normalize_domain(domain_of(seed_url) or urlparse(seed_url).netloc)
         if not txt:
             seed_stats.append({"seedUrl": seed_url, "status": "fetch_failed", "candidateCount": 0})
-            time.sleep(sleep)
             continue
         found = extract_seed_candidates(txt, seed_url, target_domain, per_seed_limit)
         selected: List[Candidate] = []
@@ -507,7 +529,6 @@ def discover_seed_candidates(
         if len(out) >= max_seed_candidates:
             out = out[:max_seed_candidates]
             break
-        time.sleep(sleep)
     return out, {
         "enabled": True,
         "seedUrlCount": len(seed_urls),
@@ -792,11 +813,15 @@ def _is_blocked_domain(domain: str) -> bool:
 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
+    _GENERIC_PATTERNS = {"漫画", "manga", "manhua", "webtoon", "comic", "在线", "免费", "阅读", "推荐", "更新", "网站", "连载", "追更", "大全", "read", "online", "free", "site", "list"}
+    generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS)]
+    specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS)]
+    ordered_kws = generic_kws + specific_kws
     queries: List[str] = []
     has_search_api = _has_search_api()
     seeded = seeded_domains or set()
     clean_domains = [d for d in domains if not _is_blocked_domain(d)]
-    for kw in keywords:
+    for kw in ordered_kws:
         kw = kw.strip()
         if not kw:
             continue
@@ -845,6 +870,8 @@ def main() -> int:
     ap.add_argument("--language-name", default="Mixed", help="本次生成使用的语种名称")
     ap.add_argument("--sleep", type=float, default=0.6, help="请求间隔，避免压测公开站点")
     ap.add_argument("--time-budget-seconds", type=int, default=0, help="最多运行秒数；达到后写出已有结果并正常结束，0 表示不限制")
+    ap.add_argument("--search-budget-seconds", type=int, default=0, help="搜索阶段最多运行秒数；0 表示不限制，达到后直接进入审计阶段")
+    ap.add_argument("--max-consecutive-zero-search", type=int, default=50, help="连续多少次搜索返回0结果后提前跳过搜索阶段")
     ap.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     args = ap.parse_args()
 
@@ -920,13 +947,22 @@ def main() -> int:
         raw_candidates += seed_candidates
 
     consecutive_search_403 = 0
+    consecutive_zero_search = 0
+    search_deadline = started_at + args.search_budget_seconds if args.search_budget_seconds > 0 else None
     for q in queries:
         if budget_exceeded():
             search_stopped_by_time_budget = True
             log(f"[stop] time budget reached during search after {elapsed_seconds()}s")
             break
+        if search_deadline is not None and time.monotonic() >= search_deadline:
+            search_stopped_by_time_budget = True
+            log(f"[stop] search budget reached after {elapsed_seconds()}s, moving to audit")
+            break
         if consecutive_search_403 >= 5:
             log(f"[stop] search engine consistently returning 403, skipping remaining {len(queries) - len(query_stats)} queries")
+            break
+        if args.max_consecutive_zero_search > 0 and consecutive_zero_search >= args.max_consecutive_zero_search and len(raw_candidates) > 0:
+            log(f"[stop] {consecutive_zero_search} consecutive zero-result searches, moving to audit with {len(raw_candidates)} candidates")
             break
         log(f"[search] {q}")
         found = search_web(q, args.limit, suppress_zero=args.suppress_zero_results)
@@ -938,6 +974,10 @@ def main() -> int:
         for c in found:
             search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1
         raw_candidates += found
+        if found:
+            consecutive_zero_search = 0
+        else:
+            consecutive_zero_search += 1
         time.sleep(args.sleep)
 
     raw_candidate_count = len(raw_candidates)

@@ -90,6 +90,18 @@ on:
         options:
           - 'true'
           - 'false'
+      search_budget_seconds:
+        description: '搜索阶段时间预算秒数（0=不限制，deep建议3600）'
+        required: false
+        default: '0'
+      max_consecutive_zero_search:
+        description: '连续多少次搜索返回0结果后跳过搜索（0=不限制，建议50）'
+        required: false
+        default: '50'
+      domain_override:
+        description: '覆盖域名列表（逗号分隔，留空则使用domains文件）'
+        required: false
+        default: ''
   schedule:
     - cron: '0 3 1,15 * *'
 
@@ -131,6 +143,9 @@ jobs:
       RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
       RULE_SLEEP_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.sleep || '' }}
       RULE_SUPPRESS_ZERO: ${{ github.event_name == 'workflow_dispatch' && inputs.suppress_zero_results || 'false' }}
+      RULE_SEARCH_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_budget_seconds || '' }}
+      RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_zero_search || '' }}
+      RULE_DOMAIN_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.domain_override || '' }}
       QUICK_MAX_GENERATED: '2000'
       DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
@@ -149,6 +164,10 @@ jobs:
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.15'
       DEEP_SLEEP: '0.4'
+      QUICK_SEARCH_BUDGET_SECONDS: '1800'
+      DEEP_SEARCH_BUDGET_SECONDS: '3600'
+      QUICK_MAX_CONSECUTIVE_ZERO_SEARCH: '30'
+      DEEP_MAX_CONSECUTIVE_ZERO_SEARCH: '50'
 
     steps:
       - name: 检出 main
@@ -215,6 +234,8 @@ jobs:
             SELECTED_PER_DOMAIN_GENERATED_LIMIT="$DEEP_PER_DOMAIN_GENERATED_LIMIT"
             SELECTED_TIME_BUDGET_SECONDS="$DEEP_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$DEEP_SLEEP"
+            SELECTED_SEARCH_BUDGET_SECONDS="$DEEP_SEARCH_BUDGET_SECONDS"
+            SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH="$DEEP_MAX_CONSECUTIVE_ZERO_SEARCH"
           else
             SELECTED_MAX_GENERATED="$QUICK_MAX_GENERATED"
             SELECTED_LIMIT="$QUICK_LIMIT"
@@ -225,6 +246,8 @@ jobs:
             SELECTED_PER_DOMAIN_GENERATED_LIMIT="$QUICK_PER_DOMAIN_GENERATED_LIMIT"
             SELECTED_TIME_BUDGET_SECONDS="$QUICK_TIME_BUDGET_SECONDS"
             SELECTED_SLEEP="$QUICK_SLEEP"
+            SELECTED_SEARCH_BUDGET_SECONDS="$QUICK_SEARCH_BUDGET_SECONDS"
+            SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH="$QUICK_MAX_CONSECUTIVE_ZERO_SEARCH"
           fi
           if [ -n "${RULE_MAX_GENERATED_INPUT:-}" ]; then
             SELECTED_MAX_GENERATED="$RULE_MAX_GENERATED_INPUT"
@@ -253,10 +276,30 @@ jobs:
           if [ -n "${RULE_SLEEP_INPUT:-}" ]; then
             SELECTED_SLEEP="$RULE_SLEEP_INPUT"
           fi
+          if [ -n "${RULE_SEARCH_BUDGET_SECONDS_INPUT:-}" ]; then
+            SELECTED_SEARCH_BUDGET_SECONDS="$RULE_SEARCH_BUDGET_SECONDS_INPUT"
+          fi
+          if [ -n "${RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT:-}" ]; then
+            SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH="$RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT"
+          fi
 
           KEYWORDS_FILE="config/keywords/${RULE_LANGUAGE}.txt"
           DOMAINS_FILE="config/domains/${RULE_LANGUAGE}.txt"
           ARGS="--keywords-file '${KEYWORDS_FILE}' --domains-file '${DOMAINS_FILE}'"
+
+          if [ -n "$RULE_DOMAIN_OVERRIDE" ]; then
+            DOMAIN_ARGS=""
+            IFS=',' read -ra DOMAIN_LIST <<< "$RULE_DOMAIN_OVERRIDE"
+            for d in "${DOMAIN_LIST[@]}"; do
+              d=$(echo "$d" | xargs)
+              if [ -n "$d" ]; then
+                DOMAIN_ARGS="$DOMAIN_ARGS --domain $d"
+              fi
+            done
+            if [ -n "$DOMAIN_ARGS" ]; then
+              ARGS="--keywords-file '${KEYWORDS_FILE}' $DOMAIN_ARGS"
+            fi
+          fi
 
           mkdir -p generated rules dist
           REPORT_FILE="generated/rulebot_report.${RULE_LANGUAGE}.json"
@@ -267,7 +310,7 @@ jobs:
           if [ "$RULE_SUPPRESS_ZERO" = "true" ]; then
             SUPPRESS_FLAG="--suppress-zero-results"
           fi
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --report \"$REPORT_FILE\" $SUPPRESS_FLAG"
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --search-budget-seconds $SELECTED_SEARCH_BUDGET_SECONDS --max-consecutive-zero-search $SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --report \"$REPORT_FILE\" $SUPPRESS_FLAG"
           python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
 
