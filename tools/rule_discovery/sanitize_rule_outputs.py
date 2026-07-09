@@ -21,12 +21,25 @@ from urllib.parse import urlparse
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-BLOCKED_DOMAIN_KEYWORDS = [
-    "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
-    "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
-    "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
-    "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com", "shop",
-]
+_BLOCKED_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "blocked_domains.json"
+if _BLOCKED_CFG_PATH.exists():
+    try:
+        _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
+        BLOCKED_DOMAIN_KEYWORDS = _BLOCKED_CFG.get("generate_rules", _BLOCKED_CFG.get("discover_domains", []))
+    except Exception:
+        BLOCKED_DOMAIN_KEYWORDS = [
+            "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
+            "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
+            "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
+            "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com", "shop",
+        ]
+else:
+    BLOCKED_DOMAIN_KEYWORDS = [
+        "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
+        "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
+        "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
+        "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com", "shop",
+    ]
 
 BLOCKED_PATH_KEYWORDS = [
     "/video", "/live", "/short", "/reel", "/photo", "/post", "/user", "/profile", "/topic",

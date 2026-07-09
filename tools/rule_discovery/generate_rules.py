@@ -73,12 +73,9 @@ EXCLUDE_URL_RE = re.compile(r"/(login|register|user|member|pay|vip|charge|downlo
 EXCLUDE_IMAGE_RE = re.compile(r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)", re.I)
 
 _BLOCKED_CFG = _load_config("blocked_domains.json", {})
-BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("generate_rules", [
-    "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
-    "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
-    "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
-    "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com",
-])
+_DISCOVER_BLOCKED: List[str] = _BLOCKED_CFG.get("discover_domains", [])
+_GENERATE_BLOCKED: List[str] = _BLOCKED_CFG.get("generate_rules", [])
+BLOCKED_DOMAIN_KEYWORDS: List[str] = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
 
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
 
@@ -390,20 +387,6 @@ def likely_content_url(url: str) -> bool:
         return False
     host = domain_of(url)
     if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
-        return False
-    _EXTRA_BLOCKED_HOSTS = [
-        "moegirl", "baike", "wikipedia", "fandom", "wikia",
-        "geeksforgeeks", "leetcode", "stackoverflow", "stackexchange",
-        "nba", "nhl", "mlb", "nfl", "fifa",
-        "nhk", "nikkei", "reuters", "bbc", "cnn",
-        "hotpepper", "gurunavi", "tabelog",
-        "uptodown", "apkpure", "wandoujia", "apkmirror",
-        "clip-studio", "wacom",
-        "shonenjump", "pocket.shonenmagazine",
-        "bookwalker", "piccoma", "cmoa.jp",
-        "webtoons.com", "manta.net",
-    ]
-    if any(bad in host for bad in _EXTRA_BLOCKED_HOSTS):
         return False
     if DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url):
         return True
@@ -817,6 +800,11 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
                 queries.append(f"{kw} 漫画")
             else:
                 queries.append(f"{kw} manga read")
+            if domains:
+                for d in domains:
+                    if d in seeded:
+                        continue
+                    queries.append(f"site:{d} {kw}")
         else:
             bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
             for b in bases:
