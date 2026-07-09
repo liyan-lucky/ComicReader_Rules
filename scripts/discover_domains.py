@@ -127,7 +127,7 @@ def _searxng_url() -> str:
     return ""
 
 
-def search_searxng(query: str, limit: int = 30) -> List[str]:
+def search_searxng(query: str, limit: int = 30, suppress_zero: bool = False) -> List[str]:
     base_url = _searxng_url()
     if not base_url:
         return []
@@ -149,14 +149,15 @@ def search_searxng(query: str, limit: int = 30) -> List[str]:
                 if u and len(all_urls) < limit:
                     all_urls.append(u)
         except Exception as e:
-            print(f"  [warn] SearXNG page {page} failed for '{query}': {e}", file=sys.stderr)
+            if not suppress_zero:
+                print(f"  [warn] SearXNG page {page} failed for '{query}': {e}", file=sys.stderr)
             break
-    if not all_urls:
+    if not all_urls and not suppress_zero:
         print(f"  [warn] SearXNG returned 0 results for '{query}'", file=sys.stderr)
     return all_urls
 
 
-def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
+def search_duckduckgo(query: str, limit: int = 20, suppress_zero: bool = False) -> List[str]:
     try:
         url = "https://html.duckduckgo.com/html/?" + urlencode({"q": query})
         headers = {"User-Agent": DEFAULT_UA}
@@ -165,7 +166,8 @@ def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
         else:
             r = requests.get(url, headers=headers, timeout=20, allow_redirects=True)
         if r.status_code >= 400:
-            print(f"  [warn] DDG HTTP {r.status_code} for '{query}'", file=sys.stderr)
+            if not suppress_zero:
+                print(f"  [warn] DDG HTTP {r.status_code} for '{query}'", file=sys.stderr)
             return []
         urls = []
         for m in re.finditer(r'href="(https?://[^"]+)"', r.text):
@@ -174,11 +176,12 @@ def search_duckduckgo(query: str, limit: int = 20) -> List[str]:
                 continue
             if u.startswith("http") and len(urls) < limit:
                 urls.append(u)
-        if not urls:
+        if not urls and not suppress_zero:
             print(f"  [warn] DDG returned 0 results for '{query}'", file=sys.stderr)
         return urls
     except Exception as e:
-        print(f"  [warn] DDG failed for '{query}': {e}", file=sys.stderr)
+        if not suppress_zero:
+            print(f"  [warn] DDG failed for '{query}': {e}", file=sys.stderr)
         return []
 
 
@@ -235,6 +238,10 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, an
     text = r.text.lower()[:80000]
     final_url = r.url.lower()
 
+    for ap in anti:
+        if ap in text:
+            return "anti_pattern"
+
     for kw in primary:
         if kw in text:
             return "primary_match"
@@ -246,10 +253,6 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, an
     secondary_hits = sum(1 for kw in secondary if kw in text)
     if secondary_hits >= 3:
         return "secondary_3+"
-
-    for ap in anti:
-        if ap in text:
-            return "anti_pattern"
 
     return "no_indicators"
 
@@ -338,6 +341,7 @@ def main() -> int:
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
     parser.add_argument("--limit", type=int, default=30, help="每个搜索查询取多少条结果")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
+    parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     args = parser.parse_args()
 
     queries = load_queries(args.language)
@@ -361,9 +365,9 @@ def main() -> int:
         print(f"\n=== Phase 2: Search engines ({len(queries)} queries) ===")
         for q in queries:
             print(f"  Searching: {q}")
-            urls = search_searxng(q, args.limit)
+            urls = search_searxng(q, args.limit, suppress_zero=args.suppress_zero_results)
             if len(urls) < 3:
-                urls += search_duckduckgo(q, args.limit)
+                urls += search_duckduckgo(q, args.limit, suppress_zero=args.suppress_zero_results)
             all_urls.extend(urls)
             print(f"    Found {len(urls)} URLs")
 

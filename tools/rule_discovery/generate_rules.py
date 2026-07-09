@@ -257,7 +257,7 @@ def search_google_cse(query: str, limit: int) -> List[Candidate]:
     return [c for c in out if c.url]
 
 
-def search_duckduckgo_html(query: str, limit: int) -> List[Candidate]:
+def search_duckduckgo_html(query: str, limit: int, suppress_zero: bool = False) -> List[Candidate]:
     url = "https://duckduckgo.com/html/?" + urlencode({"q": query})
     txt = fetch(url, timeout=20)
     if not txt:
@@ -297,7 +297,7 @@ def _searxng_url() -> str:
     return ""
 
 
-def search_searxng(query: str, limit: int) -> List[Candidate]:
+def search_searxng(query: str, limit: int, suppress_zero: bool = False) -> List[Candidate]:
     base_url = _searxng_url()
     if not base_url:
         return []
@@ -321,9 +321,10 @@ def search_searxng(query: str, limit: int) -> List[Candidate]:
                     seen_urls.add(u)
                     all_out.append(Candidate(url=u, title=clean_text(item.get("title", "")), snippet=clean_text(item.get("content", "")), engine="searxng"))
         except Exception as e:
-            log(f"[warn] SearXNG page {page} failed: {e}")
+            if not suppress_zero:
+                log(f"[warn] SearXNG page {page} failed: {e}")
             break
-    if not all_out:
+    if not all_out and not suppress_zero:
         log(f"[warn] SearXNG returned 0 results for '{query}'")
     return [c for c in all_out if c.url][:limit]
 
@@ -350,7 +351,7 @@ def _has_search_api() -> bool:
     )
 
 
-def search_web(query: str, limit: int) -> List[Candidate]:
+def search_web(query: str, limit: int, suppress_zero: bool = False) -> List[Candidate]:
     candidates: List[Candidate] = []
     seen_urls: set = set()
     def _merge(items: List[Candidate]) -> None:
@@ -361,11 +362,11 @@ def search_web(query: str, limit: int) -> List[Candidate]:
                 c.url = u
                 candidates.append(c)
 
-    _merge(search_searxng(query, limit))
+    _merge(search_searxng(query, limit, suppress_zero=suppress_zero))
     if len(candidates) >= limit:
         return candidates[:limit]
 
-    _merge(search_duckduckgo_html(query, limit))
+    _merge(search_duckduckgo_html(query, limit, suppress_zero=suppress_zero))
     if len(candidates) >= limit:
         return candidates[:limit]
 
@@ -389,6 +390,20 @@ def likely_content_url(url: str) -> bool:
         return False
     host = domain_of(url)
     if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
+        return False
+    _EXTRA_BLOCKED_HOSTS = [
+        "moegirl", "baike", "wikipedia", "fandom", "wikia",
+        "geeksforgeeks", "leetcode", "stackoverflow", "stackexchange",
+        "nba", "nhl", "mlb", "nfl", "fifa",
+        "nhk", "nikkei", "reuters", "bbc", "cnn",
+        "hotpepper", "gurunavi", "tabelog",
+        "uptodown", "apkpure", "wandoujia", "apkmirror",
+        "clip-studio", "wacom",
+        "shonenjump", "pocket.shonenmagazine",
+        "bookwalker", "piccoma", "cmoa.jp",
+        "webtoons.com", "manta.net",
+    ]
+    if any(bad in host for bad in _EXTRA_BLOCKED_HOSTS):
         return False
     if DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url):
         return True
@@ -836,6 +851,7 @@ def main() -> int:
     ap.add_argument("--language-name", default="Mixed", help="本次生成使用的语种名称")
     ap.add_argument("--sleep", type=float, default=0.6, help="请求间隔，避免压测公开站点")
     ap.add_argument("--time-budget-seconds", type=int, default=0, help="最多运行秒数；达到后写出已有结果并正常结束，0 表示不限制")
+    ap.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     args = ap.parse_args()
 
     def elapsed_seconds() -> int:
@@ -919,7 +935,7 @@ def main() -> int:
             log(f"[stop] search engine consistently returning 403, skipping remaining {len(queries) - len(query_stats)} queries")
             break
         log(f"[search] {q}")
-        found = search_web(q, args.limit)
+        found = search_web(q, args.limit, suppress_zero=args.suppress_zero_results)
         if not found and not _has_search_api():
             consecutive_search_403 += 1
         else:

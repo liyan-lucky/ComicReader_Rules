@@ -82,6 +82,14 @@ on:
         description: '每次请求间隔秒数（quick默认0.15, deep默认0.4）'
         required: false
         default: '0.4'
+      suppress_zero_results:
+        description: '零结果搜索不输出警告（减少日志噪音）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
   schedule:
     - cron: '0 3 1,15 * *'
 
@@ -122,6 +130,7 @@ jobs:
       RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_generated_limit || '' }}
       RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
       RULE_SLEEP_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.sleep || '' }}
+      RULE_SUPPRESS_ZERO: ${{ github.event_name == 'workflow_dispatch' && inputs.suppress_zero_results || 'false' }}
       QUICK_MAX_GENERATED: '2000'
       DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
@@ -254,7 +263,11 @@ jobs:
           INDEX_FILE="generated/index.${RULE_LANGUAGE}.json"
           ETS_FILE="generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets"
           RULES_FILE="rules/index.${RULE_LANGUAGE}.json"
-          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --report \"$REPORT_FILE\""
+          SUPPRESS_FLAG=""
+          if [ "$RULE_SUPPRESS_ZERO" = "true" ]; then
+            SUPPRESS_FLAG="--suppress-zero-results"
+          fi
+          eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --report \"$REPORT_FILE\" $SUPPRESS_FLAG"
           python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
 

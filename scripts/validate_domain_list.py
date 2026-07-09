@@ -80,6 +80,10 @@ def check_domain(domain: str, primary: set, secondary: set, anti: set) -> tuple:
 
     secondary_hits = [kw for kw in secondary if kw in text]
 
+    for ap in anti:
+        if ap in text:
+            return domain, "anti_pattern", ap
+
     if primary_hit:
         matched_kw = primary_hit
         for orig_kw in primary:
@@ -93,10 +97,6 @@ def check_domain(domain: str, primary: set, secondary: set, anti: set) -> tuple:
 
     if len(secondary_hits) >= 3:
         return domain, "secondary_3+", ",".join(secondary_hits[:5])
-
-    for ap in anti:
-        if ap in text:
-            return domain, "anti_pattern", ap
 
     return domain, "no_indicators", ""
 
