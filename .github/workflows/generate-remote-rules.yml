@@ -44,6 +44,8 @@ on:
           - zh-Hans
           - zh-Hant
           - en
+          - ja
+          - ko
       time_budget_seconds:
         description: '生成阶段时间预算秒数（deep默认19800=5.5h）'
         required: true
@@ -224,6 +226,12 @@ jobs:
               ;;
             en)
               RULE_LANGUAGE_NAME="English"
+              ;;
+            ja)
+              RULE_LANGUAGE_NAME="日本語"
+              ;;
+            ko)
+              RULE_LANGUAGE_NAME="한국어"
               ;;
             *)
               echo "Unsupported rule language: $RULE_LANGUAGE" >&2

@@ -30,6 +30,18 @@ on:
         options:
           - 'false'
           - 'true'
+      catalog_language:
+        description: '语种代码 (zh-Hans/zh-Hant/en/ja/ko/mixed)'
+        required: false
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - 'zh-Hans'
+          - 'zh-Hant'
+          - 'en'
+          - 'ja'
+          - 'ko'
+          - 'mixed'
   schedule:
     - cron: '0 1 * * 0'
 
@@ -125,8 +137,7 @@ jobs:
           fi
 
       - name: 发布目录日期标签
-        if: ${{ env.PUBLISH_RELEASE == 'true' }}
-        if: github.event_name != 'pull_request'
+        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
         run: |
           set -euo pipefail
           git fetch --tags origin
@@ -139,8 +150,7 @@ jobs:
           echo "Published tag: $TAG_NAME"
 
       - name: 准备目录 Release 附件
-        if: ${{ env.PUBLISH_RELEASE == 'true' }}
-        if: github.event_name != 'pull_request'
+        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
         run: |
           set -euo pipefail
           rm -rf dist/release
@@ -192,8 +202,7 @@ jobs:
           PY
 
       - name: 发布或更新目录 Release
-        if: ${{ env.PUBLISH_RELEASE == 'true' }}
-        if: github.event_name != 'pull_request'
+        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -217,8 +226,7 @@ jobs:
           echo "Published catalog release: $TAG_NAME"
 
       - name: 校验标签和 Release 发布状态
-        if: ${{ env.PUBLISH_RELEASE == 'true' }}
-        if: github.event_name != 'pull_request'
+        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
