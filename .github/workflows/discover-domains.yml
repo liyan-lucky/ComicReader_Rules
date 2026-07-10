@@ -182,6 +182,31 @@ jobs:
           else:
               lines.append('无命中域名')
 
+          blocked_by_kw = report.get('blockedByKeyword', {})
+          removed_details = report.get('removedDomains', [])
+          anti_removed = [item for item in removed_details if item.get('reason') == 'anti_pattern']
+          anti_by_kw = {}
+          for item in anti_removed:
+              kw = item.get('matched_kw', '')
+              anti_by_kw.setdefault(kw, []).append(item['domain'])
+          merged_blocked = {}
+          for kw, dlist in blocked_by_kw.items():
+              merged_blocked.setdefault(kw, []).extend(dlist)
+          for kw, dlist in anti_by_kw.items():
+              merged_blocked.setdefault(kw, []).extend(dlist)
+          if merged_blocked:
+              lines.append('## 被屏蔽域名')
+              lines.append('')
+              for kw in sorted(merged_blocked.keys()):
+                  dlist = sorted(set(merged_blocked[kw]))
+                  lines.append(f'### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append('')
+                  lines.append('| 域名 |')
+                  lines.append('|------|')
+                  for d in dlist:
+                      lines.append(f'| [{d}](https://{d}) |')
+                  lines.append('')
+
           output = '\n'.join(lines) + '\n'
           print(output)
           summary = os.environ.get('GITHUB_STEP_SUMMARY')
