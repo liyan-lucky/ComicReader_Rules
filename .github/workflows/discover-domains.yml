@@ -191,14 +191,30 @@ jobs:
               '',
           ]
           blocked_by_kw = report.get('blockedByKeyword', {})
-          if blocked_by_kw:
-              for kw in sorted(blocked_by_kw.keys()):
-                  dlist = blocked_by_kw[kw]
+          removed_details = report.get('removedDomains', [])
+          anti_removed = [item for item in removed_details if item.get('reason') == 'anti_pattern']
+          anti_by_kw = {}
+          for item in anti_removed:
+              kw = item.get('matched_kw', '')
+              anti_by_kw.setdefault(kw, []).append(item['domain'])
+          merged_blocked = {}
+          for kw, dlist in blocked_by_kw.items():
+              merged_blocked.setdefault(kw, []).extend(dlist)
+          for kw, dlist in anti_by_kw.items():
+              merged_blocked.setdefault(kw, []).extend(dlist)
+          lines += [
+              '',
+              '### 按命中词统计（被屏蔽）',
+              '',
+          ]
+          if merged_blocked:
+              for kw in sorted(merged_blocked.keys()):
+                  dlist = sorted(set(merged_blocked[kw]))
                   lines.append(f'#### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
                   lines.append('')
                   lines.append('| 域名 | 屏蔽词 |')
                   lines.append('|------|--------|')
-                  for d in sorted(dlist):
+                  for d in dlist:
                       lines.append(f'| [{d}](https://{d}) | `{kw}` |')
                   lines.append('')
           else:
