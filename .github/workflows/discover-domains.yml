@@ -163,62 +163,24 @@ jobs:
               f'搜索查询数：{report.get(\"queryCount\", 0)}',
               f'收集URL总数：{report.get(\"totalUrls\", 0)}',
               f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
-              f'屏蔽域名数：{report.get(\"blockedCount\", 0)}',
               f'新增域名数：{len(new_domains)}',
               f'当前域名总数：{len(existing)}',
-              '',
-              '### 按命中词统计（验证通过）',
               '',
           ]
           matched_by_kw = report.get('matchedByKeyword', {})
           if matched_by_kw:
               for kw in sorted(matched_by_kw.keys()):
                   dlist = matched_by_kw[kw]
-                  lines.append(f'#### 关键词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append(f'### 关键词: `{kw}` （命中 {len(dlist)} 个域名）')
                   lines.append('')
-                  lines.append('| 域名 | 命中词 |')
-                  lines.append('|------|--------|')
+                  lines.append('| 域名 |')
+                  lines.append('|------|')
                   for d in sorted(dlist):
                       mark = ' ✨' if d in set(new_domains) else ''
-                      lines.append(f'| [{d}](https://{d}){mark} | `{kw}` |')
+                      lines.append(f'| [{d}](https://{d}){mark} |')
                   lines.append('')
           else:
               lines.append('无命中域名')
-
-          lines += [
-              '',
-              '### 按命中词统计（被屏蔽域名）',
-              '',
-          ]
-          blocked_by_kw = report.get('blockedByKeyword', {})
-          removed_details = report.get('removedDomains', [])
-          anti_removed = [item for item in removed_details if item.get('reason') == 'anti_pattern']
-          anti_by_kw = {}
-          for item in anti_removed:
-              kw = item.get('matched_kw', '')
-              anti_by_kw.setdefault(kw, []).append(item['domain'])
-          merged_blocked = {}
-          for kw, dlist in blocked_by_kw.items():
-              merged_blocked.setdefault(kw, []).extend(dlist)
-          for kw, dlist in anti_by_kw.items():
-              merged_blocked.setdefault(kw, []).extend(dlist)
-          lines += [
-              '',
-              '### 按命中词统计（被屏蔽）',
-              '',
-          ]
-          if merged_blocked:
-              for kw in sorted(merged_blocked.keys()):
-                  dlist = sorted(set(merged_blocked[kw]))
-                  lines.append(f'#### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
-                  lines.append('')
-                  lines.append('| 域名 | 屏蔽词 |')
-                  lines.append('|------|--------|')
-                  for d in dlist:
-                      lines.append(f'| [{d}](https://{d}) | `{kw}` |')
-                  lines.append('')
-          else:
-              lines.append('无被屏蔽域名')
 
           output = '\n'.join(lines) + '\n'
           print(output)
