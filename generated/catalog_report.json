@@ -1,0 +1,367 @@
+{
+  "schema": "comic_catalog_report_v1",
+  "updatedAt": "2026-07-10T00:08:51Z",
+  "input": {
+    "index": "generated/index.json",
+    "report": "generated/rulebot_report.json",
+    "discoverySources": "generated/catalog_discovery_sources.json",
+    "manualRules": "rules/manual/index.json"
+  },
+  "itemCount": 855,
+  "categoryCount": 16,
+  "tagCount": 12,
+  "sourceRecordCount": 57351,
+  "indexRecordCount": 28297,
+  "reportRecordCount": 28304,
+  "discoveryRecordCount": 0,
+  "categorySearchRecordCount": 750,
+  "uncategorizedCount": 144,
+  "uncategorizedSamples": [
+    "Comick公开搜索源",
+    "MangaFire公开搜索源",
+    "OVERLORD",
+    "manga.hk - manga.hk 远程公开源",
+    "static3w.kuaikanmanhua.com - static3w.kuaikanmanhua.com 远程公开源",
+    "webtoon中文",
+    "window.webpackJsonp=window.webpackJsonp||[]).pu - static3w.kuaikanmanhua.com 远程公开源",
+    "一人之下",
+    "一拳超人",
+    "七大罪",
+    "万古神帝",
+    "万族之劫",
+    "万界仙踪",
+    "万相之王",
+    "世界尽头的圣骑士",
+    "东京复仇者",
+    "为美好的世界献上祝福",
+    "九州缥缈录",
+    "从前有座灵剑山",
+    "仙草供应商",
+    "仙逆",
+    "佣兵天下",
+    "修罗剑尊",
+    "元尊",
+    "免费漫画",
+    "全球高武",
+    "全知读者视角",
+    "全职猎人",
+    "全职高手",
+    "关于我转生变成史莱姆这档事"
+  ],
+  "singlePrimaryCategory": true,
+  "clickableLinks": true,
+  "classificationPolicy": {
+    "primaryCategoryModel": "common_public_comic_genres_v3_balanced_fallback",
+    "targetPerCategory": 50,
+    "categoryTargetedSearchEnabled": true,
+    "categorySearchFallbackEnabled": true,
+    "categorySearchFallbackOnlyForUnclassified": true,
+    "forcedCategoryFromCategorySearch": false,
+    "detailMetadataFirst": true,
+    "chapterTitleFilter": true,
+    "broadStorySettingsMovedToTags": [
+      "xuanhuan",
+      "chuanyue",
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen"
+    ],
+    "primaryCategoryPriority": [
+      "dongzuo",
+      "maoxian",
+      "lianai",
+      "xiju",
+      "juqing",
+      "qihuan",
+      "xiaoyuan",
+      "richang",
+      "wuxia_gedou",
+      "kehuan",
+      "kongbu",
+      "xuanyi",
+      "lishi_gufeng",
+      "dushi",
+      "xiuxian",
+      "weifenlei"
+    ],
+    "tagIds": [
+      "xuanhuan",
+      "chuanyue",
+      "chongsheng",
+      "yishijie",
+      "xitong",
+      "fuchou",
+      "shuangwen",
+      "hougong",
+      "danmei",
+      "baihe",
+      "shaonian",
+      "shaonv"
+    ],
+    "targetBoostEnabled": true,
+    "targetBoostTarget": 50,
+    "targetBoostMinimumVisibleTarget": 50
+  },
+  "discovery": {
+    "enabledSourceCount": 0,
+    "entryUrlCount": 0,
+    "pagesFetched": 0,
+    "pagesFailed": 0,
+    "recordsFound": 0,
+    "errors": []
+  },
+  "categorySearch": {
+    "enabledRuleCount": 6,
+    "categoryCount": 15,
+    "searchPagesFetched": 15,
+    "searchPagesFailed": 0,
+    "recordsFound": 750,
+    "errors": [],
+    "targetPerCategory": 50,
+    "searchDiscoveryWithFallbackClassification": true,
+    "hintRecordCounts": {
+      "dongzuo": 50,
+      "dushi": 50,
+      "juqing": 50,
+      "kehuan": 50,
+      "kongbu": 50,
+      "lianai": 50,
+      "lishi_gufeng": 50,
+      "maoxian": 50,
+      "qihuan": 50,
+      "richang": 50,
+      "wuxia_gedou": 50,
+      "xiaoyuan": 50,
+      "xiju": 50,
+      "xiuxian": 50,
+      "xuanyi": 50
+    }
+  },
+  "detailMetadata": {
+    "detailPagesFetched": 68,
+    "detailPagesFailed": 0,
+    "metadataHits": 63,
+    "metadataLimit": 3000,
+    "categorySearchFallbackAssigned": 4,
+    "categoryCountsAfterFallback": {
+      "dongzuo": 18,
+      "juqing": 1,
+      "kehuan": 3,
+      "kongbu": 2,
+      "lianai": 15,
+      "lishi_gufeng": 1,
+      "maoxian": 8,
+      "qihuan": 12,
+      "richang": 2,
+      "wuxia_gedou": 2,
+      "xiaoyuan": 1,
+      "xiju": 8,
+      "xiuxian": 3,
+      "xuanyi": 3
+    }
+  },
+  "tags": [
+    {
+      "id": "xuanhuan",
+      "name": "玄幻",
+      "count": 2
+    },
+    {
+      "id": "chuanyue",
+      "name": "穿越",
+      "count": 9
+    },
+    {
+      "id": "chongsheng",
+      "name": "重生",
+      "count": 11
+    },
+    {
+      "id": "yishijie",
+      "name": "异世界",
+      "count": 7
+    },
+    {
+      "id": "xitong",
+      "name": "系统",
+      "count": 5
+    },
+    {
+      "id": "fuchou",
+      "name": "复仇",
+      "count": 4
+    },
+    {
+      "id": "shuangwen",
+      "name": "爽文",
+      "count": 3
+    },
+    {
+      "id": "hougong",
+      "name": "后宫",
+      "count": 5
+    },
+    {
+      "id": "danmei",
+      "name": "耽美",
+      "count": 21
+    },
+    {
+      "id": "baihe",
+      "name": "百合",
+      "count": 4
+    },
+    {
+      "id": "shaonian",
+      "name": "少年",
+      "count": 8
+    },
+    {
+      "id": "shaonv",
+      "name": "少女",
+      "count": 8
+    }
+  ],
+  "targetBoost": {
+    "enabled": true,
+    "targetCount": 50,
+    "minimumVisibleTarget": 50,
+    "searchRules": 6,
+    "searchPagesFetched": 275,
+    "searchPagesFailed": 1,
+    "newItems": 627,
+    "existingItemsTouched": 3534,
+    "reassignedFromOverflow": 0,
+    "errors": [
+      {
+        "category": "lianai",
+        "keyword": "爱情",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 500: Internal Server Error"
+      }
+    ],
+    "countsBefore": {
+      "dongzuo": 18,
+      "juqing": 1,
+      "kehuan": 3,
+      "kongbu": 2,
+      "lianai": 15,
+      "lishi_gufeng": 1,
+      "maoxian": 8,
+      "qihuan": 12,
+      "richang": 2,
+      "weifenlei": 149,
+      "wuxia_gedou": 2,
+      "xiaoyuan": 1,
+      "xiju": 8,
+      "xiuxian": 3,
+      "xuanyi": 3
+    },
+    "reassignedFromUncategorized": 5,
+    "countsAfter": {
+      "dongzuo": 50,
+      "dushi": 50,
+      "juqing": 33,
+      "kehuan": 50,
+      "kongbu": 50,
+      "lianai": 50,
+      "lishi_gufeng": 50,
+      "maoxian": 50,
+      "qihuan": 48,
+      "richang": 50,
+      "weifenlei": 144,
+      "wuxia_gedou": 30,
+      "xiaoyuan": 50,
+      "xiju": 50,
+      "xiuxian": 50,
+      "xuanyi": 50
+    },
+    "categoriesAtOrAboveTarget": 12,
+    "categoriesAtOrAboveVisibleTarget": 12,
+    "remainingTotalGap": 39
+  },
+  "categories": [
+    {
+      "id": "dongzuo",
+      "name": "动作",
+      "count": 50
+    },
+    {
+      "id": "maoxian",
+      "name": "冒险",
+      "count": 50
+    },
+    {
+      "id": "lianai",
+      "name": "恋爱",
+      "count": 50
+    },
+    {
+      "id": "xiju",
+      "name": "喜剧",
+      "count": 50
+    },
+    {
+      "id": "juqing",
+      "name": "剧情",
+      "count": 33
+    },
+    {
+      "id": "qihuan",
+      "name": "奇幻",
+      "count": 48
+    },
+    {
+      "id": "xiaoyuan",
+      "name": "校园",
+      "count": 50
+    },
+    {
+      "id": "richang",
+      "name": "日常",
+      "count": 50
+    },
+    {
+      "id": "wuxia_gedou",
+      "name": "武侠/格斗",
+      "count": 30
+    },
+    {
+      "id": "kehuan",
+      "name": "科幻",
+      "count": 50
+    },
+    {
+      "id": "kongbu",
+      "name": "恐怖",
+      "count": 50
+    },
+    {
+      "id": "xuanyi",
+      "name": "悬疑",
+      "count": 50
+    },
+    {
+      "id": "lishi_gufeng",
+      "name": "历史/古风",
+      "count": 50
+    },
+    {
+      "id": "dushi",
+      "name": "都市",
+      "count": 50
+    },
+    {
+      "id": "xiuxian",
+      "name": "修仙",
+      "count": 50
+    },
+    {
+      "id": "weifenlei",
+      "name": "未分类",
+      "count": 144
+    }
+  ]
+}
