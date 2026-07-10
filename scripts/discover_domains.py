@@ -59,18 +59,26 @@ _SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 0)
 _SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
 def load_queries(language: str) -> List[str]:
     cfg = _MANGA_KW_CFG.get(language, {})
+    search_text = cfg.get("search_text", [])
+    search_subdomain = cfg.get("search_subdomain", [])
+    queries = list(search_text)
+    for st in search_text:
+        for sd in search_subdomain:
+            queries.append(f"{st} site:{sd}")
     sq = cfg.get("search_queries", [])
     if sq:
-        return sq
+        queries.extend(sq)
+    if queries:
+        return queries
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
     if queries_path.exists():
-        queries = []
+        file_queries = []
         for line in queries_path.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and not line.startswith("#"):
-                queries.append(line)
-        if queries:
-            return queries
+                file_queries.append(line)
+        if file_queries:
+            return file_queries
     return []
 
 
@@ -229,11 +237,11 @@ def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
     if isinstance(cfg, list):
         return set(kw.lower() for kw in cfg), set(), set(), set()
-    primary = set(kw.lower() for kw in cfg.get("primary", []))
+    validate = set(kw.lower() for kw in cfg.get("validate", cfg.get("primary", [])))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
-    secondary_domain = set(kw.lower() for kw in cfg.get("secondary_domain", []))
+    search_domain = set(kw.lower() for kw in cfg.get("search_domain", cfg.get("secondary_domain", [])))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
-    return primary, secondary, secondary_domain, anti
+    return validate, secondary, search_domain, anti
 
 
 def _check_homepage(domain: str, language: str, primary: set, secondary: set, secondary_domain: set, anti: set) -> dict:

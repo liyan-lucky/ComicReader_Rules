@@ -1,73 +1,48 @@
 {
   "zh-Hans": {
-    "primary": ["漫", "manhua"],
-    "secondary_domain": ["manhua", "mh"],
+    "search_text": ["漫", "manhua"],
+    "search_domain": ["manhua", "mh"],
+    "search_subdomain": [
+      "github.io", "vercel.app", "netlify.app", "pages.dev",
+      "gitlab.io", "gitee.io", "cloudfront.net", "herokuapp.com",
+      "render.com", "railway.app", "fly.dev", "supabase.co",
+      "firebaseapp.com", "web.app", "glitch.me", "replit.com",
+      "onrender.com", "surge.sh", "itch.io"
+    ],
+    "validate": ["漫画"],
     "secondary": [],
-    "anti_patterns": ["成人","18+","18R","18r","18禁"],
-    "search_queries": [
-      "漫画", "manhua",
-      "漫画网站", "看漫画", "国漫", "日漫", "韩漫",
-      "漫画在线", "免费漫画", "漫画阅读", "漫画app",
-      "漫画推荐", "漫画更新", "漫画连载", "热门漫画",
-      "漫画平台", "漫画站", "漫画大全", "在线漫画",
-      "中文漫画", "漫画免费看", "漫画网", "漫画在线看",
-      "漫画浏览器", "manga cn", "manhua read",
-      "漫画追更", "漫画下载", "漫画排行", "漫画免费",
-      "manga reader chinese", "comic china",
-      "漫画 site:github.io",
-      "漫画 site:vercel.app",
-      "漫画 site:netlify.app",
-      "漫画 site:pages.dev",
-      "漫画 site:gitlab.io",
-      "漫画 site:gitee.io",
-      "漫画 site:cloudfront.net",
-      "漫画 site:herokuapp.com",
-      "漫画 site:render.com",
-      "漫画 site:railway.app",
-      "漫画 site:fly.dev",
-      "漫画 site:supabase.co",
-      "漫画 site:firebaseapp.com",
-      "漫画 site:web.app",
-      "漫画 site:glitch.me",
-      "漫画 site:replit.com",
-      "漫画 site:onrender.com",
-      "漫画 site:surge.sh",
-      "漫画 site:itch.io",
-      "manhua site:github.io",
-      "manhua site:vercel.app",
-      "manhua site:netlify.app",
-      "manhua site:pages.dev",
-      "manga site:github.io",
-      "manga site:vercel.app",
-      "manga site:netlify.app"
-    ]
+    "anti_patterns": ["成人", "18+", "18R", "18r", "18禁"]
   },
   "zh-Hant": {
-    "primary": ["漫畫", "manhua"],
-    "secondary_domain": ["manhua", "mh"],
+    "search_text": ["漫畫", "manhua"],
+    "search_domain": ["manhua", "mh"],
+    "search_subdomain": [],
+    "validate": ["漫畫"],
     "secondary": [],
-    "anti_patterns": [],
-    "search_queries": ["漫畫", "manhua", "漫畫網站", "看漫畫", "免費漫畫"]
+    "anti_patterns": []
   },
   "en": {
-    "primary": ["comic", "slow"],
-    "secondary_domain": ["comic"],
+    "search_text": ["manga", "comic"],
+    "search_domain": ["comic"],
+    "search_subdomain": [],
+    "validate": ["manga", "comic"],
     "secondary": [],
-    "anti_patterns": [],
-    "search_queries": ["manga", "comic", "manhwa", "webtoon", "manga read", "manga site"]
+    "anti_patterns": []
   },
   "ja": {
-    "primary": ["comic", "manga", "slow"],
-    "secondary_domain": ["manga"],
+    "search_text": ["漫画", "マンガ", "manga"],
+    "search_domain": ["manga"],
+    "search_subdomain": [],
+    "validate": ["漫画", "マンガ"],
     "secondary": [],
-    "anti_patterns": [],
-    "search_queries": ["漫画", "マンガ", "manga", "コミック", "漫画サイト"]
+    "anti_patterns": []
   },
   "ko": {
-    "primary": [],
-    "secondary_domain": [],
+    "search_text": ["만화", "웹툰", "manhwa"],
+    "search_domain": ["manhwa"],
+    "search_subdomain": [],
+    "validate": ["만화", "웹툰"],
     "secondary": [],
-    "anti_patterns": [],
-    "search_queries": ["만화", "웹툰", "manhwa", "webtoon", "만화사이트"]
+    "anti_patterns": []
   }
 }
