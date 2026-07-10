@@ -280,6 +280,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
     kw_matched = {}
+    kw_blocked = {}
     domain_kw_map = {}
 
     for d in domains:
@@ -310,7 +311,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
                 reject_reasons["http_error"] += 1
             elif result == "anti_pattern":
                 reject_reasons["anti_pattern"] += 1
-                kw_matched.setdefault(matched_kw, []).append(d)
+                kw_blocked.setdefault(matched_kw, []).append(d)
             else:
                 reject_reasons["no_indicators"] += 1
             removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
@@ -319,13 +320,19 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
     print(f"  Validation: {len(validated)} kept, {skipped} removed")
     print(f"    Kept reasons: {reasons}")
     print(f"    Reject reasons: {reject_reasons}")
-    print(f"\n  === 按命中词统计 ===")
+    print(f"\n  === 按命中词统计（验证通过） ===")
     for kw in sorted(kw_matched.keys()):
         domains_list = kw_matched[kw]
         print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
         for dm in sorted(domains_list):
             print(f"      - {dm}")
-    return validated, removed_details, kw_matched, domain_kw_map
+    print(f"\n  === 按命中词统计（被屏蔽） ===")
+    for kw in sorted(kw_blocked.keys()):
+        domains_list = kw_blocked[kw]
+        print(f"    [{kw}] 屏蔽 {len(domains_list)} 个域名:")
+        for dm in sorted(domains_list):
+            print(f"      - {dm}")
+    return validated, removed_details, kw_matched, kw_blocked, domain_kw_map
 
 
 def load_existing_domains(filepath: Path) -> Set[str]:
@@ -427,7 +434,7 @@ def main() -> int:
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, domain_kw_map = validate_domains(clean, existing, args.language)
+    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(clean, existing, args.language)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
 
     if removed_details:
@@ -467,13 +474,19 @@ def main() -> int:
         for kw, dlist in kw_matched.items():
             kw_matched_summary[kw] = sorted(dlist)
 
+        kw_blocked_summary = {}
+        for kw, dlist in kw_blocked.items():
+            kw_blocked_summary[kw] = sorted(dlist)
+
+        blocked_by_kw_merged = {}
+        for kw, dlist in blocked_by_kw.items():
+            blocked_by_kw_merged.setdefault(kw, []).extend(dlist)
+        for kw, dlist in kw_blocked_summary.items():
+            blocked_by_kw_merged.setdefault(kw, []).extend(dlist)
+
         new_domains_detail = []
         for d in sorted(added):
             new_domains_detail.append({"domain": d, "matchedKeyword": domain_kw_map.get(d, "")})
-
-        blocked_kw_summary = {}
-        for kw, dlist in blocked_by_kw.items():
-            blocked_kw_summary[kw] = sorted(dlist)
 
         report = {
             "language": args.language,
@@ -490,7 +503,7 @@ def main() -> int:
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
             "blockedDetails": blocked_details,
-            "blockedByKeyword": blocked_kw_summary,
+            "blockedByKeyword": blocked_by_kw_merged,
             "allDiscoveredDomains": sorted(clean),
             "removedDomains": removed_details,
             "matchedByKeyword": kw_matched_summary,
