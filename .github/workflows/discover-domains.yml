@@ -14,6 +14,8 @@ on:
           - zh-Hans
           - zh-Hant
           - en
+          - ja
+          - ko
       limit:
         description: '每个来源取多少条链接（0=不限制）'
         required: true
@@ -218,6 +220,15 @@ jobs:
               Path(summary).write_text(output, encoding='utf-8')
           "
 
+      - name: 上传发现报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: domain-discovery-${{ inputs.language || 'zh-Hans' }}
+          path: |
+            generated/domain_discovery_report.json
+            config/domains/${{ inputs.language || 'zh-Hans' }}.txt
+          retention-days: 30
+
       - name: 提交域名更新
         if: ${{ env.COMMIT_CHANGES == 'true' }}
         run: |
@@ -225,7 +236,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          git add config/domains/
+          git add config/domains/ generated/domain_discovery_report.json
           if git diff --cached --quiet; then
             echo "域名没有变化，无需提交。"
           else
