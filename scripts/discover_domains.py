@@ -478,12 +478,6 @@ def main() -> int:
         for kw, dlist in kw_blocked.items():
             kw_blocked_summary[kw] = sorted(dlist)
 
-        blocked_by_kw_merged = {}
-        for kw, dlist in blocked_by_kw.items():
-            blocked_by_kw_merged.setdefault(kw, []).extend(dlist)
-        for kw, dlist in kw_blocked_summary.items():
-            blocked_by_kw_merged.setdefault(kw, []).extend(dlist)
-
         new_domains_detail = []
         for d in sorted(added):
             new_domains_detail.append({"domain": d, "matchedKeyword": domain_kw_map.get(d, "")})
@@ -503,7 +497,8 @@ def main() -> int:
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
             "blockedDetails": blocked_details,
-            "blockedByKeyword": blocked_by_kw_merged,
+            "cleanedByKeyword": blocked_by_kw,
+            "antiPatternByKeyword": kw_blocked_summary,
             "allDiscoveredDomains": sorted(clean),
             "removedDomains": removed_details,
             "matchedByKeyword": kw_matched_summary,

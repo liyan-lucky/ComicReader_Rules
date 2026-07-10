@@ -184,20 +184,37 @@ jobs:
           else:
               lines.append('无命中域名')
 
-          blocked_by_kw = report.get('blockedByKeyword', {})
-          if blocked_by_kw:
+          anti_by_kw = report.get('antiPatternByKeyword', {})
+          if anti_by_kw:
               lines += [
                   '',
-                  '## 被屏蔽',
+                  '## 被屏蔽（anti_patterns）',
                   '',
               ]
-              for kw in sorted(blocked_by_kw.keys()):
-                  dlist = sorted(set(blocked_by_kw[kw]))
+              for kw in sorted(anti_by_kw.keys()):
+                  dlist = anti_by_kw[kw]
                   lines.append(f'### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
                   lines.append('')
                   lines.append('| 域名 |')
                   lines.append('|------|')
-                  for d in dlist:
+                  for d in sorted(dlist):
+                      lines.append(f'| [{d}](https://{d}) |')
+                  lines.append('')
+
+          cleaned_by_kw = report.get('cleanedByKeyword', {})
+          if cleaned_by_kw:
+              lines += [
+                  '',
+                  '## 被清理（blocked_domains）',
+                  '',
+              ]
+              for kw in sorted(cleaned_by_kw.keys()):
+                  dlist = cleaned_by_kw[kw]
+                  lines.append(f'### 清理词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append('')
+                  lines.append('| 域名 |')
+                  lines.append('|------|')
+                  for d in sorted(dlist):
                       lines.append(f'| [{d}](https://{d}) |')
                   lines.append('')
 
