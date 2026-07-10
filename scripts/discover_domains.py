@@ -239,12 +239,12 @@ def _get_kw_sets(language: str):
         return set(kw.lower() for kw in cfg), set(), set(), set()
     validate = set(kw.lower() for kw in cfg.get("validate", cfg.get("primary", [])))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
-    search_domain = set(kw.lower() for kw in cfg.get("search_domain", cfg.get("secondary_domain", [])))
+    domain_label = set(kw.lower() for kw in cfg.get("domain_label", cfg.get("search_domain", cfg.get("secondary_domain", []))))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
-    return validate, secondary, search_domain, anti
+    return validate, secondary, domain_label, anti
 
 
-def _check_homepage(domain: str, language: str, primary: set, secondary: set, secondary_domain: set, anti: set) -> dict:
+def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set) -> dict:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -267,15 +267,15 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, se
         if ap in text:
             return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
-    for kw in primary:
+    for kw in validate:
         if kw in text or kw in title:
             loc = "title" if kw in title else "body"
             return {"result": "primary_match", "matched_kw": kw, "match_type": f"primary_{loc}"}
 
     label = _domain_label(domain)
-    for kw in secondary_domain:
+    for kw in domain_label:
         if kw in label:
-            return {"result": "secondary_domain_match", "matched_kw": kw, "match_type": "secondary_domain"}
+            return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
     secondary_hits = sum(1 for kw in secondary if kw in text)
     if secondary_hits >= 3:
@@ -285,10 +285,10 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, se
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str) -> tuple:
-    primary, secondary, secondary_domain, anti = _get_kw_sets(language)
+    validate, secondary, domain_label, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
-    reasons = {"existing": 0, "primary_match": 0, "secondary_domain_match": 0, "secondary_3+": 0}
+    reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
     kw_matched = {}
@@ -302,11 +302,11 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
             reasons["existing"] += 1
             continue
 
-        info = _check_homepage(d, language, primary, secondary, secondary_domain, anti)
+        info = _check_homepage(d, language, validate, secondary, domain_label, anti)
         result = info["result"]
         matched_kw = info["matched_kw"]
 
-        if result in ("primary_match", "secondary_domain_match", "secondary_3+"):
+        if result in ("primary_match", "domain_label_match", "secondary_3+"):
             validated.append(rd)
             reasons[result] += 1
             kw_matched.setdefault(matched_kw, []).append(rd)
