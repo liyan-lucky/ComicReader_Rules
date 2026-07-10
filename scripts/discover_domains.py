@@ -280,6 +280,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
     kw_matched = {}
+    domain_kw_map = {}
 
     for d in domains:
         rd = _registered_domain(d)
@@ -296,6 +297,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
             validated.append(rd)
             reasons[result] += 1
             kw_matched.setdefault(matched_kw, []).append(rd)
+            domain_kw_map[rd] = matched_kw
             print(f"  ✓ {d} ({result}: {matched_kw})")
         elif result.startswith("fetch_failed") or result.startswith("http_4") or result.startswith("http_5"):
             skipped += 1
@@ -323,7 +325,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
         print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
         for dm in sorted(domains_list):
             print(f"      - {dm}")
-    return validated, removed_details, kw_matched
+    return validated, removed_details, kw_matched, domain_kw_map
 
 
 def load_existing_domains(filepath: Path) -> Set[str]:
@@ -340,7 +342,9 @@ def load_existing_domains(filepath: Path) -> Set[str]:
     return domains
 
 
-def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> List[str]:
+def save_domains(filepath: Path, existing: Set[str], new_domains: List[str], domain_kw_map: dict = None) -> List[str]:
+    if domain_kw_map is None:
+        domain_kw_map = {}
     added = []
     for d in new_domains:
         if d not in existing and not is_blocked_domain(d):
@@ -360,7 +364,11 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> 
 
     section = "# === Auto-discovered ===\n"
     for d in sorted(added):
-        section += d + "\n"
+        kw = domain_kw_map.get(d, "")
+        if kw:
+            section += f"{d}  # matched: {kw}\n"
+        else:
+            section += d + "\n"
 
     filepath.write_text(header + section, encoding="utf-8")
     return added
@@ -419,7 +427,7 @@ def main() -> int:
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched = validate_domains(clean, existing, args.language)
+    validated, removed_details, kw_matched, domain_kw_map = validate_domains(clean, existing, args.language)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
 
     if removed_details:
@@ -435,7 +443,7 @@ def main() -> int:
                 kw_str = f' [kw: {item["matched_kw"]}]' if item["matched_kw"] else ""
                 print(f'    - {item["domain"]}{detail_str}{kw_str}')
 
-    added = save_domains(filepath, existing, validated)
+    added = save_domains(filepath, existing, validated, domain_kw_map)
     print(f"\nNew domains added to {filepath.name}: {len(added)}")
 
     if added:
@@ -459,6 +467,10 @@ def main() -> int:
         for kw, dlist in kw_matched.items():
             kw_matched_summary[kw] = sorted(dlist)
 
+        new_domains_detail = []
+        for d in sorted(added):
+            new_domains_detail.append({"domain": d, "matchedKeyword": domain_kw_map.get(d, "")})
+
         blocked_kw_summary = {}
         for kw, dlist in blocked_by_kw.items():
             blocked_kw_summary[kw] = sorted(dlist)
@@ -474,6 +486,7 @@ def main() -> int:
             "validatedCount": len(validated),
             "validationRemovedCount": len(clean) - len(validated),
             "newDomains": sorted(added),
+            "newDomainsDetail": new_domains_detail,
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
             "blockedDetails": blocked_details,
