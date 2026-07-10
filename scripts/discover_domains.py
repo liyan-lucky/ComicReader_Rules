@@ -232,7 +232,7 @@ def _get_kw_sets(language: str):
     return primary, secondary, secondary_domain, anti
 
 
-def _check_homepage(domain: str, language: str, primary: set, secondary: set, secondary_domain: set, anti: set) -> str:
+def _check_homepage(domain: str, language: str, primary: set, secondary: set, secondary_domain: set, anti: set) -> dict:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -241,9 +241,9 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, se
         else:
             r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
         if r.status_code >= 400:
-            return f"http_{r.status_code}"
+            return {"result": f"http_{r.status_code}", "matched_kw": "", "match_type": ""}
     except Exception as e:
-        return f"fetch_failed:{e}"
+        return {"result": f"fetch_failed:{e}", "matched_kw": "", "match_type": ""}
 
     text = r.text.lower()[:80000]
     title = ""
@@ -253,22 +253,23 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, se
 
     for ap in anti:
         if ap in text:
-            return "anti_pattern"
+            return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
     for kw in primary:
         if kw in text or kw in title:
-            return "primary_match"
+            loc = "title" if kw in title else "body"
+            return {"result": "primary_match", "matched_kw": kw, "match_type": f"primary_{loc}"}
 
     label = _domain_label(domain)
     for kw in secondary_domain:
         if kw in label:
-            return "secondary_domain_match"
+            return {"result": "secondary_domain_match", "matched_kw": kw, "match_type": "secondary_domain"}
 
     secondary_hits = sum(1 for kw in secondary if kw in text)
     if secondary_hits >= 3:
-        return "secondary_3+"
+        return {"result": "secondary_3+", "matched_kw": "", "match_type": "secondary"}
 
-    return "no_indicators"
+    return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str) -> tuple:
@@ -278,6 +279,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
     reasons = {"existing": 0, "primary_match": 0, "secondary_domain_match": 0, "secondary_3+": 0}
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
+    kw_matched = {}
 
     for d in domains:
         rd = _registered_domain(d)
@@ -286,16 +288,19 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
             reasons["existing"] += 1
             continue
 
-        result = _check_homepage(d, language, primary, secondary, secondary_domain, anti)
+        info = _check_homepage(d, language, primary, secondary, secondary_domain, anti)
+        result = info["result"]
+        matched_kw = info["matched_kw"]
 
         if result in ("primary_match", "secondary_domain_match", "secondary_3+"):
             validated.append(rd)
             reasons[result] += 1
-            print(f"  ✓ {d} ({result})")
+            kw_matched.setdefault(matched_kw, []).append(rd)
+            print(f"  ✓ {d} ({result}: {matched_kw})")
         elif result.startswith("fetch_failed") or result.startswith("http_4") or result.startswith("http_5"):
             skipped += 1
             reject_reasons["network_issue"] += 1
-            removed_details.append({"domain": d, "reason": "network_issue", "detail": result})
+            removed_details.append({"domain": d, "reason": "network_issue", "detail": result, "matched_kw": ""})
             print(f"  ✗ {d} ({result}, skipped - cannot verify)")
         else:
             skipped += 1
@@ -303,15 +308,22 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
                 reject_reasons["http_error"] += 1
             elif result == "anti_pattern":
                 reject_reasons["anti_pattern"] += 1
+                kw_matched.setdefault(matched_kw, []).append(d)
             else:
                 reject_reasons["no_indicators"] += 1
-            removed_details.append({"domain": d, "reason": result, "detail": ""})
-            print(f"  ✗ {d} ({result})")
+            removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
+            print(f"  ✗ {d} ({result}: {matched_kw})")
 
     print(f"  Validation: {len(validated)} kept, {skipped} removed")
     print(f"    Kept reasons: {reasons}")
     print(f"    Reject reasons: {reject_reasons}")
-    return validated, removed_details
+    print(f"\n  === 按命中词统计 ===")
+    for kw in sorted(kw_matched.keys()):
+        domains_list = kw_matched[kw]
+        print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
+        for dm in sorted(domains_list):
+            print(f"      - {dm}")
+    return validated, removed_details, kw_matched
 
 
 def load_existing_domains(filepath: Path) -> Set[str]:
@@ -356,7 +368,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str]) -> 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="按语种搜索漫画网站域名")
-    parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
+    parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en", "ja", "ko"])
     parser.add_argument("--limit", type=int, default=0, help="每个搜索查询取多少条结果，0=不限制")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
@@ -407,7 +419,7 @@ def main() -> int:
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details = validate_domains(clean, existing, args.language)
+    validated, removed_details, kw_matched = validate_domains(clean, existing, args.language)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
 
     if removed_details:
@@ -420,7 +432,8 @@ def main() -> int:
             print(f"  [{reason}] ({len(items)}):")
             for item in items:
                 detail_str = f' ({item["detail"]})' if item["detail"] else ""
-                print(f'    - {item["domain"]}{detail_str}')
+                kw_str = f' [kw: {item["matched_kw"]}]' if item["matched_kw"] else ""
+                print(f'    - {item["domain"]}{detail_str}{kw_str}')
 
     added = save_domains(filepath, existing, validated)
     print(f"\nNew domains added to {filepath.name}: {len(added)}")
@@ -432,6 +445,7 @@ def main() -> int:
 
     if args.report:
         blocked_details = []
+        blocked_by_kw = {}
         for d in blocked:
             matched_kw = ""
             for kw in BLOCKED_DOMAIN_KEYWORDS:
@@ -439,6 +453,15 @@ def main() -> int:
                     matched_kw = kw
                     break
             blocked_details.append({"domain": d, "matchedKeyword": matched_kw})
+            blocked_by_kw.setdefault(matched_kw, []).append(d)
+
+        kw_matched_summary = {}
+        for kw, dlist in kw_matched.items():
+            kw_matched_summary[kw] = sorted(dlist)
+
+        blocked_kw_summary = {}
+        for kw, dlist in blocked_by_kw.items():
+            blocked_kw_summary[kw] = sorted(dlist)
 
         report = {
             "language": args.language,
@@ -454,8 +477,10 @@ def main() -> int:
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
             "blockedDetails": blocked_details,
+            "blockedByKeyword": blocked_kw_summary,
             "allDiscoveredDomains": sorted(clean),
             "removedDomains": removed_details,
+            "matchedByKeyword": kw_matched_summary,
         }
         report_path = Path(args.report)
         report_path.parent.mkdir(parents=True, exist_ok=True)

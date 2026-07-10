@@ -158,7 +158,6 @@ jobs:
               '## 域名发现统计',
               '',
               f'语种：{lang}',
-              f'爬取聚合站数：{report.get(\"aggregatorSites\", 0)}',
               f'搜索查询数：{report.get(\"queryCount\", 0)}',
               f'收集URL总数：{report.get(\"totalUrls\", 0)}',
               f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
@@ -166,52 +165,64 @@ jobs:
               f'新增域名数：{len(new_domains)}',
               f'当前域名总数：{len(existing)}',
               '',
-              '### 新增域名列表',
+              '### 按命中词统计（验证通过）',
               '',
           ]
-          if new_domains:
-              lines.append('| 域名 | 链接 |')
-              lines.append('|------|------|')
-              for d in sorted(new_domains):
-                  lines.append(f'| {d} | [https://{d}](https://{d}) |')
+          matched_by_kw = report.get('matchedByKeyword', {})
+          if matched_by_kw:
+              for kw in sorted(matched_by_kw.keys()):
+                  dlist = matched_by_kw[kw]
+                  lines.append(f'#### 关键词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append('')
+                  lines.append('| 域名 | 链接 |')
+                  lines.append('|------|------|')
+                  for d in sorted(dlist):
+                      mark = ' ✨' if d in set(new_domains) else ''
+                      lines.append(f'| {d}{mark} | [https://{d}](https://{d}) |')
+                  lines.append('')
           else:
-              lines.append('无新增域名')
+              lines.append('无命中域名')
 
           lines += [
               '',
-              '### 当前全部域名列表',
+              '### 按命中词统计（被屏蔽域名）',
               '',
-              '| 域名 | 链接 |',
-              '|------|------|',
           ]
-          for d in all_domains:
-              mark = ' ✨' if d in set(new_domains) else ''
-              lines.append(f'| {d}{mark} | [https://{d}](https://{d}) |')
-
-          blocked_details = report.get('blockedDetails', [])
-          if blocked_details:
-              lines += [
-                  '',
-                  '### 被屏蔽域名详情（blocked_domains.json 匹配）',
-                  '',
-                  '| 域名 | 匹配关键词 |',
-                  '|------|-----------|',
-              ]
-              for item in sorted(blocked_details, key=lambda x: x['domain']):
-                  lines.append(f'| {item[\"domain\"]} | {item[\"matchedKeyword\"]} |')
+          blocked_by_kw = report.get('blockedByKeyword', {})
+          if blocked_by_kw:
+              for kw in sorted(blocked_by_kw.keys()):
+                  dlist = blocked_by_kw[kw]
+                  lines.append(f'#### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append('')
+                  lines.append('| 域名 | 链接 |')
+                  lines.append('|------|------|')
+                  for d in sorted(dlist):
+                      lines.append(f'| {d} | [https://{d}](https://{d}) |')
+                  lines.append('')
+          else:
+              lines.append('无被屏蔽域名')
 
           removed_details = report.get('removedDomains', [])
           if removed_details:
               lines += [
                   '',
-                  '### Phase 3 验证移除域名详情',
+                  '### 验证未通过域名（按命中词）',
                   '',
-                  '| 域名 | 移除原因 |',
-                  '|------|---------|',
               ]
-              for item in sorted(removed_details, key=lambda x: x['domain']):
-                  detail_str = f' ({item[\"detail\"]})' if item.get('detail') else ''
-                  lines.append(f'| {item[\"domain\"]} | {item[\"reason\"]}{detail_str} |')
+              removed_by_kw = {}
+              for item in removed_details:
+                  kw = item.get('matched_kw', '') or item.get('reason', 'unknown')
+                  removed_by_kw.setdefault(kw, []).append(item)
+              for kw in sorted(removed_by_kw.keys()):
+                  items = removed_by_kw[kw]
+                  lines.append(f'#### `{kw}` （{len(items)} 个）')
+                  lines.append('')
+                  lines.append('| 域名 | 原因 |')
+                  lines.append('|------|------|')
+                  for item in sorted(items, key=lambda x: x['domain']):
+                      detail_str = f' ({item[\"detail\"]})' if item.get('detail') else ''
+                      lines.append(f'| {item[\"domain\"]} | {item[\"reason\"]}{detail_str} |')
+                  lines.append('')
 
           output = '\n'.join(lines) + '\n'
           print(output)
