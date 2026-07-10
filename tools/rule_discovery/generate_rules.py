@@ -996,8 +996,6 @@ def main() -> int:
                 domain = _rule_domain_from_dict(rule)
                 if sig and domain:
                     existing_rule_signatures.setdefault(sig, []).append(domain)
-                    for ad in rule.get("domainApplicabilityList", []):
-                        existing_rule_signatures.setdefault(sig, []).append(normalize_domain(ad))
             if existing_rule_signatures:
                 log(f"[info] loaded existing rule signatures from {erp}: {len(existing_rule_signatures)} unique patterns covering {sum(len(v) for v in existing_rule_signatures.values())} domain entries")
                 break
