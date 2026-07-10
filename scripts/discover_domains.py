@@ -205,24 +205,34 @@ def is_blocked_domain(domain: str) -> bool:
 
 
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
-_MANGA_URL_PATTERNS = [
-    "/manga/", "/manhua/", "/manhwa/", "/comic/", "/webtoon/",
-    "/chapter-", "/chapter/", "/read-", "/viewer/", "/title/",
-    "/genre-", "/genre/", "/manga-list",
-]
+
+
+def _registered_domain(domain: str) -> str:
+    parts = domain.lower().split(".")
+    if len(parts) >= 2:
+        return parts[-2] + "." + parts[-1]
+    return domain
+
+
+def _domain_label(domain: str) -> str:
+    parts = domain.lower().split(".")
+    if len(parts) >= 2:
+        return parts[-2]
+    return domain
 
 
 def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
     if isinstance(cfg, list):
-        return set(kw.lower() for kw in cfg), set(), set()
+        return set(kw.lower() for kw in cfg), set(), set(), set()
     primary = set(kw.lower() for kw in cfg.get("primary", []))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
+    secondary_domain = set(kw.lower() for kw in cfg.get("secondary_domain", []))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
-    return primary, secondary, anti
+    return primary, secondary, secondary_domain, anti
 
 
-def _check_homepage(domain: str, language: str, primary: set, secondary: set, anti: set) -> str:
+def _check_homepage(domain: str, language: str, primary: set, secondary: set, secondary_domain: set, anti: set) -> str:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -236,19 +246,23 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, an
         return f"fetch_failed:{e}"
 
     text = r.text.lower()[:80000]
-    final_url = r.url.lower()
+    title = ""
+    m = re.search(r"<title[^>]*>(.*?)</title>", text, re.DOTALL | re.IGNORECASE)
+    if m:
+        title = m.group(1).strip()
 
     for ap in anti:
         if ap in text:
             return "anti_pattern"
 
     for kw in primary:
-        if kw in text:
+        if kw in text or kw in title:
             return "primary_match"
 
-    for pat in _MANGA_URL_PATTERNS:
-        if pat in final_url or pat in text:
-            return "url_pattern_match"
+    label = _domain_label(domain)
+    for kw in secondary_domain:
+        if kw in label:
+            return "secondary_domain_match"
 
     secondary_hits = sum(1 for kw in secondary if kw in text)
     if secondary_hits >= 3:
@@ -258,23 +272,24 @@ def _check_homepage(domain: str, language: str, primary: set, secondary: set, an
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str) -> tuple:
-    primary, secondary, anti = _get_kw_sets(language)
+    primary, secondary, secondary_domain, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
-    reasons = {"existing": 0, "primary_match": 0, "url_pattern_match": 0, "secondary_3+": 0}
+    reasons = {"existing": 0, "primary_match": 0, "secondary_domain_match": 0, "secondary_3+": 0}
     reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
 
     for d in domains:
-        if d in existing:
-            validated.append(d)
+        rd = _registered_domain(d)
+        if rd in existing or d in existing:
+            validated.append(rd)
             reasons["existing"] += 1
             continue
 
-        result = _check_homepage(d, language, primary, secondary, anti)
+        result = _check_homepage(d, language, primary, secondary, secondary_domain, anti)
 
-        if result in ("primary_match", "url_pattern_match", "secondary_3+"):
-            validated.append(d)
+        if result in ("primary_match", "secondary_domain_match", "secondary_3+"):
+            validated.append(rd)
             reasons[result] += 1
             print(f"  ✓ {d} ({result})")
         elif result.startswith("fetch_failed") or result.startswith("http_4") or result.startswith("http_5"):
@@ -358,10 +373,8 @@ def main() -> int:
 
     all_urls: List[str] = []
 
-    print(f"\n=== Phase 1: Crawl aggregator sites ===")
-    agg_urls = crawl_aggregator_sites(args.language, args.limit)
-    all_urls.extend(agg_urls)
-    print(f"Aggregator URLs: {len(agg_urls)}")
+    print(f"\n=== Phase 1: Crawl aggregator sites (SKIPPED) ===")
+    agg_urls = []
 
     queries = load_queries(args.language)
     if queries:
@@ -380,9 +393,11 @@ def main() -> int:
     seen: Set[str] = set()
     for u in all_urls:
         d = extract_domain(u)
-        if d and d not in seen:
-            seen.add(d)
-            domains.append(d)
+        if d:
+            rd = _registered_domain(d)
+            if rd not in seen:
+                seen.add(rd)
+                domains.append(rd)
 
     print(f"Unique domains extracted: {len(domains)}")
 
