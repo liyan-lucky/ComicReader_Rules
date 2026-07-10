@@ -163,6 +163,7 @@ jobs:
               f'搜索查询数：{report.get(\"queryCount\", 0)}',
               f'收集URL总数：{report.get(\"totalUrls\", 0)}',
               f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
+              f'清理域名数：{report.get(\"blockedCount\", 0)}',
               f'新增域名数：{len(new_domains)}',
               f'当前域名总数：{len(existing)}',
               '',
@@ -173,7 +174,7 @@ jobs:
           if matched_by_kw:
               for kw in sorted(matched_by_kw.keys()):
                   dlist = matched_by_kw[kw]
-                  lines.append(f'### 关键词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append(f'### 关键词: {kw} （命中 {len(dlist)} 个域名）')
                   lines.append('')
                   lines.append('| 域名 |')
                   lines.append('|------|')
@@ -193,7 +194,7 @@ jobs:
               ]
               for kw in sorted(anti_by_kw.keys()):
                   dlist = anti_by_kw[kw]
-                  lines.append(f'### 屏蔽词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append(f'### 屏蔽词: {kw} （命中 {len(dlist)} 个域名）')
                   lines.append('')
                   lines.append('| 域名 |')
                   lines.append('|------|')
@@ -210,7 +211,7 @@ jobs:
               ]
               for kw in sorted(cleaned_by_kw.keys()):
                   dlist = cleaned_by_kw[kw]
-                  lines.append(f'### 清理词: `{kw}` （命中 {len(dlist)} 个域名）')
+                  lines.append(f'### 清理词: {kw} （命中 {len(dlist)} 个域名）')
                   lines.append('')
                   lines.append('| 域名 |')
                   lines.append('|------|')
