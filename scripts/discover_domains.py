@@ -58,6 +58,10 @@ _SEARCH_CFG = _load_config("search_endpoints.json", {}).get("searxng", {})
 _SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 0)
 _SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
 def load_queries(language: str) -> List[str]:
+    cfg = _MANGA_KW_CFG.get(language, {})
+    sq = cfg.get("search_queries", [])
+    if sq:
+        return sq
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
     if queries_path.exists():
         queries = []
