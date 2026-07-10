@@ -196,12 +196,12 @@ def extract_domain(url: str) -> str:
     return host
 
 
-def is_blocked_domain(domain: str) -> bool:
+def is_blocked_domain(domain: str) -> tuple:
     d = domain.lower()
     for kw in BLOCKED_DOMAIN_KEYWORDS:
         if kw in d:
-            return True
-    return False
+            return True, kw
+    return False, ""
 
 
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
@@ -354,7 +354,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str], dom
         domain_kw_map = {}
     added = []
     for d in new_domains:
-        if d not in existing and not is_blocked_domain(d):
+        if d not in existing and not is_blocked_domain(d)[0]:
             existing.add(d)
             added.append(d)
 
@@ -428,9 +428,20 @@ def main() -> int:
 
     print(f"Unique domains extracted: {len(domains)}")
 
-    blocked = [d for d in domains if is_blocked_domain(d)]
-    clean = [d for d in domains if not is_blocked_domain(d)]
+    blocked = []
+    clean = []
+    blocked_by_kw_pre = {}
+    for d in domains:
+        is_blocked, matched_kw = is_blocked_domain(d)
+        if is_blocked:
+            blocked.append(d)
+            blocked_by_kw_pre.setdefault(matched_kw, []).append(d)
+        else:
+            clean.append(d)
     print(f"Blocked domains removed: {len(blocked)}")
+    if blocked_by_kw_pre:
+        for kw in sorted(blocked_by_kw_pre.keys()):
+            print(f"  [{kw}] 清理 {len(blocked_by_kw_pre[kw])} 个域名")
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
@@ -460,7 +471,6 @@ def main() -> int:
 
     if args.report:
         blocked_details = []
-        blocked_by_kw = {}
         for d in blocked:
             matched_kw = ""
             for kw in BLOCKED_DOMAIN_KEYWORDS:
@@ -468,7 +478,10 @@ def main() -> int:
                     matched_kw = kw
                     break
             blocked_details.append({"domain": d, "matchedKeyword": matched_kw})
-            blocked_by_kw.setdefault(matched_kw, []).append(d)
+
+        cleaned_kw_summary = {}
+        for kw, dlist in blocked_by_kw_pre.items():
+            cleaned_kw_summary[kw] = sorted(dlist)
 
         kw_matched_summary = {}
         for kw, dlist in kw_matched.items():
@@ -497,7 +510,7 @@ def main() -> int:
             "existingDomainCount": len(existing),
             "blockedDomains": sorted(blocked),
             "blockedDetails": blocked_details,
-            "cleanedByKeyword": blocked_by_kw,
+            "cleanedByKeyword": cleaned_kw_summary,
             "antiPatternByKeyword": kw_blocked_summary,
             "allDiscoveredDomains": sorted(clean),
             "removedDomains": removed_details,
