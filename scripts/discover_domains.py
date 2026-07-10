@@ -219,15 +219,35 @@ def is_blocked_domain(domain: str) -> tuple:
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
 
 
+_HOSTING_SUFFIXES: set = set()
+_cfg_sub = _MANGA_KW_CFG
+for _lang_cfg in _cfg_sub.values():
+    if isinstance(_lang_cfg, dict):
+        for _sd in _lang_cfg.get("search_subdomain", []):
+            _HOSTING_SUFFIXES.add("." + _sd.lower())
+
+
 def _registered_domain(domain: str) -> str:
-    parts = domain.lower().split(".")
+    dl = domain.lower()
+    for suffix in _HOSTING_SUFFIXES:
+        if dl.endswith(suffix):
+            parts = dl.split(".")
+            if len(parts) >= 3:
+                return parts[-3] + "." + parts[-2] + "." + parts[-1]
+    parts = dl.split(".")
     if len(parts) >= 2:
         return parts[-2] + "." + parts[-1]
     return domain
 
 
 def _domain_label(domain: str) -> str:
-    parts = domain.lower().split(".")
+    dl = domain.lower()
+    for suffix in _HOSTING_SUFFIXES:
+        if dl.endswith(suffix):
+            parts = dl.split(".")
+            if len(parts) >= 3:
+                return parts[-3]
+    parts = dl.split(".")
     if len(parts) >= 2:
         return parts[-2]
     return domain
