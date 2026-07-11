@@ -31,11 +31,8 @@ on:
       use_searxng_container:
         description: '使用自建SearXNG容器（需先推送镜像到GHCR）'
         required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: true
+        type: boolean
       searxng_image:
         description: 'SearXNG容器镜像（GHCR地址）'
         required: false
@@ -44,35 +41,23 @@ on:
       suppress_zero_results:
         description: '零结果搜索不输出警告（减少日志噪音）'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: false
+        type: boolean
       show_blocked:
         description: '输出屏蔽统计（anti_patterns，默认关闭）'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: false
+        type: boolean
       show_cleaned:
         description: '输出清理统计（content_blocked，默认开启）'
         required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: true
+        type: boolean
       commit_changes:
         description: '是否提交域名变更到main（默认开启）'
         required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+        default: true
+        type: boolean
 
 permissions:
   contents: write
@@ -98,13 +83,13 @@ jobs:
         options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
 
     env:
-      SEARXNG_URL: ${{ (inputs.use_searxng_container || 'true') == 'true' && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
+      SEARXNG_URL: ${{ inputs.use_searxng_container && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
       DISCOVER_LIMIT: ${{ inputs.limit || '0' }}
-      DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || 'false' }}
-      DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked || 'false' }}
-      DISCOVER_SHOW_CLEANED: ${{ inputs.show_cleaned || 'true' }}
-      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes || 'true' }}
+      DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results }}
+      DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked }}
+      DISCOVER_SHOW_CLEANED: ${{ inputs.show_cleaned }}
+      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes }}
 
     steps:
       - name: 检出 main
