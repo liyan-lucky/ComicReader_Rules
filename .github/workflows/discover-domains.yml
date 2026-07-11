@@ -149,17 +149,17 @@ jobs:
           import json, os
           from pathlib import Path
 
-           lang = os.environ.get('DISCOVER_LANGUAGE', '')
-           report_path = Path('generated/domain_discovery_report.json')
-           report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
+          lang = os.environ.get('DISCOVER_LANGUAGE', '')
+          report_path = Path('generated/domain_discovery_report.json')
+          report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
 
-           agg_path = Path('config/aggregator_sites.json')
-           agg_data = json.loads(agg_path.read_text('utf-8')) if agg_path.exists() else {}
-           existing = set()
-           for u in agg_data.get(lang, []):
-               d = u.replace('https://','').replace('http://','').split('/')[0].replace('www.','').lower()
-               if d:
-                   existing.add(d)
+          agg_path = Path('config/aggregator_sites.json')
+          agg_data = json.loads(agg_path.read_text('utf-8')) if agg_path.exists() else {}
+          existing = set()
+          for u in agg_data.get(lang, []):
+              d = u.replace('https://','').replace('http://','').split('/')[0].replace('www.','').lower()
+              if d:
+                  existing.add(d)
 
           new_domains = report.get('newDomains', [])
           new_domains_detail = report.get('newDomainsDetail', [])
