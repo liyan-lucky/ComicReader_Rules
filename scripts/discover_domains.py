@@ -468,7 +468,7 @@ def main() -> int:
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
     validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked)
-    print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
+    print(f"Validated manga domains: {len(validated)} (removed {len(domains) - len(validated)} non-manga)")
 
     if removed_details:
         print(f"\n--- Phase 3 removed domains ({len(removed_details)}) ---")
