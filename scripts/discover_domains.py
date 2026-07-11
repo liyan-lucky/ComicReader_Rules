@@ -287,6 +287,10 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
         if ap in text:
             return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
+    for bk in BLOCKED_DOMAIN_KEYWORDS:
+        if bk in text or bk in title:
+            return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
+
     for kw in validate:
         if kw in text or kw in title:
             loc = "title" if kw in title else "body"
@@ -310,7 +314,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
-    reject_reasons = {"http_error": 0, "anti_pattern": 0, "no_indicators": 0, "network_issue": 0}
+    reject_reasons = {"http_error": 0, "anti_pattern": 0, "content_blocked": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
     kw_matched = {}
     kw_blocked = {}
@@ -344,6 +348,9 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
                 reject_reasons["http_error"] += 1
             elif result == "anti_pattern":
                 reject_reasons["anti_pattern"] += 1
+                kw_blocked.setdefault(matched_kw, []).append(d)
+            elif result == "content_blocked":
+                reject_reasons["content_blocked"] += 1
                 kw_blocked.setdefault(matched_kw, []).append(d)
             else:
                 reject_reasons["no_indicators"] += 1
@@ -463,24 +470,8 @@ def main() -> int:
 
     print(f"Unique domains extracted: {len(domains)}")
 
-    blocked = []
-    clean = []
-    blocked_by_kw_pre = {}
-    for d in domains:
-        is_blocked, matched_kw = is_blocked_domain(d)
-        if is_blocked:
-            blocked.append(d)
-            blocked_by_kw_pre.setdefault(matched_kw, []).append(d)
-        else:
-            clean.append(d)
-    print(f"Blocked domains removed: {len(blocked)}")
-    if args.show_blocked and blocked_by_kw_pre:
-        for kw in sorted(blocked_by_kw_pre.keys()):
-            print(f"  [{kw}] 清理 {len(blocked_by_kw_pre[kw])} 个域名")
-    print(f"Clean domains: {len(clean)}")
-
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(clean, existing, args.language, show_blocked=args.show_blocked)
+    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
 
     if removed_details:
@@ -489,7 +480,7 @@ def main() -> int:
         for item in removed_details:
             by_reason.setdefault(item["reason"], []).append(item)
         for reason in sorted(by_reason.keys()):
-            if not args.show_blocked and reason == "anti_pattern":
+            if not args.show_blocked and reason in ("anti_pattern", "content_blocked"):
                 continue
             items = by_reason[reason]
             print(f"  [{reason}] ({len(items)}):")
@@ -507,19 +498,6 @@ def main() -> int:
             print(f"  + {d}")
 
     if args.report:
-        blocked_details = []
-        for d in blocked:
-            matched_kw = ""
-            for kw in BLOCKED_DOMAIN_KEYWORDS:
-                if kw in d.lower():
-                    matched_kw = kw
-                    break
-            blocked_details.append({"domain": d, "matchedKeyword": matched_kw})
-
-        cleaned_kw_summary = {}
-        for kw, dlist in blocked_by_kw_pre.items():
-            cleaned_kw_summary[kw] = sorted(dlist)
-
         kw_matched_summary = {}
         for kw, dlist in kw_matched.items():
             kw_matched_summary[kw] = sorted(dlist)
@@ -539,17 +517,13 @@ def main() -> int:
             "queryCount": len(queries),
             "totalUrls": len(all_urls),
             "uniqueDomains": len(domains),
-            "blockedCount": len(blocked),
             "validatedCount": len(validated),
-            "validationRemovedCount": len(clean) - len(validated),
+            "validationRemovedCount": len(domains) - len(validated),
             "newDomains": sorted(added),
             "newDomainsDetail": new_domains_detail,
             "existingDomainCount": len(existing),
-            "blockedDomains": sorted(blocked),
-            "blockedDetails": blocked_details,
-            "cleanedByKeyword": cleaned_kw_summary,
             "antiPatternByKeyword": kw_blocked_summary,
-            "allDiscoveredDomains": sorted(clean),
+            "allDiscoveredDomains": sorted(domains),
             "removedDomains": removed_details,
             "matchedByKeyword": kw_matched_summary,
         }
