@@ -288,7 +288,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
             return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
     for bk in BLOCKED_DOMAIN_KEYWORDS:
-        if bk in text or bk in title:
+        if bk in title:
             return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
 
     for kw in validate:
@@ -403,7 +403,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str], dom
         domain_kw_map = {}
     added = []
     for d in new_domains:
-        if d not in existing and not is_blocked_domain(d)[0]:
+        if d not in existing:
             existing.add(d)
             added.append(d)
 
