@@ -305,7 +305,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
-def validate_domains(domains: List[str], existing: Set[str], language: str) -> tuple:
+def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False) -> tuple:
     validate, secondary, domain_label, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
@@ -359,12 +359,13 @@ def validate_domains(domains: List[str], existing: Set[str], language: str) -> t
         print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
         for dm in sorted(domains_list):
             print(f"      - {dm}")
-    print(f"\n  === 按命中词统计（被屏蔽） ===")
-    for kw in sorted(kw_blocked.keys()):
-        domains_list = kw_blocked[kw]
-        print(f"    [{kw}] 屏蔽 {len(domains_list)} 个域名:")
-        for dm in sorted(domains_list):
-            print(f"      - {dm}")
+    if show_blocked:
+        print(f"\n  === 按命中词统计（被屏蔽） ===")
+        for kw in sorted(kw_blocked.keys()):
+            domains_list = kw_blocked[kw]
+            print(f"    [{kw}] 屏蔽 {len(domains_list)} 个域名:")
+            for dm in sorted(domains_list):
+                print(f"      - {dm}")
     return validated, removed_details, kw_matched, kw_blocked, domain_kw_map
 
 
@@ -420,6 +421,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=0, help="每个搜索查询取多少条结果，0=不限制")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
+    parser.add_argument("--show-blocked", action="store_true", help="输出屏蔽(anti_patterns)和清理(blocked_domains)统计，默认关闭")
     args = parser.parse_args()
 
     queries = load_queries(args.language)
@@ -472,13 +474,13 @@ def main() -> int:
         else:
             clean.append(d)
     print(f"Blocked domains removed: {len(blocked)}")
-    if blocked_by_kw_pre:
+    if args.show_blocked and blocked_by_kw_pre:
         for kw in sorted(blocked_by_kw_pre.keys()):
             print(f"  [{kw}] 清理 {len(blocked_by_kw_pre[kw])} 个域名")
     print(f"Clean domains: {len(clean)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(clean, existing, args.language)
+    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(clean, existing, args.language, show_blocked=args.show_blocked)
     print(f"Validated manga domains: {len(validated)} (removed {len(clean) - len(validated)} non-manga)")
 
     if removed_details:
@@ -487,6 +489,8 @@ def main() -> int:
         for item in removed_details:
             by_reason.setdefault(item["reason"], []).append(item)
         for reason in sorted(by_reason.keys()):
+            if not args.show_blocked and reason == "anti_pattern":
+                continue
             items = by_reason[reason]
             print(f"  [{reason}] ({len(items)}):")
             for item in items:

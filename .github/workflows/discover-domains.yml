@@ -49,6 +49,14 @@ on:
         options:
           - 'true'
           - 'false'
+      show_blocked:
+        description: '输出屏蔽/清理统计（默认关闭）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
       commit_changes:
         description: '是否提交域名变更到main（默认关闭，仅输出结果）'
         required: false
@@ -86,6 +94,7 @@ jobs:
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
       DISCOVER_LIMIT: ${{ inputs.limit || '0' }}
       DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || 'false' }}
+      DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked || 'false' }}
       COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes || 'false' }}
 
     steps:
@@ -124,11 +133,16 @@ jobs:
           if [ "$DISCOVER_SUPPRESS_ZERO" = "true" ]; then
             SUPPRESS_FLAG="--suppress-zero-results"
           fi
+          SHOW_BLOCKED_FLAG=""
+          if [ "$DISCOVER_SHOW_BLOCKED" = "true" ]; then
+            SHOW_BLOCKED_FLAG="--show-blocked"
+          fi
           python scripts/discover_domains.py \
             --language "$DISCOVER_LANGUAGE" \
             --limit "$DISCOVER_LIMIT" \
             --report generated/domain_discovery_report.json \
-            $SUPPRESS_FLAG
+            $SUPPRESS_FLAG \
+            $SHOW_BLOCKED_FLAG
 
       - name: 统计发现结果
         run: |
@@ -185,8 +199,10 @@ jobs:
           else:
               lines.append('无命中域名')
 
+          show_blocked = os.environ.get('DISCOVER_SHOW_BLOCKED', 'false') == 'true'
+
           anti_by_kw = report.get('antiPatternByKeyword', {})
-          if anti_by_kw:
+          if show_blocked and anti_by_kw:
               lines += [
                   '',
                   '## 被屏蔽（anti_patterns）',
@@ -203,7 +219,7 @@ jobs:
                   lines.append('')
 
           cleaned_by_kw = report.get('cleanedByKeyword', {})
-          if cleaned_by_kw:
+          if show_blocked and cleaned_by_kw:
               lines += [
                   '',
                   '## 被清理（blocked_domains）',
