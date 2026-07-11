@@ -278,8 +278,18 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
         else:
             r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
         if r.status_code >= 400:
+            dl = domain.lower()
+            label = _domain_label(domain)
+            for kw in domain_label:
+                if kw in dl or kw in label:
+                    return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
             return {"result": f"http_{r.status_code}", "matched_kw": "", "match_type": ""}
     except Exception as e:
+        dl = domain.lower()
+        label = _domain_label(domain)
+        for kw in domain_label:
+            if kw in dl or kw in label:
+                return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
         return {"result": f"fetch_failed:{e}", "matched_kw": "", "match_type": ""}
 
     text = r.text.lower()[:80000]
