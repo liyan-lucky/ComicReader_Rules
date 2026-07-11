@@ -133,12 +133,14 @@ def _fetch_page(url: str, timeout: int = 15) -> str:
             r = _SCRAPER.get(url, headers=headers, timeout=timeout, allow_redirects=True)
         else:
             r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
+        print(f"      HTTP {r.status_code}, len={len(r.text)}")
         if r.status_code >= 400:
             return ""
         if not r.encoding or r.encoding.lower() == "iso-8859-1":
             r.encoding = r.apparent_encoding or "utf-8"
         return r.text
-    except Exception:
+    except Exception as e:
+        print(f"      Fetch error: {e}")
         return ""
 
 
@@ -149,8 +151,10 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
         soup = BeautifulSoup(html_text, "lxml")
     except Exception:
         soup = BeautifulSoup(html_text, "html.parser")
+    els = soup.select(selector)
+    print(f"      selector='{selector}' attr='{attr}' matched={len(els)} elements")
     titles = []
-    for el in soup.select(selector):
+    for el in els:
         if attr == "text":
             t = el.get_text(strip=True)
         else:
