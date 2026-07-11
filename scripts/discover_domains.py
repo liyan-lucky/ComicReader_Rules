@@ -318,6 +318,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
     removed_details = []
     kw_matched = {}
     kw_blocked = {}
+    kw_cleaned = {}
     domain_kw_map = {}
 
     for d in domains:
@@ -351,7 +352,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
                 kw_blocked.setdefault(matched_kw, []).append(d)
             elif result == "content_blocked":
                 reject_reasons["content_blocked"] += 1
-                kw_blocked.setdefault(matched_kw, []).append(d)
+                kw_cleaned.setdefault(matched_kw, []).append(d)
             else:
                 reject_reasons["no_indicators"] += 1
             removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
@@ -366,6 +367,13 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
         print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
         for dm in sorted(domains_list):
             print(f"      - {dm}")
+    if kw_cleaned:
+        print(f"\n  === 按命中词统计（被清理） ===")
+        for kw in sorted(kw_cleaned.keys()):
+            domains_list = kw_cleaned[kw]
+            print(f"    [{kw}] 清理 {len(domains_list)} 个域名:")
+            for dm in sorted(domains_list):
+                print(f"      - {dm}")
     if show_blocked:
         print(f"\n  === 按命中词统计（被屏蔽） ===")
         for kw in sorted(kw_blocked.keys()):
@@ -373,7 +381,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             print(f"    [{kw}] 屏蔽 {len(domains_list)} 个域名:")
             for dm in sorted(domains_list):
                 print(f"      - {dm}")
-    return validated, removed_details, kw_matched, kw_blocked, domain_kw_map
+    return validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map
 
 
 def load_existing_domains(filepath: Path) -> Set[str]:
@@ -467,7 +475,7 @@ def main() -> int:
     print(f"Unique domains extracted: {len(domains)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, kw_blocked, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked)
+    validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked)
     print(f"Validated manga domains: {len(validated)} (removed {len(domains) - len(validated)} non-manga)")
 
     if removed_details:
@@ -502,6 +510,10 @@ def main() -> int:
         for kw, dlist in kw_blocked.items():
             kw_blocked_summary[kw] = sorted(dlist)
 
+        kw_cleaned_summary = {}
+        for kw, dlist in kw_cleaned.items():
+            kw_cleaned_summary[kw] = sorted(dlist)
+
         new_domains_detail = []
         for d in sorted(added):
             new_domains_detail.append({"domain": d, "matchedKeyword": domain_kw_map.get(d, "")})
@@ -519,6 +531,7 @@ def main() -> int:
             "newDomainsDetail": new_domains_detail,
             "existingDomainCount": len(existing),
             "antiPatternByKeyword": kw_blocked_summary,
+            "cleanedByKeyword": kw_cleaned_summary,
             "allDiscoveredDomains": sorted(domains),
             "removedDomains": removed_details,
             "matchedByKeyword": kw_matched_summary,

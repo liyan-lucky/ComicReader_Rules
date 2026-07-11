@@ -219,7 +219,7 @@ jobs:
                   lines.append('')
 
           cleaned_by_kw = report.get('cleanedByKeyword', {})
-          if show_blocked and cleaned_by_kw:
+          if cleaned_by_kw:
               lines += [
                   '',
                   '## 被清理（blocked_domains）',
