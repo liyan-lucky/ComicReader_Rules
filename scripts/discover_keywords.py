@@ -44,36 +44,42 @@ RANKING_SITES: Dict[str, List[dict]] = {
     "zh-Hans": [
         {
             "name": "腾讯动漫-TOP榜",
+            "type": "api",
             "url": "https://ac.qq.com/Rank/comicRank/type/top",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
             "name": "腾讯动漫-月票榜",
+            "type": "api",
             "url": "https://ac.qq.com/Rank/comicRank/type/mt",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
+            "name": "腾讯动漫-飙升榜",
+            "type": "api",
+            "url": "https://ac.qq.com/Rank/comicRank/type/rise",
+            "selector": ".rank-list-wrap a.text-overflow",
+            "attr": "title",
+        },
+        {
             "name": "快看漫画-排行榜",
+            "type": "api",
             "url": "https://www.kuaikanmanhua.com/ranking/",
             "selector": ".ranking-list a .title",
             "attr": "text",
         },
         {
             "name": "漫画柜-人气榜",
+            "type": "api",
             "url": "https://www.manhuagui.com/list/",
             "selector": "a.title",
             "attr": "title",
         },
         {
-            "name": "知音漫客-排行榜",
-            "url": "https://www.mkzhan.com/rank/",
-            "selector": ".rank-list a.book-name",
-            "attr": "title",
-        },
-        {
             "name": "咚漫漫画-排行榜",
+            "type": "api",
             "url": "https://www.dongmanmanhua.cn/ranking",
             "selector": "a.title",
             "attr": "title",
@@ -166,6 +172,30 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
     return titles
 
 
+def _extract_titles_from_links(html_text: str) -> List[str]:
+    if not html_text:
+        return []
+    try:
+        soup = BeautifulSoup(html_text, "lxml")
+    except Exception:
+        soup = BeautifulSoup(html_text, "html.parser")
+    titles = []
+    manga_link_patterns = re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', re.I)
+    skip_hrefs = re.compile(r'/(login|register|user|pay|vip|tag|category|rank|list|search)', re.I)
+    for a in soup.find_all("a", href=True):
+        href = a.get("href", "")
+        if not manga_link_patterns.search(href):
+            continue
+        if skip_hrefs.search(href):
+            continue
+        t = a.get("title", "").strip()
+        if not t:
+            t = a.get_text(strip=True)
+        if t and 2 <= len(t) <= 60 and not NOISE_PATTERNS.match(t):
+            titles.append(t)
+    return titles
+
+
 def _is_valid_keyword(kw: str) -> bool:
     kw = kw.strip()
     if not kw or len(kw) < 2:
@@ -194,9 +224,28 @@ def _scrape_site(site_cfg: dict) -> List[str]:
         return []
 
     raw = _extract_from_selector(html_text, selector, attr) if selector else []
+    print(f"      selector={len(raw)} titles")
+
+    if not raw:
+        print(f"      Trying cloudscraper fallback...")
+        try:
+            if _SCRAPER is not None:
+                headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
+                r = _SCRAPER.get(url, headers=headers, timeout=20, allow_redirects=True)
+                print(f"      cloudscraper HTTP {r.status_code}, len={len(r.text)}")
+                if r.status_code < 400 and r.text:
+                    raw = _extract_from_selector(r.text, selector, attr) if selector else []
+                    print(f"      cloudscraper selector={len(raw)} titles")
+        except Exception as e:
+            print(f"      cloudscraper error: {e}")
+
+    if not raw:
+        print(f"      Trying link-based extraction...")
+        raw = _extract_titles_from_links(html_text)
+        print(f"      link-based={len(raw)} titles")
 
     valid = [t for t in raw if _is_valid_keyword(t)]
-    print(f"      Extracted {len(valid)} titles")
+    print(f"      Valid titles: {len(valid)}")
     return valid
 
 
