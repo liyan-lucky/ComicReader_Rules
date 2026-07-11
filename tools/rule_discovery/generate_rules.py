@@ -78,6 +78,7 @@ _GENERATE_BLOCKED: List[str] = _BLOCKED_CFG.get("generate_rules", [])
 BLOCKED_DOMAIN_KEYWORDS: List[str] = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
 
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
+AGGREGATOR_SITES: Dict[str, List[str]] = _load_config("aggregator_sites.json", {})
 
 
 @dataclasses.dataclass
@@ -424,11 +425,15 @@ def likely_seed_candidate_url(url: str, seed_domain: str = "") -> bool:
     return False
 
 
-def seed_urls_for_domains(domains: Sequence[str], explicit_seed_urls: Sequence[str]) -> List[str]:
+def seed_urls_for_domains(domains: Sequence[str], explicit_seed_urls: Sequence[str], language: str = "") -> List[str]:
     urls: List[str] = []
     for u in explicit_seed_urls:
         if u.strip():
             urls.append(u.strip())
+    if language:
+        for u in AGGREGATOR_SITES.get(language, []):
+            if u.strip() and u.strip() not in urls:
+                urls.append(u.strip())
     for domain in domains:
         d = normalize_domain(domain)
         if not d:
@@ -481,10 +486,11 @@ def discover_seed_candidates(
     sleep: float,
     deadline_monotonic: Optional[float] = None,
     max_workers: int = 6,
+    language: str = "",
 ) -> Tuple[List[Candidate], Dict[str, object]]:
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
-    seed_urls = seed_urls_for_domains(domains, explicit_seed_urls)
+    seed_urls = seed_urls_for_domains(domains, explicit_seed_urls, language=language)
     out: List[Candidate] = []
     seed_stats = []
     stopped_by_deadline = False
@@ -1019,6 +1025,7 @@ def main() -> int:
             max_seed_candidates=args.seed_limit,
             sleep=args.sleep,
             deadline_monotonic=deadline_monotonic,
+            language=args.language_code,
         )
         for c in seed_candidates:
             search_engine_counts[c.engine or "unknown"] = search_engine_counts.get(c.engine or "unknown", 0) + 1

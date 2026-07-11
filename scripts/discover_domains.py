@@ -299,8 +299,12 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
         title = m.group(1).strip()
 
     for ap in anti:
-        if ap in text:
-            return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
+        if re.search(r'[\u4e00-\u9fff]', ap):
+            if ap.lower() in text:
+                return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
+        else:
+            if re.search(r'\b' + re.escape(ap) + r'\b', text, re.IGNORECASE):
+                return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
     for bk in BLOCKED_DOMAIN_KEYWORDS:
         if bk in text or bk in title:
@@ -399,45 +403,80 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
     return validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map
 
 
-def load_existing_domains(filepath: Path) -> Set[str]:
+def load_existing_domains(filepath: Path, language: str = "") -> Set[str]:
     domains = set()
-    if not filepath.exists():
-        return domains
-    for line in filepath.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        d = line.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
-        if d:
-            domains.add(d)
+    if filepath.exists():
+        for line in filepath.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            d = line.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
+            if d:
+                domains.add(d)
+    if language:
+        agg_urls = AGGREGATOR_SITES.get(language, [])
+        for u in agg_urls:
+            d = extract_domain(u)
+            if d:
+                rd = _registered_domain(d)
+                domains.add(rd)
     return domains
 
 
-def save_domains(filepath: Path, existing: Set[str], new_domains: List[str], domain_kw_map: dict = None) -> List[str]:
+def _save_cleaned_log(filepath: Path, cleaned_domains: List[str]) -> None:
+    if not cleaned_domains:
+        return
+    existing_cleaned: Set[str] = set()
+    if filepath.exists():
+        for line in filepath.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                existing_cleaned.add(line.lower())
+    new_cleaned = sorted(d for d in cleaned_domains if d.lower() not in existing_cleaned)
+    if not new_cleaned:
+        return
+    with filepath.open("a", encoding="utf-8") as f:
+        if not filepath.exists() or filepath.stat().st_size == 0:
+            f.write(f"# {filepath.stem} - cleaned/blocked domains (skip re-verification)\n")
+        for d in new_cleaned:
+            f.write(d + "\n")
+
+
+def save_domains_to_aggregator(language: str, new_domains: List[str], domain_kw_map: dict = None) -> List[str]:
     if domain_kw_map is None:
         domain_kw_map = {}
+    agg_path = ROOT / "config" / "aggregator_sites.json"
+    agg_data: Dict[str, List[str]] = {}
+    if agg_path.exists():
+        try:
+            agg_data = json.loads(agg_path.read_text(encoding="utf-8"))
+        except Exception:
+            agg_data = {}
+
+    existing_urls = set(agg_data.get(language, []))
+    existing_domains: Set[str] = set()
+    for u in existing_urls:
+        d = extract_domain(u)
+        if d:
+            existing_domains.add(_registered_domain(d))
+
     added = []
-    for d in new_domains:
-        if d not in existing:
-            existing.add(d)
+    new_urls = list(agg_data.get(language, []))
+    for d in sorted(new_domains):
+        if d in existing_domains:
+            continue
+        url = f"https://{d}/"
+        if url not in existing_urls:
+            new_urls.append(url)
+            existing_urls.add(url)
+            existing_domains.add(d)
             added.append(d)
 
     if not added:
         return added
 
-    header = ""
-    if filepath.exists():
-        header = filepath.read_text(encoding="utf-8")
-        if not header.endswith("\n"):
-            header += "\n"
-    else:
-        header = f"# {filepath.stem} domain list\n\n"
-
-    section = "# === Auto-discovered ===\n"
-    for d in sorted(added):
-        section += d + "\n"
-
-    filepath.write_text(header + section, encoding="utf-8")
+    agg_data[language] = new_urls
+    agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return added
 
 
@@ -457,13 +496,23 @@ def main() -> int:
         return 1
 
     filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
-    existing = load_existing_domains(filepath)
+    existing = load_existing_domains(filepath, args.language)
     print(f"Existing domains in {filepath.name}: {len(existing)}")
+
+    cleaned_path = ROOT / "config" / "domains" / f"{args.language}_cleaned.txt"
+    cleaned_set: Set[str] = set()
+    if cleaned_path.exists():
+        for line in cleaned_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                cleaned_set.add(line.lower().replace("www.", ""))
 
     all_urls: List[str] = []
 
-    print(f"\n=== Phase 1: Crawl aggregator sites (SKIPPED) ===")
-    agg_urls = []
+    print(f"\n=== Phase 1: Crawl aggregator sites ({len(AGGREGATOR_SITES.get(args.language, []))} sites) ===")
+    agg_urls = crawl_aggregator_sites(args.language, limit=0)
+    all_urls.extend(agg_urls)
+    print(f"Aggregator URLs collected: {len(agg_urls)}")
 
     queries = load_queries(args.language)
     if queries:
@@ -480,15 +529,19 @@ def main() -> int:
 
     domains: List[str] = []
     seen: Set[str] = set()
+    cleaned_skipped = 0
     for u in all_urls:
         d = extract_domain(u)
         if d:
             rd = _registered_domain(d)
+            if rd in cleaned_set:
+                cleaned_skipped += 1
+                continue
             if rd not in seen:
                 seen.add(rd)
                 domains.append(rd)
 
-    print(f"Unique domains extracted: {len(domains)}")
+    print(f"Unique domains extracted: {len(domains)} (skipped {cleaned_skipped} previously cleaned)")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
     validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked, show_cleaned=args.show_cleaned)
@@ -511,8 +564,14 @@ def main() -> int:
                 kw_str = f' [kw: {item["matched_kw"]}]' if item["matched_kw"] else ""
                 print(f'    - {item["domain"]}{detail_str}{kw_str}')
 
-    added = save_domains(filepath, existing, validated, domain_kw_map)
-    print(f"\nNew domains added to {filepath.name}: {len(added)}")
+    added = save_domains_to_aggregator(args.language, validated, domain_kw_map)
+    print(f"\nNew domains added to aggregator_sites.json ({args.language}): {len(added)}")
+
+    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("content_blocked", "anti_pattern")]
+    if cleaned_domains:
+        cleaned_path = ROOT / "config" / "domains" / f"{args.language}_cleaned.txt"
+        _save_cleaned_log(cleaned_path, cleaned_domains)
+        print(f"Cleaned/blocked domains logged to {cleaned_path.name}: {len(cleaned_domains)}")
 
     if added:
         print("Added domains:")
