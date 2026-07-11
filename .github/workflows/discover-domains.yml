@@ -54,9 +54,9 @@ on:
         default: true
         type: boolean
       commit_changes:
-        description: '是否提交域名变更到main（默认开启）'
+        description: '是否提交域名变更到main（默认关闭）'
         required: false
-        default: true
+        default: false
         type: boolean
 
 permissions:
