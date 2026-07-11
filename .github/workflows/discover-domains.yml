@@ -49,9 +49,9 @@ on:
         default: false
         type: boolean
       show_cleaned:
-        description: '输出清理统计（content_blocked，默认开启）'
+        description: '输出清理统计（content_blocked，默认关闭）'
         required: false
-        default: true
+        default: false
         type: boolean
       commit_changes:
         description: '是否提交域名变更到main（默认关闭）'
