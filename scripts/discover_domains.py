@@ -412,11 +412,7 @@ def save_domains(filepath: Path, existing: Set[str], new_domains: List[str], dom
 
     section = "# === Auto-discovered ===\n"
     for d in sorted(added):
-        kw = domain_kw_map.get(d, "")
-        if kw:
-            section += f"{d}  # matched: {kw}\n"
-        else:
-            section += d + "\n"
+        section += d + "\n"
 
     filepath.write_text(header + section, encoding="utf-8")
     return added
