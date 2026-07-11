@@ -43,8 +43,8 @@ _ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
 RANKING_SITES: Dict[str, List[dict]] = {
     "zh-Hans": [
         {
-            "name": "腾讯动漫-排行榜",
-            "url": "https://ac.qq.com/Rank",
+            "name": "腾讯动漫-TOP榜",
+            "url": "https://ac.qq.com/Rank/comicRank/type/top",
             "type": "text_ranking",
         },
         {
