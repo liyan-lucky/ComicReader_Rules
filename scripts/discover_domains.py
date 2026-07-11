@@ -219,17 +219,22 @@ def is_blocked_domain(domain: str) -> tuple:
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
 
 
-_HOSTING_SUFFIXES: set = set()
-_cfg_sub = _MANGA_KW_CFG
-for _lang_cfg in _cfg_sub.values():
+_HOSTING_PLATFORMS = {
+    ".github.io", ".vercel.app", ".netlify.app", ".pages.dev",
+    ".gitlab.io", ".gitee.io", ".cloudfront.net", ".herokuapp.com",
+    ".render.com", ".railway.app", ".fly.dev", ".supabase.co",
+    ".firebaseapp.com", ".web.app", ".glitch.me", ".replit.com",
+    ".onrender.com", ".surge.sh", ".itch.io",
+}
+for _lang_cfg in _MANGA_KW_CFG.values():
     if isinstance(_lang_cfg, dict):
         for _sd in _lang_cfg.get("search_subdomain", []):
-            _HOSTING_SUFFIXES.add("." + _sd.lower())
+            _HOSTING_PLATFORMS.add("." + _sd.lower())
 
 
 def _registered_domain(domain: str) -> str:
     dl = domain.lower()
-    for suffix in _HOSTING_SUFFIXES:
+    for suffix in _HOSTING_PLATFORMS:
         if dl.endswith(suffix):
             parts = dl.split(".")
             if len(parts) >= 3:
@@ -242,7 +247,7 @@ def _registered_domain(domain: str) -> str:
 
 def _domain_label(domain: str) -> str:
     dl = domain.lower()
-    for suffix in _HOSTING_SUFFIXES:
+    for suffix in _HOSTING_PLATFORMS:
         if dl.endswith(suffix):
             parts = dl.split(".")
             if len(parts) >= 3:
