@@ -288,7 +288,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
             return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
     for bk in BLOCKED_DOMAIN_KEYWORDS:
-        if bk in title:
+        if bk in text or bk in title:
             return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
 
     for kw in validate:
