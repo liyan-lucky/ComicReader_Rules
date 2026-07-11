@@ -274,9 +274,9 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
         if _SCRAPER is not None:
-            r = _SCRAPER.get(url, headers=headers, timeout=10, allow_redirects=True)
+            r = _SCRAPER.get(url, headers=headers, timeout=5, allow_redirects=True)
         else:
-            r = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
+            r = requests.get(url, headers=headers, timeout=5, allow_redirects=True)
         if r.status_code >= 400:
             dl = domain.lower()
             label = _domain_label(domain)
