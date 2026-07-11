@@ -87,11 +87,8 @@ on:
       suppress_zero_results:
         description: '零结果搜索不输出警告（减少日志噪音）'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: false
+        type: boolean
       search_budget_seconds:
         description: '搜索阶段时间预算秒数（0=不限制，deep建议3600）'
         required: false
@@ -107,11 +104,8 @@ on:
       publish_release:
         description: '是否发布Release和标签（默认关闭，仅提交代码）'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+        default: false
+        type: boolean
   schedule:
     - cron: '0 3 1,15 * *'
 
@@ -152,11 +146,11 @@ jobs:
       RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_generated_limit || '' }}
       RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
       RULE_SLEEP_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.sleep || '' }}
-      RULE_SUPPRESS_ZERO: ${{ github.event_name == 'workflow_dispatch' && inputs.suppress_zero_results || 'false' }}
+      RULE_SUPPRESS_ZERO: ${{ github.event_name == 'workflow_dispatch' && inputs.suppress_zero_results || false }}
       RULE_SEARCH_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_budget_seconds || '' }}
       RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_zero_search || '' }}
       RULE_DOMAIN_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.domain_override || '' }}
-      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || 'false' }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
       QUICK_MAX_GENERATED: '2000'
       DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
@@ -300,9 +294,7 @@ jobs:
             SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH="$RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT"
           fi
 
-          KEYWORDS_FILE="config/keywords/${RULE_LANGUAGE}.txt"
-          DOMAINS_FILE="config/domains/${RULE_LANGUAGE}.txt"
-          ARGS="--keywords-file '${KEYWORDS_FILE}' --domains-file '${DOMAINS_FILE}'"
+          ARGS=""
 
           if [ -n "$RULE_DOMAIN_OVERRIDE" ]; then
             DOMAIN_ARGS=""
@@ -314,7 +306,7 @@ jobs:
               fi
             done
             if [ -n "$DOMAIN_ARGS" ]; then
-              ARGS="--keywords-file '${KEYWORDS_FILE}' $DOMAIN_ARGS"
+              ARGS="$DOMAIN_ARGS"
             fi
           fi
 
@@ -502,7 +494,7 @@ jobs:
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json generated/update_manifest.json
           git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json"
-          git add config/domains/
+          git add config/aggregator_sites.json
           if git diff --cached --quiet; then
             echo "No generated rule changes."
           else

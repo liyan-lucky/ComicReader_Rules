@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""域名发现脚本：按语种搜索漫画/漫画网站域名，更新到 config/domains/ 文件。
+"""域名发现脚本：按语种搜索漫画/漫画网站域名，更新到 config/aggregator_sites.json。
 
 用法：
     python scripts/discover_domains.py --language zh-Hans
@@ -405,14 +405,6 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
 
 def load_existing_domains(filepath: Path, language: str = "") -> Set[str]:
     domains = set()
-    if filepath.exists():
-        for line in filepath.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            d = line.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
-            if d:
-                domains.add(d)
     if language:
         agg_urls = AGGREGATOR_SITES.get(language, [])
         for u in agg_urls:
@@ -421,11 +413,13 @@ def load_existing_domains(filepath: Path, language: str = "") -> Set[str]:
                 rd = _registered_domain(d)
                 domains.add(rd)
     return domains
+    return domains
 
 
 def _save_cleaned_log(filepath: Path, cleaned_domains: List[str]) -> None:
     if not cleaned_domains:
         return
+    filepath.parent.mkdir(parents=True, exist_ok=True)
     existing_cleaned: Set[str] = set()
     if filepath.exists():
         for line in filepath.read_text(encoding="utf-8").splitlines():
@@ -495,11 +489,11 @@ def main() -> int:
         print(f"No queries defined for {args.language}", file=sys.stderr)
         return 1
 
-    filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
+    filepath = ROOT / "config" / "aggregator_sites.json"
     existing = load_existing_domains(filepath, args.language)
-    print(f"Existing domains in {filepath.name}: {len(existing)}")
+    print(f"Existing domains in aggregator_sites.json ({args.language}): {len(existing)}")
 
-    cleaned_path = ROOT / "config" / "domains" / f"{args.language}_cleaned.txt"
+    cleaned_path = ROOT / "config" / "cleaned_domains" / f"{args.language}.txt"
     cleaned_set: Set[str] = set()
     if cleaned_path.exists():
         for line in cleaned_path.read_text(encoding="utf-8").splitlines():
@@ -569,7 +563,7 @@ def main() -> int:
 
     cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("content_blocked", "anti_pattern")]
     if cleaned_domains:
-        cleaned_path = ROOT / "config" / "domains" / f"{args.language}_cleaned.txt"
+        cleaned_path = ROOT / "config" / "cleaned_domains" / f"{args.language}.txt"
         _save_cleaned_log(cleaned_path, cleaned_domains)
         print(f"Cleaned/blocked domains logged to {cleaned_path.name}: {len(cleaned_domains)}")
 

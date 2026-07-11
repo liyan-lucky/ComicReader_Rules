@@ -245,7 +245,7 @@ jobs:
           name: domain-discovery-${{ inputs.language || 'zh-Hans' }}
           path: |
             generated/domain_discovery_report.json
-            config/domains/${{ inputs.language || 'zh-Hans' }}.txt
+            config/aggregator_sites.json
           retention-days: 30
 
       - name: 提交域名更新
@@ -255,7 +255,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          git add config/aggregator_sites.json config/domains/ generated/domain_discovery_report.json
+          git add config/aggregator_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
           if git diff --cached --quiet; then
             echo "域名没有变化，无需提交。"
           else

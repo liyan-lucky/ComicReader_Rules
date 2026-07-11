@@ -1,0 +1,162 @@
+name: 发现热门漫画关键词
+
+on:
+  schedule:
+    - cron: '0 1 1 * *'
+  workflow_dispatch:
+    inputs:
+      language:
+        description: '发现语种'
+        required: true
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - zh-Hans
+          - zh-Hant
+          - en
+          - ja
+          - ko
+      top:
+        description: '每种语种取前N个热门关键词'
+        required: true
+        default: '20'
+        type: choice
+        options:
+          - '10'
+          - '20'
+          - '30'
+          - '50'
+      use_searxng_container:
+        description: '使用自建SearXNG容器'
+        required: false
+        default: true
+        type: boolean
+      searxng_image:
+        description: 'SearXNG容器镜像'
+        required: false
+        default: 'ghcr.io/liyan-lucky/searxng_diy:latest'
+        type: string
+      commit_changes:
+        description: '是否提交变更到main（默认开启）'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comic-reader-keywords
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  discover-keywords:
+    name: 发现 ${{ inputs.language || 'zh-Hans' }} 热门关键词
+    runs-on: ubuntu-latest
+
+    services:
+      searxng:
+        image: ${{ inputs.searxng_image || 'ghcr.io/liyan-lucky/searxng_diy:latest' }}
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+
+    env:
+      SEARXNG_URL: ${{ inputs.use_searxng_container && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
+      DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
+      DISCOVER_TOP: ${{ inputs.top || '20' }}
+      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes }}
+
+    steps:
+      - name: 检出 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 验证 SearXNG 可用
+        if: ${{ inputs.use_searxng_container == true }}
+        run: |
+          echo "Testing SearXNG at $SEARXNG_URL ..."
+          for i in $(seq 1 10); do
+            if curl -sf "$SEARXNG_URL/search?q=test&format=json" | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'SearXNG OK: {len(d.get(\"results\",[]))} results')" 2>/dev/null; then
+              echo "SearXNG is ready."
+              exit 0
+            fi
+            echo "Waiting for SearXNG... attempt $i"
+            sleep 3
+          done
+          echo "::warning::SearXNG not responding, will fall back to DDG"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: 发现热门关键词
+        run: |
+          python scripts/discover_keywords.py \
+            --language "$DISCOVER_LANGUAGE" \
+            --top "$DISCOVER_TOP" \
+            --report generated/keyword_discovery_report.json
+
+      - name: 统计发现结果
+        run: |
+          python -c "
+          import json, os
+          from pathlib import Path
+
+          lang = os.environ.get('DISCOVER_LANGUAGE', '')
+          report_path = Path('generated/keyword_discovery_report.json')
+          report = json.loads(report_path.read_text('utf-8')) if report_path.exists() else {}
+
+          keywords = report.get('keywords', [])
+          lines = [
+              '## 热门漫画关键词发现',
+              '',
+              f'语种：{lang}',
+              f'Top：{report.get(\"top\", 20)}',
+              f'发现关键词数：{len(keywords)}',
+              '',
+          ]
+          for i, kw in enumerate(keywords, 1):
+              lines.append(f'{i}. {kw}')
+
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          "
+
+      - name: 上传发现报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: keyword-discovery-${{ inputs.language || 'zh-Hans' }}
+          path: |
+            generated/keyword_discovery_report.json
+            config/rule_keywords.json
+          retention-days: 30
+
+      - name: 提交关键词更新
+        if: ${{ env.COMMIT_CHANGES == 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add config/rule_keywords.json generated/keyword_discovery_report.json
+          if git diff --cached --quiet; then
+            echo "关键词没有变化，无需提交。"
+          else
+            git commit -m "chore: discover top $DISCOVER_TOP $DISCOVER_LANGUAGE manga keywords"
+            git push origin HEAD:main
+          fi

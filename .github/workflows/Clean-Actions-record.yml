@@ -6,11 +6,8 @@ on:
       dry_run:
         description: '【安全预览】true=只预览不删除；false=真的执行删除。默认 true'
         required: true
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        default: true
+        type: boolean
 
       keep_latest_runs:
         description: '【运行记录】每个 workflow 保留最近 N 条；0=不保留旧记录'
@@ -27,11 +24,8 @@ on:
       clean_tags:
         description: '【标签】是否清理 Git tag；默认 false=不清理标签'
         required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+        default: false
+        type: boolean
 
       tag_prefix:
         description: '【标签】只清理指定前缀的 tag；all=全部 tag，危险'
@@ -42,11 +36,8 @@ on:
       clean_releases:
         description: '【Release】是否清理 GitHub Release；默认 false=不清理发布'
         required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+        default: false
+        type: boolean
 
       release_tag_prefix:
         description: '【Release】只清理指定前缀的 Release；all=全部 Release，危险'
@@ -223,7 +214,7 @@ jobs:
           PY
 
       - name: 清理 Release
-        if: inputs.clean_releases == 'true'
+        if: inputs.clean_releases == true
         run: |
           set -euo pipefail
 
@@ -285,7 +276,7 @@ jobs:
           fi
 
       - name: 不清理 Release 提示
-        if: inputs.clean_releases != 'true'
+        if: inputs.clean_releases != true
         run: |
           set -euo pipefail
 
@@ -299,7 +290,7 @@ jobs:
           fi
 
       - name: 清理标签
-        if: inputs.clean_tags == 'true'
+        if: inputs.clean_tags == true
         run: |
           set -euo pipefail
 
@@ -347,7 +338,7 @@ jobs:
           fi
 
       - name: 不清理标签提示
-        if: inputs.clean_tags != 'true'
+        if: inputs.clean_tags != true
         run: |
           set -euo pipefail
 

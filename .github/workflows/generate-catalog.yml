@@ -25,11 +25,8 @@ on:
       publish_release:
         description: '是否发布Release和标签（默认关闭，仅提交代码）'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
+        default: false
+        type: boolean
       catalog_language:
         description: '语种代码 (zh-Hans/zh-Hant/en/ja/ko/mixed)'
         required: false
@@ -63,7 +60,7 @@ jobs:
       CATALOG_MAX_CONSECUTIVE_NO_NEW: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_no_new || '10' }}
       CATALOG_REQUEST_DELAY: ${{ github.event_name == 'workflow_dispatch' && inputs.request_delay || '0.5' }}
       CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.catalog_language || 'zh-Hans' }}
-      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || 'false' }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
 
     steps:
       - name: 检出目标代码

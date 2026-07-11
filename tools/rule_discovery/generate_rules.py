@@ -79,6 +79,7 @@ BLOCKED_DOMAIN_KEYWORDS: List[str] = list(dict.fromkeys(_GENERATE_BLOCKED + _DIS
 
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_config("aggregator_sites.json", {})
+RULE_KEYWORDS: Dict[str, List[str]] = _load_config("rule_keywords.json", {})
 
 
 @dataclasses.dataclass
@@ -915,9 +916,9 @@ def main() -> int:
     started_at = time.monotonic()
     ap = argparse.ArgumentParser(description="自动搜索公开漫画页面并生成漫画浏览器规则")
     ap.add_argument("--keyword", action="append", default=[], help="搜索关键词，可重复，如：--keyword 斗罗大陆 --keyword 'Soul Land'")
-    ap.add_argument("--keywords-file", action="append", default=[], help="关键词文件路径（每行一个，#注释），可重复，如：config/keywords/zh-Hans.txt")
+    ap.add_argument("--keywords-file", action="append", default=[], help="关键词文件路径（每行一个，#注释），可重复")
     ap.add_argument("--domain", action="append", default=[], help="限定域名，可重复，如：--domain kaixinman.com")
-    ap.add_argument("--domains-file", action="append", default=[], help="域名文件路径（每行一个，#注释），可重复，如：config/domains/zh-Hans.txt")
+    ap.add_argument("--domains-file", action="append", default=[], help="域名文件路径（每行一个，#注释），可重复")
     ap.add_argument("--seed-url", action="append", default=[], help="公开站点入口种子页，可重复；脚本会从页面抓取站内漫画候选链接")
     ap.add_argument("--no-seed-discovery", action="store_true", help="关闭公开站点种子抓取，只使用搜索引擎候选")
     ap.add_argument("--seed-limit", type=int, default=300, help="最多保留多少个种子候选链接")
@@ -955,9 +956,11 @@ def main() -> int:
             line = line.strip()
             if line and not line.startswith("#"):
                 keywords.append(line)
+    if not keywords and args.language_code != "mixed":
+        keywords = RULE_KEYWORDS.get(args.language_code, [])
     if not keywords:
         keywords = ["斗罗大陆", "Soul Land", "Douluo Dalu"]
-    log(f"[info] keywords: {len(keywords)} (from args: {len(args.keyword)}, from files: {len(args.keywords_file)})")
+    log(f"[info] keywords: {len(keywords)} (from args: {len(args.keyword)}, from files: {len(args.keywords_file)}, from json: {len(RULE_KEYWORDS.get(args.language_code, []))})")
     domains = args.domain or []
     for df in args.domains_file:
         df_path = Path(df)
