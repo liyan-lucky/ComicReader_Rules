@@ -179,7 +179,7 @@ jobs:
               f'提取唯一域名数：{report.get(\"uniqueDomains\", 0)}',
               f'清理域名数：{report.get(\"blockedCount\", 0)}',
               f'新增域名数：{len(new_domains)}',
-              f'当前域名总数：{len(existing) + len(new_domains)}',
+              f'当前域名总数：{len(existing)}',
               '',
               '## 验证通过',
               '',
