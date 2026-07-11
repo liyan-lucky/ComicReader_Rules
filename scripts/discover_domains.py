@@ -292,9 +292,10 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
             loc = "title" if kw in title else "body"
             return {"result": "primary_match", "matched_kw": kw, "match_type": f"primary_{loc}"}
 
+    dl = domain.lower()
     label = _domain_label(domain)
     for kw in domain_label:
-        if kw in label:
+        if kw in dl or kw in label:
             return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
     secondary_hits = sum(1 for kw in secondary if kw in text)
