@@ -45,18 +45,20 @@ RANKING_SITES: Dict[str, List[dict]] = {
         {
             "name": "腾讯动漫-TOP榜",
             "url": "https://ac.qq.com/Rank/comicRank/type/top",
-            "type": "text_ranking",
+            "selector": ".rank-list-wrap a.text-overflow",
+            "attr": "title",
         },
         {
-            "name": "腾讯动漫-全部",
-            "url": "https://ac.qq.com/Comic/all",
-            "selector": ".ret-works-title a",
+            "name": "腾讯动漫-月票榜",
+            "url": "https://ac.qq.com/Rank/comicRank/type/mt",
+            "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
             "name": "快看漫画-排行榜",
             "url": "https://www.kuaikanmanhua.com/ranking/",
-            "type": "text_ranking",
+            "selector": ".ranking-list a .title",
+            "attr": "text",
         },
         {
             "name": "漫画柜-人气榜",
@@ -160,31 +162,6 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
     return titles
 
 
-def _extract_from_text_ranking(html_text: str) -> List[str]:
-    if not html_text:
-        return []
-    try:
-        soup = BeautifulSoup(html_text, "lxml")
-    except Exception:
-        soup = BeautifulSoup(html_text, "html.parser")
-    text = soup.get_text(separator="\n", strip=True)
-    titles = []
-    for line in text.split("\n"):
-        line = line.strip()
-        if not line or len(line) < 2 or len(line) > 60:
-            continue
-        if NOISE_PATTERNS.match(line):
-            continue
-        if re.match(r'^\d+$', line):
-            continue
-        if re.match(r'^[\d,]+\s*(张|人|亿|万|分|星|阅|赞|评)', line):
-            continue
-        if line.lower() in {g.lower() for g in GENERIC_TERMS}:
-            continue
-        titles.append(line)
-    return titles
-
-
 def _is_valid_keyword(kw: str) -> bool:
     kw = kw.strip()
     if not kw or len(kw) < 2:
@@ -203,7 +180,6 @@ def _is_valid_keyword(kw: str) -> bool:
 def _scrape_site(site_cfg: dict) -> List[str]:
     url = site_cfg["url"]
     name = site_cfg.get("name", url)
-    site_type = site_cfg.get("type", "selector")
     selector = site_cfg.get("selector", "")
     attr = site_cfg.get("attr", "title")
 
@@ -213,12 +189,7 @@ def _scrape_site(site_cfg: dict) -> List[str]:
         print(f"      Failed to fetch")
         return []
 
-    if site_type == "text_ranking":
-        raw = _extract_from_text_ranking(html_text)
-    elif selector:
-        raw = _extract_from_selector(html_text, selector, attr)
-    else:
-        raw = _extract_from_text_ranking(html_text)
+    raw = _extract_from_selector(html_text, selector, attr) if selector else []
 
     valid = [t for t in raw if _is_valid_keyword(t)]
     print(f"      Extracted {len(valid)} titles")
