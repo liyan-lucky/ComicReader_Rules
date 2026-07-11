@@ -309,7 +309,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
-def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False) -> tuple:
+def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True) -> tuple:
     validate, secondary, domain_label, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
@@ -367,7 +367,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
         print(f"    [{kw}] 命中 {len(domains_list)} 个域名:")
         for dm in sorted(domains_list):
             print(f"      - {dm}")
-    if kw_cleaned:
+    if show_cleaned and kw_cleaned:
         print(f"\n  === 按命中词统计（被清理） ===")
         for kw in sorted(kw_cleaned.keys()):
             domains_list = kw_cleaned[kw]
@@ -432,7 +432,8 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=0, help="每个搜索查询取多少条结果，0=不限制")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
-    parser.add_argument("--show-blocked", action="store_true", help="输出屏蔽(anti_patterns)和清理(blocked_domains)统计，默认关闭")
+    parser.add_argument("--show-blocked", action="store_true", help="输出屏蔽(anti_patterns)统计，默认关闭")
+    parser.add_argument("--show-cleaned", action="store_true", help="输出清理(content_blocked)统计，默认开启")
     args = parser.parse_args()
 
     queries = load_queries(args.language)
@@ -475,7 +476,7 @@ def main() -> int:
     print(f"Unique domains extracted: {len(domains)}")
 
     print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked)
+    validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked, show_cleaned=args.show_cleaned)
     print(f"Validated manga domains: {len(validated)} (removed {len(domains) - len(validated)} non-manga)")
 
     if removed_details:
@@ -484,7 +485,9 @@ def main() -> int:
         for item in removed_details:
             by_reason.setdefault(item["reason"], []).append(item)
         for reason in sorted(by_reason.keys()):
-            if not args.show_blocked and reason in ("anti_pattern", "content_blocked"):
+            if not args.show_blocked and reason == "anti_pattern":
+                continue
+            if not args.show_cleaned and reason == "content_blocked":
                 continue
             items = by_reason[reason]
             print(f"  [{reason}] ({len(items)}):")
