@@ -44,42 +44,36 @@ RANKING_SITES: Dict[str, List[dict]] = {
     "zh-Hans": [
         {
             "name": "腾讯动漫-TOP榜",
-            "type": "api",
             "url": "https://ac.qq.com/Rank/comicRank/type/top",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
             "name": "腾讯动漫-月票榜",
-            "type": "api",
             "url": "https://ac.qq.com/Rank/comicRank/type/mt",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
             "name": "腾讯动漫-飙升榜",
-            "type": "api",
             "url": "https://ac.qq.com/Rank/comicRank/type/rise",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
         },
         {
             "name": "快看漫画-排行榜",
-            "type": "api",
             "url": "https://www.kuaikanmanhua.com/ranking/",
             "selector": ".ranking-list a .title",
             "attr": "text",
         },
         {
             "name": "漫画柜-人气榜",
-            "type": "api",
             "url": "https://www.manhuagui.com/list/",
             "selector": "a.title",
             "attr": "title",
         },
         {
             "name": "咚漫漫画-排行榜",
-            "type": "api",
             "url": "https://www.dongmanmanhua.cn/ranking",
             "selector": "a.title",
             "attr": "title",
@@ -249,16 +243,90 @@ def _scrape_site(site_cfg: dict) -> List[str]:
     return valid
 
 
+SEARCH_QUERIES: Dict[str, List[str]] = {
+    "zh-Hans": [
+        "腾讯动漫排行榜 top100",
+        "快看漫画排行榜 人气榜",
+        "漫画柜排行榜 人气",
+        "2025热门漫画排行",
+        "国漫排行榜前十名",
+        "日漫排行榜 2025",
+    ],
+    "zh-Hant": [
+        "漫畫排行榜 2025",
+        "熱門漫畫推薦排行",
+    ],
+    "en": [
+        "top manga 2025 ranking list",
+        "popular manga 2025 best",
+        "myanimelist top manga 2025",
+    ],
+    "ja": [
+        "漫画ランキング 2025 人気",
+        "おすすめ漫画ランキング",
+    ],
+    "ko": [
+        "웹툰 순위 2025 인기",
+        "인기 만화 추천 랭킹",
+    ],
+}
+
+
+def _searxng_url() -> str:
+    url = os.getenv("SEARXNG_URL", "").strip()
+    if url:
+        return url
+    cfg_path = ROOT / "config" / "search.json"
+    if cfg_path.exists():
+        try:
+            cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+            url = (cfg.get("searxng") or {}).get("url", "").strip()
+            if url:
+                return url
+        except Exception:
+            pass
+    return ""
+
+
+def _search_and_scrape(language: str) -> List[str]:
+    base_url = _searxng_url()
+    if not base_url:
+        print(f"    SearXNG not available, skipping search phase")
+        return []
+    queries = SEARCH_QUERIES.get(language, [])
+    all_titles: List[str] = []
+    for q in queries:
+        print(f"    Searching: {q}")
+        try:
+            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": q, "format": "json", "pageno": 1, "language": "all"})
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
+            r.raise_for_status()
+            data = r.json()
+            results = data.get("results", [])
+            print(f"      Got {len(results)} results")
+            for item in results[:5]:
+                result_url = item.get("url", "")
+                if not result_url:
+                    continue
+                html_text = _fetch_page(result_url)
+                if not html_text:
+                    continue
+                titles = _extract_titles_from_links(html_text)
+                valid = [t for t in titles if _is_valid_keyword(t)]
+                if valid:
+                    print(f"      {result_url[:60]}: {len(valid)} titles")
+                all_titles.extend(valid)
+        except Exception as e:
+            print(f"      Search error: {e}")
+    return all_titles
+
+
 def discover_keywords(language: str, top: int = 20) -> List[str]:
     sites = RANKING_SITES.get(language, [])
-    if not sites:
-        print(f"No ranking sites defined for {language}", file=sys.stderr)
-        return []
-
     title_site_count: Dict[str, int] = {}
     title_position: Dict[str, List[int]] = {}
 
-    print(f"  Scraping {len(sites)} ranking sites")
+    print(f"  Phase 1: Scraping {len(sites)} ranking sites")
     for site_cfg in sites:
         titles = _scrape_site(site_cfg)
         seen_in_site: Set[str] = set()
@@ -267,6 +335,12 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
                 seen_in_site.add(t)
                 title_site_count[t] = title_site_count.get(t, 0) + 1
                 title_position.setdefault(t, []).append(pos)
+
+    print(f"  Phase 2: SearXNG search for ranking pages")
+    search_titles = _search_and_scrape(language)
+    for pos, t in enumerate(search_titles[:100], 1):
+        title_site_count[t] = title_site_count.get(t, 0) + 1
+        title_position.setdefault(t, []).append(pos)
 
     ranked = sorted(
         title_site_count.items(),
