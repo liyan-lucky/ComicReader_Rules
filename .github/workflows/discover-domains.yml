@@ -98,7 +98,7 @@ jobs:
           ref: main
 
       - name: 验证 SearXNG 可用
-        if: ${{ inputs.use_searxng_container == 'true' }}
+        if: ${{ inputs.use_searxng_container == true }}
         run: |
           echo "Testing SearXNG at $SEARXNG_URL ..."
           for i in $(seq 1 10); do
