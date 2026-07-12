@@ -321,7 +321,7 @@ jobs:
           fi
           eval "python tools/rule_discovery/generate_rules.py $ARGS --limit $SELECTED_LIMIT --sleep $SELECTED_SLEEP --seed-limit $SELECTED_SEED_LIMIT --per-seed-limit $SELECTED_PER_SEED_LIMIT --max-audit-candidates $SELECTED_MAX_AUDIT_CANDIDATES --per-domain-audit-limit $SELECTED_PER_DOMAIN_AUDIT_LIMIT --per-domain-generated-limit $SELECTED_PER_DOMAIN_GENERATED_LIMIT --time-budget-seconds $SELECTED_TIME_BUDGET_SECONDS --search-budget-seconds $SELECTED_SEARCH_BUDGET_SECONDS --max-consecutive-zero-search $SELECTED_MAX_CONSECUTIVE_ZERO_SEARCH --max-generated $SELECTED_MAX_GENERATED --language-code '$RULE_LANGUAGE' --language-name '$RULE_LANGUAGE_NAME' --report \"$REPORT_FILE\" $SUPPRESS_FLAG"
           python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
-          python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
+          python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE" --language-code "$RULE_LANGUAGE"
 
       - name: 统计生成规则
         run: |

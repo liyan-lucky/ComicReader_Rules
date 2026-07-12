@@ -248,17 +248,22 @@ export const GENERATED_SOURCES: ComicSourceRule[] = """ + payload + ";\n"
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="清洗 RuleBot 输出，确保最终只发布漫画浏览器规则")
-    parser.add_argument("--index", default="generated/index.json")
-    parser.add_argument("--report", default="generated/rulebot_report.json")
-    parser.add_argument("--ets", default="generated/GeneratedSourceRules.ets")
-    parser.add_argument("--rules-output", default="rules/index.json")
+    parser.add_argument("--index", default="generated/index.{lang}.json")
+    parser.add_argument("--report", default="generated/rulebot_report.{lang}.json")
+    parser.add_argument("--ets", default="generated/GeneratedSourceRules.{lang}.ets")
+    parser.add_argument("--rules-output", default="rules/index.{lang}.json")
     parser.add_argument("--summary", default="dist/rule-sanitize-summary.md")
+    parser.add_argument("--language-code", default="", help="Language code for {lang} substitution")
     args = parser.parse_args()
 
-    index_path = Path(args.index)
-    report_path = Path(args.report)
-    ets_path = Path(args.ets)
-    rules_output_path = Path(args.rules_output)
+    lang = args.language_code
+    def _resolve(p: str) -> str:
+        return p.format(lang=lang) if lang and '{lang}' in p else p
+
+    index_path = Path(_resolve(args.index))
+    report_path = Path(_resolve(args.report))
+    ets_path = Path(_resolve(args.ets))
+    rules_output_path = Path(_resolve(args.rules_output))
     summary_path = Path(args.summary)
 
     report = load_json(report_path, {})

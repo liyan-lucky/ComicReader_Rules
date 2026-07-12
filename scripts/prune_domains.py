@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""域名修剪脚本：从审计报告中提取无效域名，从config/domains/中移除。
+"""域名修剪脚本：从审计报告中提取无效域名，从aggregator_sites.json中移除。
 
 修剪条件：
   1. 种子页全部抓取失败（域名不可达）
   2. 有候选生成但无一条通过审计（域名无公开漫画内容）
   3. 域名只有excluded规则（全部需登录/付费）
-  4. 域名在domains文件中但不在审计报告中（从未被搜索到）
+  4. 域名在aggregator_sites中但不在审计报告中（从未被搜索到）
 
 用法：
-    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.json
-    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.json --dry-run
-    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.json --cleanup-report generated/domain_cleanup_report.json
+    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.zh-Hans.json
+    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.zh-Hans.json --dry-run
+    python scripts/prune_domains.py --language zh-Hans --report generated/rulebot_report.zh-Hans.json --cleanup-report generated/domain_cleanup_report.zh-Hans.json
 """
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -130,68 +131,75 @@ def identify_dead_domains(
     return dead, details
 
 
-def load_domains_from_file(filepath: Path) -> Set[str]:
+def load_domains_from_aggregator(language: str) -> Tuple[Set[str], Dict[str, str]]:
+    sites_path = ROOT / "config" / "aggregator_sites.json"
     domains = set()
-    if not filepath.exists():
-        return domains
-    for line in filepath.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
+    url_to_domain = {}
+    if not sites_path.exists():
+        return domains, url_to_domain
+    data = json.loads(sites_path.read_text(encoding="utf-8"))
+    for url in data.get(language, []):
+        url = url.strip()
+        if not url:
             continue
-        d = stripped.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
-        if d:
-            domains.add(d)
-    return domains
+        parsed = urlparse(url if "://" in url else "https://" + url)
+        domain = (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
+        if domain:
+            domains.add(domain)
+            url_to_domain[domain] = url
+    return domains, url_to_domain
 
 
-def prune_domains_file(filepath: Path, dead_domains: Set[str], dry_run: bool = False) -> Tuple[int, List[Dict]]:
-    if not filepath.exists():
+def prune_aggregator_sites(language: str, dead_domains: Set[str], dry_run: bool = False) -> Tuple[int, List[Dict]]:
+    sites_path = ROOT / "config" / "aggregator_sites.json"
+    if not sites_path.exists():
         return 0, []
-    lines = filepath.read_text(encoding="utf-8").splitlines()
-    new_lines = []
+    data = json.loads(sites_path.read_text(encoding="utf-8"))
+    urls = data.get(language, [])
+    new_urls = []
     removed = 0
     removed_details = []
-    for line in lines:
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            new_lines.append(line)
+    for url in urls:
+        stripped = url.strip()
+        if not stripped:
             continue
-        d = stripped.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "").lower()
-        if d in dead_domains:
+        parsed = urlparse(stripped if "://" in stripped else "https://" + stripped)
+        domain = (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
+        if domain in dead_domains:
             removed += 1
-            removed_details.append({"domain": d, "line": stripped})
+            removed_details.append({"domain": domain, "url": stripped})
         else:
-            new_lines.append(line)
+            new_urls.append(stripped)
 
     if removed > 0 and not dry_run:
-        filepath.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+        data[language] = new_urls
+        sites_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     return removed, removed_details
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="从审计报告中修剪无效域名")
-    parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en"])
-    parser.add_argument("--report", default="generated/rulebot_report.json")
+    parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en", "ja", "ko"])
+    parser.add_argument("--report", default="generated/rulebot_report.{lang}.json")
     parser.add_argument("--dry-run", action="store_true", help="只预览，不修改文件")
     parser.add_argument("--min-seed-fail-ratio", type=float, default=1.0, help="种子失败比例阈值(默认1.0=全部失败)")
     parser.add_argument("--cleanup-report", default="", help="JSON清理报告输出路径")
     args = parser.parse_args()
 
-    report_path = ROOT / args.report
+    report_path = ROOT / args.report.format(lang=args.language)
     report = load_report(report_path)
     if not report:
         print(f"报告文件不存在或为空: {report_path}", file=sys.stderr)
         return 1
 
-    filepath = ROOT / "config" / "domains" / f"{args.language}.txt"
-    domains_in_file = load_domains_from_file(filepath)
+    domains_in_file, url_to_domain = load_domains_from_aggregator(args.language)
 
     domain_stats = extract_domain_stats(report)
     dead_domains, dead_details = identify_dead_domains(domain_stats, domains_in_file, args.min_seed_fail_ratio)
 
     print(f"域名修剪统计：")
-    print(f"  域名文件中的域名数：{len(domains_in_file)}")
+    print(f"  aggregator_sites中的域名数：{len(domains_in_file)}")
     print(f"  审计报告中的域名数：{len(domain_stats)}")
     print(f"  判定为死亡的域名数：{len(dead_domains)}")
 
@@ -217,14 +225,14 @@ def main() -> int:
                 detail_str = f" ({', '.join(detail_parts)})" if detail_parts else ""
                 print(f"    ✗ {item['domain']}{detail_str}")
 
-    removed, removed_details = prune_domains_file(filepath, dead_domains, dry_run=args.dry_run)
+    removed, removed_details = prune_aggregator_sites(args.language, dead_domains, dry_run=args.dry_run)
 
     if args.dry_run:
-        print(f"\n[DRY RUN] 将从 {filepath.name} 移除 {removed} 个域名")
+        print(f"\n[DRY RUN] 将从 aggregator_sites.json ({args.language}) 移除 {removed} 个域名")
     else:
-        print(f"\n从 {filepath.name} 移除了 {removed} 个死亡域名")
+        print(f"\n从 aggregator_sites.json ({args.language}) 移除了 {removed} 个死亡域名")
 
-    domains_after = load_domains_from_file(filepath) if not args.dry_run else (domains_in_file - dead_domains)
+    domains_after, _ = load_domains_from_aggregator(args.language) if not args.dry_run else (domains_in_file - dead_domains, {})
 
     if args.cleanup_report:
         cleanup_data = {
@@ -235,7 +243,7 @@ def main() -> int:
             "domainsAfterCount": len(domains_after),
             "prunedCount": removed,
             "removedDomains": dead_details,
-            "removedLines": removed_details,
+            "removedUrls": removed_details,
         }
         cleanup_path = Path(args.cleanup_report)
         cleanup_path.parent.mkdir(parents=True, exist_ok=True)

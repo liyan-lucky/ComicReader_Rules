@@ -145,14 +145,14 @@ def append_unique(target: list[dict], seen: set[str], rule: dict) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument('--report', default='generated/rulebot_report.json')
-    ap.add_argument('--output', default='generated/index.json')
+    ap.add_argument('--report', default='generated/rulebot_report.{lang}.json')
+    ap.add_argument('--output', default='generated/index.{lang}.json')
     ap.add_argument('--manual', default='rules/manual/index.json')
     ap.add_argument('--language-code', default='')
     ap.add_argument('--language-name', default='')
     args = ap.parse_args()
 
-    report_path = Path(args.report)
+    report_path = Path(args.report.format(lang=args.language_code) if '{lang}' in args.report else args.report)
     data = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {'generated': [], 'excluded': [], 'queries': []}
     report_language = ((data.get('stats') or {}).get('language') or {})
     language_code = args.language_code or str(report_language.get('code') or 'mixed')
@@ -198,7 +198,7 @@ def main() -> int:
             'manualRules': args.manual
         }
     }
-    out_path = Path(args.output)
+    out_path = Path(args.output.format(lang=language_code) if '{lang}' in args.output else args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'写入远程规则 {len(rules)} 条：自动 {generated_valid_count} 条，手工 {manual_added_count} 条 -> {out_path}')

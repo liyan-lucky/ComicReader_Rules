@@ -155,7 +155,8 @@ jobs:
             --report "$REPORT" --output "$INDEX" \
             --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py \
-            --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES"
+            --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES" \
+            --language-code "$PIPELINE_LANGUAGE"
 
       # ===== Step 4: 目录生成 =====
       - name: Step 4/4 - 生成目录
