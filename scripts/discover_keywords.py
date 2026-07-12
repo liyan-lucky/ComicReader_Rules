@@ -429,7 +429,7 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
             t = _clean_title(t)
             if t and _is_valid_keyword(t) and t not in title_site_count:
                 title_site_count[t] = title_site_count.get(t, 0) + 1
-                title_position.setdefault(t, []).append(pos + 100)
+                title_position.setdefault(t, []).append(pos)
         ranked = sorted(
             title_site_count.items(),
             key=lambda x: (-x[1], sum(title_position.get(x[0], [999])) / max(len(title_position.get(x[0], [999])), 1)),
