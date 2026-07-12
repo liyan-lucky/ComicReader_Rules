@@ -49,10 +49,13 @@ secrets.*
 # GitHub Actions local tooling
 .act/
 
-# Project rule:
-# Generated outputs are tracked only under generated/ by workflows.
-# Do not add ad-hoc generated files outside generated/.
+# IDE / tool cache
+.codeartsdoer/
+.agents/
 
 # Intermediate index files (build_index_from_report.py output, consumed by sanitize_rule_outputs.py)
 # The final published index is rules/index.{lang}.json
 generated/index.*.json
+
+# Old no-suffix files (deprecated)
+generated/GeneratedSourceRules.ets

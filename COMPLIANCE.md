@@ -17,7 +17,7 @@
 
 ## 规则内容检查
 
-当前 `generated/index.json`、`rules/index.json` 和 `rules/manual/index.json` 只包含 3 条手工公开源规则，描述中已明确公开网页访问边界，不处理登录、付费、验证码或反爬绕过。
+当前 `rules/index.{lang}.json` 和 `rules/manual/index.json` 包含 7 条手工公开源规则和自动生成的规则，描述中已明确公开网页访问边界，不处理登录、付费、验证码或反爬绕过。
 
 当前规则未发现仓库内直接托管漫画图片、章节正文、账号数据、私钥、Token、站点 Logo、字体、APK 或付费内容复制件。
 

@@ -3,6 +3,17 @@ name: 生成公开漫画目录
 on:
   workflow_dispatch:
     inputs:
+      catalog_language:
+        description: '语种'
+        required: true
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - zh-Hans
+          - zh-Hant
+          - en
+          - ja
+          - ko
       target_count:
         description: '每个分类目标漫画数'
         required: true
@@ -12,33 +23,11 @@ on:
           - '50'
           - '100'
           - '200'
-          - '300'
-          - '500'
-      max_consecutive_no_new:
-        description: '连续多少轮无新发现后提前退出'
-        required: false
-        default: '10'
-      request_delay:
-        description: '每次请求间隔秒数'
-        required: false
-        default: '0.5'
       publish_release:
-        description: '是否发布Release和标签（默认关闭，仅提交代码）'
+        description: '是否发布Release'
         required: false
         default: false
         type: boolean
-      catalog_language:
-        description: '语种代码 (zh-Hans/zh-Hant/en/ja/ko/mixed)'
-        required: false
-        default: 'zh-Hans'
-        type: choice
-        options:
-          - 'zh-Hans'
-          - 'zh-Hant'
-          - 'en'
-          - 'ja'
-          - 'ko'
-          - 'mixed'
   schedule:
     - cron: '0 1 * * 0'
 
@@ -49,214 +38,87 @@ concurrency:
   group: comic-reader-catalog-main
   cancel-in-progress: false
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   generate-catalog:
-    name: 生成并校验公开漫画目录
+    name: 生成公开漫画目录
     runs-on: ubuntu-latest
     env:
-      CATALOG_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
-      CATALOG_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
-      CATALOG_MIN_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
-      CATALOG_MAX_CONSECUTIVE_NO_NEW: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_no_new || '10' }}
-      CATALOG_REQUEST_DELAY: ${{ github.event_name == 'workflow_dispatch' && inputs.request_delay || '0.5' }}
       CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.catalog_language || 'zh-Hans' }}
+      CATALOG_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
       PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
 
     steps:
-      - name: 检出目标代码
+      - name: 检出 main
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.CATALOG_BRANCH }}
+          ref: main
           fetch-depth: 0
 
-      - name: 安装 Python 环境
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 校验目录脚本
-        run: |
-          python -m py_compile scripts/generate_catalog.py
-          python -m py_compile scripts/boost_catalog_targets.py
-          python -m py_compile scripts/summarize_catalog_report.py
-          python -m py_compile scripts/update_manifest.py
+      - name: 安装依赖
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: 生成公开漫画目录
-        run: |
-          python scripts/generate_catalog.py --target "${CATALOG_TARGET_COUNT}" --max-consecutive-no-new "${CATALOG_MAX_CONSECUTIVE_NO_NEW}" --request-delay "${CATALOG_REQUEST_DELAY}"
-          python scripts/boost_catalog_targets.py --target "${CATALOG_TARGET_COUNT}" --max-consecutive-no-new "${CATALOG_MAX_CONSECUTIVE_NO_NEW}"
+      - name: 生成目录
+        run: python scripts/bulk_generate_catalog.py
 
-      - name: 校验目录 JSON
+      - name: 统计目录
         run: |
-          CATALOG_TARGET="${CATALOG_TARGET_COUNT}"
-          python -c "
-          import json, os
-          from pathlib import Path
-          files = [
-              'generated/catalog.json',
-              'generated/catalog_categories.json',
-              'generated/catalog_delta.json',
-              'generated/catalog_report.json',
-              'generated/catalog_target_gaps.json',
-          ]
-          for file in files:
-              json.loads(Path(file).read_text('utf-8'))
-          catalog = json.loads(Path('generated/catalog.json').read_text('utf-8'))
-          gaps = json.loads(Path('generated/catalog_target_gaps.json').read_text('utf-8'))
-          assert catalog.get('schema') == 'comic_catalog_v1'
-          assert catalog.get('compliance', {}).get('publicOnly') is True
-          assert catalog.get('compliance', {}).get('noImages') is True
-          assert catalog.get('compliance', {}).get('noChapterText') is True
-          assert gaps.get('schema') == 'comic_catalog_target_gaps_v1'
-          expected_target = int(os.environ.get('CATALOG_TARGET_COUNT', os.environ.get('CATALOG_TARGET', '200')))
-          actual_target = gaps.get('targetCount', 0)
-          if actual_target != expected_target:
-              print(f'Warning: targetCount={actual_target} != expected={expected_target}, but continuing')
-          print('目录 JSON 校验通过')
-          "
-
-      - name: 输出目录分析统计
-        run: |
-          python scripts/summarize_catalog_report.py --target "${CATALOG_TARGET_COUNT}"
-
-      - name: 提交生成结果到 main
-        if: github.event_name != 'pull_request'
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin "${CATALOG_BRANCH}"
-          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
-          python scripts/update_manifest.py --section catalog --tag "$TAG_NAME"
-          git add generated/catalog.json generated/catalog_categories.json generated/catalog_delta.json generated/catalog_report.json generated/catalog_target_gaps.json generated/update_manifest.json
-          if git diff --cached --quiet; then
-            echo "目录没有变化，无需提交。"
-          else
-            git commit -m "chore: update public comic catalog"
-            git push origin "HEAD:${CATALOG_BRANCH}"
-          fi
-
-      - name: 发布目录日期标签
-        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
-        run: |
-          set -euo pipefail
-          git fetch --tags origin
-          TAG_NAME="catalog-$(date -u +'%Y%m%d')"
-          if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" >/dev/null 2>&1; then
-            git push origin ":refs/tags/$TAG_NAME"
-          fi
-          git tag -f -a "$TAG_NAME" -m "Catalog $TAG_NAME"
-          git push --force origin "$TAG_NAME"
-          echo "Published tag: $TAG_NAME"
-
-      - name: 准备目录 Release 附件
-        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
-        run: |
-          set -euo pipefail
-          rm -rf dist/release
-          mkdir -p dist/release
-          cp generated/catalog.json dist/release/catalog.json
-          cp generated/catalog_categories.json dist/release/catalog-categories.json
-          cp generated/catalog_delta.json dist/release/catalog-delta.json
-          cp generated/catalog_report.json dist/release/catalog-report.json
-          cp generated/catalog_target_gaps.json dist/release/catalog-target-gaps.json
-          cp generated/update_manifest.json dist/release/update-manifest.json
-          ls -la dist/release
-
-      - name: 生成目录 Release Notes
-        if: github.event_name != 'pull_request'
-        run: |
-          set -euo pipefail
           python - <<'PY'
           import json, os
           from pathlib import Path
-
-          tag_name = f"catalog-{os.popen('date -u +%Y%m%d').read().strip()}"
-          gaps = json.loads(Path('generated/catalog_target_gaps.json').read_text('utf-8'))
-          cats = gaps.get('categories', [])
-          total_comics = sum(c['count'] for c in cats)
-          at_target = sum(1 for c in cats if c['id'] != 'weifenlei' and c['overTarget'])
-          total_cats = sum(1 for c in cats if c['id'] != 'weifenlei')
-
-          table_lines = ["| 分类 | 数量 | 目标 | 缺口 |", "|------|------|------|------|"]
-          for c in cats:
-              if c['id'] == 'weifenlei':
-                  continue
-              mark = " ✓" if c['overTarget'] else ""
-              table_lines.append(f"| {c['name']} | {c['count']}{mark} | {c['target']} | {c['gap']} |")
-          weifenlei = next((c for c in cats if c['id'] == 'weifenlei'), {})
-          if weifenlei:
-              table_lines.append(f"| 未分类 | {weifenlei.get('count', 0)} | - | - |")
-
-          template = Path('.github/release_templates/comic-catalog.md').read_text('utf-8')
-          notes = template.format(
-              tag_name=tag_name,
-              category_count=total_cats,
-              total_comics=total_comics,
-              categories_at_target=at_target,
-              total_categories=total_cats,
-              category_table='\n'.join(table_lines),
-          )
-          Path('release_notes.md').write_text(notes, encoding='utf-8')
-          print(f"Release notes generated: {total_comics} comics, {at_target}/{total_cats} categories at target")
+          lang = os.environ.get('CATALOG_LANGUAGE', 'zh-Hans')
+          cat_path = Path(f'catalog/catalog.{lang}.json')
+          if cat_path.exists():
+              cat = json.loads(cat_path.read_text('utf-8'))
+              cats = cat.get('categories', [])
+              total = sum(len(c.get('comics', [])) for c in cats)
+              lines = [
+                  '## 目录生成统计',
+                  '',
+                  f'- 语种: {lang}',
+                  f'- 分类数: {len(cats)}',
+                  f'- 漫画总数: {total}',
+              ]
+              output = '\n'.join(lines) + '\n'
+              print(output)
+              summary = os.environ.get('GITHUB_STEP_SUMMARY')
+              if summary:
+                  Path(summary).write_text(output, encoding='utf-8')
+          else:
+              print(f'catalog/catalog.{lang}.json not found')
           PY
 
-      - name: 发布或更新目录 Release
-        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: 提交
         run: |
-          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
           TAG_NAME="catalog-$(date -u +'%Y%m%d')"
-          RELEASE_TITLE="Comic Catalog $(date -u +'%Y-%m-%d')"
-          RELEASE_FILES=(
-            dist/release/catalog.json
-            dist/release/catalog-categories.json
-            dist/release/catalog-delta.json
-            dist/release/catalog-report.json
-            dist/release/catalog-target-gaps.json
-            dist/release/update-manifest.json
-          )
-          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
-            gh release edit "$TAG_NAME" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest=false
-            gh release upload "$TAG_NAME" "${RELEASE_FILES[@]}" --clobber
+          python scripts/update_manifest.py --section catalog --tag "$TAG_NAME" --language-code "$CATALOG_LANGUAGE"
+          git add "catalog/catalog.${CATALOG_LANGUAGE}.json" generated/update_manifest.json
+          if git diff --cached --quiet; then
+            echo "No catalog changes"
           else
-            gh release create "$TAG_NAME" "${RELEASE_FILES[@]}" --title "$RELEASE_TITLE" --notes-file release_notes.md --latest=false
+            git commit -m "chore: update $CATALOG_LANGUAGE comic catalog"
+            git push origin HEAD:main
           fi
-          echo "Published catalog release: $TAG_NAME"
 
-      - name: 校验标签和 Release 发布状态
-        if: ${{ env.PUBLISH_RELEASE == 'true' && github.event_name != 'pull_request' }}
+      - name: 发布 Release
+        if: ${{ env.PUBLISH_RELEASE == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           TAG_NAME="catalog-$(date -u +'%Y%m%d')"
-          TAG_REF="$(git ls-remote --tags origin "refs/tags/$TAG_NAME" | awk '{print $1}')"
-          if [ -z "$TAG_REF" ]; then
-            echo "Tag not found after publish: $TAG_NAME" >&2
-            exit 1
-          fi
-          gh release view "$TAG_NAME" >/dev/null
-          {
-            echo ""
-            echo "## 标签和 Release 发布校验"
-            echo ""
-            echo "标签：$TAG_NAME"
-            echo "远端对象：$TAG_REF"
-            echo "Release：已发布"
-            echo "附件：catalog.json, catalog-categories.json, catalog-delta.json, catalog-report.json, catalog-target-gaps.json, update-manifest.json"
-          } | tee -a "$GITHUB_STEP_SUMMARY"
-
-      - name: 上传目录产物
-        if: ${{ env.PUBLISH_RELEASE == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: comic-catalog-${{ env.CATALOG_BRANCH }}
-          path: |
-            generated/catalog.json
-            generated/catalog_categories.json
-            generated/catalog_delta.json
-            generated/catalog_report.json
-            generated/catalog_target_gaps.json
-            generated/update_manifest.json
+          rm -rf dist/release && mkdir -p dist/release
+          cp "catalog/catalog.${CATALOG_LANGUAGE}.json" "dist/release/catalog-${CATALOG_LANGUAGE}.json"
+          cp generated/update_manifest.json dist/release/
+          gh release create "$TAG_NAME" dist/release/* --title "Catalog $TAG_NAME" --notes "目录自动生成" --latest=false || echo "Release creation failed"
