@@ -213,6 +213,12 @@ def _searxng_url() -> str:
     return ""
 
 
+def _search_and_scrape(language: str) -> List[str]:
+    base_url = _searxng_url()
+    if not base_url:
+        print(f"    SearXNG not available, skipping search phase")
+        return []
+    queries = SEARCH_QUERIES.get(language, [])
     all_titles: List[str] = []
     manga_domains = set(MANGA_DOMAINS_MAP.get(language, []))
     for q in queries:
