@@ -328,7 +328,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
-def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True) -> tuple:
+def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True, revalidate: bool = False) -> tuple:
     validate, secondary, domain_label, anti = _get_kw_sets(language)
     validated = []
     skipped = 0
@@ -342,7 +342,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
 
     for d in domains:
         rd = _registered_domain(d)
-        if rd in existing or d in existing:
+        if not revalidate and (rd in existing or d in existing):
             validated.append(rd)
             reasons["existing"] += 1
             continue
@@ -436,6 +436,33 @@ def _save_cleaned_log(filepath: Path, cleaned_domains: List[str]) -> None:
             f.write(d + "\n")
 
 
+def _remove_domains_from_aggregator(language: str, domains_to_remove: List[str]) -> int:
+    agg_path = ROOT / "config" / "aggregator_sites.json"
+    agg_data: Dict[str, List[str]] = {}
+    if agg_path.exists():
+        try:
+            agg_data = json.loads(agg_path.read_text(encoding="utf-8"))
+        except Exception:
+            agg_data = {}
+
+    existing_urls = agg_data.get(language, [])
+    remove_set = set(d.lower().replace("www.", "") for d in domains_to_remove)
+    new_urls = []
+    removed = 0
+    for u in existing_urls:
+        d = extract_domain(u)
+        rd = _registered_domain(d) if d else ""
+        if rd in remove_set or d in remove_set:
+            removed += 1
+        else:
+            new_urls.append(u)
+
+    if removed > 0:
+        agg_data[language] = new_urls
+        agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return removed
+
+
 def save_domains_to_aggregator(language: str, new_domains: List[str], domain_kw_map: dict = None) -> List[str]:
     if domain_kw_map is None:
         domain_kw_map = {}
@@ -482,6 +509,7 @@ def main() -> int:
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     parser.add_argument("--show-blocked", action="store_true", help="输出屏蔽(anti_patterns)统计，默认关闭")
     parser.add_argument("--show-cleaned", action="store_true", help="输出清理(content_blocked)统计，默认开启")
+    parser.add_argument("--revalidate", action="store_true", help="重新验证已有域名（全量清理模式）")
     args = parser.parse_args()
 
     queries = load_queries(args.language)
@@ -537,8 +565,16 @@ def main() -> int:
 
     print(f"Unique domains extracted: {len(domains)} (skipped {cleaned_skipped} previously cleaned)")
 
-    print(f"\n=== Phase 3: Domain reasonableness validation ===")
-    validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked, show_cleaned=args.show_cleaned)
+    if args.revalidate:
+        print(f"\n=== Revalidate: adding {len(existing)} existing domains for re-verification ===")
+        for d in sorted(existing):
+            rd = _registered_domain(d)
+            if rd not in seen and rd not in cleaned_set:
+                seen.add(rd)
+                domains.append(rd)
+
+    print(f"\n=== Phase 3: Domain reasonableness validation ({'revalidate' if args.revalidate else 'new-only'}) ===")
+    validated, removed_details, kw_matched, kw_blocked, kw_cleaned, domain_kw_map = validate_domains(domains, existing, args.language, show_blocked=args.show_blocked, show_cleaned=args.show_cleaned, revalidate=args.revalidate)
     print(f"Validated manga domains: {len(validated)} (removed {len(domains) - len(validated)} non-manga)")
 
     if removed_details:
@@ -560,6 +596,15 @@ def main() -> int:
 
     added = save_domains_to_aggregator(args.language, validated, domain_kw_map)
     print(f"\nNew domains added to aggregator_sites.json ({args.language}): {len(added)}")
+
+    if args.revalidate:
+        validated_set = set(validated)
+        removed_existing = [d for d in sorted(existing) if d not in validated_set]
+        if removed_existing:
+            print(f"\nRevalidation removed {len(removed_existing)} existing domains:")
+            for d in removed_existing:
+                print(f"  ✗ {d}")
+            _remove_domains_from_aggregator(args.language, removed_existing)
 
     cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("content_blocked", "anti_pattern")]
     if cleaned_domains:

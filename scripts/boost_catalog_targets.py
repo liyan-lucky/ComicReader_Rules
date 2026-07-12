@@ -49,22 +49,21 @@ REQUEST_TIMEOUT = int(os.environ.get("CATALOG_BOOST_TIMEOUT", "15"))
 MAX_CONSECUTIVE_NO_NEW = int(os.environ.get("CATALOG_MAX_CONSECUTIVE_NO_NEW", "10"))
 REQUEST_SLEEP_SECONDS = float(os.environ.get("CATALOG_BOOST_SLEEP", "0.15"))
 
-_CAT_CFG = _load_config("catalog_categories.json", {})
-CATEGORY_RULES: List[Dict[str, Any]] = _CAT_CFG.get("categories", [])
+_CATALOG_CFG = _load_config("catalog_config.json", {})
+CATEGORY_RULES: List[Dict[str, Any]] = _CATALOG_CFG.get("categories", [])
 CATEGORY_IDS = {item["id"] for item in CATEGORY_RULES}
-TARGET_CATEGORY_IDS = [item["id"] for item in CATEGORY_RULES if item["id"] != "weifenlei"]
-BROAD_OVERFLOW_CATEGORIES = set(_CAT_CFG.get("broad_overflow_categories", ["dongzuo", "qihuan", "juqing", "wuxia_gedou"]))
+TARGET_CATEGORY_IDS = [item["id"] for item in CATEGORY_RULES]
+BROAD_OVERFLOW_CATEGORIES = set(_CATALOG_CFG.get("broad_overflow_categories", ["dongzuo", "qihuan", "juqing", "xuanhuan"]))
 
-_TAG_CFG = _load_config("catalog_tags.json", {})
-TAG_RULES: List[Dict[str, Any]] = _TAG_CFG.get("tags", [])
-TAG_TO_CATEGORY_MAP = _TAG_CFG.get("tag_to_category_map", {})
+TAG_RULES: List[Dict[str, Any]] = _CATALOG_CFG.get("tags", [])
+TAG_TO_CATEGORY_MAP = _CATALOG_CFG.get("tag_to_category_map", {})
 
-CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _load_config("catalog_search_keywords.json", {})
+CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _CATALOG_CFG.get("search_keywords", {})
 
-_FILTER_CFG = _load_config("catalog_filters.json", {})
-BAD_TITLE_WORDS = set(_FILTER_CFG.get("bad_title_words", []))
-BAD_URL_PARTS = tuple(_FILTER_CFG.get("bad_url_parts", []))
-IMAGE_SUFFIXES = tuple(_FILTER_CFG.get("image_suffixes", []))
+_filters = _CATALOG_CFG.get("filters", {})
+BAD_TITLE_WORDS = set(_filters.get("bad_title_words", []))
+BAD_URL_PARTS = tuple(_filters.get("bad_url_parts", []))
+IMAGE_SUFFIXES = tuple(_filters.get("image_suffixes", []))
 
 
 def now_iso() -> str:

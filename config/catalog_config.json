@@ -1,0 +1,78 @@
+{
+  "categories": [
+    {"id": "lianai", "name": "恋爱", "keywords": ["恋爱", "爱情", "甜宠", "告白", "婚约", "新娘", "妻子", "老婆", "老公", "love", "romance", "romantic", "bride", "wife", "husband", "marriage", "married", "fiance", "fiancée", "relationship"]},
+    {"id": "xuanhuan", "name": "玄幻", "keywords": ["玄幻", "修仙", "修真", "仙侠", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "cultivation", "cultivator", "immortal", "martial peak", "daoist", "taoist", "eastern fantasy", "xuanhuan"]},
+    {"id": "yineng", "name": "异能", "keywords": ["异能", "超能力", "异变", "觉醒", "变异", "超能", "能力者", "superpower", "ability", "awakening", "mutant", "esper", "psychic", "telekinesis", "telepathy"]},
+    {"id": "kongbu", "name": "恐怖", "keywords": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "horror", "thriller", "ghost", "monster", "supernatural horror", "creepy"]},
+    {"id": "juqing", "name": "剧情", "keywords": ["剧情", "drama", "dramatic", "family", "tragedy", "psychological"]},
+    {"id": "kehuan", "name": "科幻", "keywords": ["科幻", "机甲", "末世", "星际", "机器人", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien"]},
+    {"id": "xuanyi", "name": "悬疑", "keywords": ["悬疑", "推理", "侦探", "谜案", "mystery", "detective", "suspense", "clue", "truth", "puzzle", "riddle", "whodunit", "evidence"]},
+    {"id": "qihuan", "name": "奇幻", "keywords": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch"]},
+    {"id": "maoxian", "name": "冒险", "keywords": ["冒险", "探险", "秘境", "地下城", "任务", "旅程", "adventure", "dungeon", "quest", "journey", "expedition", "exploration"]},
+    {"id": "fanzui", "name": "犯罪", "keywords": ["犯罪", "杀手", "黑帮", "监狱", "逃亡", "crime", "criminal", "killer", "assassin", "gang", "mafia", "prison", "fugitive", "murder", "heist"]},
+    {"id": "dongzuo", "name": "动作", "keywords": ["动作", "战斗", "热血", "格斗", "拳击", "剑术", "action", "battle", "fight", "fighting", "warrior", "hero", "hunter", "ranker", "combat", "brawl", "duel"]},
+    {"id": "richang", "name": "日常", "keywords": ["日常", "生活", "休闲", "治愈", "美食", "宠物", "温馨", "slice of life", "daily life", "leisurely", "healing", "iyashikei", "cozy", "wholesome", "calm"]},
+    {"id": "jingji", "name": "竞技", "keywords": ["竞技", "比赛", "运动", "冠军", "联赛", "锦标赛", "tournament", "competition", "sports", "champion", "league", "match", "game", "race", "contest"]},
+    {"id": "wuxia", "name": "武侠", "keywords": ["武侠", "江湖", "侠客", "武术", "剑客", "刀客", "拳法", "宗师", "门派", "kung fu", "martial arts", "sword", "blade", "sect", "master", "disciple", "monk"]},
+    {"id": "lishi", "name": "历史", "keywords": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "公主", "皇帝", "太子", "朝代", "战国", "三国", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "dynasty"]},
+    {"id": "zhanzheng", "name": "战争", "keywords": ["战争", "军事", "战场", "将军", "士兵", "攻城", "war", "military", "battlefield", "general", "soldier", "army", "siege", "combat", "campaign", "tactics", "strategy"]},
+    {"id": "weifenlei", "name": "未分类", "keywords": [], "internal": true}
+  ],
+  "tags": [
+    {"id": "chuanyue", "name": "穿越", "keywords": ["穿越", "transmigration", "transmigrated", "time travel"]},
+    {"id": "chongsheng", "name": "重生", "keywords": ["重生", "rebirth", "reborn", "regression", "regressor", "returner", "second life", "reincarnation", "reincarnated"]},
+    {"id": "yishijie", "name": "异世界", "keywords": ["异世界", "isekai", "another world", "other world"]},
+    {"id": "xitong", "name": "系统", "keywords": ["系统", "system", "leveling", "level up", "game system"]},
+    {"id": "fuchou", "name": "复仇", "keywords": ["复仇", "revenge", "vengeance", "avenger"]},
+    {"id": "shuangwen", "name": "爽文", "keywords": ["爽文", "overpowered", "op mc", "cheat skill", "strongest", "invincible"]},
+    {"id": "hougong", "name": "后宫", "keywords": ["后宫", "harem"]},
+    {"id": "danmei", "name": "耽美", "keywords": ["耽美", "bl", "boys love", "boy love", "yaoi"]},
+    {"id": "baihe", "name": "百合", "keywords": ["百合", "gl", "girls love", "girl love", "yuri"]}
+  ],
+  "tag_to_category_map": {
+    "chuanyue": "maoxian",
+    "chongsheng": "juqing",
+    "yishijie": "maoxian",
+    "xitong": "xuanhuan",
+    "fuchou": "fanzui",
+    "shuangwen": "dongzuo"
+  },
+  "broad_overflow_categories": ["dongzuo", "qihuan", "juqing", "xuanhuan"],
+  "filters": {
+    "bad_title_words": [
+      "home", "首页", "目录", "分类", "排行", "排行榜", "最新", "更新", "登录", "注册",
+      "search", "genre", "genres", "privacy", "contact", "about", "about us", "dmca", "terms",
+      "chapter", "章节", "下一页", "上一页", "more", "a-z", "application", "applications",
+      "advanced", "adult", "raw", "bookmark", "bookmarks", "history", "browse", "chat",
+      "comic", "comics", "manga", "manhua", "manga updates", "completed", "cookie policy"
+    ],
+    "bad_url_parts": [
+      "/chapter", "/chapters", "/episode", "/episodes", "/read/",
+      "/reader/", "/tag/author", "/author/", "/login", "/register"
+    ],
+    "image_suffixes": [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg"],
+    "text_keys": ["title", "name", "comicName", "bookName", "displayName", "keyword"],
+    "url_keys": ["detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl"],
+    "id_keys": ["id", "ruleId", "sourceId"],
+    "site_keys": ["siteName", "name", "domain", "host"],
+    "seed_titles": ["斗罗大陆", "Soul Land", "Douluo Dalu", "完美世界", "吞噬星空", "凡人修仙传", "斗破苍穹", "武动乾坤", "一人之下"]
+  },
+  "search_keywords": {
+    "lianai": ["恋爱", "爱情", "甜宠", "告白", "婚约", "初恋", "暗恋", "love", "romance", "romantic", "marriage", "wife", "husband", "bride", "dating", "couple", "sweet", "first love", "confession", "heart", "kiss", "wedding", "proposal"],
+    "xuanhuan": ["玄幻", "修仙", "修真", "仙侠", "仙尊", "仙帝", "仙王", "仙界", "炼气", "筑基", "金丹", "元婴", "飞升", "渡劫", "cultivation", "cultivator", "immortal", "martial peak", "daoist", "taoist", "ascension", "tribulation", "spiritual", "qi", "realm", "breakthrough", "enlightenment"],
+    "yineng": ["异能", "超能力", "异变", "觉醒", "变异", "超能", "能力者", "superpower", "ability", "awakening", "mutant", "esper", "psychic", "telekinesis", "telepathy"],
+    "kongbu": ["恐怖", "惊悚", "灵异", "鬼", "诡异", "丧尸", "诅咒", "噩梦", "horror", "thriller", "ghost", "monster", "supernatural", "creepy", "zombie", "curse", "haunted", "nightmare", "demon", "undead", "blood", "gore", "sinister", "dread"],
+    "juqing": ["剧情", "家庭", "悲剧", "心理", "成长", "命运", "救赎", "背叛", "复仇", "阴谋", "drama", "family", "psychological", "tragedy", "betrayal", "redemption", "fate", "destiny", "conspiracy", "sacrifice", "legacy", "heritage", "struggle", "hardship"],
+    "kehuan": ["科幻", "机甲", "末世", "星际", "机器人", "未来", "克隆", "变异", "虚拟", "时空", "sci-fi", "science fiction", "mecha", "robot", "apocalypse", "space", "cyberpunk", "alien", "future", "clone", "mutant", "virtual", "time travel", "dystopia", "AI", "android"],
+    "xuanyi": ["悬疑", "推理", "侦探", "谜案", "犯罪", "密室", "线索", "真相", "诡计", "mystery", "detective", "crime", "case", "investigation", "suspense", "clue", "truth", "trick", "puzzle", "riddle", "whodunit", "evidence", "witness", "alibi", "suspect"],
+    "qihuan": ["奇幻", "魔法", "魔王", "恶魔", "龙", "精灵", "巫师", "咒语", "神器", "异族", "fantasy", "magic", "demon", "dragon", "elf", "spirit", "mage", "wizard", "witch", "sorcery", "enchant", "mythical", "legend", "fairy", "talisman", "artifact", "summon", "beast"],
+    "maoxian": ["冒险", "探险", "地下城", "秘境", "寻宝", "旅途", "异域", "荒野", "adventure", "dungeon", "quest", "journey", "exploration", "treasure", "expedition", "wilderness", "survival", "ruins", "labyrinth", "frontier", "odyssey", "pilgrimage", "voyage", "explore", "discovery"],
+    "fanzui": ["犯罪", "杀手", "黑帮", "监狱", "逃亡", "谋杀", "抢劫", "犯罪", "crime", "criminal", "killer", "assassin", "gang", "mafia", "prison", "fugitive", "murder", "heist", "thief", "robbery", "outlaw", "detective", "police", "investigation"],
+    "dongzuo": ["动作", "战斗", "热血", "竞技", "杀手", "格斗", "拳击", "剑术", "枪战", "战争", "battle", "fight", "action", "hero", "hunter", "ranker", "warrior", "combat", "tournament", "martial", "assassin", "gladiator", "brawl", "duel", "champion", "vanguard", "striker", "berserker"],
+    "richang": ["日常", "生活", "治愈", "休闲", "美食", "宠物", "邻里", "温馨", "slice of life", "daily life", "healing", "leisurely", "cozy", "wholesome", "pet", "food", "neighbor", "warm", "gentle", "calm", "peaceful", "comfort", "simple", "relaxing", "quiet"],
+    "jingji": ["竞技", "比赛", "运动", "冠军", "联赛", "锦标赛", "篮球", "足球", "网球", "棒球", "tournament", "competition", "sports", "champion", "league", "match", "game", "race", "contest", "basketball", "soccer", "football", "tennis", "baseball", "volleyball", "boxing", "swimming"],
+    "wuxia": ["武侠", "江湖", "侠客", "武术", "剑客", "刀客", "拳法", "宗师", "门派", "kung fu", "martial arts", "sword", "blade", "sect", "master", "disciple", "dojo", "warrior", "monk", "ninja", "samurai", "combat", "arena"],
+    "lishi": ["历史", "古风", "古代", "宫廷", "王爷", "王妃", "侯爷", "公主", "皇帝", "太子", "朝代", "战国", "三国", "historical", "ancient", "period", "palace", "royal", "emperor", "prince", "princess", "dynasty", "medieval", "sengoku", "samurai era", "imperial"],
+    "zhanzheng": ["战争", "军事", "战场", "将军", "士兵", "攻城", "战略", "战术", "war", "military", "battlefield", "general", "soldier", "army", "siege", "combat", "campaign", "tactics", "strategy", "navy", "air force", "infantry", "cavalry", "artillery", "fortress"]
+  }
+}

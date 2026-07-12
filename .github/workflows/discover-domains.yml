@@ -58,6 +58,11 @@ on:
         required: false
         default: true
         type: boolean
+      revalidate:
+        description: '重新验证已有域名（全量清理模式）'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -89,6 +94,7 @@ jobs:
       DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results }}
       DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked }}
       DISCOVER_SHOW_CLEANED: ${{ inputs.show_cleaned }}
+      DISCOVER_REVALIDATE: ${{ inputs.revalidate }}
       COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes }}
 
     steps:
@@ -135,13 +141,18 @@ jobs:
           if [ "$DISCOVER_SHOW_CLEANED" = "true" ]; then
             SHOW_CLEANED_FLAG="--show-cleaned"
           fi
+          REVALIDATE_FLAG=""
+          if [ "$DISCOVER_REVALIDATE" = "true" ]; then
+            REVALIDATE_FLAG="--revalidate"
+          fi
           python scripts/discover_domains.py \
             --language "$DISCOVER_LANGUAGE" \
             --limit "$DISCOVER_LIMIT" \
             --report generated/domain_discovery_report.json \
             $SUPPRESS_FLAG \
             $SHOW_BLOCKED_FLAG \
-            $SHOW_CLEANED_FLAG
+            $SHOW_CLEANED_FLAG \
+            $REVALIDATE_FLAG
 
       - name: 统计发现结果
         run: |

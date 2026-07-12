@@ -48,25 +48,24 @@ MAX_CATEGORY_SEARCH_KEYWORDS_PER_CATEGORY = 30
 DETAIL_METADATA_LIMIT = 3000
 DETAIL_TIMEOUT_SECONDS = 15
 
-_CAT_CFG = _load_config("catalog_categories.json", {})
-CATEGORY_RULES: List[Dict[str, Any]] = _CAT_CFG.get("categories", [])
+_CATALOG_CFG = _load_config("catalog_config.json", {})
+CATEGORY_RULES: List[Dict[str, Any]] = _CATALOG_CFG.get("categories", [])
 CATEGORY_IDS = {rule["id"] for rule in CATEGORY_RULES}
 
-_TAG_CFG = _load_config("catalog_tags.json", {})
-TAG_RULES: List[Dict[str, Any]] = _TAG_CFG.get("tags", [])
+TAG_RULES: List[Dict[str, Any]] = _CATALOG_CFG.get("tags", [])
 
-_FILTER_CFG = _load_config("catalog_filters.json", {})
-TEXT_KEYS = tuple(_FILTER_CFG.get("text_keys", ("title", "name", "comicName", "bookName", "displayName", "keyword")))
-URL_KEYS = tuple(_FILTER_CFG.get("url_keys", ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")))
-ID_KEYS = tuple(_FILTER_CFG.get("id_keys", ("id", "ruleId", "sourceId")))
-SITE_KEYS = tuple(_FILTER_CFG.get("site_keys", ("siteName", "name", "domain", "host")))
+_filters = _CATALOG_CFG.get("filters", {})
+TEXT_KEYS = tuple(_filters.get("text_keys", ("title", "name", "comicName", "bookName", "displayName", "keyword")))
+URL_KEYS = tuple(_filters.get("url_keys", ("detailUrl", "url", "homepage", "homeUrl", "sourceUrl", "searchUrl")))
+ID_KEYS = tuple(_filters.get("id_keys", ("id", "ruleId", "sourceId")))
+SITE_KEYS = tuple(_filters.get("site_keys", ("siteName", "name", "domain", "host")))
 
-BAD_TITLE_WORDS = set(_FILTER_CFG.get("bad_title_words", []))
-BAD_URL_PARTS = tuple(_FILTER_CFG.get("bad_url_parts", []))
-IMAGE_SUFFIXES = tuple(_FILTER_CFG.get("image_suffixes", []))
-SEED_TITLES = _FILTER_CFG.get("seed_titles", [])
+BAD_TITLE_WORDS = set(_filters.get("bad_title_words", []))
+BAD_URL_PARTS = tuple(_filters.get("bad_url_parts", []))
+IMAGE_SUFFIXES = tuple(_filters.get("image_suffixes", []))
+SEED_TITLES = _filters.get("seed_titles", [])
 
-CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _load_config("catalog_search_keywords.json", {})
+CATEGORY_SEARCH_KEYWORDS: Dict[str, List[str]] = _CATALOG_CFG.get("search_keywords", {})
 
 
 def now_iso() -> str:
