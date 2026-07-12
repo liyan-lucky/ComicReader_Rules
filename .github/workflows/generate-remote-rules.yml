@@ -330,9 +330,9 @@ jobs:
           import os
           from pathlib import Path
 
-           lang = os.environ.get('RULE_LANGUAGE', 'en')
-           index = json.loads(Path(f'generated/index.{lang}.json').read_text('utf-8'))
-           report = json.loads(Path(f'generated/rulebot_report.{lang}.json').read_text('utf-8'))
+          lang = os.environ.get('RULE_LANGUAGE', 'en')
+          index = json.loads(Path(f'generated/index.{lang}.json').read_text('utf-8'))
+          report = json.loads(Path(f'generated/rulebot_report.{lang}.json').read_text('utf-8'))
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
           audit = index.get('audit') or {}
           stats = report.get('stats') or {}
