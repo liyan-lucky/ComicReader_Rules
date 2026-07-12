@@ -65,8 +65,8 @@ defaults:
     shell: bash
 
 jobs:
-  step1-domains:
-    name: "Step 1/4: 发现域名"
+  pipeline:
+    name: "全链路: 域名→关键词→规则→目录"
     runs-on: ubuntu-latest
     services:
       searxng:
@@ -74,19 +74,31 @@ jobs:
         ports:
           - 8080:8080
         options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+
     env:
+      PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      PIPELINE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      PIPELINE_MAX_GENERATED: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
+      PIPELINE_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
+      PIPELINE_REVALIDATE: ${{ github.event_name == 'workflow_dispatch' && inputs.revalidate || false }}
+      PIPELINE_PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
       SEARXNG_URL: http://localhost:8080
-      DISCOVER_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      REVALIDATE: ${{ github.event_name == 'workflow_dispatch' && inputs.revalidate || false }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出 main
+        uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: 安装依赖
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+
       - name: 等待 SearXNG
         run: |
           for i in $(seq 1 30); do
@@ -94,176 +106,125 @@ jobs:
               echo "SearXNG ready"; exit 0
             fi; sleep 2
           done
-          echo "SearXNG timeout"
-      - name: 发现域名
+          echo "SearXNG timeout, clearing SEARXNG_URL"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      # ===== Step 1: 域名发现 =====
+      - name: Step 1/4 - 发现域名
         run: |
           REVALIDATE_FLAG=""
-          if [ "$REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
-          python scripts/discover_domains.py --language "$DISCOVER_LANGUAGE" $REVALIDATE_FLAG
-      - name: 生成站点配置
+          if [ "$PIPELINE_REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
+          python scripts/discover_domains.py --language "$PIPELINE_LANGUAGE" $REVALIDATE_FLAG
+
+      - name: Step 1 - 生成站点配置
         run: python scripts/generate_site_configs.py
-      - name: 提交
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
-          git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
-          if git diff --cached --quiet; then echo "No domain changes"; else
-            git commit -m "pipeline: discover $DISCOVER_LANGUAGE manga domains"
-            git push origin HEAD:main
-          fi
 
-  step2-keywords:
-    name: "Step 2/4: 发现关键词"
-    needs: step1-domains
-    runs-on: ubuntu-latest
-    services:
-      searxng:
-        image: ghcr.io/liyan-lucky/searxng_diy:latest
-        ports:
-          - 8080:8080
-        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
-    env:
-      SEARXNG_URL: http://localhost:8080
-      DISCOVER_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: python -m pip install -r tools/rule_discovery/requirements.txt
-      - name: 等待 SearXNG
-        run: |
-          for i in $(seq 1 30); do
-            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
-              echo "SearXNG ready"; exit 0
-            fi; sleep 2
-          done
-          echo "SearXNG timeout"
-      - name: 发现关键词
-        run: python scripts/discover_keywords.py --language "$DISCOVER_LANGUAGE"
-      - name: 提交
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
-          git add config/rule_keywords.json generated/keyword_discovery_report.json
-          if git diff --cached --quiet; then echo "No keyword changes"; else
-            git commit -m "pipeline: discover $DISCOVER_LANGUAGE manga keywords"
-            git push origin HEAD:main
-          fi
+      # ===== Step 2: 关键词发现 =====
+      - name: Step 2/4 - 发现关键词
+        run: python scripts/discover_keywords.py --language "$PIPELINE_LANGUAGE"
 
-  step3-rules:
-    name: "Step 3/4: 生成规则"
-    needs: step2-keywords
-    runs-on: ubuntu-latest
-    services:
-      searxng:
-        image: ghcr.io/liyan-lucky/searxng_diy:latest
-        ports:
-          - 8080:8080
-        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
-    env:
-      SEARXNG_URL: http://localhost:8080
-      RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
-      RULE_MAX_GENERATED: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
-      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: python -m pip install -r tools/rule_discovery/requirements.txt
-      - name: 等待 SearXNG
-        run: |
-          for i in $(seq 1 30); do
-            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
-              echo "SearXNG ready"; exit 0
-            fi; sleep 2
-          done
-          echo "SearXNG timeout"
-      - name: 生成规则
+      # ===== Step 3: 规则生成 =====
+      - name: Step 3/4 - 生成规则
         run: |
           set -euo pipefail
           LANG_NAME=""
-          case "$RULE_LANGUAGE" in
+          case "$PIPELINE_LANGUAGE" in
             zh-Hans) LANG_NAME="简体中文" ;;
             zh-Hant) LANG_NAME="繁體中文" ;;
             en) LANG_NAME="English" ;;
             ja) LANG_NAME="日本語" ;;
             ko) LANG_NAME="한국어" ;;
           esac
-          SLEEP="0.15"
-          SEED_LIMIT="500"
-          PER_SEED_LIMIT="100"
-          TIME_BUDGET="5400"
-          SEARCH_BUDGET="1800"
-          if [ "$RULE_RUN_MODE" = "deep" ]; then
+          SLEEP="0.15"; SEED_LIMIT="500"; PER_SEED_LIMIT="100"
+          TIME_BUDGET="5400"; SEARCH_BUDGET="1800"
+          if [ "$PIPELINE_RUN_MODE" = "deep" ]; then
             SLEEP="0.4"; SEED_LIMIT="3000"; PER_SEED_LIMIT="400"
             TIME_BUDGET="19800"; SEARCH_BUDGET="3600"
           fi
-          REPORT="generated/rulebot_report.${RULE_LANGUAGE}.json"
-          INDEX="generated/index.${RULE_LANGUAGE}.json"
-          ETS="generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets"
-          RULES="rules/index.${RULE_LANGUAGE}.json"
+          REPORT="generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
+          INDEX="generated/index.${PIPELINE_LANGUAGE}.json"
+          ETS="generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets"
+          RULES="rules/index.${PIPELINE_LANGUAGE}.json"
           python tools/rule_discovery/generate_rules.py \
             --limit 30 --sleep $SLEEP --seed-limit $SEED_LIMIT --per-seed-limit $PER_SEED_LIMIT \
             --time-budget-seconds $TIME_BUDGET --search-budget-seconds $SEARCH_BUDGET \
             --max-consecutive-zero-search 50 \
-            --max-generated $RULE_MAX_GENERATED --per-domain-generated-limit 500 \
-            --language-code "$RULE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
+            --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit 500 \
+            --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
           python tools/rule_discovery/build_index_from_report.py \
             --report "$REPORT" --output "$INDEX" \
-            --language-code "$RULE_LANGUAGE" --language-name "$LANG_NAME"
+            --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py \
             --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES"
-      - name: 提交
+
+      # ===== Step 4: 目录生成 =====
+      - name: Step 4/4 - 生成目录
+        run: python scripts/bulk_generate_catalog.py
+
+      # ===== 提交所有产出 =====
+      - name: 提交全链路产出
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
-          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name ""
-          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json config/aggregator_sites.json
-          if git diff --cached --quiet; then echo "No rule changes"; else
-            git commit -m "pipeline: generate $RULE_LANGUAGE comic rules"
+          TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
+          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE" --language-name ""
+          git add \
+            config/aggregator_sites.json \
+            config/search_url_templates.json \
+            config/seed_sites.json \
+            config/rule_keywords.json \
+            config/cleaned_domains/ \
+            generated/ \
+            rules/index.*.json \
+            catalog/catalog.*.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "pipeline: full update $PIPELINE_LANGUAGE ($(date -u +'%Y-%m-%d'))"
             git push origin HEAD:main
           fi
 
-  step4-catalog:
-    name: "Step 4/4: 生成目录"
-    needs: step3-rules
-    runs-on: ubuntu-latest
-    env:
-      CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      CATALOG_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: python -m pip install -r tools/rule_discovery/requirements.txt
-      - name: 生成目录
+      # ===== 统计 =====
+      - name: 统计产出
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          lang = os.environ.get('PIPELINE_LANGUAGE', 'zh-Hans')
+          agg = json.loads(Path('config/aggregator_sites.json').read_text('utf-8')) if Path('config/aggregator_sites.json').exists() else {}
+          kw = json.loads(Path('config/rule_keywords.json').read_text('utf-8')) if Path('config/rule_keywords.json').exists() else {}
+          rules_path = Path(f'rules/index.{lang}.json')
+          rules = json.loads(rules_path.read_text('utf-8')) if rules_path.exists() else {}
+          cat_path = Path(f'catalog/catalog.{lang}.json')
+          cat = json.loads(cat_path.read_text('utf-8')) if cat_path.exists() else {}
+          lines = [
+              '## 全链路产出统计',
+              '',
+              f'- 域名: {len(agg.get(lang, []))} 个 ({lang})',
+              f'- 关键词: {len(kw.get(lang, []))} 个 ({lang})',
+              f'- 规则: {len(rules.get("rules", []))} 条 ({lang})',
+              f'- 目录: {len(cat.get("categories", []))} 个分类 ({lang})',
+          ]
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          PY
+
+      - name: 发布 Release
+        if: ${{ env.PIPELINE_PUBLISH == 'true' }}
         run: |
           set -euo pipefail
-          python scripts/bulk_generate_catalog.py
-      - name: 提交
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
-          git add "catalog/catalog.${CATALOG_LANGUAGE}.json" generated/
-          if git diff --cached --quiet; then echo "No catalog changes"; else
-            git commit -m "pipeline: generate $CATALOG_LANGUAGE catalog"
-            git push origin HEAD:main
-          fi
+          git fetch --tags origin
+          TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
+          git tag -f -a "$TAG_NAME" -m "Pipeline $TAG_NAME"
+          git push --force origin "refs/tags/$TAG_NAME" || echo "Tag push failed"
+          rm -rf dist/release && mkdir -p dist/release
+          cp "generated/index.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp "generated/rulebot_report.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp "rules/index.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp "catalog/catalog.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp generated/update_manifest.json dist/release/ 2>/dev/null || true
+          gh release create "$TAG_NAME" dist/release/* --title "Pipeline $TAG_NAME" --notes "全链路自动生成" || echo "Release creation failed"
