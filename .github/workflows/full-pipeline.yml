@@ -1,0 +1,269 @@
+name: 全链路更新
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: '语种'
+        required: true
+        default: 'zh-Hans'
+        type: choice
+        options:
+          - zh-Hans
+          - zh-Hant
+          - en
+          - ja
+          - ko
+      run_mode:
+        description: '规则生成模式'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick
+          - deep
+      max_generated:
+        description: '最多生成规则数'
+        required: true
+        default: '2000'
+        type: choice
+        options:
+          - '500'
+          - '1000'
+          - '2000'
+      target_count:
+        description: '目录每分类目标数'
+        required: true
+        default: '200'
+        type: choice
+        options:
+          - '50'
+          - '100'
+          - '200'
+      revalidate:
+        description: '域名发现全量清理模式'
+        required: false
+        default: false
+        type: boolean
+      publish_release:
+        description: '是否发布Release'
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: '0 0 1 * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: comic-reader-rules-pipeline
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  step1-domains:
+    name: "Step 1/4: 发现域名"
+    runs-on: ubuntu-latest
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      SEARXNG_URL: http://localhost:8080
+      DISCOVER_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      REVALIDATE: ${{ github.event_name == 'workflow_dispatch' && inputs.revalidate || false }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r tools/rule_discovery/requirements.txt
+      - name: 等待 SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout"
+      - name: 发现域名
+        run: |
+          REVALIDATE_FLAG=""
+          if [ "$REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
+          python scripts/discover_domains.py --language "$DISCOVER_LANGUAGE" $REVALIDATE_FLAG
+      - name: 生成站点配置
+        run: python scripts/generate_site_configs.py
+      - name: 提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
+          if git diff --cached --quiet; then echo "No domain changes"; else
+            git commit -m "pipeline: discover $DISCOVER_LANGUAGE manga domains"
+            git push origin HEAD:main
+          fi
+
+  step2-keywords:
+    name: "Step 2/4: 发现关键词"
+    needs: step1-domains
+    runs-on: ubuntu-latest
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      SEARXNG_URL: http://localhost:8080
+      DISCOVER_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r tools/rule_discovery/requirements.txt
+      - name: 等待 SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout"
+      - name: 发现关键词
+        run: python scripts/discover_keywords.py --language "$DISCOVER_LANGUAGE"
+      - name: 提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add config/rule_keywords.json generated/keyword_discovery_report.json
+          if git diff --cached --quiet; then echo "No keyword changes"; else
+            git commit -m "pipeline: discover $DISCOVER_LANGUAGE manga keywords"
+            git push origin HEAD:main
+          fi
+
+  step3-rules:
+    name: "Step 3/4: 生成规则"
+    needs: step2-keywords
+    runs-on: ubuntu-latest
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      SEARXNG_URL: http://localhost:8080
+      RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      RULE_MAX_GENERATED: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
+      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r tools/rule_discovery/requirements.txt
+      - name: 等待 SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout"
+      - name: 生成规则
+        run: |
+          set -euo pipefail
+          LANG_NAME=""
+          case "$RULE_LANGUAGE" in
+            zh-Hans) LANG_NAME="简体中文" ;;
+            zh-Hant) LANG_NAME="繁體中文" ;;
+            en) LANG_NAME="English" ;;
+            ja) LANG_NAME="日本語" ;;
+            ko) LANG_NAME="한국어" ;;
+          esac
+          SLEEP="0.15"
+          SEED_LIMIT="500"
+          PER_SEED_LIMIT="100"
+          TIME_BUDGET="5400"
+          SEARCH_BUDGET="1800"
+          if [ "$RULE_RUN_MODE" = "deep" ]; then
+            SLEEP="0.4"; SEED_LIMIT="3000"; PER_SEED_LIMIT="400"
+            TIME_BUDGET="19800"; SEARCH_BUDGET="3600"
+          fi
+          REPORT="generated/rulebot_report.${RULE_LANGUAGE}.json"
+          INDEX="generated/index.${RULE_LANGUAGE}.json"
+          ETS="generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets"
+          RULES="rules/index.${RULE_LANGUAGE}.json"
+          python tools/rule_discovery/generate_rules.py \
+            --limit 30 --sleep $SLEEP --seed-limit $SEED_LIMIT --per-seed-limit $PER_SEED_LIMIT \
+            --time-budget-seconds $TIME_BUDGET --search-budget-seconds $SEARCH_BUDGET \
+            --max-consecutive-zero-search 50 \
+            --max-generated $RULE_MAX_GENERATED --per-domain-generated-limit 500 \
+            --language-code "$RULE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
+          python tools/rule_discovery/build_index_from_report.py \
+            --report "$REPORT" --output "$INDEX" \
+            --language-code "$RULE_LANGUAGE" --language-name "$LANG_NAME"
+          python tools/rule_discovery/sanitize_rule_outputs.py \
+            --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES"
+      - name: 提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
+          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name ""
+          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json config/aggregator_sites.json
+          if git diff --cached --quiet; then echo "No rule changes"; else
+            git commit -m "pipeline: generate $RULE_LANGUAGE comic rules"
+            git push origin HEAD:main
+          fi
+
+  step4-catalog:
+    name: "Step 4/4: 生成目录"
+    needs: step3-rules
+    runs-on: ubuntu-latest
+    env:
+      CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      CATALOG_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r tools/rule_discovery/requirements.txt
+      - name: 生成目录
+        run: |
+          set -euo pipefail
+          python scripts/bulk_generate_catalog.py
+      - name: 提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add "catalog/catalog.${CATALOG_LANGUAGE}.json" generated/
+          if git diff --cached --quiet; then echo "No catalog changes"; else
+            git commit -m "pipeline: generate $CATALOG_LANGUAGE catalog"
+            git push origin HEAD:main
+          fi

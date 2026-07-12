@@ -46,6 +46,16 @@ RANKING_SITES: Dict[str, List[dict]] = _KW_DISC_CFG.get("ranking_sites", {})
 SEARCH_QUERIES: Dict[str, List[str]] = _KW_DISC_CFG.get("search_queries", {})
 FALLBACK_RANKING: Dict[str, List[str]] = _KW_DISC_CFG.get("fallback_ranking", {})
 MANGA_DOMAINS_MAP: Dict[str, List[str]] = _KW_DISC_CFG.get("manga_domains_map", {})
+_AGG_SITES = json.loads((ROOT / "config" / "aggregator_sites.json").read_text(encoding="utf-8")) if (ROOT / "config" / "aggregator_sites.json").exists() else {}
+for _lang, _urls in _AGG_SITES.items():
+    if _lang not in MANGA_DOMAINS_MAP:
+        MANGA_DOMAINS_MAP[_lang] = []
+    _existing = set(MANGA_DOMAINS_MAP[_lang])
+    for _u in _urls:
+        _d = _u.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "")
+        if _d and _d not in _existing:
+            MANGA_DOMAINS_MAP[_lang].append(_d)
+            _existing.add(_d)
 
 NOISE_PATTERNS = re.compile(_KW_DISC_CFG.get("noise_patterns", r'^(登录|注册|首页)'), re.I)
 TAG_WORDS: Set[str] = set(_KW_DISC_CFG.get("tag_words", []))
