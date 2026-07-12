@@ -119,6 +119,14 @@ NOISE_PATTERNS = re.compile(
     re.I,
 )
 
+TAG_WORDS: Set[str] = {
+    "战斗", "热血", "搞笑", "恋爱", "古风", "穿越", "重生", "系统",
+    "怪物", "末日", "灵异", "悬疑", "冒险", "魔幻", "校园", "治愈",
+    "复仇", "强强", "脑洞", "青春", "暗黑", "女神", "大男主", "大女主",
+}
+
+TAG_SUFFIX = re.compile(r'(\s{2,})[\u4e00-\u9fffa-zA-Z]{1,6}(\s+[\u4e00-\u9fffa-zA-Z]{1,6})?$')
+
 NOISE_SUFFIX = re.compile(
     r'(更新至?\d+[话章回]|更新到\d+[话章回]|连载至?\d+|完结$|免费$|付费$)',
     re.I,
@@ -173,7 +181,11 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
 
 
 def _clean_title(t: str) -> str:
-    t = NOISE_SUFFIX.sub("", t).strip()
+    t = TAG_SUFFIX.sub('', t).strip()
+    t = NOISE_SUFFIX.sub('', t).strip()
+    for tw in TAG_WORDS:
+        if t.endswith(tw) and len(t) > len(tw) + 1:
+            t = t[:-len(tw)].strip()
     return t
 
 
