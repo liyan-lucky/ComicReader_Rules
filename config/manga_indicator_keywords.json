@@ -1,7 +1,7 @@
 {
   "zh-Hans": {
     "search_text": [
-      "漫画", "manhua", "妖气","漫画屋","漫画岛",
+      "漫画", "manhua", "妖气", "漫画屋", "漫画岛",
       "国漫", "日漫", "韩漫", "动漫", "条漫",
       "漫画网", "漫画站", "看漫画", "免费漫画"
     ],
@@ -14,35 +14,56 @@
     "secondary": []
   },
   "zh-Hant": {
-    "search_text": ["漫畫", "manhua"],
-    "domain_label": ["manhua", "mh"],
-    "search_subdomain": [],
+    "search_text": [
+      "漫畫", "manhua", "條漫", "webtoon",
+      "漫畫網", "免費漫畫", "線上漫畫", "熱門漫畫"
+    ],
+    "search_subdomain": [
+      "github.io", "vercel.app", "netlify.app", "pages.dev"
+    ],
+    "anti_patterns": ["成人", "18+", "18R", "18r", "18禁"],
     "validate": ["漫畫"],
-    "secondary": [],
-    "anti_patterns": []
+    "domain_label": ["manhua", "mh", "漫"],
+    "secondary": []
   },
   "en": {
-    "search_text": ["manga", "comic"],
-    "domain_label": ["comic"],
-    "search_subdomain": [],
+    "search_text": [
+      "manga", "comic", "webtoon", "manhwa", "manhua",
+      "read manga", "manga online", "free manga",
+      "manga reader", "manga site"
+    ],
+    "search_subdomain": [
+      "github.io", "vercel.app", "netlify.app", "pages.dev"
+    ],
+    "anti_patterns": ["hentai", "18+", "nsfw", "adult"],
     "validate": ["manga", "comic"],
-    "secondary": [],
-    "anti_patterns": []
+    "domain_label": ["manga", "comic", "manhwa"],
+    "secondary": ["chapter", "read", "scanlation"]
   },
   "ja": {
-    "search_text": ["漫画", "マンガ", "manga"],
-    "domain_label": ["manga"],
-    "search_subdomain": [],
+    "search_text": [
+      "漫画", "マンガ", "manga", "web漫画",
+      "漫画サイト", "無料漫画", "漫画読む", "オンライン漫画"
+    ],
+    "search_subdomain": [
+      "github.io", "vercel.app", "netlify.app", "pages.dev"
+    ],
+    "anti_patterns": ["成人", "18禁", "R-18", "アダルト"],
     "validate": ["漫画", "マンガ"],
-    "secondary": [],
-    "anti_patterns": []
+    "domain_label": ["manga", "comic"],
+    "secondary": ["連載", "読む", "無料"]
   },
   "ko": {
-    "search_text": ["만화", "웹툰", "manhwa"],
-    "domain_label": ["manhwa"],
-    "search_subdomain": [],
+    "search_text": [
+      "만화", "웹툰", "manhwa", "webtoon",
+      "만화사이트", "무료만화", "인기웹툰", "웹툰추천"
+    ],
+    "search_subdomain": [
+      "github.io", "vercel.app", "netlify.app", "pages.dev"
+    ],
+    "anti_patterns": ["성인", "19+", "19금", "adult"],
     "validate": ["만화", "웹툰"],
-    "secondary": [],
-    "anti_patterns": []
+    "domain_label": ["manhwa", "webtoon", "toon"],
+    "secondary": ["연재", "무료", "추천"]
   }
 }

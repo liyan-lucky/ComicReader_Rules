@@ -89,23 +89,205 @@ RANKING_SITES: Dict[str, List[dict]] = {
             "selector": "a.title",
             "attr": "title",
         },
+        {
+            "name": "LINE WEBTOON-排行榜",
+            "url": "https://www.webtoons.com/zh-hant/ranking",
+            "selector": "a.rank_lst_a",
+            "attr": "title",
+        },
+        {
+            "name": "COMICO-排行榜",
+            "url": "https://www.comico.com.tw/ranking",
+            "selector": "a.title",
+            "attr": "title",
+        },
     ],
     "en": [
         {
-            "name": "MangaHub",
-            "url": "https://mangahub.io/browse",
-            "selector": "a._1ZpYx",
+            "name": "MangaPlus-排行",
+            "url": "https://mangaplus.shueisha.co.jp/manga_list/all",
+            "selector": "a.AllTitle-module_allTitle",
             "attr": "title",
         },
         {
-            "name": "MangaKakalot",
-            "url": "https://mangakakalot.com/manga_list",
-            "selector": "a.list-title",
+            "name": "Webtoon-排行",
+            "url": "https://www.webtoons.com/en/ranking",
+            "selector": "a.rank_lst_a",
+            "attr": "title",
+        },
+        {
+            "name": "MangaUpdates-排行",
+            "url": "https://www.mangaupdates.com/statistics.html",
+            "selector": "a.alt",
+            "attr": "text",
+        },
+    ],
+    "ja": [
+        {
+            "name": "ピッコマ-ランキング",
+            "url": "https://piccoma.com/web/ranking",
+            "selector": "a.PCM-ranking_itemTitle",
+            "attr": "title",
+        },
+        {
+            "name": "マンガUP-ランキング",
+            "url": "https://magazine.jp.square-enix.com/mangaup/",
+            "selector": "a.title",
+            "attr": "title",
+        },
+        {
+            "name": "少年ジャンプ+",
+            "url": "https://shonenjumpplus.com/",
+            "selector": "a.series-title",
             "attr": "title",
         },
     ],
-    "ja": [],
-    "ko": [],
+    "ko": [
+        {
+            "name": "네이버웹툰-인기",
+            "url": "https://comic.naver.com/webtoon/weekday",
+            "selector": "a.title",
+            "attr": "title",
+        },
+        {
+            "name": "카카오웹툰-인기",
+            "url": "https://webtoon.kakao.com/ranking",
+            "selector": "a.title",
+            "attr": "title",
+        },
+        {
+            "name": "리디북스-웹툰랭킹",
+            "url": "https://ridibooks.com/webtoon/ranking",
+            "selector": "a.title",
+            "attr": "title",
+        },
+    ],
+}
+
+FALLBACK_RANKING: Dict[str, List[str]] = {
+    "zh-Hans": [
+        "斗破苍穹", "一人之下", "斗罗大陆4终极斗罗", "道诡异仙", "万渣朝凰",
+        "我的徒弟都是大反派", "恰似寒光遇骄阳", "小白的男神爹地", "重生封神游戏之最强散人", "恶婴",
+        "日月同错", "狐妖小红娘", "19天", "我家老婆来自一千年前", "不健全关系",
+        "绍宋", "诱敌深入", "心动的声音", "星甲魂将传", "请与我同眠",
+        "喰恋", "我家大师兄脑子有坑", "斗罗大陆 II 绝世唐门", "大奉打更人", "勇士的意志 第二季",
+        "非人哉", "签到九万年", "不当舔狗后，我成了亿万神豪", "白天被逃婚晚上被奶凶指挥官求抱", "重生不当舔王，我独自氪金升级",
+        "绝色道侣都说吾皇体质无敌", "反派大师兄，师妹们全是病娇", "穿成Alpha大佬的金丝大鹅", "开局一座山", "魔皇前夫诈尸了",
+        "我独自升级", "地球尽头", "斗罗大陆 第三部 龙王传说", "我竟成了异世界后宫的采集对象", "大象无形",
+        "我为邪帝", "全知读者视角", "敖敖待捕", "奇洛李维斯回信", "强制勾引指南",
+        "高武进化：从觉醒怪兽之王开始", "传武", "雪之牢笼", "犬大欺主", "我真没想重生啊",
+        "盐友", "斗罗大陆 5 重生唐三", "尸兄", "快穿：上瘾关系", "从水猴子开始成神",
+        "航海王", "学霸哥哥别碰我", "一骗丹心", "居心不敬", "开局签到荒古圣体",
+        "遇强则强，我的修为无上限", "情绪病", "孤日落", "意中人", "火影忍者",
+        "宦妃天下", "我不是教主", "妖神记", "我可不跟你去苞米地", "原来，她们才是主角",
+        "王牌御史", "与死亡同行：从鱼人地下城开始", "万界守门人", "一不小心，名垂千史", "中国惊奇先生",
+        "我独自升级 ：诸神黄昏", "诡浊仙道", "污系少女老黄", "我靠后宫征服世界", "蛊真人",
+        "摊牌了，我全职业系统", "系统送我避难所", "日久见人缺心眼", "祈祷之夜", "妖怪名单",
+        "他的星星", "从姑获鸟开始", "只有尾巴不可以", "我的专属邪神", "这里的妹子都想攻略我",
+        "圣心不难撩", "治愈我的邪神", "恶之环", "1st Kiss", "无限回档：我在惊悚游戏做bug",
+        "顶级气运，悄悄修炼千年", "开局绝色俏师父：系统十斤反骨", "火影忍者（全彩版）", "斗厌神", "我的天劫女友",
+    ],
+    "zh-Hant": [
+        "鬥羅大陸", "完美世界", "吞噬星空", "鬥破蒼穹", "凡人修仙傳",
+        "武動乾坤", "一人之下", "大奉打更人", "滄元圖", "遮天",
+        "仙逆", "元尊", "大主宰", "逆天邪神", "神印王座",
+        "盤龍", "星辰變", "莽荒紀", "雪鷹領主", "擇天記",
+        "將夜", "慶餘年", "詭秘之主", "天官賜福", "魔道祖師",
+        "全職高手", "盜墓筆記", "鎮魂街", "狐妖小紅娘", "妖神記",
+        "非人哉", "19天", "靈劍尊", "絕世武魂", "鬥羅大陸2絕世唐門",
+        "鬥羅大陸3龍王傳說", "鬥羅大陸4終極鬥羅", "神印王座2", "我獨自升級", "全知讀者視角",
+        "回歸者的魔法要特別", "我獨自升級諸神黃昏", "電鋸人", "間諜過家家", "咒術迴戰",
+        "鬼滅之刃", "進擊的巨人", "海賊王", "火影忍者", "死神",
+        "妖精的尾巴", "一拳超人", "我的英雄學院", "鋼之鍊金術師", "全職獵人",
+        "銀魂", "七大罪", "黑色五葉草", "國王排名", "藍色監獄",
+        "東京復仇者", "灌籃高手", "排球少年", "龍珠", "名偵探柯南",
+        "約定的夢幻島", "葬送的芙莉蓮", "肌肉魔法使馬修", "坂本日常", "怪獸8號",
+        "膽大黨", "我推的孩子", "王者天下", "海賊王紅髮傳", "火影忍者新傳",
+        "死神千年血戰", "灌籃高手電影版", "排球少年垃圾場決戰", "鬼滅之刃柱訓練篇",
+        "咒術迴戰澀谷事變", "進擊的巨人完結篇", "一拳超人重製版", "我的英雄學院最終章",
+        "約定的夢幻島2", "黑色五葉草聖騎士篇", "七大罪憤怒的審判", "銀魂最終章",
+        "全職獵人黑暗大陸", "龍珠超", "名偵探柯南黑鐵的魚影", "妖精的尾巴百年任務",
+        "王者天下2", "電鋸人學園篇", "鏈鋸人2", "間諜家家酒2", "藍色監獄2",
+        "咒術迴戰2", "鏈鋸人2", "間諜家家酒2", "藍色監獄2", "王者天下",
+    ],
+    "en": [
+        "One Piece", "Naruto", "Bleach", "Dragon Ball", "Attack on Titan",
+        "Demon Slayer", "Jujutsu Kaisen", "My Hero Academia", "One Punch Man",
+        "Chainsaw Man", "Spy x Family", "Hunter x Hunter", "Fairy Tail",
+        "Black Clover", "Seven Deadly Sins", "Kingdom", "Vinland Saga",
+        "Berserk", "Vagabond", "Solo Leveling", "Omniscient Reader",
+        "The Beginning After The End", "Tales of Demons and Gods",
+        "Against the Gods", "Martial Peak", "Apotheosis", "Magic Emperor",
+        "Tower of God", "Nano Machine", "Return of the Blossoming Blade",
+        "The Great Mage Returns", "Reincarnation of the Suicidal Battle God",
+        "Second Life Ranker", "Mercenary Enrollment", "Eleceed", "Unordinary",
+        "True Beauty", "Lookism", "Sweet Home", "Killing Stalking",
+        "Painter of the Night", "Under the Green Light", "Lore Olympus",
+        "Let's Play", "I Love Yoo", "SubZero", "Age Matters",
+        "Soul Land", "Douluo Dalu", "Sakamoto Days", "Mashle",
+        "Dandadan", "Blue Lock", "Frieren Beyond Journey", "Oshi no Ko",
+        "Dr. Stone", "Undead Unluck", "Kaiju No. 8", "Gachiakuta",
+        "Kuroko Basketball", "Haikyuu", "Slam Dunk", "Prince of Tennis",
+        "Hajime no Ippo", "Diamond no Ace", "Ao Ashi", "Red Cat Ramen",
+        "I Got a Cheat Skill", "The Eminence in Shadow", "Overlord",
+        "Mushoku Tensei", "Re Zero", "Slime Isekai", "Shield Hero",
+        "Konosuba", "Cautious Hero", "Tsukimichi", "Spider Isekai",
+        "Ascendance of Bookworm", "Arifureta", "BOFURI", "Bunny Girl Senpai",
+        "Magilumiere", "World Trigger", "Mob Psycho 100", "Fire Force",
+        "Dr. Stone Reboot", "Act Age", "Chainsaw Man Part 2",
+        "Jujutsu Kaisen Shinjuku Showdown", "One Piece Final Saga",
+        "My Hero Academia Final Act", "Demon Slayer Infinity Castle",
+        "Spy x Family Cruise Arc", "Blue Lock Neo Egoist League",
+        "Sakamoto Days Assassin Arc", "Dandadan Evil Eye Arc",
+    ],
+    "ja": [
+        "ワンピース", "ナルト", "ブリーチ", "ドラゴンボール", "進撃の巨人",
+        "鬼滅の刃", "呪術廻戦", "僕のヒーローアカデミア", "ワンパンマン", "チェンソーマン",
+        "スパイファミリー", "ハンターハンター", "フェアリーテイル", "ブラッククローバー", "七つの大罪",
+        "キングダム", "ヴィンランドサガ", "ベルセルク", "バガボンド", "ソロレベリング",
+        "全知読者視点", "俺だけレベルアップな件", "帰還者の魔法は特別です", "ナンバーライフ",
+        "エレceed", "ユノーリナリー", "トゥルービューティー", "ルキズム", "スイートホーム",
+        "ロードオブハザード", "タワーオブゴッド", "サカモトデイズ", "マッシュル", "ダンダダン",
+        "ブルーロック", "葬送のフリーレン", "推しの子", "ドクターストーン", "アンデッドアンラック",
+        "怪獣8号", "ガチアクタ", "ワールドトリガー", "モブサイコ100", "炎炎ノ消防隊",
+        "黒クロ", "約束のネバーランド", "アクタージュ", "べるぜバブ", "トリコ",
+        "鬼滅の刃柱稽古編", "呪術廻戦渋谷事変", "チェンソーマン学園編", "ワンピース最終章",
+        "ブルーロックネオエゴイストリーグ", "サカモトデイズ暗殺者編", "ダンダダン邪視編",
+        "推しの子2", "葬送のフリーレン2", "キングダム2", "マッシュル2",
+        "ドクターストーン2", "怪獣8号2", "ワールドトリガー2", "モブサイコ1002",
+        "炎炎ノ消防隊2", "黒クロ聖騎士編", "七つの大罪憤怒の審判",
+        "フェアリーテイル百年クエスト", "ハンターハンター暗黒大陸", "ドラゴンボール超",
+        "ナルト新世代", "ブリーチ千年血戦", "スラムダンク映画版", "ハイキュー垃圾場決戦",
+        "名探偵コナン", "金田一少年の事件簿", "るろうに剣心", "ジョジョの奇妙な冒険",
+        "DEATH NOTE", "鋼の錬金術師", "銀魂", "テニスの王子様", "黒子のバスケ",
+        "ダイヤのA", "メジャー", "ヒカルの碁", "シャーマンキング", "北斗の拳",
+        "聖闘士星矢", "キャプテン翼", "SLAM DUNK", "HUNTER×HUNTER",
+        "ドラゴンクエスト", "ファイナルファンタジー", "ポケモン", "遊☆戯☆王", "NARUTO",
+    ],
+    "ko": [
+        "나 혼자만 레벨업", "전지적 독자 시점", "독고탁은 최강이다", "내일", "연놈",
+        "치즈인더트랩", "외모지상주의", "루키즈", "스위트홈", "킬링스토커",
+        "밤의 그림자", "그린라이트", "로어올림푸스", "렛츠플레이", "아이러브유",
+        "서브제로", "에이지매터스", "나노머신", "꽃피는 검", "회귀자의 마법은 특별합니다",
+        "전생했더니 슬라임이었던 건에 대하여", "오버로드", "방패 용사 성공담", "코노스바",
+        "신데렐라 보이", "나 혼자만 레벨업 신화", "이세계 약국", "현자의 제자를 자처하는 노인",
+        "고양이 쿠로", "백작가의 망나니가 되었다", "악녀는 마리오네트", "황제의 외동딸",
+        "올리비아와 괴물", "전지적 독자 시점 2", "나 혼자만 레벨업 2", "독고탁은 최강이다 2",
+        "치즈인더트랩 2", "외모지상주의 2", "루키즈 2", "스위트홈 2", "킬링스토커 2",
+        "하이큐", "슬램덩크", "블리치", "원피스", "나루토",
+        "드래곤볼", "진격의 거인", "귀멸의 칼날", "주술회전", "나의 히어로 아카데미아",
+        "원펀맨", "체인소맨", "스파이 패밀리", "헌터헌터", "페어리테일",
+        "블랙클로버", "일곱 개의 대죄", "킹덤", "빈란드 사가", "베르세르크",
+        "바가본드", "블루락", "프리렌", "오시노코", "닥터스톤",
+        "사카모토 데이즈", "마슐", "단다단", "괴수8호", "가치아쿠타",
+        "월드 트리거", "모브사이코 100", "화염의 소방대", "약속의 네버랜드", "벨제바브",
+        "트리코", "귀멸의 칼날 주훈련편", "주술회전 시부야 사변", "체인소맨 학원편",
+        "원피스 최종장", "블루락 네오에고이스트리그", "사카모토 데이즈 암살자편",
+        "단다단 사안편", "오시노코 2", "프리렌 2", "킹덤 2", "마슐 2",
+        "닥터스톤 2", "괴수8호 2", "월드 트리거 2", "모브사이코 100 2",
+        "블랙클로버 성기사편", "일곱 개의 대죄 분노의 심판", "페어리테일 백년 퀘스트",
+        "헌터헌터 암흑대륙", "드래곤볼 초", "나루토 신세대", "블리치 천년혈전",
+    ],
 }
 
 NOISE_PATTERNS = re.compile(
@@ -214,7 +396,7 @@ def _extract_titles_from_links(html_text: str) -> List[str]:
     return titles
 
 
-CJK_LANGS = {"zh-Hans", "zh-Hant", "ja"}
+CJK_LANGS = {"zh-Hans", "zh-Hant", "ja", "ko"}
 
 
 _current_language = ""
@@ -234,7 +416,7 @@ def _is_valid_keyword(kw: str) -> bool:
         return False
     if any(c in kw for c in '<>{}[]|\\`~!@#$%^&*()=+'):
         return False
-    if _current_language in CJK_LANGS and not re.search(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]', kw):
+    if _current_language in CJK_LANGS and not re.search(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]', kw):
         return False
     return True
 
@@ -296,21 +478,29 @@ SEARCH_QUERIES: Dict[str, List[str]] = {
         "条漫排行榜 国产漫画人气",
     ],
     "zh-Hant": [
-        "漫畫排行榜 2025",
-        "熱門漫畫推薦排行",
+        "漫畫排行榜 2025 熱門",
+        "熱門漫畫推薦排行 webtoon",
+        "LINE漫畫排行榜 人氣",
+        "免費漫畫線上看 熱門推薦",
     ],
     "en": [
         "top manga 2025 ranking list",
         "popular manga 2025 best",
         "myanimelist top manga 2025",
+        "best webtoons 2025 ranking",
+        "popular manhwa 2025 recommendation",
     ],
     "ja": [
         "漫画ランキング 2025 人気",
-        "おすすめ漫画ランキング",
+        "おすすめ漫画ランキング 少年",
+        "ピッコマ ランキング 人気",
+        "マンガUP ランキング 2025",
     ],
     "ko": [
         "웹툰 순위 2025 인기",
         "인기 만화 추천 랭킹",
+        "네이버웹툰 인기 순위",
+        "카카오웹툰 랭킹 인기",
     ],
 }
 
@@ -338,7 +528,14 @@ def _search_and_scrape(language: str) -> List[str]:
         return []
     queries = SEARCH_QUERIES.get(language, [])
     all_titles: List[str] = []
-    manga_domains = {"ac.qq.com", "kuaikanmanhua.com", "dongmanmanhua.cn", "manga.bilibili.com", "mkzhan.com", "manhuagui.com"}
+    manga_domains_map = {
+        "zh-Hans": {"ac.qq.com", "kuaikanmanhua.com", "dongmanmanhua.cn", "manga.bilibili.com", "mkzhan.com", "manhuagui.com"},
+        "zh-Hant": {"www.webtoons.com", "www.comico.com.tw", "dongmanmanhua.cn", "www.kuaikanmanhua.com", "manhuagui.com"},
+        "en": {"mangaplus.shueisha.co.jp", "www.webtoons.com", "mangaupdates.com", "mangahub.io", "mangakakalot.com", "mangadex.org"},
+        "ja": {"piccoma.com", "shonenjumpplus.com", "comic-walker.com", "manga-mee.jp", "www.s-manga.net", "mechacomic.jp"},
+        "ko": {"comic.naver.com", "webtoon.kakao.com", "ridibooks.com", "www.lezhinus.com", "www.bomtoon.com"},
+    }
+    manga_domains = manga_domains_map.get(language, set())
     for q in queries:
         print(f"    Searching: {q}")
         try:
@@ -390,6 +587,17 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
     for pos, t in enumerate(search_titles[:100], 1):
         title_site_count[t] = title_site_count.get(t, 0) + 1
         title_position.setdefault(t, []).append(pos)
+
+    print(f"  Phase 3: Fallback ranking")
+    fallback = FALLBACK_RANKING.get(language, [])
+    for pos, t in enumerate(fallback, 1):
+        t = _clean_title(t)
+        if t and _is_valid_keyword(t):
+            if t not in title_site_count:
+                title_site_count[t] = 10
+            else:
+                title_site_count[t] += 10
+            title_position.setdefault(t, []).append(pos)
 
     ranked = sorted(
         title_site_count.items(),
