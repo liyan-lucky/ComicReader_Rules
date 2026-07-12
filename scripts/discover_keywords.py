@@ -416,25 +416,19 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
         title_site_count[t] = title_site_count.get(t, 0) + 1
         title_position.setdefault(t, []).append(pos)
 
+    print(f"  Phase 3: Fallback ranking (Tencent TOP100)")
+    fallback = FALLBACK_RANKING.get(language, [])
+    for pos, t in enumerate(fallback, 1):
+        t = _clean_title(t)
+        if t and _is_valid_keyword(t) and t not in title_site_count:
+            title_site_count[t] = 5
+            title_position.setdefault(t, []).append(pos)
+
     ranked = sorted(
         title_site_count.items(),
         key=lambda x: (-x[1], sum(title_position.get(x[0], [999])) / max(len(title_position.get(x[0], [999])), 1)),
     )
     keywords = [kw for kw, _ in ranked if _is_valid_keyword(kw)]
-
-    if len(keywords) < top:
-        fallback = FALLBACK_RANKING.get(language, [])
-        print(f"  Phase 3: Fallback ranking ({len(fallback)} titles, need {top - len(keywords)} more)")
-        for pos, t in enumerate(fallback, 1):
-            t = _clean_title(t)
-            if t and _is_valid_keyword(t) and t not in title_site_count:
-                title_site_count[t] = 5
-                title_position.setdefault(t, []).append(pos)
-        ranked = sorted(
-            title_site_count.items(),
-            key=lambda x: (-x[1], sum(title_position.get(x[0], [999])) / max(len(title_position.get(x[0], [999])), 1)),
-        )
-        keywords = [kw for kw, _ in ranked if _is_valid_keyword(kw)]
 
     return keywords[:top]
 
