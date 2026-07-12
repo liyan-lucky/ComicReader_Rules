@@ -1,29 +1,43 @@
 {
+  "priority": ["searxng", "duckduckgo", "brave", "serper", "googleCse"],
+  "description": "搜索优先级：免费优先，付费互补，结果够用即停",
   "searxng": {
     "enabled": true,
-    "url": "",
+    "default_url": "http://localhost:8080",
+    "max_pages": 0,
+    "language": "all",
+    "timeout": 20,
+    "envKey": "",
     "description": "自建SearXNG实例URL，留空则CI自动启动service container。本地运行设为 http://localhost:8080"
+  },
+  "duckduckgo": {
+    "enabled": true,
+    "html_url": "https://html.duckduckgo.com/html/",
+    "timeout": 20,
+    "description": "DuckDuckGo HTML抓取，免费但不稳定（易403）"
   },
   "brave": {
     "enabled": true,
+    "api_url": "https://api.search.brave.com/res/v1/web/search",
+    "timeout": 15,
     "envKey": "BRAVE_SEARCH_API_KEY",
     "description": "Brave Search API，免费2000次/月"
   },
   "serper": {
     "enabled": true,
+    "api_url": "https://google.serper.dev/search",
+    "gl": "cn",
+    "hl": "zh-cn",
+    "timeout": 15,
     "envKey": "SERPER_API_KEY",
     "description": "Serper Google搜索API，免费2500次/月"
   },
   "googleCse": {
     "enabled": true,
+    "api_url": "https://www.googleapis.com/customsearch/v1",
+    "timeout": 15,
     "envKey": "GOOGLE_API_KEY",
     "envKeyCx": "GOOGLE_CX",
     "description": "Google Custom Search API，免费100次/天"
-  },
-  "duckduckgo": {
-    "enabled": true,
-    "description": "DuckDuckGo HTML抓取，免费但不稳定（易403）"
-  },
-  "priority": ["searxng", "duckduckgo", "brave", "serper", "googleCse"],
-  "description": "搜索优先级：免费优先，付费互补，结果够用即停"
+  }
 }

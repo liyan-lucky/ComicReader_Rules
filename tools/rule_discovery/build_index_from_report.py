@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-_CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+_CONFIG_DIR = Path(__file__).resolve().parents[2] / "config"
 
 def _load_json_config(name: str, default=None):
     p = _CONFIG_DIR / name

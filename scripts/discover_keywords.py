@@ -205,7 +205,7 @@ def _searxng_url() -> str:
     if cfg_path.exists():
         try:
             cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
-            url = (cfg.get("searxng") or {}).get("url", "").strip()
+            url = (cfg.get("searxng") or {}).get("default_url", "").strip()
             if url:
                 return url
         except Exception:

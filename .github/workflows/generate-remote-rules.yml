@@ -323,20 +323,16 @@ jobs:
           python tools/rule_discovery/build_index_from_report.py --report "$REPORT_FILE" --output "$INDEX_FILE" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
           python tools/rule_discovery/sanitize_rule_outputs.py --report "$REPORT_FILE" --index "$INDEX_FILE" --ets "$ETS_FILE" --rules-output "$RULES_FILE"
 
-          cp "$REPORT_FILE" generated/rulebot_report.json
-          cp "$INDEX_FILE" generated/index.json
-          cp "$ETS_FILE" generated/GeneratedSourceRules.ets
-          cp "$RULES_FILE" rules/index.json
-
-      - name: 统计生成规则
+       - name: 统计生成规则
         run: |
           python - <<'PY'
           import json
           import os
           from pathlib import Path
 
-          index = json.loads(Path('generated/index.json').read_text('utf-8'))
-          report = json.loads(Path('generated/rulebot_report.json').read_text('utf-8'))
+           lang = os.environ.get('RULE_LANGUAGE', 'en')
+           index = json.loads(Path(f'generated/index.{lang}.json').read_text('utf-8'))
+           report = json.loads(Path(f'generated/rulebot_report.{lang}.json').read_text('utf-8'))
           rules = index.get('rules') or index.get('sources') or index.get('items') or []
           audit = index.get('audit') or {}
           stats = report.get('stats') or {}
@@ -492,8 +488,7 @@ jobs:
           git pull --rebase --autostash origin main
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
-          git add generated/index.json generated/rulebot_report.json generated/GeneratedSourceRules.ets rules/index.json generated/update_manifest.json
-          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json"
+          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json
           git add config/aggregator_sites.json
           if git diff --cached --quiet; then
             echo "No generated rule changes."
@@ -519,10 +514,6 @@ jobs:
           set -euo pipefail
           rm -rf dist/release
           mkdir -p dist/release
-          cp generated/index.json dist/release/generated-index.json
-          cp generated/rulebot_report.json dist/release/rulebot-report.json
-          cp generated/GeneratedSourceRules.ets dist/release/generated-source-rules.ets
-          cp rules/index.json dist/release/rules-index.json
           cp "generated/index.${RULE_LANGUAGE}.json" "dist/release/generated-index-${RULE_LANGUAGE}.json"
           cp "generated/rulebot_report.${RULE_LANGUAGE}.json" "dist/release/rulebot-report-${RULE_LANGUAGE}.json"
           cp "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
@@ -601,13 +592,9 @@ jobs:
         with:
           name: comic-reader-generated-rules-${{ env.RULE_RUN_MODE }}
           path: |
-            generated/index.json
             generated/index.*.json
-            generated/rulebot_report.json
             generated/rulebot_report.*.json
-            generated/GeneratedSourceRules.ets
             generated/GeneratedSourceRules.*.ets
-            rules/index.json
             rules/index.*.json
             generated/update_manifest.json
             dist/release/*

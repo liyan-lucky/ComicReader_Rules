@@ -288,7 +288,7 @@ def _searxng_url() -> str:
     if cfg_path.exists():
         try:
             cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
-            url = (cfg.get("searxng") or {}).get("url", "").strip()
+            url = (cfg.get("searxng") or {}).get("default_url", "").strip()
             if url:
                 return url
         except Exception:
@@ -302,7 +302,7 @@ def search_searxng(query: str, limit: int, suppress_zero: bool = False) -> List[
         return []
     all_out: List[Candidate] = []
     seen_urls: set = set()
-    max_pages_raw = _load_config("search_endpoints.json", {}).get("searxng", {}).get("max_pages", 3)
+    max_pages_raw = _load_config("search.json", {}).get("searxng", {}).get("max_pages", 3)
     max_pages = max_pages_raw if max_pages_raw and max_pages_raw > 0 else 999
     for page in range(1, max_pages + 1):
         if len(all_out) >= limit:
@@ -971,6 +971,13 @@ def main() -> int:
             line = line.strip()
             if line and not line.startswith("#"):
                 domains.append(line)
+    if not domains and args.language_code != "mixed":
+        for url in AGGREGATOR_SITES.get(args.language_code, []):
+            d = normalize_domain(url)
+            if d and d not in domains:
+                domains.append(d)
+        if domains:
+            log(f"[info] auto-loaded {len(domains)} domains from aggregator_sites.json for {args.language_code}")
     seeded_domains = set(KNOWN_SOURCE_SEEDS.keys()) if not args.no_seed_discovery else set()
 
     already_audited_domains: set = set()
