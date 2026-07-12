@@ -47,18 +47,21 @@ RANKING_SITES: Dict[str, List[dict]] = {
             "url": "https://ac.qq.com/Rank/comicRank/type/top",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
+            "text_pattern": r'<a[^>]*class="text-overflow"[^>]*title="([^"]+)"',
         },
         {
             "name": "腾讯动漫-月票榜",
             "url": "https://ac.qq.com/Rank/comicRank/type/mt",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
+            "text_pattern": r'<a[^>]*class="text-overflow"[^>]*title="([^"]+)"',
         },
         {
             "name": "腾讯动漫-飙升榜",
             "url": "https://ac.qq.com/Rank/comicRank/type/rise",
             "selector": ".rank-list-wrap a.text-overflow",
             "attr": "title",
+            "text_pattern": r'<a[^>]*class="text-overflow"[^>]*title="([^"]+)"',
         },
         {
             "name": "快看漫画-排行榜",
@@ -221,6 +224,7 @@ def _scrape_site(site_cfg: dict) -> List[str]:
     name = site_cfg.get("name", url)
     selector = site_cfg.get("selector", "")
     attr = site_cfg.get("attr", "title")
+    text_pattern = site_cfg.get("text_pattern", "")
 
     print(f"    Fetching: {name} ({url})")
     html_text = _fetch_page(url)
@@ -230,6 +234,11 @@ def _scrape_site(site_cfg: dict) -> List[str]:
 
     raw = _extract_from_selector(html_text, selector, attr) if selector else []
     print(f"      selector={len(raw)} titles")
+
+    if not raw and text_pattern:
+        print(f"      Trying text_pattern extraction...")
+        raw = [m.group(1).strip() for m in re.finditer(text_pattern, html_text) if m.group(1).strip()]
+        print(f"      text_pattern={len(raw)} titles")
 
     if not raw:
         print(f"      Trying cloudscraper fallback...")
@@ -241,6 +250,9 @@ def _scrape_site(site_cfg: dict) -> List[str]:
                 if r.status_code < 400 and r.text:
                     raw = _extract_from_selector(r.text, selector, attr) if selector else []
                     print(f"      cloudscraper selector={len(raw)} titles")
+                    if not raw and text_pattern:
+                        raw = [m.group(1).strip() for m in re.finditer(text_pattern, r.text) if m.group(1).strip()]
+                        print(f"      cloudscraper text_pattern={len(raw)} titles")
         except Exception as e:
             print(f"      cloudscraper error: {e}")
 
