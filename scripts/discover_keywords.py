@@ -108,6 +108,31 @@ RANKING_SITES: Dict[str, List[dict]] = {
     "ko": [],
 }
 
+FALLBACK_RANKING: Dict[str, List[str]] = {
+    "zh-Hans": [
+        "斗破苍穹", "一人之下", "斗罗大陆4终极斗罗", "道诡异仙", "万渣朝凰",
+        "我的徒弟都是大反派", "恰似寒光遇骄阳", "小白的男神爹地", "重生封神游戏之最强散人", "恶婴",
+        "日月同错", "狐妖小红娘", "19天", "我家老婆来自一千年前", "不健全关系",
+        "绍宋", "诱敌深入", "心动的声音", "星甲魂将传", "请与我同眠",
+        "喰恋", "我家大师兄脑子有坑", "斗罗大陆 II 绝世唐门", "大奉打更人", "勇士的意志 第二季",
+        "非人哉", "签到九万年", "不当舔狗后，我成了亿万神豪", "白天被逃婚晚上被奶凶指挥官求抱", "重生不当舔王，我独自氪金升级",
+        "绝色道侣都说吾皇体质无敌", "反派大师兄，师妹们全是病娇", "穿成Alpha大佬的金丝大鹅", "开局一座山", "魔皇前夫诈尸了",
+        "我独自升级", "地球尽头", "斗罗大陆 第三部 龙王传说", "我竟成了异世界后宫的采集对象", "大象无形",
+        "我为邪帝", "全知读者视角", "敖敖待捕", "奇洛李维斯回信", "强制勾引指南",
+        "高武进化：从觉醒怪兽之王开始", "传武", "雪之牢笼", "犬大欺主", "我真没想重生啊",
+        "盐友", "斗罗大陆 5 重生唐三", "尸兄", "快穿：上瘾关系", "从水猴子开始成神",
+        "航海王", "学霸哥哥别碰我", "一骗丹心", "居心不敬", "开局签到荒古圣体",
+        "遇强则强，我的修为无上限", "情绪病", "孤日落", "意中人", "火影忍者",
+        "宦妃天下", "我不是教主", "妖神记", "我可不跟你去苞米地", "原来，她们才是主角",
+        "王牌御史", "与死亡同行：从鱼人地下城开始", "万界守门人", "一不小心，名垂千史", "中国惊奇先生",
+        "我独自升级 ：诸神黄昏", "诡浊仙道", "污系少女老黄", "我靠后宫征服世界", "蛊真人",
+        "摊牌了，我全职业系统", "系统送我避难所", "日久见人缺心眼", "祈祷之夜", "妖怪名单",
+        "他的星星", "从姑获鸟开始", "只有尾巴不可以", "我的专属邪神", "这里的妹子都想攻略我",
+        "圣心不难撩", "治愈我的邪神", "恶之环", "1st Kiss", "无限回档：我在惊悚游戏做bug",
+        "顶级气运，悄悄修炼千年", "开局绝色俏师父：系统十斤反骨", "火影忍者（全彩版）", "斗厌神", "我的天劫女友",
+    ],
+}
+
 NOISE_PATTERNS = re.compile(
     r'^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|'
     r'第[一二三四五六七八九十百千零〇两\d]+[话章回卷]|'
@@ -395,8 +420,23 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
         title_site_count.items(),
         key=lambda x: (-x[1], sum(title_position.get(x[0], [999])) / max(len(title_position.get(x[0], [999])), 1)),
     )
-    keywords = [kw for kw, _ in ranked if _is_valid_keyword(kw)][:top]
-    return keywords
+    keywords = [kw for kw, _ in ranked if _is_valid_keyword(kw)]
+
+    if len(keywords) < top:
+        fallback = FALLBACK_RANKING.get(language, [])
+        print(f"  Phase 3: Fallback ranking ({len(fallback)} titles, need {top - len(keywords)} more)")
+        for pos, t in enumerate(fallback, 1):
+            t = _clean_title(t)
+            if t and _is_valid_keyword(t) and t not in title_site_count:
+                title_site_count[t] = title_site_count.get(t, 0) + 1
+                title_position.setdefault(t, []).append(pos + 100)
+        ranked = sorted(
+            title_site_count.items(),
+            key=lambda x: (-x[1], sum(title_position.get(x[0], [999])) / max(len(title_position.get(x[0], [999])), 1)),
+        )
+        keywords = [kw for kw, _ in ranked if _is_valid_keyword(kw)]
+
+    return keywords[:top]
 
 
 def main() -> int:
