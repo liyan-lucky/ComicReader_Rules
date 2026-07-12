@@ -357,13 +357,7 @@ def reassign_uncategorized_items(items_by_title: Dict[str, Dict[str, Any]], stat
         else:
             tags = item.get("tags", []) if isinstance(item.get("tags"), list) else []
             for tag in tags:
-                tag_to_cat = dict(TAG_TO_CATEGORY_MAP)
-                tag_to_cat.update({
-                    "xuanhuan": "qihuan", "chuanyue": "maoxian", "chongsheng": "qihuan",
-                    "yishijie": "qihuan", "xitong": "qihuan", "fuchou": "juqing",
-                    "shuangwen": "dongzuo", "hougong": "lianai", "danmei": "lianai",
-                    "baihe": "lianai", "shaonian": "dongzuo", "shaonv": "lianai",
-                })
+                tag_to_cat = TAG_TO_CATEGORY_MAP
                 target = tag_to_cat.get(tag)
                 if target and target in under and counts.get(target, 0) < TARGET_COUNT:
                     item["previousPrimaryCategory"] = current

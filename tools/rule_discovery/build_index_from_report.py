@@ -7,7 +7,29 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-UA = 'Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules'
+_CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
+
+def _load_json_config(name: str, default=None):
+    p = _CONFIG_DIR / name
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return default
+
+_HEADERS_CFG = _load_json_config("headers.json", {})
+UA = _HEADERS_CFG.get("rule_bot_ua", "")
+
+_REGEX_CFG = _load_json_config("regex_patterns.json", {})
+_PATTERN_SETS = _REGEX_CFG.get("pattern_sets", {})
+_LANG_MAPPING = _REGEX_CFG.get("lang_mapping", {})
+_COMMON_PATTERNS = _REGEX_CFG.get("common", {})
+
+def _get_patterns(lang_code: str) -> dict:
+    mapped = _LANG_MAPPING.get(lang_code, lang_code)
+    lang_patterns = _PATTERN_SETS.get(mapped, _PATTERN_SETS.get("zh", {}))
+    return {**_COMMON_PATTERNS, **lang_patterns}
 
 _BAD_TITLE_RE = re.compile(r'^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)', re.I)
 
@@ -34,16 +56,8 @@ REQUIRED_RULE_FIELDS = [
     'readerImageRegex', 'readerImageGroups', 'userAgent', 'referer'
 ]
 
-PROJECT_COMPLIANCE = {
-    'license': 'MIT',
-    'publicOnly': True,
-    'noAccountData': True,
-    'noBundledComicContent': True,
-    'noPaidContentCopies': True,
-    'noProtectedAssets': True,
-    'noAccessControlBypass': True,
-    'rightsPolicy': 'See README.md, DISCLAIMER.md and COMPLIANCE.md'
-}
+_COMPLIANCE_CFG = _load_json_config("compliance.json", {})
+PROJECT_COMPLIANCE = _COMPLIANCE_CFG if _COMPLIANCE_CFG else {}
 
 def safe_str(value) -> str:
     return '' if value is None else str(value).strip()
@@ -87,7 +101,8 @@ def load_manual_rules(path: str) -> list[dict]:
             rules.append(add_rule_compliance(item))
     return rules
 
-def rule_for_audit(a: dict) -> dict:
+def rule_for_audit(a: dict, lang_code: str = "zh") -> dict:
+    _patterns = _get_patterns(lang_code)
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
     title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
@@ -98,21 +113,21 @@ def rule_for_audit(a: dict) -> dict:
         'homepage': base,
         'searchUrl': '',
         'searchMethod': 'url-only',
-        'searchItemRegex': '<a[^>]+href=["\\\']([^"\\\']+)["\\\'][^>]*>([\\s\\S]{0,260}?)<\\/a>',
+        'searchItemRegex': _patterns.get('searchItemRegex', ''),
         'searchTitleGroups': [2],
         'searchUrlGroups': [1],
         'searchCoverGroups': [],
         'searchResultIsChapter': False,
         'searchFilterByKeyword': False,
-        'detailChapterRegex': '<a[^>]+href=["\\\']([^"\\\']+)["\\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>',
+        'detailChapterRegex': _patterns.get('detailChapterRegex', ''),
         'detailChapterTitleGroups': [2],
         'detailChapterUrlGroups': [1],
         'detailChapterFilter': True,
-        'readerImageRegex': '<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\\\']([^"\\\']+)["\\\'][^>]*>|["\\\']((?:https?:)?\\/\\/[^"\\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^"\\\']*)?)["\\\']|["\\\']((?:https?:)?//[^"\\\']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^"\\\']*)?)["\\\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\\\']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])',
+        'readerImageRegex': _patterns.get('readerImageRegex', ''),
         'readerImageGroups': [1, 2, 3, 4],
         'userAgent': UA,
         'referer': base + '/',
-        'readerNextPageRegex': '<a[^>]+href=["\\\']([^"\\\']+)["\\\'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=["\\\']next["\\\'][^>]+href=["\\\']([^"\\\']+)["\\\']|href=["\\\']([^"\\\']+)["\\\'][^>]+rel=["\\\']next["\\\']',
+        'readerNextPageRegex': _patterns.get('readerNextPageRegex', ''),
         'readerNextPageUrlGroups': [1, 2, 3],
         'maxReaderPages': 12
     })
@@ -148,7 +163,7 @@ def main() -> int:
     seen: set[str] = set()
     generated_valid_count = 0
     for a in data.get('generated', []):
-        r = rule_for_audit(a)
+        r = rule_for_audit(a, language_code)
         if is_valid_rule(r):
             append_unique(rules, seen, r)
             generated_valid_count += 1

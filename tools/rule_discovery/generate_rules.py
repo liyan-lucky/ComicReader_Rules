@@ -959,7 +959,7 @@ def main() -> int:
     if not keywords and args.language_code != "mixed":
         keywords = RULE_KEYWORDS.get(args.language_code, [])
     if not keywords:
-        keywords = ["斗罗大陆", "Soul Land", "Douluo Dalu"]
+        keywords = RULE_KEYWORDS.get("zh-Hans", [])
     log(f"[info] keywords: {len(keywords)} (from args: {len(args.keyword)}, from files: {len(args.keywords_file)}, from json: {len(RULE_KEYWORDS.get(args.language_code, []))})")
     domains = args.domain or []
     for df in args.domains_file:

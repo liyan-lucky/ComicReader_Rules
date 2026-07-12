@@ -22,34 +22,20 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 _BLOCKED_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "blocked_domains.json"
-if _BLOCKED_CFG_PATH.exists():
-    try:
-        _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
-        BLOCKED_DOMAIN_KEYWORDS = _BLOCKED_CFG.get("generate_rules", _BLOCKED_CFG.get("discover_domains", []))
-    except Exception:
-        BLOCKED_DOMAIN_KEYWORDS = [
-            "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
-            "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
-            "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
-            "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com", "shop",
-        ]
-else:
-    BLOCKED_DOMAIN_KEYWORDS = [
-        "douyin", "iesdouyin", "tiktok", "snssdk", "kuaishou", "gifshow", "ixigua", "toutiao",
-        "youtube", "youtu.be", "bilibili", "acfun", "facebook", "instagram", "twitter", "x.com",
-        "reddit", "pinterest", "weibo", "weixin", "wechat", "qq.com", "zhihu", "baike", "wikipedia",
-        "google", "bing", "duckduckgo", "yahoo", "amazon", "taobao", "tmall", "jd.com", "shop",
-    ]
+if not _BLOCKED_CFG_PATH.exists():
+    print(f"[error] required config not found: {_BLOCKED_CFG_PATH}", file=sys.stderr)
+    sys.exit(1)
+try:
+    _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
+except Exception as exc:
+    print(f"[error] failed to parse {_BLOCKED_CFG_PATH}: {exc}", file=sys.stderr)
+    sys.exit(1)
 
-BLOCKED_PATH_KEYWORDS = [
-    "/video", "/live", "/short", "/reel", "/photo", "/post", "/user", "/profile", "/topic",
-    "/news", "/forum", "/bbs", "/comment", "/login", "/register", "/download", "/app",
-]
-
-COMIC_POSITIVE_KEYWORDS = [
-    "comic", "manga", "manhua", "manhwa", "webtoon", "cartoon", "chapter", "read", "reader",
-    "漫画", "章节", "阅读", "连载", "完结",
-]
+_DISCOVER_BLOCKED = _BLOCKED_CFG.get("discover_domains", [])
+_GENERATE_BLOCKED = _BLOCKED_CFG.get("generate_rules", [])
+BLOCKED_DOMAIN_KEYWORDS = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
+BLOCKED_PATH_KEYWORDS = _BLOCKED_CFG.get("blocked_path_keywords", [])
+COMIC_POSITIVE_KEYWORDS = _BLOCKED_CFG.get("comic_positive_keywords", [])
 
 
 def now_iso() -> str:

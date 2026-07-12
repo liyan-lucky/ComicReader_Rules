@@ -16,54 +16,27 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
+CONFIG_DIR = ROOT / "config"
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-UA = "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RemoteRules"
 
-PROJECT_COMPLIANCE = {
-    "license": "MIT",
-    "publicOnly": True,
-    "noAccountData": True,
-    "noBundledComicContent": True,
-    "noPaidContentCopies": True,
-    "noProtectedAssets": True,
-    "noAccessControlBypass": True,
-    "rightsPolicy": "See README.md, DISCLAIMER.md and COMPLIANCE.md",
-}
+def _load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
 
-PATTERN_ZH = {
-    "detailChapterRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,180}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)<\/a>',
-    "readerImageRegex": r'<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\']([^"\']+)["\'][^>]*>|["\']((?:https?:)?\/\/[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|["\']((?:https?:)?//[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])',
-    "readerNextPageRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(?:\s*下一页\s*|\s*下页\s*|\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*)<\/a>|rel=["\']next["\'][^>]+href=["\']([^"\']+)["\']|href=["\']([^"\']+)["\'][^>]+rel=["\']next["\']',
-}
 
-PATTERN_EN = {
-    "detailChapterRegex": r'<a[^>]+href=["\']([^"\']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^"\']*)["\'][^>]*>([\s\S]{0,220}?(?:Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|Read Chapter)[\s\S]{0,120}?)<\/a>',
-    "readerImageRegex": r'<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\']([^"\']+)["\'][^>]*>|<source[^>]+srcset=["\']([^"\']+)["\'][^>]*>|["\']((?:https?:)?\/\/[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])',
-    "readerNextPageRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(?:\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*|\s*»\s*)<\/a>|rel=["\']next["\'][^>]+href=["\']([^"\']+)["\']|href=["\']([^"\']+)["\'][^>]+rel=["\']next["\']',
-}
+def _compile_pattern_set(raw: Dict[str, str]) -> Dict[str, str]:
+    return {k: v for k, v in raw.items()}
 
-PATTERN_JA = {
-    "detailChapterRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,180}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|話|章|回|Episode|episode|EP\s*\d+|読む)[\s\S]{0,120}?)<\/a>',
-    "readerImageRegex": r'<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\']([^"\']+)["\'][^>]*>|["\']((?:https?:)?\/\/[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])',
-    "readerNextPageRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(?:\s*次へ\s*|\s*次のページ\s*|\s*Next\s*|\s*&gt;\s*)<\/a>|rel=["\']next["\'][^>]+href=["\']([^"\']+)["\']|href=["\']([^"\']+)["\'][^>]+rel=["\']next["\']',
-}
 
-PATTERN_KO = {
-    "detailChapterRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,180}?(?:제\s*\d+|第\s*\d+|화|章|회|Episode|episode|EP\s*\d+|읽기)[\s\S]{0,120}?)<\/a>',
-    "readerImageRegex": r'<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\']([^"\']+)["\'][^>]*>|["\']((?:https?:)?\/\/[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])',
-    "readerNextPageRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(?:\s*다음\s*|\s*다음페이지\s*|\s*Next\s*|\s*&gt;\s*)<\/a>|rel=["\']next["\'][^>]+href=["\']([^"\']+)["\']|href=["\']([^"\']+)["\'][^>]+rel=["\']next["\']',
-}
+UA = _load_json(CONFIG_DIR / "headers.json")["rule_bot_ua"]
 
-LANG_PATTERNS = {
-    "zh-Hans": PATTERN_ZH,
-    "zh-Hant": PATTERN_ZH,
-    "en": PATTERN_EN,
-    "ja": PATTERN_JA,
-    "ko": PATTERN_KO,
-}
+PROJECT_COMPLIANCE = _load_json(CONFIG_DIR / "compliance.json")
+
+_regex_cfg = _load_json(CONFIG_DIR / "regex_patterns.json")
+_pattern_sets = {k: _compile_pattern_set(v) for k, v in _regex_cfg["pattern_sets"].items()}
+LANG_PATTERNS = {lang: _pattern_sets[set_key] for lang, set_key in _regex_cfg["lang_mapping"].items()}
 
 LANG_NAMES = {
     "zh-Hans": "简体中文",
@@ -73,67 +46,7 @@ LANG_NAMES = {
     "ko": "한국어",
 }
 
-SEARCH_URL_TEMPLATES = {
-    "comick.io": "https://comick.io/search?q={keyword}",
-    "mangadex.org": "https://mangadex.org/search?q={keyword}",
-    "mangafire.to": "https://mangafire.to/search?keyword={keyword}",
-    "mangahere.cc": "https://mangahere.cc/search?keyword={keyword}",
-    "mangapark.net": "https://mangapark.net/search?q={keyword}",
-    "bato.to": "https://bato.to/search?q={keyword}",
-    "mangabuddy.com": "https://mangabuddy.com/search?q={keyword}",
-    "mangakakalot.com": "https://mangakakalot.com/search?q={keyword}",
-    "fanfox.net": "https://fanfox.net/search?keyword={keyword}",
-    "mangasee123.com": "https://mangasee123.com/search?keyword={keyword}",
-    "mangalife.us": "https://mangalife.us/search?keyword={keyword}",
-    "mangareader.tv": "https://mangareader.tv/search?keyword={keyword}",
-    "asuracomic.net": "https://asuracomic.net/search?q={keyword}",
-    "mangahub.io": "https://mangahub.io/search?q={keyword}",
-    "mangatown.com": "https://mangatown.com/search?keyword={keyword}",
-    "mangaclash.com": "https://mangaclash.com/search?q={keyword}",
-    "mangakomi.io": "https://mangakomi.io/search?q={keyword}",
-    "toonily.com": "https://toonily.com/search?q={keyword}",
-    "webtoon.xyz": "https://webtoon.xyz/search?q={keyword}",
-    "manhwascan.net": "https://manhwascan.net/search?q={keyword}",
-    "flamescans.org": "https://flamescans.org/search?q={keyword}",
-    "mangaeffect.com": "https://mangaeffect.com/search?q={keyword}",
-    "kunmanga.com": "https://kunmanga.com/search?q={keyword}",
-    "tapas.io": "https://tapas.io/search?q={keyword}",
-    "mgeko.cc": "https://mgeko.cc/search?q={keyword}",
-    "comic-walker.com": "https://comic-walker.com/search?q={keyword}",
-    "comicdays.com": "https://comicdays.com/search?q={keyword}",
-    "webtoons.com": "https://webtoons.com/search?keyword={keyword}",
-    "comic.naver.com": "https://comic.naver.com/search?keyword={keyword}",
-    "kakaopage.com": "https://kakaopage.com/search?keyword={keyword}",
-    "lezhin.com": "https://lezhin.com/search?keyword={keyword}",
-    "bomtoon.com": "https://bomtoon.com/search?keyword={keyword}",
-    "ridibooks.com": "https://ridibooks.com/search?keyword={keyword}",
-    "colamanga.com": "https://colamanga.com/search?keyword={keyword}",
-    "dm5.com": "https://dm5.com/search?keyword={keyword}",
-    "dm5.cn": "https://dm5.cn/search?keyword={keyword}",
-    "kanman.com": "https://kanman.com/search?keyword={keyword}",
-    "kuaikanmanhua.com": "https://kuaikanmanhua.com/search?keyword={keyword}",
-    "manhuagui.com": "https://manhuagui.com/search?keyword={keyword}",
-    "manhuaren.com": "https://manhuaren.com/search?keyword={keyword}",
-    "mkzhan.com": "https://mkzhan.com/search?keyword={keyword}",
-    "sfacg.com": "https://sfacg.com/search?keyword={keyword}",
-    "xinmanhua.net": "https://xinmanhua.net/search?keyword={keyword}",
-    "zaimanhua.com": "https://zaimanhua.com/search?keyword={keyword}",
-    "zymk.cn": "https://zymk.cn/search?keyword={keyword}",
-    "manhuaplus.com": "https://manhuaplus.com/search?keyword={keyword}",
-    "manhuaplus.top": "https://manhuaplus.top/search?keyword={keyword}",
-    "readmanhua.net": "https://readmanhua.net/search?keyword={keyword}",
-    "topmanhua.com": "https://topmanhua.com/search?keyword={keyword}",
-    "manhuascan.io": "https://manhuascan.io/search?keyword={keyword}",
-    "copymanga.com": "https://copymanga.com/search?keyword={keyword}",
-    "baozimanhua.com": "https://baozimanhua.com/search?keyword={keyword}",
-    "happymh.com": "https://happymh.com/search?keyword={keyword}",
-    "mojoin.com": "https://mojoin.com/search?keyword={keyword}",
-    "manmanapp.com": "https://manmanapp.com/search?keyword={keyword}",
-    "guazimanhua.com": "https://guazimanhua.com/search?keyword={keyword}",
-    "kalamanhua.com": "https://kalamanhua.com/search?keyword={keyword}",
-    "kaixinman.com": "https://kaixinman.com/search?keyword={keyword}",
-    "mycomic.com": "https://mycomic.com/search?keyword={keyword}",
-}
+SEARCH_URL_TEMPLATES = _load_json(CONFIG_DIR / "search_url_templates.json")
 
 
 def normalize_domain(domain: str) -> str:
