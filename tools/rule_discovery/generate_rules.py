@@ -1003,8 +1003,6 @@ def main() -> int:
 
     existing_rules_paths = [
         Path(f"rules/index.{args.language_code}.json") if args.language_code != "mixed" else None,
-        Path("rules/index.json"),
-        Path("generated/index.json"),
     ]
     for erp in existing_rules_paths:
         if erp is None or not erp.exists():

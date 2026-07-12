@@ -488,7 +488,7 @@ jobs:
           git pull --rebase --autostash origin main
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
-          git add "generated/index.${RULE_LANGUAGE}.json" "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json
+          git add "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json
           git add config/aggregator_sites.json
           if git diff --cached --quiet; then
             echo "No generated rule changes."
@@ -514,7 +514,6 @@ jobs:
           set -euo pipefail
           rm -rf dist/release
           mkdir -p dist/release
-          cp "generated/index.${RULE_LANGUAGE}.json" "dist/release/generated-index-${RULE_LANGUAGE}.json"
           cp "generated/rulebot_report.${RULE_LANGUAGE}.json" "dist/release/rulebot-report-${RULE_LANGUAGE}.json"
           cp "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
           cp "rules/index.${RULE_LANGUAGE}.json" "dist/release/rules-index-${RULE_LANGUAGE}.json"
@@ -544,11 +543,6 @@ jobs:
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
           RELEASE_TITLE="Search Rules $(date -u +'%Y-%m-%d')"
           RELEASE_FILES=(
-            dist/release/generated-index.json
-            dist/release/rulebot-report.json
-            dist/release/generated-source-rules.ets
-            dist/release/rules-index.json
-            "dist/release/generated-index-${RULE_LANGUAGE}.json"
             "dist/release/rulebot-report-${RULE_LANGUAGE}.json"
             "dist/release/generated-source-rules-${RULE_LANGUAGE}.ets"
             "dist/release/rules-index-${RULE_LANGUAGE}.json"
@@ -592,7 +586,6 @@ jobs:
         with:
           name: comic-reader-generated-rules-${{ env.RULE_RUN_MODE }}
           path: |
-            generated/index.*.json
             generated/rulebot_report.*.json
             generated/GeneratedSourceRules.*.ets
             rules/index.*.json

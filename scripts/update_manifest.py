@@ -24,8 +24,8 @@ MANIFEST_PATH = Path("generated/update_manifest.json")
 SECTION_CONFIG = {
     "rules": {
         "name": "search rules",
-        "source": Path("generated/index.json"),
-        "url": f"{REPO_RAW_BASE}/generated/index.json",
+        "source": Path("rules/index.json"),
+        "url": f"{REPO_RAW_BASE}/rules/index.json",
         "extra": {
             "rulesUrl": f"{REPO_RAW_BASE}/rules/index.json",
             "reportUrl": f"{REPO_RAW_BASE}/generated/rulebot_report.json",
@@ -34,14 +34,9 @@ SECTION_CONFIG = {
     },
     "catalog": {
         "name": "catalog",
-        "source": Path("generated/catalog.json"),
-        "url": f"{REPO_RAW_BASE}/generated/catalog.json",
-        "extra": {
-            "categoriesUrl": f"{REPO_RAW_BASE}/generated/catalog_categories.json",
-            "deltaUrl": f"{REPO_RAW_BASE}/generated/catalog_delta.json",
-            "reportUrl": f"{REPO_RAW_BASE}/generated/catalog_report.json",
-            "targetGapsUrl": f"{REPO_RAW_BASE}/generated/catalog_target_gaps.json",
-        },
+        "source": Path("catalog/catalog.json"),
+        "url": f"{REPO_RAW_BASE}/catalog/catalog.json",
+        "extra": {},
     },
 }
 

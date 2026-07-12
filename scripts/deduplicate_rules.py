@@ -117,22 +117,12 @@ def main() -> int:
     dump_json(report_file, stats)
 
     for lang_file in ROOT.glob("rules/index.*.json"):
-        if lang_file.name == "index.json":
-            continue
         lang_data = load_json(lang_file, {})
         lang_rules = lang_data.get("rules", [])
         if len(lang_rules) == len(rules):
             lang_data["rules"] = kept
             dump_json(lang_file, lang_data)
             print(f"Updated {lang_file.name}")
-
-    index_file = ROOT / "rules" / "index.json"
-    idx_data = load_json(index_file, {})
-    idx_rules = idx_data.get("rules", [])
-    if len(idx_rules) == len(rules):
-        idx_data["rules"] = kept
-        dump_json(index_file, idx_data)
-        print("Updated rules/index.json")
 
     return 0
 
