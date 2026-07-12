@@ -1,52 +1,52 @@
 {
   "schema": "comic_catalog_report_v1",
-  "updatedAt": "2026-07-10T01:33:44Z",
+  "updatedAt": "2026-07-12T04:27:05Z",
   "input": {
     "index": "generated/index.json",
     "report": "generated/rulebot_report.json",
     "discoverySources": "generated/catalog_discovery_sources.json",
     "manualRules": "rules/manual/index.json"
   },
-  "itemCount": 3048,
+  "itemCount": 2955,
   "categoryCount": 16,
   "tagCount": 12,
-  "sourceRecordCount": 59601,
-  "indexRecordCount": 28297,
-  "reportRecordCount": 28304,
+  "sourceRecordCount": 75614,
+  "indexRecordCount": 36282,
+  "reportRecordCount": 36332,
   "discoveryRecordCount": 0,
   "categorySearchRecordCount": 3000,
-  "uncategorizedCount": 144,
+  "uncategorizedCount": 73,
   "uncategorizedSamples": [
+    "Against the Gods",
+    "Age Matters",
+    "Ao Ashi",
+    "Arifureta",
+    "Ascendance of Bookworm",
+    "Attack on Titan",
+    "BOFURI",
+    "Berserk",
+    "Bleach",
+    "Blue Lock",
+    "Bunny Girl Senpai",
+    "Chainsaw Man",
     "Comick公开搜索源",
-    "MangaFire公开搜索源",
-    "ManhuaPlus公开搜索源",
-    "OVERLORD",
-    "manga.hk - manga.hk 远程公开源",
-    "static3w.kuaikanmanhua.com - static3w.kuaikanmanhua.com 远程公开源",
-    "webtoon中文",
-    "window.webpackJsonp=window.webpackJsonp||[]).pu - static3w.kuaikanmanhua.com 远程公开源",
-    "一人之下",
-    "一拳超人",
-    "七大罪",
-    "万古神帝",
-    "万族之劫",
-    "万界仙踪",
-    "万相之王",
-    "世界尽头的圣骑士",
-    "东京复仇者",
-    "为美好的世界献上祝福",
-    "九州缥缈录",
-    "从前有座灵剑山",
-    "仙草供应商",
-    "仙逆",
-    "佣兵天下",
-    "修罗剑尊",
-    "元尊",
-    "免费漫画",
-    "全球高武",
-    "全知读者视角",
-    "全职猎人",
-    "全职高手"
+    "Dandadan",
+    "Diamond no Ace",
+    "Douluo Dalu",
+    "Dr. Stone",
+    "Edit This Page on Github - orv.pages.dev 远程公开源",
+    "Eleceed",
+    "English",
+    "Fairy Tail",
+    "Gachiakuta",
+    "Haikyuu",
+    "Hajime no Ippo",
+    "I Got a Cheat Skill",
+    "Jujutsu Kaisen",
+    "Kaiju No. 8",
+    "Killing Stalking",
+    "Kingdom",
+    "Konosuba"
   ],
   "singlePrimaryCategory": true,
   "clickableLinks": true,
@@ -115,99 +115,19 @@
   "categorySearch": {
     "enabledRuleCount": 6,
     "categoryCount": 15,
-    "searchPagesFetched": 177,
-    "searchPagesFailed": 18,
+    "searchPagesFetched": 193,
+    "searchPagesFailed": 2,
     "recordsFound": 3000,
     "errors": [
       {
         "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%8A%A8%E4%BD%9C&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%88%98%E6%96%97&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%86%92%E9%99%A9&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%8E%A2%E9%99%A9&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%81%8B%E7%88%B1&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E7%88%B1%E6%83%85&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%90%9E%E7%AC%91&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%96%9C%E5%89%A7&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%81%90%E6%80%96&post_type=wp-manga",
+        "url": "https://manhuaplus.com/?s=%E5%89%A7%E6%83%85&post_type=wp-manga",
         "error": "HTTP Error 520: <none>"
       },
       {
         "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%83%8A%E6%82%9A&post_type=wp-manga",
+        "url": "https://manhuaplus.com/?s=%E5%AE%B6%E5%BA%AD&post_type=wp-manga",
         "error": "HTTP Error 520: <none>"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%82%AC%E7%96%91&post_type=wp-manga",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%8E%A8%E7%90%86&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%8E%86%E5%8F%B2&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E5%8F%A4%E9%A3%8E&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E9%83%BD%E5%B8%82&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E6%80%BB%E8%A3%81&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E4%BF%AE%E4%BB%99&post_type=wp-manga",
-        "error": "The read operation timed out"
-      },
-      {
-        "ruleId": "manhuaplus_public_search",
-        "url": "https://manhuaplus.com/?s=%E4%BF%AE%E7%9C%9F&post_type=wp-manga",
-        "error": "The read operation timed out"
       }
     ],
     "targetPerCategory": 200,
@@ -231,26 +151,26 @@
     }
   },
   "detailMetadata": {
-    "detailPagesFetched": 589,
-    "detailPagesFailed": 1,
-    "metadataHits": 584,
+    "detailPagesFetched": 602,
+    "detailPagesFailed": 3,
+    "metadataHits": 599,
     "metadataLimit": 3000,
-    "categorySearchFallbackAssigned": 378,
+    "categorySearchFallbackAssigned": 368,
     "categoryCountsAfterFallback": {
-      "dongzuo": 59,
-      "dushi": 41,
-      "juqing": 39,
-      "kehuan": 40,
-      "kongbu": 34,
-      "lianai": 72,
-      "lishi_gufeng": 44,
-      "maoxian": 33,
-      "qihuan": 40,
-      "richang": 32,
-      "wuxia_gedou": 34,
-      "xiaoyuan": 37,
-      "xiju": 28,
-      "xiuxian": 27,
+      "dongzuo": 90,
+      "dushi": 38,
+      "juqing": 42,
+      "kehuan": 38,
+      "kongbu": 33,
+      "lianai": 71,
+      "lishi_gufeng": 41,
+      "maoxian": 32,
+      "qihuan": 39,
+      "richang": 29,
+      "wuxia_gedou": 28,
+      "xiaoyuan": 36,
+      "xiju": 30,
+      "xiuxian": 24,
       "xuanyi": 40
     }
   },
@@ -258,12 +178,12 @@
     {
       "id": "xuanhuan",
       "name": "玄幻",
-      "count": 2
+      "count": 1
     },
     {
       "id": "chuanyue",
       "name": "穿越",
-      "count": 10
+      "count": 7
     },
     {
       "id": "chongsheng",
@@ -273,22 +193,22 @@
     {
       "id": "yishijie",
       "name": "异世界",
-      "count": 21
+      "count": 15
     },
     {
       "id": "xitong",
       "name": "系统",
-      "count": 18
+      "count": 23
     },
     {
       "id": "fuchou",
       "name": "复仇",
-      "count": 21
+      "count": 19
     },
     {
       "id": "shuangwen",
       "name": "爽文",
-      "count": 11
+      "count": 17
     },
     {
       "id": "hougong",
@@ -298,22 +218,22 @@
     {
       "id": "danmei",
       "name": "耽美",
-      "count": 96
+      "count": 102
     },
     {
       "id": "baihe",
       "name": "百合",
-      "count": 19
+      "count": 22
     },
     {
       "id": "shaonian",
       "name": "少年",
-      "count": 12
+      "count": 10
     },
     {
       "id": "shaonv",
       "name": "少女",
-      "count": 16
+      "count": 14
     }
   ],
   "targetBoost": {
@@ -321,239 +241,239 @@
     "targetCount": 200,
     "minimumVisibleTarget": 200,
     "searchRules": 6,
-    "searchPagesFetched": 1279,
-    "searchPagesFailed": 131,
-    "newItems": 2298,
-    "existingItemsTouched": 19025,
+    "searchPagesFetched": 1347,
+    "searchPagesFailed": 30,
+    "newItems": 2260,
+    "existingItemsTouched": 18492,
     "reassignedFromOverflow": 0,
     "errors": [
       {
         "category": "xiuxian",
-        "keyword": "修仙",
-        "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
-      },
-      {
-        "category": "xiuxian",
-        "keyword": "飞升",
+        "keyword": "仙王",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "搞笑",
+        "category": "richang",
+        "keyword": "生活",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "喜剧",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 500: Internal Server Error"
-      },
-      {
-        "category": "xiju",
-        "keyword": "沙雕",
+        "category": "richang",
+        "keyword": "leisurely",
         "ruleId": "manhuaplus_public_search",
         "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiju",
-        "keyword": "欢乐",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiju",
-        "keyword": "整蛊",
-        "ruleId": "manhuaplus_public_search",
-        "error": "HTTP Error 520: <none>"
-      },
-      {
-        "category": "xiju",
-        "keyword": "comedy",
-        "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
-      },
-      {
-        "category": "xiju",
-        "keyword": "funny",
-        "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
-      },
-      {
-        "category": "xiju",
-        "keyword": "gag",
-        "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
-      },
-      {
-        "category": "xiju",
-        "keyword": "parody",
-        "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
       },
       {
         "category": "xiju",
         "keyword": "humor",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 500: Internal Server Error"
       },
       {
         "category": "xiju",
         "keyword": "slapstick",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "prank",
+        "category": "kongbu",
+        "keyword": "灵异",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "joke",
+        "category": "kongbu",
+        "keyword": "诡异",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "laugh",
+        "category": "kongbu",
+        "keyword": "诅咒",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "hilarious",
+        "category": "kongbu",
+        "keyword": "凶宅",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "witty",
+        "category": "xiaoyuan",
+        "keyword": "考试",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 500: Internal Server Error"
       },
       {
-        "category": "xiju",
-        "keyword": "satire",
+        "category": "kehuan",
+        "keyword": "未来",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "absurd",
+        "category": "kehuan",
+        "keyword": "克隆",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "silly",
+        "category": "dushi",
+        "keyword": "office",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "lighthearted",
+        "category": "dushi",
+        "keyword": "doctor",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "xiju",
-        "keyword": "cheerful",
+        "category": "dushi",
+        "keyword": "bodyguard",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "地下城",
+        "category": "xuanyi",
+        "keyword": "悬疑",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "秘境",
+        "category": "xuanyi",
+        "keyword": "线索",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "寻宝",
+        "category": "xuanyi",
+        "keyword": "detective",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "旅途",
+        "category": "lishi_gufeng",
+        "keyword": "period",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 500: Internal Server Error"
       },
       {
-        "category": "maoxian",
-        "keyword": "异域",
+        "category": "juqing",
+        "keyword": "剧情",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "荒野",
+        "category": "juqing",
+        "keyword": "家庭",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
       },
       {
-        "category": "maoxian",
-        "keyword": "adventure",
+        "category": "juqing",
+        "keyword": "悲剧",
         "ruleId": "manhuaplus_public_search",
-        "error": "The read operation timed out"
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "juqing",
+        "keyword": "阴谋",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "juqing",
+        "keyword": "family",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "lianai",
+        "keyword": "新娘",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dongzuo",
+        "keyword": "战斗",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dongzuo",
+        "keyword": "热血",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dongzuo",
+        "keyword": "格斗",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dongzuo",
+        "keyword": "拳击",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
+      },
+      {
+        "category": "dongzuo",
+        "keyword": "battle",
+        "ruleId": "manhuaplus_public_search",
+        "error": "HTTP Error 520: <none>"
       }
     ],
     "countsBefore": {
-      "dongzuo": 59,
-      "dushi": 41,
-      "juqing": 39,
-      "kehuan": 40,
-      "kongbu": 34,
-      "lianai": 72,
-      "lishi_gufeng": 44,
-      "maoxian": 33,
-      "qihuan": 40,
-      "richang": 32,
-      "weifenlei": 150,
-      "wuxia_gedou": 34,
-      "xiaoyuan": 37,
-      "xiju": 28,
-      "xiuxian": 27,
+      "dongzuo": 90,
+      "dushi": 38,
+      "juqing": 42,
+      "kehuan": 38,
+      "kongbu": 33,
+      "lianai": 71,
+      "lishi_gufeng": 41,
+      "maoxian": 32,
+      "qihuan": 39,
+      "richang": 29,
+      "weifenlei": 84,
+      "wuxia_gedou": 28,
+      "xiaoyuan": 36,
+      "xiju": 30,
+      "xiuxian": 24,
       "xuanyi": 40
     },
-    "reassignedFromUncategorized": 6,
+    "reassignedFromUncategorized": 10,
     "countsAfter": {
-      "dongzuo": 196,
+      "dongzuo": 200,
       "dushi": 200,
-      "juqing": 182,
+      "juqing": 191,
       "kehuan": 200,
       "kongbu": 200,
       "lianai": 200,
       "lishi_gufeng": 200,
       "maoxian": 200,
-      "qihuan": 189,
+      "qihuan": 193,
       "richang": 200,
-      "weifenlei": 144,
-      "wuxia_gedou": 137,
+      "weifenlei": 73,
+      "wuxia_gedou": 111,
       "xiaoyuan": 200,
-      "xiju": 200,
+      "xiju": 187,
       "xiuxian": 200,
       "xuanyi": 200
     },
     "categoriesAtOrAboveTarget": 11,
     "categoriesAtOrAboveVisibleTarget": 11,
-    "remainingTotalGap": 96
+    "remainingTotalGap": 118
   },
   "categories": [
     {
       "id": "dongzuo",
       "name": "动作",
-      "count": 196
+      "count": 200
     },
     {
       "id": "maoxian",
@@ -568,17 +488,17 @@
     {
       "id": "xiju",
       "name": "喜剧",
-      "count": 200
+      "count": 187
     },
     {
       "id": "juqing",
       "name": "剧情",
-      "count": 182
+      "count": 191
     },
     {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 189
+      "count": 193
     },
     {
       "id": "xiaoyuan",
@@ -593,7 +513,7 @@
     {
       "id": "wuxia_gedou",
       "name": "武侠/格斗",
-      "count": 137
+      "count": 111
     },
     {
       "id": "kehuan",
@@ -628,7 +548,7 @@
     {
       "id": "weifenlei",
       "name": "未分类",
-      "count": 144
+      "count": 73
     }
   ]
 }
