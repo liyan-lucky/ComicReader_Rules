@@ -268,7 +268,6 @@ def main() -> int:
     clean_index, index_stats = sanitize_index(index)
 
     dump_json(report_path, clean_report)
-    dump_json(index_path, clean_index)
     dump_json(rules_output_path, clean_index)
     write_ets_from_index(clean_index, ets_path)
 

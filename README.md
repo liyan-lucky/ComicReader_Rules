@@ -10,304 +10,115 @@ liyan-lucky/ComicReader_Rules
 
 ## 当前状态
 
-当前事实以 [`docs/CURRENT_STATUS.md`](docs/CURRENT_STATUS.md) 为准。该文件记录最新生成数据、目录职责、分支/备份策略、App 更新入口和合规边界。
+当前事实以 [`docs/CURRENT_STATUS.md`](docs/CURRENT_STATUS.md) 为准。
+
+## 全链路流程
+
+```text
+Step 1: 域名发现 → aggregator_sites.json
+Step 2: 关键词发现 → rule_keywords.json
+Step 3: 规则生成 → rules/index.{lang}.json
+Step 4: 目录生成 → catalog/catalog.{lang}.json
+```
+
+一键触发全链路：
+
+```text
+Actions → 全链路更新 → Run workflow
+```
+
+所有步骤在同一 job 内顺序执行，数据通过共享文件系统自然传递，无需中间 commit。
 
 ## 分支策略
 
 ```text
-main      主工作分支、正式稳定分支，App 默认读取，后续功能和生成结果直接维护在这里。
+main      主工作分支、正式稳定分支，App 默认读取。
 backup    备份分支，只用于备份 main。
-develop   旧开发分支，不再作为主要开发、生成或备份分支使用。
-```
-
-当前策略：
-
-```text
-所有后续修改默认直接进入 main。
-backup 只作为 main 的备份分支。
-develop 不再参与默认开发和备份流程。
-如需大改，可先运行“强制覆盖 backup 分支”，再修改 main。
-```
-
-详细文档：
-
-```text
-docs/CURRENT_STATUS.md          当前仓库状态
-docs/development_standards.md   仓库开发规范
-docs/maintenance.md             日常维护说明
-docs/catalog_api.md             公开漫画目录接口说明
+develop   旧开发分支，不再使用。
 ```
 
 ## App 默认读取地址
 
-App 推荐只先读取总更新清单：
+更新总入口：
 
 ```text
 https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/update_manifest.json
 ```
 
-`update_manifest.json` 分别记录 `rules` 和 `catalog` 两个区块。App 应分别比较本地与远程版本：
+正式规则索引（按语种）：
 
 ```text
-本地 rules.version   != 远程 rules.version   → 更新搜索规则
-本地 catalog.version != 远程 catalog.version → 更新公开目录
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.zh-Hans.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.en.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.ja.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.ko.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.zh-Hant.json
 ```
 
-正式规则索引：
+正式目录索引（按语种）：
 
 ```text
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/index.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/rules/index.json
-```
-
-正式目录索引：
-
-```text
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_categories.json
-https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/generated/catalog_delta.json
-```
-
-标签只作为可追溯快照，不作为 App 主更新入口：
-
-```text
-search-rules-YYYYMMDD   搜索规则日期标签，同一天重复运行会更新到最新提交。
-catalog-YYYYMMDD        公开目录日期标签，同一天重复运行会更新到最新提交。
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/catalog/catalog.zh-Hans.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/catalog/catalog.en.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/catalog/catalog.ja.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/catalog/catalog.ko.json
+https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main/catalog/catalog.zh-Hant.json
 ```
 
 ## 目录结构
 
 ```text
-.github/workflows/                GitHub Actions 流程，只放 workflow yml/yaml
-.github/ISSUE_TEMPLATE/           Issue 模板
-.github/pull_request_template.md  PR 模板
-docs/                             文档、接口说明、开发规范、维护说明
-rules/                            App 当前可读取规则索引和手工稳定规则
-rules/manual/index.json            手工维护的稳定公开规则（7条）
-config/keywords/                   搜索关键词配置（按语种分文件）
-config/domains/                    搜索域名配置（按语种分文件，每行标注命中词）
-config/queries/                    域名发现搜索词（已被manga_indicator_keywords.json替代，保留回退）
-config/blocked_domains.json        清理域名模式（验证前过滤）
-config/manga_indicator_keywords.json 核心配置：搜索词/子域/域名标签/验证词/屏蔽词
-config/aggregator_sites.json       聚合站URL列表
-config/seed_sites.json             已知源种子URL列表
-config/search.json                 搜索API配置（SearXNG）
-config/headers.json                UA/请求头配置
-config/crawl_skip_keywords.json    爬取跳过关键词
-config/search_endpoints.json       搜索引擎端点
-config/catalog_categories.json     分类定义
-config/catalog_tags.json           标签定义
-config/catalog_search_keywords.json 每分类搜索关键词
-config/catalog_filters.json        过滤词/URL/后缀
-generated/update_manifest.json     App 更新总入口，分别记录 rules 与 catalog 版本
-generated/index.json               App 远程更新使用的标准规则索引
-generated/rulebot_report.json      自动规则审计报告
-generated/GeneratedSourceRules.ets ArkTS 规则文件
-generated/rule_targets.json        规则数量目标和缺口统计
-generated/catalog.json             公开漫画目录索引，供 App 分类浏览和添加来源
-generated/catalog_categories.json  分类汇总索引
-generated/catalog_delta.json       目录增量更新文件
-generated/catalog_report.json      目录生成报告
-generated/catalog_target_gaps.json 分类目标缺口报告
-tools/rule_discovery/              公开源搜索、审计、规则生成、规则清洗工具
-scripts/                           本地/CI 入口脚本
-```
+.github/workflows/                GitHub Actions 流程
+  full-pipeline.yml               全链路：域名→关键词→规则→目录
+  discover-domains.yml            单独域名发现
+  discover-keywords.yml           单独关键词发现
+  generate-remote-rules.yml      单独规则生成
+  generate-catalog.yml           单独目录生成
 
-不允许在仓库根目录随意新增脚本、JSON、临时文件、压缩包或报告文件。详细规则见 `docs/development_standards.md`。
+rules/                            App 读取的正式规则索引
+  index.{lang}.json               按语种的规则索引（唯一正式路径）
+  manual/index.json               手工维护的稳定公开规则（7条）
+
+catalog/                          App 读取的正式目录索引
+  catalog.{lang}.json             按语种的漫画目录
+
+config/                           配置文件（流程输入参数）
+  aggregator_sites.json           聚合站URL列表（域名发现产出，流程生成）
+  rule_keywords.json              热门关键词（关键词发现产出，流程生成）
+  search_url_templates.json       搜索URL模板（从aggregator_sites自动生成）
+  seed_sites.json                 种子URL列表（从aggregator_sites自动生成）
+  blocked_domains.json            清理配置（含excluded_domains/discover_domains/blocked_path_keywords）
+  manga_indicator_keywords.json   域名验证指示词（5语种）
+  keyword_discovery.json          关键词发现配置（排行榜URL/搜索查询/回退词）
+  catalog_config.json             目录统一配置（腾讯17类/tags/搜索关键词）
+  search.json                     搜索引擎配置（SearXNG/DDG/Brave/Serper/Google CSE）
+  compliance.json                 项目合规字段
+  regex_patterns.json             多语言详情/图片/翻页正则
+  headers.json                    UA/请求头配置
+
+generated/                        中间产物/报告（非正式发布路径）
+  update_manifest.json            App 更新总入口
+  domain_discovery_report.json    域名发现报告
+  keyword_discovery_report.json   关键词发现报告
+  rulebot_report.{lang}.json      规则审计报告
+  GeneratedSourceRules.{lang}.ets ArkTS 规则文件
+
+tools/rule_discovery/             规则生成工具
+scripts/                          本地/CI 入口脚本
+  generate_site_configs.py        从aggregator_sites自动生成search_url_templates+seed_sites
+```
 
 ## 当前生成数据摘要
 
-**域名发现流水线重构完成，正在验证中。**
+| 语种 | 域名 | 关键词 | 规则 | 目录分类 |
+|------|------|--------|------|----------|
+| zh-Hans | 73 | 20 | 99 | 17 |
+| zh-Hant | 0 | 20 | 0 | 17 |
+| en | 0 | 20 | 13 | 17 |
+| ja | 0 | 20 | 0 | 17 |
+| ko | 0 | 20 | 3 | 17 |
 
-当前域名列表状态：
-
-```text
-zh-Hans: 待发现（用新配置重新发现中）
-zh-Hant: 待发现
-en:      待发现
-```
-
-手工稳定规则（`rules/manual/`）：
-
-```text
-搜索规则: 6 条
-通用兜底: 1 条
-合计: 7 条
-```
-
-## 本地生成规则
-
-```bash
-bash scripts/generate_remote_rules.sh "斗罗大陆" "Soul Land" "Douluo Dalu"
-```
-
-限制某个域名：
-
-```bash
-bash scripts/generate_remote_rules.sh --domain kaixinman.com "斗罗大陆"
-```
-
-生成后会更新：
-
-```text
-generated/index.json
-rules/index.json
-generated/rulebot_report.json
-generated/GeneratedSourceRules.ets
-```
-
-本地如需同步更新 App 清单：
-
-```bash
-python scripts/update_manifest.py --section rules --tag search-rules-YYYYMMDD
-```
-
-## 本地生成公开漫画目录
-
-```bash
-bash scripts/generate_catalog.sh
-```
-
-生成后会更新：
-
-```text
-generated/catalog.json
-generated/catalog_categories.json
-generated/catalog_delta.json
-generated/catalog_report.json
-generated/catalog_target_gaps.json
-```
-
-本地如需同步更新 App 清单：
-
-```bash
-python scripts/update_manifest.py --section catalog --tag catalog-YYYYMMDD
-```
-
-目录功能只保存漫画名、别名、分类、标签、公开来源 URL、规则 ID 和更新时间，不保存漫画图片、章节正文、付费内容或账号数据。
-
-## GitHub Actions 生成远程漫画规则
-
-进入 GitHub 仓库：
-
-```text
-Actions → 生成远程漫画规则 → Run workflow
-```
-
-默认模式：
-
-```text
-deep：深度模式，默认选项，目标2000条规则，每域名最多500条，时间预算5.5小时。
-```
-
-快速模式：
-
-```text
-quick：快速模式，目标2000条规则，时间预算1.5小时，适合快速验证。
-```
-
-所有运行参数均有默认值，也可在 Run workflow 时自定义：
-
-```text
-max_generated: 2000              最多生成规则数上限
-per_domain_generated_limit: 500  每域名最多保留规则数
-time_budget_seconds: 19800       时间预算秒数
-search_result_limit: 30          每搜索查询结果上限
-seed_limit: 3000                 种子候选上限
-per_seed_limit: 400              每种子页候选上限
-max_audit_candidates: 0          审计候选上限（0=不限）
-per_domain_audit_limit: 0        每域名审计上限（0=不限）
-sleep: 0.4                       请求间隔秒数
-```
-
-运行完成后会自动：
-
-```text
-1. 生成 generated/index.json
-2. 生成 generated/rulebot_report.json
-3. 生成 generated/GeneratedSourceRules.ets
-4. 同步 rules/index.json
-5. 更新 generated/update_manifest.json 的 rules 区块
-6. commit 并 push 到 main
-7. 发布或更新 search-rules-YYYYMMDD 标签和 Release
-8. 上传 artifact
-```
-
-## GitHub Actions 生成公开漫画目录
-
-目录生成任务：
-
-```text
-Actions → 生成公开漫画目录 → Run workflow
-```
-
-可配置参数：
-
-```text
-target_count: 200              每个分类目标漫画数
-max_consecutive_no_new: 10     连续无新发现后提前退出轮数
-request_delay: 0.5             每次请求间隔秒数
-```
-
-运行完成后会自动：
-
-```text
-1. 生成 generated/catalog.json
-2. 生成 generated/catalog_categories.json
-3. 生成 generated/catalog_delta.json
-4. 生成 generated/catalog_report.json
-5. 生成 generated/catalog_target_gaps.json
-6. 更新 generated/update_manifest.json 的 catalog 区块
-7. commit 并 push 到 main
-8. 发布或更新 catalog-YYYYMMDD 标签和 Release
-9. 上传 artifact
-```
-
-规则生成和目录生成频率可以不同。App 以 `generated/update_manifest.json` 为准，分别判断 `rules.version` 和 `catalog.version`，不要直接依赖日期标签做主更新入口。
-
-## GitHub Actions 强制覆盖 backup 分支
-
-备份流程：
-
-```text
-Actions → 强制覆盖 backup 分支 → Run workflow
-```
-
-真正覆盖 backup 时填写：
-
-```text
-confirm=YES
-```
-
-执行效果：
-
-```text
-backup = main 当前提交
-```
-
-该流程没有 dry-run 模式。它会在校验 `confirm=YES` 后执行：
-
-```bash
-git push --force origin HEAD:backup
-```
-
-## GitHub Actions 清理运行记录
-
-清理流程：
-
-```text
-Actions → 清理 Actions 运行记录 → Run workflow
-```
-
-默认：
-
-```text
-dry_run=true，只预览，不删除。
-clean_tags=false，不清理标签。
-clean_releases=false，不清理 Release。
-```
-
-只有手动把 `dry_run=false` 时才会执行实际删除。删除标签和 Release 必须分别打开对应选项。
+手工稳定规则（`rules/manual/`）：7 条
 
 ## 规则边界
 
