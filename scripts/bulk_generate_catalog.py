@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""批量目录生成脚本：从 rules/index.{lang}.json 提取真实漫画数据，按分类组织目录。
+"""批量目录生成脚本：从 rulebot_report 提取真实漫画数据，按分类组织目录。
 
 数据源优先级：
-  1. rules/index.{lang}.json 中的规则（真实漫画名+域名）
-  2. config/rule_keywords.json 中的关键词（补充填充）
-  3. config/aggregator_sites.json 中的域名（兜底）
+  1. rulebot_report.{lang}.json 中的 detail_title（真实漫画名+域名）
+  2. config/rule_keywords.json 中的关键词（补充填充，每关键词1条）
+  3. config/aggregator_sites.json 中的域名（为关键词条目提供来源域名）
+
+目录条目按标题去重，同一漫画合并多个来源域名到 sources 列表。
 """
 from __future__ import annotations
 
@@ -14,7 +16,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Set
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -50,6 +52,8 @@ AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
 CATEGORY_TARGET = 200
 
+CHAPTER_RE = re.compile(r'^(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
+
 
 def normalize_domain(domain: str) -> str:
     domain = domain.strip().lower()
@@ -58,9 +62,8 @@ def normalize_domain(domain: str) -> str:
     return domain.replace("www.", "")
 
 
-def make_comic_id(title: str, domain: str) -> str:
-    raw = f"{title}@{domain}"
-    return hashlib.sha256(raw.encode("utf-8", errors="ignore")).hexdigest()[:16]
+def make_comic_id(title: str) -> str:
+    return hashlib.sha256(title.encode("utf-8", errors="ignore")).hexdigest()[:16]
 
 
 def classify_title(title: str) -> str:
@@ -72,14 +75,6 @@ def classify_title(title: str) -> str:
             if kw.lower() in title_lower:
                 return cat["id"]
     return ""
-
-
-def load_rules_index(lang: str) -> List[Dict[str, Any]]:
-    path = ROOT / "rules" / f"index.{lang}.json"
-    if not path.exists():
-        return []
-    data = _load_json_path(path, {})
-    return data.get("rules", []) if isinstance(data, dict) else []
 
 
 def load_report(lang: str) -> List[Dict[str, Any]]:
@@ -100,62 +95,62 @@ def load_domains_from_aggregator(lang: str) -> List[str]:
     return domains
 
 
-def build_catalog_items_from_report(report: List[Dict[str, Any]], lang: str) -> List[Dict[str, Any]]:
-    items = []
-    seen_ids = set()
+def is_valid_title(title: str) -> bool:
+    if not title or len(title) < 2:
+        return False
+    if title == "#top_title#":
+        return False
+    if CHAPTER_RE.match(title):
+        return False
+    return True
+
+
+def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str, Dict[str, Any]]:
+    by_title: Dict[str, Dict[str, Any]] = {}
     for entry in report:
         detail_title = (entry.get("detail_title") or "").strip()
         domain = (entry.get("domain") or "").strip().lower().replace("www.", "")
-        if not detail_title or not domain:
+        if not is_valid_title(detail_title) or not domain:
             continue
-        if len(detail_title) < 2:
-            continue
-        chapter_re = re.compile(r'^(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
-        if chapter_re.match(detail_title):
-            continue
-        comic_id = make_comic_id(detail_title, domain)
-        if comic_id in seen_ids:
-            continue
-        seen_ids.add(comic_id)
-        category = classify_title(detail_title)
-        base_url = entry.get("base_url", f"https://{domain}/")
-        items.append({
-            "id": comic_id,
-            "title": detail_title,
-            "sourceDomain": domain,
-            "detailUrl": entry.get("detail_url", base_url),
-            "coverUrl": entry.get("cover_url", ""),
-            "category": category,
-            "language": lang,
-        })
-    return items
+        key = detail_title.lower()
+        if key not in by_title:
+            by_title[key] = {
+                "id": make_comic_id(detail_title),
+                "title": detail_title,
+                "sources": [],
+                "category": classify_title(detail_title),
+                "language": lang,
+            }
+        source = {"domain": domain}
+        detail_url = entry.get("detail_url", "")
+        if detail_url:
+            source["detailUrl"] = detail_url
+        cover_url = entry.get("cover_url", "")
+        if cover_url:
+            source["coverUrl"] = cover_url
+        existing_domains = {s["domain"] for s in by_title[key]["sources"]}
+        if domain not in existing_domains:
+            by_title[key]["sources"].append(source)
+    return by_title
 
 
-def build_catalog_items_from_keywords(keywords: List[str], domains: List[str], lang: str, existing_ids: set, max_per_keyword: int = 8) -> List[Dict[str, Any]]:
-    items = []
+def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
+    by_title: Dict[str, Dict[str, Any]] = {}
     for kw in keywords:
         if not kw:
             continue
-        domain_count = 0
-        for domain in domains:
-            if domain_count >= max_per_keyword:
-                break
-            comic_id = make_comic_id(kw, domain)
-            if comic_id in existing_ids:
-                continue
-            existing_ids.add(comic_id)
-            category = classify_title(kw)
-            items.append({
-                "id": comic_id,
-                "title": kw,
-                "sourceDomain": domain,
-                "detailUrl": f"https://{domain}/",
-                "coverUrl": "",
-                "category": category,
-                "language": lang,
-            })
-            domain_count += 1
-    return items
+        key = kw.lower()
+        if key in existing_titles:
+            continue
+        existing_titles.add(key)
+        by_title[key] = {
+            "id": make_comic_id(kw),
+            "title": kw,
+            "sources": [{"domain": d, "detailUrl": f"https://{d}/"} for d in domains[:5]],
+            "category": classify_title(kw),
+            "language": lang,
+        }
+    return by_title
 
 
 def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
@@ -167,21 +162,18 @@ def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
         print(f"[warn] No report, domains or keywords for {lang}, skipping", file=sys.stderr)
         return {}
 
-    all_items = []
-    seen_ids: set = set()
+    existing_titles: Set[str] = set()
 
-    report_items = build_catalog_items_from_report(report, lang)
-    for item in report_items:
-        if item["id"] not in seen_ids:
-            seen_ids.add(item["id"])
-            all_items.append(item)
+    report_items = build_items_from_report(report, lang)
+    existing_titles.update(report_items.keys())
 
-    kw_items = build_catalog_items_from_keywords(keywords, domains, lang, seen_ids)
-    all_items.extend(kw_items)
+    kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
+
+    all_items = {**report_items, **kw_items}
 
     classified: Dict[str, List[Dict[str, Any]]] = {}
     unclassified: List[Dict[str, Any]] = []
-    for item in all_items:
+    for item in all_items.values():
         cat = item.get("category", "")
         if cat:
             classified.setdefault(cat, []).append(item)

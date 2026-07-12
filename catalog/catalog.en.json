@@ -1,22 +1,40 @@
 {
   "schema": "womh_comic_catalog_v1",
-  "version": "2026.07.12.2056",
-  "updatedAt": "2026-07-12T20:56:49.579440+00:00",
+  "version": "2026.07.12.2225",
+  "updatedAt": "2026-07-12T22:25:15.990455+00:00",
   "language": "en",
-  "totalItems": 3,
+  "totalItems": 23,
   "categoryCount": 16,
   "categories": {
     "lianai": {
       "id": "lianai",
       "name": "恋爱",
-      "count": 1,
+      "count": 3,
       "items": [
         {
-          "id": "23648b188c7733dc",
+          "id": "49e2015c046efb60",
+          "title": "Black Clover",
+          "sources": [],
+          "category": "lianai",
+          "language": "en"
+        },
+        {
+          "id": "b849f6740c394064",
           "title": "Mangaddict — Read Manga Online Free | Updated Daily",
-          "sourceDomain": "mangaddict.com",
-          "detailUrl": "https://www.mangaddict.com/en/manga/omniscient-readers-viewpoint.html",
-          "coverUrl": "https://www.mangaddict.com/wp-content/uploads/omniscient-readers-viewpoint-manga-kim-dokja-system-464x722.jpg",
+          "sources": [
+            {
+              "domain": "mangaddict.com",
+              "detailUrl": "https://www.mangaddict.com/en/manga/omniscient-readers-viewpoint.html",
+              "coverUrl": "https://www.mangaddict.com/wp-content/uploads/omniscient-readers-viewpoint-manga-kim-dokja-system-464x722.jpg"
+            }
+          ],
+          "category": "lianai",
+          "language": "en"
+        },
+        {
+          "id": "8a6b367459faa78b",
+          "title": "Solo Leveling",
+          "sources": [],
           "category": "lianai",
           "language": "en"
         }
@@ -28,11 +46,15 @@
       "count": 1,
       "items": [
         {
-          "id": "cde312ca88f796a9",
+          "id": "0a1ef274b68ebfd8",
           "title": "Edit This Page on Github",
-          "sourceDomain": "orv.pages.dev",
-          "detailUrl": "https://orv.pages.dev/stories/cont/read/ch_553",
-          "coverUrl": "https://orv.pages.dev/assets/images/Cover%20Part%206%20-%20553.jpg",
+          "sources": [
+            {
+              "domain": "orv.pages.dev",
+              "detailUrl": "https://orv.pages.dev/stories/cont/read/ch_553",
+              "coverUrl": "https://orv.pages.dev/assets/images/Cover%20Part%206%20-%20553.jpg"
+            }
+          ],
           "category": "xuanhuan",
           "language": "en"
         }
@@ -44,11 +66,15 @@
       "count": 1,
       "items": [
         {
-          "id": "55b93adf3d4c9062",
+          "id": "f66c1f452a579286",
           "title": "Omniscient Reader’s Viewpoint",
-          "sourceDomain": "velvetscans.net",
-          "detailUrl": "https://velvetscans.net/manga/omniscient-readers-viewpoint/",
-          "coverUrl": "https://velvetscans.net/wp-content/uploads/2026/02/Omniscient-Readers-Viewpoint.jpg",
+          "sources": [
+            {
+              "domain": "velvetscans.net",
+              "detailUrl": "https://velvetscans.net/manga/omniscient-readers-viewpoint/",
+              "coverUrl": "https://velvetscans.net/wp-content/uploads/2026/02/Omniscient-Readers-Viewpoint.jpg"
+            }
+          ],
           "category": "yineng",
           "language": "en"
         }
@@ -57,80 +83,219 @@
     "kongbu": {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "44bc7de174008527",
+          "title": "One Piece",
+          "sources": [],
+          "category": "kongbu",
+          "language": "en"
+        }
+      ]
     },
     "juqing": {
       "id": "juqing",
       "name": "剧情",
-      "count": 0,
-      "items": []
+      "count": 2,
+      "items": [
+        {
+          "id": "b6b0d55e9e852675",
+          "title": "Spy x Family",
+          "sources": [],
+          "category": "juqing",
+          "language": "en"
+        },
+        {
+          "id": "035893d5f9fe04f9",
+          "title": "Naruto",
+          "sources": [],
+          "category": "juqing",
+          "language": "en"
+        }
+      ]
     },
     "kehuan": {
       "id": "kehuan",
       "name": "科幻",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "f0af158d00946dd0",
+          "title": "Bleach",
+          "sources": [],
+          "category": "kehuan",
+          "language": "en"
+        }
+      ]
     },
     "xuanyi": {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "1e29aa5cab11804d",
+          "title": "Attack on Titan",
+          "sources": [],
+          "category": "xuanyi",
+          "language": "en"
+        }
+      ]
     },
     "qihuan": {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 0,
-      "items": []
+      "count": 3,
+      "items": [
+        {
+          "id": "2c2dd322004f1133",
+          "title": "Dragon Ball",
+          "sources": [],
+          "category": "qihuan",
+          "language": "en"
+        },
+        {
+          "id": "07110f6fc626aad3",
+          "title": "Demon Slayer",
+          "sources": [],
+          "category": "qihuan",
+          "language": "en"
+        },
+        {
+          "id": "04e42b2323392573",
+          "title": "Jujutsu Kaisen",
+          "sources": [],
+          "category": "qihuan",
+          "language": "en"
+        }
+      ]
     },
     "maoxian": {
       "id": "maoxian",
       "name": "冒险",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "bf18e3d937e40db5",
+          "title": "One Punch Man",
+          "sources": [],
+          "category": "maoxian",
+          "language": "en"
+        }
+      ]
     },
     "fanzui": {
       "id": "fanzui",
       "name": "犯罪",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "ea86b9138e6f34d6",
+          "title": "Chainsaw Man",
+          "sources": [],
+          "category": "fanzui",
+          "language": "en"
+        }
+      ]
     },
     "dongzuo": {
       "id": "dongzuo",
       "name": "动作",
-      "count": 0,
-      "items": []
+      "count": 3,
+      "items": [
+        {
+          "id": "de64da9ed41ecca5",
+          "title": "My Hero Academia",
+          "sources": [],
+          "category": "dongzuo",
+          "language": "en"
+        },
+        {
+          "id": "88550a6ef37c9146",
+          "title": "Hunter x Hunter",
+          "sources": [],
+          "category": "dongzuo",
+          "language": "en"
+        },
+        {
+          "id": "33417b6187d9794c",
+          "title": "Fairy Tail",
+          "sources": [],
+          "category": "dongzuo",
+          "language": "en"
+        }
+      ]
     },
     "richang": {
       "id": "richang",
       "name": "日常",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "f2742b923dc88250",
+          "title": "Seven Deadly Sins",
+          "sources": [],
+          "category": "richang",
+          "language": "en"
+        }
+      ]
     },
     "jingji": {
       "id": "jingji",
       "name": "竞技",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "f53639f9116bc937",
+          "title": "Kingdom",
+          "sources": [],
+          "category": "jingji",
+          "language": "en"
+        }
+      ]
     },
     "wuxia": {
       "id": "wuxia",
       "name": "武侠",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "23cef5f7d9b06f9b",
+          "title": "Vinland Saga",
+          "sources": [],
+          "category": "wuxia",
+          "language": "en"
+        }
+      ]
     },
     "lishi": {
       "id": "lishi",
       "name": "历史",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "08bd7cbf4b138e67",
+          "title": "Berserk",
+          "sources": [],
+          "category": "lishi",
+          "language": "en"
+        }
+      ]
     },
     "zhanzheng": {
       "id": "zhanzheng",
       "name": "战争",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "d6706d23ff3550dc",
+          "title": "Vagabond",
+          "sources": [],
+          "category": "zhanzheng",
+          "language": "en"
+        }
+      ]
     }
   }
 }
