@@ -121,6 +121,7 @@ def crawl_aggregator_sites(language: str, limit: int = 0) -> List[str]:
 
 _BLOCKED_CFG = _load_config("blocked_domains.json", {})
 BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("discover_domains", [])
+EXCLUDED_DOMAINS: set = set(_BLOCKED_CFG.get("excluded_domains", []))
 
 
 def _searxng_url() -> str:
@@ -342,6 +343,13 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
 
     for d in domains:
         rd = _registered_domain(d)
+        if rd in EXCLUDED_DOMAINS or d in EXCLUDED_DOMAINS:
+            skipped += 1
+            reject_reasons.setdefault("excluded_domain", 0)
+            reject_reasons["excluded_domain"] += 1
+            removed_details.append({"domain": d, "reason": "excluded_domain", "detail": "in blocked_domains.json excluded_domains", "matched_kw": ""})
+            print(f"  ✗ {d} (excluded_domain)")
+            continue
         if not revalidate and (rd in existing or d in existing):
             validated.append(rd)
             reasons["existing"] += 1
