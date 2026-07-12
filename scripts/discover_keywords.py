@@ -107,12 +107,17 @@ RANKING_SITES: Dict[str, List[dict]] = {
 
 NOISE_PATTERNS = re.compile(
     r'^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|'
-    r'第[一二三四五六七八九十百千零〇两\d]+[话章回]|'
+    r'第[一二三四五六七八九十百千零〇两\d]+[话章回卷]|'
     r'chapter\s*\d+|vol\.?\s*\d+|'
     r'http|www\.|\.com|\.net|\.org|'
     r'\d{4}[-年]\d{1,2}[-月]\d{1,2}|'
     r'[\d.]+分|[\d.]+星|[\d,]+人|[\d,]+阅|[\d,]+赞|[\d,]+评|'
     r'更新至|更新到|连载|完结|免费|付费|签约|独家)',
+    re.I,
+)
+
+NOISE_SUFFIX = re.compile(
+    r'(更新至?\d+[话章回]|更新到\d+[话章回]|连载至?\d+|完结$|免费$|付费$)',
     re.I,
 )
 
@@ -166,6 +171,11 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
     return titles
 
 
+def _clean_title(t: str) -> str:
+    t = NOISE_SUFFIX.sub("", t).strip()
+    return t
+
+
 def _extract_titles_from_links(html_text: str) -> List[str]:
     if not html_text:
         return []
@@ -185,6 +195,7 @@ def _extract_titles_from_links(html_text: str) -> List[str]:
         t = a.get("title", "").strip()
         if not t:
             t = a.get_text(strip=True)
+        t = _clean_title(t)
         if t and 2 <= len(t) <= 60 and not NOISE_PATTERNS.match(t):
             titles.append(t)
     return titles
