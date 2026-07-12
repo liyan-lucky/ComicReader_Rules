@@ -209,6 +209,8 @@ def _is_valid_keyword(kw: str) -> bool:
         return False
     if NOISE_PATTERNS.match(kw):
         return False
+    if re.match(r'^\d+\s', kw):
+        return False
     if re.match(r'^[\d\s\-_./]+$', kw):
         return False
     if any(c in kw for c in '<>{}[]|\\`~!@#$%^&*()=+'):
