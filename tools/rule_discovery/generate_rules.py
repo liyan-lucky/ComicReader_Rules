@@ -858,10 +858,14 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
     generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS)]
     specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS)]
     ordered_kws = generic_kws + specific_kws
+    _SEARCH_TEMPLATES: Dict[str, str] = _load_config("search_url_templates.json", {})
+    _MAX_SITE_QUERIES_PER_KW = 10
     queries: List[str] = []
     has_search_api = _has_search_api()
     seeded = seeded_domains or set()
     clean_domains = [d for d in domains if not _is_blocked_domain(d)]
+    template_domains = [d for d in clean_domains if d in _SEARCH_TEMPLATES]
+    site_domains = template_domains if template_domains else clean_domains
     for kw in ordered_kws:
         kw = kw.strip()
         if not kw:
@@ -872,16 +876,16 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
                 queries.append(f"{kw} 漫画")
             else:
                 queries.append(f"{kw} manga read")
-            if clean_domains:
-                for d in clean_domains:
+            if site_domains:
+                for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
                     if d in seeded:
                         continue
                     queries.append(f"site:{d} {kw}")
         else:
             bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
             for b in bases:
-                if clean_domains:
-                    for d in clean_domains:
+                if site_domains:
+                    for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
                         if d in seeded:
                             continue
                         queries.append(f"site:{d} {b}")
