@@ -138,14 +138,12 @@ def _fetch_page(url: str, timeout: int = 15) -> str:
             r = _SCRAPER.get(url, headers=headers, timeout=timeout, allow_redirects=True)
         else:
             r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
-        print(f"      HTTP {r.status_code}, len={len(r.text)}")
         if r.status_code >= 400:
             return ""
         if not r.encoding or r.encoding.lower() == "iso-8859-1":
             r.encoding = r.apparent_encoding or "utf-8"
         return r.text
-    except Exception as e:
-        print(f"      Fetch error: {e}")
+    except Exception:
         return ""
 
 
