@@ -360,10 +360,17 @@ def extract_from_discovery_sources(discovery: Dict[str, Any]) -> Tuple[List[Tupl
     return records, stats
 
 
-def load_manual_search_rules() -> List[Dict[str, Any]]:
+def load_manual_search_rules(language_code: str = "") -> List[Dict[str, Any]]:
+    all_rules: List[Dict[str, Any]] = []
     manual = load_json(ROOT / "rules/manual/index.json", {})
     rules = manual.get("rules", []) if isinstance(manual, dict) else []
-    return [r for r in rules if isinstance(r, dict) and safe_str(r.get("searchUrl")) and safe_str(r.get("searchItemRegex"))]
+    all_rules.extend(r for r in rules if isinstance(r, dict) and safe_str(r.get("searchUrl")) and safe_str(r.get("searchItemRegex")))
+    if language_code:
+        gen_path = ROOT / f"rules/index.{language_code}.json"
+        gen = load_json(gen_path, {})
+        gen_rules = gen.get("rules", []) if isinstance(gen, dict) else []
+        all_rules.extend(r for r in gen_rules if isinstance(r, dict) and safe_str(r.get("searchUrl")) and safe_str(r.get("searchItemRegex")))
+    return all_rules
 
 
 def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]]], Dict[str, Any]]:
@@ -378,7 +385,7 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
         "targetPerCategory": CATEGORY_TARGET_COUNT,
         "searchDiscoveryWithFallbackClassification": True,
     }
-    rules = load_manual_search_rules()
+    rules = load_manual_search_rules(args.language_code if hasattr(args, 'language_code') else "")
     stats["enabledRuleCount"] = len(rules)
     hint_counts: Dict[str, int] = defaultdict(int)
 
@@ -665,8 +672,8 @@ def build_delta(previous: Dict[str, Any], items: List[Dict[str, Any]], timestamp
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成公开漫画目录 catalog.json")
-    parser.add_argument("--index", default="generated/index.json")
-    parser.add_argument("--report", default="generated/rulebot_report.json")
+    parser.add_argument("--index", default="generated/index.{lang}.json")
+    parser.add_argument("--report", default="generated/rulebot_report.{lang}.json")
     parser.add_argument("--discovery-sources", default="generated/catalog_discovery_sources.json")
     parser.add_argument("--output", default="generated/catalog.json")
     parser.add_argument("--categories-output", default="generated/catalog_categories.json")
@@ -675,7 +682,11 @@ def main() -> int:
     parser.add_argument("--target", type=int, default=0, help="每个分类目标漫画数（0=使用内置默认值200）")
     parser.add_argument("--max-consecutive-no-new", type=int, default=10, help="连续多少轮无新发现后提前退出")
     parser.add_argument("--request-delay", type=float, default=0.5, help="每次请求间隔秒数")
+    parser.add_argument("--language-code", default="", help="Language code for {lang} substitution")
     args = parser.parse_args()
+
+    def _resolve(p: str) -> str:
+        return p.format(lang=args.language_code) if args.language_code and '{lang}' in p else p
 
     global CATEGORY_TARGET_COUNT, MAX_CONSECUTIVE_NO_NEW
     if args.target > 0:
@@ -684,10 +695,10 @@ def main() -> int:
         MAX_CONSECUTIVE_NO_NEW = args.max_consecutive_no_new
 
     timestamp = now_iso()
-    index = load_json(ROOT / args.index, {})
-    report = load_json(ROOT / args.report, {})
-    discovery_sources = load_json(ROOT / args.discovery_sources, {})
-    previous = load_json(ROOT / args.output, {})
+    index = load_json(ROOT / _resolve(args.index), {})
+    report = load_json(ROOT / _resolve(args.report), {})
+    discovery_sources = load_json(ROOT / _resolve(args.discovery_sources), {})
+    previous = load_json(ROOT / _resolve(args.output), {})
 
     discovery_records, discovery_stats = extract_from_discovery_sources(discovery_sources)
     category_search_records, category_search_stats = extract_from_category_search_rules()
@@ -769,10 +780,10 @@ def main() -> int:
         "tags": tags,
     }
 
-    dump_json(ROOT / args.output, catalog)
-    dump_json(ROOT / args.categories_output, categories_payload)
-    dump_json(ROOT / args.delta_output, delta)
-    dump_json(ROOT / args.report_output, report_payload)
+    dump_json(ROOT / _resolve(args.output), catalog)
+    dump_json(ROOT / _resolve(args.categories_output), categories_payload)
+    dump_json(ROOT / _resolve(args.delta_output), delta)
+    dump_json(ROOT / _resolve(args.report_output), report_payload)
     return 0
 
 
