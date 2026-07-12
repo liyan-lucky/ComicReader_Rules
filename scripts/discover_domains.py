@@ -308,8 +308,12 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
                 return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
     for bk in BLOCKED_DOMAIN_KEYWORDS:
-        if bk in text or bk in title:
-            return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
+        if re.search(r'[\u4e00-\u9fff]', bk):
+            if bk in title:
+                return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
+        else:
+            if re.search(r'\b' + re.escape(bk) + r'\b', title, re.IGNORECASE):
+                return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
 
     for kw in validate:
         if kw in text or kw in title:
@@ -323,8 +327,14 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
             return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
     secondary_hits = sum(1 for kw in secondary if kw in text)
-    if secondary_hits >= 3:
-        return {"result": "secondary_3+", "matched_kw": "", "match_type": "secondary"}
+    if secondary_hits >= 2:
+        return {"result": "secondary_2+", "matched_kw": "", "match_type": "secondary"}
+
+    dl = domain.lower()
+    label = _domain_label(domain)
+    for kw in domain_label:
+        if kw in dl or kw in label:
+            return {"result": "domain_label_fallback", "matched_kw": kw, "match_type": "domain_label"}
 
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
@@ -359,7 +369,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
         result = info["result"]
         matched_kw = info["matched_kw"]
 
-        if result in ("primary_match", "domain_label_match", "secondary_3+"):
+        if result in ("primary_match", "domain_label_match", "secondary_2+", "domain_label_fallback"):
             validated.append(rd)
             reasons[result] += 1
             kw_matched.setdefault(matched_kw, []).append(rd)
