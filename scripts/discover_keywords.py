@@ -202,6 +202,12 @@ def _extract_titles_from_links(html_text: str) -> List[str]:
     return titles
 
 
+CJK_LANGS = {"zh-Hans", "zh-Hant", "ja"}
+
+
+_current_language = ""
+
+
 def _is_valid_keyword(kw: str) -> bool:
     kw = kw.strip()
     if not kw or len(kw) < 2:
@@ -215,6 +221,8 @@ def _is_valid_keyword(kw: str) -> bool:
     if re.match(r'^[\d\s\-_./]+$', kw):
         return False
     if any(c in kw for c in '<>{}[]|\\`~!@#$%^&*()=+'):
+        return False
+    if _current_language in CJK_LANGS and not re.search(r'[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]', kw):
         return False
     return True
 
@@ -311,21 +319,6 @@ def _searxng_url() -> str:
     return ""
 
 
-def _extract_from_snippet(title: str, snippet: str) -> List[str]:
-    titles = []
-    for text in [title, snippet]:
-        if not text:
-            continue
-        clean = re.sub(r'\s*[-–—|:：]\s*(排行榜|排名|榜单|推荐|ranking|top\d*|best|popular).*$', '', text, flags=re.I).strip()
-        if clean and 2 <= len(clean) <= 40 and _is_valid_keyword(clean):
-            titles.append(clean)
-        for m in re.finditer(r'[\u3001\uff0c\u2022\u00b7,，、]\s*([^\u3001\uff0c\u2022\u00b7,，、]{2,25}?)(?:[\u3001\uff0c\u2022\u00b7,，、]|$)', text):
-            t = m.group(1).strip()
-            if t and _is_valid_keyword(t):
-                titles.append(t)
-    return titles
-
-
 def _search_and_scrape(language: str) -> List[str]:
     base_url = _searxng_url()
     if not base_url:
@@ -333,6 +326,7 @@ def _search_and_scrape(language: str) -> List[str]:
         return []
     queries = SEARCH_QUERIES.get(language, [])
     all_titles: List[str] = []
+    manga_domains = {"ac.qq.com", "kuaikanmanhua.com", "dongmanmanhua.cn", "manga.bilibili.com", "mkzhan.com", "manhuagui.com"}
     for q in queries:
         print(f"    Searching: {q}")
         try:
@@ -344,26 +338,27 @@ def _search_and_scrape(language: str) -> List[str]:
             print(f"      Got {len(results)} results")
             for item in results[:8]:
                 result_url = item.get("url", "")
-                title = item.get("title", "")
-                snippet = item.get("content", "")
-                snippet_titles = _extract_from_snippet(title, snippet)
-                if snippet_titles:
-                    print(f"      snippet: {len(snippet_titles)} titles from {result_url[:50]}")
-                    all_titles.extend(snippet_titles)
-                if result_url and ("ac.qq.com" in result_url or "kuaikanmanhua.com" in result_url or "dongmanmanhua" in result_url or "manga.bilibili.com" in result_url):
-                    html_text = _fetch_page(result_url)
-                    if html_text:
-                        link_titles = _extract_titles_from_links(html_text)
-                        valid = [t for t in link_titles if _is_valid_keyword(t)]
-                        if valid:
-                            print(f"      links: {len(valid)} titles from {result_url[:50]}")
-                            all_titles.extend(valid)
+                if not result_url:
+                    continue
+                is_manga_site = any(d in result_url for d in manga_domains)
+                if not is_manga_site:
+                    continue
+                html_text = _fetch_page(result_url)
+                if not html_text:
+                    continue
+                titles = _extract_titles_from_links(html_text)
+                valid = [t for t in titles if _is_valid_keyword(t)]
+                if valid:
+                    print(f"      {result_url[:60]}: {len(valid)} titles")
+                all_titles.extend(valid)
         except Exception as e:
             print(f"      Search error: {e}")
     return all_titles
 
 
 def discover_keywords(language: str, top: int = 20) -> List[str]:
+    global _current_language
+    _current_language = language
     sites = RANKING_SITES.get(language, [])
     title_site_count: Dict[str, int] = {}
     title_position: Dict[str, List[int]] = {}
