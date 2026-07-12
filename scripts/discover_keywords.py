@@ -67,22 +67,22 @@ RANKING_SITES: Dict[str, List[dict]] = {
             "attr": "text",
         },
         {
-            "name": "漫画柜-人气榜",
-            "url": "https://www.manhuagui.com/list/",
-            "selector": "a.title",
-            "attr": "title",
-        },
-        {
             "name": "咚漫漫画-排行榜",
             "url": "https://www.dongmanmanhua.cn/ranking",
             "selector": "a.title",
             "attr": "title",
         },
+        {
+            "name": "哔哩哔哩漫画-排行榜",
+            "url": "https://manga.bilibili.com/ranking",
+            "selector": "a.manga-title",
+            "attr": "title",
+        },
     ],
     "zh-Hant": [
         {
-            "name": "漫画柜",
-            "url": "https://www.manhuagui.com/list/",
+            "name": "咚漫漫画-排行榜",
+            "url": "https://www.dongmanmanhua.cn/ranking",
             "selector": "a.title",
             "attr": "title",
         },
@@ -256,12 +256,12 @@ def _scrape_site(site_cfg: dict) -> List[str]:
 
 SEARCH_QUERIES: Dict[str, List[str]] = {
     "zh-Hans": [
-        "腾讯动漫排行榜 top100",
-        "快看漫画排行榜 人气榜",
-        "漫画柜排行榜 人气",
-        "2025热门漫画排行",
-        "国漫排行榜前十名",
-        "日漫排行榜 2025",
+        "国漫排行榜 2025 热门漫画",
+        "快看漫画排行榜 人气漫画",
+        "腾讯漫画排行榜 月票榜",
+        "哔哩哔哩漫画排行榜 热门",
+        "2025最火国漫推荐 漫画",
+        "条漫排行榜 国产漫画人气",
     ],
     "zh-Hant": [
         "漫畫排行榜 2025",
