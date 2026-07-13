@@ -65,9 +65,6 @@ def load_queries(language: str) -> List[str]:
     for st in search_text:
         for sd in search_subdomain:
             queries.append(f"{st} site:{sd}")
-    sq = cfg.get("search_queries", [])
-    if sq:
-        queries.extend(sq)
     if queries:
         return queries
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
@@ -262,17 +259,15 @@ def _domain_label(domain: str) -> str:
 def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
     if isinstance(cfg, list):
-        return set(kw.lower() for kw in cfg), set(), set(), set(), set(), set()
-    validate = set(kw.lower() for kw in cfg.get("validate", cfg.get("primary", [])))
+        return set(kw.lower() for kw in cfg), set(), set(), set()
+    validate = set(kw.lower() for kw in cfg.get("validate", []))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
-    domain_label = set(kw.lower() for kw in cfg.get("domain_label", cfg.get("search_domain", cfg.get("secondary_domain", []))))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
-    exclude_tlds = set(tld.lower() for tld in cfg.get("exclude_tlds", []))
-    exclude_lang_hints = set(kw for kw in cfg.get("exclude_lang_hints", []))
-    return validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints
+    title_match = set(kw.lower() for kw in cfg.get("title_match", []))
+    return validate, secondary, anti, title_match
 
 
-def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set, exclude_tlds: set = None, exclude_lang_hints: set = None) -> dict:
+def _check_homepage(domain: str, language: str, validate: set, secondary: set, anti: set, title_match: set) -> dict:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -281,18 +276,8 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
         else:
             r = requests.get(url, headers=headers, timeout=5, allow_redirects=True)
         if r.status_code >= 400:
-            dl = domain.lower()
-            label = _domain_label(domain)
-            for kw in domain_label:
-                if kw in dl or kw in label:
-                    return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
             return {"result": f"http_{r.status_code}", "matched_kw": "", "match_type": ""}
     except Exception as e:
-        dl = domain.lower()
-        label = _domain_label(domain)
-        for kw in domain_label:
-            if kw in dl or kw in label:
-                return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
         return {"result": f"fetch_failed:{e}", "matched_kw": "", "match_type": ""}
 
     text = r.text.lower()[:80000]
@@ -301,32 +286,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
     if m:
         title = m.group(1).strip()
 
-    if exclude_tlds:
-        lang_attr = ""
-        m_lang = re.search(r'<html[^>]+lang=["\']([^"\']+)["\']', text, re.IGNORECASE)
-        if m_lang:
-            lang_attr = m_lang.group(1).lower()
-        if lang_attr:
-            lang_prefix = lang_attr.split("-")[0]
-            allowed = {"zh-Hans": "zh", "zh-Hant": "zh", "ja": "ja", "ko": "ko", "en": "en"}
-            expected = allowed.get(language, "")
-            if expected and lang_prefix != expected:
-                dl = domain.lower()
-                label = _domain_label(domain)
-                for kw in domain_label:
-                    if kw in dl or kw in label:
-                        return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
-                return {"result": "wrong_lang", "matched_kw": lang_attr, "match_type": "lang_mismatch"}
-        if exclude_lang_hints:
-            lang_hint_hits = sum(1 for hint in exclude_lang_hints if hint in text)
-            if lang_hint_hits >= 2:
-                dl = domain.lower()
-                label = _domain_label(domain)
-                for kw in domain_label:
-                    if kw in dl or kw in label:
-                        return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
-                return {"result": "wrong_lang", "matched_kw": "lang_hints:" + str(lang_hint_hits), "match_type": "lang_mismatch"}
-
+    # 1. anti_patterns: 屏蔽成人站（检查页面内容）
     for ap in anti:
         if re.search(r'[\u4e00-\u9fff]', ap):
             if ap.lower() in text:
@@ -335,44 +295,42 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
             if re.search(r'\b' + re.escape(ap) + r'\b', text, re.IGNORECASE):
                 return {"result": "anti_pattern", "matched_kw": ap, "match_type": "anti"}
 
-    for bk in BLOCKED_DOMAIN_KEYWORDS:
-        if re.search(r'[\u4e00-\u9fff]', bk):
-            if bk in title:
-                return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
+    # 2. title_match: 清理非漫画站（只检查标题）
+    for tm in title_match:
+        if re.search(r'[\u4e00-\u9fff]', tm):
+            if tm in title:
+                return {"result": "title_blocked", "matched_kw": tm, "match_type": "title_blocked"}
         else:
-            if re.search(r'\b' + re.escape(bk) + r'\b', title, re.IGNORECASE):
-                return {"result": "content_blocked", "matched_kw": bk, "match_type": "content_blocked"}
+            if re.search(r'\b' + re.escape(tm) + r'\b', title, re.IGNORECASE):
+                return {"result": "title_blocked", "matched_kw": tm, "match_type": "title_blocked"}
 
+    # 3. validate: 内容匹配（检查页面内容+标题）
     for kw in validate:
         if kw in text or kw in title:
             loc = "title" if kw in title else "body"
             return {"result": "primary_match", "matched_kw": kw, "match_type": f"primary_{loc}"}
 
+    # 4. domain_label: 域名含validate词则通过
     dl = domain.lower()
     label = _domain_label(domain)
-    for kw in domain_label:
+    for kw in validate:
         if kw in dl or kw in label:
             return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
+    # 5. secondary: 多条匹配
     secondary_hits = sum(1 for kw in secondary if kw in text)
     if secondary_hits >= 2:
         return {"result": "secondary_2+", "matched_kw": "", "match_type": "secondary"}
-
-    dl = domain.lower()
-    label = _domain_label(domain)
-    for kw in domain_label:
-        if kw in dl or kw in label:
-            return {"result": "domain_label_fallback", "matched_kw": kw, "match_type": "domain_label"}
 
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True, revalidate: bool = False) -> tuple:
-    validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints = _get_kw_sets(language)
+    validate, secondary, anti, title_match = _get_kw_sets(language)
     validated = []
     skipped = 0
-    reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
-    reject_reasons = {"http_error": 0, "anti_pattern": 0, "content_blocked": 0, "no_indicators": 0, "network_issue": 0, "wrong_lang": 0}
+    reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_2+": 0}
+    reject_reasons = {"http_error": 0, "anti_pattern": 0, "title_blocked": 0, "no_indicators": 0, "network_issue": 0}
     removed_details = []
     kw_matched = {}
     kw_blocked = {}
@@ -388,24 +346,16 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             removed_details.append({"domain": d, "reason": "excluded_domain", "detail": "in blocked_domains.json excluded_domains", "matched_kw": ""})
             print(f"  ✗ {d} (excluded_domain)")
             continue
-        if exclude_tlds and any(rd.endswith(tld) for tld in exclude_tlds):
-            skipped += 1
-            reject_reasons.setdefault("excluded_tld", 0)
-            reject_reasons["excluded_tld"] += 1
-            matched_tld = next(tld for tld in exclude_tlds if rd.endswith(tld))
-            removed_details.append({"domain": d, "reason": "excluded_tld", "detail": matched_tld, "matched_kw": ""})
-            print(f"  ✗ {d} (excluded_tld: {matched_tld})")
-            continue
         if not revalidate and (rd in existing or d in existing):
             validated.append(rd)
             reasons["existing"] += 1
             continue
 
-        info = _check_homepage(d, language, validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints)
+        info = _check_homepage(d, language, validate, secondary, anti, title_match)
         result = info["result"]
         matched_kw = info["matched_kw"]
 
-        if result in ("primary_match", "domain_label_match", "secondary_2+", "domain_label_fallback"):
+        if result in ("primary_match", "domain_label_match", "secondary_2+"):
             validated.append(rd)
             reasons[result] += 1
             kw_matched.setdefault(matched_kw, []).append(rd)
@@ -423,13 +373,9 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             elif result == "anti_pattern":
                 reject_reasons["anti_pattern"] += 1
                 kw_blocked.setdefault(matched_kw, []).append(d)
-            elif result == "content_blocked":
-                reject_reasons["content_blocked"] += 1
+            elif result == "title_blocked":
+                reject_reasons["title_blocked"] += 1
                 kw_cleaned.setdefault(matched_kw, []).append(d)
-            elif result == "wrong_lang":
-                reject_reasons["wrong_lang"] += 1
-                removed_details.append({"domain": d, "reason": "wrong_lang", "detail": matched_kw, "matched_kw": ""})
-                print(f"  ✗ {d} (wrong_lang: {matched_kw})")
             else:
                 reject_reasons["no_indicators"] += 1
             removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
@@ -566,7 +512,7 @@ def main() -> int:
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     parser.add_argument("--suppress-zero-results", action="store_true", help="零结果搜索不输出警告")
     parser.add_argument("--show-blocked", action="store_true", help="输出屏蔽(anti_patterns)统计，默认关闭")
-    parser.add_argument("--show-cleaned", action="store_true", help="输出清理(content_blocked)统计，默认开启")
+    parser.add_argument("--show-cleaned", action="store_true", help="输出清理(title_blocked)统计，默认开启")
     parser.add_argument("--revalidate", action="store_true", help="重新验证已有域名（全量清理模式）")
     args = parser.parse_args()
 
@@ -643,7 +589,7 @@ def main() -> int:
         for reason in sorted(by_reason.keys()):
             if not args.show_blocked and reason == "anti_pattern":
                 continue
-            if not args.show_cleaned and reason == "content_blocked":
+            if not args.show_cleaned and reason == "title_blocked":
                 continue
             items = by_reason[reason]
             print(f"  [{reason}] ({len(items)}):")
@@ -664,7 +610,7 @@ def main() -> int:
                 print(f"  ✗ {d}")
             _remove_domains_from_aggregator(args.language, removed_existing)
 
-    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("content_blocked", "anti_pattern")]
+    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern")]
     if cleaned_domains:
         cleaned_path = ROOT / "config" / "cleaned_domains" / f"{args.language}.txt"
         _save_cleaned_log(cleaned_path, cleaned_domains)
