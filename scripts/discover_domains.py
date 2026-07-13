@@ -302,7 +302,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
 
     if exclude_tlds:
         lang_attr = ""
-        m_lang = re.search(r'<html[^>]+lang=["\x27]([^"\\x27]+)["\x27]', text, re.IGNORECASE)
+        m_lang = re.search(r'<html[^>]+lang=["\']([^"\']+)["\']', text, re.IGNORECASE)
         if m_lang:
             lang_attr = m_lang.group(1).lower()
         if lang_attr:
@@ -362,7 +362,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
-    reject_reasons = {"http_error": 0, "anti_pattern": 0, "content_blocked": 0, "no_indicators": 0, "network_issue": 0}
+    reject_reasons = {"http_error": 0, "anti_pattern": 0, "content_blocked": 0, "no_indicators": 0, "network_issue": 0, "wrong_lang": 0}
     removed_details = []
     kw_matched = {}
     kw_blocked = {}
@@ -418,6 +418,8 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
                 kw_cleaned.setdefault(matched_kw, []).append(d)
             elif result == "wrong_lang":
                 reject_reasons["wrong_lang"] += 1
+                removed_details.append({"domain": d, "reason": "wrong_lang", "detail": matched_kw, "matched_kw": ""})
+                print(f"  ✗ {d} (wrong_lang: {matched_kw})")
             else:
                 reject_reasons["no_indicators"] += 1
             removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
