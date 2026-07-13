@@ -262,12 +262,13 @@ def _domain_label(domain: str) -> str:
 def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
     if isinstance(cfg, list):
-        return set(kw.lower() for kw in cfg), set(), set(), set()
+        return set(kw.lower() for kw in cfg), set(), set(), set(), set()
     validate = set(kw.lower() for kw in cfg.get("validate", cfg.get("primary", [])))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
     domain_label = set(kw.lower() for kw in cfg.get("domain_label", cfg.get("search_domain", cfg.get("secondary_domain", []))))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
-    return validate, secondary, domain_label, anti
+    exclude_tlds = set(tld.lower() for tld in cfg.get("exclude_tlds", []))
+    return validate, secondary, domain_label, anti, exclude_tlds
 
 
 def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set) -> dict:
@@ -340,7 +341,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True, revalidate: bool = False) -> tuple:
-    validate, secondary, domain_label, anti = _get_kw_sets(language)
+    validate, secondary, domain_label, anti, exclude_tlds = _get_kw_sets(language)
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
@@ -359,6 +360,14 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             reject_reasons["excluded_domain"] += 1
             removed_details.append({"domain": d, "reason": "excluded_domain", "detail": "in blocked_domains.json excluded_domains", "matched_kw": ""})
             print(f"  ✗ {d} (excluded_domain)")
+            continue
+        if exclude_tlds and any(rd.endswith(tld) for tld in exclude_tlds):
+            skipped += 1
+            reject_reasons.setdefault("excluded_tld", 0)
+            reject_reasons["excluded_tld"] += 1
+            matched_tld = next(tld for tld in exclude_tlds if rd.endswith(tld))
+            removed_details.append({"domain": d, "reason": "excluded_tld", "detail": matched_tld, "matched_kw": ""})
+            print(f"  ✗ {d} (excluded_tld: {matched_tld})")
             continue
         if not revalidate and (rd in existing or d in existing):
             validated.append(rd)
