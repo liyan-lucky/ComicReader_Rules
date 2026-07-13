@@ -271,7 +271,7 @@ def _get_kw_sets(language: str):
     return validate, secondary, domain_label, anti, exclude_tlds
 
 
-def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set) -> dict:
+def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set, exclude_tlds: set = None) -> dict:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -299,6 +299,23 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
     m = re.search(r"<title[^>]*>(.*?)</title>", text, re.DOTALL | re.IGNORECASE)
     if m:
         title = m.group(1).strip()
+
+    if exclude_tlds:
+        lang_attr = ""
+        m_lang = re.search(r'<html[^>]+lang=["\x27]([^"\\x27]+)["\x27]', text, re.IGNORECASE)
+        if m_lang:
+            lang_attr = m_lang.group(1).lower()
+        if lang_attr:
+            lang_prefix = lang_attr.split("-")[0]
+            allowed = {"zh-Hans": "zh", "zh-Hant": "zh", "ja": "ja", "ko": "ko", "en": "en"}
+            expected = allowed.get(language, "")
+            if expected and lang_prefix != expected:
+                dl = domain.lower()
+                label = _domain_label(domain)
+                for kw in domain_label:
+                    if kw in dl or kw in label:
+                        return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
+                return {"result": "wrong_lang", "matched_kw": lang_attr, "match_type": "lang_mismatch"}
 
     for ap in anti:
         if re.search(r'[\u4e00-\u9fff]', ap):
@@ -374,7 +391,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             reasons["existing"] += 1
             continue
 
-        info = _check_homepage(d, language, validate, secondary, domain_label, anti)
+        info = _check_homepage(d, language, validate, secondary, domain_label, anti, exclude_tlds)
         result = info["result"]
         matched_kw = info["matched_kw"]
 
@@ -399,6 +416,8 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             elif result == "content_blocked":
                 reject_reasons["content_blocked"] += 1
                 kw_cleaned.setdefault(matched_kw, []).append(d)
+            elif result == "wrong_lang":
+                reject_reasons["wrong_lang"] += 1
             else:
                 reject_reasons["no_indicators"] += 1
             removed_details.append({"domain": d, "reason": result, "detail": "", "matched_kw": matched_kw})
