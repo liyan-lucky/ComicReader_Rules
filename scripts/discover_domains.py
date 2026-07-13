@@ -262,16 +262,17 @@ def _domain_label(domain: str) -> str:
 def _get_kw_sets(language: str):
     cfg = _MANGA_KW_CFG.get(language, {})
     if isinstance(cfg, list):
-        return set(kw.lower() for kw in cfg), set(), set(), set(), set()
+        return set(kw.lower() for kw in cfg), set(), set(), set(), set(), set()
     validate = set(kw.lower() for kw in cfg.get("validate", cfg.get("primary", [])))
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
     domain_label = set(kw.lower() for kw in cfg.get("domain_label", cfg.get("search_domain", cfg.get("secondary_domain", []))))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
     exclude_tlds = set(tld.lower() for tld in cfg.get("exclude_tlds", []))
-    return validate, secondary, domain_label, anti, exclude_tlds
+    exclude_lang_hints = set(kw for kw in cfg.get("exclude_lang_hints", []))
+    return validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints
 
 
-def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set, exclude_tlds: set = None) -> dict:
+def _check_homepage(domain: str, language: str, validate: set, secondary: set, domain_label: set, anti: set, exclude_tlds: set = None, exclude_lang_hints: set = None) -> dict:
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -316,6 +317,15 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
                     if kw in dl or kw in label:
                         return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
                 return {"result": "wrong_lang", "matched_kw": lang_attr, "match_type": "lang_mismatch"}
+        if exclude_lang_hints:
+            lang_hint_hits = sum(1 for hint in exclude_lang_hints if hint in text)
+            if lang_hint_hits >= 2:
+                dl = domain.lower()
+                label = _domain_label(domain)
+                for kw in domain_label:
+                    if kw in dl or kw in label:
+                        return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
+                return {"result": "wrong_lang", "matched_kw": "lang_hints:" + str(lang_hint_hits), "match_type": "lang_mismatch"}
 
     for ap in anti:
         if re.search(r'[\u4e00-\u9fff]', ap):
@@ -358,7 +368,7 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, d
 
 
 def validate_domains(domains: List[str], existing: Set[str], language: str, show_blocked: bool = False, show_cleaned: bool = True, revalidate: bool = False) -> tuple:
-    validate, secondary, domain_label, anti, exclude_tlds = _get_kw_sets(language)
+    validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints = _get_kw_sets(language)
     validated = []
     skipped = 0
     reasons = {"existing": 0, "primary_match": 0, "domain_label_match": 0, "secondary_3+": 0}
@@ -391,7 +401,7 @@ def validate_domains(domains: List[str], existing: Set[str], language: str, show
             reasons["existing"] += 1
             continue
 
-        info = _check_homepage(d, language, validate, secondary, domain_label, anti, exclude_tlds)
+        info = _check_homepage(d, language, validate, secondary, domain_label, anti, exclude_tlds, exclude_lang_hints)
         result = info["result"]
         matched_kw = info["matched_kw"]
 
