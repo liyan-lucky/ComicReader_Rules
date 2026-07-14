@@ -27,7 +27,7 @@ on:
       per_domain_generated_limit:
         description: '每个域名最多保留多少条规则'
         required: true
-        default: '500'
+         default: '3'
         type: choice
         options:
           - '50'
@@ -163,8 +163,8 @@ jobs:
       DEEP_MAX_AUDIT_CANDIDATES: '0'
       QUICK_PER_DOMAIN_AUDIT_LIMIT: '0'
       DEEP_PER_DOMAIN_AUDIT_LIMIT: '0'
-      QUICK_PER_DOMAIN_GENERATED_LIMIT: '500'
-      DEEP_PER_DOMAIN_GENERATED_LIMIT: '500'
+      QUICK_PER_DOMAIN_GENERATED_LIMIT: '3'
+      DEEP_PER_DOMAIN_GENERATED_LIMIT: '3'
       QUICK_TIME_BUDGET_SECONDS: '5400'
       DEEP_TIME_BUDGET_SECONDS: '19800'
       QUICK_SLEEP: '0.15'

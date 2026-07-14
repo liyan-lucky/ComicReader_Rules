@@ -22,6 +22,14 @@ _HEADERS_CFG = _load_json_config("headers.json", {})
 UA = _HEADERS_CFG.get("rule_bot_ua", "")
 
 _REGEX_CFG = _load_json_config("regex_patterns.json", {})
+
+_BUILTIN_PATTERNS = {
+    "searchItemRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,260}?)</a>',
+    "detailChapterRegex": r'<a[^>]+href=["\']([^"\']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^"\']*)["\'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)</a>',
+    "readerImageRegex": r'<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=["\']([^"\']+)["\'][^>]*>|<source[^>]+srcset=["\']([^"\']+)["\'][^>]*>|["\']((?:https?:)?//[^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)["\']?\s*[:=]\s*(\[[\s\S]{0,9000}?\])',
+    "readerNextPageRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(?:\s*下一页\s*|\s*下页\s*|\s*Next\s*|\s*next\s*|\s*&gt;\s*|\s*›\s*)</a>|rel=["\']next["\'][^>]+href=["\']([^"\']+)["\']|href=["\']([^"\']+)["\'][^>]+rel=["\']next["\']',
+}
+
 _PATTERN_SETS = _REGEX_CFG.get("pattern_sets", {})
 _LANG_MAPPING = _REGEX_CFG.get("lang_mapping", {})
 _COMMON_PATTERNS = _REGEX_CFG.get("common", {})
@@ -29,7 +37,8 @@ _COMMON_PATTERNS = _REGEX_CFG.get("common", {})
 def _get_patterns(lang_code: str) -> dict:
     mapped = _LANG_MAPPING.get(lang_code, lang_code)
     lang_patterns = _PATTERN_SETS.get(mapped, _PATTERN_SETS.get("zh", {}))
-    return {**_COMMON_PATTERNS, **lang_patterns}
+    merged = {**_BUILTIN_PATTERNS, **_COMMON_PATTERNS, **lang_patterns}
+    return merged
 
 _BAD_TITLE_RE = re.compile(r'^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)', re.I)
 

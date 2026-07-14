@@ -733,8 +733,15 @@ def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1, ne
         grouped.setdefault(a.domain, []).append(a)
     chosen: List[PageAudit] = []
     for domain, items in grouped.items():
+        seen_urls: set = set()
         ranked = sorted(items, key=lambda a: (-score(a), a.detail_url))
-        chosen.extend(ranked[:max(1, per_domain_limit)])
+        for a in ranked:
+            if a.detail_url in seen_urls:
+                continue
+            seen_urls.add(a.detail_url)
+            chosen.append(a)
+            if len(seen_urls) >= max(1, per_domain_limit):
+                break
     return sorted(chosen, key=lambda a: (a.domain, -a.static_image_count, -a.chapter_count, a.detail_url))
 
 
@@ -964,6 +971,12 @@ def main() -> int:
         keywords = RULE_KEYWORDS.get(args.language_code, [])
     if not keywords:
         keywords = RULE_KEYWORDS.get("zh-Hans", [])
+    if not keywords:
+        _KD = _load_config("keyword_discovery.json", {})
+        _fallback = _KD.get("fallback_ranking", {}).get(args.language_code, [])
+        if _fallback:
+            keywords = _fallback
+            log(f"[info] loaded {len(keywords)} keywords from keyword_discovery.json fallback_ranking")
     log(f"[info] keywords: {len(keywords)} (from args: {len(args.keyword)}, from files: {len(args.keywords_file)}, from json: {len(RULE_KEYWORDS.get(args.language_code, []))})")
     domains = args.domain or []
     for df in args.domains_file:

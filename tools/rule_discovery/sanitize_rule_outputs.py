@@ -22,14 +22,14 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 _BLOCKED_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "blocked_domains.json"
-if not _BLOCKED_CFG_PATH.exists():
-    print(f"[error] required config not found: {_BLOCKED_CFG_PATH}", file=sys.stderr)
-    sys.exit(1)
-try:
-    _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
-except Exception as exc:
-    print(f"[error] failed to parse {_BLOCKED_CFG_PATH}: {exc}", file=sys.stderr)
-    sys.exit(1)
+if _BLOCKED_CFG_PATH.exists():
+    try:
+        _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
+    except Exception as exc:
+        print(f"[warn] failed to parse {_BLOCKED_CFG_PATH}: {exc}", file=sys.stderr)
+        _BLOCKED_CFG = {}
+else:
+    _BLOCKED_CFG = {}
 
 _DISCOVER_BLOCKED = _BLOCKED_CFG.get("discover_domains", [])
 _GENERATE_BLOCKED = _BLOCKED_CFG.get("generate_rules", [])

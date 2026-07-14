@@ -373,7 +373,7 @@ def load_manual_search_rules(language_code: str = "") -> List[Dict[str, Any]]:
     return all_rules
 
 
-def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]]], Dict[str, Any]]:
+def extract_from_category_search_rules(language_code: str = "") -> Tuple[List[Tuple[str, Dict[str, Any]]], Dict[str, Any]]:
     records: List[Tuple[str, Dict[str, Any]]] = []
     stats = {
         "enabledRuleCount": 0,
@@ -385,7 +385,7 @@ def extract_from_category_search_rules() -> Tuple[List[Tuple[str, Dict[str, Any]
         "targetPerCategory": CATEGORY_TARGET_COUNT,
         "searchDiscoveryWithFallbackClassification": True,
     }
-    rules = load_manual_search_rules(args.language_code if hasattr(args, 'language_code') else "")
+    rules = load_manual_search_rules(language_code)
     stats["enabledRuleCount"] = len(rules)
     hint_counts: Dict[str, int] = defaultdict(int)
 
@@ -701,7 +701,7 @@ def main() -> int:
     previous = load_json(ROOT / _resolve(args.output), {})
 
     discovery_records, discovery_stats = extract_from_discovery_sources(discovery_sources)
-    category_search_records, category_search_stats = extract_from_category_search_rules()
+    category_search_records, category_search_stats = extract_from_category_search_rules(args.language_code)
     index_records = extract_from_index(index)
     report_records = extract_from_index(report)
     records = category_search_records + discovery_records + index_records + report_records
