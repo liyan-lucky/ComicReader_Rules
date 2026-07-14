@@ -52,7 +52,8 @@ AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
 CATEGORY_TARGET = 200
 
-CHAPTER_RE = re.compile(r'^(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
+CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
+SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$', re.I)
 
 
 def normalize_domain(domain: str) -> str:
@@ -95,12 +96,16 @@ def load_domains_from_aggregator(lang: str) -> List[str]:
     return domains
 
 
+def clean_catalog_title(title: str) -> str:
+    title = SUFFIX_NOISE_RE.sub('', title).strip()
+    return title
+
 def is_valid_title(title: str) -> bool:
     if not title or len(title) < 2:
         return False
     if title == "#top_title#":
         return False
-    if CHAPTER_RE.match(title):
+    if CHAPTER_RE.search(title) and not re.search(r'[\u4e00-\u9fff]{2,}', title.split('第')[0].split('Chapter')[0]):
         return False
     return True
 
@@ -108,7 +113,7 @@ def is_valid_title(title: str) -> bool:
 def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str, Dict[str, Any]]:
     by_title: Dict[str, Dict[str, Any]] = {}
     for entry in report:
-        detail_title = (entry.get("detail_title") or "").strip()
+        detail_title = clean_catalog_title((entry.get("detail_title") or "").strip())
         domain = (entry.get("domain") or "").strip().lower().replace("www.", "")
         if not is_valid_title(detail_title) or not domain:
             continue
