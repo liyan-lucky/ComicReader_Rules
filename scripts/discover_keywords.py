@@ -305,7 +305,7 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="爬取知名漫画站排行榜，横向对比输出热门关键词")
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en", "ja", "ko"])
-    parser.add_argument("--top", type=int, default=20, help="取前N个热门关键词，默认20")
+    parser.add_argument("--top", type=int, default=50, help="取前N个热门关键词，默认50")
     parser.add_argument("--report", default="", help="JSON报告输出路径")
     args = parser.parse_args()
 

@@ -23,6 +23,8 @@ UA = _HEADERS_CFG.get("rule_bot_ua", "")
 
 _REGEX_CFG = _load_json_config("regex_patterns.json", {})
 
+_SEARCH_URL_TEMPLATES = _load_json_config("search_url_templates.json", {})
+
 _BUILTIN_PATTERNS = {
     "searchItemRegex": r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,260}?)</a>',
     "detailChapterRegex": r'<a[^>]+href=["\']([^"\']*(?:/chapter/|/chap/|/read/|/viewer|chapter|episode|cid=)[^"\']*)["\'][^>]*>([\s\S]{0,220}?(?:第\s*\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\s\S]{0,120}?)</a>',
@@ -115,19 +117,20 @@ def rule_for_audit(a: dict, lang_code: str = "zh") -> dict:
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
     base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
     title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
+    search_url = _SEARCH_URL_TEMPLATES.get(domain, '')
     rule = add_rule_compliance({
         'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{title} - {domain} 远程公开源',
         'description': '规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。',
         'homepage': base,
-        'searchUrl': '',
-        'searchMethod': 'url-only',
+        'searchUrl': search_url,
+        'searchMethod': 'url-only' if search_url else '',
         'searchItemRegex': _patterns.get('searchItemRegex', ''),
         'searchTitleGroups': [2],
         'searchUrlGroups': [1],
         'searchCoverGroups': [],
         'searchResultIsChapter': False,
-        'searchFilterByKeyword': False,
+        'searchFilterByKeyword': bool(search_url),
         'detailChapterRegex': _patterns.get('detailChapterRegex', ''),
         'detailChapterTitleGroups': [2],
         'detailChapterUrlGroups': [1],
@@ -159,6 +162,7 @@ def main() -> int:
     ap.add_argument('--manual', default='rules/manual/index.json')
     ap.add_argument('--language-code', default='')
     ap.add_argument('--language-name', default='')
+    ap.add_argument('--per-domain-limit', type=int, default=3, help='每个域名最多保留多少条规则')
     args = ap.parse_args()
 
     report_path = Path(args.report.format(lang=args.language_code) if '{lang}' in args.report else args.report)
@@ -170,12 +174,19 @@ def main() -> int:
 
     rules: list[dict] = []
     seen: set[str] = set()
+    domain_count: dict[str, int] = {}
     generated_valid_count = 0
     for a in data.get('generated', []):
         r = rule_for_audit(a, language_code)
         if is_valid_rule(r):
+            domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
+            if domain_count.get(domain, 0) >= args.per_domain_limit:
+                continue
+            before = len(rules)
             append_unique(rules, seen, r)
-            generated_valid_count += 1
+            if len(rules) > before:
+                domain_count[domain] = domain_count.get(domain, 0) + 1
+                generated_valid_count += 1
 
     manual_added_count = 0
     for manual_rule in manual_rules:

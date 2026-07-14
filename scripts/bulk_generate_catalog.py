@@ -222,6 +222,10 @@ def main() -> int:
         total = sum(c["count"] for c in catalog.values())
         cat_count = len(catalog)
 
+        all_items_list = []
+        for cat_data in catalog.values():
+            all_items_list.extend(cat_data.get("items", []))
+
         out = {
             "schema": "womh_comic_catalog_v1",
             "version": datetime.now(timezone.utc).strftime("%Y.%m.%d.%H%M"),
@@ -230,6 +234,7 @@ def main() -> int:
             "totalItems": total,
             "categoryCount": cat_count,
             "categories": catalog,
+            "items": all_items_list,
         }
 
         out_path = ROOT / "catalog" / f"catalog.{lang}.json"

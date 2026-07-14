@@ -149,7 +149,7 @@ jobs:
             --limit 30 --sleep $SLEEP --seed-limit $SEED_LIMIT --per-seed-limit $PER_SEED_LIMIT \
             --time-budget-seconds $TIME_BUDGET --search-budget-seconds $SEARCH_BUDGET \
             --max-consecutive-zero-search 50 \
-            --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit 500 \
+            --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit 3 \
             --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
           python tools/rule_discovery/build_index_from_report.py \
             --report "$REPORT" --output "$INDEX" \
