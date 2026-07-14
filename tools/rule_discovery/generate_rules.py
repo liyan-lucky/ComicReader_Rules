@@ -862,6 +862,7 @@ def _is_blocked_domain(domain: str) -> bool:
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
     _GENERIC_PATTERNS = {"漫画", "manga", "manhua", "webtoon", "comic", "在线", "免费", "阅读", "推荐", "更新", "网站", "连载", "追更", "大全", "read", "online", "free", "site", "list"}
+    _GENRE_HINTS = {"恋爱", "玄幻", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻", "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争", "修仙", "穿越", "重生", "异世界", "系统", "复仇", "爽文", "古风", "都市"}
     generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS)]
     specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS)]
     ordered_kws = generic_kws + specific_kws
@@ -877,19 +878,24 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
         kw = kw.strip()
         if not kw:
             continue
+        is_genre_or_generic = kw in _GENRE_HINTS or any(p in kw.lower() for p in _GENERIC_PATTERNS)
         if has_search_api:
             queries.append(kw)
-            if re.search(r"[\u4e00-\u9fff]", kw):
-                queries.append(f"{kw} 漫画")
-            else:
-                queries.append(f"{kw} manga read")
+            if is_genre_or_generic:
+                if re.search(r"[\u4e00-\u9fff]", kw):
+                    queries.append(f"{kw} 漫画")
+                else:
+                    queries.append(f"{kw} manga read")
             if site_domains:
                 for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
                     if d in seeded:
                         continue
                     queries.append(f"site:{d} {kw}")
         else:
-            bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
+            if is_genre_or_generic:
+                bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
+            else:
+                bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read"]
             for b in bases:
                 if site_domains:
                     for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
