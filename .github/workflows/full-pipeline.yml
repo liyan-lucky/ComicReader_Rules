@@ -370,7 +370,6 @@ jobs:
           git add \
             generated/rulebot_report.${PIPELINE_LANGUAGE}.json \
             generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets \
-            generated/index.${PIPELINE_LANGUAGE}.json \
             rules/index.${PIPELINE_LANGUAGE}.json \
             generated/update_manifest.json
           if git diff --cached --quiet; then
