@@ -100,15 +100,23 @@ def clean_catalog_title(title: str) -> str:
     title = SUFFIX_NOISE_RE.sub('', title).strip()
     return title
 
+TEMPLATE_GARBAGE_RE = re.compile(r'\{\{.*?\}\}|#.*?#|SITEMAP|PK\s*!+', re.I)
+
 def is_valid_title(title: str) -> bool:
     if not title or len(title) < 2:
         return False
     if title == "#top_title#":
         return False
+    if TEMPLATE_GARBAGE_RE.search(title):
+        return False
+    if not re.search(r'[\u4e00-\u9fff]', title) and not re.search(r'[a-zA-Z]{3,}', title):
+        return False
     if CHAPTER_RE.search(title) and not re.search(r'[\u4e00-\u9fff]{2,}', title.split('第')[0].split('Chapter')[0]):
         return False
     return True
 
+
+REPORT_BLOCKED = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
 
 def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str, Dict[str, Any]]:
     by_title: Dict[str, Dict[str, Any]] = {}
@@ -116,6 +124,8 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
         detail_title = clean_catalog_title((entry.get("detail_title") or "").strip())
         domain = (entry.get("domain") or "").strip().lower().replace("www.", "")
         if not is_valid_title(detail_title) or not domain:
+            continue
+        if any(b in domain for b in REPORT_BLOCKED):
             continue
         key = detail_title.lower()
         if key not in by_title:
@@ -164,17 +174,42 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     import urllib.error
     by_title: Dict[str, Dict[str, Any]] = {}
     ranking_urls = {
-        "baozimh.com": ["https://www.baozimh.com/classify", "https://www.baozimh.com/update"],
-        "bzmanga.com": ["https://bzmanga.com/list", "https://bzmanga.com/update"],
-        "cn.baozimh.com": ["https://cn.baozimh.com/classify"],
-        "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
+        "baozimh.com": [
+            "https://www.baozimh.com/classify",
+            "https://www.baozimh.com/classify?type=lianhua",
+            "https://www.baozimh.com/classify?type=xuanhuan",
+            "https://www.baozimh.com/classify?type=rexue",
+            "https://www.baozimh.com/classify?type=gaoxiao",
+            "https://www.baozimh.com/classify?type=danmei",
+            "https://www.baozimh.com/classify?type=xuanyi",
+            "https://www.baozimh.com/classify?type=kongbu",
+            "https://www.baozimh.com/classify?type=kehuan",
+            "https://www.baozimh.com/classify?type=maoxian",
+            "https://www.baozimh.com/classify?type=xiaoyuan",
+            "https://www.baozimh.com/classify?type=mofa",
+            "https://www.baozimh.com/classify?type=zhanzheng",
+            "https://www.baozimh.com/classify?type=wuxia",
+            "https://www.baozimh.com/classify?type=lishi",
+            "https://www.baozimh.com/classify?type=jingji",
+            "https://www.baozimh.com/update",
+        ],
+        "ac.qq.com": ["https://ac.qq.com/Rank"],
+        "m.kuaikanmanhua.com": ["https://www.kuaikanmanhua.com/web/topic/0/0"],
         "manga.bilibili.com": ["https://manga.bilibili.com/ranking"],
-        "m.manhuagui.com": ["https://www.manhuagui.com/list/rank.html"],
+        "m.manhuagui.com": [
+            "https://www.manhuagui.com/list/rank.html",
+            "https://www.manhuagui.com/list/cate1.html",
+            "https://www.manhuagui.com/list/cate2.html",
+            "https://www.manhuagui.com/list/cate3.html",
+            "https://www.manhuagui.com/list/cate4.html",
+            "https://www.manhuagui.com/list/cate5.html",
+            "https://www.manhuagui.com/list/cate6.html",
+            "https://www.manhuagui.com/list/cate7.html",
+        ],
+        "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
         "kalamanhua.com": ["https://www.kalamanhua.com/rank/"],
         "qimanwu.app": ["https://qimanwu.app/rank/"],
-        "doubaomanhua.com": ["https://doubaomanhua.com/rank/"],
         "hetushu.com": ["https://www.hetushu.com/manhua/"],
-        "manwamh5.com": ["https://manwamh5.com/rank/"],
         "guazimanhua.com": ["https://www.guazimanhua.com/rank/"],
         "duokanmh.com": ["https://www.duokanmh.com/rank/"],
         "mh250.com": ["https://www.mh250.com/rank/"],
@@ -186,12 +221,24 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
         "ttkmh.com": ["https://www.ttkmh.com/rank/"],
         "kaixinman.com": ["https://www.kaixinman.com/rank/"],
         "manhuaplus.com": ["https://www.manhuaplus.com/rank/"],
+        "manhuatuan.com": ["https://www.manhuatuan.com/rank/"],
+        "baomh.com": ["https://www.baomh.com/rank/"],
+        "mycomic.com": ["https://www.mycomic.com/rank/"],
+        "pufei8.com": ["https://www.pufei8.com/rank/"],
+        "dmzj.com": ["https://www.dmzj.com/rank/"],
+        "manhuadb.com": ["https://www.manhuadb.com/rank/"],
+        "manhuaren.com": ["https://www.manhuaren.com/rank/"],
+        "mh1234.com": ["https://www.mh1234.com/rank/"],
+        "omanhua.com": ["https://www.omanhua.com/rank/"],
     }
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,200}?)</a>', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
+    blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
     for domain, urls in ranking_urls.items():
         if domain not in domains:
+            continue
+        if any(b in domain for b in blocked):
             continue
         for url in urls:
             try:
@@ -206,12 +253,16 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     continue
                 raw_title = _re.sub(r'<[^>]+>', '', m.group(2)).strip()
                 title = clean_catalog_title(raw_title)
-                if not title or len(title) < 2 or len(title) > 80:
+                if not is_valid_title(title):
                     continue
-                if CHAPTER_RE.search(title):
+                if len(title) > 80:
                     continue
                 key = title.lower()
                 if key in existing_titles:
+                    if key in by_title:
+                        existing_sources = {s["domain"] for s in by_title[key]["sources"]}
+                        if domain not in existing_sources:
+                            by_title[key]["sources"].append({"domain": domain, "detailUrl": href if href.startswith("http") else f"https://{domain}{href}"})
                     continue
                 existing_titles.add(key)
                 if href.startswith("/"):
