@@ -402,7 +402,7 @@ jobs:
       - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: 生成目录
+      - name: 生成目录(在线爬取排行榜+report+keyword)
         run: python scripts/bulk_generate_catalog.py
 
       - name: 统计目录

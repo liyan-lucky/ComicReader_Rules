@@ -158,6 +158,74 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
     return by_title
 
 
+def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
+    import re as _re
+    import urllib.request
+    import urllib.error
+    by_title: Dict[str, Dict[str, Any]] = {}
+    ranking_urls = {
+        "baozimh.com": ["https://www.baozimh.com/classify", "https://www.baozimh.com/update"],
+        "bzmanga.com": ["https://bzmanga.com/list", "https://bzmanga.com/update"],
+        "cn.baozimh.com": ["https://cn.baozimh.com/classify"],
+        "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
+        "manga.bilibili.com": ["https://manga.bilibili.com/ranking"],
+        "m.manhuagui.com": ["https://www.manhuagui.com/list/rank.html"],
+        "kalamanhua.com": ["https://www.kalamanhua.com/rank/"],
+        "qimanwu.app": ["https://qimanwu.app/rank/"],
+        "doubaomanhua.com": ["https://doubaomanhua.com/rank/"],
+        "hetushu.com": ["https://www.hetushu.com/manhua/"],
+        "manwamh5.com": ["https://manwamh5.com/rank/"],
+        "guazimanhua.com": ["https://www.guazimanhua.com/rank/"],
+        "duokanmh.com": ["https://www.duokanmh.com/rank/"],
+        "mh250.com": ["https://www.mh250.com/rank/"],
+        "manwang.net": ["https://www.manwang.net/rank/"],
+        "wmanhua.com": ["https://www.wmanhua.com/rank/"],
+        "yumanhua.com": ["https://www.yumanhua.com/rank/"],
+        "shenqimanhua.net": ["https://www.shenqimanhua.net/rank/"],
+        "sto66.com": ["https://www.sto66.com/rank/"],
+        "ttkmh.com": ["https://www.ttkmh.com/rank/"],
+        "kaixinman.com": ["https://www.kaixinman.com/rank/"],
+        "manhuaplus.com": ["https://www.manhuaplus.com/rank/"],
+    }
+    link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,200}?)</a>', _re.I)
+    comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
+    ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
+    for domain, urls in ranking_urls.items():
+        if domain not in domains:
+            continue
+        for url in urls:
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    html = resp.read(500_000).decode("utf-8", errors="ignore")
+            except Exception:
+                continue
+            for m in link_re.finditer(html):
+                href = m.group(1).strip()
+                if not comic_path_re.search(href):
+                    continue
+                raw_title = _re.sub(r'<[^>]+>', '', m.group(2)).strip()
+                title = clean_catalog_title(raw_title)
+                if not title or len(title) < 2 or len(title) > 80:
+                    continue
+                if CHAPTER_RE.search(title):
+                    continue
+                key = title.lower()
+                if key in existing_titles:
+                    continue
+                existing_titles.add(key)
+                if href.startswith("/"):
+                    href = f"https://{domain}{href}"
+                by_title[key] = {
+                    "id": make_comic_id(title),
+                    "title": title,
+                    "sources": [{"domain": domain, "detailUrl": href}],
+                    "category": classify_title(title),
+                    "language": lang,
+                }
+    return by_title
+
+
 def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
     report = load_report(lang)
     domains = load_domains_from_aggregator(lang)
@@ -172,9 +240,12 @@ def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
     report_items = build_items_from_report(report, lang)
     existing_titles.update(report_items.keys())
 
+    crawled_items = crawl_ranking_pages(domains, lang, existing_titles)
+    existing_titles.update(crawled_items.keys())
+
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
 
-    all_items = {**report_items, **kw_items}
+    all_items = {**report_items, **crawled_items, **kw_items}
 
     classified: Dict[str, List[Dict[str, Any]]] = {}
     unclassified: List[Dict[str, Any]] = []
