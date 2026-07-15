@@ -7,472 +7,10 @@ import { ComicSourceRule } from '../model/ComicModels';
  */
 export const GENERATED_SOURCES: ComicSourceRule[] = [
   {
-    "id": "baozimh_com_7938c4fb_auto_public",
-    "name": "包子漫畫 - baozimh.com 远程公开源",
+    "id": "23_225_230_132_3000_70752d5a_auto_public",
+    "name": "《我的徒弟都是大反派》（校对版全本）作者：谋生任转蓬txt下载_我的徒弟都是大反派txt下载全本 - 23.225.230.132:3000 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://baozimh.com",
-    "searchUrl": "https://baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "baozimh_com_fa5dc6f7_auto_public",
-    "name": "包子漫畫 - baozimh.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://baozimh.com",
-    "searchUrl": "https://baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "baozimh_com_f2c847ad_auto_public",
-    "name": "包子漫畫 - baozimh.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://baozimh.com",
-    "searchUrl": "https://baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "bzmanga_com_6ba94c95_auto_public",
-    "name": "包子漫画 - bzmanga.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://bzmanga.com",
-    "searchUrl": "https://bzmanga.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://bzmanga.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "bzmanga_com_babeedc7_auto_public",
-    "name": "包子漫画 - bzmanga.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://bzmanga.com",
-    "searchUrl": "https://bzmanga.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://bzmanga.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "bzmanga_com_d07824a8_auto_public",
-    "name": "包子漫画 - bzmanga.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://bzmanga.com",
-    "searchUrl": "https://bzmanga.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://bzmanga.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "cidadedamalta_pt_307d9d86_auto_public",
-    "name": "Alfama lisboa: descubra o charme e a história do - cidadedamalta.pt 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://cidadedamalta.pt",
+    "homepage": "http://23.225.230.132:3000",
     "searchUrl": "",
     "searchMethod": "",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
@@ -501,7 +39,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://cidadedamalta.pt/",
+    "referer": "http://23.225.230.132:3000/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -519,1962 +57,34 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "cn_baozimh_com_3273dbc5_auto_public",
-    "name": "包子漫画 - cn.baozimh.com 远程公开源",
+    "id": "69shuba_com_a416e50a_auto_public",
+    "name": "圣墟 - 69shuba.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://cn.baozimh.com",
-    "searchUrl": "https://cn.baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://cn.baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "cn_baozimh_com_c29780c6_auto_public",
-    "name": "包子漫画 - cn.baozimh.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://cn.baozimh.com",
-    "searchUrl": "https://cn.baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://cn.baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "cn_baozimh_com_8f2a3623_auto_public",
-    "name": "包子漫画 - cn.baozimh.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://cn.baozimh.com",
-    "searchUrl": "https://cn.baozimh.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://cn.baozimh.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "dm5_com_396db348_auto_public",
-    "name": "从姑获鸟开始漫画_334连载中_在线漫画_动漫屋 - dm5.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.dm5.com",
-    "searchUrl": "https://dm5.com/search?keyword={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.dm5.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "doubaomanhua_com_fe4df2a5_auto_public",
-    "name": "魔皇大管家 - 魔皇大管家漫画免费阅读 - 豆包漫画 - doubaomanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://doubaomanhua.com",
-    "searchUrl": "https://doubaomanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://doubaomanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "doubaomanhua_com_5bf228b0_auto_public",
-    "name": "古惑仔 - 古惑仔漫画免费阅读 - 豆包漫画 - doubaomanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://doubaomanhua.com",
-    "searchUrl": "https://doubaomanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://doubaomanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "doubaomanhua_com_5e38e696_auto_public",
-    "name": "女帝的后宫 - 女帝的后宫漫画免费阅读 - 豆包漫画 - doubaomanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://doubaomanhua.com",
-    "searchUrl": "https://doubaomanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://doubaomanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "gcmanhua_com_7d4a5ee2_auto_public",
-    "name": "牧龙师 - gcmanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.gcmanhua.com",
-    "searchUrl": "https://www.gcmanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.gcmanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "guazimanhua_com_ac0a08c3_auto_public",
-    "name": "我的徒弟都是大反派 - guazimanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.guazimanhua.com",
-    "searchUrl": "https://guazimanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.guazimanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "hetushu_com_0d2118a1_auto_public",
-    "name": "斗破苍穹免费在线阅读_天蚕土豆_和图书 - hetushu.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.hetushu.com",
-    "searchUrl": "https://www.hetushu.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.hetushu.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "hetushu_com_f8e6cb8e_auto_public",
-    "name": "大奉打更人免费在线阅读_卖报小郎君_和图书 - hetushu.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.hetushu.com",
-    "searchUrl": "https://www.hetushu.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.hetushu.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "hetushu_com_2643d6e4_auto_public",
-    "name": "从姑获鸟开始免费在线阅读_活儿该_和图书 - hetushu.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.hetushu.com",
-    "searchUrl": "https://www.hetushu.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.hetushu.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "kalamanhua_com_499fd0bc_auto_public",
-    "name": "地球尽头 - kalamanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.kalamanhua.com",
-    "searchUrl": "https://kalamanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.kalamanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "kalamanhua_com_6de3b2d4_auto_public",
-    "name": "牧龙师 - kalamanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.kalamanhua.com",
-    "searchUrl": "https://kalamanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.kalamanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "kalamanhua_com_8b59eca5_auto_public",
-    "name": "绍宋 - kalamanhua.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.kalamanhua.com",
-    "searchUrl": "https://kalamanhua.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.kalamanhua.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "m_manhuagui_com_b9899375_auto_public",
-    "name": "我的双修道侣 - m.manhuagui.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://m.manhuagui.com",
-    "searchUrl": "https://m.manhuagui.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://m.manhuagui.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "m_manhuagui_com_c1fca432_auto_public",
-    "name": "灵剑尊 - m.manhuagui.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://m.manhuagui.com",
-    "searchUrl": "https://m.manhuagui.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://m.manhuagui.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "m_manhuagui_com_59534dd6_auto_public",
-    "name": "一人之下 - m.manhuagui.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://m.manhuagui.com",
-    "searchUrl": "https://m.manhuagui.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://m.manhuagui.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "manga_bilibili_com_772db76b_auto_public",
-    "name": "《我家大师兄脑子有坑》_连载兄坑中文版_bilibili漫画 - manga.bilibili.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://manga.bilibili.com",
-    "searchUrl": "https://manga.bilibili.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://manga.bilibili.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "manhua55_com_44abe2d5_auto_public",
-    "name": "漫画屋 - manhua55.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.manhua55.com",
-    "searchUrl": "https://www.manhua55.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.manhua55.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "manwang_net_5189f2df_auto_public",
-    "name": "盐友 - manwang.net 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.manwang.net",
-    "searchUrl": "https://manwang.net/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.manwang.net/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "mh250_com_bd25878e_auto_public",
-    "name": "一人之下 - mh250.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.mh250.com",
-    "searchUrl": "https://www.mh250.com/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.mh250.com/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "qimanwu_app_b21c300c_auto_public",
-    "name": "我的徒弟都是大反派_漫画最新章节免费阅读下拉式 - 奇漫屋 - qimanwu.app 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.qimanwu.app",
-    "searchUrl": "https://www.qimanwu.app/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.qimanwu.app/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "qimanwu_app_569a62f1_auto_public",
-    "name": "一人之下_漫画最新章节免费阅读下拉式 - 奇漫屋 - qimanwu.app 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.qimanwu.app",
-    "searchUrl": "https://www.qimanwu.app/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.qimanwu.app/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "qimanwu_app_bdc07d1e_auto_public",
-    "name": "牧龙师_漫画最新章节免费阅读下拉式 - 奇漫屋 - qimanwu.app 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.qimanwu.app",
-    "searchUrl": "https://www.qimanwu.app/search?q={keyword}",
-    "searchMethod": "url-only",
-    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
-    "searchTitleGroups": [
-      2
-    ],
-    "searchUrlGroups": [
-      1
-    ],
-    "searchCoverGroups": [],
-    "searchResultIsChapter": false,
-    "searchFilterByKeyword": true,
-    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
-    "detailChapterTitleGroups": [
-      2
-    ],
-    "detailChapterUrlGroups": [
-      1
-    ],
-    "detailChapterFilter": true,
-    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
-    "readerImageGroups": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.qimanwu.app/",
-    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
-    "readerNextPageUrlGroups": [
-      1,
-      2,
-      3
-    ],
-    "maxReaderPages": 12,
-    "license": "MIT",
-    "sourceType": "public-web-page-rule",
-    "compliance": {
-      "publicOnly": true,
-      "noLoginRequired": true,
-      "noPaymentBypass": true,
-      "noCaptchaBypass": true,
-      "noProtectedAssetBundled": true
-    },
-    "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
-    ]
-  },
-  {
-    "id": "reader_book_qq_com_547933bb_auto_public",
-    "name": "全知读者视角（全三册）【完结+番外】在线阅读 - reader.book.qq.com 远程公开源",
-    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://reader.book.qq.com",
+    "homepage": "https://69shuba.com",
     "searchUrl": "",
     "searchMethod": "",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
@@ -2503,7 +113,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://reader.book.qq.com/",
+    "referer": "https://69shuba.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2521,38 +131,109 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "shenqimanhua_net_053d89c0_auto_public",
-    "name": "我的徒弟都是大反派 - shenqimanhua.net 远程公开源",
+    "id": "9to5mac_com_2fd41441_auto_public",
+    "name": "OpenAI unveils ChatGPT Work agent, GPT-5.6 model - 9to5mac.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://shenqimanhua.net",
-    "searchUrl": "https://shenqimanhua.net/search?q={keyword}",
+    "homepage": "https://9to5mac.com",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://9to5mac.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "ac_qq_com_c3a95d31_auto_public",
+    "name": "狐妖小红娘 - ac.qq.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://ac.qq.com",
+    "searchUrl": "https://ac.qq.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2580,7 +261,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://shenqimanhua.net/",
+    "referer": "https://ac.qq.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2598,38 +279,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "shenqimanhua_net_7172b1b4_auto_public",
-    "name": "日月同错 - shenqimanhua.net 远程公开源",
+    "id": "ac_qq_com_f2bd643d_auto_public",
+    "name": "我家大师兄脑子有坑 - ac.qq.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://shenqimanhua.net",
-    "searchUrl": "https://shenqimanhua.net/search?q={keyword}",
+    "homepage": "https://ac.qq.com",
+    "searchUrl": "https://ac.qq.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2657,7 +335,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://shenqimanhua.net/",
+    "referer": "https://ac.qq.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2675,38 +353,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "sto66_com_8d7e7198_auto_public",
-    "name": "绍宋 - sto66.com 远程公开源",
+    "id": "ac_qq_com_a5f38e44_auto_public",
+    "name": "牧龙师 - ac.qq.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.sto66.com",
-    "searchUrl": "https://sto66.com/search?q={keyword}",
+    "homepage": "https://ac.qq.com",
+    "searchUrl": "https://ac.qq.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2734,7 +409,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.sto66.com/",
+    "referer": "https://ac.qq.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2752,38 +427,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "ttkmh_com_1309ed35_auto_public",
-    "name": "暴走邻家漫画下拉式_暴走邻家免费在线阅读-天天看漫画 - ttkmh.com 远程公开源",
+    "id": "baomh_com_ea312a36_auto_public",
+    "name": "牧龙师_漫画最新章节免费阅读(下拉式) - 爆漫画 - baomh.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://www.ttkmh.com",
-    "searchUrl": "https://ttkmh.com/search?q={keyword}",
+    "homepage": "https://baomh.com",
+    "searchUrl": "https://baomh.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2811,7 +483,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://www.ttkmh.com/",
+    "referer": "https://baomh.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2829,38 +501,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "tw_baozimh_com_c8ef91bc_auto_public",
-    "name": "包子漫畫 - tw.baozimh.com 远程公开源",
+    "id": "baomh_com_f6be8966_auto_public",
+    "name": "暴走邻家_漫画最新章节免费阅读(下拉式) - 爆漫画 - baomh.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://tw.baozimh.com",
-    "searchUrl": "https://tw.baozimh.com/search?q={keyword}",
+    "homepage": "https://baomh.com",
+    "searchUrl": "https://baomh.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2888,7 +557,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://tw.baozimh.com/",
+    "referer": "https://baomh.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2906,38 +575,109 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "wmanhua_com_c6e48fa6_auto_public",
-    "name": "牧龙师 - wmanhua.com 远程公开源",
+    "id": "bilibili_com_85c3c42c_auto_public",
+    "name": "- 哔哩哔哩 - bilibili.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "http://www.wmanhua.com",
-    "searchUrl": "https://wmanhua.com/search?q={keyword}",
+    "homepage": "https://www.bilibili.com",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.bilibili.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "duokanmh_com_fd6e6de6_auto_public",
+    "name": "魔皇大管家 9.9 - duokanmh.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://duokanmh.com",
+    "searchUrl": "https://duokanmh.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -2965,7 +705,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "http://www.wmanhua.com/",
+    "referer": "https://duokanmh.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -2983,38 +723,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "xinmanhua_app_a503e284_auto_public",
-    "name": "暴走邻家漫画-在线观看最新更新-新漫画 - xinmanhua.app 远程公开源",
+    "id": "duokanmh_com_33e4fe14_auto_public",
+    "name": "戒魔人 9.9 - duokanmh.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "https://xinmanhua.app",
-    "searchUrl": "https://www.xinmanhua.app/search?q={keyword}",
+    "homepage": "https://duokanmh.com",
+    "searchUrl": "https://duokanmh.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -3042,7 +779,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "https://xinmanhua.app/",
+    "referer": "https://duokanmh.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -3060,38 +797,35 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
-    "id": "yumanhua_com_d58ab61f_auto_public",
-    "name": "斗破苍穹 - yumanhua.com 远程公开源",
+    "id": "duokanmh_com_86dc64c5_auto_public",
+    "name": "食戟之灵 9.9 - duokanmh.com 远程公开源",
     "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
-    "homepage": "http://yumanhua.com",
-    "searchUrl": "https://www.yumanhua.com/search?q={keyword}",
+    "homepage": "https://duokanmh.com",
+    "searchUrl": "https://duokanmh.com/search?q={keyword}",
     "searchMethod": "url-only",
     "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
     "searchTitleGroups": [
@@ -3119,7 +853,7 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       4
     ],
     "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
-    "referer": "http://yumanhua.com/",
+    "referer": "https://duokanmh.com/",
     "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
     "readerNextPageUrlGroups": [
       1,
@@ -3137,30 +871,1951 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
       "noProtectedAssetBundled": true
     },
     "domainApplicabilityList": [
-      "baozimh.com",
-      "bzmanga.com",
-      "cn.baozimh.com",
-      "doubaomanhua.com",
-      "shenqimanhua.net",
-      "guazimanhua.com",
-      "qimanwu.app",
-      "yumanhua.com",
-      "hetushu.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mh250.com",
-      "tw.baozimh.com",
-      "sto66.com",
-      "kalamanhua.com",
-      "reader.book.qq.com",
-      "manwang.net",
-      "dm5.com",
-      "ttkmh.com",
-      "manhua55.com",
-      "xinmanhua.app",
-      "cidadedamalta.pt",
-      "gcmanhua.com",
-      "wmanhua.com"
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "episode_ninja_eae08011_auto_public",
+    "name": "The BEST episodes of M*A*S*H season 3 - episode.ninja 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://episode.ninja",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://episode.ninja/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "kuaikanmanhua_com_eabe01cb_auto_public",
+    "name": "偷星九月天漫画｜官方在线漫画全集-快看漫画 - kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kuaikanmanhua.com",
+    "searchUrl": "https://kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "kuaikanmanhua_com_ae3fc3c3_auto_public",
+    "name": "星海镖师漫画｜官方在线漫画全集-快看漫画 - kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kuaikanmanhua.com",
+    "searchUrl": "https://kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "kuaikanmanhua_com_ac8080db_auto_public",
+    "name": "修罗剑尊漫画｜官方在线漫画全集-快看漫画 - kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.kuaikanmanhua.com",
+    "searchUrl": "https://kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_ac_qq_com_707f9393_auto_public",
+    "name": "PK\u0003\u0004\u0000\u0000\u0000\u0000\u0000\u0000!\b!\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 - m.ac.qq.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "http://m.ac.qq.com",
+    "searchUrl": "https://m.ac.qq.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "http://m.ac.qq.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_ac_qq_com_42bc86d6_auto_public",
+    "name": "PK\u0003\u0004\u0000\u0000\u0000\u0000\u0000\u0000!\b!\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 - m.ac.qq.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "http://m.ac.qq.com",
+    "searchUrl": "https://m.ac.qq.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "http://m.ac.qq.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_ac_qq_com_ac66828b_auto_public",
+    "name": "PK\u0003\u0004\u0000\u0000\u0000\u0000\u0000\u0000!\b!\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 - m.ac.qq.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "http://m.ac.qq.com",
+    "searchUrl": "https://m.ac.qq.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "http://m.ac.qq.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_kuaikanmanhua_com_11a0ab06_auto_public",
+    "name": "雏蜂免费 - m.kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://m.kuaikanmanhua.com",
+    "searchUrl": "https://m.kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://m.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_kuaikanmanhua_com_1de83b84_auto_public",
+    "name": "暴走邻家全集 - m.kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://m.kuaikanmanhua.com",
+    "searchUrl": "https://m.kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://m.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "m_kuaikanmanhua_com_a6ae1d5a_auto_public",
+    "name": "盐友漫画｜官方在线漫画全集-快看漫画 - m.kuaikanmanhua.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://m.kuaikanmanhua.com",
+    "searchUrl": "https://m.kuaikanmanhua.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://m.kuaikanmanhua.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "manhua_sfacg_com_a669e841_auto_public",
+    "name": "刺客信条：王朝_刺客信条：王朝漫画_刺客信条：王朝在线漫画_刺客信条：王朝后记_SF漫画 - manhua.sfacg.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://manhua.sfacg.com",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://manhua.sfacg.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "manhwatop_com_81004a37_auto_public",
+    "name": "Sinister Immortal Path - Chapter 63 - manhwatop.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://manhwatop.com",
+    "searchUrl": "https://manhwatop.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://manhwatop.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "manwamh5_com_bed75393_auto_public",
+    "name": "漫蛙漫画 - manwamh5.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.manwamh5.com",
+    "searchUrl": "https://manwamh5.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.manwamh5.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "manwamh5_com_71c8d058_auto_public",
+    "name": "漫蛙漫画 - manwamh5.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.manwamh5.com",
+    "searchUrl": "https://manwamh5.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.manwamh5.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "manwamh5_com_93feae35_auto_public",
+    "name": "漫蛙漫画 - manwamh5.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.manwamh5.com",
+    "searchUrl": "https://manwamh5.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.manwamh5.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "mycomic_com_5c33c83b_auto_public",
+    "name": "拜見女皇陛下 - MYCOMIC - 我的漫畫 - mycomic.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://mycomic.com",
+    "searchUrl": "https://mycomic.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://mycomic.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "topconsumerreviews_com_7982b4ee_auto_public",
+    "name": "10 Best Charm Bracelet Stores of 2026 - topconsumerreviews.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.topconsumerreviews.com",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.topconsumerreviews.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "tw_hjwzw_com_f1e69408_auto_public",
+    "name": "全球進化 - tw.hjwzw.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://tw.hjwzw.com",
+    "searchUrl": "https://tw.hjwzw.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://tw.hjwzw.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "tw_hjwzw_com_e83b5b3c_auto_public",
+    "name": "修真聊天群 - tw.hjwzw.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://tw.hjwzw.com",
+    "searchUrl": "https://tw.hjwzw.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://tw.hjwzw.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "tw_hjwzw_com_c5609a77_auto_public",
+    "name": "元尊 - tw.hjwzw.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://tw.hjwzw.com",
+    "searchUrl": "https://tw.hjwzw.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://tw.hjwzw.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "video_friday_tw_fc5c7288_auto_public",
+    "name": "火影忍者第1季 - video.friday.tw 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://video.friday.tw",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://video.friday.tw/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "video_friday_tw_b8af5d73_auto_public",
+    "name": "凡人修仙傳 第5季 - video.friday.tw 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://video.friday.tw",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://video.friday.tw/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "webtoons_com_c68769f3_auto_public",
+    "name": "全知讀者視角 | LINE WEBTOON - webtoons.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.webtoons.com",
+    "searchUrl": "https://www.webtoons.com/search?keyword={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.webtoons.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "webtoons_com_234d65a7_auto_public",
+    "name": "勇士歸來 | LINE WEBTOON - webtoons.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.webtoons.com",
+    "searchUrl": "https://www.webtoons.com/search?keyword={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.webtoons.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "wenxue_iqiyi_com_daa90c71_auto_public",
+    "name": "全球进化 - wenxue.iqiyi.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://wenxue.iqiyi.com",
+    "searchUrl": "",
+    "searchMethod": "",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": false,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://wenxue.iqiyi.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
+    ]
+  },
+  {
+    "id": "yxshufang_com_4e550c33_auto_public",
+    "name": "全职法师 - yxshufang.com 远程公开源",
+    "description": "规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。",
+    "homepage": "https://www.yxshufang.com",
+    "searchUrl": "https://www.yxshufang.com/search?q={keyword}",
+    "searchMethod": "url-only",
+    "searchItemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,260}?)<\\/a>",
+    "searchTitleGroups": [
+      2
+    ],
+    "searchUrlGroups": [
+      1
+    ],
+    "searchCoverGroups": [],
+    "searchResultIsChapter": false,
+    "searchFilterByKeyword": true,
+    "detailChapterRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|chapter|Episode|episode|Read Chapter|开始阅读|立即阅读)[\\s\\S]{0,120}?)<\\/a>",
+    "detailChapterTitleGroups": [
+      2
+    ],
+    "detailChapterUrlGroups": [
+      1
+    ],
+    "detailChapterFilter": true,
+    "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|data-cfsrc|src|srcset)=[\"']([^\"']+)[\"'][^>]*>|[\"']((?:https?:)?\\/\\/[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|[\"']((?:https?:)?//[^\"']+\\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\?[^\"']*)?)[\"']|(?:images|chapterImages|comicImages|photos|pics|imgList|chapter_data|readerData)[\"']?\\s*[:=]\\s*(\\[[\\s\\S]{0,9000}?\\])",
+    "readerImageGroups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot",
+    "referer": "https://www.yxshufang.com/",
+    "readerNextPageRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>(?:\\s*下一页\\s*|\\s*下页\\s*|\\s*Next\\s*|\\s*next\\s*|\\s*&gt;\\s*|\\s*›\\s*)<\\/a>|rel=[\"']next[\"'][^>]+href=[\"']([^\"']+)[\"']|href=[\"']([^\"']+)[\"'][^>]+rel=[\"']next[\"']",
+    "readerNextPageUrlGroups": [
+      1,
+      2,
+      3
+    ],
+    "maxReaderPages": 12,
+    "license": "MIT",
+    "sourceType": "public-web-page-rule",
+    "compliance": {
+      "publicOnly": true,
+      "noLoginRequired": true,
+      "noPaymentBypass": true,
+      "noCaptchaBypass": true,
+      "noProtectedAssetBundled": true
+    },
+    "domainApplicabilityList": [
+      "ac.qq.com",
+      "m.ac.qq.com",
+      "duokanmh.com",
+      "23.225.230.132:3000",
+      "manwamh5.com",
+      "kuaikanmanhua.com",
+      "manhwatop.com",
+      "video.friday.tw",
+      "m.kuaikanmanhua.com",
+      "webtoons.com",
+      "topconsumerreviews.com",
+      "tw.hjwzw.com",
+      "69shuba.com",
+      "yxshufang.com",
+      "episode.ninja",
+      "baomh.com",
+      "mycomic.com",
+      "manhua.sfacg.com",
+      "9to5mac.com",
+      "wenxue.iqiyi.com",
+      "bilibili.com"
     ]
   },
   {
