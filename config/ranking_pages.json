@@ -1,0 +1,149 @@
+{
+  "zh-Hans": {
+    "baozimh.com": {
+      "urls": [
+        "https://www.baozimh.com/classify",
+        "https://www.baozimh.com/classify?type={type}",
+        "https://www.baozimh.com/update"
+      ],
+      "type_params": ["lianhua", "xuanhuan", "rexue", "gaoxiao", "danmei", "xuanyi", "kongbu", "kehuan", "maoxian", "xiaoyuan", "mofa", "zhanzheng", "wuxia", "lishi", "jingji"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/comic/"
+    },
+    "ac.qq.com": {
+      "urls": ["https://ac.qq.com/ComicAll/page/{page}", "https://ac.qq.com/Rank"],
+      "pagination": {"pattern": "url_path", "start": 1, "max_pages": 100},
+      "comic_path": "/comic/"
+    },
+    "manga.bilibili.com": {
+      "urls": ["https://manga.bilibili.com/ranking"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/detail/"
+    },
+    "m.manhuagui.com": {
+      "urls": ["https://www.manhuagui.com/list/?page={page}", "https://www.manhuagui.com/"],
+      "pagination": {"pattern": "query_param", "start": 1, "max_pages": 50},
+      "comic_path": "/comic/"
+    },
+    "manhuatuan.com": {
+      "urls": ["https://www.manhuatuan.com/list/page/{page}/", "https://www.manhuatuan.com/"],
+      "pagination": {"pattern": "url_path", "start": 1, "max_pages": 50},
+      "comic_path": "/manhua/"
+    },
+    "dongmanmanhua.cn": {
+      "urls": ["https://www.dongmanmanhua.cn/ranking"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/list/"
+    },
+    "kalamanhua.com": {
+      "urls": ["https://www.kalamanhua.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "qimanwu.app": {
+      "urls": ["https://qimanwu.app/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "hetushu.com": {
+      "urls": ["https://www.hetushu.com/manhua/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "guazimanhua.com": {
+      "urls": ["https://www.guazimanhua.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "duokanmh.com": {
+      "urls": ["https://www.duokanmh.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "mh250.com": {
+      "urls": ["https://www.mh250.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "manwang.net": {
+      "urls": ["https://www.manwang.net/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "wmanhua.com": {
+      "urls": ["https://www.wmanhua.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "yumanhua.com": {
+      "urls": ["https://www.yumanhua.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "shenqimanhua.net": {
+      "urls": ["https://www.shenqimanhua.net/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "sto66.com": {
+      "urls": ["https://www.sto66.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "ttkmh.com": {
+      "urls": ["https://www.ttkmh.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "kaixinman.com": {
+      "urls": ["https://www.kaixinman.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "manhuaplus.com": {
+      "urls": ["https://www.manhuaplus.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "baomh.com": {
+      "urls": ["https://www.baomh.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "mycomic.com": {
+      "urls": ["https://www.mycomic.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "pufei8.com": {
+      "urls": ["https://www.pufei8.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "dmzj.com": {
+      "urls": ["https://www.dmzj.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "manhuadb.com": {
+      "urls": ["https://www.manhuadb.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "manhuaren.com": {
+      "urls": ["https://www.manhuaren.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "mh1234.com": {
+      "urls": ["https://www.mh1234.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    },
+    "omanhua.com": {
+      "urls": ["https://www.omanhua.com/rank/"],
+      "pagination": {"pattern": "none"},
+      "comic_path": "/manhua/"
+    }
+  }
+}

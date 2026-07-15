@@ -168,68 +168,96 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
     return by_title
 
 
+RANKING_PAGES_CFG: Dict[str, Dict[str, Any]] = _load_json("ranking_pages.json", {})
+
+_AUTO_DISCOVER_PATTERNS = [
+    "/rank/", "/ranking/", "/rank.html", "/rank",
+    "/list/", "/list/rank.html",
+    "/classify", "/update",
+    "/manhua/", "/comic/",
+    "/ComicAll",
+]
+
+_AUTO_PAGINATION_TESTS = [
+    ("?page={n}", 2),
+    ("/page/{n}/", 2),
+    ("/page-{n}.html", 2),
+    ("_p{n}.html", 2),
+]
+
+
+def _expand_ranking_cfg(domain: str, cfg: Dict[str, Any]) -> List[str]:
+    urls: List[str] = []
+    for tpl in cfg.get("urls", []):
+        type_params = cfg.get("type_params", [])
+        pag = cfg.get("pagination", {})
+        if type_params and "{type}" in tpl:
+            for tp in type_params:
+                urls.append(tpl.replace("{type}", tp))
+        elif "{page}" in tpl:
+            start = pag.get("start", 1)
+            max_pages = pag.get("max_pages", 1)
+            for p in range(start, start + max_pages):
+                urls.append(tpl.replace("{page}", str(p)))
+        else:
+            urls.append(tpl)
+    return urls
+
+
+def _auto_discover_ranking(domain: str) -> List[str]:
+    import urllib.request
+    import urllib.error
+    ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
+    found: List[str] = []
+    for pattern in _AUTO_DISCOVER_PATTERNS:
+        url = f"https://{domain}{pattern}"
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                html = resp.read(200_000).decode("utf-8", errors="ignore")
+            comic_count = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html, re.I))
+            if comic_count >= 3:
+                found.append(url)
+                for pag_pat, start_n in _AUTO_PAGINATION_TESTS:
+                    test_url = f"https://{domain}{pattern.rstrip('/')}{pag_pat.format(n=start_n)}"
+                    try:
+                        req2 = urllib.request.Request(test_url, headers={"User-Agent": ua, "Accept": "text/html"})
+                        with urllib.request.urlopen(req2, timeout=10) as resp2:
+                            html2 = resp2.read(200_000).decode("utf-8", errors="ignore")
+                        comic_count2 = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html2, re.I))
+                        if comic_count2 >= 3 and html2 != html:
+                            for p in range(start_n, start_n + 50):
+                                found.append(f"https://{domain}{pattern.rstrip('/')}{pag_pat.format(n=p)}")
+                            break
+                    except Exception:
+                        break
+        except Exception:
+            continue
+    return found
+
+
 def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
     import re as _re
     import urllib.request
     import urllib.error
     by_title: Dict[str, Dict[str, Any]] = {}
-    ranking_urls = {
-        "baozimh.com": [
-            "https://www.baozimh.com/classify",
-            "https://www.baozimh.com/classify?type=lianhua",
-            "https://www.baozimh.com/classify?type=xuanhuan",
-            "https://www.baozimh.com/classify?type=rexue",
-            "https://www.baozimh.com/classify?type=gaoxiao",
-            "https://www.baozimh.com/classify?type=danmei",
-            "https://www.baozimh.com/classify?type=xuanyi",
-            "https://www.baozimh.com/classify?type=kongbu",
-            "https://www.baozimh.com/classify?type=kehuan",
-            "https://www.baozimh.com/classify?type=maoxian",
-            "https://www.baozimh.com/classify?type=xiaoyuan",
-            "https://www.baozimh.com/classify?type=mofa",
-            "https://www.baozimh.com/classify?type=zhanzheng",
-            "https://www.baozimh.com/classify?type=wuxia",
-            "https://www.baozimh.com/classify?type=lishi",
-            "https://www.baozimh.com/classify?type=jingji",
-            "https://www.baozimh.com/update",
-        ],
-        "ac.qq.com": [f"https://ac.qq.com/ComicAll/page/{i}" for i in range(1, 101)] + ["https://ac.qq.com/Rank"],
-        "manga.bilibili.com": ["https://manga.bilibili.com/ranking"],
-        "m.manhuagui.com": [f"https://www.manhuagui.com/list/?page={i}" for i in range(1, 51)] + ["https://www.manhuagui.com/"],
-        "manhuatuan.com": [f"https://www.manhuatuan.com/list/page/{i}/" for i in range(1, 101)] + ["https://www.manhuatuan.com/"],
-        "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
-        "kalamanhua.com": ["https://www.kalamanhua.com/rank/"],
-        "qimanwu.app": ["https://qimanwu.app/rank/"],
-        "hetushu.com": ["https://www.hetushu.com/manhua/"],
-        "guazimanhua.com": ["https://www.guazimanhua.com/rank/"],
-        "duokanmh.com": ["https://www.duokanmh.com/rank/"],
-        "mh250.com": ["https://www.mh250.com/rank/"],
-        "manwang.net": ["https://www.manwang.net/rank/"],
-        "wmanhua.com": ["https://www.wmanhua.com/rank/"],
-        "yumanhua.com": ["https://www.yumanhua.com/rank/"],
-        "shenqimanhua.net": ["https://www.shenqimanhua.net/rank/"],
-        "sto66.com": ["https://www.sto66.com/rank/"],
-        "ttkmh.com": ["https://www.ttkmh.com/rank/"],
-        "kaixinman.com": ["https://www.kaixinman.com/rank/"],
-        "manhuaplus.com": ["https://www.manhuaplus.com/rank/"],
-        "baomh.com": ["https://www.baomh.com/rank/"],
-        "mycomic.com": ["https://www.mycomic.com/rank/"],
-        "pufei8.com": ["https://www.pufei8.com/rank/"],
-        "dmzj.com": ["https://www.dmzj.com/rank/"],
-        "manhuadb.com": ["https://www.manhuadb.com/rank/"],
-        "manhuaren.com": ["https://www.manhuaren.com/rank/"],
-        "mh1234.com": ["https://www.mh1234.com/rank/"],
-        "omanhua.com": ["https://www.omanhua.com/rank/"],
-    }
+    ranking_cfg = RANKING_PAGES_CFG.get(lang, {})
+    blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
     title_attr_re = _re.compile(r'title=["\']([^"\']+)["\']', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
-    blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
-    for domain, urls in ranking_urls.items():
-        if domain not in domains:
-            continue
+    for domain in domains:
         if any(b in domain for b in blocked):
+            continue
+        cfg = ranking_cfg.get(domain)
+        if cfg:
+            urls = _expand_ranking_cfg(domain, cfg)
+        else:
+            urls = _auto_discover_ranking(domain)
+            if urls:
+                print(f"  [{domain}] auto-discovered {len(urls)} ranking URLs")
+        if not urls:
             continue
         for url in urls:
             crawled_count = 0
@@ -238,7 +266,6 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 with urllib.request.urlopen(req, timeout=15) as resp:
                     html = resp.read(1_000_000).decode("utf-8", errors="ignore")
             except Exception:
-                print(f"  [{domain}] {url}: fetch failed")
                 continue
             for m in link_re.finditer(html):
                 href = m.group(1).strip()
@@ -273,7 +300,8 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     "category": classify_title(title),
                     "language": lang,
                 }
-            print(f"  [{domain}] {url}: +{crawled_count} new titles")
+            if crawled_count > 0:
+                print(f"  [{domain}] {url}: +{crawled_count} new titles")
     return by_title
 
 
