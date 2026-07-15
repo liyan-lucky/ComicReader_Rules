@@ -193,18 +193,29 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             "https://www.baozimh.com/classify?type=jingji",
             "https://www.baozimh.com/update",
         ],
-        "ac.qq.com": ["https://ac.qq.com/Rank"],
-        "m.kuaikanmanhua.com": ["https://www.kuaikanmanhua.com/web/topic/0/0"],
+        "ac.qq.com": [
+            "https://ac.qq.com/ComicAll",
+            "https://ac.qq.com/ComicAll/page/2",
+            "https://ac.qq.com/ComicAll/page/3",
+            "https://ac.qq.com/ComicAll/page/4",
+            "https://ac.qq.com/ComicAll/page/5",
+            "https://ac.qq.com/ComicAll/page/6",
+            "https://ac.qq.com/ComicAll/page/7",
+            "https://ac.qq.com/ComicAll/page/8",
+            "https://ac.qq.com/ComicAll/page/9",
+            "https://ac.qq.com/ComicAll/page/10",
+            "https://ac.qq.com/Rank",
+        ],
         "manga.bilibili.com": ["https://manga.bilibili.com/ranking"],
         "m.manhuagui.com": [
-            "https://www.manhuagui.com/list/rank.html",
-            "https://www.manhuagui.com/list/cate1.html",
-            "https://www.manhuagui.com/list/cate2.html",
-            "https://www.manhuagui.com/list/cate3.html",
-            "https://www.manhuagui.com/list/cate4.html",
-            "https://www.manhuagui.com/list/cate5.html",
-            "https://www.manhuagui.com/list/cate6.html",
-            "https://www.manhuagui.com/list/cate7.html",
+            "https://www.manhuagui.com/list/",
+            "https://www.manhuagui.com/list/?page=2",
+            "https://www.manhuagui.com/list/?page=3",
+            "https://www.manhuagui.com/list/?page=4",
+        ],
+        "manhuatuan.com": [
+            "https://www.manhuatuan.com/",
+            "https://www.manhuatuan.com/list/",
         ],
         "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
         "kalamanhua.com": ["https://www.kalamanhua.com/rank/"],
@@ -221,7 +232,6 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
         "ttkmh.com": ["https://www.ttkmh.com/rank/"],
         "kaixinman.com": ["https://www.kaixinman.com/rank/"],
         "manhuaplus.com": ["https://www.manhuaplus.com/rank/"],
-        "manhuatuan.com": ["https://www.manhuatuan.com/rank/"],
         "baomh.com": ["https://www.baomh.com/rank/"],
         "mycomic.com": ["https://www.mycomic.com/rank/"],
         "pufei8.com": ["https://www.pufei8.com/rank/"],
@@ -231,7 +241,8 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
         "mh1234.com": ["https://www.mh1234.com/rank/"],
         "omanhua.com": ["https://www.omanhua.com/rank/"],
     }
-    link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,200}?)</a>', _re.I)
+    link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
+    title_attr_re = _re.compile(r'title=["\']([^"\']+)["\']', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
     blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
@@ -244,14 +255,20 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             try:
                 req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
                 with urllib.request.urlopen(req, timeout=15) as resp:
-                    html = resp.read(500_000).decode("utf-8", errors="ignore")
+                    html = resp.read(1_000_000).decode("utf-8", errors="ignore")
             except Exception:
                 continue
+                crawled_count = 0
             for m in link_re.finditer(html):
                 href = m.group(1).strip()
                 if not comic_path_re.search(href):
                     continue
-                raw_title = _re.sub(r'<[^>]+>', '', m.group(2)).strip()
+                a_tag = m.group(0)
+                title_match = title_attr_re.search(a_tag)
+                if title_match:
+                    raw_title = title_match.group(1).strip()
+                else:
+                    raw_title = _re.sub(r'<[^>]+>', '', m.group(2)).strip()
                 title = clean_catalog_title(raw_title)
                 if not is_valid_title(title):
                     continue
@@ -265,6 +282,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                             by_title[key]["sources"].append({"domain": domain, "detailUrl": href if href.startswith("http") else f"https://{domain}{href}"})
                     continue
                 existing_titles.add(key)
+                crawled_count += 1
                 if href.startswith("/"):
                     href = f"https://{domain}{href}"
                 by_title[key] = {
@@ -274,6 +292,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     "category": classify_title(title),
                     "language": lang,
                 }
+            print(f"  [{domain}] {url}: +{crawled_count} new titles")
     return by_title
 
 
