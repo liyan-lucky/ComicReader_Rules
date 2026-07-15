@@ -252,13 +252,14 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
         if any(b in domain for b in blocked):
             continue
         for url in urls:
+            crawled_count = 0
             try:
                 req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
                 with urllib.request.urlopen(req, timeout=15) as resp:
                     html = resp.read(1_000_000).decode("utf-8", errors="ignore")
             except Exception:
+                print(f"  [{domain}] {url}: fetch failed")
                 continue
-                crawled_count = 0
             for m in link_re.finditer(html):
                 href = m.group(1).strip()
                 if not comic_path_re.search(href):
