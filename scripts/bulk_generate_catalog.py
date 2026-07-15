@@ -195,7 +195,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
         ],
         "ac.qq.com": [f"https://ac.qq.com/ComicAll/page/{i}" for i in range(1, 51)] + ["https://ac.qq.com/Rank"],
         "manga.bilibili.com": ["https://manga.bilibili.com/ranking"],
-        "m.manhuagui.com": [f"https://www.manhuagui.com/list/?page={i}" for i in range(1, 8)],
+        "m.manhuagui.com": [f"https://www.manhuagui.com/list/?page={i}" for i in range(1, 21)] + ["https://www.manhuagui.com/"],
         "manhuatuan.com": [f"https://www.manhuatuan.com/list/page/{i}/" for i in range(1, 101)] + ["https://www.manhuatuan.com/"],
         "dongmanmanhua.cn": ["https://www.dongmanmanhua.cn/ranking"],
         "kalamanhua.com": ["https://www.kalamanhua.com/rank/"],
