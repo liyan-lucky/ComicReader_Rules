@@ -1,10 +1,10 @@
-name: σà¿Θô╛Φ╖»µ¢┤µû░
+name: 全链路更新
 
 on:
   workflow_dispatch:
     inputs:
       language:
-        description: 'Φ»¡τºì'
+        description: '语种'
         required: true
         default: 'zh-Hans'
         type: choice
@@ -15,7 +15,7 @@ on:
           - ja
           - ko
       run_mode:
-        description: 'ΦºäσêÖτöƒµêÉµ¿íσ╝Å'
+        description: '规则生成模式'
         required: true
         default: 'quick'
         type: choice
@@ -23,7 +23,7 @@ on:
           - quick
           - deep
       max_generated:
-        description: 'µ£ÇσñÜτöƒµêÉΦºäσêÖµò░'
+        description: '最多生成规则数'
         required: true
         default: '2000'
         type: choice
@@ -32,7 +32,7 @@ on:
           - '1000'
           - '2000'
       per_domain_limit:
-        description: 'µ»ÅσƒƒσÉìµ£ÇσñÜΦºäσêÖµò░'
+        description: '每域名最多规则数'
         required: true
         default: '3'
         type: choice
@@ -42,7 +42,7 @@ on:
           - '5'
           - '10'
       keyword_top:
-        description: 'σà│Θö«Φ»ìσÅæτÄ░σÅûσëìNΣ╕¬'
+        description: '关键词发现取前N个'
         required: true
         default: '100'
         type: choice
@@ -51,7 +51,7 @@ on:
           - '100'
           - '150'
       target_count:
-        description: 'τ¢«σ╜òµ»Åσêåτ▒╗τ¢«µáçµò░'
+        description: '目录每分类目标数'
         required: true
         default: '200'
         type: choice
@@ -60,12 +60,12 @@ on:
           - '100'
           - '200'
       revalidate:
-        description: 'σƒƒσÉìσÅæτÄ░σà¿ΘçÅµ╕àτÉåµ¿íσ╝Å'
+        description: '域名发现全量清理模式'
         required: false
         default: false
         type: boolean
       publish_release:
-        description: 'µÿ»σÉªσÅæσ╕âRelease'
+        description: '是否发布Release'
         required: false
         default: false
         type: boolean
@@ -85,7 +85,7 @@ defaults:
 
 jobs:
   step1-domains:
-    name: "Step 1/4 - σƒƒσÉìσÅæτÄ░"
+    name: "Step 1/4 - 域名发现"
     runs-on: ubuntu-latest
     services:
       searxng:
@@ -99,20 +99,20 @@ jobs:
       SEARXNG_URL: http://localhost:8080
 
     steps:
-      - name: µúÇσç║ main
+      - name: 检出 main
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Φ«╛τ╜« Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: σ«ëΦúàΣ╛¥Φ╡û
+      - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: τ¡ëσ╛à SearXNG
+      - name: 等待 SearXNG
         run: |
           for i in $(seq 1 30); do
             if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
@@ -122,16 +122,16 @@ jobs:
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
-      - name: σÅæτÄ░σƒƒσÉì
+      - name: 发现域名
         run: |
           REVALIDATE_FLAG=""
           if [ "$PIPELINE_REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
           python scripts/discover_domains.py --language "$PIPELINE_LANGUAGE" --report generated/domain_discovery_report.json $REVALIDATE_FLAG
 
-      - name: τöƒµêÉτ½Öτé╣Θàìτ╜«
+      - name: 生成站点配置
         run: python scripts/generate_site_configs.py
 
-      - name: τ╗ƒΦ«íσƒƒσÉìσÅæτÄ░
+      - name: 统计域名发现
         run: |
           python - <<'PY'
           import json, os
@@ -141,11 +141,11 @@ jobs:
           report = json.loads(Path('generated/domain_discovery_report.json').read_text('utf-8')) if Path('generated/domain_discovery_report.json').exists() else {}
           domains = agg.get(lang, [])
           lines = [
-              '## Step 1/4 - σƒƒσÉìσÅæτÄ░',
+              '## Step 1/4 - 域名发现',
               '',
-              f'- Φ»¡τºì: {lang}',
-              f'- µû░σó₧σƒƒσÉì: {len(report.get("newDomains", []))}',
-              f'- σ╜ôσëìσƒƒσÉìµÇ╗µò░: {len(domains)}',
+              f'- 语种: {lang}',
+              f'- 新增域名: {len(report.get("newDomains", []))}',
+              f'- 当前域名总数: {len(domains)}',
           ]
           output = '\n'.join(lines) + '\n'
           print(output)
@@ -154,7 +154,7 @@ jobs:
               Path(summary).write_text(output, encoding='utf-8')
           PY
 
-      - name: µÅÉΣ║ñσƒƒσÉìµ¢┤µû░
+      - name: 提交域名更新
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -162,14 +162,14 @@ jobs:
           git pull --rebase --autostash origin main
           git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
           if git diff --cached --quiet; then
-            echo "σƒƒσÉìµ▓íµ£ëσÅÿσîû"
+            echo "域名没有变化"
           else
             git commit -m "pipeline step1: discover $PIPELINE_LANGUAGE manga domains"
             git push origin HEAD:main
           fi
 
   step2-keywords:
-    name: "Step 2/4 - σà│Θö«Φ»ìσÅæτÄ░"
+    name: "Step 2/4 - 关键词发现"
     runs-on: ubuntu-latest
     needs: step1-domains
     services:
@@ -184,20 +184,20 @@ jobs:
       SEARXNG_URL: http://localhost:8080
 
     steps:
-      - name: µúÇσç║ main∩╝êσÉ½Step1µÅÉΣ║ñ∩╝ë
+      - name: 检出 main（含Step1提交）
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Φ«╛τ╜« Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: σ«ëΦúàΣ╛¥Φ╡û
+      - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: τ¡ëσ╛à SearXNG
+      - name: 等待 SearXNG
         run: |
           for i in $(seq 1 30); do
             if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
@@ -207,10 +207,10 @@ jobs:
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
-      - name: σÅæτÄ░σà│Θö«Φ»ì
+      - name: 发现关键词
         run: python scripts/discover_keywords.py --language "$PIPELINE_LANGUAGE" --top "$PIPELINE_KEYWORD_TOP"
 
-      - name: τ╗ƒΦ«íσà│Θö«Φ»ìσÅæτÄ░
+      - name: 统计关键词发现
         run: |
           python - <<'PY'
           import json, os
@@ -219,10 +219,10 @@ jobs:
           kw = json.loads(Path('config/rule_keywords.json').read_text('utf-8')) if Path('config/rule_keywords.json').exists() else {}
           keywords = kw.get(lang, [])
           lines = [
-              '## Step 2/4 - σà│Θö«Φ»ìσÅæτÄ░',
+              '## Step 2/4 - 关键词发现',
               '',
-              f'- Φ»¡τºì: {lang}',
-              f'- σà│Θö«Φ»ìµò░: {len(keywords)}',
+              f'- 语种: {lang}',
+              f'- 关键词数: {len(keywords)}',
               '',
           ]
           for i, k in enumerate(keywords, 1):
@@ -234,7 +234,7 @@ jobs:
               Path(summary).write_text(output, encoding='utf-8')
           PY
 
-      - name: µÅÉΣ║ñσà│Θö«Φ»ìµ¢┤µû░
+      - name: 提交关键词更新
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -242,14 +242,14 @@ jobs:
           git pull --rebase --autostash origin main
           git add config/rule_keywords.json generated/keyword_discovery_report.json
           if git diff --cached --quiet; then
-            echo "σà│Θö«Φ»ìµ▓íµ£ëσÅÿσîû"
+            echo "关键词没有变化"
           else
             git commit -m "pipeline step2: discover top $PIPELINE_KEYWORD_TOP $PIPELINE_LANGUAGE keywords"
             git push origin HEAD:main
           fi
 
   step3-rules:
-    name: "Step 3/4 - ΦºäσêÖτöƒµêÉ"
+    name: "Step 3/4 - 规则生成"
     runs-on: ubuntu-latest
     needs: step2-keywords
     services:
@@ -266,20 +266,20 @@ jobs:
       SEARXNG_URL: http://localhost:8080
 
     steps:
-      - name: µúÇσç║ main∩╝êσÉ½Step2µÅÉΣ║ñ∩╝ë
+      - name: 检出 main（含Step2提交）
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Φ«╛τ╜« Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: σ«ëΦúàΣ╛¥Φ╡û
+      - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: τ¡ëσ╛à SearXNG
+      - name: 等待 SearXNG
         run: |
           for i in $(seq 1 30); do
             if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
@@ -289,16 +289,16 @@ jobs:
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
-      - name: τöƒµêÉΦºäσêÖ
+      - name: 生成规则
         run: |
           set -euo pipefail
           LANG_NAME=""
           case "$PIPELINE_LANGUAGE" in
-            zh-Hans) LANG_NAME="τ«ÇΣ╜ôΣ╕¡µûç" ;;
-            zh-Hant) LANG_NAME="τ╣üΘ½öΣ╕¡µûç" ;;
+            zh-Hans) LANG_NAME="简体中文" ;;
+            zh-Hant) LANG_NAME="繁體中文" ;;
             en) LANG_NAME="English" ;;
-            ja) LANG_NAME="µùÑµ£¼Φ¬₧" ;;
-            ko) LANG_NAME="φò£Ω╡¡∞û┤" ;;
+            ja) LANG_NAME="日本語" ;;
+            ko) LANG_NAME="한국어" ;;
           esac
           ZERO_LIMIT="30"
           SLEEP="0.15"; SEED_LIMIT="500"; PER_SEED_LIMIT="100"
@@ -326,14 +326,14 @@ jobs:
             --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES" \
             --language-code "$PIPELINE_LANGUAGE"
 
-      - name: Σ┐«σë¬µùáµòêσƒƒσÉì
+      - name: 修剪无效域名
         run: |
           set -euo pipefail
           python scripts/prune_domains.py \
             --language "$PIPELINE_LANGUAGE" \
             --report "generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
 
-      - name: τ╗ƒΦ«íΦºäσêÖτöƒµêÉ
+      - name: 统计规则生成
         run: |
           python - <<'PY'
           import json, os, re
@@ -351,15 +351,15 @@ jobs:
               domain_counts[dom] = domain_counts.get(dom, 0) + 1
           sorted_domains = sorted(domain_counts.items(), key=lambda x: -x[1])
           lines = [
-              '## Step 3/4 - ΦºäσêÖτöƒµêÉ',
+              '## Step 3/4 - 规则生成',
               '',
-              f'- Φ»¡τºì: {lang}',
-              f'- ΦºäσêÖµÇ╗µò░: {len(rule_list)}',
-              f'- µ£ësearchUrl: {has_su}',
-              f'- µùásearchUrl: {len(rule_list) - has_su}',
-              f'- σƒƒσÉìµò░: {len(domain_counts)}',
+              f'- 语种: {lang}',
+              f'- 规则总数: {len(rule_list)}',
+              f'- 有searchUrl: {has_su}',
+              f'- 无searchUrl: {len(rule_list) - has_su}',
+              f'- 域名数: {len(domain_counts)}',
               '',
-              '| σƒƒσÉì | ΦºäσêÖµò░ |',
+              '| 域名 | 规则数 |',
               '|------|--------|',
           ]
           for dom, cnt in sorted_domains:
@@ -371,7 +371,7 @@ jobs:
               Path(summary).write_text(output, encoding='utf-8')
           PY
 
-      - name: µÅÉΣ║ñΦºäσêÖµ¢┤µû░
+      - name: 提交规则更新
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -380,11 +380,11 @@ jobs:
           TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
           LANG_NAME=""
           case "$PIPELINE_LANGUAGE" in
-            zh-Hans) LANG_NAME="τ«ÇΣ╜ôΣ╕¡µûç" ;;
-            zh-Hant) LANG_NAME="τ╣üΘ½öΣ╕¡µûç" ;;
+            zh-Hans) LANG_NAME="简体中文" ;;
+            zh-Hant) LANG_NAME="繁體中文" ;;
             en) LANG_NAME="English" ;;
-            ja) LANG_NAME="µùÑµ£¼Φ¬₧" ;;
-            ko) LANG_NAME="φò£Ω╡¡∞û┤" ;;
+            ja) LANG_NAME="日本語" ;;
+            ko) LANG_NAME="한국어" ;;
           esac
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME"
           git add \
@@ -394,14 +394,14 @@ jobs:
             config/aggregator_sites.json \
             generated/update_manifest.json
           if git diff --cached --quiet; then
-            echo "ΦºäσêÖµ▓íµ£ëσÅÿσîû"
+            echo "规则没有变化"
           else
             git commit -m "pipeline step3: generate $PIPELINE_LANGUAGE comic rules"
             git push origin HEAD:main
           fi
 
   step4-catalog:
-    name: "Step 4/4 - τ¢«σ╜òτöƒµêÉ"
+    name: "Step 4/4 - 目录生成"
     runs-on: ubuntu-latest
     needs: step3-rules
     env:
@@ -410,23 +410,23 @@ jobs:
       PIPELINE_PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
 
     steps:
-      - name: µúÇσç║ main∩╝êσÉ½Step3µÅÉΣ║ñ∩╝ë
+      - name: 检出 main（含Step3提交）
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Φ«╛τ╜« Python
+      - name: 设置 Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: σ«ëΦúàΣ╛¥Φ╡û
+      - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
 
-      - name: τöƒµêÉτ¢«σ╜ò(σ£¿τ║┐τê¼σÅûµÄÆΦíîµª£+report+keyword)
+      - name: 生成目录(在线爬取排行榜+report+keyword)
         run: python scripts/bulk_generate_catalog.py
 
-      - name: τ╗ƒΦ«íτ¢«σ╜ò
+      - name: 统计目录
         run: |
           python - <<'PY'
           import json, os
@@ -443,14 +443,14 @@ jobs:
               total_in_cats = sum(len(c.get('items', [])) if isinstance(c, dict) else 0 for c in cat_list)
               top_items = cat.get('items', [])
               lines = [
-                  '## Step 4/4 - τ¢«σ╜òτöƒµêÉ',
+                  '## Step 4/4 - 目录生成',
                   '',
-                  f'- Φ»¡τºì: {lang}',
-                  f'- σêåτ▒╗µò░: {len(cats)}',
-                  f'- σêåτ▒╗σåàµ╝½τö╗µÇ╗µò░: {total_in_cats}',
-                  f'- Θí╢σ▒éitemsµò░: {len(top_items) if isinstance(top_items, list) else "τ╝║σñ▒"}',
+                  f'- 语种: {lang}',
+                  f'- 分类数: {len(cats)}',
+                  f'- 分类内漫画总数: {total_in_cats}',
+                  f'- 顶层items数: {len(top_items) if isinstance(top_items, list) else "缺失"}',
                   '',
-                  '| σêåτ▒╗ | µ╝½τö╗µò░ |',
+                  '| 分类 | 漫画数 |',
                   '|------|--------|',
               ]
               if isinstance(cats, dict):
@@ -467,7 +467,7 @@ jobs:
               print(f'catalog/catalog.{lang}.json not found')
           PY
 
-      - name: µÅÉΣ║ñτ¢«σ╜òµ¢┤µû░
+      - name: 提交目录更新
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -477,13 +477,13 @@ jobs:
           python scripts/update_manifest.py --section catalog --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE"
           git add "catalog/catalog.${PIPELINE_LANGUAGE}.json" generated/update_manifest.json
           if git diff --cached --quiet; then
-            echo "τ¢«σ╜òµ▓íµ£ëσÅÿσîû"
+            echo "目录没有变化"
           else
             git commit -m "pipeline step4: update $PIPELINE_LANGUAGE comic catalog"
             git push origin HEAD:main
           fi
 
-      - name: σÅæσ╕â Release
+      - name: 发布 Release
         if: ${{ env.PIPELINE_PUBLISH == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
@@ -498,4 +498,4 @@ jobs:
           cp "rules/index.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
           cp "catalog/catalog.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
           cp generated/update_manifest.json dist/release/ 2>/dev/null || true
-          gh release create "$TAG_NAME" dist/release/* --title "Pipeline $TAG_NAME" --notes "σà¿Θô╛Φ╖»Φç¬σè¿τöƒµêÉ" || echo "Release creation failed"
+          gh release create "$TAG_NAME" dist/release/* --title "Pipeline $TAG_NAME" --notes "全链路自动生成" || echo "Release creation failed"
