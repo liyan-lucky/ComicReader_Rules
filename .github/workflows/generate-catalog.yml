@@ -30,6 +30,16 @@ on:
         type: boolean
   schedule:
     - cron: '0 1 * * 0'
+  workflow_call:
+    inputs:
+      catalog_language:
+        required: true
+        type: string
+        default: 'zh-Hans'
+      target_count:
+        required: false
+        type: string
+        default: '200'
 
 permissions:
   contents: write
@@ -47,9 +57,11 @@ jobs:
     name: 生成公开漫画目录
     runs-on: ubuntu-latest
     env:
-      CATALOG_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.catalog_language || 'zh-Hans' }}
-      CATALOG_TARGET: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
-      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
+      CATALOG_LANGUAGE: ${{ inputs.catalog_language || 'zh-Hans' }}
+      CATALOG_TARGET: ${{ inputs.target_count || '200' }}
+      PIPELINE_TARGET_COUNT: ${{ inputs.target_count || '200' }}
+      PIPELINE_LANGUAGE: ${{ inputs.catalog_language || 'zh-Hans' }}
+      PUBLISH_RELEASE: ${{ inputs.publish_release || false }}
 
     steps:
       - name: 检出 main

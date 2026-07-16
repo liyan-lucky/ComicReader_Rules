@@ -63,6 +63,16 @@ on:
         required: false
         default: false
         type: boolean
+  workflow_call:
+    inputs:
+      language:
+        required: true
+        type: string
+        default: 'zh-Hans'
+      revalidate:
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -91,11 +101,11 @@ jobs:
       SEARXNG_URL: ${{ inputs.use_searxng_container && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
       DISCOVER_LIMIT: ${{ inputs.limit || '0' }}
-      DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results }}
-      DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked }}
-      DISCOVER_SHOW_CLEANED: ${{ inputs.show_cleaned }}
-      DISCOVER_REVALIDATE: ${{ inputs.revalidate }}
-      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes }}
+      DISCOVER_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || false }}
+      DISCOVER_SHOW_BLOCKED: ${{ inputs.show_blocked || false }}
+      DISCOVER_SHOW_CLEANED: ${{ inputs.show_cleaned || false }}
+      DISCOVER_REVALIDATE: ${{ inputs.revalidate || false }}
+      COMMIT_CHANGES: ${{ inputs.commit_changes || true }}
 
     steps:
       - name: 检出 main

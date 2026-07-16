@@ -41,6 +41,16 @@ on:
         required: false
         default: true
         type: boolean
+  workflow_call:
+    inputs:
+      language:
+        required: true
+        type: string
+        default: 'zh-Hans'
+      top:
+        required: false
+        type: string
+        default: '100'
 
 permissions:
   contents: write
@@ -68,8 +78,8 @@ jobs:
     env:
       SEARXNG_URL: ${{ inputs.use_searxng_container && 'http://localhost:8080' || secrets.SEARXNG_URL || '' }}
       DISCOVER_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
-      DISCOVER_TOP: ${{ inputs.top || '20' }}
-      COMMIT_CHANGES: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_changes }}
+      DISCOVER_TOP: ${{ inputs.top || '100' }}
+      COMMIT_CHANGES: ${{ inputs.commit_changes || true }}
 
     steps:
       - name: 检出 main

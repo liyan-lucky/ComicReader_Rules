@@ -106,6 +106,24 @@ on:
         required: false
         default: false
         type: boolean
+  workflow_call:
+    inputs:
+      rule_language:
+        required: true
+        type: string
+        default: 'zh-Hans'
+      run_mode:
+        required: false
+        type: string
+        default: 'quick'
+      max_generated:
+        required: false
+        type: string
+        default: '2000'
+      per_domain_generated_limit:
+        required: false
+        type: string
+        default: '3'
   schedule:
     - cron: '0 3 1,15 * *'
 
@@ -135,22 +153,22 @@ jobs:
     env:
       SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
       RULES_BRANCH: main
-      RULE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'deep' }}
-      RULE_MAX_GENERATED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
-      RULE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.rule_language || 'zh-Hans' }}
-      RULE_SEARCH_RESULT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_result_limit || '' }}
-      RULE_SEED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.seed_limit || '' }}
-      RULE_PER_SEED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_seed_limit || '' }}
-      RULE_MAX_AUDIT_CANDIDATES_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_audit_candidates || '' }}
-      RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_audit_limit || '' }}
-      RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_generated_limit || '' }}
-      RULE_TIME_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.time_budget_seconds || '' }}
-      RULE_SLEEP_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.sleep || '' }}
-      RULE_SUPPRESS_ZERO: ${{ github.event_name == 'workflow_dispatch' && inputs.suppress_zero_results || false }}
-      RULE_SEARCH_BUDGET_SECONDS_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.search_budget_seconds || '' }}
-      RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.max_consecutive_zero_search || '' }}
-      RULE_DOMAIN_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.domain_override || '' }}
-      PUBLISH_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
+      RULE_RUN_MODE: ${{ inputs.run_mode || 'quick' }}
+      RULE_MAX_GENERATED_INPUT: ${{ inputs.max_generated || '' }}
+      RULE_LANGUAGE: ${{ inputs.rule_language || 'zh-Hans' }}
+      RULE_SEARCH_RESULT_LIMIT_INPUT: ${{ inputs.search_result_limit || '' }}
+      RULE_SEED_LIMIT_INPUT: ${{ inputs.seed_limit || '' }}
+      RULE_PER_SEED_LIMIT_INPUT: ${{ inputs.per_seed_limit || '' }}
+      RULE_MAX_AUDIT_CANDIDATES_INPUT: ${{ inputs.max_audit_candidates || '' }}
+      RULE_PER_DOMAIN_AUDIT_LIMIT_INPUT: ${{ inputs.per_domain_audit_limit || '' }}
+      RULE_PER_DOMAIN_GENERATED_LIMIT_INPUT: ${{ inputs.per_domain_generated_limit || '' }}
+      RULE_TIME_BUDGET_SECONDS_INPUT: ${{ inputs.time_budget_seconds || '' }}
+      RULE_SLEEP_INPUT: ${{ inputs.sleep || '' }}
+      RULE_SUPPRESS_ZERO: ${{ inputs.suppress_zero_results || false }}
+      RULE_SEARCH_BUDGET_SECONDS_INPUT: ${{ inputs.search_budget_seconds || '' }}
+      RULE_MAX_CONSECUTIVE_ZERO_SEARCH_INPUT: ${{ inputs.max_consecutive_zero_search || '' }}
+      RULE_DOMAIN_OVERRIDE: ${{ inputs.domain_override || '' }}
+      PUBLISH_RELEASE: ${{ inputs.publish_release || false }}
       QUICK_MAX_GENERATED: '2000'
       DEEP_MAX_GENERATED: '2000'
       QUICK_LIMIT: '20'
