@@ -181,8 +181,28 @@ def prune_aggregator_sites(language: str, dead_domains: Set[str], dry_run: bool 
     if removed > 0 and not dry_run:
         data[language] = new_urls
         sites_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _add_dead_domains_to_blocked(dead_domains)
 
     return removed, removed_details
+
+
+def _add_dead_domains_to_blocked(dead_domains: Set[str]) -> None:
+    blocked_path = ROOT / "config" / "blocked_domains.json"
+    data = _safe_load_json(blocked_path)
+    if not data:
+        return
+    excluded = data.get("excluded_domains", [])
+    existing = set(excluded)
+    added = 0
+    for d in dead_domains:
+        if d and d not in existing:
+            excluded.append(d)
+            existing.add(d)
+            added += 1
+    if added > 0:
+        data["excluded_domains"] = excluded
+        blocked_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"  已将 {added} 个死亡域名添加到 blocked_domains.json/excluded_domains")
 
 
 def main() -> int:
