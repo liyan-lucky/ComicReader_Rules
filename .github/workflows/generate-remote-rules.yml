@@ -488,7 +488,7 @@ jobs:
           git pull --rebase --autostash origin main
           TAG_NAME="search-rules-$(date -u +'%Y%m%d')"
           python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$RULE_LANGUAGE" --language-name "$RULE_LANGUAGE_NAME"
-          git add "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json
+          git add "generated/rulebot_report.${RULE_LANGUAGE}.json" "generated/GeneratedSourceRules.${RULE_LANGUAGE}.ets" "rules/index.${RULE_LANGUAGE}.json" generated/update_manifest.json 2>/dev/null || true
           git add config/aggregator_sites.json
           if git diff --cached --quiet; then
             echo "No generated rule changes."

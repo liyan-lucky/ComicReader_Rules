@@ -160,7 +160,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
+          git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/
+          git add generated/domain_discovery_report.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "域名没有变化"
           else
@@ -240,7 +241,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          git add config/rule_keywords.json generated/keyword_discovery_report.json
+          git add config/rule_keywords.json
+          git add generated/keyword_discovery_report.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "关键词没有变化"
           else
@@ -392,7 +394,8 @@ jobs:
             generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets \
             rules/index.${PIPELINE_LANGUAGE}.json \
             config/aggregator_sites.json \
-            generated/update_manifest.json
+            generated/update_manifest.json \
+            2>/dev/null || true
           if git diff --cached --quiet; then
             echo "规则没有变化"
           else
@@ -475,7 +478,7 @@ jobs:
           git pull --rebase --autostash origin main
           TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
           python scripts/update_manifest.py --section catalog --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE"
-          git add "catalog/catalog.${PIPELINE_LANGUAGE}.json" generated/update_manifest.json
+          git add "catalog/catalog.${PIPELINE_LANGUAGE}.json" generated/update_manifest.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "目录没有变化"
           else

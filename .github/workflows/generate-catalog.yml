@@ -109,7 +109,7 @@ jobs:
           git pull --rebase --autostash origin main
           TAG_NAME="catalog-$(date -u +'%Y%m%d')"
           python scripts/update_manifest.py --section catalog --tag "$TAG_NAME" --language-code "$CATALOG_LANGUAGE"
-          git add "catalog/catalog.${CATALOG_LANGUAGE}.json" generated/update_manifest.json
+          git add "catalog/catalog.${CATALOG_LANGUAGE}.json" generated/update_manifest.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No catalog changes"
           else

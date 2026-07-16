@@ -153,7 +153,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
-          git add config/rule_keywords.json generated/keyword_discovery_report.json
+          git add config/rule_keywords.json
+          git add generated/keyword_discovery_report.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "关键词没有变化，无需提交。"
           else
