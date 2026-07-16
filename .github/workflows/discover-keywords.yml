@@ -19,13 +19,13 @@ on:
       top:
         description: '每种语种取前N个热门关键词'
         required: true
-        default: '20'
+        default: '100'
         type: choice
         options:
-          - '10'
           - '20'
-          - '30'
           - '50'
+          - '100'
+          - '150'
       use_searxng_container:
         description: '使用自建SearXNG容器'
         required: false

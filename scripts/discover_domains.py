@@ -57,6 +57,9 @@ _DDG_SKIP_KW = _CRAWL_SKIP.get("ddg_skip_keywords", ["duckduckgo", "ddg", "javas
 _SEARCH_CFG = _load_config("search.json", {}).get("searxng", {})
 _SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 0)
 _SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
+
+_MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
+
 def load_queries(language: str) -> List[str]:
     cfg = _MANGA_KW_CFG.get(language, {})
     search_text = cfg.get("search_text", [])
@@ -212,9 +215,6 @@ def is_blocked_domain(domain: str) -> tuple:
         if kw in d:
             return True, kw
     return False, ""
-
-
-_MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
 
 
 _HOSTING_PLATFORMS = {

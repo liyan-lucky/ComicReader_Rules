@@ -1,0 +1,243 @@
+{
+  "schema": "comic_catalog_discovery_v1",
+  "defaults": {
+    "itemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,260}?)</a>",
+    "titleGroups": [
+      2
+    ],
+    "urlGroups": [
+      1
+    ],
+    "maxPages": 3,
+    "maxItemsPerSource": 500,
+    "requestTimeoutSeconds": 15,
+    "enabled": true
+  },
+  "sources": [
+    {
+      "id": "baozimh.com",
+      "name": "包子漫画",
+      "homepage": "https://www.baozimh.com",
+      "entryUrls": [
+        {
+          "url": "https://www.baozimh.com/classify",
+          "type": "list"
+        },
+        {
+          "url": "https://www.baozimh.com/update",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 5,
+      "maxItemsPerSource": 1000
+    },
+    {
+      "id": "bzmanga.com",
+      "name": "包子漫画(简)",
+      "homepage": "https://bzmanga.com",
+      "entryUrls": [
+        {
+          "url": "https://bzmanga.com/list",
+          "type": "list"
+        },
+        {
+          "url": "https://bzmanga.com/update",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 5,
+      "maxItemsPerSource": 1000
+    },
+    {
+      "id": "dongmanmanhua.cn",
+      "name": "咚漫",
+      "homepage": "https://www.dongmanmanhua.cn",
+      "entryUrls": [
+        {
+          "url": "https://www.dongmanmanhua.cn/ranking",
+          "type": "list"
+        },
+        {
+          "url": "https://www.dongmanmanhua.cn/dailySchedule",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\']([^\"\\']*/list[^\"\\']*)[\"\\'][^>]*>.*?<p[^>]*>([^<]+)</p>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 5,
+      "maxItemsPerSource": 1000
+    },
+    {
+      "id": "manga.bilibili.com",
+      "name": "B站漫画",
+      "homepage": "https://manga.bilibili.com",
+      "entryUrls": [
+        {
+          "url": "https://manga.bilibili.com/ranking",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/detail/[^\"\\']+)[\"\\'][^>]*>.*?<p[^>]*>([^<]+)</p>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "m.manhuagui.com",
+      "name": "漫画柜",
+      "homepage": "https://www.manhuagui.com",
+      "entryUrls": [
+        {
+          "url": "https://www.manhuagui.com/list/rank.html",
+          "type": "list"
+        },
+        {
+          "url": "https://www.manhuagui.com/list/update.html",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 3,
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "kalamanhua.com",
+      "name": "卡拉漫画",
+      "homepage": "https://www.kalamanhua.com",
+      "entryUrls": [
+        {
+          "url": "https://www.kalamanhua.com/rank/",
+          "type": "list"
+        },
+        {
+          "url": "https://www.kalamanhua.com/update/",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 3,
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "qimanwu.app",
+      "name": "奇漫屋",
+      "homepage": "https://qimanwu.app",
+      "entryUrls": [
+        {
+          "url": "https://qimanwu.app/rank/",
+          "type": "list"
+        },
+        {
+          "url": "https://qimanwu.app/update/",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 3,
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "doubaomanhua.com",
+      "name": "豆包漫画",
+      "homepage": "https://doubaomanhua.com",
+      "entryUrls": [
+        {
+          "url": "https://doubaomanhua.com/rank/",
+          "type": "list"
+        },
+        {
+          "url": "https://doubaomanhua.com/update/",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxPages": 3,
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "hetushu.com",
+      "name": "和图书",
+      "homepage": "https://www.hetushu.com",
+      "entryUrls": [
+        {
+          "url": "https://www.hetushu.com/manhua/",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/manhua/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxItemsPerSource": 500
+    },
+    {
+      "id": "manwamh5.com",
+      "name": "漫蛙",
+      "homepage": "https://manwamh5.com",
+      "entryUrls": [
+        {
+          "url": "https://manwamh5.com/rank/",
+          "type": "list"
+        }
+      ],
+      "itemRegex": "<a[^>]+href=[\"\\'](/comic/[^\"\\']+)[\"\\'][^>]*>.*?<span[^>]*>([^<]+)</span>",
+      "urlGroups": [
+        1
+      ],
+      "titleGroups": [
+        2
+      ],
+      "maxItemsPerSource": 500
+    }
+  ]
+}

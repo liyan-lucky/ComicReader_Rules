@@ -126,7 +126,7 @@ jobs:
         run: |
           REVALIDATE_FLAG=""
           if [ "$PIPELINE_REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
-          python scripts/discover_domains.py --language "$PIPELINE_LANGUAGE" $REVALIDATE_FLAG
+          python scripts/discover_domains.py --language "$PIPELINE_LANGUAGE" --report generated/domain_discovery_report.json $REVALIDATE_FLAG
 
       - name: 生成站点配置
         run: python scripts/generate_site_configs.py
@@ -156,6 +156,7 @@ jobs:
 
       - name: 提交域名更新
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
@@ -235,6 +236,7 @@ jobs:
 
       - name: 提交关键词更新
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
@@ -298,9 +300,11 @@ jobs:
             ja) LANG_NAME="日本語" ;;
             ko) LANG_NAME="한국어" ;;
           esac
+          ZERO_LIMIT="30"
           SLEEP="0.15"; SEED_LIMIT="500"; PER_SEED_LIMIT="100"
           TIME_BUDGET="5400"; SEARCH_BUDGET="1800"
           if [ "$PIPELINE_RUN_MODE" = "deep" ]; then
+            ZERO_LIMIT="50"
             SLEEP="0.4"; SEED_LIMIT="3000"; PER_SEED_LIMIT="400"
             TIME_BUDGET="19800"; SEARCH_BUDGET="3600"
           fi
@@ -311,7 +315,7 @@ jobs:
           python tools/rule_discovery/generate_rules.py \
             --limit 30 --sleep $SLEEP --seed-limit $SEED_LIMIT --per-seed-limit $PER_SEED_LIMIT \
             --time-budget-seconds $TIME_BUDGET --search-budget-seconds $SEARCH_BUDGET \
-            --max-consecutive-zero-search 50 \
+            --max-consecutive-zero-search $ZERO_LIMIT \
             --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit $PIPELINE_PER_DOMAIN_LIMIT \
             --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
           python tools/rule_discovery/build_index_from_report.py \
@@ -321,6 +325,13 @@ jobs:
           python tools/rule_discovery/sanitize_rule_outputs.py \
             --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES" \
             --language-code "$PIPELINE_LANGUAGE"
+
+      - name: 修剪无效域名
+        run: |
+          set -euo pipefail
+          python scripts/prune_domains.py \
+            --language "$PIPELINE_LANGUAGE" \
+            --report "generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
 
       - name: 统计规则生成
         run: |
@@ -362,15 +373,25 @@ jobs:
 
       - name: 提交规则更新
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main
           TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
-          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE"
+          LANG_NAME=""
+          case "$PIPELINE_LANGUAGE" in
+            zh-Hans) LANG_NAME="简体中文" ;;
+            zh-Hant) LANG_NAME="繁體中文" ;;
+            en) LANG_NAME="English" ;;
+            ja) LANG_NAME="日本語" ;;
+            ko) LANG_NAME="한국어" ;;
+          esac
+          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME"
           git add \
             generated/rulebot_report.${PIPELINE_LANGUAGE}.json \
             generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets \
             rules/index.${PIPELINE_LANGUAGE}.json \
+            config/aggregator_sites.json \
             generated/update_manifest.json
           if git diff --cached --quiet; then
             echo "规则没有变化"
@@ -448,6 +469,7 @@ jobs:
 
       - name: 提交目录更新
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main

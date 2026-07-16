@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -50,7 +51,7 @@ RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
-CATEGORY_TARGET = 200
+CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
 SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$', re.I)
@@ -97,7 +98,12 @@ def load_domains_from_aggregator(lang: str) -> List[str]:
 
 
 def clean_catalog_title(title: str) -> str:
-    title = SUFFIX_NOISE_RE.sub('', title).strip()
+    import html as _html
+    title = _html.unescape(title)
+    title = SUFFIX_NOISE_RE.sub('', title)
+    title = re.sub(r'[\r\n]+', ' ', title)
+    title = re.sub(r'\s{2,}', ' ', title)
+    title = title.strip()
     return title
 
 TEMPLATE_GARBAGE_RE = re.compile(r'\{\{.*?\}\}|#.*?#|SITEMAP|PK\s*!+', re.I)
@@ -369,7 +375,9 @@ def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
 
 
 def main() -> int:
-    for lang in ["zh-Hans", "zh-Hant", "en", "ja", "ko"]:
+    env_lang = os.environ.get("PIPELINE_LANGUAGE", "").strip()
+    langs = [env_lang] if env_lang else ["zh-Hans", "zh-Hant", "en", "ja", "ko"]
+    for lang in langs:
         catalog = generate_catalog_for_lang(lang)
         if not catalog:
             print(f"[{lang}] skipped (no data)")

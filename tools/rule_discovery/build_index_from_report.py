@@ -104,7 +104,10 @@ def load_manual_rules(path: str) -> list[dict]:
     manual_path = Path(path)
     if not manual_path.exists():
         return []
-    data = json.loads(manual_path.read_text(encoding='utf-8'))
+    try:
+        data = json.loads(manual_path.read_text(encoding='utf-8'))
+    except Exception:
+        return []
     raw_rules = data.get('rules', []) if isinstance(data, dict) else []
     rules: list[dict] = []
     for item in raw_rules:
@@ -115,7 +118,13 @@ def load_manual_rules(path: str) -> list[dict]:
 def rule_for_audit(a: dict, lang_code: str = "zh") -> dict:
     _patterns = _get_patterns(lang_code)
     domain = (a.get('domain') or urlparse(a.get('detail_url','')).netloc or 'unknown').replace('www.','')
-    base = a.get('base_url') or (urlparse(a.get('detail_url','')).scheme + '://' + urlparse(a.get('detail_url','')).netloc)
+    detail_url_raw = a.get('detail_url') or ''
+    parsed_detail = urlparse(detail_url_raw) if detail_url_raw else None
+    base = a.get('base_url') or ''
+    if not base and parsed_detail and parsed_detail.scheme and parsed_detail.netloc:
+        base = f'{parsed_detail.scheme}://{parsed_detail.netloc}'
+    if not base:
+        base = f'https://{domain}'
     title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
     search_url = _SEARCH_URL_TEMPLATES.get(domain, '')
     rule = add_rule_compliance({
@@ -166,7 +175,10 @@ def main() -> int:
     args = ap.parse_args()
 
     report_path = Path(args.report.format(lang=args.language_code) if '{lang}' in args.report else args.report)
-    data = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {'generated': [], 'excluded': [], 'queries': []}
+    try:
+        data = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {'generated': [], 'excluded': [], 'queries': []}
+    except Exception:
+        data = {'generated': [], 'excluded': [], 'queries': []}
     report_language = ((data.get('stats') or {}).get('language') or {})
     language_code = args.language_code or str(report_language.get('code') or 'mixed')
     language_name = args.language_name or str(report_language.get('name') or language_code)

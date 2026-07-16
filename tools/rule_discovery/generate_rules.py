@@ -1147,7 +1147,7 @@ def main() -> int:
         log(f"[audit] {c.url}")
         per_domain_audit_counts[candidate_domain] = per_domain_audit_counts.get(candidate_domain, 0) + 1
         audit_stats["auditedCandidateCount"] += 1
-        a = audit_candidate(c, keywords[0])
+        a = audit_candidate(c, keywords[0] if keywords else "")
         if not a:
             audit_stats["auditFailedNoPublicChapterOrImage"] += 1
             continue

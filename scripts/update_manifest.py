@@ -21,7 +21,8 @@ from typing import Any, Dict
 
 REPO_RAW_BASE = "https://raw.githubusercontent.com/liyan-lucky/ComicReader_Rules/main"
 MANIFEST_SCHEMA = "comic_reader_update_manifest_v1"
-MANIFEST_PATH = Path("generated/update_manifest.json")
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = ROOT / "generated" / "update_manifest.json"
 
 SECTION_CONFIG = {
     "rules": {
@@ -57,7 +58,7 @@ def build_section(section: str, tag: str, language_code: str = "", language_name
     if not language_code:
         raise SystemExit(f"--language-code is required for {section}")
 
-    source_path = Path(config["source_template"].format(lang=language_code))
+    source_path = ROOT / config["source_template"].format(lang=language_code)
     source = load_json(source_path)
     version = str(source.get("version") or "")
     updated_at = str(source.get("updatedAt") or "")

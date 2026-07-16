@@ -36,17 +36,25 @@ try:
 except Exception:
     _SCRAPER = None
 
-_HEADERS_CFG = json.loads((ROOT / "config" / "headers.json").read_text(encoding="utf-8")) if (ROOT / "config" / "headers.json").exists() else {}
+def _safe_load_json(path: Path, default: Any = None) -> Any:
+    if not path.exists():
+        return default
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return default
+
+_HEADERS_CFG = _safe_load_json(ROOT / "config" / "headers.json", {})
 DEFAULT_UA = _HEADERS_CFG.get("default_ua", "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36")
 _ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
 
-_KW_DISC_CFG = json.loads((ROOT / "config" / "keyword_discovery.json").read_text(encoding="utf-8")) if (ROOT / "config" / "keyword_discovery.json").exists() else {}
+_KW_DISC_CFG = _safe_load_json(ROOT / "config" / "keyword_discovery.json", {})
 
 RANKING_SITES: Dict[str, List[dict]] = _KW_DISC_CFG.get("ranking_sites", {})
 SEARCH_QUERIES: Dict[str, List[str]] = _KW_DISC_CFG.get("search_queries", {})
 FALLBACK_RANKING: Dict[str, List[str]] = _KW_DISC_CFG.get("fallback_ranking", {})
 MANGA_DOMAINS_MAP: Dict[str, List[str]] = _KW_DISC_CFG.get("manga_domains_map", {})
-_AGG_SITES = json.loads((ROOT / "config" / "aggregator_sites.json").read_text(encoding="utf-8")) if (ROOT / "config" / "aggregator_sites.json").exists() else {}
+_AGG_SITES = _safe_load_json(ROOT / "config" / "aggregator_sites.json", {})
 for _lang, _urls in _AGG_SITES.items():
     if _lang not in MANGA_DOMAINS_MAP:
         MANGA_DOMAINS_MAP[_lang] = []

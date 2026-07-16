@@ -25,10 +25,17 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def load_report(path: Path) -> dict:
+def _safe_load_json(path: Path) -> dict:
     if not path.exists():
         return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def load_report(path: Path) -> dict:
+    return _safe_load_json(path)
 
 
 def extract_domain_stats(report: dict) -> Dict[str, Dict]:
@@ -61,7 +68,7 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
     for seed in seed_pages:
         domain = seed.get("targetDomain", "")
         if not domain:
-            url = seed.get("seedUrl", "")
+            url = seed.get("seedUrl") or ""
             if "://" in url:
                 domain = url.split("://")[1].split("/")[0].replace("www.", "")
         if not domain:
@@ -135,9 +142,9 @@ def load_domains_from_aggregator(language: str) -> Tuple[Set[str], Dict[str, str
     sites_path = ROOT / "config" / "aggregator_sites.json"
     domains = set()
     url_to_domain = {}
-    if not sites_path.exists():
+    data = _safe_load_json(sites_path)
+    if not data:
         return domains, url_to_domain
-    data = json.loads(sites_path.read_text(encoding="utf-8"))
     for url in data.get(language, []):
         url = url.strip()
         if not url:
@@ -152,9 +159,9 @@ def load_domains_from_aggregator(language: str) -> Tuple[Set[str], Dict[str, str
 
 def prune_aggregator_sites(language: str, dead_domains: Set[str], dry_run: bool = False) -> Tuple[int, List[Dict]]:
     sites_path = ROOT / "config" / "aggregator_sites.json"
-    if not sites_path.exists():
+    data = _safe_load_json(sites_path)
+    if not data:
         return 0, []
-    data = json.loads(sites_path.read_text(encoding="utf-8"))
     urls = data.get(language, [])
     new_urls = []
     removed = 0
