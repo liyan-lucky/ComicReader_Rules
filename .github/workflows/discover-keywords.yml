@@ -101,6 +101,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r tools/rule_discovery/requirements.txt
 
+      - name: 自举配置参数
+        run: python scripts/bootstrap_config.py --language "$DISCOVER_LANGUAGE"
+
       - name: 发现热门关键词
         run: |
           python scripts/discover_keywords.py \

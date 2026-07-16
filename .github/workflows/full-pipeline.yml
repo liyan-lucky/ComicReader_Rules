@@ -122,6 +122,9 @@ jobs:
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
 
+      - name: 自举配置参数
+        run: python scripts/bootstrap_config.py --language "$PIPELINE_LANGUAGE"
+
       - name: 发现域名
         run: |
           REVALIDATE_FLAG=""
@@ -207,6 +210,9 @@ jobs:
           done
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: 自举配置参数
+        run: python scripts/bootstrap_config.py --language "$PIPELINE_LANGUAGE"
 
       - name: 发现关键词
         run: python scripts/discover_keywords.py --language "$PIPELINE_LANGUAGE" --top "$PIPELINE_KEYWORD_TOP"

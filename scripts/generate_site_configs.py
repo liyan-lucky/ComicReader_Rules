@@ -158,8 +158,8 @@ def generate_seed_sites(aggregator_sites: Dict[str, List[str]]) -> Dict[str, Lis
 def main() -> int:
     aggregator_sites = _load_json(CONFIG_DIR / "aggregator_sites.json", {})
     if not aggregator_sites:
-        print("[error] aggregator_sites.json is empty or missing", file=sys.stderr)
-        return 1
+        print("[info] aggregator_sites.json is empty, skipping site config generation")
+        return 0
 
     templates = generate_search_templates(aggregator_sites)
     _dump_json(CONFIG_DIR / "search_url_templates.json", templates)

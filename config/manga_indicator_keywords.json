@@ -28,6 +28,14 @@
       "追漫"
     ],
     "search_subdomain": [],
+    "validate": [
+      "漫画",
+      "漫畫",
+      "国漫",
+      "条漫",
+      "manhua",
+      "动漫"
+    ],
     "anti_patterns": [
       "18+",
       "18禁",
@@ -38,12 +46,7 @@
       "无删",
       "禁漫",
       "工口",
-      "里番",
-      "女神漫画"
-    ],
-    "validate": [
-      "漫画",
-      "漫畫"
+      "里番"
     ],
     "title_match": [
       "サイト",
@@ -51,18 +54,18 @@
       "連載",
       "読む",
       "マンガ",
-      "漫画誌",
-      "少年",
-      "少女",
-      "週刊",
-      "月刊",
-      "話",
       "만화",
       "웹툰",
       "연재",
       "무료"
     ],
-    "secondary": []
+    "secondary": [
+      "连载",
+      "更新",
+      "章节",
+      "阅读",
+      "在线看"
+    ]
   },
   "zh-Hant": {
     "search_text": [
@@ -78,29 +81,9 @@
       "看漫畫"
     ],
     "search_subdomain": [],
-    "anti_patterns": [
-      "18+",
-      "18禁",
-      "H漫",
-      "腐漫",
-      "肉漫",
-      "色情",
-      "無刪",
-      "禁漫"
-    ],
-    "validate": [
-      "漫畫",
-      "漫画"
-    ],
-    "title_match": [
-      "翻譯",
-      "新聞",
-      "遊戲",
-      "視頻",
-      "購物",
-      "導航",
-      "小說"
-    ],
+    "validate": [],
+    "anti_patterns": [],
+    "title_match": [],
     "secondary": []
   },
   "en": {
@@ -117,22 +100,10 @@
       "manga site"
     ],
     "search_subdomain": [],
-    "anti_patterns": [
-      "hentai",
-      "18+",
-      "nsfw",
-      "adult"
-    ],
-    "validate": [
-      "manga",
-      "comic"
-    ],
+    "validate": [],
+    "anti_patterns": [],
     "title_match": [],
-    "secondary": [
-      "chapter",
-      "read",
-      "scanlation"
-    ]
+    "secondary": []
   },
   "ja": {
     "search_text": [
@@ -148,23 +119,10 @@
       "漫画推薦"
     ],
     "search_subdomain": [],
-    "anti_patterns": [
-      "18禁",
-      "R-18",
-      "アダルト"
-    ],
-    "validate": [
-      "漫画",
-      "マンガ"
-    ],
-    "title_match": [
-      "不動産"
-    ],
-    "secondary": [
-      "連載",
-      "読む",
-      "無料"
-    ]
+    "validate": [],
+    "anti_patterns": [],
+    "title_match": [],
+    "secondary": []
   },
   "ko": {
     "search_text": [
@@ -180,21 +138,9 @@
       "인기만화"
     ],
     "search_subdomain": [],
-    "anti_patterns": [
-      "성인",
-      "19+",
-      "19금",
-      "adult"
-    ],
-    "validate": [
-      "만화",
-      "웹툰"
-    ],
+    "validate": [],
+    "anti_patterns": [],
     "title_match": [],
-    "secondary": [
-      "연재",
-      "무료",
-      "추천"
-    ]
+    "secondary": []
   }
 }
