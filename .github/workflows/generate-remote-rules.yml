@@ -27,7 +27,7 @@ on:
       per_domain_generated_limit:
         description: '每个域名最多保留多少条规则'
         required: true
-         default: '3'
+        default: '3'
         type: choice
         options:
           - '50'
