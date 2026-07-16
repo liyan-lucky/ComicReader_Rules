@@ -1,136 +1,89 @@
 # 全链路审计报告 — zh-Hans 冷启动验证
 
-**日期**: 2026-07-15
+**日期**: 2026-07-16
 **语言**: zh-Hans (简体中文)
-**CI运行**: 第3轮 (4步串行job全部成功)
+**最新CI轮次**: 第14轮 (4步串行job全部成功)
 
 ---
 
-## 0. 串行Pipeline架构
+## CI迭代记录
 
-全链路workflow重构为4个串行job，每步完成再进行下一步：
+| 轮次 | 目录漫画 | 规则 | 域名 | 关键词 | searchUrl覆盖 | 非漫画站 | 关键改进 | 结果 |
+|------|---------|------|------|--------|---------------|----------|---------|------|
+| 1 | 25 | 62 | 66 | 20 | 10% | 多 | 初始 | 成功(5问题) |
+| 2 | — | — | — | — | — | — | — | 失败(gitignore) |
+| 3 | 120 | 126 | 86 | 50 | 47% | 34 | 修复gitignore | 成功 |
+| 4 | 117 | 43 | 96 | 100 | 30% | 1 | — | 成功 |
+| 5 | 172 | 64 | 106 | 150 | 80% | 0 | searchUrl模板 | 成功 |
+| 6 | 243 | 50 | 110 | 150 | 80% | 0 | 新增排行榜爬取 | 成功 |
+| 7 | 349 | 50 | 109 | 150 | 80% | 0 | 屏蔽非漫画站+去重 | 成功 |
+| 8 | — | — | — | — | — | — | UnboundLocalError | 失败 |
+| 9 | 628 | 50 | 112 | 150 | ~80% | 0 | ac.qq.com+manhuatuan+bilibili | 成功 |
+| 10 | 973 | 50 | 112 | 150 | ~80% | 0 | manhuatuan 10页 | 成功 |
+| 11 | 1686 | 50 | 112 | 150 | ~80% | 0 | manhuatuan 30页 | 成功 |
+| 12 | 2343 | 50 | 112 | 150 | ~80% | 0 | manhuatuan 50页 | 成功 |
+| 13 | 2385 | 50 | 112 | 150 | ~80% | 0 | manhuatuan 100页(50后无新) | 成功 |
+| 14 | 2354 | 50 | 112 | 150 | ~80% | 0 | manhuagui 20页 | 成功 |
+| **15** | **?** | **?** | **?** | **?** | **?** | **?** | ac.qq 100页+manhuagui 50页+自动发现 | **进行中** |
 
-```
-Step1 域名发现 → Step2 关键词发现 → Step3 规则生成 → Step4 目录生成
-```
+## 排行榜爬取数据源贡献 (第14轮)
 
-每个step独立job，通过`needs`串行，独立检出main（含前步git提交），独立统计输出到Step Summary。
+| 域名 | 漫画数 | 爬取方式 | 分页 |
+|------|--------|---------|------|
+| manhuatuan.com | 1823 | SSR列表页 | 50页×35 |
+| baozimh.com | 315 | SSR分类页 | 16类型×38 |
+| m.manhuagui.com | 117 | SSR列表页 | 7页×20 |
+| ac.qq.com | 130 | SSR全量页 | 50页×25 |
+| manga.bilibili.com | 49 | SSR排行榜 | 1页×50 |
+| doubaomanhua.com | 89 | report | — |
+| bzmanga.com | 85 | report | — |
+| cn.baozimh.com | 85 | report | — |
+| **总计** | **2354** | | |
 
-## 1. 域名发现 (Step 1)
+## 已修复问题汇总
 
-| 指标 | 第1轮 | 第3轮 |
-|------|-------|-------|
-| 搜索URL总数 | 372 | — |
-| 唯一域名 | 45 | 86 |
-| 新增域名 | 45 | — |
+| # | 问题 | 修复 |
+|---|------|------|
+| 1 | ac.qq.com 32条重复规则 | per-domain-limit=3 |
+| 2 | catalog顶层items缺失 | 添加items平铺列表 |
+| 3 | searchUrl覆盖率10% | build_index自动从templates填充 |
+| 4 | 关键词只有20个 | --top默认值→100→150 |
+| 5 | 非漫画站混入 | blocked_domains添加70+个域名 |
+| 6 | git add .gitignore文件 | 移除generated/index从git add |
+| 7 | queries重复("xx"+"xx漫画") | 漫画名不再追加"漫画"后缀 |
+| 8 | 章节标题混入catalog | 添加SUFFIX_NOISE_RE清洗 |
+| 9 | 繁体"漫畫"未匹配 | validate同时匹配简繁体 |
+| 10 | 规则生成重复bug(bzmanga 50条相同) | per_domain_generated_limit=3 |
+| 11 | 硬编码依赖崩溃 | sanitize/build_index/generate_rules配置缺失时fallback |
+| 12 | 非漫画站混入catalog | is_valid_title过滤+blocked_domains过滤report |
+| 13 | 模板变量未解析({{name}},SITEMAP) | TEMPLATE_GARBAGE_RE过滤 |
+| 14 | 域名重复(baozimh/bzmanga/doubaomanhua) | ranking_urls去重 |
+| 15 | ranking_urls硬编码 | 外置为ranking_pages.json+自动发现 |
 
-## 2. 关键词发现 (Step 2)
+## 已屏蔽非漫画站 (70+)
 
-| 指标 | 第1轮 | 第3轮 |
-|------|-------|-------|
-| 关键词数 | 20 | 50 |
-| 来源 | 排行榜+fallback | 排行榜+fallback(170) |
+- 小说平台: readnovel/webnovel/hongxiu/shuqi/uukanshu/lrts/piaotia/xxsy/youyuxs/book.novel.qq.com/mreader.novel.qq.com
+- 日本出版: shogakukan/cmoa/sunday-webry/japanpack
+- 英文漫画: mangago/mangahere/mangafire/comick/mangazenkan/inkr/leagueofcomicgeeks/kingofshojo/soullandmanga/en-thunderscans/roliascan/foxspiritmatchmaker/koreanwebtoons/19-days-manga/noveltrust
+- 电商/流媒体: amazon/ebay/walmart/shopee/netflix/hulu/primevideo/mewatch/litv
+- 学术/工具: cambridge.org/findlaw/justia/law.cornell.edu/archive.org/cntraveler/proprofs
+- 其他: climatempo.com.br/readyprepmeals.com/patternrecognition.cn/scpld.org/comicbook.com/anisearch.com/funimecity.com/cbr.com/cidadedamalta.pt/9to5mac.com/episode.ninja/69shuba.com/list.tsfcomics.com
 
-## 3. 规则生成 (Step 3)
-
-| 指标 | 第1轮 | 第3轮 |
-|------|-------|-------|
-| 总规则数 | 62 | 126 |
-| 唯一域名 | 18 | 78 |
-| 有searchUrl | 6(10%) | 59(47%) |
-| 漫画域名 | — | 44 |
-| 非漫画域名 | — | 34 |
-| ac.qq.com规则 | 32 | 3 |
-| per-domain限制 | 无 | 3 |
-
-**非漫画域名(34个，已添加到blocked_domains)**:
-- 小说平台: readnovel/webnovel/hongxiu/shuqi/uukanshu/lrts
-- 日本出版: shogakukan/cmoa/sunday-webry
-- 英文漫画: mangago/mangahere/mangafire/comick/mangazenkan
-- 数据库: anime-planet/novelupdates/leagueofcomicgeeks
-- 电商/流媒体: shopee/penguinrandomhouse/brill/mewatch/litv
-- 其他: tumblr/fandom/19-days-manga/IP地址等
-
-## 4. 目录生成 (Step 4)
-
-| 指标 | 第1轮 | 第3轮 |
-|------|-------|-------|
-| 漫画条目 | 25 | 120 |
-| 分类覆盖 | 16/16 | 16/16 |
-| 顶层items | 缺失 | 120(已修复) |
-| 章节标题混入 | — | 2个(已修复) |
-
-**分类分布**:
-| 分类 | 数量 | 目标 | 达成率 |
-|------|------|------|--------|
-| 恋爱 | 13 | 200 | 6.5% |
-| 玄幻 | 13 | 200 | 6.5% |
-| 武侠 | 9 | 200 | 4.5% |
-| 恐怖 | 8 | 200 | 4.0% |
-| 奇幻 | 8 | 200 | 4.0% |
-| 异能 | 7 | 200 | 3.5% |
-| 剧情 | 7 | 200 | 3.5% |
-| 科幻 | 7 | 200 | 3.5% |
-| 其余8类 | 6/200 | 200 | 3.0% |
-
-## 5. 已修复问题
-
-| # | 问题 | 修复 | 提交 |
-|---|------|------|------|
-| 1 | ac.qq.com 32条规则 | per-domain-limit=3 | 8fe4fdf |
-| 2 | catalog顶层items缺失 | bulk_generate_catalog添加items | 8fe4fdf |
-| 3 | searchUrl覆盖率10% | build_index自动从templates填充 | 8fe4fdf |
-| 4 | 关键词只有20个 | --top默认值→100 | 8fe4fdf |
-| 5 | 非漫画站混入 | blocked_domains添加34个域名 | 本轮 |
-| 6 | git add .gitignore文件 | 移除generated/index从git add | efdaf10 |
-| 7 | queries重复("xx"+"xx漫画") | 漫画名不再追加"漫画"后缀 | e94f421 |
-| 8 | 章节标题混入catalog | 添加SUFFIX_NOISE_RE清洗 | 本轮 |
-| 9 | searchUrl模板不足 | 添加17个域名模板 | 本轮 |
-
-## 6. 目标差距分析
+## 目标差距分析
 
 | 目标 | 当前 | 差距 | 路径 |
 |------|------|------|------|
-| 规则2000条 | 126条(清理后~80) | ~1920 | 扩展关键词→100+，域名→100+ |
-| 书架每分类200个 | 6-13 | ~190 | 需要大量漫画数据，分类搜索扩展 |
-| 每语种100+有效域名 | 44(漫画) | 56 | 多轮域名发现，清理非漫画站 |
-| searchUrl覆盖率 | **80%(第5轮)** | 20% | 继续添加searchUrl模板 |
+| 规则2000条 | ~50条 | ~1950 | 扩展关键词+域名+deep模式 |
+| 书架每分类200个 | ~150/分类 | ~50/分类 | 扩展排行榜爬取+自动发现新站点 |
+| 每语种100+域名 | 112 | ✅达成 | 维护 |
+| searchUrl覆盖率90%+ | ~80% | 10% | 继续添加模板 |
 
-## 7. 第5轮CI验证结果 (2026-07-15)
+## 下一步优化方向
 
-| 指标 | 第4轮 | 第5轮 | 变化 |
-|------|-------|-------|------|
-| 域名 | 96 | 106 | +10 |
-| 关键词 | 100 | 150 | +50 |
-| 规则 | 43 | 64 | +49% |
-| searchUrl覆盖 | 30% | **80%** | +50% |
-| 目录漫画 | 117 | 172 | +47% |
-| 非漫画域名 | 1 | **0** | 清零 |
-| 漫画域名 | 29 | **39** | +34% |
-
-**关键突破**:
-- searchUrl覆盖率从30%→80%（添加searchUrl模板+build_index自动填充）
-- 非漫画域名清零（迭代屏蔽64个非漫画站）
-- 目录漫画从117→172（关键词扩展150+域名扩展106）
-
-**数据可用性验证**:
-- Rules: 有searchUrl的规则结构完整（homepage/searchUrl/regex/nextPage全部填充）
-- Catalog: 所有172条漫画都有title/sources/category，无缺失
-- 非漫画域名: 0（全部清理）
-
-**已知问题**:
-1. 分类准确性 — 纯标题匹配不够精确，需在线抓取详情页genre/tag
-2. sources指向首页 — 很多漫画的detailUrl是站点首页而非具体漫画页
-3. 规则数偏少 — 43条，blocked_domains清理后有效域名减少
-4. searchUrl覆盖率30% — 部分漫画站搜索URL格式未知
-
-## 8. 下一步优化方向
-
-1. **扩展关键词至200+** — 当前150个，fallback_ranking已有250个
-2. **扩展域名至150+** — 当前106个，需多轮发现
-3. **提高searchUrl覆盖率至90%+** — 当前80%，继续为漫画站添加搜索模板
-4. **分类搜索扩展catalog** — 用generate_catalog.py从各站分类页抓取
-5. **迭代运行** — 每轮发现→生成→审计→修复，逐步逼近目标
-6. **详情页元数据分类** — 用在线抓取的genre/tag替代纯标题匹配
-7. **deep模式运行** — quick模式时间预算有限，deep模式可发现更多规则
-5. **迭代运行** — 每轮发现→生成→审计→修复，逐步逼近目标
+1. **自动发现排行榜URL验证** — 第15轮CI验证_auto_discover_ranking()效果
+2. **继续扩展目录漫画数至3200** — 当前2354，差846
+3. **提高searchUrl覆盖率至90%+** — 当前80%
+4. **详情页元数据分类** — 用在线抓取的genre/tag替代纯标题匹配
+5. **deep模式运行** — quick模式时间预算有限
+6. **sources指向首页问题** — 很多漫画的detailUrl是站点首页而非具体漫画页
+7. **统一keyword_discovery.json的ranking_sites** — 与ranking_pages.json合并

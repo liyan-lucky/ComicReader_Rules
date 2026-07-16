@@ -1,139 +1,59 @@
 # 排行榜爬取自动化方案
 
-## 一、当前问题：手动硬编码的3层依赖
+## 实施状态
 
-### 问题1：ranking_urls 硬编码在 bulk_generate_catalog.py 中
+| 步骤 | 状态 | 说明 |
+|------|------|------|
+| 外置 ranking_urls → config/ranking_pages.json | ✅ 已完成 | 28个域名配置已迁移 |
+| 修改 crawl_ranking_pages() 从配置文件读取 | ✅ 已完成 | _expand_ranking_cfg() 支持模板展开 |
+| 新增 _auto_discover_ranking() 自动发现 | ✅ 已完成 | 10种排行榜模式 + 4种分页模式 |
+| 自动检测分页上限 | 🔴 待完成 | 当前max_pages靠配置，需自动检测 |
+| 统一 keyword_discovery.json 的 ranking_sites | 🔴 待完成 | 两套配置仍独立 |
 
-```python
-ranking_urls = {
-    "baozimh.com": ["https://www.baozimh.com/classify", ...17个URL],
-    "ac.qq.com": [f"ComicAll/page/{i}" for i in range(1, 101)],
-    "manhuatuan.com": [f"list/page/{i}/" for i in range(1, 101)],
-    # ...共24个域名，约200+个URL
-}
-```
-
-**问题**：
-- 新域名加入aggregator_sites后，不会自动爬取排行榜
-- URL格式（分页参数、分类路径）需要人工逐一测试
-- 分页上限（50页 vs 100页）靠试错确定
-- 无法区分SSR站点和SPA站点（SPA站点urllib爬不到内容）
-
-### 问题2：keyword_discovery.json 的 ranking_sites 与 ranking_urls 重复
-
-`keyword_discovery.json` 已有10个zh-Hans排行榜站点配置（含selector和attr），
-但 `bulk_generate_catalog.py` 的 `crawl_ranking_pages()` 完全没用这些配置，
-而是自己硬编码了一套。**两套配置互不关联，维护成本翻倍**。
-
-### 问题3：排行榜URL发现没有自动化
-
-从0冷启动时：
-1. `discover_domains.py` 发现域名 → 写入 aggregator_sites.json ✅ 自动
-2. `discover_keywords.py` 从排行榜提取关键词 → 写入 rule_keywords.json ✅ 自动
-3. `bulk_generate_catalog.py` 爬取排行榜 → 生成目录 ❌ 需要手动配置ranking_urls
-
-**第3步是断点**：域名发现后，需要人工测试每个域名的排行榜URL格式、
-是否SSR渲染、分页参数等，然后手动写入ranking_urls。
-
-## 二、根因分析
-
-| 步骤 | 当前状态 | 自动化程度 |
-|------|---------|-----------|
-| 域名发现 | SearXNG搜索 + 聚合站爬取 + 验证 | ✅ 全自动 |
-| 关键词发现 | ranking_sites配置 + fallback_ranking | ✅ 全自动 |
-| 规则生成 | 域名+关键词 → 搜索 → 审计 → 生成 | ✅ 全自动 |
-| 目录生成-报告源 | rulebot_report → 提取漫画 | ✅ 全自动 |
-| 目录生成-关键词源 | rule_keywords → 填充漫画 | ✅ 全自动 |
-| **目录生成-排行榜源** | **手动硬编码ranking_urls** | **❌ 全手动** |
-
-## 三、自动化方案
-
-### 方案：将 ranking_urls 外置为配置文件 + 自动发现SSR排行榜页
-
-#### Step 1: 外置 ranking_urls → config/ranking_pages.json
-
-将硬编码的 ranking_urls 提取为独立配置文件：
+## 配置格式 (config/ranking_pages.json)
 
 ```json
 {
   "zh-Hans": {
-    "baozimh.com": {
-      "urls": [
-        "https://www.baozimh.com/classify",
-        "https://www.baozimh.com/classify?type={type}"
-      ],
-      "type_params": ["lianhua", "xuanhuan", "rexue", ...],
-      "pagination": {"pattern": "none", "max_pages": 1}
-    },
-    "ac.qq.com": {
-      "urls": ["https://ac.qq.com/ComicAll/page/{page}"],
-      "pagination": {"pattern": "url_path", "start": 1, "max_pages": 100}
-    },
-    "manhuatuan.com": {
-      "urls": ["https://www.manhuatuan.com/list/page/{page}/"],
-      "pagination": {"pattern": "url_path", "start": 1, "max_pages": 50}
-    },
-    "m.manhuagui.com": {
-      "urls": ["https://www.manhuagui.com/list/?page={page}"],
-      "pagination": {"pattern": "query_param", "start": 1, "max_pages": 50}
+    "域名": {
+      "urls": ["模板URL，支持{type}和{page}占位符"],
+      "type_params": ["分类参数列表，用于{type}展开"],
+      "pagination": {"pattern": "none|url_path|query_param", "start": 1, "max_pages": 50},
+      "comic_path": "/comic/"
     }
   }
 }
 ```
 
-#### Step 2: 自动发现排行榜URL — discover_ranking_urls()
+## 自动发现逻辑 (_auto_discover_ranking)
 
-在 bulk_generate_catalog.py 中新增函数，对aggregator_sites中
-**未在ranking_pages.json中配置的域名**，自动尝试常见排行榜URL模式：
+对aggregator_sites中**未在ranking_pages.json配置的域名**：
 
-```python
-RANKING_PATTERNS = [
-    "/rank/", "/ranking/", "/rank.html",
-    "/list/", "/list/rank.html",
-    "/classify", "/update",
-    "/manhua/", "/comic/",
-    "/ComicAll", "/ComicAll/page/2",
-]
+1. 尝试10种常见排行榜URL模式：`/rank/`, `/ranking/`, `/list/`, `/classify/`, `/update/`, `/manhua/`, `/comic/`, `/ComicAll`等
+2. 检查返回HTML是否包含≥3个漫画路径链接（`/comic/`, `/manhua/`等）
+3. 如果找到有效排行榜页，尝试4种分页模式：`?page={n}`, `/page/{n}/`, `/page-{n}.html`, `_p{n}.html`
+4. 自动展开分页到50页
 
-PAGINATION_PATTERNS = [
-    ("?page={n}", 2, 5),      # query param
-    ("/page/{n}/", 2, 5),     # path segment
-    ("/page-{n}.html", 2, 5), # path with extension
-    ("_p{n}.html", 2, 5),     # suffix
-]
-```
+## 已知SSR站点（urllib可爬取）
 
-自动发现逻辑：
-1. 对每个未配置的域名，尝试 RANKING_PATTERNS 中的每个URL
-2. 检查返回的HTML是否包含 comic_path_re 匹配的链接
-3. 如果找到有效排行榜页，尝试 PAGINATION_PATTERNS 检测分页
-4. 将发现的配置写入 ranking_pages.json
+| 站点 | 漫画数/页 | 分页格式 | 有效页数 |
+|------|----------|---------|---------|
+| manhuatuan.com | ~35 | `/list/page/{n}/` | 50 |
+| baozimh.com | ~38 | `/classify?type={type}` | 1(无分页) |
+| ac.qq.com | ~25 | `/ComicAll/page/{n}` | 100+ |
+| m.manhuagui.com | ~20 | `/list/?page={n}` | 50(503风险) |
+| manga.bilibili.com | ~50 | `/ranking` | 1(无分页) |
 
-#### Step 3: 复用 keyword_discovery.json 的 ranking_sites
+## 已知SPA站点（urllib无法爬取）
 
-keyword_discovery.json 已有10个zh-Hans排行榜站点配置（含selector和attr），
-但 discover_keywords.py 用的是 cloudscraper + CSS选择器，
-而 bulk_generate_catalog.py 用的是 urllib + 正则。
-**统一为同一套配置**，在 bulk_generate_catalog.py 中也读取 ranking_sites。
+- kuaikanmanhua.com — JS渲染
+- dongmanmanhua.cn — JS渲染
+- manhuaren.com — JS渲染
+- guazimanhua.com — JS渲染
 
-#### Step 4: 自动检测分页上限
+## 待完成
 
-对于已发现的排行榜页，自动检测分页上限：
-1. 从page=1开始爬取，记录漫画链接
-2. 逐页递增，直到：返回0个漫画链接 / HTTP错误 / 与前页重复率>90%
-3. 将max_pages写入ranking_pages.json
-
-## 四、实施步骤
-
-1. 创建 `config/ranking_pages.json`，将当前硬编码的ranking_urls迁移过去
-2. 修改 `bulk_generate_catalog.py` 的 `crawl_ranking_pages()` 从配置文件读取
-3. 新增 `discover_ranking_urls()` 自动发现函数
-4. 在 full-pipeline.yml 的 Step4 中先运行自动发现，再爬取
-5. 将 keyword_discovery.json 的 ranking_sites 也纳入统一配置
-
-## 五、预期效果
-
-- 新域名加入aggregator_sites后，自动发现排行榜URL
-- 自动检测分页上限，无需手动试错
-- 配置外置，可版本控制，可CI自动更新
-- 从0冷启动时，全链路无需手动干预
+1. **自动检测分页上限** — 爬取到空页/重复页时自动停止
+2. **统一ranking_sites** — keyword_discovery.json的ranking_sites与ranking_pages.json合并
+3. **自动写入发现的配置** — _auto_discover_ranking()发现的新配置写入ranking_pages.json
+4. **SPA站点API发现** — 部分SPA站点有JSON API，可用urllib直接获取数据
