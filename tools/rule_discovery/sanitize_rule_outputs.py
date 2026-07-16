@@ -35,7 +35,21 @@ _DISCOVER_BLOCKED = _BLOCKED_CFG.get("discover_domains", [])
 _GENERATE_BLOCKED = _BLOCKED_CFG.get("generate_rules", [])
 BLOCKED_DOMAIN_KEYWORDS = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
 BLOCKED_PATH_KEYWORDS = _BLOCKED_CFG.get("blocked_path_keywords", [])
+_MANGA_INDICATOR_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "manga_indicator_keywords.json"
+if _MANGA_INDICATOR_CFG_PATH.exists():
+    try:
+        _MIK_CFG = json.loads(_MANGA_INDICATOR_CFG_PATH.read_text("utf-8"))
+    except Exception:
+        _MIK_CFG = {}
+else:
+    _MIK_CFG = {}
+
 COMIC_POSITIVE_KEYWORDS = _BLOCKED_CFG.get("comic_positive_keywords", [])
+if not COMIC_POSITIVE_KEYWORDS:
+    for _lang_cfg in _MIK_CFG.values():
+        if isinstance(_lang_cfg, dict):
+            COMIC_POSITIVE_KEYWORDS.extend(_lang_cfg.get("validate", []))
+    COMIC_POSITIVE_KEYWORDS = list(dict.fromkeys(COMIC_POSITIVE_KEYWORDS))
 
 
 def now_iso() -> str:

@@ -2,26 +2,27 @@
 
 本文档约束 `ComicReader_Rules` 仓库的目录、文件命名、生成产物和分支流程。
 
-当前事实入口：`docs/CURRENT_STATUS.md`。
-
 ## 目录结构白名单
 
 根目录只允许以下文件和目录：
 
 ```text
-.github/          Workflow 和模板
-catalog/          正式目录索引 (catalog.{lang}.json)
-config/           配置文件
-docs/             文档
-generated/        中间产物和报告
-rules/            正式规则索引 (index.{lang}.json) + 手工规则
-scripts/          入口脚本
-tools/            工具
-LICENSE           许可证
-README.md         项目说明
+.agents/           AI上下文
+.github/           Workflow 和模板
+catalog/           正式目录索引 (catalog.{lang}.json)
+config/            配置文件
+docs/              文档（所有非必要文档必须放此目录）
+  legal/           法律文档（COMPLIANCE/DISCLAIMER/NOTICE/SECURITY/THIRD_PARTY_NOTICES）
+  specs/           规范文档（CONTRIBUTING/MAINTAINERS/development_standards等）
+generated/         中间产物和报告
+rules/             正式规则索引 (index.{lang}.json) + 手工规则
+scripts/           入口脚本
+tools/             工具
+LICENSE            许可证
+README.md          项目说明
 ```
 
-不允许在根目录新增脚本、JSON、临时文件或报告。
+不允许在根目录新增脚本、JSON、临时文件、报告或文档。所有非必要文档必须放入 `docs/` 对应子目录。
 
 ## 正式发布路径
 

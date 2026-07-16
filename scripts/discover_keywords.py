@@ -291,8 +291,16 @@ def discover_keywords(language: str, top: int = 20) -> List[str]:
         title_site_count[t] = title_site_count.get(t, 0) + 1
         title_position.setdefault(t, []).append(pos)
 
-    print(f"  Phase 3: Fallback ranking")
+    print(f"  Phase 3: Fallback from rule_keywords.json")
     fallback = FALLBACK_RANKING.get(language, [])
+    kw_path = ROOT / "config" / "rule_keywords.json"
+    if kw_path.exists():
+        try:
+            kw_data = json.loads(kw_path.read_text(encoding="utf-8"))
+            existing_kw = kw_data.get(language, [])
+            fallback = list(dict.fromkeys(fallback + existing_kw))
+        except Exception:
+            pass
     for pos, t in enumerate(fallback, 1):
         t = _clean_title(t)
         if t and _is_valid_keyword(t):

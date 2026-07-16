@@ -264,6 +264,7 @@ def _get_kw_sets(language: str):
     secondary = set(kw.lower() for kw in cfg.get("secondary", []))
     anti = set(kw.lower() for kw in cfg.get("anti_patterns", []))
     title_match = set(kw.lower() for kw in cfg.get("title_match", []))
+    title_match.update(kw.lower() for kw in BLOCKED_DOMAIN_KEYWORDS)
     return validate, secondary, anti, title_match
 
 
