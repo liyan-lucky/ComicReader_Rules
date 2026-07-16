@@ -1,10 +1,10 @@
-name: 全链路更新
+name: σà¿Θô╛Φ╖»µ¢┤µû░
 
 on:
   workflow_dispatch:
     inputs:
       language:
-        description: '语种'
+        description: 'Φ»¡τºì'
         required: true
         default: 'zh-Hans'
         type: choice
@@ -15,7 +15,7 @@ on:
           - ja
           - ko
       run_mode:
-        description: '规则生成模式'
+        description: 'ΦºäσêÖτöƒµêÉµ¿íσ╝Å'
         required: true
         default: 'quick'
         type: choice
@@ -23,7 +23,7 @@ on:
           - quick
           - deep
       max_generated:
-        description: '最多生成规则数'
+        description: 'µ£ÇσñÜτöƒµêÉΦºäσêÖµò░'
         required: true
         default: '2000'
         type: choice
@@ -32,7 +32,7 @@ on:
           - '1000'
           - '2000'
       per_domain_limit:
-        description: '每域名最多规则数'
+        description: 'µ»ÅσƒƒσÉìµ£ÇσñÜΦºäσêÖµò░'
         required: true
         default: '3'
         type: choice
@@ -42,7 +42,7 @@ on:
           - '5'
           - '10'
       keyword_top:
-        description: '关键词发现取前N个'
+        description: 'σà│Θö«Φ»ìσÅæτÄ░σÅûσëìNΣ╕¬'
         required: true
         default: '100'
         type: choice
@@ -51,7 +51,7 @@ on:
           - '100'
           - '150'
       target_count:
-        description: '目录每分类目标数'
+        description: 'τ¢«σ╜òµ»Åσêåτ▒╗τ¢«µáçµò░'
         required: true
         default: '200'
         type: choice
@@ -60,56 +60,442 @@ on:
           - '100'
           - '200'
       revalidate:
-        description: '域名发现全量清理模式'
+        description: 'σƒƒσÉìσÅæτÄ░σà¿ΘçÅµ╕àτÉåµ¿íσ╝Å'
         required: false
         default: false
         type: boolean
       publish_release:
-        description: '是否发布Release'
+        description: 'µÿ»σÉªσÅæσ╕âRelease'
         required: false
         default: false
         type: boolean
   schedule:
     - cron: '0 0 1 * *'
 
+permissions:
+  contents: write
+
 concurrency:
   group: comic-reader-rules-pipeline
   cancel-in-progress: false
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   step1-domains:
-    name: "Step 1/4 - 域名发现"
-    uses: ./.github/workflows/discover-domains.yml
-    with:
-      language: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      revalidate: ${{ github.event_name == 'workflow_dispatch' && inputs.revalidate || false }}
-    secrets: inherit
+    name: "Step 1/4 - σƒƒσÉìσÅæτÄ░"
+    runs-on: ubuntu-latest
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      PIPELINE_REVALIDATE: ${{ github.event_name == 'workflow_dispatch' && inputs.revalidate || false }}
+      SEARXNG_URL: http://localhost:8080
+
+    steps:
+      - name: µúÇσç║ main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Φ«╛τ╜« Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: σ«ëΦúàΣ╛¥Φ╡û
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: τ¡ëσ╛à SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout, clearing SEARXNG_URL"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: σÅæτÄ░σƒƒσÉì
+        run: |
+          REVALIDATE_FLAG=""
+          if [ "$PIPELINE_REVALIDATE" = "true" ]; then REVALIDATE_FLAG="--revalidate"; fi
+          python scripts/discover_domains.py --language "$PIPELINE_LANGUAGE" --report generated/domain_discovery_report.json $REVALIDATE_FLAG
+
+      - name: τöƒµêÉτ½Öτé╣Θàìτ╜«
+        run: python scripts/generate_site_configs.py
+
+      - name: τ╗ƒΦ«íσƒƒσÉìσÅæτÄ░
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          lang = os.environ.get('PIPELINE_LANGUAGE', 'zh-Hans')
+          agg = json.loads(Path('config/aggregator_sites.json').read_text('utf-8')) if Path('config/aggregator_sites.json').exists() else {}
+          report = json.loads(Path('generated/domain_discovery_report.json').read_text('utf-8')) if Path('generated/domain_discovery_report.json').exists() else {}
+          domains = agg.get(lang, [])
+          lines = [
+              '## Step 1/4 - σƒƒσÉìσÅæτÄ░',
+              '',
+              f'- Φ»¡τºì: {lang}',
+              f'- µû░σó₧σƒƒσÉì: {len(report.get("newDomains", []))}',
+              f'- σ╜ôσëìσƒƒσÉìµÇ╗µò░: {len(domains)}',
+          ]
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          PY
+
+      - name: µÅÉΣ║ñσƒƒσÉìµ¢┤µû░
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add config/aggregator_sites.json config/search_url_templates.json config/seed_sites.json config/cleaned_domains/ generated/domain_discovery_report.json
+          if git diff --cached --quiet; then
+            echo "σƒƒσÉìµ▓íµ£ëσÅÿσîû"
+          else
+            git commit -m "pipeline step1: discover $PIPELINE_LANGUAGE manga domains"
+            git push origin HEAD:main
+          fi
 
   step2-keywords:
-    name: "Step 2/4 - 关键词发现"
+    name: "Step 2/4 - σà│Θö«Φ»ìσÅæτÄ░"
+    runs-on: ubuntu-latest
     needs: step1-domains
-    uses: ./.github/workflows/discover-keywords.yml
-    with:
-      language: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      top: ${{ github.event_name == 'workflow_dispatch' && inputs.keyword_top || '100' }}
-    secrets: inherit
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      PIPELINE_KEYWORD_TOP: ${{ github.event_name == 'workflow_dispatch' && inputs.keyword_top || '50' }}
+      SEARXNG_URL: http://localhost:8080
+
+    steps:
+      - name: µúÇσç║ main∩╝êσÉ½Step1µÅÉΣ║ñ∩╝ë
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Φ«╛τ╜« Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: σ«ëΦúàΣ╛¥Φ╡û
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: τ¡ëσ╛à SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout, clearing SEARXNG_URL"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: σÅæτÄ░σà│Θö«Φ»ì
+        run: python scripts/discover_keywords.py --language "$PIPELINE_LANGUAGE" --top "$PIPELINE_KEYWORD_TOP"
+
+      - name: τ╗ƒΦ«íσà│Θö«Φ»ìσÅæτÄ░
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          lang = os.environ.get('PIPELINE_LANGUAGE', 'zh-Hans')
+          kw = json.loads(Path('config/rule_keywords.json').read_text('utf-8')) if Path('config/rule_keywords.json').exists() else {}
+          keywords = kw.get(lang, [])
+          lines = [
+              '## Step 2/4 - σà│Θö«Φ»ìσÅæτÄ░',
+              '',
+              f'- Φ»¡τºì: {lang}',
+              f'- σà│Θö«Φ»ìµò░: {len(keywords)}',
+              '',
+          ]
+          for i, k in enumerate(keywords, 1):
+              lines.append(f'{i}. {k}')
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          PY
+
+      - name: µÅÉΣ║ñσà│Θö«Φ»ìµ¢┤µû░
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add config/rule_keywords.json generated/keyword_discovery_report.json
+          if git diff --cached --quiet; then
+            echo "σà│Θö«Φ»ìµ▓íµ£ëσÅÿσîû"
+          else
+            git commit -m "pipeline step2: discover top $PIPELINE_KEYWORD_TOP $PIPELINE_LANGUAGE keywords"
+            git push origin HEAD:main
+          fi
 
   step3-rules:
-    name: "Step 3/4 - 规则生成"
+    name: "Step 3/4 - ΦºäσêÖτöƒµêÉ"
+    runs-on: ubuntu-latest
     needs: step2-keywords
-    uses: ./.github/workflows/generate-remote-rules.yml
-    with:
-      rule_language: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      run_mode: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
-      max_generated: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
-      per_domain_generated_limit: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_limit || '3' }}
-    secrets: inherit
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports:
+          - 8080:8080
+        options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
+    env:
+      PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      PIPELINE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
+      PIPELINE_MAX_GENERATED: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
+      PIPELINE_PER_DOMAIN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_limit || '3' }}
+      SEARXNG_URL: http://localhost:8080
+
+    steps:
+      - name: µúÇσç║ main∩╝êσÉ½Step2µÅÉΣ║ñ∩╝ë
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Φ«╛τ╜« Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: σ«ëΦúàΣ╛¥Φ╡û
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: τ¡ëσ╛à SearXNG
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fs "http://localhost:8080/search?q=test&format=json" >/dev/null 2>&1; then
+              echo "SearXNG ready"; exit 0
+            fi; sleep 2
+          done
+          echo "SearXNG timeout, clearing SEARXNG_URL"
+          echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: τöƒµêÉΦºäσêÖ
+        run: |
+          set -euo pipefail
+          LANG_NAME=""
+          case "$PIPELINE_LANGUAGE" in
+            zh-Hans) LANG_NAME="τ«ÇΣ╜ôΣ╕¡µûç" ;;
+            zh-Hant) LANG_NAME="τ╣üΘ½öΣ╕¡µûç" ;;
+            en) LANG_NAME="English" ;;
+            ja) LANG_NAME="µùÑµ£¼Φ¬₧" ;;
+            ko) LANG_NAME="φò£Ω╡¡∞û┤" ;;
+          esac
+          ZERO_LIMIT="30"
+          SLEEP="0.15"; SEED_LIMIT="500"; PER_SEED_LIMIT="100"
+          TIME_BUDGET="5400"; SEARCH_BUDGET="1800"
+          if [ "$PIPELINE_RUN_MODE" = "deep" ]; then
+            ZERO_LIMIT="50"
+            SLEEP="0.4"; SEED_LIMIT="3000"; PER_SEED_LIMIT="400"
+            TIME_BUDGET="19800"; SEARCH_BUDGET="3600"
+          fi
+          REPORT="generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
+          INDEX="generated/index.${PIPELINE_LANGUAGE}.json"
+          ETS="generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets"
+          RULES="rules/index.${PIPELINE_LANGUAGE}.json"
+          python tools/rule_discovery/generate_rules.py \
+            --limit 30 --sleep $SLEEP --seed-limit $SEED_LIMIT --per-seed-limit $PER_SEED_LIMIT \
+            --time-budget-seconds $TIME_BUDGET --search-budget-seconds $SEARCH_BUDGET \
+            --max-consecutive-zero-search $ZERO_LIMIT \
+            --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit $PIPELINE_PER_DOMAIN_LIMIT \
+            --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
+          python tools/rule_discovery/build_index_from_report.py \
+            --report "$REPORT" --output "$INDEX" \
+            --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" \
+            --per-domain-limit $PIPELINE_PER_DOMAIN_LIMIT
+          python tools/rule_discovery/sanitize_rule_outputs.py \
+            --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES" \
+            --language-code "$PIPELINE_LANGUAGE"
+
+      - name: Σ┐«σë¬µùáµòêσƒƒσÉì
+        run: |
+          set -euo pipefail
+          python scripts/prune_domains.py \
+            --language "$PIPELINE_LANGUAGE" \
+            --report "generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
+
+      - name: τ╗ƒΦ«íΦºäσêÖτöƒµêÉ
+        run: |
+          python - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          lang = os.environ.get('PIPELINE_LANGUAGE', 'zh-Hans')
+          rules_path = Path(f'rules/index.{lang}.json')
+          rules = json.loads(rules_path.read_text('utf-8')) if rules_path.exists() else {}
+          rule_list = rules.get('rules', [])
+          has_su = sum(1 for r in rule_list if r.get('searchUrl'))
+          domain_counts = {}
+          for r in rule_list:
+              hp = r.get('homepage', '')
+              m = re.search('://([^/]+)', hp)
+              dom = m.group(1).replace('www.', '') if m else 'unknown'
+              domain_counts[dom] = domain_counts.get(dom, 0) + 1
+          sorted_domains = sorted(domain_counts.items(), key=lambda x: -x[1])
+          lines = [
+              '## Step 3/4 - ΦºäσêÖτöƒµêÉ',
+              '',
+              f'- Φ»¡τºì: {lang}',
+              f'- ΦºäσêÖµÇ╗µò░: {len(rule_list)}',
+              f'- µ£ësearchUrl: {has_su}',
+              f'- µùásearchUrl: {len(rule_list) - has_su}',
+              f'- σƒƒσÉìµò░: {len(domain_counts)}',
+              '',
+              '| σƒƒσÉì | ΦºäσêÖµò░ |',
+              '|------|--------|',
+          ]
+          for dom, cnt in sorted_domains:
+              lines.append(f'| {dom} | {cnt} |')
+          output = '\n'.join(lines) + '\n'
+          print(output)
+          summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if summary:
+              Path(summary).write_text(output, encoding='utf-8')
+          PY
+
+      - name: µÅÉΣ║ñΦºäσêÖµ¢┤µû░
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
+          LANG_NAME=""
+          case "$PIPELINE_LANGUAGE" in
+            zh-Hans) LANG_NAME="τ«ÇΣ╜ôΣ╕¡µûç" ;;
+            zh-Hant) LANG_NAME="τ╣üΘ½öΣ╕¡µûç" ;;
+            en) LANG_NAME="English" ;;
+            ja) LANG_NAME="µùÑµ£¼Φ¬₧" ;;
+            ko) LANG_NAME="φò£Ω╡¡∞û┤" ;;
+          esac
+          python scripts/update_manifest.py --section rules --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME"
+          git add \
+            generated/rulebot_report.${PIPELINE_LANGUAGE}.json \
+            generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets \
+            rules/index.${PIPELINE_LANGUAGE}.json \
+            config/aggregator_sites.json \
+            generated/update_manifest.json
+          if git diff --cached --quiet; then
+            echo "ΦºäσêÖµ▓íµ£ëσÅÿσîû"
+          else
+            git commit -m "pipeline step3: generate $PIPELINE_LANGUAGE comic rules"
+            git push origin HEAD:main
+          fi
 
   step4-catalog:
-    name: "Step 4/4 - 目录生成"
+    name: "Step 4/4 - τ¢«σ╜òτöƒµêÉ"
+    runs-on: ubuntu-latest
     needs: step3-rules
-    uses: ./.github/workflows/generate-catalog.yml
-    with:
-      catalog_language: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
-      target_count: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
-    secrets: inherit
+    env:
+      PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
+      PIPELINE_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}
+      PIPELINE_PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release || false }}
+
+    steps:
+      - name: µúÇσç║ main∩╝êσÉ½Step3µÅÉΣ║ñ∩╝ë
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Φ«╛τ╜« Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: σ«ëΦúàΣ╛¥Φ╡û
+        run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: τöƒµêÉτ¢«σ╜ò(σ£¿τ║┐τê¼σÅûµÄÆΦíîµª£+report+keyword)
+        run: python scripts/bulk_generate_catalog.py
+
+      - name: τ╗ƒΦ«íτ¢«σ╜ò
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          lang = os.environ.get('PIPELINE_LANGUAGE', 'zh-Hans')
+          cat_path = Path(f'catalog/catalog.{lang}.json')
+          if cat_path.exists():
+              cat = json.loads(cat_path.read_text('utf-8'))
+              cats = cat.get('categories', {})
+              if isinstance(cats, dict):
+                  cat_list = list(cats.values())
+              else:
+                  cat_list = cats
+              total_in_cats = sum(len(c.get('items', [])) if isinstance(c, dict) else 0 for c in cat_list)
+              top_items = cat.get('items', [])
+              lines = [
+                  '## Step 4/4 - τ¢«σ╜òτöƒµêÉ',
+                  '',
+                  f'- Φ»¡τºì: {lang}',
+                  f'- σêåτ▒╗µò░: {len(cats)}',
+                  f'- σêåτ▒╗σåàµ╝½τö╗µÇ╗µò░: {total_in_cats}',
+                  f'- Θí╢σ▒éitemsµò░: {len(top_items) if isinstance(top_items, list) else "τ╝║σñ▒"}',
+                  '',
+                  '| σêåτ▒╗ | µ╝½τö╗µò░ |',
+                  '|------|--------|',
+              ]
+              if isinstance(cats, dict):
+                  for cid, cdata in cats.items():
+                      cnt = len(cdata.get('items', [])) if isinstance(cdata, dict) else 0
+                      name = cdata.get('name', cid) if isinstance(cdata, dict) else cid
+                      lines.append(f'| {name} | {cnt} |')
+              output = '\n'.join(lines) + '\n'
+              print(output)
+              summary = os.environ.get('GITHUB_STEP_SUMMARY')
+              if summary:
+                  Path(summary).write_text(output, encoding='utf-8')
+          else:
+              print(f'catalog/catalog.{lang}.json not found')
+          PY
+
+      - name: µÅÉΣ║ñτ¢«σ╜òµ¢┤µû░
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
+          python scripts/update_manifest.py --section catalog --tag "$TAG_NAME" --language-code "$PIPELINE_LANGUAGE"
+          git add "catalog/catalog.${PIPELINE_LANGUAGE}.json" generated/update_manifest.json
+          if git diff --cached --quiet; then
+            echo "τ¢«σ╜òµ▓íµ£ëσÅÿσîû"
+          else
+            git commit -m "pipeline step4: update $PIPELINE_LANGUAGE comic catalog"
+            git push origin HEAD:main
+          fi
+
+      - name: σÅæσ╕â Release
+        if: ${{ env.PIPELINE_PUBLISH == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG_NAME="pipeline-$(date -u +'%Y%m%d')"
+          git fetch --tags origin
+          git tag -f -a "$TAG_NAME" -m "Pipeline $TAG_NAME"
+          git push --force origin "refs/tags/$TAG_NAME" || echo "Tag push failed"
+          rm -rf dist/release && mkdir -p dist/release
+          cp "generated/rulebot_report.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp "rules/index.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp "catalog/catalog.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
+          cp generated/update_manifest.json dist/release/ 2>/dev/null || true
+          gh release create "$TAG_NAME" dist/release/* --title "Pipeline $TAG_NAME" --notes "σà¿Θô╛Φ╖»Φç¬σè¿τöƒµêÉ" || echo "Release creation failed"

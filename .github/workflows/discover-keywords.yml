@@ -41,16 +41,6 @@ on:
         required: false
         default: true
         type: boolean
-  workflow_call:
-    inputs:
-      language:
-        required: true
-        type: string
-        default: 'zh-Hans'
-      top:
-        required: false
-        type: string
-        default: '100'
 
 permissions:
   contents: write

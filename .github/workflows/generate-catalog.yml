@@ -30,16 +30,6 @@ on:
         type: boolean
   schedule:
     - cron: '0 1 * * 0'
-  workflow_call:
-    inputs:
-      catalog_language:
-        required: true
-        type: string
-        default: 'zh-Hans'
-      target_count:
-        required: false
-        type: string
-        default: '200'
 
 permissions:
   contents: write
