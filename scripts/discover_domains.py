@@ -269,6 +269,17 @@ def _get_kw_sets(language: str):
     return validate, secondary, anti, title_match
 
 
+def _extract_meta_content(text: str, name: str) -> str:
+    for pat in [
+        rf'<meta\s+name=["\']?{re.escape(name)}["\']?\s+content=["\']?([^"\'>]+)',
+        rf'<meta\s+content=["\']?([^"\'>]+)["\']?\s+name=["\']?{re.escape(name)}["\']?',
+    ]:
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
 def _check_homepage(domain: str, language: str, validate: set, secondary: set, anti: set, title_match: set) -> dict:
     try:
         url = f"https://{domain}"
@@ -287,6 +298,12 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
     m = re.search(r"<title[^>]*>(.*?)</title>", text, re.DOTALL | re.IGNORECASE)
     if m:
         title = m.group(1).strip()
+    meta_desc = _extract_meta_content(text, "description")
+    meta_kw = _extract_meta_content(text, "keywords")
+    head_area = ""
+    head_m = re.search(r"<head[^>]*>(.*?)</head>", text, re.DOTALL | re.IGNORECASE)
+    if head_m:
+        head_area = head_m.group(1)
 
     # 1. anti_patterns: 屏蔽成人站（检查页面内容）
     for ap in anti:
@@ -306,11 +323,16 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
             if re.search(r'\b' + re.escape(tm) + r'\b', title, re.IGNORECASE):
                 return {"result": "title_blocked", "matched_kw": tm, "match_type": "title_blocked"}
 
-    # 3. validate: 内容匹配（检查页面内容+标题）
+    # 3. validate: 必须在关键位置（title/meta description/meta keywords/<head>）命中
     for kw in validate:
-        if kw in text or kw in title:
-            loc = "title" if kw in title else "body"
-            return {"result": "primary_match", "matched_kw": kw, "match_type": f"primary_{loc}"}
+        if kw in title:
+            return {"result": "primary_match", "matched_kw": kw, "match_type": "primary_title"}
+        if kw in meta_desc:
+            return {"result": "primary_match", "matched_kw": kw, "match_type": "primary_meta_desc"}
+        if kw in meta_kw:
+            return {"result": "primary_match", "matched_kw": kw, "match_type": "primary_meta_kw"}
+        if kw in head_area:
+            return {"result": "primary_match", "matched_kw": kw, "match_type": "primary_head"}
 
     # 4. domain_label: 域名含validate词则通过
     dl = domain.lower()
@@ -319,10 +341,10 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
         if kw in dl or kw in label:
             return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
-    # 5. secondary: 多条匹配
+    # 5. secondary: 需3条匹配（更严格）
     secondary_hits = sum(1 for kw in secondary if kw in text)
-    if secondary_hits >= 2:
-        return {"result": "secondary_2+", "matched_kw": "", "match_type": "secondary"}
+    if secondary_hits >= 3:
+        return {"result": "secondary_3+", "matched_kw": "", "match_type": "secondary"}
 
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
