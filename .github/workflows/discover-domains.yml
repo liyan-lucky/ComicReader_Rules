@@ -101,7 +101,7 @@ jobs:
 
     steps:
       - name: 检出 main
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           ref: main
 
@@ -120,7 +120,7 @@ jobs:
           echo "::warning::SearXNG not responding, will fall back to other search methods"
 
       - name: 设置 Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.11'
 
@@ -256,7 +256,7 @@ jobs:
           "
 
       - name: 上传发现报告
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: domain-discovery-${{ inputs.language || 'zh-Hans' }}
           path: |
