@@ -35,7 +35,9 @@ on:
         description: 'SearXNG容器镜像'
         required: false
         default: 'ghcr.io/liyan-lucky/searxng_diy:latest'
-        type: string
+        type: choice
+        options:
+          - ghcr.io/liyan-lucky/searxng_diy:latest
       commit_changes:
         description: '是否提交变更到main（默认开启）'
         required: false

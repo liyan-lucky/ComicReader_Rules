@@ -340,7 +340,9 @@ def main() -> int:
             agg_data = {}
 
     agg_data[args.language] = keywords
-    agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp = agg_path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(agg_path)
     print(f"\nUpdated {agg_path} ({args.language}: {len(keywords)} keywords)")
 
     if args.report:
@@ -352,7 +354,9 @@ def main() -> int:
         }
         report_path = Path(args.report)
         report_path.parent.mkdir(parents=True, exist_ok=True)
-        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        rtmp = report_path.with_suffix(".tmp")
+        rtmp.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        rtmp.replace(report_path)
         print(f"Report saved to {args.report}")
 
     return 0

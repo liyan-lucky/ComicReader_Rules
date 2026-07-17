@@ -81,11 +81,45 @@ def safe_id(domain: str, seed: str = '') -> str:
         suffix = '_' + hashlib.sha1(seed.encode('utf-8', errors='ignore')).hexdigest()[:8]
     return (core or 'generated')[:40] + suffix + '_auto_public'
 
+_NON_MANGA_DOMAIN_KEYWORDS = [
+    "service-now", "shopee", "amazon", "ebay", "aliexpress", "taobao", "jd.com",
+    "gov", "mil", "edu", "architecturaldigest", "boeing", "n8n", "seaart",
+    "themoviedb", "imdb", "wikipedia", "reddit", "twitter", "facebook",
+    "instagram", "tiktok", "youtube", "linkedin", "pinterest", "tumblr",
+    "netflix", "hulu", "disney", "spotify", "apple.com", "microsoft.com",
+    "google.com", "github.com", "stackoverflow", "medium.com", "quora",
+    "advetresearch", "archivosdeneurociencias", "kurdistan24", "gulanmedia",
+    "jfdb", "dese.mo.gov", "pdf.js", "viewer",
+]
+
+_NON_MANGA_NAME_PATTERNS = re.compile(
+    r'PDF\.js\s+viewer|Boeing|ServiceNow|Shopee|n8n|SeaArt|TMDB|IMDb|'
+    r'Wikipedia|Reddit|YouTube|Netflix|Spotify|Apple|Microsoft|Google|'
+    r'GitHub|StackOverflow|Medium|Quora|Pinterest|Tumblr|LinkedIn|'
+    r'Instagram|TikTok|Facebook|Twitter|Amazon|eBay|AliExpress',
+    re.I
+)
+
+def is_manga_domain(domain: str) -> bool:
+    dl = domain.lower()
+    return not any(kw in dl for kw in _NON_MANGA_DOMAIN_KEYWORDS)
+
+def is_manga_rule_name(name: str) -> bool:
+    return not _NON_MANGA_NAME_PATTERNS.search(name)
+
 def is_valid_rule(rule: dict) -> bool:
     for field in REQUIRED_RULE_FIELDS:
         if field not in rule:
             return False
-    return bool(rule.get('id')) and bool(rule.get('name')) and bool(rule.get('readerImageRegex')) and isinstance(rule.get('readerImageGroups'), list)
+    if not rule.get('id') or not rule.get('name') or not rule.get('readerImageRegex') or not isinstance(rule.get('readerImageGroups'), list):
+        return False
+    homepage = rule.get('homepage', '')
+    domain = homepage.replace('https://', '').replace('http://', '').split('/')[0].replace('www.', '')
+    if not is_manga_domain(domain):
+        return False
+    if not is_manga_rule_name(rule.get('name', '')):
+        return False
+    return True
 
 def add_rule_compliance(rule: dict) -> dict:
     rule = dict(rule)

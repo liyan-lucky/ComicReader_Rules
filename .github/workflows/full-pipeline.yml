@@ -326,6 +326,10 @@ jobs:
             --max-consecutive-zero-search $ZERO_LIMIT \
             --max-generated $PIPELINE_MAX_GENERATED --per-domain-generated-limit $PIPELINE_PER_DOMAIN_LIMIT \
             --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" --report "$REPORT"
+          python scripts/prune_domains.py \
+            --language "$PIPELINE_LANGUAGE" \
+            --report "generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
+          python scripts/generate_site_configs.py
           python tools/rule_discovery/build_index_from_report.py \
             --report "$REPORT" --output "$INDEX" \
             --language-code "$PIPELINE_LANGUAGE" --language-name "$LANG_NAME" \
@@ -333,13 +337,6 @@ jobs:
           python tools/rule_discovery/sanitize_rule_outputs.py \
             --report "$REPORT" --index "$INDEX" --ets "$ETS" --rules-output "$RULES" \
             --language-code "$PIPELINE_LANGUAGE"
-
-      - name: 修剪无效域名
-        run: |
-          set -euo pipefail
-          python scripts/prune_domains.py \
-            --language "$PIPELINE_LANGUAGE" \
-            --report "generated/rulebot_report.${PIPELINE_LANGUAGE}.json"
 
       - name: 统计规则生成
         run: |

@@ -418,7 +418,10 @@ def main() -> int:
 
         out_path = ROOT / "catalog" / f"catalog.{lang}.json"
         out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = out_path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+        tmp.replace(out_path)
         print(f"[{lang}] {cat_count} categories, {total} items -> {out_path}")
 
     return 0

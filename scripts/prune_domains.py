@@ -34,6 +34,13 @@ def _safe_load_json(path: Path) -> dict:
         return {}
 
 
+def _atomic_write_json(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
 def load_report(path: Path) -> dict:
     return _safe_load_json(path)
 
@@ -180,7 +187,7 @@ def prune_aggregator_sites(language: str, dead_domains: Set[str], dry_run: bool 
 
     if removed > 0 and not dry_run:
         data[language] = new_urls
-        sites_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _atomic_write_json(sites_path, data)
         _add_dead_domains_to_blocked(dead_domains)
 
     return removed, removed_details
@@ -201,8 +208,43 @@ def _add_dead_domains_to_blocked(dead_domains: Set[str]) -> None:
             added += 1
     if added > 0:
         data["excluded_domains"] = excluded
-        blocked_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _atomic_write_json(blocked_path, data)
         print(f"  已将 {added} 个死亡域名添加到 blocked_domains.json/excluded_domains")
+
+
+def add_new_domains_to_aggregator(language: str, report: dict, dry_run: bool = False) -> int:
+    sites_path = ROOT / "config" / "aggregator_sites.json"
+    data = _safe_load_json(sites_path)
+    existing_urls = set(u.strip().lower() for u in data.get(language, []))
+    existing_domains = set()
+    for url in existing_urls:
+        parsed = urlparse(url if "://" in url else "https://" + url)
+        d = (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
+        if d:
+            existing_domains.add(d)
+
+    new_urls = []
+    for rule in report.get("generated", []):
+        domain = (rule.get("domain") or "").lower().replace("www.", "").strip()
+        if not domain:
+            continue
+        if domain in existing_domains:
+            continue
+        base_url = rule.get("base_url") or f"https://{domain}"
+        base_url = base_url.strip()
+        if base_url.lower() not in existing_urls:
+            new_urls.append(base_url)
+            existing_domains.add(domain)
+            existing_urls.add(base_url.lower())
+
+    if new_urls and not dry_run:
+        if language not in data:
+            data[language] = []
+        data[language].extend(new_urls)
+        _atomic_write_json(sites_path, data)
+        print(f"  已将 {len(new_urls)} 个新域名添加到 aggregator_sites.json ({language})")
+
+    return len(new_urls)
 
 
 def main() -> int:
@@ -254,10 +296,14 @@ def main() -> int:
 
     removed, removed_details = prune_aggregator_sites(args.language, dead_domains, dry_run=args.dry_run)
 
+    new_count = add_new_domains_to_aggregator(args.language, report, dry_run=args.dry_run)
+
     if args.dry_run:
         print(f"\n[DRY RUN] 将从 aggregator_sites.json ({args.language}) 移除 {removed} 个域名")
+        print(f"[DRY RUN] 将向 aggregator_sites.json ({args.language}) 添加 {new_count} 个新域名")
     else:
         print(f"\n从 aggregator_sites.json ({args.language}) 移除了 {removed} 个死亡域名")
+        print(f"向 aggregator_sites.json ({args.language}) 添加了 {new_count} 个新域名")
 
     domains_after, _ = load_domains_from_aggregator(args.language) if not args.dry_run else (domains_in_file - dead_domains, {})
 
