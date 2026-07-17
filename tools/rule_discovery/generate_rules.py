@@ -1021,7 +1021,7 @@ def main() -> int:
             pass
 
     existing_rules_paths = [
-        ROOT / f"rules/index.{args.language_code}.json" if args.language_code != "mixed" else None,
+        Path(__file__).resolve().parents[2] / f"rules/index.{args.language_code}.json" if args.language_code != "mixed" else None,
     ]
     for erp in existing_rules_paths:
         if erp is None or not erp.exists():
@@ -1197,7 +1197,7 @@ def main() -> int:
         "chosenDomainRuleCount": len(chosen),
         "manualRulesAreMergedLater": True,
     }
-    report = ROOT / args.report if not Path(args.report).is_absolute() else Path(args.report)
+    report = Path(__file__).resolve().parents[2] / args.report if not Path(args.report).is_absolute() else Path(args.report)
     write_report(chosen, excluded, report, queries, stats, domain_applicability_map)
     log(f"[done] generated rules: {len(chosen)} -> {report}")
     log(f"[info] domainApplicabilityList: {sum(len(v) for v in domain_applicability_map.values())} domain entries across {len(domain_applicability_map)} rules")
