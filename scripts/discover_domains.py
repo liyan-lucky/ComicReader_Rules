@@ -341,11 +341,6 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
         if kw in dl or kw in label:
             return {"result": "domain_label_match", "matched_kw": kw, "match_type": "domain_label"}
 
-    # 5. secondary: 需3条匹配（更严格）
-    secondary_hits = sum(1 for kw in secondary if kw in text)
-    if secondary_hits >= 3:
-        return {"result": "secondary_3+", "matched_kw": "", "match_type": "secondary"}
-
     return {"result": "no_indicators", "matched_kw": "", "match_type": ""}
 
 
