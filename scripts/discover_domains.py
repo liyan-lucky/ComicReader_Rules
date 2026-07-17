@@ -110,7 +110,8 @@ def crawl_aggregator_sites(language: str, limit: int = 0) -> List[str]:
                     found += 1
             for m in re.finditer(r'src=["\']?(https?://[^"\'\s>]+)["\']?', r.text):
                 u = m.group(1)
-                if u.startswith("http") and (max_total == 0 or len(all_urls) < max_total):
+                skip = any(s in u.lower() for s in _CRAWL_SKIP_KW)
+                if not skip and u.startswith("http") and (max_total == 0 or len(all_urls) < max_total):
                     all_urls.append(u)
                     found += 1
             print(f"    Found {found} links (HTTP {r.status_code})")

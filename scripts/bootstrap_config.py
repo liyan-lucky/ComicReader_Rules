@@ -136,7 +136,8 @@ LANG_SEARCH_QUERY_TEMPLATES: Dict[str, List[str]] = {
 
 def _generate_search_queries(language: str, search_text: List[str]) -> List[str]:
     templates = LANG_SEARCH_QUERY_TEMPLATES.get(language, [])
-    year = "2025"
+    from datetime import datetime
+    year = str(datetime.now().year)
     queries: List[str] = []
     seen: Set[str] = set()
     for seed in search_text[:5]:

@@ -945,7 +945,7 @@ def main() -> int:
     ap.add_argument("--per-domain-audit-limit", type=int, default=0, help="每个域名最多审计多少个候选页；0 表示不限制")
     ap.add_argument("--per-domain-generated-limit", type=int, default=1, help="每个域名最多保留多少条通过审计的规则")
     ap.add_argument("--max-generated", type=int, default=30, help="最多生成多少个域名规则")
-    ap.add_argument("--report", default="entry/src/main/resources/rawfile/audit/generated_rulebot_report.json")
+    ap.add_argument("--report", default="generated/rulebot_report.json")
     ap.add_argument("--language-code", default="mixed", help="本次生成使用的语种代码，如 zh-Hans / zh-Hant / en")
     ap.add_argument("--language-name", default="Mixed", help="本次生成使用的语种名称")
     ap.add_argument("--sleep", type=float, default=0.6, help="请求间隔，避免压测公开站点")
@@ -1021,7 +1021,7 @@ def main() -> int:
             pass
 
     existing_rules_paths = [
-        Path(f"rules/index.{args.language_code}.json") if args.language_code != "mixed" else None,
+        ROOT / f"rules/index.{args.language_code}.json" if args.language_code != "mixed" else None,
     ]
     for erp in existing_rules_paths:
         if erp is None or not erp.exists():
@@ -1197,7 +1197,7 @@ def main() -> int:
         "chosenDomainRuleCount": len(chosen),
         "manualRulesAreMergedLater": True,
     }
-    report = Path(args.report)
+    report = ROOT / args.report if not Path(args.report).is_absolute() else Path(args.report)
     write_report(chosen, excluded, report, queries, stats, domain_applicability_map)
     log(f"[done] generated rules: {len(chosen)} -> {report}")
     log(f"[info] domainApplicabilityList: {sum(len(v) for v in domain_applicability_map.values())} domain entries across {len(domain_applicability_map)} rules")

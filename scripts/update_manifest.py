@@ -45,7 +45,10 @@ def now_iso() -> str:
 def load_json(path: Path) -> Dict[str, Any]:
     if not path.exists():
         return {}
-    return json.loads(path.read_text("utf-8"))
+    try:
+        return json.loads(path.read_text("utf-8"))
+    except Exception:
+        return {}
 
 
 def write_json(path: Path, data: Dict[str, Any]) -> None:

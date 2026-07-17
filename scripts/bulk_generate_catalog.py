@@ -51,10 +51,14 @@ RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
-CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
+try:
+    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
+except ValueError:
+    CATEGORY_TARGET = 200
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
-SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$', re.I)
+SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$|更新到\d+.*$|更新至\d+.*$', re.I)
+GENRE_KEYWORDS = {"玄幻", "仙侠", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻", "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争", "修仙", "穿越", "重生", "恋爱", "古风", "都市", "热血", "搞笑", "灵异", "校园", "治愈", "暗黑", "末日", "魔幻", "复仇", "系统", "脑洞", "青春", "女神", "大男主", "大女主", "强强", "欧美", "韩国", "日本", "国产", "日漫", "韩漫", "国漫", "条漫", "webtoon", "manhwa", "manhua"}
 
 
 def normalize_domain(domain: str) -> str:
@@ -119,6 +123,10 @@ def is_valid_title(title: str) -> bool:
         return False
     if CHAPTER_RE.search(title) and not re.search(r'[\u4e00-\u9fff]{2,}', title.split('第')[0].split('Chapter')[0]):
         return False
+    if title in GENRE_KEYWORDS:
+        return False
+    if re.match(r'^[\u4e00-\u9fff]{1,2}$', title) and len(title) <= 2:
+        return False
     return True
 
 
@@ -164,10 +172,18 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
         if key in existing_titles:
             continue
         existing_titles.add(key)
+        sources = []
+        for d in domains[:5]:
+            source = {"domain": d}
+            search_templates = _load_json("search_url_templates.json", {})
+            tpl = search_templates.get(d, "")
+            if tpl:
+                source["searchUrl"] = tpl.replace("{keyword}", kw)
+            sources.append(source)
         by_title[key] = {
             "id": make_comic_id(kw),
             "title": kw,
-            "sources": [{"domain": d, "detailUrl": f"https://{d}/"} for d in domains[:5]],
+            "sources": sources,
             "category": classify_title(kw),
             "language": lang,
         }
