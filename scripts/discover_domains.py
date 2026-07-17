@@ -124,6 +124,33 @@ _BLOCKED_CFG = _load_config("blocked_domains.json", {})
 BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("discover_domains", [])
 EXCLUDED_DOMAINS: set = set(_BLOCKED_CFG.get("excluded_domains", []))
 
+_NON_MANGA_TLDS = {".gov", ".mil", ".edu"}
+
+_NON_MANGA_DOMAIN_KW = [
+    "novel", "xiaoshuo", "fiction", "books", "bookstore",
+    "lyrics", "news", "newspaper", "magazine", "journal",
+    "government", "agency", "research", "academic", "library",
+    "movie", "film", "video", "music", "song", "podcast",
+    "shopping", "store", "shop", "market", "deal", "coupon",
+    "travel", "hotel", "flight", "recipe", "food", "cooking",
+    "weather", "sports", "fitness", "health", "medical", "doctor",
+    "dating", "social", "forum", "community", "wiki",
+]
+
+_NON_MANGA_TITLE_PATTERNS = [
+    r'\bnews\b', r'\bnewspaper\b', r'\bjournal\b', r'\bmagazine\b',
+    r'\bgovernment\b', r'\bagency\b', r'\bdepartment\b', r'\bministry\b',
+    r'\blyrics?\b', r'\bsong\b', r'\bmusic\b', r'\bartist\b',
+    r'\bnovel\b', r'\bfiction\b', r'\bbook(?:store)?\b', r'\blibrary\b',
+    r'\brecipe\b', r'\bcooking\b', r'\bfood\b', r'\bfitness\b',
+    r'\bmovie\b', r'\bfilm\b', r'\btravel\b', r'\bhotel\b',
+    r'\bshopping\b', r'\bstore\b', r'\bshop\b', r'\bdeal\b',
+    r'\bweather\b', r'\bsports?\b', r'\bhealth\b', r'\bmedical\b',
+    r'小说', r'阅读网', r'书库', r'书城', r'文学', r'中文网$',
+    r'新闻网', r'新闻', r'政府', r'部门', r' ministry',
+]
+_NON_MANGA_TITLE_RE = re.compile('|'.join(_NON_MANGA_TITLE_PATTERNS), re.IGNORECASE)
+
 
 def _searxng_url() -> str:
     url = os.getenv("SEARXNG_URL", "").strip()
@@ -281,6 +308,16 @@ def _extract_meta_content(text: str, name: str) -> str:
 
 
 def _check_homepage(domain: str, language: str, validate: set, secondary: set, anti: set, title_match: set) -> dict:
+    dl = domain.lower()
+
+    for tld in _NON_MANGA_TLDS:
+        if dl.endswith(tld):
+            return {"result": "non_manga_tld", "matched_kw": tld, "match_type": "domain_tld"}
+
+    for kw in _NON_MANGA_DOMAIN_KW:
+        if kw in dl:
+            return {"result": "non_manga_domain_kw", "matched_kw": kw, "match_type": "domain_kw"}
+
     try:
         url = f"https://{domain}"
         headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
@@ -322,6 +359,11 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
         else:
             if re.search(r'\b' + re.escape(tm) + r'\b', title, re.IGNORECASE):
                 return {"result": "title_blocked", "matched_kw": tm, "match_type": "title_blocked"}
+
+    # 2.5. non-manga title patterns: 排除新闻/小说/歌词等非漫画站
+    if _NON_MANGA_TITLE_RE.search(title):
+        m = _NON_MANGA_TITLE_RE.search(title)
+        return {"result": "non_manga_title", "matched_kw": m.group(0), "match_type": "non_manga_title"}
 
     # 3. validate: 必须在关键位置（title/meta description/meta keywords/<head>）命中
     for kw in validate:
@@ -645,7 +687,7 @@ def main() -> int:
             agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"\nRevalidation removed {removed} URLs from aggregator_sites.json")
 
-    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern", "no_indicators")]
+    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern", "no_indicators", "non_manga_tld", "non_manga_domain_kw", "non_manga_title")]
     if cleaned_domains:
         cleaned_path = ROOT / "config" / "cleaned_domains" / f"{args.language}.txt"
         _save_cleaned_log(cleaned_path, cleaned_domains)
