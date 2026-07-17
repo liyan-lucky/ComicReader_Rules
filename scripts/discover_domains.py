@@ -551,6 +551,8 @@ def save_domains_to_aggregator(language: str, new_domains: List[str], domain_kw_
     for d in sorted(new_domains):
         if d in existing_domains:
             continue
+        if d in EXCLUDED_DOMAINS:
+            continue
         url = f"https://{d}/"
         if url not in existing_urls:
             new_urls.append(url)
@@ -677,7 +679,10 @@ def main() -> int:
         for u in old_urls:
             d = extract_domain(u)
             rd = _registered_domain(d) if d else ""
-            if rd in validated_set or d in validated_set:
+            if rd in EXCLUDED_DOMAINS or d in EXCLUDED_DOMAINS:
+                removed += 1
+                print(f"  ✗ {u} (rd={rd}, in excluded_domains)")
+            elif rd in validated_set or d in validated_set:
                 new_urls.append(u)
             else:
                 removed += 1
