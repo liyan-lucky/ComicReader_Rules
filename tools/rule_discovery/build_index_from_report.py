@@ -83,24 +83,31 @@ def safe_id(domain: str, seed: str = '') -> str:
     return (core or 'generated')[:40] + suffix + '_auto_public'
 
 _VALIDATED_DOMAINS: Set[str] = set()
+_EXCLUDED_DOMAINS: Set[str] = set()
 
 def _load_validated_domains() -> None:
-    global _VALIDATED_DOMAINS
+    global _VALIDATED_DOMAINS, _EXCLUDED_DOMAINS
     agg_path = _CONFIG_DIR / "aggregator_sites.json"
-    if not agg_path.exists():
-        return
-    try:
-        data = json.loads(agg_path.read_text(encoding="utf-8"))
-    except Exception:
-        return
-    for lang, urls in data.items():
-        if not isinstance(urls, list):
-            continue
-        for url in urls:
-            d = (url or "").strip().lower()
-            d = d.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "")
-            if d:
-                _VALIDATED_DOMAINS.add(d)
+    if agg_path.exists():
+        try:
+            data = json.loads(agg_path.read_text(encoding="utf-8"))
+        except Exception:
+            data = {}
+        for lang, urls in data.items():
+            if not isinstance(urls, list):
+                continue
+            for url in urls:
+                d = (url or "").strip().lower()
+                d = d.replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "")
+                if d:
+                    _VALIDATED_DOMAINS.add(d)
+    blocked_path = _CONFIG_DIR / "blocked_domains.json"
+    if blocked_path.exists():
+        try:
+            blocked = json.loads(blocked_path.read_text(encoding="utf-8"))
+            _EXCLUDED_DOMAINS = set(blocked.get("excluded_domains", []))
+        except Exception:
+            pass
 
 _load_validated_domains()
 
@@ -112,6 +119,8 @@ def is_valid_rule(rule: dict) -> bool:
         return False
     homepage = rule.get('homepage', '')
     domain = homepage.replace('https://', '').replace('http://', '').split('/')[0].replace('www.', '')
+    if domain in _EXCLUDED_DOMAINS:
+        return False
     if _VALIDATED_DOMAINS and domain not in _VALIDATED_DOMAINS:
         return False
     return True

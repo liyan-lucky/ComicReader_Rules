@@ -213,6 +213,14 @@ def _add_dead_domains_to_blocked(dead_domains: Set[str]) -> None:
 
 
 def add_new_domains_to_aggregator(language: str, report: dict, dry_run: bool = False) -> int:
+    blocked_path = ROOT / "config" / "blocked_domains.json"
+    excluded_domains = set()
+    if blocked_path.exists():
+        try:
+            excluded_domains = set(json.loads(blocked_path.read_text(encoding="utf-8")).get("excluded_domains", []))
+        except Exception:
+            pass
+
     sites_path = ROOT / "config" / "aggregator_sites.json"
     data = _safe_load_json(sites_path)
     existing_urls = set(u.strip().lower() for u in data.get(language, []))
@@ -229,6 +237,8 @@ def add_new_domains_to_aggregator(language: str, report: dict, dry_run: bool = F
         if not domain:
             continue
         if domain in existing_domains:
+            continue
+        if domain in excluded_domains:
             continue
         base_url = rule.get("base_url") or f"https://{domain}"
         base_url = base_url.strip()
