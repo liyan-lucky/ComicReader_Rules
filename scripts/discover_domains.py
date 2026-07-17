@@ -626,15 +626,31 @@ def main() -> int:
     print(f"\nNew domains added to aggregator_sites.json ({args.language}): {len(added)}")
 
     if args.revalidate:
-        validated_set = set(validated)
-        removed_existing = [d for d in sorted(existing) if d not in validated_set]
-        if removed_existing:
-            print(f"\nRevalidation removed {len(removed_existing)} existing domains:")
-            for d in removed_existing:
-                print(f"  ✗ {d}")
-            _remove_domains_from_aggregator(args.language, removed_existing)
+        validated_set = set(_registered_domain(d) for d in validated)
+        agg_path = ROOT / "config" / "aggregator_sites.json"
+        agg_data = {}
+        if agg_path.exists():
+            try:
+                agg_data = json.loads(agg_path.read_text(encoding="utf-8"))
+            except Exception:
+                agg_data = {}
+        old_urls = agg_data.get(args.language, [])
+        new_urls = []
+        removed = 0
+        for u in old_urls:
+            d = extract_domain(u)
+            rd = _registered_domain(d) if d else ""
+            if rd in validated_set or d in validated_set:
+                new_urls.append(u)
+            else:
+                removed += 1
+                print(f"  ✗ {u} (rd={rd}, not in validated_set)")
+        if removed > 0:
+            agg_data[args.language] = new_urls
+            agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(f"\nRevalidation removed {removed} URLs from aggregator_sites.json")
 
-    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern")]
+    cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern", "no_indicators")]
     if cleaned_domains:
         cleaned_path = ROOT / "config" / "cleaned_domains" / f"{args.language}.txt"
         _save_cleaned_log(cleaned_path, cleaned_domains)
