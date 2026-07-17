@@ -43,11 +43,11 @@ def _dump_json(path: Path, data: Any) -> None:
 
 
 LANG_VALIDATE_SEEDS: Dict[str, List[str]] = {
-    "zh-Hans": ["漫画", "漫畫", "国漫", "条漫", "manhua", "动漫"],
-    "zh-Hant": ["漫畫", "漫画", "條漫", "manhua", "webtoon", "動漫"],
-    "en": ["manga", "comic", "webtoon", "manhwa", "manhua"],
-    "ja": ["漫画", "マンガ", "manga", "コミック"],
-    "ko": ["만화", "웹툰", "manhwa", "webtoon", "만화사이트"],
+    "zh-Hans": ["漫画", "漫畫"],
+    "zh-Hant": ["漫畫", "漫画"],
+    "en": ["manga", "comic"],
+    "ja": ["漫画", "マンガ"],
+    "ko": ["만화", "웹툰"],
 }
 
 LANG_ANTI_PATTERNS: Dict[str, List[str]] = {
