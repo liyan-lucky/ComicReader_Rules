@@ -1,0 +1,266 @@
+{
+  "anti_patterns": {
+    "zh-Hans": [
+      "18+",
+      "18禁",
+      "H漫",
+      "腐漫",
+      "肉漫",
+      "色情",
+      "无删",
+      "禁漫",
+      "工口",
+      "里番",
+      "男孕",
+      "本子",
+      "黄漫",
+      "媚药",
+      "触手",
+      "催眠"
+    ],
+    "zh-Hant": [
+      "18+",
+      "18禁",
+      "H漫",
+      "腐漫",
+      "肉漫",
+      "色情",
+      "無刪",
+      "禁漫",
+      "本子",
+      "黃漫"
+    ],
+    "en": [
+      "hentai",
+      "18+",
+      "nsfw",
+      "adult",
+      "porn",
+      "doujinshi",
+      "ecchi",
+      "yaoi",
+      "yuri",
+      "loli"
+    ],
+    "ja": [
+      "18禁",
+      "R-18",
+      "アダルト",
+      "エロ",
+      "同人誌",
+      "えっち"
+    ],
+    "ko": [
+      "성인",
+      "19+",
+      "19금",
+      "adult",
+      "에로",
+      "야오이"
+    ]
+  },
+  "secondary": {
+    "zh-Hans": [
+      "连载",
+      "更新",
+      "章节",
+      "阅读",
+      "在线看"
+    ],
+    "zh-Hant": [
+      "連載",
+      "更新",
+      "章節",
+      "閱讀",
+      "線上看"
+    ],
+    "en": [
+      "chapter",
+      "read",
+      "scanlation",
+      "update",
+      "latest"
+    ],
+    "ja": [
+      "連載",
+      "読む",
+      "無料",
+      "更新",
+      "話"
+    ],
+    "ko": [
+      "연재",
+      "무료",
+      "추천",
+      "업데이트",
+      "화"
+    ]
+  },
+  "title_match_exclude": {
+    "zh-Hans": [
+      "サイト",
+      "無料",
+      "連載",
+      "読む",
+      "マンガ",
+      "만화",
+      "웹툰",
+      "연재",
+      "무료"
+    ],
+    "zh-Hant": [
+      "翻譯",
+      "新聞",
+      "遊戲",
+      "視頻",
+      "購物",
+      "導航",
+      "小說",
+      "サイト",
+      "만화"
+    ],
+    "en": [],
+    "ja": [
+      "不動産",
+      "賃貸",
+      "求人",
+      "通販",
+      "旅行",
+      "レストラン"
+    ],
+    "ko": []
+  },
+  "ranking_sites": {
+    "zh-Hans": [
+      {
+        "name": "腾讯动漫-TOP榜",
+        "url": "https://ac.qq.com/Rank/comicRank/type/top",
+        "selector": "a[href*='/Comic/']",
+        "attr": "title"
+      },
+      {
+        "name": "腾讯动漫-月票榜",
+        "url": "https://ac.qq.com/Rank/comicRank/type/mt",
+        "selector": "a[href*='/Comic/']",
+        "attr": "title"
+      },
+      {
+        "name": "腾讯动漫-飙升榜",
+        "url": "https://ac.qq.com/Rank/comicRank/type/rise",
+        "selector": "a[href*='/Comic/']",
+        "attr": "title"
+      },
+      {
+        "name": "快看漫画-排行榜",
+        "url": "https://www.kuaikanmanhua.com/ranking/",
+        "selector": "a[href*='/web/comic/']",
+        "attr": "title"
+      },
+      {
+        "name": "咚漫漫画-排行榜",
+        "url": "https://www.dongmanmanhua.cn/ranking",
+        "selector": "a[href*='/list/']",
+        "attr": "title"
+      },
+      {
+        "name": "哔哩哔哩漫画-排行榜",
+        "url": "https://manga.bilibili.com/ranking",
+        "selector": "a[href*='/detail/']",
+        "attr": "title"
+      },
+      {
+        "name": "包子漫画-排行榜",
+        "url": "https://www.baozimh.com/ranking",
+        "selector": "a[href*='/comic/']",
+        "attr": "title"
+      }
+    ],
+    "zh-Hant": [
+      {
+        "name": "咚漫漫画-排行榜",
+        "url": "https://www.dongmanmanhua.cn/ranking",
+        "selector": "a.title",
+        "attr": "title"
+      },
+      {
+        "name": "LINE WEBTOON-排行榜",
+        "url": "https://www.webtoons.com/zh-hant/ranking",
+        "selector": "a.rank_lst_a",
+        "attr": "title"
+      }
+    ],
+    "en": [
+      {
+        "name": "MangaPlus-排行",
+        "url": "https://mangaplus.shueisha.co.jp/manga_list/all",
+        "selector": "a.AllTitle-module_allTitle",
+        "attr": "title"
+      },
+      {
+        "name": "Webtoon-排行",
+        "url": "https://www.webtoons.com/en/ranking",
+        "selector": "a.rank_lst_a",
+        "attr": "title"
+      }
+    ],
+    "ja": [
+      {
+        "name": "ピッコマ-ランキング",
+        "url": "https://piccoma.com/web/ranking",
+        "selector": "a.PCM-ranking_itemTitle",
+        "attr": "title"
+      },
+      {
+        "name": "マンガUP-ランキング",
+        "url": "https://magazine.jp.square-enix.com/mangaup/",
+        "selector": "a.title",
+        "attr": "title"
+      }
+    ],
+    "ko": [
+      {
+        "name": "네이버웹툰-인기",
+        "url": "https://comic.naver.com/webtoon/weekday",
+        "selector": "a.title",
+        "attr": "title"
+      },
+      {
+        "name": "카카오웹툰-인기",
+        "url": "https://webtoon.kakao.com/ranking",
+        "selector": "a.title",
+        "attr": "title"
+      }
+    ]
+  },
+  "noise_patterns": "^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|第[一二三四五六七八九十百千零〇两\\d]+[话章回卷]|chapter\\s*\\d+|vol\\.?\\s*\\d+|http|www\\.|\\.com|\\.net|\\.org|\\d{4}[-年]\\d{1,2}[-月]\\d{1,2}|[\\d.]+分|[\\d.]+星|[\\d,]+人|[\\d,]+阅|[\\d,]+赞|[\\d,]+评|更新至|更新到|连载|完结|免费|付费|签约|独家)",
+  "noise_patterns_flags": "IGNORECASE",
+  "tag_words": [
+    "战斗",
+    "热血",
+    "搞笑",
+    "恋爱",
+    "古风",
+    "穿越",
+    "重生",
+    "系统",
+    "怪物",
+    "末日",
+    "灵异",
+    "悬疑",
+    "冒险",
+    "魔幻",
+    "校园",
+    "治愈",
+    "复仇",
+    "强强",
+    "脑洞",
+    "青春",
+    "暗黑",
+    "女神",
+    "大男主",
+    "大女主"
+  ],
+  "tag_suffix": "(\\s{2,})[\\u4e00-\\u9fffa-zA-Z]{1,6}(\\s+[\\u4e00-\\u9fffa-zA-Z]{1,6})?$",
+  "noise_suffix": "(更新至?\\d+[话章回]|更新到\\d+[话章回]|连载至?\\d+|完结$|免费$|付费$)",
+  "noise_suffix_flags": "IGNORECASE"
+}
