@@ -62,12 +62,20 @@ SEED_TRANSLATIONS: Dict[str, Dict[str, List[str]]] = {
         "ja": ["マンガ", "コミック"],
         "ko": ["만화"],
         "zh-Hans_aliases": ["国漫", "条漫", "manhua"],
+        "zh-Hant_aliases": ["國漫", "條漫", "manhua", "webtoon"],
+        "en_aliases": ["webtoon", "manhwa", "manhua"],
+        "ja_aliases": ["ウェブコミック", "webコミック"],
+        "ko_aliases": ["웹툰", "manhwa", "webtoon"],
     },
     "漫畫": {
         "zh-Hant": ["漫画"],
         "en": ["manga", "comic"],
         "ja": ["マンガ"],
         "ko": ["만화"],
+        "zh-Hant_aliases": ["國漫", "條漫", "manhua", "webtoon"],
+        "en_aliases": ["webtoon", "manhwa", "manhua"],
+        "ja_aliases": ["ウェブコミック", "webコミック"],
+        "ko_aliases": ["웹툰", "manhwa", "webtoon"],
     },
 }
 
@@ -168,6 +176,58 @@ _DOMAIN_KNOWLEDGE_DEFAULTS = {
     "tag_suffix": r'(\s{2,})[\u4e00-\u9fffa-zA-Z]{1,6}(\s+[\u4e00-\u9fffa-zA-Z]{1,6})?$',
     "noise_suffix": r'(更新至?\d+[话章回]|更新到\d+[话章回]|连载至?\d+|完结$|免费$|付费$)',
     "noise_suffix_flags": "IGNORECASE",
+    "non_manga_tlds": [".gov", ".mil", ".edu"],
+    "non_manga_domain_kw": [
+        "novel", "xiaoshuo", "fiction", "books", "bookstore",
+        "lyrics", "news", "newspaper", "magazine", "journal",
+        "government", "agency", "research", "academic", "library",
+        "movie", "film", "video", "music", "song", "podcast",
+        "shopping", "store", "shop", "market", "deal", "coupon",
+        "travel", "hotel", "flight", "recipe", "food", "cooking",
+        "weather", "sports", "fitness", "health", "medical", "doctor",
+        "dating", "social", "forum", "community", "wiki",
+    ],
+    "non_manga_title_patterns": [
+        r'\bnews\b', r'\bnewspaper\b', r'\bjournal\b', r'\bmagazine\b',
+        r'\bgovernment\b', r'\bagency\b', r'\bdepartment\b', r'\bministry\b',
+        r'\blyrics?\b', r'\bsong\b', r'\bmusic\b', r'\bartist\b',
+        r'\bnovel\b', r'\bfiction\b', r'\bbook(?:store)?\b', r'\blibrary\b',
+        r'\brecipe\b', r'\bcooking\b', r'\bfood\b', r'\bfitness\b',
+        r'\bmovie\b', r'\bfilm\b', r'\btravel\b', r'\bhotel\b',
+        r'\bshopping\b', r'\bstore\b', r'\bshop\b', r'\bdeal\b',
+        r'\bweather\b', r'\bsports?\b', r'\bhealth\b', r'\bmedical\b',
+        r'小说', r'阅读网', r'书库', r'书城', r'文学', r'中文网$',
+        r'新闻网', r'新闻', r'政府', r'部门', r' ministry',
+    ],
+    "hosting_platforms": [
+        ".github.io", ".vercel.app", ".netlify.app", ".pages.dev",
+        ".gitlab.io", ".gitee.io", ".cloudfront.net", ".herokuapp.com",
+        ".render.com", ".railway.app", ".fly.dev", ".supabase.co",
+        ".firebaseapp.com", ".web.app", ".glitch.me", ".replit.com",
+        ".onrender.com", ".surge.sh", ".itch.io",
+    ],
+    "generic_patterns": [
+        "漫画", "manga", "manhua", "webtoon", "comic",
+        "在线", "免费", "阅读", "推荐", "更新", "网站", "连载", "追更", "大全",
+        "read", "online", "free", "site", "list",
+    ],
+    "genre_hints": [
+        "恋爱", "玄幻", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻",
+        "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争",
+        "修仙", "穿越", "重生", "异世界", "系统", "复仇", "爽文", "古风", "都市",
+    ],
+    "rule_regexes": {
+        "chapter_text": r"(第\s*[0-9一二三四五六七八九十百千零〇两]+\s*[话章回]|Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|阅读|开始阅读|Read\s*Chapter)",
+        "chapter_url": r"/(chapter|chap|read|viewer|episode|episodes|cid|manga|comic)[/_\-?=0-9A-Za-z.%]+",
+        "detail_url": r"/(comic|manga|book|manhua|series|detail|cartoon|webtoon)/?[^/#?]*",
+        "public_work_url": r"/(comic|manga|manhua|book|series|webtoon|title|en/[^/]+/[^/]+/list|read|chapter|episode)/?[^/#?]*",
+        "pay_login_text": r"(登录后|请登录|注册|充值|VIP|付费|购买|金币|订阅|premium|sign\s*in|log\s*in|subscribe|membership|captcha|验证码|下载APP|客户端)",
+        "exclude_url": r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)",
+        "exclude_image": r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)",
+        "image": r"(?:(?:https?:)?//|/)['\"\\/A-Za-z0-9._~:/?#\[\]@!$&()*+,;=%-]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\s'\"<>]*)?",
+        "js_escaped_image": r"https?:\\/\\/[^\s'\"<>]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\\?[^\s'\"<>]*)?",
+        "bad_title": r"^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)",
+    },
 }
 
 
@@ -180,6 +240,11 @@ def derive_validate_seeds(language: str) -> List[str]:
     for root_word, translations in SEED_TRANSLATIONS.items():
         if language in translations:
             for word in translations[language]:
+                if word not in seeds:
+                    seeds.append(word)
+        alias_key = f"{language}_aliases"
+        if alias_key in translations:
+            for word in translations[alias_key]:
                 if word not in seeds:
                     seeds.append(word)
     return seeds
@@ -223,11 +288,19 @@ def derive_generic_terms() -> List[str]:
 def load_domain_knowledge() -> dict:
     path = CONFIG_DIR / "domain_knowledge.json"
     dk = _load_json(path, None)
-    if dk is not None:
+    if dk is None:
+        dk = dict(_DOMAIN_KNOWLEDGE_DEFAULTS)
+        _dump_json(path, dk)
+        print(f"  Initialized domain_knowledge.json (first run)")
         return dk
-    dk = dict(_DOMAIN_KNOWLEDGE_DEFAULTS)
-    _dump_json(path, dk)
-    print(f"  Initialized domain_knowledge.json (first run)")
+    updated = False
+    for key, val in _DOMAIN_KNOWLEDGE_DEFAULTS.items():
+        if key not in dk:
+            dk[key] = val
+            updated = True
+    if updated:
+        _dump_json(path, dk)
+        print(f"  Updated domain_knowledge.json with new fields")
     return dk
 
 

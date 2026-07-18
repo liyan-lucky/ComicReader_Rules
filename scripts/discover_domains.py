@@ -124,9 +124,10 @@ _BLOCKED_CFG = _load_config("blocked_domains.json", {})
 BLOCKED_DOMAIN_KEYWORDS: List[str] = _BLOCKED_CFG.get("discover_domains", [])
 EXCLUDED_DOMAINS: set = set(_BLOCKED_CFG.get("excluded_domains", []))
 
-_NON_MANGA_TLDS = {".gov", ".mil", ".edu"}
+_DK_CFG = _load_config("domain_knowledge.json", {})
+_NON_MANGA_TLDS = set(_DK_CFG.get("non_manga_tlds", [".gov", ".mil", ".edu"]))
 
-_NON_MANGA_DOMAIN_KW = [
+_NON_MANGA_DOMAIN_KW = _DK_CFG.get("non_manga_domain_kw", [
     "novel", "xiaoshuo", "fiction", "books", "bookstore",
     "lyrics", "news", "newspaper", "magazine", "journal",
     "government", "agency", "research", "academic", "library",
@@ -135,9 +136,9 @@ _NON_MANGA_DOMAIN_KW = [
     "travel", "hotel", "flight", "recipe", "food", "cooking",
     "weather", "sports", "fitness", "health", "medical", "doctor",
     "dating", "social", "forum", "community", "wiki",
-]
+])
 
-_NON_MANGA_TITLE_PATTERNS = [
+_NON_MANGA_TITLE_PATTERNS = _DK_CFG.get("non_manga_title_patterns", [
     r'\bnews\b', r'\bnewspaper\b', r'\bjournal\b', r'\bmagazine\b',
     r'\bgovernment\b', r'\bagency\b', r'\bdepartment\b', r'\bministry\b',
     r'\blyrics?\b', r'\bsong\b', r'\bmusic\b', r'\bartist\b',
@@ -148,7 +149,7 @@ _NON_MANGA_TITLE_PATTERNS = [
     r'\bweather\b', r'\bsports?\b', r'\bhealth\b', r'\bmedical\b',
     r'小说', r'阅读网', r'书库', r'书城', r'文学', r'中文网$',
     r'新闻网', r'新闻', r'政府', r'部门', r' ministry',
-]
+])
 _NON_MANGA_TITLE_RE = re.compile('|'.join(_NON_MANGA_TITLE_PATTERNS), re.IGNORECASE)
 
 
@@ -245,13 +246,13 @@ def is_blocked_domain(domain: str) -> tuple:
     return False, ""
 
 
-_HOSTING_PLATFORMS = {
+_HOSTING_PLATFORMS = set(_DK_CFG.get("hosting_platforms", [
     ".github.io", ".vercel.app", ".netlify.app", ".pages.dev",
     ".gitlab.io", ".gitee.io", ".cloudfront.net", ".herokuapp.com",
     ".render.com", ".railway.app", ".fly.dev", ".supabase.co",
     ".firebaseapp.com", ".web.app", ".glitch.me", ".replit.com",
     ".onrender.com", ".surge.sh", ".itch.io",
-}
+]))
 for _lang_cfg in _MANGA_KW_CFG.values():
     if isinstance(_lang_cfg, dict):
         for _sd in _lang_cfg.get("search_subdomain", []):

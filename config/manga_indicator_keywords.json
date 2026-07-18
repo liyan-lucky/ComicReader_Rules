@@ -80,7 +80,10 @@
     "search_subdomain": [],
     "validate": [
       "漫画",
-      "漫畫"
+      "漫畫",
+      "国漫",
+      "条漫",
+      "manhua"
     ],
     "anti_patterns": [
       "18+",
@@ -122,59 +125,200 @@
   "zh-Hant": {
     "search_text": [
       "漫畫",
-      "免費漫畫",
-      "manhua",
+      "國漫",
       "條漫",
+      "manhua",
       "webtoon",
-      "漫畫網",
-      "線上漫畫",
-      "熱門漫畫",
+      "漫画",
+      "漫畫免費",
+      "漫畫看",
+      "漫畫線上",
+      "漫畫熱門",
       "漫畫推薦",
-      "看漫畫"
+      "國漫免費",
+      "國漫看",
+      "國漫線上",
+      "國漫熱門",
+      "國漫推薦",
+      "條漫免費",
+      "條漫看",
+      "條漫線上",
+      "條漫熱門",
+      "條漫推薦",
+      "manhua免費",
+      "manhua看",
+      "manhua線上",
+      "manhua熱門",
+      "manhua推薦",
+      "webtoon免費",
+      "webtoon看",
+      "webtoon線上",
+      "webtoon熱門",
+      "webtoon推薦"
     ],
     "search_subdomain": [],
-    "validate": [],
-    "anti_patterns": [],
-    "title_match": [],
-    "secondary": []
+    "validate": [
+      "漫畫",
+      "國漫",
+      "條漫",
+      "manhua",
+      "webtoon",
+      "漫画"
+    ],
+    "anti_patterns": [
+      "18+",
+      "18禁",
+      "H漫",
+      "腐漫",
+      "肉漫",
+      "色情",
+      "無刪",
+      "禁漫",
+      "本子",
+      "黃漫"
+    ],
+    "title_match": [
+      "翻譯",
+      "新聞",
+      "遊戲",
+      "視頻",
+      "購物",
+      "導航",
+      "小說",
+      "サイト",
+      "만화"
+    ],
+    "secondary": [
+      "連載",
+      "更新",
+      "章節",
+      "閱讀",
+      "線上看"
+    ]
   },
   "en": {
     "search_text": [
       "manga",
-      "read manga",
-      "manga online",
-      "free manga",
-      "manga reader",
       "comic",
       "webtoon",
       "manhwa",
       "manhua",
-      "manga site"
+      "mangaread",
+      "mangafree",
+      "mangaonline",
+      "mangasite",
+      "mangareader",
+      "comicread",
+      "comicfree",
+      "comiconline",
+      "comicsite",
+      "comicreader",
+      "webtoonread",
+      "webtoonfree",
+      "webtoononline",
+      "webtoonsite",
+      "webtoonreader",
+      "manhwaread",
+      "manhwafree",
+      "manhwaonline",
+      "manhwasite",
+      "manhwareader",
+      "manhuaread",
+      "manhuafree",
+      "manhuaonline",
+      "manhuasite",
+      "manhuareader"
     ],
     "search_subdomain": [],
-    "validate": [],
-    "anti_patterns": [],
+    "validate": [
+      "manga",
+      "comic",
+      "webtoon",
+      "manhwa",
+      "manhua"
+    ],
+    "anti_patterns": [
+      "hentai",
+      "18+",
+      "nsfw",
+      "adult",
+      "porn",
+      "doujinshi",
+      "ecchi",
+      "yaoi",
+      "yuri",
+      "loli"
+    ],
     "title_match": [],
-    "secondary": []
+    "secondary": [
+      "chapter",
+      "read",
+      "scanlation",
+      "update",
+      "latest"
+    ]
   },
   "ja": {
     "search_text": [
-      "漫画",
       "マンガ",
-      "manga",
-      "漫画サイト",
-      "無料漫画",
-      "web漫画",
-      "漫画読む",
-      "オンライン漫画",
-      "人気漫画",
-      "漫画推薦"
+      "コミック",
+      "ウェブコミック",
+      "webコミック",
+      "マンガサイト",
+      "マンガ無料",
+      "マンガ読む",
+      "マンガオンライン",
+      "マンガ人気",
+      "マンガおすすめ",
+      "コミックサイト",
+      "コミック無料",
+      "コミック読む",
+      "コミックオンライン",
+      "コミック人気",
+      "コミックおすすめ",
+      "ウェブコミックサイト",
+      "ウェブコミック無料",
+      "ウェブコミック読む",
+      "ウェブコミックオンライン",
+      "ウェブコミック人気",
+      "ウェブコミックおすすめ",
+      "webコミックサイト",
+      "webコミック無料",
+      "webコミック読む",
+      "webコミックオンライン",
+      "webコミック人気",
+      "webコミックおすすめ"
     ],
     "search_subdomain": [],
-    "validate": [],
-    "anti_patterns": [],
-    "title_match": [],
-    "secondary": []
+    "validate": [
+      "マンガ",
+      "コミック",
+      "ウェブコミック",
+      "webコミック"
+    ],
+    "anti_patterns": [
+      "18禁",
+      "R-18",
+      "アダルト",
+      "エロ",
+      "同人誌",
+      "えっち"
+    ],
+    "title_match": [
+      "不動産",
+      "賃貸",
+      "求人",
+      "通販",
+      "旅行",
+      "レストラン"
+    ],
+    "secondary": [
+      "連載",
+      "読む",
+      "無料",
+      "更新",
+      "話"
+    ]
   },
   "ko": {
     "search_text": [
@@ -183,16 +327,44 @@
       "manhwa",
       "webtoon",
       "만화사이트",
-      "무료만화",
-      "인기웹툰",
-      "웹툰추천",
+      "만화무료",
+      "만화인기",
       "만화추천",
-      "인기만화"
+      "웹툰사이트",
+      "웹툰무료",
+      "웹툰인기",
+      "웹툰추천",
+      "manhwa사이트",
+      "manhwa무료",
+      "manhwa인기",
+      "manhwa추천",
+      "webtoon사이트",
+      "webtoon무료",
+      "webtoon인기",
+      "webtoon추천"
     ],
     "search_subdomain": [],
-    "validate": [],
-    "anti_patterns": [],
+    "validate": [
+      "만화",
+      "웹툰",
+      "manhwa",
+      "webtoon"
+    ],
+    "anti_patterns": [
+      "성인",
+      "19+",
+      "19금",
+      "adult",
+      "에로",
+      "야오이"
+    ],
     "title_match": [],
-    "secondary": []
+    "secondary": [
+      "연재",
+      "무료",
+      "추천",
+      "업데이트",
+      "화"
+    ]
   }
 }

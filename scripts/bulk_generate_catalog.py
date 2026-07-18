@@ -58,7 +58,14 @@ except ValueError:
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
 SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$|更新到\d+.*$|更新至\d+.*$', re.I)
-GENRE_KEYWORDS = {"玄幻", "仙侠", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻", "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争", "修仙", "穿越", "重生", "恋爱", "古风", "都市", "热血", "搞笑", "灵异", "校园", "治愈", "暗黑", "末日", "魔幻", "复仇", "系统", "脑洞", "青春", "女神", "大男主", "大女主", "强强", "欧美", "韩国", "日本", "国产", "日漫", "韩漫", "国漫", "条漫", "webtoon", "manhwa", "manhua"}
+
+_DK_CFG = _load_json("domain_knowledge.json", {})
+_GENRE_HINTS = set(_DK_CFG.get("genre_hints", []))
+_TAG_WORDS = set(_DK_CFG.get("tag_words", []))
+GENRE_KEYWORDS = _GENRE_HINTS | _TAG_WORDS | {"欧美", "韩国", "日本", "国产", "日漫", "韩漫", "国漫", "条漫", "webtoon", "manhwa", "manhua"}
+
+_HEADERS_CFG = _load_json("headers.json", {})
+_DEFAULT_UA = _HEADERS_CFG.get("default_ua", "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36")
 
 
 def normalize_domain(domain: str) -> str:
@@ -229,7 +236,7 @@ def _expand_ranking_cfg(domain: str, cfg: Dict[str, Any]) -> List[str]:
 def _auto_discover_ranking(domain: str) -> List[str]:
     import urllib.request
     import urllib.error
-    ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
+    ua = _DEFAULT_UA
     found: List[str] = []
     for pattern in _AUTO_DISCOVER_PATTERNS:
         url = f"https://{domain}{pattern}"
@@ -268,7 +275,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
     title_attr_re = _re.compile(r'title=["\']([^"\']+)["\']', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
-    ua = "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120.0.6099.230 Mobile Safari/537.36"
+    ua = _DEFAULT_UA
     for domain in domains:
         if any(b in domain for b in blocked):
             continue

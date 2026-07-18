@@ -43,6 +43,20 @@
         "selector": "a[href*='/comic/']",
         "attr": "title"
       }
+    ],
+    "ko": [
+      {
+        "name": "네이버웹툰-인기",
+        "url": "https://comic.naver.com/webtoon/weekday",
+        "selector": "a.title",
+        "attr": "title"
+      },
+      {
+        "name": "카카오웹툰-인기",
+        "url": "https://webtoon.kakao.com/ranking",
+        "selector": "a.title",
+        "attr": "title"
+      }
     ]
   },
   "search_queries": {
@@ -83,6 +97,18 @@
       "最新manhua连载 推荐",
       "国产manhua排行 少年 热血",
       "manhua排行榜 月票榜"
+    ],
+    "ko": [
+      "만화 순위 2026 인기",
+      "인기 만화 추천 랭킹",
+      "웹툰 순위 2026 인기",
+      "인기 웹툰 추천 랭킹",
+      "manhwa 순위 2026 인기",
+      "인기 manhwa 추천 랭킹",
+      "webtoon 순위 2026 인기",
+      "인기 webtoon 추천 랭킹",
+      "만화사이트 순위 2026 인기",
+      "인기 만화사이트 추천 랭킹"
     ]
   },
   "fallback_ranking": {
@@ -187,7 +213,8 @@
       "小栗子到我家",
       "實衣與山田",
       "里見☆八犬傳REBOOT"
-    ]
+    ],
+    "ko": []
   },
   "manga_domains_map": {
     "zh-Hans": [
@@ -197,35 +224,13 @@
       "baomh.com",
       "baozimh.com",
       "labimanhua.com",
-      "doubaomanhua.com",
-      "manhuagui.com",
-      "ac.qq.com",
-      "cn.baozimh.com",
-      "comic.qq.com",
-      "comics.qoo-app.com",
-      "comikey.com",
-      "dm5.com",
-      "duokanmh.com",
-      "hetushu.com",
-      "hyakuro.net",
-      "m.ac.qq.com",
-      "m.manhuagui.com",
-      "manga.bilibili.com",
-      "mangagg.com",
-      "manhuaren.net",
-      "manhwatop.com",
-      "manwame.com",
-      "manwamh5.com",
-      "mh250.com",
-      "nowtv.com",
-      "pigmh.com",
-      "qimanwu.app",
-      "shuzhaige.com",
-      "tw.baozimh.com",
-      "tw.manhuagui.com",
-      "watch.plex.tv",
-      "xmanhua.net",
-      "yxshufang.com"
+      "en.dm5.com",
+      "hk.ulifestyle.com.hk",
+      "manwang.net",
+      "mgeko.cc",
+      "readmore.id",
+      "shenqimanhua.net",
+      "video.friday.tw"
     ]
   },
   "noise_patterns": "^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|第[一二三四五六七八九十百千零〇两\\d]+[话章回卷]|chapter\\s*\\d+|vol\\.?\\s*\\d+|http|www\\.|\\.com|\\.net|\\.org|\\d{4}[-年]\\d{1,2}[-月]\\d{1,2}|[\\d.]+分|[\\d.]+星|[\\d,]+人|[\\d,]+阅|[\\d,]+赞|[\\d,]+评|更新至|更新到|连载|完结|免费|付费|签约|独家)",

@@ -58,19 +58,24 @@ _ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
 _ACCEPT_HTML = _HEADERS_CFG.get("accept_html", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 _RULE_BOT_UA = _HEADERS_CFG.get("rule_bot_ua", "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot")
 
+_DK_CFG = _load_config("domain_knowledge.json", {})
+_RULE_REGEXES = _DK_CFG.get("rule_regexes", {})
+_GENERIC_PATTERNS_SET = set(_DK_CFG.get("generic_patterns", ["漫画", "manga", "manhua", "webtoon", "comic", "在线", "免费", "阅读", "推荐", "更新", "网站", "连载", "追更", "大全", "read", "online", "free", "site", "list"]))
+_GENRE_HINTS_SET = set(_DK_CFG.get("genre_hints", ["恋爱", "玄幻", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻", "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争", "修仙", "穿越", "重生", "异世界", "系统", "复仇", "爽文", "古风", "都市"]))
+
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
-IMAGE_RE = re.compile(r"(?:(?:https?:)?//|/)['\"\\/A-Za-z0-9._~:/?#\[\]@!$&()*+,;=%-]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\s'\"<>]*)?", re.I)
-JS_ESCAPED_IMAGE_RE = re.compile(r"https?:\\/\\/[^\s'\"<>]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\\?[^\s'\"<>]*)?", re.I)
-CHAPTER_TEXT_RE = re.compile(r"(第\s*[0-9一二三四五六七八九十百千零〇两]+\s*[话章回]|Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|阅读|开始阅读|Read\s*Chapter)", re.I)
-CHAPTER_URL_RE = re.compile(r"/(chapter|chap|read|viewer|episode|episodes|cid|manga|comic)[/_\-?=0-9A-Za-z.%]+", re.I)
-DETAIL_URL_RE = re.compile(r"/(comic|manga|book|manhua|series|detail|cartoon|webtoon)/?[^/#?]*", re.I)
-PUBLIC_WORK_URL_RE = re.compile(r"/(comic|manga|manhua|book|series|webtoon|title|en/[^/]+/[^/]+/list|read|chapter|episode)/?[^/#?]*", re.I)
-PAY_LOGIN_TEXT_RE = re.compile(r"(登录后|请登录|注册|充值|VIP|付费|购买|金币|订阅|premium|sign\s*in|log\s*in|subscribe|membership|captcha|验证码|下载APP|客户端)", re.I)
-EXCLUDE_URL_RE = re.compile(r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)", re.I)
-EXCLUDE_IMAGE_RE = re.compile(r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)", re.I)
+IMAGE_RE = re.compile(_RULE_REGEXES.get("image", r"(?:(?:https?:)?//|/)['\"\\/A-Za-z0-9._~:/?#\[\]@!$&()*+,;=%-]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^\s'\"<>]*)?"), re.I)
+JS_ESCAPED_IMAGE_RE = re.compile(_RULE_REGEXES.get("js_escaped_image", r"https?:\\/\\/[^\s'\"<>]+?\.(?:jpg|jpeg|png|webp|gif|avif)(?:\\\?[^\s'\"<>]*)?"), re.I)
+CHAPTER_TEXT_RE = re.compile(_RULE_REGEXES.get("chapter_text", r"(第\s*[0-9一二三四五六七八九十百千零〇两]+\s*[话章回]|Chapter\s*\d+|chapter\s*\d+|Chap\.?\s*\d+|Episode\s*\d+|episode\s*\d+|EP\s*\d+|阅读|开始阅读|Read\s*Chapter)"), re.I)
+CHAPTER_URL_RE = re.compile(_RULE_REGEXES.get("chapter_url", r"/(chapter|chap|read|viewer|episode|episodes|cid|manga|comic)[/_\-?=0-9A-Za-z.%]+"), re.I)
+DETAIL_URL_RE = re.compile(_RULE_REGEXES.get("detail_url", r"/(comic|manga|book|manhua|series|detail|cartoon|webtoon)/?[^/#?]*"), re.I)
+PUBLIC_WORK_URL_RE = re.compile(_RULE_REGEXES.get("public_work_url", r"/(comic|manga|manhua|book|series|webtoon|title|en/[^/]+/[^/]+/list|read|chapter|episode)/?[^/#?]*"), re.I)
+PAY_LOGIN_TEXT_RE = re.compile(_RULE_REGEXES.get("pay_login_text", r"(登录后|请登录|注册|充值|VIP|付费|购买|金币|订阅|premium|sign\s*in|log\s*in|subscribe|membership|captcha|验证码|下载APP|客户端)"), re.I)
+EXCLUDE_URL_RE = re.compile(_RULE_REGEXES.get("exclude_url", r"/(login|register|user|member|pay|vip|charge|download|app|news|video|tag|category|rank|comment|forum|bbs|cart|shop)(?:/|$|\?)"), re.I)
+EXCLUDE_IMAGE_RE = re.compile(_RULE_REGEXES.get("exclude_image", r"(logo|avatar|icon|banner|ads?|qrcode|wechat|comment|cover-small|sprite|loading|placeholder)"), re.I)
 
 _BLOCKED_CFG = _load_config("blocked_domains.json", {})
 _DISCOVER_BLOCKED: List[str] = _BLOCKED_CFG.get("discover_domains", [])
@@ -749,7 +754,7 @@ def json_str(s: str) -> str:
     return json.dumps(s, ensure_ascii=False)
 
 
-_BAD_TITLE_RE = re.compile(r"^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)", re.I)
+_BAD_TITLE_RE = re.compile(_RULE_REGEXES.get("bad_title", r"^(登录|注册|首页|排行榜|漫画$|Manga$|//|/\*|<!|var |let |const |function |window\.|document\.|{\s*$|404|403|500|Error|Forbidden|Not Found|移动|下载|客户端)"), re.I)
 
 def _clean_rule_title(detail_title: str, first_chapter_title: str, domain: str) -> str:
     candidates = [detail_title, first_chapter_title]
@@ -799,7 +804,7 @@ def ets_rule_for_audit(a: PageAudit, domain_applicability_list: Optional[List[st
     detailChapterFilter: true,
     readerImageRegex: `{reader_image_regex}`,
     readerImageGroups: [1, 2, 3, 4],
-    userAgent: COMMON_USER_AGENT,
+    userAgent: {json_str(_RULE_BOT_UA)},
     referer: {json_str(a.base_url + '/')},
     readerNextPageRegex: `{next_regex}`,
     readerNextPageUrlGroups: [1, 2, 3],
@@ -816,8 +821,6 @@ def write_ets(audits: List[PageAudit], out: Path, domain_applicability_map: Opti
     if body:
         body = body + "\n"
     text = f"""import {{ ComicSourceRule }} from '../model/ComicModels';
-
-const COMMON_USER_AGENT = 'Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/120.0 Mobile Safari/537.36 ComicReaderHarmony/RuleBot';
 
 /**
  * 自动生成文件：请不要手工修改。
@@ -861,10 +864,8 @@ def _is_blocked_domain(domain: str) -> bool:
 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
-    _GENERIC_PATTERNS = {"漫画", "manga", "manhua", "webtoon", "comic", "在线", "免费", "阅读", "推荐", "更新", "网站", "连载", "追更", "大全", "read", "online", "free", "site", "list"}
-    _GENRE_HINTS = {"恋爱", "玄幻", "异能", "恐怖", "剧情", "科幻", "悬疑", "奇幻", "冒险", "犯罪", "动作", "日常", "竞技", "武侠", "历史", "战争", "修仙", "穿越", "重生", "异世界", "系统", "复仇", "爽文", "古风", "都市"}
-    generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS)]
-    specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS)]
+    generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)]
+    specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)]
     ordered_kws = generic_kws + specific_kws
     _SEARCH_TEMPLATES: Dict[str, str] = _load_config("search_url_templates.json", {})
     _MAX_SITE_QUERIES_PER_KW = 10
@@ -878,7 +879,7 @@ def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optio
         kw = kw.strip()
         if not kw:
             continue
-        is_genre_or_generic = kw in _GENRE_HINTS or any(p in kw.lower() for p in _GENERIC_PATTERNS)
+        is_genre_or_generic = kw in _GENRE_HINTS_SET or any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)
         if has_search_api:
             queries.append(kw)
             if is_genre_or_generic:
