@@ -104,6 +104,7 @@ def _extract_from_selector(html_text: str, selector: str, attr: str) -> List[str
             t = el.get(attr, "").strip()
             if not t:
                 t = el.get_text(strip=True)
+        t = _clean_title(t)
         if t and 2 <= len(t) <= 60:
             titles.append(t)
     return titles
@@ -188,22 +189,6 @@ def _scrape_site(site_cfg: dict) -> List[str]:
         print(f"      Trying text_pattern extraction...")
         raw = [m.group(1).strip() for m in re.finditer(text_pattern, html_text) if m.group(1).strip()]
         print(f"      text_pattern={len(raw)} titles")
-
-    if not raw:
-        print(f"      Trying cloudscraper fallback...")
-        try:
-            if _SCRAPER is not None:
-                headers = {"User-Agent": DEFAULT_UA, "Accept-Language": _ACCEPT_LANG}
-                r = _SCRAPER.get(url, headers=headers, timeout=20, allow_redirects=True)
-                print(f"      cloudscraper HTTP {r.status_code}, len={len(r.text)}")
-                if r.status_code < 400 and r.text:
-                    raw = _extract_from_selector(r.text, selector, attr) if selector else []
-                    print(f"      cloudscraper selector={len(raw)} titles")
-                    if not raw and text_pattern:
-                        raw = [m.group(1).strip() for m in re.finditer(text_pattern, r.text) if m.group(1).strip()]
-                        print(f"      cloudscraper text_pattern={len(raw)} titles")
-        except Exception as e:
-            print(f"      cloudscraper error: {e}")
 
     if not raw:
         print(f"      Trying link-based extraction...")

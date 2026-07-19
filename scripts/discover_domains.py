@@ -174,7 +174,7 @@ def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> L
     if not base_url:
         return []
     all_urls: List[str] = []
-    max_pages = _SEARXNG_MAX_PAGES if _SEARXNG_MAX_PAGES > 0 else 999
+    max_pages = _SEARXNG_MAX_PAGES if _SEARXNG_MAX_PAGES > 0 else 5
     for page in range(1, max_pages + 1):
         if limit > 0 and len(all_urls) >= limit:
             break
@@ -232,7 +232,8 @@ def extract_domain(url: str) -> str:
         host = urlparse(url).netloc.lower()
     except Exception:
         return ""
-    host = host.replace("www.", "")
+    if host.startswith("www."):
+        host = host[4:]
     if not host or "." not in host:
         return ""
     return host
@@ -261,6 +262,8 @@ for _lang_cfg in _MANGA_KW_CFG.values():
 
 def _registered_domain(domain: str) -> str:
     dl = domain.lower()
+    if re.match(r'^\d{1,3}(\.\d{1,3}){3}$', dl):
+        return dl
     for suffix in _HOSTING_PLATFORMS:
         if dl.endswith(suffix):
             parts = dl.split(".")
@@ -377,7 +380,18 @@ def _check_homepage(domain: str, language: str, validate: set, secondary: set, a
         if kw in head_area:
             return {"result": "primary_match", "matched_kw": kw, "match_type": "primary_head"}
 
-    # 4. domain_label: 域名含validate词则通过
+    # 4. secondary: 至少命中2个二级指标
+    if secondary:
+        sec_hits = 0
+        sec_matched = []
+        for kw in secondary:
+            if kw in text:
+                sec_hits += 1
+                sec_matched.append(kw)
+        if sec_hits >= 2:
+            return {"result": "secondary_2+", "matched_kw": ",".join(sec_matched[:3]), "match_type": "secondary"}
+
+    # 5. domain_label: 域名含validate词则通过
     dl = domain.lower()
     label = _domain_label(domain)
     for kw in validate:
@@ -525,7 +539,9 @@ def _remove_domains_from_aggregator(language: str, domains_to_remove: List[str])
 
     if removed > 0:
         agg_data[language] = new_urls
-        agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        tmp = agg_path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        tmp.replace(agg_path)
     return removed
 
 
@@ -565,7 +581,9 @@ def save_domains_to_aggregator(language: str, new_domains: List[str], domain_kw_
         return added
 
     agg_data[language] = new_urls
-    agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp = agg_path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(agg_path)
     return added
 
 
@@ -690,7 +708,9 @@ def main() -> int:
                 print(f"  ✗ {u} (rd={rd}, not in validated_set)")
         if removed > 0:
             agg_data[args.language] = new_urls
-            agg_path.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            tmp = agg_path.with_suffix(".tmp")
+            tmp.write_text(json.dumps(agg_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            tmp.replace(agg_path)
             print(f"\nRevalidation removed {removed} URLs from aggregator_sites.json")
 
     cleaned_domains = [item["domain"] for item in removed_details if item["reason"] in ("title_blocked", "anti_pattern", "no_indicators", "non_manga_tld", "non_manga_domain_kw", "non_manga_title")]
@@ -741,7 +761,9 @@ def main() -> int:
         }
         report_path = Path(args.report)
         report_path.parent.mkdir(parents=True, exist_ok=True)
-        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        rtmp = report_path.with_suffix(".tmp")
+        rtmp.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        rtmp.replace(report_path)
         print(f"Report saved to {args.report}")
 
     return 0

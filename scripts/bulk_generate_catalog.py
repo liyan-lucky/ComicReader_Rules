@@ -46,6 +46,8 @@ def _load_json_path(path: Path, default: Any = None) -> Any:
 
 CATALOG_CFG = _load_json("catalog_config.json", {})
 CATEGORY_RULES: List[Dict[str, Any]] = CATALOG_CFG.get("categories", [])
+_TAG_TO_CATEGORY: Dict[str, str] = CATALOG_CFG.get("tag_to_category_map", {})
+_TAG_RULES: List[Dict[str, Any]] = CATALOG_CFG.get("tags", [])
 
 RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 
@@ -72,7 +74,9 @@ def normalize_domain(domain: str) -> str:
     domain = domain.strip().lower()
     domain = domain.replace("https://", "").replace("http://", "")
     domain = domain.split("/", 1)[0]
-    return domain.replace("www.", "")
+    if domain.startswith("www."):
+        domain = domain[4:]
+    return domain
 
 
 def make_comic_id(title: str) -> str:
@@ -87,6 +91,12 @@ def classify_title(title: str) -> str:
         for kw in cat.get("keywords", []):
             if kw.lower() in title_lower:
                 return cat["id"]
+    for tag in _TAG_RULES:
+        for kw in tag.get("keywords", []):
+            if kw.lower() in title_lower:
+                tag_id = tag.get("id", "")
+                if tag_id in _TAG_TO_CATEGORY:
+                    return _TAG_TO_CATEGORY[tag_id]
     return ""
 
 
@@ -175,6 +185,7 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
 
 def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
     by_title: Dict[str, Dict[str, Any]] = {}
+    search_templates = _load_json("search_url_templates.json", {})
     for kw in keywords:
         if not kw:
             continue
@@ -183,7 +194,6 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
             continue
         existing_titles.add(key)
         sources = []
-        search_templates = _load_json("search_url_templates.json", {})
         for d in domains[:10]:
             tpl = search_templates.get(d, "")
             if not tpl:
@@ -401,6 +411,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
             unclassified.append(item)
 
     active_cats = [c for c in CATEGORY_RULES if c["id"] != "weifenlei"]
+    if not active_cats:
+        print(f"[{lang}] WARNING: no categories defined in catalog_config.json, all items will be unclassified", file=sys.stderr)
     round_robin_idx = 0
     for item in unclassified:
         assigned = False
@@ -408,7 +420,7 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
             cat = active_cats[round_robin_idx % len(active_cats)]
             round_robin_idx += 1
             cat_count = len(classified.get(cat["id"], []))
-            if cat_count < CATEGORY_TARGET:
+            if CATEGORY_TARGET <= 0 or cat_count < CATEGORY_TARGET:
                 item["category"] = cat["id"]
                 classified.setdefault(cat["id"], []).append(item)
                 assigned = True

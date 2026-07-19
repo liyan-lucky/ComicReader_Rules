@@ -143,14 +143,19 @@ def canonical_url(url: str, base: str = "") -> str:
 
 
 def domain_of(url: str) -> str:
-    return urlparse(url).netloc.lower().replace("www.", "")
+    host = urlparse(url).netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    return host
 
 
 def normalize_domain(domain: str) -> str:
     domain = domain.strip().lower()
     domain = domain.replace("https://", "").replace("http://", "")
     domain = domain.split("/", 1)[0]
-    return domain.replace("www.", "")
+    if domain.startswith("www."):
+        domain = domain[4:]
+    return domain
 
 
 def same_site(url: str, domain: str) -> bool:
@@ -697,11 +702,17 @@ def audit_candidate(candidate: Candidate, keyword: str) -> Optional[PageAudit]:
             )
         chapter_url = chapters[0][1] if chapters else candidate.url
         chapter_title = chapters[0][0] if chapters else title
-        chapter_html = fetch(chapter_url, referer=candidate.url) if chapter_url else None
+        if chapter_url and chapter_url != candidate.url:
+            chapter_html = fetch(chapter_url, referer=candidate.url)
+        else:
+            chapter_html = detail_html
+        chapter_fetch_failed = chapters and not chapter_html
         images = extract_images_from_html(chapter_html or "", chapter_url or base) if chapter_html else []
         if not chapters and not images:
             return None
-        if requires and not images:
+        if chapter_fetch_failed:
+            status = "render_fallback_needed"
+        elif requires and not images:
             status = "excluded_login_or_pay"
         elif images:
             status = "native_scroll_ok"
@@ -836,7 +847,9 @@ export const GENERATED_SOURCES: ComicSourceRule[] = [
 {body}];
 """
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(text, encoding="utf-8")
+    tmp = out.with_suffix(".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    tmp.replace(out)
 
 
 def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, queries: List[str], stats: Dict[str, object], domain_applicability_map: Optional[Dict[str, List[str]]] = None) -> None:
@@ -861,7 +874,9 @@ def write_report(audits: List[PageAudit], excluded: List[PageAudit], out: Path, 
         ],
     }
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp = out.with_suffix(".tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(out)
 
 
 def _is_blocked_domain(domain: str) -> bool:
@@ -965,7 +980,7 @@ def main() -> int:
         return int(time.monotonic() - started_at)
 
     def budget_exceeded() -> bool:
-        return args.time_budget_seconds > 0 and elapsed_seconds() >= args.time_budget_seconds
+        return args.time_budget_seconds > 0 and time.monotonic() >= deadline_monotonic
 
     deadline_monotonic = started_at + args.time_budget_seconds if args.time_budget_seconds > 0 else None
 

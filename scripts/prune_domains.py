@@ -257,6 +257,40 @@ def add_new_domains_to_aggregator(language: str, report: dict, dry_run: bool = F
     return len(new_urls)
 
 
+def _recover_excluded_domains(language: str) -> int:
+    import requests as _req
+    blocked_path = ROOT / "config" / "blocked_domains.json"
+    data = _safe_load_json(blocked_path)
+    excluded = data.get("excluded_domains", [])
+    recovered = []
+    remaining = []
+    for d in excluded:
+        try:
+            r = _req.get(f"https://{d}", headers={"User-Agent": "Mozilla/5.0", "Accept": "text/html"}, timeout=5, allow_redirects=True)
+            if r.status_code < 400:
+                recovered.append(d)
+            else:
+                remaining.append(d)
+        except Exception:
+            remaining.append(d)
+    if recovered:
+        data["excluded_domains"] = remaining
+        _atomic_write_json(blocked_path, data)
+        sites_path = ROOT / "config" / "aggregator_sites.json"
+        agg = _safe_load_json(sites_path)
+        existing = set(u.strip().lower() for u in agg.get(language, []))
+        for d in recovered:
+            url = f"https://{d}/"
+            if url.lower() not in existing:
+                agg.setdefault(language, []).append(url)
+                existing.add(url.lower())
+        _atomic_write_json(sites_path, agg)
+        print(f"  恢复了 {len(recovered)} 个仍可达的excluded域名: {recovered}")
+    else:
+        print(f"  没有可恢复的excluded域名")
+    return len(recovered)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="从审计报告中修剪无效域名")
     parser.add_argument("--language", required=True, choices=["zh-Hans", "zh-Hant", "en", "ja", "ko"])
@@ -264,6 +298,7 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="只预览，不修改文件")
     parser.add_argument("--min-seed-fail-ratio", type=float, default=1.0, help="种子失败比例阈值(默认1.0=全部失败)")
     parser.add_argument("--cleanup-report", default="", help="JSON清理报告输出路径")
+    parser.add_argument("--recover", action="store_true", help="将excluded_domains中仍可达的域名恢复到aggregator_sites")
     args = parser.parse_args()
 
     report_path = ROOT / args.report.format(lang=args.language)
@@ -314,6 +349,9 @@ def main() -> int:
     else:
         print(f"\n从 aggregator_sites.json ({args.language}) 移除了 {removed} 个死亡域名")
         print(f"向 aggregator_sites.json ({args.language}) 添加了 {new_count} 个新域名")
+
+    if args.recover and not args.dry_run:
+        _recover_excluded_domains(args.language)
 
     domains_after, _ = load_domains_from_aggregator(args.language) if not args.dry_run else (domains_in_file - dead_domains, {})
 

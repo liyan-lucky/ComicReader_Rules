@@ -235,6 +235,8 @@ def sanitize_index(index: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, int
             clean_rules.append(rule)
         else:
             removed.append({"id": safe_str((rule or {}).get("id")), "name": safe_str((rule or {}).get("name")), "reason": reason})
+    if stats["indexRulesBefore"] > 0 and len(clean_rules) == 0:
+        print(f"[ERROR] All {stats['indexRulesBefore']} rules were sanitized to 0 - check blocked_domains.json and manga_indicator_keywords.json", file=sys.stderr)
     out = dict(index or {})
     out["rules"] = clean_rules
     audit = dict(out.get("audit", {}) or {})

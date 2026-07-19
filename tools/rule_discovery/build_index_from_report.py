@@ -163,6 +163,8 @@ def rule_for_audit(a: dict, lang_code: str = "zh") -> dict:
         base = f'https://{domain}'
     title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
     search_url = _SEARCH_URL_TEMPLATES.get(domain, '')
+    if not search_url:
+        search_url = f'https://{domain}/search?q={{keyword}}'
     rule = add_rule_compliance({
         'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{title} - {domain} 远程公开源',
@@ -268,7 +270,9 @@ def main() -> int:
     }
     out_path = Path(args.output.format(lang=language_code) if '{lang}' in args.output else args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
+    tmp = out_path.with_suffix('.tmp')
+    tmp.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
+    tmp.replace(out_path)
     print(f'写入远程规则 {len(rules)} 条：自动 {generated_valid_count} 条，手工 {manual_added_count} 条 -> {out_path}')
     return 0
 
