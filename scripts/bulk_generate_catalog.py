@@ -237,24 +237,30 @@ def _expand_ranking_cfg(domain: str, cfg: Dict[str, Any]) -> List[str]:
 
 
 def _auto_discover_ranking(domain: str) -> List[str]:
+    import time
     import urllib.request
     import urllib.error
     ua = _DEFAULT_UA
     found: List[str] = []
+    start_time = time.monotonic()
     for pattern in _AUTO_DISCOVER_PATTERNS:
+        if time.monotonic() - start_time > 30:
+            break
         url = f"https://{domain}{pattern}"
         try:
             req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
-            with urllib.request.urlopen(req, timeout=10) as resp:
+            with urllib.request.urlopen(req, timeout=8) as resp:
                 html = resp.read(200_000).decode("utf-8", errors="ignore")
             comic_count = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html, re.I))
             if comic_count >= 3:
                 found.append(url)
                 for pag_pat, start_n in _AUTO_PAGINATION_TESTS:
+                    if time.monotonic() - start_time > 30:
+                        break
                     test_url = f"https://{domain}{pattern.rstrip('/')}{pag_pat.format(n=start_n)}"
                     try:
                         req2 = urllib.request.Request(test_url, headers={"User-Agent": ua, "Accept": "text/html"})
-                        with urllib.request.urlopen(req2, timeout=10) as resp2:
+                        with urllib.request.urlopen(req2, timeout=8) as resp2:
                             html2 = resp2.read(200_000).decode("utf-8", errors="ignore")
                         comic_count2 = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html2, re.I))
                         if comic_count2 >= 3 and html2 != html:
@@ -340,7 +346,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     return by_title
 
 
-def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
+def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[str, Any]:
     report = load_report(lang)
     domains = load_domains_from_aggregator(lang)
     keywords = RULE_KEYWORDS.get(lang, [])
@@ -354,7 +360,10 @@ def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
     report_items = build_items_from_report(report, lang)
     existing_titles.update(report_items.keys())
 
-    crawled_items = crawl_ranking_pages(domains, lang, existing_titles)
+    crawl_domains = domains[:max_crawl_domains]
+    if len(domains) > max_crawl_domains:
+        print(f"[{lang}] Limiting crawl to {max_crawl_domains}/{len(domains)} domains")
+    crawled_items = crawl_ranking_pages(crawl_domains, lang, existing_titles)
     existing_titles.update(crawled_items.keys())
 
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
@@ -404,10 +413,15 @@ def generate_catalog_for_lang(lang: str) -> Dict[str, Any]:
 
 
 def main() -> int:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--max-crawl-domains", type=int, default=20, help="最多爬取多少个域名的排行榜")
+    args = ap.parse_args()
+
     env_lang = os.environ.get("PIPELINE_LANGUAGE", "").strip()
     langs = [env_lang] if env_lang else ["zh-Hans", "zh-Hant", "en", "ja", "ko"]
     for lang in langs:
-        catalog = generate_catalog_for_lang(lang)
+        catalog = generate_catalog_for_lang(lang, max_crawl_domains=args.max_crawl_domains)
         if not catalog:
             print(f"[{lang}] skipped (no data)")
             continue
