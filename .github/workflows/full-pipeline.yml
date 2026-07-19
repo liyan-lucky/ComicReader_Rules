@@ -413,7 +413,7 @@ jobs:
     name: "Step 4/4 - 目录生成"
     runs-on: ubuntu-latest
     needs: step3-rules
-    timeout-minutes: 60
+    timeout-minutes: 120
     env:
       PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
       PIPELINE_TARGET_COUNT: ${{ github.event_name == 'workflow_dispatch' && inputs.target_count || '200' }}

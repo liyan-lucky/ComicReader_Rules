@@ -52,9 +52,9 @@ RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
 try:
-    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
+    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "0"))
 except ValueError:
-    CATEGORY_TARGET = 200
+    CATEGORY_TARGET = 0
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
 SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$|更新到\d+.*$|更新至\d+.*$', re.I)
@@ -183,13 +183,15 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
             continue
         existing_titles.add(key)
         sources = []
-        for d in domains[:5]:
-            source = {"domain": d}
-            search_templates = _load_json("search_url_templates.json", {})
+        search_templates = _load_json("search_url_templates.json", {})
+        for d in domains[:10]:
             tpl = search_templates.get(d, "")
-            if tpl:
-                source["searchUrl"] = tpl.replace("{keyword}", kw)
+            if not tpl:
+                continue
+            source = {"domain": d, "searchUrl": tpl.replace("{keyword}", kw)}
             sources.append(source)
+        if not sources:
+            continue
         by_title[key] = {
             "id": make_comic_id(kw),
             "title": kw,
@@ -284,6 +286,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     excluded = EXCLUDED_DOMAINS
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
     title_attr_re = _re.compile(r'title=["\']([^"\']+)["\']', _re.I)
+    img_src_re = _re.compile(r'<img[^>]+(?:data-src|data-original|src)=["\']([^"\']+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?[^"\']*)?)["\']', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
     ua = _DEFAULT_UA
     for domain in domains:
@@ -323,21 +326,35 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     continue
                 if len(title) > 80:
                     continue
+                img_match = img_src_re.search(a_tag)
+                cover_url = ""
+                if img_match:
+                    cover_url = img_match.group(1).strip()
+                    if cover_url.startswith("//"):
+                        cover_url = f"https:{cover_url}"
+                    elif cover_url.startswith("/"):
+                        cover_url = f"https://{domain}{cover_url}"
                 key = title.lower()
                 if key in existing_titles:
                     if key in by_title:
                         existing_sources = {s["domain"] for s in by_title[key]["sources"]}
                         if domain not in existing_sources:
-                            by_title[key]["sources"].append({"domain": domain, "detailUrl": href if href.startswith("http") else f"https://{domain}{href}"})
+                            src = {"domain": domain, "detailUrl": href if href.startswith("http") else f"https://{domain}{href}"}
+                            if cover_url:
+                                src["coverUrl"] = cover_url
+                            by_title[key]["sources"].append(src)
                     continue
                 existing_titles.add(key)
                 crawled_count += 1
                 if href.startswith("/"):
                     href = f"https://{domain}{href}"
+                src = {"domain": domain, "detailUrl": href}
+                if cover_url:
+                    src["coverUrl"] = cover_url
                 by_title[key] = {
                     "id": make_comic_id(title),
                     "title": title,
-                    "sources": [{"domain": domain, "detailUrl": href}],
+                    "sources": [src],
                     "category": classify_title(title),
                     "language": lang,
                 }
@@ -360,8 +377,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
     report_items = build_items_from_report(report, lang)
     existing_titles.update(report_items.keys())
 
-    crawl_domains = domains[:max_crawl_domains]
-    if len(domains) > max_crawl_domains:
+    crawl_domains = domains if max_crawl_domains <= 0 else domains[:max_crawl_domains]
+    if max_crawl_domains > 0 and len(domains) > max_crawl_domains:
         print(f"[{lang}] Limiting crawl to {max_crawl_domains}/{len(domains)} domains")
     crawled_items = crawl_ranking_pages(crawl_domains, lang, existing_titles)
     existing_titles.update(crawled_items.keys())
@@ -401,7 +418,9 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         cat_name = cat["name"]
         if cat_id == "weifenlei":
             continue
-        cat_items = classified.get(cat_id, [])[:CATEGORY_TARGET]
+        cat_items = classified.get(cat_id, [])
+        if CATEGORY_TARGET > 0:
+            cat_items = cat_items[:CATEGORY_TARGET]
         catalog[cat_id] = {
             "id": cat_id,
             "name": cat_name,
@@ -415,7 +434,7 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--max-crawl-domains", type=int, default=20, help="最多爬取多少个域名的排行榜")
+    ap.add_argument("--max-crawl-domains", type=int, default=0, help="最多爬取多少个域名的排行榜(0=不限)")
     args = ap.parse_args()
 
     env_lang = os.environ.get("PIPELINE_LANGUAGE", "").strip()
