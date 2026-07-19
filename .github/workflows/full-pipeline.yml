@@ -34,7 +34,7 @@ on:
       per_domain_limit:
         description: '每域名最多规则数'
         required: true
-        default: '3'
+        default: '1'
         type: choice
         options:
           - '1'
@@ -270,7 +270,7 @@ jobs:
       PIPELINE_LANGUAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.language || 'zh-Hans' }}
       PIPELINE_RUN_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.run_mode || 'quick' }}
       PIPELINE_MAX_GENERATED: ${{ github.event_name == 'workflow_dispatch' && inputs.max_generated || '2000' }}
-      PIPELINE_PER_DOMAIN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_limit || '3' }}
+      PIPELINE_PER_DOMAIN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.per_domain_limit || '1' }}
       SEARXNG_URL: http://localhost:8080
 
     steps:
@@ -296,6 +296,9 @@ jobs:
           done
           echo "SearXNG timeout, clearing SEARXNG_URL"
           echo "SEARXNG_URL=" >> "$GITHUB_ENV"
+
+      - name: 自举配置参数
+        run: python scripts/bootstrap_config.py --language "$PIPELINE_LANGUAGE"
 
       - name: 生成规则
         run: |
@@ -428,6 +431,9 @@ jobs:
 
       - name: 安装依赖
         run: python -m pip install -r tools/rule_discovery/requirements.txt
+
+      - name: 自举配置参数
+        run: python scripts/bootstrap_config.py --language "$PIPELINE_LANGUAGE"
 
       - name: 生成目录(在线爬取排行榜+report+keyword)
         run: python scripts/bulk_generate_catalog.py

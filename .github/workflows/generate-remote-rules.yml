@@ -27,14 +27,12 @@ on:
       per_domain_generated_limit:
         description: '每个域名最多保留多少条规则'
         required: true
-        default: '3'
+        default: '1'
         type: choice
         options:
-          - '50'
-          - '100'
-          - '200'
-          - '300'
-          - '500'
+          - '1'
+          - '3'
+          - '5'
       rule_language:
         description: '规则语种：每次只按一个语种搜索并生成独立文件'
         required: true

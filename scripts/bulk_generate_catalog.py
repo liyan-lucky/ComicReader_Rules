@@ -138,6 +138,7 @@ def is_valid_title(title: str) -> bool:
 
 
 REPORT_BLOCKED = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
+EXCLUDED_DOMAINS = set(d.strip().lower() for d in _load_json("blocked_domains.json", {}).get("excluded_domains", []))
 
 def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str, Dict[str, Any]]:
     by_title: Dict[str, Dict[str, Any]] = {}
@@ -147,6 +148,8 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
         if not is_valid_title(detail_title) or not domain:
             continue
         if any(b in domain for b in REPORT_BLOCKED):
+            continue
+        if domain in EXCLUDED_DOMAINS:
             continue
         key = detail_title.lower()
         if key not in by_title:
@@ -272,12 +275,15 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     by_title: Dict[str, Dict[str, Any]] = {}
     ranking_cfg = RANKING_PAGES_CFG.get(lang, {})
     blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
+    excluded = EXCLUDED_DOMAINS
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
     title_attr_re = _re.compile(r'title=["\']([^"\']+)["\']', _re.I)
     comic_path_re = _re.compile(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon|ComicInfo)/', _re.I)
     ua = _DEFAULT_UA
     for domain in domains:
         if any(b in domain for b in blocked):
+            continue
+        if domain in excluded:
             continue
         cfg = ranking_cfg.get(domain)
         if cfg:

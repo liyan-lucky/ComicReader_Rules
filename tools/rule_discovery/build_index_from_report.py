@@ -121,8 +121,6 @@ def is_valid_rule(rule: dict) -> bool:
     domain = homepage.replace('https://', '').replace('http://', '').split('/')[0].replace('www.', '')
     if domain in _EXCLUDED_DOMAINS:
         return False
-    if _VALIDATED_DOMAINS and domain not in _VALIDATED_DOMAINS:
-        return False
     return True
 
 def add_rule_compliance(rule: dict) -> dict:
@@ -209,7 +207,7 @@ def main() -> int:
     ap.add_argument('--manual', default='rules/manual/index.json')
     ap.add_argument('--language-code', default='')
     ap.add_argument('--language-name', default='')
-    ap.add_argument('--per-domain-limit', type=int, default=3, help='每个域名最多保留多少条规则')
+    ap.add_argument('--per-domain-limit', type=int, default=1, help='每个域名最多保留多少条规则')
     args = ap.parse_args()
 
     report_path = Path(args.report.format(lang=args.language_code) if '{lang}' in args.report else args.report)

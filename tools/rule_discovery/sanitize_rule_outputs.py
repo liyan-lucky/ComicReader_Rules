@@ -35,6 +35,7 @@ _DISCOVER_BLOCKED = _BLOCKED_CFG.get("discover_domains", [])
 _GENERATE_BLOCKED = _BLOCKED_CFG.get("generate_rules", [])
 BLOCKED_DOMAIN_KEYWORDS = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
 BLOCKED_PATH_KEYWORDS = _BLOCKED_CFG.get("blocked_path_keywords", [])
+EXCLUDED_DOMAINS = set(_BLOCKED_CFG.get("excluded_domains", []))
 _MANGA_INDICATOR_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "manga_indicator_keywords.json"
 if _MANGA_INDICATOR_CFG_PATH.exists():
     try:
@@ -114,6 +115,8 @@ def is_blocked_url(value: str) -> bool:
     host = host_of(value)
     path = path_of(value)
     joined = f"{host}{path}".lower()
+    if host in EXCLUDED_DOMAINS:
+        return True
     if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
         return True
     return any(bad in joined for bad in BLOCKED_PATH_KEYWORDS)

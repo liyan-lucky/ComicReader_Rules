@@ -479,7 +479,6 @@ def load_existing_domains(filepath: Path, language: str = "") -> Set[str]:
                 rd = _registered_domain(d)
                 domains.add(rd)
     return domains
-    return domains
 
 
 def _save_cleaned_log(filepath: Path, cleaned_domains: List[str]) -> None:

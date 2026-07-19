@@ -81,6 +81,7 @@ _BLOCKED_CFG = _load_config("blocked_domains.json", {})
 _DISCOVER_BLOCKED: List[str] = _BLOCKED_CFG.get("discover_domains", [])
 _GENERATE_BLOCKED: List[str] = _BLOCKED_CFG.get("generate_rules", [])
 BLOCKED_DOMAIN_KEYWORDS: List[str] = list(dict.fromkeys(_GENERATE_BLOCKED + _DISCOVER_BLOCKED))
+EXCLUDED_DOMAINS: set = set(_BLOCKED_CFG.get("excluded_domains", []))
 
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_config("aggregator_sites.json", {})
@@ -400,6 +401,8 @@ def likely_content_url(url: str) -> bool:
     if EXCLUDE_URL_RE.search(url):
         return False
     host = domain_of(url)
+    if host in EXCLUDED_DOMAINS:
+        return False
     if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
         return False
     if DETAIL_URL_RE.search(url) or CHAPTER_URL_RE.search(url):
@@ -418,6 +421,8 @@ def likely_seed_candidate_url(url: str, seed_domain: str = "") -> bool:
     if EXCLUDE_URL_RE.search(url):
         return False
     host = domain_of(url)
+    if host in EXCLUDED_DOMAINS:
+        return False
     if any(bad in host for bad in BLOCKED_DOMAIN_KEYWORDS):
         return False
     if PUBLIC_WORK_URL_RE.search(url) or likely_content_url(url):
