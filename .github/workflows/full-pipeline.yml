@@ -437,6 +437,7 @@ jobs:
         run: python scripts/bootstrap_config.py --language "$PIPELINE_LANGUAGE"
 
       - name: 生成目录(在线爬取排行榜+report+keyword)
+        timeout-minutes: 90
         run: python scripts/bulk_generate_catalog.py
 
       - name: 统计目录
