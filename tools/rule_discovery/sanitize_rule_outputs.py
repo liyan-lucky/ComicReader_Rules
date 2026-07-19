@@ -24,7 +24,7 @@ if hasattr(sys.stdout, "reconfigure"):
 _BLOCKED_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "blocked_domains.json"
 if _BLOCKED_CFG_PATH.exists():
     try:
-        _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text("utf-8"))
+        _BLOCKED_CFG = json.loads(_BLOCKED_CFG_PATH.read_text(encoding="utf-8"))
     except Exception as exc:
         print(f"[warn] failed to parse {_BLOCKED_CFG_PATH}: {exc}", file=sys.stderr)
         _BLOCKED_CFG = {}
@@ -39,7 +39,7 @@ EXCLUDED_DOMAINS = set(_BLOCKED_CFG.get("excluded_domains", []))
 _MANGA_INDICATOR_CFG_PATH = Path(__file__).resolve().parents[2] / "config" / "manga_indicator_keywords.json"
 if _MANGA_INDICATOR_CFG_PATH.exists():
     try:
-        _MIK_CFG = json.loads(_MANGA_INDICATOR_CFG_PATH.read_text("utf-8"))
+        _MIK_CFG = json.loads(_MANGA_INDICATOR_CFG_PATH.read_text(encoding="utf-8"))
     except Exception:
         _MIK_CFG = {}
 else:
@@ -65,7 +65,7 @@ def load_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     try:
-        return json.loads(path.read_text("utf-8"))
+        return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
         return default
 
@@ -260,7 +260,7 @@ def write_ets_from_index(index: Dict[str, Any], output: Path) -> None:
  */
 export const GENERATED_SOURCES: ComicSourceRule[] = """ + payload + ";\n"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(text, "utf-8")
+    output.write_text(text, encoding="utf-8")
 
 
 def main() -> int:
@@ -305,7 +305,7 @@ def main() -> int:
         "- 已屏蔽：douyin / tiktok / youtube / bilibili / 社媒 / 百科 / 购物 / 登录下载等非漫画路径",
     ]
     summary_path.parent.mkdir(parents=True, exist_ok=True)
-    summary_path.write_text("\n".join(lines) + "\n", "utf-8")
+    summary_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     return 0
 

@@ -203,7 +203,7 @@ def search_brave(query: str, limit: int) -> List[Candidate]:
         r.raise_for_status()
         data = r.json()
         out: List[Candidate] = []
-        for item in data.get("web", {}).get("results", [])[:limit]:
+        for item in (data.get("web") or {}).get("results", [])[:limit]:
             out.append(Candidate(url=item.get("url", ""), title=clean_text(item.get("title", "")), snippet=clean_text(item.get("description", "")), engine="brave"))
         return [c for c in out if c.url]
     except Exception as e:
@@ -308,7 +308,7 @@ def search_searxng(query: str, limit: int, suppress_zero: bool = False) -> List[
         return []
     all_out: List[Candidate] = []
     seen_urls: set = set()
-    max_pages_raw = _load_config("search.json", {}).get("searxng", {}).get("max_pages", 3)
+    max_pages_raw = (_load_config("search.json", {}).get("searxng") or {}).get("max_pages", 3)
     max_pages = max_pages_raw if max_pages_raw and max_pages_raw > 0 else 999
     for page in range(1, max_pages + 1):
         if len(all_out) >= limit:
@@ -985,7 +985,7 @@ def main() -> int:
         keywords = RULE_KEYWORDS.get("zh-Hans", [])
     if not keywords:
         _KD = _load_config("keyword_discovery.json", {})
-        _fallback = _KD.get("fallback_ranking", {}).get(args.language_code, [])
+        _fallback = (_KD.get("fallback_ranking") or {}).get(args.language_code, [])
         if _fallback:
             keywords = _fallback
             log(f"[info] loaded {len(keywords)} keywords from keyword_discovery.json fallback_ranking")

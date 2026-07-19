@@ -494,8 +494,9 @@ def _save_cleaned_log(filepath: Path, cleaned_domains: List[str]) -> None:
     new_cleaned = sorted(d for d in cleaned_domains if d.lower() not in existing_cleaned)
     if not new_cleaned:
         return
+    is_new = not filepath.exists() or filepath.stat().st_size == 0
     with filepath.open("a", encoding="utf-8") as f:
-        if not filepath.exists() or filepath.stat().st_size == 0:
+        if is_new:
             f.write(f"# {filepath.stem} - cleaned/blocked domains (skip re-verification)\n")
         for d in new_cleaned:
             f.write(d + "\n")

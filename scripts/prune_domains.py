@@ -69,7 +69,7 @@ def extract_domain_stats(report: dict) -> Dict[str, Dict]:
         domain_stats[domain]["excluded"] += 1
 
     seed_pages = []
-    seed_data = report.get("stats", {}).get("seedDiscovery", {})
+    seed_data = (report.get("stats") or {}).get("seedDiscovery", {})
     if isinstance(seed_data, dict):
         seed_pages = seed_data.get("seedPageStats", [])
     for seed in seed_pages:

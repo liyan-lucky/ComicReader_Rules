@@ -455,11 +455,12 @@ def main() -> int:
         for cat_data in catalog.values():
             all_items_list.extend(cat_data.get("items", []))
 
+        lang_names = {"zh-Hans": "简体中文", "zh-Hant": "繁體中文", "en": "English", "ja": "日本語", "ko": "한국어"}
         out = {
             "schema": "womh_comic_catalog_v1",
             "version": datetime.now(timezone.utc).strftime("%Y.%m.%d.%H%M"),
             "updatedAt": datetime.now(timezone.utc).isoformat(),
-            "language": lang,
+            "language": {"code": lang, "name": lang_names.get(lang, lang)},
             "totalItems": total,
             "categoryCount": cat_count,
             "categories": catalog,
@@ -467,7 +468,6 @@ def main() -> int:
         }
 
         out_path = ROOT / "catalog" / f"catalog.{lang}.json"
-        out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         tmp = out_path.with_suffix(".tmp")
         tmp.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
