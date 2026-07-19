@@ -327,6 +327,10 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 if len(title) > 80:
                     continue
                 img_match = img_src_re.search(a_tag)
+                if not img_match:
+                    a_start = m.start()
+                    search_start = max(0, a_start - 500)
+                    img_match = img_src_re.search(html[search_start:a_start + len(a_tag)])
                 cover_url = ""
                 if img_match:
                     cover_url = img_match.group(1).strip()

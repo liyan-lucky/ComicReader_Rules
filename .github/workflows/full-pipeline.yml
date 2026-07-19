@@ -507,6 +507,7 @@ jobs:
           git tag -f -a "$TAG_NAME" -m "Pipeline $TAG_NAME"
           git push --force origin "refs/tags/$TAG_NAME" || echo "Tag push failed"
           rm -rf dist/release && mkdir -p dist/release
+          cp "generated/GeneratedSourceRules.${PIPELINE_LANGUAGE}.ets" "dist/release/" 2>/dev/null || true
           cp "generated/rulebot_report.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
           cp "rules/index.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
           cp "catalog/catalog.${PIPELINE_LANGUAGE}.json" "dist/release/" 2>/dev/null || true
