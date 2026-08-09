@@ -26,12 +26,17 @@ import os
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 from urllib.parse import urlencode, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+from pipeline_seed import ROOT_TERM
 
 try:
     import cloudscraper
@@ -884,48 +889,9 @@ def _is_blocked_domain(domain: str) -> bool:
 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
-    generic_kws = [kw.strip() for kw in keywords if any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)]
-    specific_kws = [kw.strip() for kw in keywords if kw.strip() and not any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)]
-    ordered_kws = generic_kws + specific_kws
-    _SEARCH_TEMPLATES: Dict[str, str] = _load_config("search_url_templates.json", {})
-    _MAX_SITE_QUERIES_PER_KW = 10
-    queries: List[str] = []
-    has_search_api = _has_search_api()
-    seeded = seeded_domains or set()
-    clean_domains = [d for d in domains if not _is_blocked_domain(d)]
-    template_domains = [d for d in clean_domains if d in _SEARCH_TEMPLATES]
-    site_domains = template_domains if template_domains else clean_domains
-    for kw in ordered_kws:
-        kw = kw.strip()
-        if not kw:
-            continue
-        is_genre_or_generic = kw in _GENRE_HINTS_SET or any(p in kw.lower() for p in _GENERIC_PATTERNS_SET)
-        if has_search_api:
-            queries.append(kw)
-            if is_genre_or_generic:
-                if re.search(r"[\u4e00-\u9fff]", kw):
-                    queries.append(f"{kw} 漫画")
-                else:
-                    queries.append(f"{kw} manga read")
-            if site_domains:
-                for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
-                    if d in seeded:
-                        continue
-                    queries.append(f"site:{d} {kw}")
-        else:
-            if is_genre_or_generic:
-                bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read", f"{kw} manhua read online"]
-            else:
-                bases = [kw, f"{kw} 漫画 在线阅读", f"{kw} manga chapter read"]
-            for b in bases:
-                if site_domains:
-                    for d in site_domains[:_MAX_SITE_QUERIES_PER_KW]:
-                        if d in seeded:
-                            continue
-                        queries.append(f"site:{d} {b}")
-                else:
-                    queries.append(b)
-    return list(dict.fromkeys(queries))
+    # 公网搜索只允许固定词“漫画”。站内候选由在线发现的 seed/search URL 扩展，
+    # 不在这里拼接 site:、语言词或路径参数。
+    return [ROOT_TERM]
 
 
 def _rule_signature_from_dict(rule: Dict[str, Any]) -> tuple:
@@ -1026,12 +992,20 @@ def main() -> int:
 
     already_audited_domains: set = set()
     already_generated_per_domain: Dict[str, int] = {}
+    existing_audits: List[PageAudit] = []
     existing_rule_signatures: Dict[tuple, List[str]] = {}
     report_path = Path(args.report)
     if report_path.exists():
         try:
             old = json.loads(report_path.read_text(encoding="utf-8"))
             for item in old.get("generated", []):
+                try:
+                    existing_audits.append(PageAudit(**{
+                        field.name: item.get(field.name)
+                        for field in dataclasses.fields(PageAudit)
+                    }))
+                except Exception:
+                    continue
                 d = normalize_domain(item.get("domain", ""))
                 if d:
                     already_audited_domains.add(d)
@@ -1061,7 +1035,7 @@ def main() -> int:
             pass
 
     queries = build_queries(keywords, domains, seeded_domains | already_audited_domains)
-    log(f"[info] queries: {len(queries)} (seeded+audited domains excluded from site: queries: {len(seeded_domains | already_audited_domains)})")
+    log(f"[info] public search queries: {len(queries)}; online seed domains: {len(seeded_domains | already_audited_domains)}")
 
     raw_candidates: List[Candidate] = []
     query_stats = []
@@ -1121,7 +1095,7 @@ def main() -> int:
     raw_candidates = unique_candidates(raw_candidates)
     log(f"[info] candidates: {len(raw_candidates)}")
 
-    audits: List[PageAudit] = []
+    audits: List[PageAudit] = list(existing_audits)
     excluded: List[PageAudit] = []
     audit_stats = {
         "skippedNonContentUrl": 0,
@@ -1135,10 +1109,10 @@ def main() -> int:
     }
     per_domain_audit_counts: Dict[str, int] = {}
     new_rule_domains_by_sig: Dict[tuple, List[str]] = {}
+    audit_queue: List[Candidate] = []
     for c in raw_candidates:
         if budget_exceeded():
             audit_stats["timeBudgetExceeded"] = True
-            log(f"[stop] time budget reached after {elapsed_seconds()}s; writing partial results")
             break
         if not likely_content_url(c.url):
             audit_stats["skippedNonContentUrl"] += 1
@@ -1149,15 +1123,6 @@ def main() -> int:
             audit_stats.setdefault("skippedDomainAtLimit", 0)
             audit_stats["skippedDomainAtLimit"] += 1
             continue
-        if existing_rule_signatures:
-            covered = False
-            for sig, domains in existing_rule_signatures.items():
-                if nd in domains or nd in [normalize_domain(d) for d in domains]:
-                    covered = True
-                    break
-            if covered:
-                audit_stats["skippedDomainCoveredByExistingRule"] += 1
-                continue
         if args.max_audit_candidates > 0 and audit_stats["auditedCandidateCount"] >= args.max_audit_candidates:
             audit_stats["skippedMaxAuditCandidates"] += 1
             log(f"[stop] max audit candidates reached: {args.max_audit_candidates}")
@@ -1165,20 +1130,43 @@ def main() -> int:
         if args.per_domain_audit_limit > 0 and per_domain_audit_counts.get(candidate_domain, 0) >= args.per_domain_audit_limit:
             audit_stats["skippedPerDomainAuditLimit"] += 1
             continue
-        log(f"[audit] {c.url}")
         per_domain_audit_counts[candidate_domain] = per_domain_audit_counts.get(candidate_domain, 0) + 1
         audit_stats["auditedCandidateCount"] += 1
-        a = audit_candidate(c, keywords[0] if keywords else "")
-        if not a:
-            audit_stats["auditFailedNoPublicChapterOrImage"] += 1
-            continue
-        if a.status == "excluded_login_or_pay":
-            excluded.append(a)
-        else:
-            audits.append(a)
-            sig = _audit_rule_signature(a)
-            new_rule_domains_by_sig.setdefault(sig, []).append(a.domain)
-        time.sleep(args.sleep)
+        audit_queue.append(c)
+
+    # 跨域名有界并发；每站候选上限仍由 per-domain-audit-limit 控制。
+    # 网络等待占主要耗时，并发数从目标域规则数派生且封顶，避免集中压测单站。
+    audit_workers = min(12, max(2, args.per_domain_generated_limit))
+    log(f"[info] auditing {len(audit_queue)} candidates with {audit_workers} workers")
+    with ThreadPoolExecutor(max_workers=audit_workers) as pool:
+        future_map = {}
+        for c in audit_queue:
+            if budget_exceeded():
+                audit_stats["timeBudgetExceeded"] = True
+                break
+            future_map[pool.submit(audit_candidate, c, keywords[0] if keywords else "")] = c
+            if args.sleep > 0:
+                time.sleep(args.sleep / audit_workers)
+        for future in as_completed(future_map):
+            if budget_exceeded():
+                audit_stats["timeBudgetExceeded"] = True
+                for pending in future_map:
+                    pending.cancel()
+                break
+            try:
+                a = future.result()
+            except Exception as exc:
+                log(f"[skip] concurrent audit failed: {exc}")
+                a = None
+            if not a:
+                audit_stats["auditFailedNoPublicChapterOrImage"] += 1
+                continue
+            if a.status == "excluded_login_or_pay":
+                excluded.append(a)
+            else:
+                audits.append(a)
+                sig = _audit_rule_signature(a)
+                new_rule_domains_by_sig.setdefault(sig, []).append(a.domain)
 
     chosen = choose_best_by_domain(audits, args.per_domain_generated_limit, new_rule_domains_by_sig)[: args.max_generated]
 
