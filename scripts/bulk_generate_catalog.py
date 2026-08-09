@@ -54,9 +54,9 @@ RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
 try:
-    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "0"))
+    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
 except ValueError:
-    CATEGORY_TARGET = 0
+    CATEGORY_TARGET = 200
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
 SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$|更新到\d+.*$|更新至\d+.*$', re.I)
@@ -128,6 +128,10 @@ def clean_catalog_title(title: str) -> str:
     return title
 
 TEMPLATE_GARBAGE_RE = re.compile(r'\{\{.*?\}\}|#.*?#|SITEMAP|PK\s*!+', re.I)
+_FILTERS = CATALOG_CFG.get("filters", {})
+_BAD_TITLE_WORDS = {str(v).strip().casefold() for v in _FILTERS.get("bad_title_words", []) if str(v).strip()}
+_BAD_URL_PARTS = tuple(str(v).casefold() for v in _FILTERS.get("bad_url_parts", []) if str(v))
+_IMAGE_SUFFIXES = tuple(str(v).casefold() for v in _FILTERS.get("image_suffixes", []) if str(v))
 
 def is_valid_title(title: str) -> bool:
     if not title or len(title) < 2:
@@ -135,6 +139,14 @@ def is_valid_title(title: str) -> bool:
     if title == "#top_title#":
         return False
     if TEMPLATE_GARBAGE_RE.search(title):
+        return False
+    folded = title.strip().casefold()
+    if folded in _BAD_TITLE_WORDS:
+        return False
+    if re.search(r'[@{};]|(?:^|\s)(?:charset|display|margin|padding|font|color)\s*:', title, re.I):
+        return False
+    punctuation = sum(not ch.isalnum() and not ch.isspace() for ch in title)
+    if len(title) >= 12 and punctuation / len(title) > 0.22:
         return False
     if not re.search(r'[\u4e00-\u9fff]', title) and not re.search(r'[a-zA-Z]{3,}', title):
         return False
@@ -145,6 +157,15 @@ def is_valid_title(title: str) -> bool:
     if re.match(r'^[\u4e00-\u9fff]{1,2}$', title) and len(title) <= 2:
         return False
     return True
+
+
+def is_valid_detail_url(url: str) -> bool:
+    if not url.startswith(("http://", "https://")):
+        return False
+    folded = url.casefold().split("?", 1)[0]
+    if any(part in folded for part in _BAD_URL_PARTS):
+        return False
+    return not folded.endswith(_IMAGE_SUFFIXES + (".css", ".js", ".json", ".xml"))
 
 
 REPORT_BLOCKED = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
@@ -172,7 +193,7 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
             }
         source = {"domain": domain}
         detail_url = entry.get("detail_url", "")
-        if detail_url:
+        if detail_url and is_valid_detail_url(detail_url):
             source["detailUrl"] = detail_url
         cover_url = entry.get("cover_url", "")
         if cover_url:
@@ -212,86 +233,20 @@ def build_items_from_keywords(keywords: List[str], domains: List[str], lang: str
     return by_title
 
 
-RANKING_PAGES_CFG: Dict[str, Dict[str, Any]] = _load_json("ranking_pages.json", {})
-
-_AUTO_DISCOVER_PATTERNS = [
-    "/rank/", "/ranking/", "/rank.html", "/rank",
-    "/list/", "/list/rank.html",
-    "/classify", "/update",
-    "/manhua/", "/comic/",
-    "/ComicAll",
-]
-
-_AUTO_PAGINATION_TESTS = [
-    ("?page={n}", 2),
-    ("/page/{n}/", 2),
-    ("/page-{n}.html", 2),
-    ("_p{n}.html", 2),
-]
-
-
-def _expand_ranking_cfg(domain: str, cfg: Dict[str, Any]) -> List[str]:
-    urls: List[str] = []
-    for tpl in cfg.get("urls", []):
-        type_params = cfg.get("type_params", [])
-        pag = cfg.get("pagination", {})
-        if type_params and "{type}" in tpl:
-            for tp in type_params:
-                urls.append(tpl.replace("{type}", tp))
-        elif "{page}" in tpl:
-            start = pag.get("start", 1)
-            max_pages = pag.get("max_pages", 1)
-            for p in range(start, start + max_pages):
-                urls.append(tpl.replace("{page}", str(p)))
-        else:
-            urls.append(tpl)
-    return urls
+SEED_SITES_CFG: Dict[str, List[str]] = _load_json("seed_sites.json", {})
 
 
 def _auto_discover_ranking(domain: str) -> List[str]:
-    import time
-    import urllib.request
-    import urllib.error
-    ua = _DEFAULT_UA
-    found: List[str] = []
-    start_time = time.monotonic()
-    for pattern in _AUTO_DISCOVER_PATTERNS:
-        if time.monotonic() - start_time > 30:
-            break
-        url = f"https://{domain}{pattern}"
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "text/html"})
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                html = resp.read(200_000).decode("utf-8", errors="ignore")
-            comic_count = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html, re.I))
-            if comic_count >= 3:
-                found.append(url)
-                for pag_pat, start_n in _AUTO_PAGINATION_TESTS:
-                    if time.monotonic() - start_time > 30:
-                        break
-                    test_url = f"https://{domain}{pattern.rstrip('/')}{pag_pat.format(n=start_n)}"
-                    try:
-                        req2 = urllib.request.Request(test_url, headers={"User-Agent": ua, "Accept": "text/html"})
-                        with urllib.request.urlopen(req2, timeout=8) as resp2:
-                            html2 = resp2.read(200_000).decode("utf-8", errors="ignore")
-                        comic_count2 = len(re.findall(r'/(comic|manga|manhua|book|title|work|series|detail|webtoon)/', html2, re.I))
-                        if comic_count2 >= 3 and html2 != html:
-                            for p in range(start_n, start_n + 50):
-                                found.append(f"https://{domain}{pattern.rstrip('/')}{pag_pat.format(n=p)}")
-                            break
-                    except Exception:
-                        break
-        except Exception:
-            continue
-    return found
+    # URL 与分页参数由前序在线站点参数发现流程生成；目录阶段不猜站点路径。
+    return list(SEED_SITES_CFG.get(domain, []))
 
 
 def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
     import re as _re
     import urllib.request
     import urllib.error
+    from urllib.parse import urljoin, urlparse
     by_title: Dict[str, Dict[str, Any]] = {}
-    ranking_cfg = RANKING_PAGES_CFG.get(lang, {})
     blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     excluded = EXCLUDED_DOMAINS
     link_re = _re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([\s\S]{0,500}?)</a>', _re.I)
@@ -304,15 +259,12 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             continue
         if domain in excluded:
             continue
-        cfg = ranking_cfg.get(domain)
-        if cfg:
-            urls = _expand_ranking_cfg(domain, cfg)
-        else:
-            urls = _auto_discover_ranking(domain)
-            if urls:
-                print(f"  [{domain}] auto-discovered {len(urls)} ranking URLs")
+        urls = _auto_discover_ranking(domain)
+        if urls:
+            print(f"  [{domain}] using {len(urls)} online-discovered catalog URLs")
         if not urls:
             continue
+        seen_pages = set(urls)
         for url in urls:
             crawled_count = 0
             try:
@@ -321,6 +273,28 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     html = resp.read(1_000_000).decode("utf-8", errors="ignore")
             except Exception:
                 continue
+            # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
+            # CATEGORY_TARGET 同时充当每站页面预算，使线上/线下使用同一个目标参数。
+            page_budget = max(CATEGORY_TARGET, 1)
+            if len(urls) < page_budget:
+                for nav in link_re.finditer(html):
+                    nav_href = nav.group(1).strip()
+                    nav_tag = nav.group(0)
+                    nav_label = _re.sub(r'<[^>]+>', '', nav.group(2)).strip()
+                    is_pagination = bool(
+                        _re.search(r'\brel=["\']next["\']', nav_tag, _re.I)
+                        or _re.fullmatch(r'\d{1,5}', nav_label)
+                        or _re.search(r'下一页|下页|next|›|»', nav_label, _re.I)
+                    )
+                    if not is_pagination:
+                        continue
+                    absolute = urljoin(url, nav_href)
+                    if normalize_domain(urlparse(absolute).netloc) != domain or absolute in seen_pages:
+                        continue
+                    seen_pages.add(absolute)
+                    urls.append(absolute)
+                    if len(urls) >= page_budget:
+                        break
             for m in link_re.finditer(html):
                 href = m.group(1).strip()
                 if not comic_path_re.search(href):
@@ -353,15 +327,19 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     if key in by_title:
                         existing_sources = {s["domain"] for s in by_title[key]["sources"]}
                         if domain not in existing_sources:
-                            src = {"domain": domain, "detailUrl": href if href.startswith("http") else f"https://{domain}{href}"}
+                            absolute_href = urljoin(url, href)
+                            if not is_valid_detail_url(absolute_href):
+                                continue
+                            src = {"domain": domain, "detailUrl": absolute_href}
                             if cover_url:
                                 src["coverUrl"] = cover_url
                             by_title[key]["sources"].append(src)
                     continue
                 existing_titles.add(key)
                 crawled_count += 1
-                if href.startswith("/"):
-                    href = f"https://{domain}{href}"
+                href = urljoin(url, href)
+                if not is_valid_detail_url(href):
+                    continue
                 src = {"domain": domain, "detailUrl": href}
                 if cover_url:
                     src["coverUrl"] = cover_url

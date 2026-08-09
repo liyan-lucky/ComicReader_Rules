@@ -8,12 +8,10 @@
   - domain_knowledge.json: 首次运行时自动初始化
 
 唯一硬编码种子：
-  ROOT_SEEDS = {"zh-Hans": ["漫画", "漫畫"]}
+  ROOT_SEARCH_TEXT = "漫画"
 
-其余所有参数通过以下机制自动推导：
-  1. 翻译映射：漫画 → manga/comic/マンガ/만화/manhua/manhwa/webtoon
-  2. 搜索修饰词：种子词 × 修饰词 → search_text
-  3. 领域知识配置：domain_knowledge.json（首次运行自动初始化，可手动微调）
+公网搜索始终只发送“漫画”。语言验证词由映射生成；站点、URL、查询参数和
+目录入口由在线搜索及站点页面发现，领域过滤规则来自 domain_knowledge.json。
 """
 from __future__ import annotations
 
@@ -25,6 +23,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Set
 from urllib.parse import urlencode
+
+from pipeline_seed import ROOT_TERM
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_DIR = ROOT / "config"
@@ -52,9 +52,8 @@ def _dump_json(path: Path, data: Any) -> None:
 # ═══════════════════════════════════════════════════════════════
 # 唯一硬编码：根种子词
 # ═══════════════════════════════════════════════════════════════
-ROOT_SEEDS: Dict[str, List[str]] = {
-    "zh-Hans": ["漫画", "漫畫"],
-}
+ROOT_SEARCH_TEXT = ROOT_TERM
+ROOT_SEEDS: Dict[str, List[str]] = {"zh-Hans": [ROOT_SEARCH_TEXT]}
 
 # 翻译映射：从根种子词推导各语种等价词
 SEED_TRANSLATIONS: Dict[str, Dict[str, List[str]]] = {
@@ -81,47 +80,6 @@ SEED_TRANSLATIONS: Dict[str, Dict[str, List[str]]] = {
     },
 }
 
-SEARCH_MODIFIERS: Dict[str, List[str]] = {
-    "zh-Hans": ["免费", "看", "网", "站", "大全", "阅读", "在线", "在线看",
-                "更新", "热门", "最新", "推荐", "排行榜", "app"],
-    "zh-Hant": ["免費", "看", "線上", "熱門", "推薦"],
-    "en": ["read", "free", "online", "site", "reader"],
-    "ja": ["サイト", "無料", "読む", "オンライン", "人気", "おすすめ"],
-    "ko": ["사이트", "무료", "인기", "추천"],
-}
-
-# 搜索查询模板
-SEARCH_QUERY_TEMPLATES: Dict[str, List[str]] = {
-    "zh-Hans": [
-        "{year}最火国漫推荐 漫画",
-        "{seed}排行榜 人气漫画",
-        "热门{seed}推荐 {year}",
-        "免费{seed}在线看 热门",
-        "{seed}大全 人气排行",
-        "最新{seed}连载 推荐",
-        "国产{seed}排行 少年 热血",
-        "{seed}排行榜 月票榜",
-    ],
-    "zh-Hant": [
-        "{year}熱門{seed}推薦排行",
-        "{seed}排行榜 人氣",
-        "免費{seed}線上看 熱門",
-    ],
-    "en": [
-        "top {seed} {year} ranking list",
-        "popular {seed} {year} best",
-        "best {seed} {year} recommendation",
-    ],
-    "ja": [
-        "{seed}ランキング {year} 人気",
-        "おすすめ{seed}ランキング 少年",
-    ],
-    "ko": [
-        "{seed} 순위 {year} 인기",
-        "인기 {seed} 추천 랭킹",
-    ],
-}
-
 # 领域知识默认值（首次运行写入 domain_knowledge.json，之后从文件读取）
 _DOMAIN_KNOWLEDGE_DEFAULTS = {
     "anti_patterns": {
@@ -144,33 +102,6 @@ _DOMAIN_KNOWLEDGE_DEFAULTS = {
         "en": [],
         "ja": ["不動産", "賃貸", "求人", "通販", "旅行", "レストラン"],
         "ko": [],
-    },
-    "ranking_sites": {
-        "zh-Hans": [
-            {"name": "腾讯动漫-TOP榜", "url": "https://ac.qq.com/Rank/comicRank/type/top", "selector": "a[href*='/Comic/']", "attr": "title"},
-            {"name": "腾讯动漫-月票榜", "url": "https://ac.qq.com/Rank/comicRank/type/mt", "selector": "a[href*='/Comic/']", "attr": "title"},
-            {"name": "腾讯动漫-飙升榜", "url": "https://ac.qq.com/Rank/comicRank/type/rise", "selector": "a[href*='/Comic/']", "attr": "title"},
-            {"name": "快看漫画-排行榜", "url": "https://www.kuaikanmanhua.com/ranking/", "selector": "a[href*='/web/comic/']", "attr": "title"},
-            {"name": "咚漫漫画-排行榜", "url": "https://www.dongmanmanhua.cn/ranking", "selector": "a[href*='/list/']", "attr": "title"},
-            {"name": "哔哩哔哩漫画-排行榜", "url": "https://manga.bilibili.com/ranking", "selector": "a[href*='/detail/']", "attr": "title"},
-            {"name": "包子漫画-排行榜", "url": "https://www.baozimh.com/ranking", "selector": "a[href*='/comic/']", "attr": "title"},
-        ],
-        "zh-Hant": [
-            {"name": "咚漫漫画-排行榜", "url": "https://www.dongmanmanhua.cn/ranking", "selector": "a.title", "attr": "title"},
-            {"name": "LINE WEBTOON-排行榜", "url": "https://www.webtoons.com/zh-hant/ranking", "selector": "a.rank_lst_a", "attr": "title"},
-        ],
-        "en": [
-            {"name": "MangaPlus-排行", "url": "https://mangaplus.shueisha.co.jp/manga_list/all", "selector": "a.AllTitle-module_allTitle", "attr": "title"},
-            {"name": "Webtoon-排行", "url": "https://www.webtoons.com/en/ranking", "selector": "a.rank_lst_a", "attr": "title"},
-        ],
-        "ja": [
-            {"name": "ピッコマ-ランキング", "url": "https://piccoma.com/web/ranking", "selector": "a.PCM-ranking_itemTitle", "attr": "title"},
-            {"name": "マンガUP-ランキング", "url": "https://magazine.jp.square-enix.com/mangaup/", "selector": "a.title", "attr": "title"},
-        ],
-        "ko": [
-            {"name": "네이버웹툰-인기", "url": "https://comic.naver.com/webtoon/weekday", "selector": "a.title", "attr": "title"},
-            {"name": "카카오웹툰-인기", "url": "https://webtoon.kakao.com/ranking", "selector": "a.title", "attr": "title"},
-        ],
     },
     "noise_patterns": r'^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|第[一二三四五六七八九十百千零〇两\d]+[话章回卷]|chapter\s*\d+|vol\.?\s*\d+|http|www\.|\.com|\.net|\.org|\d{4}[-年]\d{1,2}[-月]\d{1,2}|[\d.]+分|[\d.]+星|[\d,]+人|[\d,]+阅|[\d,]+赞|[\d,]+评|更新至|更新到|连载|完结|免费|付费|签约|独家)',
     "noise_patterns_flags": "IGNORECASE",
@@ -264,17 +195,8 @@ def derive_search_seeds(language: str) -> List[str]:
 
 
 def derive_search_text(language: str) -> List[str]:
-    search_seeds = derive_search_seeds(language)
-    modifiers = SEARCH_MODIFIERS.get(language, [])
-    text = list(search_seeds)
-    seen = set(search_seeds)
-    for seed in search_seeds[:5]:
-        for mod in modifiers:
-            combined = f"{seed}{mod}"
-            if combined not in seen:
-                seen.add(combined)
-                text.append(combined)
-    return text
+    # 搜索入口的唯一固定值。漫画名、域名、URL、分页等参数均由在线流程发现。
+    return [ROOT_SEARCH_TEXT]
 
 
 def derive_generic_terms() -> List[str]:
@@ -311,17 +233,7 @@ def load_domain_knowledge() -> dict:
 # ═══════════════════════════════════════════════════════════════
 
 def _generate_search_queries(language: str, search_text: List[str]) -> List[str]:
-    templates = SEARCH_QUERY_TEMPLATES.get(language, [])
-    year = str(datetime.now().year)
-    queries: List[str] = []
-    seen: Set[str] = set()
-    for seed in search_text[:5]:
-        for tmpl in templates:
-            q = tmpl.replace("{seed}", seed).replace("{year}", year)
-            if q not in seen:
-                seen.add(q)
-                queries.append(q)
-    return queries
+    return [ROOT_SEARCH_TEXT]
 
 
 def _discover_ranking_sites_via_searxng(language: str, search_text: List[str]) -> List[dict]:
@@ -341,8 +253,8 @@ def _discover_ranking_sites_via_searxng(language: str, search_text: List[str]) -
     seen_domains: Set[str] = set()
     validate_words = derive_validate_seeds(language)
 
-    for seed in search_text[:3]:
-        query = f"{seed} 排行榜 ranking" if language.startswith("zh") else f"{seed} ranking chart"
+    for seed in search_text[:1]:
+        query = seed
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
             r = requests.get(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"}, timeout=15)
@@ -390,12 +302,8 @@ def bootstrap_keyword_discovery(language: str, dk: dict) -> Dict[str, Any]:
     mik = _load_json(CONFIG_DIR / "manga_indicator_keywords.json", {})
     search_text = mik.get(language, {}).get("search_text", [])
 
-    ranking_sites = list(dk.get("ranking_sites", {}).get(language, []))
-    searxng_ranking = _discover_ranking_sites_via_searxng(language, search_text)
-    for site in searxng_ranking:
-        domain = site.get("url", "")
-        if not any(s.get("url") == domain for s in ranking_sites):
-            ranking_sites.append(site)
+    # 不继承代码/文件中预置的站点 URL，本站点列表只接受本次在线搜索产物。
+    ranking_sites = _discover_ranking_sites_via_searxng(language, search_text)
 
     search_queries = _generate_search_queries(language, search_text)
 

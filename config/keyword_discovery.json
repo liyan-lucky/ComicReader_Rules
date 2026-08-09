@@ -1,49 +1,6 @@
 {
   "ranking_sites": {
-    "zh-Hans": [
-      {
-        "name": "腾讯动漫-TOP榜",
-        "url": "https://ac.qq.com/Rank/comicRank/type/top",
-        "selector": "a[href*='/Comic/']",
-        "attr": "title"
-      },
-      {
-        "name": "腾讯动漫-月票榜",
-        "url": "https://ac.qq.com/Rank/comicRank/type/mt",
-        "selector": "a[href*='/Comic/']",
-        "attr": "title"
-      },
-      {
-        "name": "腾讯动漫-飙升榜",
-        "url": "https://ac.qq.com/Rank/comicRank/type/rise",
-        "selector": "a[href*='/Comic/']",
-        "attr": "title"
-      },
-      {
-        "name": "快看漫画-排行榜",
-        "url": "https://www.kuaikanmanhua.com/ranking/",
-        "selector": "a[href*='/web/comic/']",
-        "attr": "title"
-      },
-      {
-        "name": "咚漫漫画-排行榜",
-        "url": "https://www.dongmanmanhua.cn/ranking",
-        "selector": "a[href*='/list/']",
-        "attr": "title"
-      },
-      {
-        "name": "哔哩哔哩漫画-排行榜",
-        "url": "https://manga.bilibili.com/ranking",
-        "selector": "a[href*='/detail/']",
-        "attr": "title"
-      },
-      {
-        "name": "包子漫画-排行榜",
-        "url": "https://www.baozimh.com/ranking",
-        "selector": "a[href*='/comic/']",
-        "attr": "title"
-      }
-    ],
+    "zh-Hans": [],
     "ko": [
       {
         "name": "네이버웹툰-인기",
@@ -61,42 +18,7 @@
   },
   "search_queries": {
     "zh-Hans": [
-      "2026最火国漫推荐 漫画",
-      "漫画排行榜 人气漫画",
-      "热门漫画推荐 2026",
-      "免费漫画在线看 热门",
-      "漫画大全 人气排行",
-      "最新漫画连载 推荐",
-      "国产漫画排行 少年 热血",
-      "漫画排行榜 月票榜",
-      "漫畫排行榜 人气漫画",
-      "热门漫畫推荐 2026",
-      "免费漫畫在线看 热门",
-      "漫畫大全 人气排行",
-      "最新漫畫连载 推荐",
-      "国产漫畫排行 少年 热血",
-      "漫畫排行榜 月票榜",
-      "国漫排行榜 人气漫画",
-      "热门国漫推荐 2026",
-      "免费国漫在线看 热门",
-      "国漫大全 人气排行",
-      "最新国漫连载 推荐",
-      "国产国漫排行 少年 热血",
-      "国漫排行榜 月票榜",
-      "条漫排行榜 人气漫画",
-      "热门条漫推荐 2026",
-      "免费条漫在线看 热门",
-      "条漫大全 人气排行",
-      "最新条漫连载 推荐",
-      "国产条漫排行 少年 热血",
-      "条漫排行榜 月票榜",
-      "manhua排行榜 人气漫画",
-      "热门manhua推荐 2026",
-      "免费manhua在线看 热门",
-      "manhua大全 人气排行",
-      "最新manhua连载 推荐",
-      "国产manhua排行 少年 热血",
-      "manhua排行榜 月票榜"
+      "漫画"
     ],
     "ko": [
       "만화 순위 2026 인기",
@@ -224,13 +146,27 @@
       "baomh.com",
       "baozimh.com",
       "labimanhua.com",
-      "en.dm5.com",
-      "hk.ulifestyle.com.hk",
+      "mechacomic.jp",
+      "6k9n2.lpsdimataram.com",
+      "bilibili.com",
+      "dm5.cn",
+      "hitomi.la",
+      "jwxs.org",
+      "kodansha.co.jp",
+      "lpsdimataram.com",
+      "m.dm5.com",
+      "m.labimanhua.com",
+      "manhuaba.com",
+      "manwame.com",
       "manwang.net",
       "mgeko.cc",
-      "readmore.id",
+      "pocket.shonenmagazine.com",
       "shenqimanhua.net",
-      "video.friday.tw"
+      "ttkmh.com",
+      "ww1.lpsdimataram.com",
+      "xiaoaimh.com",
+      "yanmaga.jp",
+      "ycymh.com"
     ]
   },
   "noise_patterns": "^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|第[一二三四五六七八九十百千零〇两\\d]+[话章回卷]|chapter\\s*\\d+|vol\\.?\\s*\\d+|http|www\\.|\\.com|\\.net|\\.org|\\d{4}[-年]\\d{1,2}[-月]\\d{1,2}|[\\d.]+分|[\\d.]+星|[\\d,]+人|[\\d,]+阅|[\\d,]+赞|[\\d,]+评|更新至|更新到|连载|完结|免费|付费|签约|独家)",

@@ -15,6 +15,9 @@ build_index_from_report.py: 生成中间索引 (generated/index.{lang}.json)
 sanitize_rule_outputs.py: 清洗 → 写入 rules/index.{lang}.json (正式发布)
 ```
 
+公网搜索词固定为 `漫画`。`search_url_templates.json` 与 `seed_sites.json` 必须由
+`generate_site_configs.py` 在线读取站点表单和导航生成，禁止为站点硬编码路径、参数名或分页格式。
+
 ## 正式输出
 
 ```text
