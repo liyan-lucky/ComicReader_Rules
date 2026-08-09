@@ -1,6 +1,55 @@
 {
   "ranking_sites": {
-    "zh-Hans": [],
+    "zh-Hans": [
+      {
+        "name": "动漫屋_在线漫画_为看漫画的人而生",
+        "url": "https://www.dm5.com/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "快看漫画_官方漫画_漫画大全免费在线观看",
+        "url": "https://www.kuaikanmanhua.com/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "MYCOMIC",
+        "url": "https://mycomic.com/cn",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "好多漫",
+        "url": "https://www.haoduoman.com/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "漫画",
+        "url": "https://en.wikipedia.org/wiki/%E6%BC%AB%E7%94%BB",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "漫画多すぎ！業界最大級のコミックシーモア｜無料で楽しめる！",
+        "url": "https://www.cmoa.jp/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "漫画大全",
+        "url": "https://www.manhuagui.com/list/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      },
+      {
+        "name": "漫画なら、めちゃコミック（めちゃコミ）",
+        "url": "https://mechacomic.jp/",
+        "selector": "a[href*='/comic/'], a[href*='/manga/'], a[href*='/detail/'], a[href*='/Comic/'], a[href*='/webtoon/']",
+        "attr": "title"
+      }
+    ],
     "ko": [
       {
         "name": "네이버웹툰-인기",
@@ -146,27 +195,31 @@
       "baomh.com",
       "baozimh.com",
       "labimanhua.com",
-      "mechacomic.jp",
-      "6k9n2.lpsdimataram.com",
-      "bilibili.com",
+      "asurascansmanhua.com",
+      "book.sfacg.com",
+      "book.zhulang.com",
+      "cn.bzmanga.com",
+      "comic-con.org",
+      "comikey.com",
       "dm5.cn",
-      "hitomi.la",
-      "jwxs.org",
-      "kodansha.co.jp",
-      "lpsdimataram.com",
-      "m.dm5.com",
-      "m.labimanhua.com",
+      "dm5.com",
+      "m.manhuagui.com",
+      "manga.bilibili.com",
+      "mangabz.com",
+      "mangahub.io",
       "manhuaba.com",
-      "manwame.com",
-      "manwang.net",
+      "manhuaren.net",
+      "manhwatop.com",
+      "manwamh5.com",
       "mgeko.cc",
-      "pocket.shonenmagazine.com",
-      "shenqimanhua.net",
-      "ttkmh.com",
-      "ww1.lpsdimataram.com",
-      "xiaoaimh.com",
-      "yanmaga.jp",
-      "ycymh.com"
+      "mh250.com",
+      "pipimanhua.com",
+      "qimanwu.app",
+      "ravenscans.net",
+      "tw.baozimh.com",
+      "tw.manhuagui.com",
+      "wyshu.com",
+      "xmanhua.com"
     ]
   },
   "noise_patterns": "^(登录|注册|首页|排行|分类|更新|推荐|搜索|更多|全部|标签|筛选|第[一二三四五六七八九十百千零〇两\\d]+[话章回卷]|chapter\\s*\\d+|vol\\.?\\s*\\d+|http|www\\.|\\.com|\\.net|\\.org|\\d{4}[-年]\\d{1,2}[-月]\\d{1,2}|[\\d.]+分|[\\d.]+星|[\\d,]+人|[\\d,]+阅|[\\d,]+赞|[\\d,]+评|更新至|更新到|连载|完结|免费|付费|签约|独家)",

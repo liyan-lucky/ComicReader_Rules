@@ -1,35 +1,47 @@
 {
   "language": "zh-Hans",
-  "timestamp": "2026-08-03T15:26:16.257181+00:00",
-  "aggregatorSites": 27,
+  "timestamp": "2026-08-09T08:10:16.419418+00:00",
+  "aggregatorSites": 31,
   "queryCount": 1,
-  "totalUrls": 2298,
-  "uniqueDomains": 38,
-  "validatedCount": 16,
-  "validationRemovedCount": 22,
+  "totalUrls": 12776,
+  "uniqueDomains": 72,
+  "validatedCount": 23,
+  "validationRemovedCount": 49,
   "newDomains": [
     "1kkk.com",
     "gmanhua.com",
+    "haoduoman.com",
     "kaimanhua.com",
     "kanman.com",
+    "kuaikanmanhua.com",
     "manben.com",
-    "shenqimanhua.github.io"
+    "manga-shinchan.com",
+    "manmanapp.com",
+    "mechacomic.jp"
   ],
   "newDomainsDetail": [
     {
       "domain": "1kkk.com",
-      "matchedKeyword": "漫画"
+      "matchedKeyword": "国漫"
     },
     {
       "domain": "gmanhua.com",
-      "matchedKeyword": "manhua"
+      "matchedKeyword": "漫画"
+    },
+    {
+      "domain": "haoduoman.com",
+      "matchedKeyword": "漫画"
     },
     {
       "domain": "kaimanhua.com",
-      "matchedKeyword": "manhua"
+      "matchedKeyword": "漫画"
     },
     {
       "domain": "kanman.com",
+      "matchedKeyword": "漫画"
+    },
+    {
+      "domain": "kuaikanmanhua.com",
       "matchedKeyword": "漫画"
     },
     {
@@ -37,86 +49,118 @@
       "matchedKeyword": "漫画"
     },
     {
-      "domain": "shenqimanhua.github.io",
-      "matchedKeyword": "manhua"
+      "domain": "manga-shinchan.com",
+      "matchedKeyword": "漫画"
+    },
+    {
+      "domain": "manmanapp.com",
+      "matchedKeyword": "国漫"
+    },
+    {
+      "domain": "mechacomic.jp",
+      "matchedKeyword": "漫画"
     }
   ],
-  "existingDomainCount": 24,
+  "existingDomainCount": 29,
   "antiPatternByKeyword": {},
-  "cleanedByKeyword": {
-    "视频": [
-      "chushou.tv"
-    ]
-  },
+  "cleanedByKeyword": {},
   "allDiscoveredDomains": [
     "1kkk.com",
-    "325784.xyz",
-    "51.la",
     "58dm.com",
-    "baipiaoguai.org",
-    "baomh.com",
+    "ac.jp",
+    "asurascansmanhua.com",
     "baozimh.com",
+    "britishmuseum.org",
+    "brooklynmuseum.org",
+    "cambridge.org",
     "chushou.tv",
+    "cmoa.jp",
     "cn{=title.thumbnail}",
     "co.jp",
+    "com.hk",
+    "com.tw",
+    "comicscenter.net",
+    "comikey.net",
+    "creative-comic.tw",
     "dongmanmanhua.cn",
     "dongmanmanhua.cn{=thumbnail}",
-    "ecombdimg.com",
+    "eslite.com",
+    "facebook.net",
+    "fate-go.jp",
     "gmanhua.com",
+    "go.jp",
     "googleapis.com",
     "googletagmanager.com",
     "gov.cn",
+    "gstatic.com",
+    "guazimanhua.com",
+    "haoduoman.com",
     "hdslb.com",
-    "idcfcloud.net",
+    "hurrydispelabsurdity.com",
+    "imgsrv5.com",
     "jsdelivr.net",
     "kaimanhua.com",
     "kanman.com",
+    "kobo.com",
+    "kuaikanmanhua.com",
     "labimanhua.com",
-    "lin.ee",
-    "lpsdimataram.com",
+    "lg.jp",
     "manben.com",
+    "manga-shinchan.com",
+    "mangabz.com",
+    "mangacopy.com",
+    "manhuahome.com",
     "manhuaren.com",
     "manhuatai.com",
-    "manwame.com",
-    "manwang.net",
+    "manmanapp.com",
+    "manwamh5.com",
     "mechacomic.jp",
+    "mghcdn.com",
     "mkzhan.com",
+    "mojoin.com",
+    "mycomic.com",
+    "newyorkfed.org",
     "or.jp",
+    "org.tw",
     "pubadx.one",
-    "shenqimanhua.github.io",
-    "sofmap.com",
-    "st-hatena.com",
-    "volccdn.com"
+    "ravenscans.net",
+    "readmoo.com",
+    "reddit.com",
+    "sfacg.com",
+    "shjbzx.cn",
+    "tcb.tw",
+    "tupian.run",
+    "typekit.net",
+    "volccdn.com",
+    "web-japan.org",
+    "wyshu.com",
+    "xmanhua.com",
+    "xxs8.com",
+    "zhulang.com"
   ],
   "removedDomains": [
     {
       "domain": "gov.cn",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='gov.cn', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='gov.cn', port=443): Failed to resolve 'gov.cn' ([Errno -5] No address associated with hostname)\"))",
       "matched_kw": ""
     },
     {
       "domain": "volccdn.com",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='volccdn.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='volccdn.com', port=443): Failed to resolve 'volccdn.com' ([Errno -5] No address associated with hostname)\"))",
       "matched_kw": ""
     },
     {
       "domain": "dongmanmanhua.cn{=thumbnail}",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='dongmanmanhua.cn%7b=thumbnail%7d', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='dongmanmanhua.cn%7b=thumbnail%7d', port=443): Failed to resolve 'dongmanmanhua.cn%7b=thumbnail%7d' ([Errno -2] Name or service not known)\"))",
       "matched_kw": ""
     },
     {
       "domain": "cn{=title.thumbnail}",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "baipiaoguai.org",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='cn%7b=title.thumbnail%7d', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='cn%7b=title.thumbnail%7d', port=443): Failed to resolve 'cn%7b=title.thumbnail%7d' ([Errno -2] Name or service not known)\"))",
       "matched_kw": ""
     },
     {
@@ -126,57 +170,27 @@
       "matched_kw": ""
     },
     {
-      "domain": "hdslb.com",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "manhuatai.com",
-      "reason": "network_issue",
-      "detail": "fetch_failed:HTTPSConnectionPool(host='manhuatai.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'manhuatai.com'. (_ssl.c:1010)\")))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "chushou.tv",
-      "reason": "title_blocked",
+      "domain": "hurrydispelabsurdity.com",
+      "reason": "no_indicators",
       "detail": "",
-      "matched_kw": "视频"
-    },
-    {
-      "domain": "58dm.com",
-      "reason": "network_issue",
-      "detail": "fetch_failed:HTTPSConnectionPool(host='58dm.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for '58dm.com'. (_ssl.c:1010)\")))",
       "matched_kw": ""
     },
     {
-      "domain": "mkzhan.com",
+      "domain": "xxs8.com",
       "reason": "network_issue",
-      "detail": "fetch_failed:HTTPSConnectionPool(host='mkzhan.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='xxs8.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='xxs8.com', port=443): Failed to resolve 'xxs8.com' ([Errno -5] No address associated with hostname)\"))",
       "matched_kw": ""
     },
     {
-      "domain": "sofmap.com",
+      "domain": "typekit.net",
       "reason": "network_issue",
-      "detail": "fetch_failed:HTTPSConnectionPool(host='sofmap.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'sofmap.com'. (_ssl.c:1010)\")))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='typekit.net', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='typekit.net', port=443) at 0x7f7aa030d710>, 'Connection to typekit.net timed out. (connect timeout=5)'))",
       "matched_kw": ""
     },
     {
-      "domain": "or.jp",
+      "domain": "comikey.net",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "325784.xyz",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "ecombdimg.com",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='comikey.net', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='comikey.net', port=443): Failed to resolve 'comikey.net' ([Errno -5] No address associated with hostname)\"))",
       "matched_kw": ""
     },
     {
@@ -186,52 +200,254 @@
       "matched_kw": ""
     },
     {
-      "domain": "pubadx.one",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "jsdelivr.net",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "st-hatena.com",
-      "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))",
-      "matched_kw": ""
-    },
-    {
-      "domain": "lin.ee",
+      "domain": "gstatic.com",
       "reason": "network_issue",
       "detail": "http_404",
       "matched_kw": ""
     },
     {
-      "domain": "idcfcloud.net",
+      "domain": "manhuatai.com",
       "reason": "network_issue",
-      "detail": "fetch_failed:('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='manhuatai.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'manhuatai.com'. (_ssl.c:1016)\")))",
       "matched_kw": ""
     },
     {
-      "domain": "51.la",
+      "domain": "chushou.tv",
+      "reason": "network_issue",
+      "detail": "fetch_failed:('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "58dm.com",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='58dm.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for '58dm.com'. (_ssl.c:1016)\")))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "mkzhan.com",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='mkzhan.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1016)')))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "hdslb.com",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='hdslb.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='hdslb.com', port=443): Failed to resolve 'hdslb.com' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "shjbzx.cn",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='shjbzx.cn', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='shjbzx.cn', port=443): Failed to resolve 'shjbzx.cn' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "mghcdn.com",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='mghcdn.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='mghcdn.com', port=443): Failed to resolve 'mghcdn.com' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "facebook.net",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='facebook.net', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='facebook.net', port=443): Failed to resolve 'facebook.net' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "pubadx.one",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='pubadx.one', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='pubadx.one', port=443): Failed to resolve 'pubadx.one' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "imgsrv5.com",
       "reason": "no_indicators",
       "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "jsdelivr.net",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='jsdelivr.net', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='jsdelivr.net', port=443) at 0x7f7aa0450510>, 'Connection to jsdelivr.net timed out. (connect timeout=5)'))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "tupian.run",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='tupian.run', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='tupian.run', port=443): Failed to resolve 'tupian.run' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "mycomic.com",
+      "reason": "no_indicators",
+      "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "cmoa.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='cmoa.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='cmoa.jp', port=443): Failed to resolve 'cmoa.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "creative-comic.tw",
+      "reason": "excluded_domain",
+      "detail": "in blocked_domains.json excluded_domains",
+      "matched_kw": ""
+    },
+    {
+      "domain": "brooklynmuseum.org",
+      "reason": "network_issue",
+      "detail": "http_429",
+      "matched_kw": ""
+    },
+    {
+      "domain": "manhuahome.com",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "go.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='go.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='go.jp', port=443): Failed to resolve 'go.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "ac.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='ac.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='ac.jp', port=443): Failed to resolve 'ac.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "co.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='co.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='co.jp', port=443): Failed to resolve 'co.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "newyorkfed.org",
+      "reason": "no_indicators",
+      "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "org.tw",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='org.tw', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='org.tw', port=443): Failed to resolve 'org.tw' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "lg.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='lg.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='lg.jp', port=443): Failed to resolve 'lg.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "mangacopy.com",
+      "reason": "no_indicators",
+      "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "reddit.com",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "comicscenter.net",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='comicscenter.net', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1016)')))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "mojoin.com",
+      "reason": "no_indicators",
+      "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "britishmuseum.org",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "kobo.com",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "or.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='or.jp', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='or.jp', port=443): Failed to resolve 'or.jp' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "com.tw",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='com.tw', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='com.tw', port=443): Failed to resolve 'com.tw' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "readmoo.com",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "web-japan.org",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "fate-go.jp",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='fate-go.jp', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='fate-go.jp', port=443) at 0x7f7aa0453050>, 'Connection to fate-go.jp timed out. (connect timeout=5)'))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "tcb.tw",
+      "reason": "no_indicators",
+      "detail": "",
+      "matched_kw": ""
+    },
+    {
+      "domain": "cambridge.org",
+      "reason": "network_issue",
+      "detail": "http_403",
+      "matched_kw": ""
+    },
+    {
+      "domain": "eslite.com",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='eslite.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='eslite.com', port=443): Failed to resolve 'eslite.com' ([Errno -5] No address associated with hostname)\"))",
+      "matched_kw": ""
+    },
+    {
+      "domain": "com.hk",
+      "reason": "network_issue",
+      "detail": "fetch_failed:HTTPSConnectionPool(host='com.hk', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='com.hk', port=443): Failed to resolve 'com.hk' ([Errno -5] No address associated with hostname)\"))",
       "matched_kw": ""
     }
   ],
   "matchedByKeyword": {
-    "漫画": [
+    "国漫": [
       "1kkk.com",
-      "kanman.com",
-      "manben.com"
+      "manmanapp.com"
     ],
-    "manhua": [
+    "漫画": [
       "gmanhua.com",
+      "haoduoman.com",
       "kaimanhua.com",
-      "shenqimanhua.github.io"
+      "kanman.com",
+      "kuaikanmanhua.com",
+      "manben.com",
+      "manga-shinchan.com",
+      "mechacomic.jp"
     ]
   }
 }
