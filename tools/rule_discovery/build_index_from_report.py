@@ -163,15 +163,13 @@ def rule_for_audit(a: dict, lang_code: str = "zh") -> dict:
         base = f'https://{domain}'
     title = _clean_rule_title(safe_str(a.get('detail_title') or ''), safe_str(a.get('first_chapter_title') or ''), domain)[:48]
     search_url = _SEARCH_URL_TEMPLATES.get(domain, '')
-    if not search_url:
-        search_url = f'https://{domain}/search?q={{keyword}}'
     rule = add_rule_compliance({
         'id': safe_id(domain, a.get('detail_url', '')),
         'name': f'{title} - {domain} 远程公开源',
         'description': '规则仓库自动审计生成：公开可访问漫画页，支持详情目录、章节页静态图片/懒加载/页面内图片地址；静态无图由 App 渲染卷轴兜底。不处理登录、付费、验证码或反爬绕过。',
         'homepage': base,
         'searchUrl': search_url,
-        'searchMethod': 'url-only' if search_url else '',
+        'searchMethod': 'get' if search_url else 'url-only',
         'searchItemRegex': _patterns.get('searchItemRegex', ''),
         'searchTitleGroups': [2],
         'searchUrlGroups': [1],

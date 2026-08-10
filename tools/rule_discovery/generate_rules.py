@@ -36,7 +36,7 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from pipeline_seed import ROOT_TERM
+from pipeline_seed import ROOT_TERMS
 
 try:
     import cloudscraper
@@ -91,6 +91,7 @@ EXCLUDED_DOMAINS: set = set(_BLOCKED_CFG.get("excluded_domains", []))
 KNOWN_SOURCE_SEEDS: Dict[str, List[str]] = _load_config("seed_sites.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_config("aggregator_sites.json", {})
 RULE_KEYWORDS: Dict[str, List[str]] = _load_config("rule_keywords.json", {})
+SEARCH_CONFIG: Dict[str, Any] = _load_config("search.json", {})
 
 
 @dataclasses.dataclass
@@ -207,9 +208,12 @@ def search_brave(query: str, limit: int) -> List[Candidate]:
     key = os.getenv("BRAVE_SEARCH_API_KEY", "").strip()
     if not key:
         return []
-    url = "https://api.search.brave.com/res/v1/web/search?" + urlencode({"q": query, "count": min(limit, 20)})
+    cfg = SEARCH_CONFIG.get("brave", {})
+    url = str(cfg.get("api_url", "")).rstrip("?") + "?" + urlencode({"q": query, "count": min(limit, 20)})
+    if not cfg.get("enabled", True) or not cfg.get("api_url"):
+        return []
     try:
-        r = requests.get(url, headers={"X-Subscription-Token": key, "User-Agent": DEFAULT_UA}, timeout=15)
+        r = requests.get(url, headers={"X-Subscription-Token": key, "User-Agent": DEFAULT_UA}, timeout=int(cfg.get("timeout", 15)))
         r.raise_for_status()
         data = r.json()
         out: List[Candidate] = []
@@ -225,16 +229,19 @@ def search_serper(query: str, limit: int) -> List[Candidate]:
     key = os.getenv("SERPER_API_KEY", "").strip()
     if not key:
         return []
+    cfg = SEARCH_CONFIG.get("serper", {})
+    if not cfg.get("enabled", True) or not cfg.get("api_url"):
+        return []
     out: List[Candidate] = []
     page_size = min(limit, 10)
     for page in range(1, 11):
         if len(out) >= limit:
             break
-        payload = {"q": query, "num": page_size, "gl": "cn", "hl": "zh-cn"}
+        payload = {"q": query, "num": page_size, "gl": cfg.get("gl", "cn"), "hl": cfg.get("hl", "zh-cn")}
         if page > 1:
             payload["page"] = page
         try:
-            r = requests.post("https://google.serper.dev/search", headers={"X-API-KEY": key, "Content-Type": "application/json"}, json=payload, timeout=15)
+            r = requests.post(cfg["api_url"], headers={"X-API-KEY": key, "Content-Type": "application/json"}, json=payload, timeout=int(cfg.get("timeout", 15)))
             r.raise_for_status()
             data = r.json()
             items = data.get("organic", [])
@@ -255,11 +262,14 @@ def search_google_cse(query: str, limit: int) -> List[Candidate]:
     cx = os.getenv("GOOGLE_CX", "").strip()
     if not key or not cx:
         return []
+    cfg = SEARCH_CONFIG.get("googleCse", {})
+    if not cfg.get("enabled", True) or not cfg.get("api_url"):
+        return []
     out: List[Candidate] = []
     for start in range(1, min(limit, 20) + 1, 10):
-        url = "https://www.googleapis.com/customsearch/v1?" + urlencode({"key": key, "cx": cx, "q": query, "num": min(10, limit - len(out)), "start": start})
+        url = cfg["api_url"].rstrip("?") + "?" + urlencode({"key": key, "cx": cx, "q": query, "num": min(10, limit - len(out)), "start": start})
         try:
-            r = requests.get(url, headers={"User-Agent": DEFAULT_UA}, timeout=15)
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA}, timeout=int(cfg.get("timeout", 15)))
             r.raise_for_status()
             data = r.json()
             for item in data.get("items", []):
@@ -273,8 +283,11 @@ def search_google_cse(query: str, limit: int) -> List[Candidate]:
 
 
 def search_duckduckgo_html(query: str, limit: int, suppress_zero: bool = False) -> List[Candidate]:
-    url = "https://duckduckgo.com/html/?" + urlencode({"q": query})
-    txt = fetch(url, timeout=20)
+    cfg = SEARCH_CONFIG.get("duckduckgo", {})
+    if not cfg.get("enabled", True) or not cfg.get("html_url"):
+        return []
+    url = cfg["html_url"].rstrip("?") + "?" + urlencode({"q": query})
+    txt = fetch(url, timeout=int(cfg.get("timeout", 20)))
     if not txt:
         return []
     soup = BeautifulSoup(txt, "lxml")
@@ -889,9 +902,9 @@ def _is_blocked_domain(domain: str) -> bool:
 
 
 def build_queries(keywords: List[str], domains: List[str], seeded_domains: Optional[set] = None) -> List[str]:
-    # 公网搜索只允许固定词“漫画”。站内候选由在线发现的 seed/search URL 扩展，
+    # 公网搜索只允许两个固定根词。站内候选由在线发现的 seed/search URL 扩展，
     # 不在这里拼接 site:、语言词或路径参数。
-    return [ROOT_TERM]
+    return list(ROOT_TERMS)
 
 
 def _rule_signature_from_dict(rule: Dict[str, Any]) -> tuple:

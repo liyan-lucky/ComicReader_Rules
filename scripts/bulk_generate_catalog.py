@@ -54,9 +54,13 @@ RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
 try:
-    CATEGORY_TARGET = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
+    CATEGORY_MINIMUM = int(os.environ.get("PIPELINE_TARGET_COUNT", "200"))
 except ValueError:
-    CATEGORY_TARGET = 200
+    CATEGORY_MINIMUM = 200
+try:
+    CATEGORY_MAXIMUM = int(os.environ.get("PIPELINE_MAX_CATEGORY_COUNT", "0"))
+except ValueError:
+    CATEGORY_MAXIMUM = 0
 
 CHAPTER_RE = re.compile(r'(第\s*\d+\s*[话話章回]|Chapter\s*\d+|Ch\.?\s*\d+|EP\s*\d+|Episode\s*\d+)', re.I)
 SUFFIX_NOISE_RE = re.compile(r'[_-]第\s*\d+\s*[话話章回].*$|_在线漫画阅读.*$|_漫画人.*$|_免费漫画.*$|_漫画.*$|_最新章节.*$|更新到\d+.*$|更新至\d+.*$', re.I)
@@ -168,6 +172,16 @@ def is_valid_detail_url(url: str) -> bool:
     return not folded.endswith(_IMAGE_SUFFIXES + (".css", ".js", ".json", ".xml"))
 
 
+def has_publishable_source(item: Dict[str, Any]) -> bool:
+    """A public catalog item needs one source with both a detail page and cover."""
+    for source in item.get("sources", []):
+        detail = str(source.get("detailUrl", "")).strip()
+        cover = str(source.get("coverUrl", "")).strip()
+        if is_valid_detail_url(detail) and cover.startswith(("http://", "https://")):
+            return True
+    return False
+
+
 REPORT_BLOCKED = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
 EXCLUDED_DOMAINS = set(d.strip().lower() for d in _load_json("blocked_domains.json", {}).get("excluded_domains", []))
 
@@ -274,8 +288,8 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             except Exception:
                 continue
             # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
-            # CATEGORY_TARGET 同时充当每站页面预算，使线上/线下使用同一个目标参数。
-            page_budget = max(CATEGORY_TARGET, 1)
+            # 页面抓取预算与发布最低数量关联，但不限制最终分类输出上限。
+            page_budget = max(CATEGORY_MINIMUM, 1)
             if len(urls) < page_budget:
                 for nav in link_re.finditer(html):
                     nav_href = nav.group(1).strip()
@@ -377,7 +391,10 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
 
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
 
-    all_items = {**report_items, **crawled_items, **kw_items}
+    all_items = {
+        key: item for key, item in {**report_items, **crawled_items, **kw_items}.items()
+        if has_publishable_source(item)
+    }
 
     classified: Dict[str, List[Dict[str, Any]]] = {}
     unclassified: List[Dict[str, Any]] = []
@@ -388,23 +405,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         else:
             unclassified.append(item)
 
-    active_cats = [c for c in CATEGORY_RULES if c["id"] != "weifenlei"]
-    if not active_cats:
-        print(f"[{lang}] WARNING: no categories defined in catalog_config.json, all items will be unclassified", file=sys.stderr)
-    round_robin_idx = 0
-    for item in unclassified:
-        assigned = False
-        for _ in range(len(active_cats)):
-            cat = active_cats[round_robin_idx % len(active_cats)]
-            round_robin_idx += 1
-            cat_count = len(classified.get(cat["id"], []))
-            if CATEGORY_TARGET <= 0 or cat_count < CATEGORY_TARGET:
-                item["category"] = cat["id"]
-                classified.setdefault(cat["id"], []).append(item)
-                assigned = True
-                break
-        if not assigned:
-            break
+    if unclassified:
+        print(f"[{lang}] excluded {len(unclassified)} items without category evidence", file=sys.stderr)
 
     catalog = {}
     for cat in CATEGORY_RULES:
@@ -413,8 +415,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         if cat_id == "weifenlei":
             continue
         cat_items = classified.get(cat_id, [])
-        if CATEGORY_TARGET > 0:
-            cat_items = cat_items[:CATEGORY_TARGET]
+        if CATEGORY_MAXIMUM > 0:
+            cat_items = cat_items[:CATEGORY_MAXIMUM]
         catalog[cat_id] = {
             "id": cat_id,
             "name": cat_name,

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""One canonical local/CI entrypoint from the query 漫画 to final artifacts."""
+"""One canonical local/CI entrypoint from the fixed queries to final artifacts."""
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 
-from pipeline_seed import ROOT_TERM
+from pipeline_seed import ROOT_TERMS
 
 ROOT = Path(__file__).resolve().parents[1]
 if hasattr(sys.stdout, "reconfigure"):
@@ -26,7 +27,7 @@ def run(*parts: str, env: dict[str, str]) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="漫画 -> domains -> rules -> catalog -> gate")
+    parser = argparse.ArgumentParser(description="漫画/漫书 -> domains -> rules -> catalog -> audit -> gate")
     parser.add_argument("--language", default="zh-Hans", choices=LANG_NAMES)
     parser.add_argument("--min-rules", type=int, default=500)
     parser.add_argument("--max-rules", type=int, default=1000)
@@ -43,7 +44,7 @@ def main() -> int:
     env.update({
         "PIPELINE_LANGUAGE": args.language,
         "PIPELINE_TARGET_COUNT": str(args.per_category),
-        "PIPELINE_SEARCH_TEXT": ROOT_TERM,
+        "PIPELINE_SEARCH_TEXT": json.dumps(ROOT_TERMS, ensure_ascii=False),
     })
     stages = ("domains", "parameters", "keywords", "rules", "catalog", "gate")
     start = stages.index(args.resume_from)
@@ -65,9 +66,10 @@ def main() -> int:
         index = f"generated/index.{args.language}.json"
         ets = f"generated/GeneratedSourceRules.{args.language}.ets"
         rules = f"rules/index.{args.language}.json"
+        keyword_args = [part for term in ROOT_TERMS for part in ("--keyword", term)]
         run(
             "tools/rule_discovery/generate_rules.py",
-            "--keyword", ROOT_TERM, "--language-code", args.language,
+            *keyword_args, "--language-code", args.language,
             "--language-name", LANG_NAMES[args.language], "--limit", str(search_result_limit),
             "--seed-limit", str(seed_limit), "--per-seed-limit", str(per_seed_limit),
             "--max-audit-candidates", "0", "--per-domain-audit-limit", str(per_domain_audit_limit),
@@ -86,6 +88,8 @@ def main() -> int:
             "--language-code", args.language, env=env)
     if start <= stages.index("catalog"):
         run("scripts/bulk_generate_catalog.py", "--max-crawl-domains", "0", env=env)
+    run("scripts/audit_pipeline_outputs.py", "--language", args.language,
+        "--min-rules", str(args.min_rules), "--min-per-category", str(args.per_category), env=env)
     run("scripts/validate_pipeline_outputs.py", "--language", args.language,
         "--min-rules", str(args.min_rules), "--min-per-category", str(args.per_category), env=env)
     return 0

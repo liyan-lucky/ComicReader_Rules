@@ -54,20 +54,21 @@ _CRAWL_SKIP = _load_config("crawl_skip_keywords.json", {})
 _CRAWL_SKIP_KW = _CRAWL_SKIP.get("crawl_skip_keywords", ["javascript:", "mailto:", "twitter.com", "facebook.com", "discord", "patreon", "paypal"])
 _DDG_SKIP_KW = _CRAWL_SKIP.get("ddg_skip_keywords", ["duckduckgo", "ddg", "javascript:", "mailto:"])
 
-_SEARCH_CFG = _load_config("search.json", {}).get("searxng", {})
+_SEARCH_ALL_CFG = _load_config("search.json", {})
+_SEARCH_CFG = _SEARCH_ALL_CFG.get("searxng", {})
 _SEARXNG_MAX_PAGES = _SEARCH_CFG.get("max_pages", 0)
 _SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
+_SEARXNG_TIMEOUT = _SEARCH_CFG.get("timeout", 20)
+_DDG_CFG = _SEARCH_ALL_CFG.get("duckduckgo", {})
+_DDG_HTML_URL = _DDG_CFG.get("html_url", "")
+_DDG_TIMEOUT = _DDG_CFG.get("timeout", 20)
 
 _MANGA_KW_CFG = _load_config("manga_indicator_keywords.json", {})
 
 def load_queries(language: str) -> List[str]:
     cfg = _MANGA_KW_CFG.get(language, {})
     search_text = cfg.get("search_text", [])
-    search_subdomain = cfg.get("search_subdomain", [])
     queries = list(search_text)
-    for st in search_text:
-        for sd in search_subdomain:
-            queries.append(f"{st} site:{sd}")
     if queries:
         return queries
     queries_path = ROOT / "config" / "queries" / f"{language}.txt"
@@ -180,7 +181,7 @@ def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> L
             break
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": _SEARXNG_LANGUAGE})
-            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=_SEARXNG_TIMEOUT)
             r.raise_for_status()
             data = r.json()
             results = data.get("results", [])
@@ -200,13 +201,15 @@ def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> L
 
 
 def search_duckduckgo(query: str, limit: int = 0, suppress_zero: bool = False) -> List[str]:
+    if not _DDG_HTML_URL:
+        return []
     try:
-        url = "https://html.duckduckgo.com/html/?" + urlencode({"q": query})
+        url = _DDG_HTML_URL.rstrip("?") + "?" + urlencode({"q": query})
         headers = {"User-Agent": DEFAULT_UA}
         if _SCRAPER is not None:
-            r = _SCRAPER.get(url, headers=headers, timeout=20, allow_redirects=True)
+            r = _SCRAPER.get(url, headers=headers, timeout=_DDG_TIMEOUT, allow_redirects=True)
         else:
-            r = requests.get(url, headers=headers, timeout=20, allow_redirects=True)
+            r = requests.get(url, headers=headers, timeout=_DDG_TIMEOUT, allow_redirects=True)
         if r.status_code >= 400:
             if not suppress_zero:
                 print(f"  [warn] DDG HTTP {r.status_code} for '{query}'", file=sys.stderr)

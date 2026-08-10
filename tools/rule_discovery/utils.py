@@ -61,7 +61,7 @@ def searxng_url() -> Optional[str]:
     if url:
         return url.rstrip("/")
     cfg = load_json("search.json", {})
-    base = (cfg.get("searxng") or {}).get("url", "")
+    base = (cfg.get("searxng") or {}).get("default_url", "")
     return base.rstrip("/") if base else None
 
 

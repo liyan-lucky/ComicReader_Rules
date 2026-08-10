@@ -52,7 +52,6 @@ if not COMIC_POSITIVE_KEYWORDS:
             COMIC_POSITIVE_KEYWORDS.extend(_lang_cfg.get("validate", []))
     COMIC_POSITIVE_KEYWORDS = list(dict.fromkeys(COMIC_POSITIVE_KEYWORDS))
 
-
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -70,6 +69,30 @@ def load_json(path: Path, default: Any) -> Any:
         return default
 
 
+_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _validated_domains() -> set[str]:
+    domains: set[str] = set()
+    aggregators = load_json(_ROOT / "config" / "aggregator_sites.json", {})
+    for values in aggregators.values() if isinstance(aggregators, dict) else []:
+        for value in values if isinstance(values, list) else []:
+            domain = host_of(value)
+            if domain:
+                domains.add(domain)
+    discovery = load_json(_ROOT / "generated" / "domain_discovery_report.json", {})
+    for value in discovery.get("newDomains", []):
+        domain = host_of(value)
+        if domain:
+            domains.add(domain)
+    manual = load_json(_ROOT / "rules" / "manual" / "index.json", {})
+    for rule in manual.get("rules", []):
+        domain = host_of(rule.get("homepage", ""))
+        if domain:
+            domains.add(domain)
+    return domains
+
+
 def dump_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
@@ -83,6 +106,15 @@ def host_of(value: str) -> str:
         return ""
     parsed = urlparse(text if "://" in text else "https://" + text)
     return (parsed.netloc or parsed.path).lower().replace("www.", "").strip("/")
+
+
+VALIDATED_DOMAINS = _validated_domains()
+_RESOURCE_HOST_PREFIXES = ("cdn.", "css.", "img.", "images.", "media.", "static.", "cover.")
+
+
+def has_validation_provenance(host: str) -> bool:
+    return any(host == domain or host.endswith("." + domain) or domain.endswith("." + host)
+               for domain in VALIDATED_DOMAINS)
 
 
 def path_of(value: str) -> str:
@@ -122,6 +154,15 @@ def is_blocked_url(value: str) -> bool:
     return any(bad in joined for bad in BLOCKED_PATH_KEYWORDS)
 
 
+def is_unvalidated_primary_url(value: str) -> bool:
+    host = host_of(value)
+    if not host:
+        return False
+    if host.startswith(_RESOURCE_HOST_PREFIXES) and host not in VALIDATED_DOMAINS:
+        return True
+    return not has_validation_provenance(host)
+
+
 def has_comic_signal(text: str) -> bool:
     lowered = safe_str(text).lower()
     return any(keyword.lower() in lowered for keyword in COMIC_POSITIVE_KEYWORDS)
@@ -145,6 +186,9 @@ def is_allowed_audit(audit: Dict[str, Any]) -> Tuple[bool, str]:
     urls = value_urls_from_audit(audit)
     if any(is_blocked_url(url) for url in urls):
         return False, "blocked_non_comic_domain_or_path"
+    primary_urls = [safe_str(audit.get(key)) for key in ("base_url", "detail_url", "first_chapter_url")]
+    if any(is_unvalidated_primary_url(url) for url in primary_urls if url):
+        return False, "domain_without_validation_provenance"
     if not audit_has_comic_evidence(audit):
         return False, "missing_comic_evidence"
     if bool(audit.get("requires_login_or_pay")) and int(audit.get("static_image_count") or 0) <= 0:
@@ -159,6 +203,9 @@ def is_allowed_rule(rule: Dict[str, Any]) -> Tuple[bool, str]:
     urls = value_urls_from_rule(rule)
     if any(is_blocked_url(url) for url in urls):
         return False, "blocked_non_comic_domain_or_path"
+    primary_urls = [safe_str(rule.get(key)) for key in ("homepage", "searchUrl")]
+    if any(is_unvalidated_primary_url(url) for url in primary_urls if url):
+        return False, "domain_without_validation_provenance"
     name = safe_str(rule.get("name", ""))
     if _BAD_RULE_NAME_RE.match(name.split(" - ")[0].strip()):
         return False, "bad_rule_name"

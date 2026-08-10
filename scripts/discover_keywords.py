@@ -49,6 +49,9 @@ DEFAULT_UA = _HEADERS_CFG.get("default_ua", "Mozilla/5.0 (Linux; Android 13; Pix
 _ACCEPT_LANG = _HEADERS_CFG.get("accept_language", "zh-CN,zh;q=0.9,en;q=0.8")
 
 _KW_DISC_CFG = _safe_load_json(ROOT / "config" / "keyword_discovery.json", {})
+_SEARCH_CFG = _safe_load_json(ROOT / "config" / "search.json", {}).get("searxng", {})
+_SEARXNG_LANGUAGE = _SEARCH_CFG.get("language", "all")
+_SEARXNG_TIMEOUT = _SEARCH_CFG.get("timeout", 20)
 
 RANKING_SITES: Dict[str, List[dict]] = _KW_DISC_CFG.get("ranking_sites", {})
 SEARCH_QUERIES: Dict[str, List[str]] = _KW_DISC_CFG.get("search_queries", {})
@@ -227,8 +230,8 @@ def _search_and_scrape(language: str) -> List[str]:
     for q in queries:
         print(f"    Searching: {q}")
         try:
-            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": q, "format": "json", "pageno": 1, "language": "all"})
-            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=20)
+            url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": q, "format": "json", "pageno": 1, "language": _SEARXNG_LANGUAGE})
+            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=_SEARXNG_TIMEOUT)
             r.raise_for_status()
             data = r.json()
             results = data.get("results", [])

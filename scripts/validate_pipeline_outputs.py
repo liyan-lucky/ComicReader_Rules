@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from pipeline_seed import ROOT_TERM
+from pipeline_seed import ROOT_TERMS
 
 ROOT = Path(__file__).resolve().parents[1]
 if hasattr(sys.stdout, "reconfigure"):
@@ -39,8 +39,8 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
     rules_doc = load_json(rules_path)
     rules = rule_items(rules_doc)
     queries = rules_doc.get("queries", [])
-    if queries != [ROOT_TERM]:
-        errors.append(f"public queries must be exactly [{ROOT_TERM!r}], got {queries!r}")
+    if queries != list(ROOT_TERMS):
+        errors.append(f"public queries must be exactly {list(ROOT_TERMS)!r}, got {queries!r}")
     if len(rules) < min_rules:
         errors.append(f"rules: {len(rules)} < {min_rules}")
 
@@ -71,6 +71,7 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
         if len(items) < min_per_category:
             errors.append(f"category {category_id}: {len(items)} < {min_per_category}")
         seen_titles: set[str] = set()
+        incomplete_source_count = 0
         for item in items:
             title = str(item.get("title", "")).strip().casefold()
             if not title:
@@ -80,19 +81,45 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
             seen_titles.add(title)
             if not item.get("sources"):
                 errors.append(f"category {category_id} item {title!r} has no source")
+            complete_source = False
             for source in item.get("sources", []):
                 detail_url = str(source.get("detailUrl", ""))
                 search_url = str(source.get("searchUrl", ""))
+                cover_url = str(source.get("coverUrl", ""))
                 if detail_url and not detail_url.startswith(("http://", "https://")):
                     errors.append(f"category {category_id} item {title!r} has invalid detailUrl")
                 if search_url and not search_url.startswith(("http://", "https://")):
                     errors.append(f"category {category_id} item {title!r} has invalid searchUrl")
+                if cover_url and not cover_url.startswith(("http://", "https://")):
+                    errors.append(f"category {category_id} item {title!r} has invalid coverUrl")
+                if detail_url.startswith(("http://", "https://")) and cover_url.startswith(("http://", "https://")):
+                    complete_source = True
+            if not complete_source:
+                incomplete_source_count += 1
+        if incomplete_source_count:
+            errors.append(
+                f"category {category_id}: {incomplete_source_count} items need one source with detailUrl and coverUrl"
+            )
     if category_count == 0:
         errors.append("catalog has no categories")
     if catalog_doc.get("categoryCount") != category_count:
         errors.append("catalog categoryCount metadata does not match categories")
     if catalog_doc.get("totalItems") != catalog_item_count:
         errors.append("catalog totalItems metadata does not match category items")
+    coverage_path = ROOT / "generated" / f"domain_coverage.{language}.json"
+    if not coverage_path.exists():
+        errors.append(f"missing domain coverage ledger: {coverage_path}")
+    else:
+        coverage = load_json(coverage_path)
+        uncovered = coverage.get("uncoveredValidatedDomains", [])
+        unexpected = coverage.get("unexpectedRuleDomains", [])
+        if uncovered:
+            errors.append(f"validated domains without rules: {uncovered}")
+        if unexpected:
+            errors.append(f"rule domains without validation provenance: {unexpected}")
+    provenance_path = ROOT / "generated" / "parameter_provenance.json"
+    if not provenance_path.exists():
+        errors.append(f"missing parameter provenance: {provenance_path}")
     return errors
 
 
@@ -110,7 +137,7 @@ def main() -> int:
         return 1
     print(
         f"PIPELINE GATE: PASSED (rules>={args.min_rules}, "
-        f"every category>={args.min_per_category}, query={ROOT_TERM!r})"
+        f"every category>={args.min_per_category}, queries={list(ROOT_TERMS)!r})"
     )
     return 0
 

@@ -19,7 +19,10 @@ Step 1: 域名发现 → aggregator_sites.json
 Step 2: 关键词发现 → rule_keywords.json
 Step 3: 规则生成 → rules/index.{lang}.json
 Step 4: 目录生成 → catalog/catalog.{lang}.json
+Step 5: 全量审计 → generated/pipeline_audit.{lang}.json + Actions Summary
 ```
+
+根搜索词仅固定编码为 `漫画`、`漫书`。搜索引擎地址、语言、超时、站内搜索模板、种子页和后续关键词均来自配置或公开页面发现流程。发布门禁要求每个分类至少 200 条，默认不设最大值；每条目录必须同时包含书名详情链接和封面链接，并要求规则覆盖所有通过验证的候选域名。
 
 一键触发全链路：
 

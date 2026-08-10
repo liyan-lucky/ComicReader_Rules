@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Set
 from urllib.parse import urlencode
 
-from pipeline_seed import ROOT_TERM
+from pipeline_seed import ROOT_TERMS
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_DIR = ROOT / "config"
@@ -52,8 +52,8 @@ def _dump_json(path: Path, data: Any) -> None:
 # ═══════════════════════════════════════════════════════════════
 # 唯一硬编码：根种子词
 # ═══════════════════════════════════════════════════════════════
-ROOT_SEARCH_TEXT = ROOT_TERM
-ROOT_SEEDS: Dict[str, List[str]] = {"zh-Hans": [ROOT_SEARCH_TEXT]}
+ROOT_SEARCH_TEXT = ROOT_TERMS[0]
+ROOT_SEEDS: Dict[str, List[str]] = {"zh-Hans": list(ROOT_TERMS)}
 
 # 翻译映射：从根种子词推导各语种等价词
 SEED_TRANSLATIONS: Dict[str, Dict[str, List[str]]] = {
@@ -196,7 +196,7 @@ def derive_search_seeds(language: str) -> List[str]:
 
 def derive_search_text(language: str) -> List[str]:
     # 搜索入口的唯一固定值。漫画名、域名、URL、分页等参数均由在线流程发现。
-    return [ROOT_SEARCH_TEXT]
+    return list(ROOT_TERMS)
 
 
 def derive_generic_terms() -> List[str]:
@@ -233,7 +233,7 @@ def load_domain_knowledge() -> dict:
 # ═══════════════════════════════════════════════════════════════
 
 def _generate_search_queries(language: str, search_text: List[str]) -> List[str]:
-    return [ROOT_SEARCH_TEXT]
+    return list(ROOT_TERMS)
 
 
 def _discover_ranking_sites_via_searxng(language: str, search_text: List[str]) -> List[dict]:
@@ -253,7 +253,7 @@ def _discover_ranking_sites_via_searxng(language: str, search_text: List[str]) -
     seen_domains: Set[str] = set()
     validate_words = derive_validate_seeds(language)
 
-    for seed in search_text[:1]:
+    for seed in search_text:
         query = seed
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
