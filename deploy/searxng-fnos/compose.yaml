@@ -29,6 +29,16 @@ services:
     networks:
       - search
 
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: searxng-comic-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://gateway:8080
+    depends_on:
+      - gateway
+    networks:
+      - search
+
   valkey:
     image: valkey/valkey:8-alpine
     container_name: searxng-comic-valkey
