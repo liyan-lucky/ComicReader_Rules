@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import classify_evidence, has_publishable_source, is_valid_detail_url, is_valid_title
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 
@@ -42,6 +42,17 @@ class CatalogQualityTests(unittest.TestCase):
             "detailUrl": "https://example.com/comic/1",
             "coverUrl": "https://img.example.com/1.webp",
         }]}))
+
+    def test_category_uses_public_page_evidence(self):
+        category, evidence = classify_evidence(
+            "普通书名", "https://example.com/genres/mystery", "侦探与谜案作品"
+        )
+        self.assertEqual(category, "xuanyi")
+        self.assertTrue(evidence.get("matched"))
+
+    def test_ascii_category_terms_require_boundaries(self):
+        category, _ = classify_evidence("Rewarded by the king")
+        self.assertNotEqual(category, "zhanzheng")
 
 
 if __name__ == "__main__":

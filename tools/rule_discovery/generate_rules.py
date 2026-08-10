@@ -1192,6 +1192,63 @@ def main() -> int:
         sig = _audit_rule_signature(a)
         dal = list(dict.fromkeys(new_rule_domains_by_sig.get(sig, []) + existing_rule_signatures.get(sig, [])))
         domain_applicability_map[a.domain] = dal
+    target_domains = {normalize_domain(value) for value in domains} | {
+        normalize_domain(value) for value in seeded_domains
+    }
+    target_domains.discard("")
+    candidate_counts: Dict[str, int] = {}
+    content_candidate_counts: Dict[str, int] = {}
+    audit_attempt_counts: Dict[str, int] = {}
+    passed_counts: Dict[str, int] = {}
+    excluded_counts: Dict[str, int] = {}
+    generated_counts: Dict[str, int] = {}
+    for candidate in raw_candidates:
+        domain = normalize_domain(domain_of(candidate.url))
+        if domain:
+            candidate_counts[domain] = candidate_counts.get(domain, 0) + 1
+            if likely_content_url(candidate.url):
+                content_candidate_counts[domain] = content_candidate_counts.get(domain, 0) + 1
+    for candidate in audit_queue:
+        domain = normalize_domain(domain_of(candidate.url))
+        if domain:
+            audit_attempt_counts[domain] = audit_attempt_counts.get(domain, 0) + 1
+    for audit in audits:
+        domain = normalize_domain(audit.domain)
+        if domain:
+            passed_counts[domain] = passed_counts.get(domain, 0) + 1
+    for audit in excluded:
+        domain = normalize_domain(audit.domain)
+        if domain:
+            excluded_counts[domain] = excluded_counts.get(domain, 0) + 1
+    for audit in chosen:
+        domain = normalize_domain(audit.domain)
+        if domain:
+            generated_counts[domain] = generated_counts.get(domain, 0) + 1
+    domain_closure = {}
+    for domain in sorted(target_domains | set(candidate_counts) | set(generated_counts)):
+        if generated_counts.get(domain, 0):
+            reason = "generated"
+        elif excluded_counts.get(domain, 0):
+            reason = "login_or_paywall"
+        elif passed_counts.get(domain, 0):
+            reason = "passed_audit_but_not_selected"
+        elif audit_attempt_counts.get(domain, 0):
+            reason = "audit_failed_no_public_chapter_or_image"
+        elif content_candidate_counts.get(domain, 0):
+            reason = "content_candidate_not_audited"
+        elif candidate_counts.get(domain, 0):
+            reason = "no_content_page_candidate"
+        else:
+            reason = "no_candidate_discovered"
+        domain_closure[domain] = {
+            "candidateCount": candidate_counts.get(domain, 0),
+            "contentCandidateCount": content_candidate_counts.get(domain, 0),
+            "auditAttemptCount": audit_attempt_counts.get(domain, 0),
+            "passedAuditCount": passed_counts.get(domain, 0),
+            "excludedCount": excluded_counts.get(domain, 0),
+            "generatedCount": generated_counts.get(domain, 0),
+            "reason": reason,
+        }
     stats = {
         "language": {
             "code": args.language_code,
@@ -1207,6 +1264,7 @@ def main() -> int:
         "queryStats": query_stats,
         "seedDiscovery": seed_stats,
         "audit": audit_stats,
+        "domainClosure": domain_closure,
         "runtime": {
             "elapsedSeconds": elapsed_seconds(),
             "timeBudgetSeconds": args.time_budget_seconds,

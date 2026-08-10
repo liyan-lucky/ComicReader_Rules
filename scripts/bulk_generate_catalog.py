@@ -15,6 +15,7 @@ import json
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Set
@@ -87,21 +88,32 @@ def make_comic_id(title: str) -> str:
     return hashlib.sha256(title.encode("utf-8", errors="ignore")).hexdigest()[:16]
 
 
-def classify_title(title: str) -> str:
-    title_lower = title.lower()
+def classify_evidence(*values: str) -> tuple[str, Dict[str, str]]:
+    """Classify only when a configured taxonomy term appears in public evidence."""
+    combined = " ".join(str(value or "") for value in values).lower()
     for cat in CATEGORY_RULES:
         if cat["id"] == "weifenlei":
             continue
         for kw in cat.get("keywords", []):
-            if kw.lower() in title_lower:
-                return cat["id"]
+            folded = kw.lower().strip()
+            is_ascii_term = bool(re.fullmatch(r"[a-z0-9][a-z0-9 .+-]*", folded))
+            matched = bool(re.search(rf"(?<![a-z0-9]){re.escape(folded)}(?![a-z0-9])", combined)) if is_ascii_term else folded in combined
+            if folded and matched:
+                return cat["id"], {"source": "public-page-evidence", "matched": kw}
     for tag in _TAG_RULES:
         for kw in tag.get("keywords", []):
-            if kw.lower() in title_lower:
+            folded = kw.lower().strip()
+            is_ascii_term = bool(re.fullmatch(r"[a-z0-9][a-z0-9 .+-]*", folded))
+            matched = bool(re.search(rf"(?<![a-z0-9]){re.escape(folded)}(?![a-z0-9])", combined)) if is_ascii_term else folded in combined
+            if folded and matched:
                 tag_id = tag.get("id", "")
                 if tag_id in _TAG_TO_CATEGORY:
-                    return _TAG_TO_CATEGORY[tag_id]
-    return ""
+                    return _TAG_TO_CATEGORY[tag_id], {"source": "public-tag-evidence", "matched": kw}
+    return "", {}
+
+
+def classify_title(title: str) -> str:
+    return classify_evidence(title)[0]
 
 
 def load_report(lang: str) -> List[Dict[str, Any]]:
@@ -198,11 +210,13 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
             continue
         key = detail_title.lower()
         if key not in by_title:
+            category, evidence = classify_evidence(detail_title, entry.get("detail_url", ""))
             by_title[key] = {
                 "id": make_comic_id(detail_title),
                 "title": detail_title,
                 "sources": [],
-                "category": classify_title(detail_title),
+                "category": category,
+                "categoryEvidence": evidence,
                 "language": lang,
             }
         source = {"domain": domain}
@@ -287,6 +301,15 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     html = resp.read(1_000_000).decode("utf-8", errors="ignore")
             except Exception:
                 continue
+            page_title_match = _re.search(r'<title[^>]*>([\s\S]{0,300}?)</title>', html, _re.I)
+            page_heading_match = _re.search(r'<h[1-3][^>]*>([\s\S]{0,300}?)</h[1-3]>', html, _re.I)
+            page_evidence = " ".join(
+                _re.sub(r'<[^>]+>', ' ', match.group(1)) if match else ""
+                for match in (page_title_match, page_heading_match)
+            )
+            page_category, page_category_evidence = classify_evidence(url, page_evidence)
+            if page_category_evidence:
+                page_category_evidence = {**page_category_evidence, "pageUrl": url}
             # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
             # 页面抓取预算与发布最低数量关联，但不限制最终分类输出上限。
             page_budget = max(CATEGORY_MINIMUM, 1)
@@ -361,12 +384,95 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     "id": make_comic_id(title),
                     "title": title,
                     "sources": [src],
-                    "category": classify_title(title),
+                    "category": classify_evidence(title)[0] or page_category,
+                    "categoryEvidence": classify_evidence(title)[1] or page_category_evidence,
                     "language": lang,
                 }
             if crawled_count > 0:
                 print(f"  [{domain}] {url}: +{crawled_count} new titles")
     return by_title
+
+
+def crawl_domains_parallel(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
+    """Crawl different public domains concurrently while keeping each domain sequential."""
+    merged: Dict[str, Dict[str, Any]] = {}
+    if not domains:
+        return merged
+    workers = min(12, max(2, len(domains)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        future_domains = {
+            pool.submit(crawl_ranking_pages, [domain], lang, set(existing_titles)): domain
+            for domain in domains
+        }
+        for future in as_completed(future_domains):
+            domain_items = future.result()
+            for key, item in domain_items.items():
+                if key not in merged:
+                    merged[key] = item
+                    continue
+                known = {source.get("domain") for source in merged[key].get("sources", [])}
+                merged[key].setdefault("sources", []).extend(
+                    source for source in item.get("sources", []) if source.get("domain") not in known
+                )
+                if not merged[key].get("category") and item.get("category"):
+                    merged[key]["category"] = item["category"]
+                    merged[key]["categoryEvidence"] = item.get("categoryEvidence", {})
+    return merged
+
+
+def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
+    """Use public detail metadata to recover category and cover evidence."""
+    import html as _html
+    import urllib.request
+    from urllib.parse import urljoin
+
+    pending = []
+    for key, item in items.items():
+        if item.get("category") and has_publishable_source(item):
+            continue
+        source = next((s for s in item.get("sources", []) if is_valid_detail_url(str(s.get("detailUrl", "")))), None)
+        if source:
+            pending.append((key, item, source))
+    # Budget is derived from the requested minimum, not a hidden fixed crawl count.
+    pending = pending[:max(CATEGORY_MINIMUM * len(CATEGORY_RULES), CATEGORY_MINIMUM)]
+
+    def fetch_one(record: tuple[str, Dict[str, Any], Dict[str, Any]]):
+        key, item, source = record
+        url = str(source["detailUrl"])
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": _DEFAULT_UA, "Accept": "text/html"})
+            with urllib.request.urlopen(req, timeout=10) as response:
+                body = response.read(600_000).decode("utf-8", errors="ignore")
+        except Exception as exc:
+            return key, "fetch_failed", str(exc)[:160]
+        metadata = []
+        for pattern in (
+            r'<meta[^>]+(?:name|property)=["\'](?:keywords|description|og:description|book:tag)["\'][^>]+content=["\']([^"\']+)',
+            r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:name|property)=["\'](?:keywords|description|og:description|book:tag)["\']',
+            r'"(?:genre|genres|category|tags)"\s*:\s*(?:"([^"]+)"|\[([^\]]+)\])',
+        ):
+            for match in re.finditer(pattern, body, re.I):
+                metadata.extend(value for value in match.groups() if value)
+        category, evidence = classify_evidence(item.get("title", ""), url, *metadata)
+        if category and not item.get("category"):
+            item["category"] = category
+            item["categoryEvidence"] = {**evidence, "detailUrl": url}
+        if not str(source.get("coverUrl", "")).startswith(("http://", "https://")):
+            cover = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', body, re.I)
+            if cover:
+                source["coverUrl"] = urljoin(url, _html.unescape(cover.group(1).strip()))
+        return key, "enriched", ""
+
+    stats = {"attempted": len(pending), "enriched": 0, "fetchFailed": 0}
+    with ThreadPoolExecutor(max_workers=min(16, max(2, len(pending)))) as pool:
+        futures = [pool.submit(fetch_one, record) for record in pending]
+        for future in as_completed(futures):
+            _, status, _ = future.result()
+            if status == "enriched":
+                stats["enriched"] += 1
+            else:
+                stats["fetchFailed"] += 1
+    return stats
 
 
 def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[str, Any]:
@@ -386,13 +492,16 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
     crawl_domains = domains if max_crawl_domains <= 0 else domains[:max_crawl_domains]
     if max_crawl_domains > 0 and len(domains) > max_crawl_domains:
         print(f"[{lang}] Limiting crawl to {max_crawl_domains}/{len(domains)} domains")
-    crawled_items = crawl_ranking_pages(crawl_domains, lang, existing_titles)
+    crawled_items = crawl_domains_parallel(crawl_domains, lang, existing_titles)
     existing_titles.update(crawled_items.keys())
 
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
 
+    candidate_items = {**report_items, **crawled_items, **kw_items}
+    enrichment_stats = enrich_catalog_evidence(candidate_items)
+    print(f"[{lang}] detail evidence enrichment: {enrichment_stats}")
     all_items = {
-        key: item for key, item in {**report_items, **crawled_items, **kw_items}.items()
+        key: item for key, item in candidate_items.items()
         if has_publishable_source(item)
     }
 

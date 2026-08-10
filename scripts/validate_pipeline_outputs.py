@@ -72,6 +72,7 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
             errors.append(f"category {category_id}: {len(items)} < {min_per_category}")
         seen_titles: set[str] = set()
         incomplete_source_count = 0
+        missing_category_evidence_count = 0
         for item in items:
             title = str(item.get("title", "")).strip().casefold()
             if not title:
@@ -96,9 +97,15 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
                     complete_source = True
             if not complete_source:
                 incomplete_source_count += 1
+            if not item.get("categoryEvidence"):
+                missing_category_evidence_count += 1
         if incomplete_source_count:
             errors.append(
                 f"category {category_id}: {incomplete_source_count} items need one source with detailUrl and coverUrl"
+            )
+        if missing_category_evidence_count:
+            errors.append(
+                f"category {category_id}: {missing_category_evidence_count} items lack public category evidence"
             )
     if category_count == 0:
         errors.append("catalog has no categories")

@@ -97,11 +97,28 @@ jobs:
             --per-category "$PIPELINE_PER_CATEGORY"
 
       - name: 确认审计统计已生成
+        if: ${{ always() }}
         run: |
           test -s "generated/pipeline_audit.${PIPELINE_LANGUAGE}.json"
           test -s "generated/domain_coverage.${PIPELINE_LANGUAGE}.json"
+          test -s "generated/catalog_gaps.${PIPELINE_LANGUAGE}.json"
           test -s generated/parameter_provenance.json
           echo "审计统计已写入 Job Summary 和 generated/"
+
+      - name: 保存成功或失败审计证据
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: pipeline-audit-${{ env.PIPELINE_LANGUAGE }}-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            generated/pipeline_audit.${{ env.PIPELINE_LANGUAGE }}.json
+            generated/domain_coverage.${{ env.PIPELINE_LANGUAGE }}.json
+            generated/catalog_gaps.${{ env.PIPELINE_LANGUAGE }}.json
+            generated/parameter_provenance.json
+            generated/rulebot_report.${{ env.PIPELINE_LANGUAGE }}.json
+            generated/domain_discovery_report.json
 
       - name: 提交已达标产物
         run: |

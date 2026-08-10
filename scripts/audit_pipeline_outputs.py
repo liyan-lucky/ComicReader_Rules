@@ -62,7 +62,8 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
         items = category.get("items", [])
         stats = {"id": category_id, "name": category.get("name", category_id), "count": len(items),
                  "missingTitle": 0, "missingDetailUrl": 0, "missingCoverUrl": 0,
-                 "incompleteSource": 0, "meetsMinimum": len(items) >= min_per_category}
+                 "incompleteSource": 0, "missingCategoryEvidence": 0,
+                 "meetsMinimum": len(items) >= min_per_category}
         for item in items:
             sources = item.get("sources", [])
             details = [str(s.get("detailUrl", "")) for s in sources if str(s.get("detailUrl", "")).startswith(("http://", "https://"))]
@@ -76,6 +77,7 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
             stats["missingDetailUrl"] += not bool(details)
             stats["missingCoverUrl"] += not bool(covers)
             stats["incompleteSource"] += not complete
+            stats["missingCategoryEvidence"] += not bool(item.get("categoryEvidence"))
         total += len(items)
         missing_title += stats["missingTitle"]
         missing_detail += stats["missingDetailUrl"]
@@ -92,6 +94,11 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
     generated_domains = {host(item.get("domain")) for item in rule_report.get("generated", [])} - {""}
     uncovered = sorted(domain for domain in validated_domains if not covered(domain, rule_domains))
     unexpected = sorted(domain for domain in rule_domains if not covered(domain, validated_domains))
+    domain_closure = rule_report.get("stats", {}).get("domainClosure", {})
+    uncovered_reasons = {
+        domain: domain_closure.get(domain, {"reason": "missing_domain_closure_evidence"})
+        for domain in uncovered
+    }
     coverage = {
         "validatedDomains": sorted(validated_domains),
         "aggregatorDomains": sorted(aggregator_domains),
@@ -101,6 +108,7 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
         "ruleDomains": sorted(rule_domains),
         "coveredValidatedDomains": sorted(set(validated_domains) - set(uncovered)),
         "uncoveredValidatedDomains": uncovered,
+        "uncoveredReasons": uncovered_reasons,
         "unexpectedRuleDomains": unexpected,
         "coveragePercent": round((len(validated_domains) - len(uncovered)) * 100 / len(validated_domains), 2) if validated_domains else 0,
     }
@@ -112,6 +120,8 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
         "seedSites": {domain: {"count": len(values), "source": "public-navigation-discovery", "path": "config/seed_sites.json"}
                       for domain, values in seed_sites.items()},
         "searchEngineProtocol": {"source": "configured-adapter", "path": "config/search.json"},
+        "categoryTaxonomy": {"source": "configured-output-taxonomy", "path": "config/catalog_config.json"},
+        "categoryEvidence": {"source": "public-page-and-detail-metadata", "path": "scripts/bulk_generate_catalog.py"},
         "generatedSearchTemplateCoveragePercent": round(len(search_templates) * 100 / len(aggregator_domains), 2) if aggregator_domains else 0,
     }
     audit = {
@@ -155,6 +165,16 @@ def main() -> int:
     dump(ROOT / "generated" / f"pipeline_audit.{args.language}.json", audit)
     dump(ROOT / "generated" / f"domain_coverage.{args.language}.json", coverage)
     dump(ROOT / "generated" / "parameter_provenance.json", provenance)
+    catalog_gap = {
+        "language": args.language,
+        "minimumPerCategory": args.min_per_category,
+        "deficits": [
+            {**category, "deficit": max(0, args.min_per_category - category["count"])}
+            for category in audit["catalog"]["categories"]
+            if category["count"] < args.min_per_category
+        ],
+    }
+    dump(ROOT / "generated" / f"catalog_gaps.{args.language}.json", catalog_gap)
     summary = os.environ.get("GITHUB_STEP_SUMMARY", "").strip()
     if summary:
         with Path(summary).open("a", encoding="utf-8") as handle:
