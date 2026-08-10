@@ -1,0 +1,48 @@
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng-comic
+    restart: unless-stopped
+    environment:
+      SEARXNG_BASE_URL: "${SEARXNG_BASE_URL:-http://localhost:18080/}"
+      SEARXNG_SECRET: "${SEARXNG_SECRET}"
+    volumes:
+      - ./settings.yml:/etc/searxng/settings.yml:ro
+      - searxng-cache:/var/cache/searxng
+    depends_on:
+      - valkey
+    networks:
+      - search
+
+  gateway:
+    image: caddy:2-alpine
+    container_name: searxng-comic-gateway
+    restart: unless-stopped
+    ports:
+      - "18080:8080"
+    environment:
+      SEARCH_TOKEN: "${SEARCH_TOKEN}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - searxng
+    networks:
+      - search
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: searxng-comic-valkey
+    restart: unless-stopped
+    command: valkey-server --save 60 1 --loglevel warning
+    volumes:
+      - valkey-data:/data
+    networks:
+      - search
+
+networks:
+  search:
+    name: searxng-comic
+
+volumes:
+  searxng-cache:
+  valkey-data:

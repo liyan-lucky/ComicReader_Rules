@@ -231,7 +231,11 @@ def _search_and_scrape(language: str) -> List[str]:
         print(f"    Searching: {q}")
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": q, "format": "json", "pageno": 1, "language": _SEARXNG_LANGUAGE})
-            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=_SEARXNG_TIMEOUT)
+            headers = {"User-Agent": DEFAULT_UA, "Accept": "application/json"}
+            token = os.getenv("SEARXNG_API_TOKEN", "").strip()
+            if token:
+                headers["X-Search-Token"] = token
+            r = requests.get(url, headers=headers, timeout=_SEARXNG_TIMEOUT)
             r.raise_for_status()
             data = r.json()
             results = data.get("results", [])

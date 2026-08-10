@@ -181,7 +181,11 @@ def search_searxng(query: str, limit: int = 0, suppress_zero: bool = False) -> L
             break
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": page, "language": _SEARXNG_LANGUAGE})
-            r = requests.get(url, headers={"User-Agent": DEFAULT_UA, "Accept": "application/json"}, timeout=_SEARXNG_TIMEOUT)
+            headers = {"User-Agent": DEFAULT_UA, "Accept": "application/json"}
+            token = os.getenv("SEARXNG_API_TOKEN", "").strip()
+            if token:
+                headers["X-Search-Token"] = token
+            r = requests.get(url, headers=headers, timeout=_SEARXNG_TIMEOUT)
             r.raise_for_status()
             data = r.json()
             results = data.get("results", [])

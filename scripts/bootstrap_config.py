@@ -257,7 +257,11 @@ def _discover_ranking_sites_via_searxng(language: str, search_text: List[str]) -
         query = seed
         try:
             url = f"{base_url.rstrip('/')}/search?" + urlencode({"q": query, "format": "json", "pageno": 1})
-            r = requests.get(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"}, timeout=15)
+            headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+            token = os.getenv("SEARXNG_API_TOKEN", "").strip()
+            if token:
+                headers["X-Search-Token"] = token
+            r = requests.get(url, headers=headers, timeout=15)
             r.raise_for_status()
             for item in r.json().get("results", [])[:10]:
                 result_url = item.get("url", "")

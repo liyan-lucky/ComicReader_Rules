@@ -57,7 +57,8 @@ jobs:
       PIPELINE_MAX_RULES: ${{ inputs.max_rules || '1000' }}
       PIPELINE_PER_CATEGORY: ${{ inputs.per_category || '200' }}
       PIPELINE_PUBLISH: ${{ inputs.publish_release || false }}
-      SEARXNG_URL: http://localhost:8080
+      SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
+      SEARXNG_API_TOKEN: ${{ secrets.SEARXNG_API_TOKEN || '' }}
 
     steps:
       - name: 检出触发分支
@@ -78,8 +79,8 @@ jobs:
       - name: 等待在线搜索服务
         run: |
           for i in $(seq 1 30); do
-            if curl -fs "$SEARXNG_URL/search?q=%E6%BC%AB%E7%94%BB&format=json" >/dev/null \
-              && curl -fs "$SEARXNG_URL/search?q=%E6%BC%AB%E4%B9%A6&format=json" >/dev/null; then
+            if curl -fs -H "X-Search-Token: $SEARXNG_API_TOKEN" "$SEARXNG_URL/search?q=%E6%BC%AB%E7%94%BB&format=json" >/dev/null \
+              && curl -fs -H "X-Search-Token: $SEARXNG_API_TOKEN" "$SEARXNG_URL/search?q=%E6%BC%AB%E4%B9%A6&format=json" >/dev/null; then
               exit 0
             fi
             sleep 2
