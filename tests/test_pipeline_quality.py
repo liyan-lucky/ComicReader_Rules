@@ -8,9 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import classify_evidence, classify_evidence_all, has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
+from generate_site_configs import is_catalog_navigation_link
 
 
 class CatalogQualityTests(unittest.TestCase):
@@ -60,6 +61,24 @@ class CatalogQualityTests(unittest.TestCase):
         self.assertIn("kehuan", matches)
         self.assertIn("yineng", matches)
         self.assertIn("xuanyi", matches)
+
+    def test_visible_genre_and_tag_elements_are_public_evidence(self):
+        html = '''
+        <div class="book-genres"><a href="/genre/scifi">科幻</a></div>
+        <span itemprop="genre">悬疑</span><a rel="tag">犯罪</a>
+        '''
+        values = extract_public_category_texts(html)
+        matches = classify_evidence_all(*values)
+        self.assertIn("kehuan", matches)
+        self.assertIn("xuanyi", matches)
+        self.assertIn("fanzui", matches)
+
+    def test_generated_seed_parameters_only_keep_catalog_navigation(self):
+        self.assertTrue(is_catalog_navigation_link("/genre/scifi", "科幻"))
+        self.assertTrue(is_catalog_navigation_link("/sort/3", "科幻"))
+        self.assertTrue(is_catalog_navigation_link("/works", "热门排行"))
+        self.assertFalse(is_catalog_navigation_link("/chapter/42", "科幻漫画 第42话"))
+        self.assertFalse(is_catalog_navigation_link("/comic/a-book", "某部漫画"))
 
     def test_rule_selection_round_robins_domains_before_second_rule(self):
         tool_path = str(ROOT / "tools" / "rule_discovery")

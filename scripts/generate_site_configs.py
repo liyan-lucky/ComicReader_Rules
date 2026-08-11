@@ -65,6 +65,26 @@ def _page_signal_pattern() -> re.Pattern[str]:
     return re.compile("|".join(re.escape(v) for v in dict.fromkeys(generic + words)), re.I)
 
 
+_CATALOG_PATH_RE = re.compile(
+    r"/(?:genre|genres|category|categories|tag|tags|list|rank|ranking|sort|browse|directory|"
+    r"updates?|latest|new|popular|completed?)(?:[/_.?=-]|$)", re.I
+)
+_CONTENT_PATH_RE = re.compile(r"/(?:chapter|chapters|episode|episodes|reader|read)(?:[/_.?=-]|$)", re.I)
+_NAVIGATION_LABEL_RE = re.compile(
+    r"排行|榜单|分类|類別|目录|目錄|更新|最新|热门|熱門|完结|完結|"
+    r"rank|ranking|genre|category|browse|directory|updates?|latest|popular|completed?", re.I
+)
+
+
+def is_catalog_navigation_link(href: str, label: str) -> bool:
+    """Accept generated catalog/navigation parameters, never work/chapter URLs."""
+    parsed = urlparse(urljoin("https://discovery.invalid/", href))
+    path_and_query = parsed.path + ("?" + parsed.query if parsed.query else "")
+    if _CONTENT_PATH_RE.search(path_and_query):
+        return False
+    return bool(_CATALOG_PATH_RE.search(path_and_query) or _NAVIGATION_LABEL_RE.search(label))
+
+
 def _discover_site_parameters(domain: str) -> tuple[str, List[str]]:
     """从站点首页的 form/nav 在线推导搜索模板和入口，不猜路径或参数名。"""
     if domain in _DISCOVERY_CACHE:
@@ -98,7 +118,7 @@ def _discover_site_parameters(domain: str) -> tuple[str, List[str]]:
     for m in re.finditer(r"<a\b[^>]*href=[\"']([^\"'#]+)[\"'][^>]*>([\s\S]{0,200}?)</a>", html, re.I):
         href, label = m.groups()
         label = re.sub(r"<[^>]+>", "", label).strip()
-        if not signal_pattern.search(label):
+        if not is_catalog_navigation_link(href, label):
             continue
         absolute = urljoin(home_url, href)
         if normalize_domain(absolute) == normalize_domain(home_url) and absolute not in links:

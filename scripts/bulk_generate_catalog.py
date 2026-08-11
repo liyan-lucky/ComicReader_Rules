@@ -125,6 +125,31 @@ def classify_title(title: str) -> str:
     return classify_evidence(title)[0]
 
 
+def extract_public_category_texts(html_text: str) -> List[str]:
+    """Extract visible category/tag facts from a public HTML detail page."""
+    if not html_text:
+        return []
+    try:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html_text, "lxml")
+    except Exception:
+        return []
+    selectors = (
+        '[itemprop="genre"]', '[itemprop="keywords"]', '[rel="tag"]',
+        'a[href*="genre"]', 'a[href*="category"]', 'a[href*="tag"]',
+        '[class*="genre"]', '[class*="category"]', '[class*="tag"]',
+    )
+    values: List[str] = []
+    seen: Set[str] = set()
+    for node in soup.select(",".join(selectors)):
+        value = " ".join(node.stripped_strings).strip()
+        if not value or len(value) > 500 or value in seen:
+            continue
+        seen.add(value)
+        values.append(value)
+    return values
+
+
 def load_report(lang: str) -> List[Dict[str, Any]]:
     path = ROOT / "generated" / f"rulebot_report.{lang}.json"
     if not path.exists():
@@ -218,10 +243,17 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
         if domain in EXCLUDED_DOMAINS:
             continue
         key = detail_title.lower()
-        entry_matches = classify_evidence_all(detail_title, entry.get("detail_url", ""))
+        report_evidence = entry.get("evidence") if isinstance(entry.get("evidence"), dict) else {}
+        public_values = (
+            detail_title,
+            entry.get("detail_url", ""),
+            report_evidence.get("candidateTitle", ""),
+            report_evidence.get("candidateSnippet", ""),
+        )
+        entry_matches = classify_evidence_all(*public_values)
         if key not in by_title:
             category_matches = entry_matches
-            category, evidence = classify_evidence(detail_title, entry.get("detail_url", ""))
+            category, evidence = classify_evidence(*public_values)
             by_title[key] = {
                 "id": make_comic_id(detail_title),
                 "title": detail_title,
@@ -329,6 +361,14 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     category: {**evidence, "pageUrl": url}
                     for category, evidence in page_matches.items()
                 }
+            try:
+                from bs4 import BeautifulSoup
+                soup = BeautifulSoup(html, "lxml")
+                anchors_by_href: Dict[str, List[Any]] = {}
+                for anchor in soup.find_all("a", href=True):
+                    anchors_by_href.setdefault(str(anchor.get("href", "")).strip(), []).append(anchor)
+            except Exception:
+                anchors_by_href = {}
             # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
             # 页面抓取预算与发布最低数量关联，但不限制最终分类输出上限。
             page_budget = max(CATEGORY_MINIMUM, 1)
@@ -400,8 +440,26 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 if cover_url:
                     src["coverUrl"] = cover_url
                 title_matches = classify_evidence_all(title)
-                category_matches = {**page_matches, **title_matches}
+                card_matches: Dict[str, Dict[str, str]] = {}
+                for anchor in anchors_by_href.get(m.group(1).strip(), []):
+                    for parent in (anchor, *list(anchor.parents)[:4]):
+                        context = " ".join(parent.stripped_strings).strip()
+                        if not context or len(context) > 600:
+                            continue
+                        found = classify_evidence_all(context)
+                        if found:
+                            card_matches.update({
+                                category: {**evidence, "pageUrl": url}
+                                for category, evidence in found.items()
+                            })
+                            break
+                category_matches = {**page_matches, **card_matches, **title_matches}
                 selected_category, selected_evidence = classify_evidence(title)
+                if not selected_category and card_matches:
+                    selected_category = next(
+                        cat["id"] for cat in CATEGORY_RULES if cat["id"] in card_matches
+                    )
+                    selected_evidence = card_matches[selected_category]
                 if not selected_category:
                     selected_category, selected_evidence = page_category, page_category_evidence
                 by_title[key] = {
@@ -495,6 +553,7 @@ def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
         ):
             for match in re.finditer(pattern, body, re.I):
                 metadata.extend(value for value in match.groups() if value)
+        metadata.extend(extract_public_category_texts(body))
         category_matches = classify_evidence_all(item.get("title", ""), url, *metadata)
         item.setdefault("categoryEvidenceByCategory", {}).update(category_matches)
         category, evidence = classify_evidence(item.get("title", ""), url, *metadata)
