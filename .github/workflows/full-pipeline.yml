@@ -120,6 +120,21 @@ jobs:
             generated/rulebot_report.${{ env.PIPELINE_LANGUAGE }}.json
             generated/domain_discovery_report.json
 
+      - name: 提交最近一次审计状态
+        if: ${{ always() && hashFiles(format('generated/pipeline_audit.{0}.json', env.PIPELINE_LANGUAGE)) != '' }}
+        run: |
+          set -euo pipefail
+          python scripts/update_current_status.py \
+            --language "$PIPELINE_LANGUAGE" \
+            --run-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/CURRENT_STATUS.md
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: refresh latest pipeline audit status"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
       - name: 提交已达标产物
         run: |
           set -euo pipefail

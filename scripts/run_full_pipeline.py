@@ -90,6 +90,7 @@ def main() -> int:
         run("scripts/bulk_generate_catalog.py", "--max-crawl-domains", "0", env=env)
     run("scripts/audit_pipeline_outputs.py", "--language", args.language,
         "--min-rules", str(args.min_rules), "--min-per-category", str(args.per_category), env=env)
+    run("scripts/update_current_status.py", "--language", args.language, env=env)
     run("scripts/validate_pipeline_outputs.py", "--language", args.language,
         "--min-rules", str(args.min_rules), "--min-per-category", str(args.per_category), env=env)
     return 0
