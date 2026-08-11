@@ -92,25 +92,60 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
     manual_domains = {host(rule.get("homepage")) for rule in manual_rules} - {""}
     validated_domains = aggregator_domains | new_domains | manual_domains
     generated_domains = {host(item.get("domain")) for item in rule_report.get("generated", [])} - {""}
-    uncovered = sorted(domain for domain in validated_domains if not covered(domain, rule_domains))
-    unexpected = sorted(domain for domain in rule_domains if not covered(domain, validated_domains))
+    unsupported_reasons = {
+        "login_or_paywall", "no_candidate_discovered", "no_content_page_candidate",
+        "audit_failed_no_public_chapter_or_image",
+    }
     domain_closure = rule_report.get("stats", {}).get("domainClosure", {})
+
+    def closure_for(domain: str) -> dict:
+        if domain in domain_closure:
+            return domain_closure[domain]
+        for candidate, value in domain_closure.items():
+            if related_domain(domain, candidate):
+                return value
+        return {"reason": "missing_domain_closure_evidence"}
+
+    rejected_domains = {
+        domain: closure_for(domain)
+        for domain in validated_domains
+        if closure_for(domain).get("reason") in unsupported_reasons
+        and not covered(domain, rule_domains)
+    }
+    eligible_domains = {
+        domain for domain in validated_domains
+        if domain not in rejected_domains
+        and (
+            covered(domain, rule_domains)
+            or closure_for(domain).get("reason") in {"generated", "passed_audit_but_not_selected"}
+            or domain in manual_domains
+        )
+    }
+    unresolved_domains = sorted(validated_domains - eligible_domains - set(rejected_domains))
+    uncovered = sorted(domain for domain in eligible_domains if not covered(domain, rule_domains))
+    unexpected = sorted(domain for domain in rule_domains if not covered(domain, validated_domains))
     uncovered_reasons = {
-        domain: domain_closure.get(domain, {"reason": "missing_domain_closure_evidence"})
+        domain: closure_for(domain)
         for domain in uncovered
     }
     coverage = {
+        "discoveredDomains": sorted(validated_domains),
         "validatedDomains": sorted(validated_domains),
+        "eligibleDomains": sorted(eligible_domains),
+        "rejectedDomains": rejected_domains,
+        "unresolvedDomains": unresolved_domains,
         "aggregatorDomains": sorted(aggregator_domains),
         "newValidatedDomains": sorted(new_domains),
         "manualRuleDomains": sorted(manual_domains),
         "generatedAuditDomains": sorted(generated_domains),
         "ruleDomains": sorted(rule_domains),
-        "coveredValidatedDomains": sorted(set(validated_domains) - set(uncovered)),
+        "coveredValidatedDomains": sorted(domain for domain in validated_domains if covered(domain, rule_domains)),
+        "coveredEligibleDomains": sorted(set(eligible_domains) - set(uncovered)),
         "uncoveredValidatedDomains": uncovered,
+        "uncoveredEligibleDomains": uncovered,
         "uncoveredReasons": uncovered_reasons,
         "unexpectedRuleDomains": unexpected,
-        "coveragePercent": round((len(validated_domains) - len(uncovered)) * 100 / len(validated_domains), 2) if validated_domains else 0,
+        "coveragePercent": round((len(eligible_domains) - len(uncovered)) * 100 / len(eligible_domains), 2) if eligible_domains else 0,
     }
     provenance = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -146,7 +181,8 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
         f"- 目录：{total} 项 / {len(category_stats)} 类",
         f"- 缺详情链接：{missing_detail}", f"- 缺封面链接：{missing_cover}",
         f"- 不完整来源：{incomplete}",
-        f"- 验证域名覆盖：{len(validated_domains) - len(uncovered)}/{len(validated_domains)} ({coverage['coveragePercent']}%)",
+        f"- 可生成域名覆盖：{len(eligible_domains) - len(uncovered)}/{len(eligible_domains)} ({coverage['coveragePercent']}%)",
+        f"- 已拒绝域名：{len(rejected_domains)}；待判定域名：{len(unresolved_domains)}",
         f"- 未覆盖验证域名：{', '.join(uncovered) if uncovered else '无'}", "",
         "| 分类 | 数量 | 最低要求 | 缺详情 | 缺封面 | 完整 |", "|---|---:|---:|---:|---:|---|",
     ]

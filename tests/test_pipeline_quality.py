@@ -1,13 +1,14 @@
 import sys
 import unittest
 import json
+from types import SimpleNamespace
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import classify_evidence, has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import classify_evidence, classify_evidence_all, has_publishable_source, is_valid_detail_url, is_valid_title
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 
@@ -53,6 +54,28 @@ class CatalogQualityTests(unittest.TestCase):
     def test_ascii_category_terms_require_boundaries(self):
         category, _ = classify_evidence("Rewarded by the king")
         self.assertNotEqual(category, "zhanzheng")
+
+    def test_multiple_categories_each_keep_evidence(self):
+        matches = classify_evidence_all("科幻异能侦探漫画")
+        self.assertIn("kehuan", matches)
+        self.assertIn("yineng", matches)
+        self.assertIn("xuanyi", matches)
+
+    def test_rule_selection_round_robins_domains_before_second_rule(self):
+        tool_path = str(ROOT / "tools" / "rule_discovery")
+        if tool_path not in sys.path:
+            sys.path.insert(0, tool_path)
+        from generate_rules import choose_best_by_domain
+        audits = []
+        for domain in ("a.example", "b.example", "c.example"):
+            for index in range(3):
+                audits.append(SimpleNamespace(
+                    domain=domain, detail_url=f"https://{domain}/comic/{index}",
+                    status="native_scroll_ok", static_image_count=10 - index,
+                    chapter_count=5,
+                ))
+        chosen = choose_best_by_domain(audits, per_domain_limit=3)
+        self.assertEqual([item.domain for item in chosen[:3]], ["a.example", "b.example", "c.example"])
 
 
 if __name__ == "__main__":

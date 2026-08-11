@@ -118,10 +118,13 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
         errors.append(f"missing domain coverage ledger: {coverage_path}")
     else:
         coverage = load_json(coverage_path)
-        uncovered = coverage.get("uncoveredValidatedDomains", [])
+        uncovered = coverage.get("uncoveredEligibleDomains", coverage.get("uncoveredValidatedDomains", []))
+        unresolved = coverage.get("unresolvedDomains", [])
         unexpected = coverage.get("unexpectedRuleDomains", [])
         if uncovered:
-            errors.append(f"validated domains without rules: {uncovered}")
+            errors.append(f"eligible domains without rules: {uncovered}")
+        if unresolved:
+            errors.append(f"discovered domains without a terminal audit state: {unresolved}")
         if unexpected:
             errors.append(f"rule domains without validation provenance: {unexpected}")
     provenance_path = ROOT / "generated" / "parameter_provenance.json"

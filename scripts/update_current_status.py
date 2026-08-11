@@ -39,6 +39,7 @@ def main() -> int:
         not deficits
         and int(audit.get("catalog", {}).get("incompleteSource", 0)) == 0
         and not coverage.get("uncoveredValidatedDomains", [])
+        and not coverage.get("unresolvedDomains", [])
         and not coverage.get("unexpectedRuleDomains", [])
         and int(audit.get("rules", {}).get("count", 0)) >= int(audit.get("rules", {}).get("minimum", 0))
     )
@@ -54,7 +55,9 @@ def main() -> int:
         f"- 规则：{audit.get('rules', {}).get('count', 0)} / 最低 {audit.get('rules', {}).get('minimum', 0)}",
         f"- 目录：{audit.get('catalog', {}).get('actualTotal', 0)} 项 / {len(categories)} 类",
         f"- 来源不完整：{audit.get('catalog', {}).get('incompleteSource', 0)}",
-        f"- 验证域名覆盖：{len(coverage.get('coveredValidatedDomains', []))}/{len(coverage.get('validatedDomains', []))} ({coverage.get('coveragePercent', 0)}%)",
+        f"- 发现域名：{len(coverage.get('discoveredDomains', coverage.get('validatedDomains', [])))}",
+        f"- 可生成域名覆盖：{len(coverage.get('eligibleDomains', [])) - len(coverage.get('uncoveredEligibleDomains', []))}/{len(coverage.get('eligibleDomains', []))} ({coverage.get('coveragePercent', 0)}%)",
+        f"- 明确拒绝域名：{len(coverage.get('rejectedDomains', {}))}；待判定：{len(coverage.get('unresolvedDomains', []))}",
         f"- 未达最低数量分类：{len(deficits)}",
         "",
         "| 分类 | 数量 | 最低要求 | 分类证据缺失 | 结果 |",

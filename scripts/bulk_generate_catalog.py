@@ -88,9 +88,10 @@ def make_comic_id(title: str) -> str:
     return hashlib.sha256(title.encode("utf-8", errors="ignore")).hexdigest()[:16]
 
 
-def classify_evidence(*values: str) -> tuple[str, Dict[str, str]]:
-    """Classify only when a configured taxonomy term appears in public evidence."""
+def classify_evidence_all(*values: str) -> Dict[str, Dict[str, str]]:
+    """Return every category independently supported by public evidence."""
     combined = " ".join(str(value or "") for value in values).lower()
+    matches: Dict[str, Dict[str, str]] = {}
     for cat in CATEGORY_RULES:
         if cat["id"] == "weifenlei":
             continue
@@ -99,7 +100,7 @@ def classify_evidence(*values: str) -> tuple[str, Dict[str, str]]:
             is_ascii_term = bool(re.fullmatch(r"[a-z0-9][a-z0-9 .+-]*", folded))
             matched = bool(re.search(rf"(?<![a-z0-9]){re.escape(folded)}(?![a-z0-9])", combined)) if is_ascii_term else folded in combined
             if folded and matched:
-                return cat["id"], {"source": "public-page-evidence", "matched": kw}
+                matches.setdefault(cat["id"], {"source": "public-page-evidence", "matched": kw})
     for tag in _TAG_RULES:
         for kw in tag.get("keywords", []):
             folded = kw.lower().strip()
@@ -108,8 +109,16 @@ def classify_evidence(*values: str) -> tuple[str, Dict[str, str]]:
             if folded and matched:
                 tag_id = tag.get("id", "")
                 if tag_id in _TAG_TO_CATEGORY:
-                    return _TAG_TO_CATEGORY[tag_id], {"source": "public-tag-evidence", "matched": kw}
-    return "", {}
+                    matches.setdefault(_TAG_TO_CATEGORY[tag_id], {"source": "public-tag-evidence", "matched": kw})
+    return matches
+
+
+def classify_evidence(*values: str) -> tuple[str, Dict[str, str]]:
+    matches = classify_evidence_all(*values)
+    if not matches:
+        return "", {}
+    category = next(cat["id"] for cat in CATEGORY_RULES if cat["id"] in matches)
+    return category, matches[category]
 
 
 def classify_title(title: str) -> str:
@@ -209,7 +218,9 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
         if domain in EXCLUDED_DOMAINS:
             continue
         key = detail_title.lower()
+        entry_matches = classify_evidence_all(detail_title, entry.get("detail_url", ""))
         if key not in by_title:
+            category_matches = entry_matches
             category, evidence = classify_evidence(detail_title, entry.get("detail_url", ""))
             by_title[key] = {
                 "id": make_comic_id(detail_title),
@@ -217,8 +228,11 @@ def build_items_from_report(report: List[Dict[str, Any]], lang: str) -> Dict[str
                 "sources": [],
                 "category": category,
                 "categoryEvidence": evidence,
+                "categoryEvidenceByCategory": category_matches,
                 "language": lang,
             }
+        else:
+            by_title[key].setdefault("categoryEvidenceByCategory", {}).update(entry_matches)
         source = {"domain": domain}
         detail_url = entry.get("detail_url", "")
         if detail_url and is_valid_detail_url(detail_url):
@@ -307,9 +321,14 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 _re.sub(r'<[^>]+>', ' ', match.group(1)) if match else ""
                 for match in (page_title_match, page_heading_match)
             )
+            page_matches = classify_evidence_all(url, page_evidence)
             page_category, page_category_evidence = classify_evidence(url, page_evidence)
             if page_category_evidence:
                 page_category_evidence = {**page_category_evidence, "pageUrl": url}
+                page_matches = {
+                    category: {**evidence, "pageUrl": url}
+                    for category, evidence in page_matches.items()
+                }
             # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
             # 页面抓取预算与发布最低数量关联，但不限制最终分类输出上限。
             page_budget = max(CATEGORY_MINIMUM, 1)
@@ -380,12 +399,18 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 src = {"domain": domain, "detailUrl": href}
                 if cover_url:
                     src["coverUrl"] = cover_url
+                title_matches = classify_evidence_all(title)
+                category_matches = {**page_matches, **title_matches}
+                selected_category, selected_evidence = classify_evidence(title)
+                if not selected_category:
+                    selected_category, selected_evidence = page_category, page_category_evidence
                 by_title[key] = {
                     "id": make_comic_id(title),
                     "title": title,
                     "sources": [src],
-                    "category": classify_evidence(title)[0] or page_category,
-                    "categoryEvidence": classify_evidence(title)[1] or page_category_evidence,
+                    "category": selected_category,
+                    "categoryEvidence": selected_evidence,
+                    "categoryEvidenceByCategory": category_matches,
                     "language": lang,
                 }
             if crawled_count > 0:
@@ -417,6 +442,9 @@ def crawl_domains_parallel(domains: List[str], lang: str, existing_titles: Set[s
                 if not merged[key].get("category") and item.get("category"):
                     merged[key]["category"] = item["category"]
                     merged[key]["categoryEvidence"] = item.get("categoryEvidence", {})
+                merged[key].setdefault("categoryEvidenceByCategory", {}).update(
+                    item.get("categoryEvidenceByCategory", {})
+                )
     return merged
 
 
@@ -453,6 +481,8 @@ def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
         ):
             for match in re.finditer(pattern, body, re.I):
                 metadata.extend(value for value in match.groups() if value)
+        category_matches = classify_evidence_all(item.get("title", ""), url, *metadata)
+        item.setdefault("categoryEvidenceByCategory", {}).update(category_matches)
         category, evidence = classify_evidence(item.get("title", ""), url, *metadata)
         if category and not item.get("category"):
             item["category"] = category
@@ -508,9 +538,13 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
     classified: Dict[str, List[Dict[str, Any]]] = {}
     unclassified: List[Dict[str, Any]] = []
     for item in all_items.values():
-        cat = item.get("category", "")
-        if cat:
-            classified.setdefault(cat, []).append(item)
+        evidence_by_category = item.get("categoryEvidenceByCategory", {})
+        if evidence_by_category:
+            for cat, evidence in evidence_by_category.items():
+                categorized_item = {**item, "category": cat, "categoryEvidence": evidence}
+                classified.setdefault(cat, []).append(categorized_item)
+        elif item.get("category") and item.get("categoryEvidence"):
+            classified.setdefault(item["category"], []).append(item)
         else:
             unclassified.append(item)
 

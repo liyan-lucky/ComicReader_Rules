@@ -774,18 +774,28 @@ def choose_best_by_domain(audits: List[PageAudit], per_domain_limit: int = 1, ne
         if a.status == "excluded_login_or_pay":
             continue
         grouped.setdefault(a.domain, []).append(a)
-    chosen: List[PageAudit] = []
+    ranked_by_domain: Dict[str, List[PageAudit]] = {}
     for domain, items in grouped.items():
         seen_urls: set = set()
         ranked = sorted(items, key=lambda a: (-score(a), a.detail_url))
+        selected = []
         for a in ranked:
             if a.detail_url in seen_urls:
                 continue
             seen_urls.add(a.detail_url)
-            chosen.append(a)
+            selected.append(a)
             if len(seen_urls) >= max(1, per_domain_limit):
                 break
-    return sorted(chosen, key=lambda a: (a.domain, -a.static_image_count, -a.chapter_count, a.detail_url))
+        ranked_by_domain[domain] = selected
+    # Round-robin ordering guarantees every passing domain gets one rule before
+    # any domain receives its second rule. The caller may safely apply a global cap.
+    chosen: List[PageAudit] = []
+    for position in range(max((len(items) for items in ranked_by_domain.values()), default=0)):
+        for domain in sorted(ranked_by_domain):
+            items = ranked_by_domain[domain]
+            if position < len(items):
+                chosen.append(items[position])
+    return chosen
 
 
 def json_str(s: str) -> str:
@@ -1192,8 +1202,20 @@ def main() -> int:
         sig = _audit_rule_signature(a)
         dal = list(dict.fromkeys(new_rule_domains_by_sig.get(sig, []) + existing_rule_signatures.get(sig, [])))
         domain_applicability_map[a.domain] = dal
+    final_aggregators = _load_config("aggregator_sites.json", {}).get(args.language_code, [])
+    final_discovery = {}
+    discovery_path = ROOT / "generated" / "domain_discovery_report.json"
+    if discovery_path.exists():
+        try:
+            final_discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
+        except Exception:
+            final_discovery = {}
     target_domains = {normalize_domain(value) for value in domains} | {
         normalize_domain(value) for value in seeded_domains
+    } | {
+        normalize_domain(value) for value in final_aggregators
+    } | {
+        normalize_domain(value) for value in final_discovery.get("newDomains", [])
     }
     target_domains.discard("")
     candidate_counts: Dict[str, int] = {}
