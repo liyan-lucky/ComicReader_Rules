@@ -320,6 +320,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     import urllib.request
     import urllib.error
     from urllib.parse import urljoin, urlparse
+    from generate_site_configs import is_catalog_navigation_link
     by_title: Dict[str, Dict[str, Any]] = {}
     blocked = set(b.strip().lower() for b in _load_json("blocked_domains.json", {}).get("generate_rules", []))
     excluded = EXCLUDED_DOMAINS
@@ -333,12 +334,13 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             continue
         if domain in excluded:
             continue
-        urls = _auto_discover_ranking(domain)
+        urls = list(_auto_discover_ranking(domain))
         if urls:
             print(f"  [{domain}] using {len(urls)} online-discovered catalog URLs")
         if not urls:
             continue
         seen_pages = set(urls)
+        navigation_evidence: Dict[str, str] = {}
         for url in urls:
             crawled_count = 0
             try:
@@ -353,6 +355,7 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                 _re.sub(r'<[^>]+>', ' ', match.group(1)) if match else ""
                 for match in (page_title_match, page_heading_match)
             )
+            page_evidence = " ".join((navigation_evidence.get(url, ""), page_evidence)).strip()
             page_matches = classify_evidence_all(url, page_evidence)
             page_category, page_category_evidence = classify_evidence(url, page_evidence)
             if page_category_evidence:
@@ -369,8 +372,8 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                     anchors_by_href.setdefault(str(anchor.get("href", "")).strip(), []).append(anchor)
             except Exception:
                 anchors_by_href = {}
-            # 分页 URL 只读取服务端实际返回的链接；参数名、路径和页码均不猜测。
-            # 页面抓取预算与发布最低数量关联，但不限制最终分类输出上限。
+            # 分类入口和分页都只读取服务端真实链接；路径、参数、分类名均不猜测。
+            # 分类标签作为其子页的公开证据，并沿分页继承。
             page_budget = max(CATEGORY_MINIMUM, 1)
             if len(urls) < page_budget:
                 for nav in link_re.finditer(html):
@@ -382,13 +385,16 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
                         or _re.fullmatch(r'\d{1,5}', nav_label)
                         or _re.search(r'下一页|下页|next|›|»', nav_label, _re.I)
                     )
-                    if not is_pagination:
+                    is_navigation = is_catalog_navigation_link(nav_href, nav_label)
+                    if not (is_pagination or is_navigation):
                         continue
                     absolute = urljoin(url, nav_href)
                     if normalize_domain(urlparse(absolute).netloc) != domain or absolute in seen_pages:
                         continue
                     seen_pages.add(absolute)
                     urls.append(absolute)
+                    inherited = navigation_evidence.get(url, "") if is_pagination else nav_label
+                    navigation_evidence[absolute] = inherited or page_evidence
                     if len(urls) >= page_budget:
                         break
             for m in link_re.finditer(html):

@@ -79,6 +79,7 @@ class CatalogQualityTests(unittest.TestCase):
         self.assertTrue(is_catalog_navigation_link("/works", "热门排行"))
         self.assertFalse(is_catalog_navigation_link("/chapter/42", "科幻漫画 第42话"))
         self.assertFalse(is_catalog_navigation_link("/comic/a-book", "某部漫画"))
+        self.assertFalse(is_catalog_navigation_link("/manga/a-book/", "最新漫画"))
 
     def test_rule_selection_round_robins_domains_before_second_rule(self):
         tool_path = str(ROOT / "tools" / "rule_discovery")
