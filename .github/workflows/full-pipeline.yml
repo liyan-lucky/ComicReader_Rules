@@ -43,6 +43,7 @@ defaults:
 jobs:
   pipeline:
     name: 漫画/漫书到最终产物
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 360
     services:
@@ -61,11 +62,10 @@ jobs:
       SEARXNG_API_TOKEN: ${{ secrets.SEARXNG_API_TOKEN || '' }}
 
     steps:
-      - name: 检出触发分支
+      - name: 检出主分支
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
-          # 手动运行可先验证功能分支；只有质量门禁通过后才推送 main。
-          ref: ${{ github.ref }}
+          ref: main
           fetch-depth: 0
 
       - name: 设置 Python

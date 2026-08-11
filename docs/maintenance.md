@@ -25,6 +25,8 @@ Step 4: 目录生成 → catalog/catalog.{lang}.json
 
 - `main`：主工作分支
 - `backup`：main 的快照备份（`Actions → 强制覆盖 backup 分支`）
+- 代码、配置、文档修改和 Actions 全链路运行仅在 `main` 进行
+- 除 `main`、`backup` 外不保留任何分支
 
 ## 定期维护
 

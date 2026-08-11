@@ -89,7 +89,11 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
     rule_domains = {host(rule.get("homepage")) for rule in rules} - {""}
     aggregator_domains = {host(value) for value in aggregators} - {""}
     new_domains = {host(value) for value in discovery.get("newDomains", [])} - {""}
-    manual_domains = {host(rule.get("homepage")) for rule in manual_rules} - {""}
+    declared_manual_domains = {host(rule.get("homepage")) for rule in manual_rules} - {""}
+    # A manual candidate is validated only after it survives sanitization into
+    # the published index. Search-only placeholders must not become fake
+    # eligible domains merely because they are present in manual/index.json.
+    manual_domains = {domain for domain in declared_manual_domains if covered(domain, rule_domains)}
     validated_domains = aggregator_domains | new_domains | manual_domains
     generated_domains = {host(item.get("domain")) for item in rule_report.get("generated", [])} - {""}
     unsupported_reasons = {
@@ -137,6 +141,7 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
         "aggregatorDomains": sorted(aggregator_domains),
         "newValidatedDomains": sorted(new_domains),
         "manualRuleDomains": sorted(manual_domains),
+        "declaredManualCandidateDomains": sorted(declared_manual_domains),
         "generatedAuditDomains": sorted(generated_domains),
         "ruleDomains": sorted(rule_domains),
         "coveredValidatedDomains": sorted(domain for domain in validated_domains if covered(domain, rule_domains)),

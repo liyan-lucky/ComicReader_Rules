@@ -37,8 +37,10 @@ Actions → 全链路更新 → Run workflow
 ```text
 main      主工作分支、正式稳定分支，App 默认读取。
 backup    备份分支，只用于备份 main。
-develop   旧开发分支，不再使用。
 ```
+
+所有代码、配置、文档修改及全链路运行都直接在 `main` 进行。仓库只保留
+`main` 和 `backup`；禁止创建或使用功能分支，`backup` 不用于开发。
 
 ## App 默认读取地址
 

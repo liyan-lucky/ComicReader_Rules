@@ -89,7 +89,8 @@ generated/GeneratedSourceRules.ets 无后缀旧版
 
 - `main`：主工作分支，App 默认读取
 - `backup`：main 的快照备份
-- `develop`：旧分支，不再使用
+- 所有修改和全链路运行只允许在 `main` 进行
+- 仓库只保留 `main`、`backup`，不得创建功能分支
 
 ## 命名规范
 

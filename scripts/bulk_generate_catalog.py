@@ -454,15 +454,29 @@ def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
     import urllib.request
     from urllib.parse import urljoin
 
-    pending = []
+    pending_by_category: Dict[str, List[tuple[str, Dict[str, Any], Dict[str, Any]]]] = {}
     for key, item in items.items():
-        if item.get("category") and has_publishable_source(item):
+        # A complete source only proves that the item is publishable.  It does
+        # not prove that the first category found is its only public category.
+        # Fetch detail metadata until multiple category facts are available.
+        if len(item.get("categoryEvidenceByCategory", {})) > 1 and has_publishable_source(item):
             continue
         source = next((s for s in item.get("sources", []) if is_valid_detail_url(str(s.get("detailUrl", "")))), None)
         if source:
-            pending.append((key, item, source))
+            bucket = str(item.get("category") or "unclassified")
+            pending_by_category.setdefault(bucket, []).append((key, item, source))
     # Budget is derived from the requested minimum, not a hidden fixed crawl count.
-    pending = pending[:max(CATEGORY_MINIMUM * len(CATEGORY_RULES), CATEGORY_MINIMUM)]
+    budget = max(CATEGORY_MINIMUM * len(CATEGORY_RULES), CATEGORY_MINIMUM)
+    pending = []
+    buckets = [pending_by_category[key] for key in sorted(pending_by_category)]
+    while buckets and len(pending) < budget:
+        remaining = []
+        for bucket in buckets:
+            if bucket and len(pending) < budget:
+                pending.append(bucket.pop(0))
+            if bucket:
+                remaining.append(bucket)
+        buckets = remaining
 
     def fetch_one(record: tuple[str, Dict[str, Any], Dict[str, Any]]):
         key, item, source = record
