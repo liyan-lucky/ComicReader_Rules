@@ -19,6 +19,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Set
+from urllib.parse import quote_plus
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,6 +52,7 @@ _TAG_TO_CATEGORY: Dict[str, str] = CATALOG_CFG.get("tag_to_category_map", {})
 _TAG_RULES: List[Dict[str, Any]] = CATALOG_CFG.get("tags", [])
 
 RULE_KEYWORDS: Dict[str, List[str]] = _load_json("rule_keywords.json", {})
+SEARCH_URL_TEMPLATES: Dict[str, str] = _load_json("search_url_templates.json", {})
 
 AGGREGATOR_SITES: Dict[str, List[str]] = _load_json("aggregator_sites.json", {})
 
@@ -315,6 +317,25 @@ def _auto_discover_ranking(domain: str) -> List[str]:
     return list(SEED_SITES_CFG.get(domain, []))
 
 
+def category_search_entrypoints(domain: str) -> Dict[str, str]:
+    """Build public category entrypoints from an online-discovered search form."""
+    template = str(SEARCH_URL_TEMPLATES.get(domain, "")).strip()
+    if "{keyword}" not in template:
+        return {}
+    configured = CATALOG_CFG.get("search_keywords", {})
+    entrypoints: Dict[str, str] = {}
+    for category in CATEGORY_RULES:
+        category_id = str(category.get("id", ""))
+        if not category_id or category_id == "weifenlei":
+            continue
+        terms = configured.get(category_id, [])
+        keyword = str(terms[0] if terms else category.get("name", "")).strip()
+        if not keyword:
+            continue
+        entrypoints[template.replace("{keyword}", quote_plus(keyword))] = keyword
+    return entrypoints
+
+
 def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
     import re as _re
     import urllib.request
@@ -334,13 +355,16 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             continue
         if domain in excluded:
             continue
-        urls = list(_auto_discover_ranking(domain))
+        category_entrypoints = category_search_entrypoints(domain)
+        # Category searches go first so scarce shelves are explored before
+        # broad home/ranking pages consume the crawl time budget.
+        urls = list(dict.fromkeys([*category_entrypoints, *_auto_discover_ranking(domain)]))
         if urls:
             print(f"  [{domain}] using {len(urls)} online-discovered catalog URLs")
         if not urls:
             continue
         seen_pages = set(urls)
-        navigation_evidence: Dict[str, str] = {}
+        navigation_evidence: Dict[str, str] = dict(category_entrypoints)
         for url in urls:
             crawled_count = 0
             try:

@@ -123,6 +123,7 @@ jobs:
             generated/parameter_provenance.json
             generated/rulebot_report.${{ env.PIPELINE_LANGUAGE }}.json
             generated/domain_discovery_report.json
+            catalog/catalog.${{ env.PIPELINE_LANGUAGE }}.json
 
       - name: 提交最近一次审计状态
         if: ${{ always() && hashFiles(format('generated/pipeline_audit.{0}.json', env.PIPELINE_LANGUAGE)) != '' }}

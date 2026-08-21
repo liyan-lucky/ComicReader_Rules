@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import category_search_entrypoints, classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 from generate_site_configs import is_catalog_navigation_link
@@ -115,6 +115,19 @@ class CatalogQualityTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "full-pipeline.yml").read_text(encoding="utf-8")
         self.assertIn("SEARXNG_URL: http://localhost:8080", workflow)
         self.assertNotIn("SEARXNG_URL: ${{ secrets.SEARXNG_URL", workflow)
+
+    def test_catalog_expands_discovered_search_form_by_category(self):
+        import bulk_generate_catalog
+        original = bulk_generate_catalog.SEARCH_URL_TEMPLATES
+        try:
+            bulk_generate_catalog.SEARCH_URL_TEMPLATES = {
+                "example.com": "https://example.com/search?q={keyword}",
+            }
+            entrypoints = category_search_entrypoints("example.com")
+        finally:
+            bulk_generate_catalog.SEARCH_URL_TEMPLATES = original
+        self.assertEqual(len(entrypoints), 16)
+        self.assertEqual(entrypoints["https://example.com/search?q=%E7%8A%AF%E7%BD%AA"], "犯罪")
 
 
 if __name__ == "__main__":
