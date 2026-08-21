@@ -58,7 +58,9 @@ jobs:
       PIPELINE_MAX_RULES: ${{ inputs.max_rules || '1000' }}
       PIPELINE_PER_CATEGORY: ${{ inputs.per_category || '200' }}
       PIPELINE_PUBLISH: ${{ inputs.publish_release || false }}
-      SEARXNG_URL: ${{ secrets.SEARXNG_URL || 'http://localhost:8080' }}
+      # This job always starts the service container above.  A stale external
+      # tunnel secret must never override the healthy job-local endpoint.
+      SEARXNG_URL: http://localhost:8080
       SEARXNG_API_TOKEN: ${{ secrets.SEARXNG_API_TOKEN || '' }}
 
     steps:
@@ -89,6 +91,7 @@ jobs:
           exit 1
 
       - name: 运行唯一全链路入口
+        id: pipeline
         run: |
           python scripts/run_full_pipeline.py \
             --language "$PIPELINE_LANGUAGE" \
@@ -98,7 +101,7 @@ jobs:
             --per-domain-rules 1
 
       - name: 确认审计统计已生成
-        if: ${{ always() }}
+        if: ${{ steps.pipeline.outcome == 'success' }}
         run: |
           test -s "generated/pipeline_audit.${PIPELINE_LANGUAGE}.json"
           test -s "generated/domain_coverage.${PIPELINE_LANGUAGE}.json"

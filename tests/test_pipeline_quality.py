@@ -111,6 +111,11 @@ class CatalogQualityTests(unittest.TestCase):
         ])
         self.assertEqual(duplicates, ["example.com"])
 
+    def test_full_workflow_uses_its_local_search_service(self):
+        workflow = (ROOT / ".github" / "workflows" / "full-pipeline.yml").read_text(encoding="utf-8")
+        self.assertIn("SEARXNG_URL: http://localhost:8080", workflow)
+        self.assertNotIn("SEARXNG_URL: ${{ secrets.SEARXNG_URL", workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
