@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from urllib.parse import urlparse
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,19 @@ def rule_items(data: dict) -> list:
         if isinstance(value, list):
             return value
     return []
+
+
+def duplicate_rule_domains(rules: list[dict]) -> list[str]:
+    counts: dict[str, int] = {}
+    for rule in rules:
+        homepage = str(rule.get("homepage", ""))
+        if not homepage.startswith(("http://", "https://")):
+            continue
+        domain = (urlparse(homepage).hostname or "").lower()
+        domain = domain[4:] if domain.startswith("www.") else domain
+        if domain:
+            counts[domain] = counts.get(domain, 0) + 1
+    return sorted(domain for domain, count in counts.items() if count > 1)
 
 
 def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
@@ -56,6 +70,9 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
         is_url_only_fallback = rule.get("searchMethod") == "url-only" and not homepage
         if not is_url_only_fallback and not homepage.startswith(("http://", "https://")):
             errors.append(f"rule[{index}] has invalid homepage")
+    duplicated_domains = duplicate_rule_domains(rules)
+    if duplicated_domains:
+        errors.append(f"domains with multiple site rules: {duplicated_domains}")
 
     catalog_doc = load_json(catalog_path)
     categories = catalog_doc.get("categories", {})
@@ -136,7 +153,7 @@ def validate(language: str, min_rules: int, min_per_category: int) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--language", default="zh-Hans")
-    parser.add_argument("--min-rules", type=int, default=500)
+    parser.add_argument("--min-rules", type=int, default=1)
     parser.add_argument("--min-per-category", type=int, default=200)
     args = parser.parse_args()
     errors = validate(args.language, args.min_rules, args.min_per_category)

@@ -29,9 +29,11 @@ def run(*parts: str, env: dict[str, str]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="漫画/漫书 -> domains -> rules -> catalog -> audit -> gate")
     parser.add_argument("--language", default="zh-Hans", choices=LANG_NAMES)
-    parser.add_argument("--min-rules", type=int, default=500)
+    parser.add_argument("--min-rules", type=int, default=1,
+                        help="最低站点规则数；完整性由可生成域名 100% 覆盖保证")
     parser.add_argument("--max-rules", type=int, default=1000)
-    parser.add_argument("--per-domain-rules", type=int, default=50)
+    parser.add_argument("--per-domain-rules", type=int, default=1,
+                        help="每域站点规则数；正式流程固定为 1")
     parser.add_argument("--per-category", type=int, default=200)
     parser.add_argument("--time-budget", type=int, default=19800)
     parser.add_argument("--search-budget", type=int, default=3600)
@@ -39,6 +41,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.max_rules < args.min_rules:
         parser.error("--max-rules must be >= --min-rules")
+    if args.per_domain_rules != 1:
+        parser.error("--per-domain-rules must be 1: one site owns one reusable parsing rule")
 
     env = os.environ.copy()
     env.update({

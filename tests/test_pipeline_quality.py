@@ -12,6 +12,7 @@ from bulk_generate_catalog import classify_evidence, classify_evidence_all, extr
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 from generate_site_configs import is_catalog_navigation_link
+from validate_pipeline_outputs import duplicate_rule_domains
 
 
 class CatalogQualityTests(unittest.TestCase):
@@ -96,6 +97,19 @@ class CatalogQualityTests(unittest.TestCase):
                 ))
         chosen = choose_best_by_domain(audits, per_domain_limit=3)
         self.assertEqual([item.domain for item in chosen[:3]], ["a.example", "b.example", "c.example"])
+
+    def test_full_pipeline_defaults_to_one_rule_per_domain(self):
+        source = (ROOT / "scripts" / "run_full_pipeline.py").read_text(encoding="utf-8")
+        self.assertIn('"--per-domain-rules", type=int, default=1', source)
+        self.assertIn('--per-domain-rules must be 1', source)
+
+    def test_duplicate_site_rules_are_rejected_even_with_www_alias(self):
+        duplicates = duplicate_rule_domains([
+            {"homepage": "https://example.com"},
+            {"homepage": "https://www.example.com/catalog"},
+            {"homepage": "https://other.example"},
+        ])
+        self.assertEqual(duplicates, ["example.com"])
 
 
 if __name__ == "__main__":

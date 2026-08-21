@@ -598,7 +598,15 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
     report_items = build_items_from_report(report, lang)
     existing_titles.update(report_items.keys())
 
-    crawl_domains = domains if max_crawl_domains <= 0 else domains[:max_crawl_domains]
+    # Prefer sites for which online parameter discovery found the broadest
+    # public catalog navigation.  One high-capacity site can fill the shelf;
+    # the remaining sites are still crawled as category supplements/fallbacks.
+    crawl_domains = sorted(
+        domains,
+        key=lambda domain: (-len(SEED_SITES_CFG.get(domain, [])), domain),
+    )
+    if max_crawl_domains > 0:
+        crawl_domains = crawl_domains[:max_crawl_domains]
     if max_crawl_domains > 0 and len(domains) > max_crawl_domains:
         print(f"[{lang}] Limiting crawl to {max_crawl_domains}/{len(domains)} domains")
     crawled_items = crawl_domains_parallel(crawl_domains, lang, existing_titles)

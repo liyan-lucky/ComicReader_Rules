@@ -199,7 +199,7 @@ def build_audit(language: str, min_rules: int, min_per_category: int) -> tuple[d
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--language", default="zh-Hans")
-    parser.add_argument("--min-rules", type=int, default=500)
+    parser.add_argument("--min-rules", type=int, default=1)
     parser.add_argument("--min-per-category", type=int, default=200)
     args = parser.parse_args()
     audit, coverage, provenance, markdown = build_audit(args.language, args.min_rules, args.min_per_category)

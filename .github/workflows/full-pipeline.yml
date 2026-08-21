@@ -10,9 +10,9 @@ on:
         type: choice
         options: [zh-Hans, zh-Hant, en, ja, ko]
       min_rules:
-        description: 最少有效规则数
+        description: 最少有效站点规则数（完整性由域名覆盖保证）
         required: true
-        default: '500'
+        default: '1'
       max_rules:
         description: 最大规则生成数
         required: true
@@ -54,7 +54,7 @@ jobs:
         options: --health-cmd "wget -qO- http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 10
     env:
       PIPELINE_LANGUAGE: ${{ inputs.language || 'zh-Hans' }}
-      PIPELINE_MIN_RULES: ${{ inputs.min_rules || '500' }}
+      PIPELINE_MIN_RULES: ${{ inputs.min_rules || '1' }}
       PIPELINE_MAX_RULES: ${{ inputs.max_rules || '1000' }}
       PIPELINE_PER_CATEGORY: ${{ inputs.per_category || '200' }}
       PIPELINE_PUBLISH: ${{ inputs.publish_release || false }}
@@ -94,7 +94,8 @@ jobs:
             --language "$PIPELINE_LANGUAGE" \
             --min-rules "$PIPELINE_MIN_RULES" \
             --max-rules "$PIPELINE_MAX_RULES" \
-            --per-category "$PIPELINE_PER_CATEGORY"
+            --per-category "$PIPELINE_PER_CATEGORY" \
+            --per-domain-rules 1
 
       - name: 确认审计统计已生成
         if: ${{ always() }}
