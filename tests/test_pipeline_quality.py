@@ -129,6 +129,21 @@ class CatalogQualityTests(unittest.TestCase):
         self.assertEqual(len(entrypoints), 16)
         self.assertEqual(entrypoints["https://example.com/search?q=%E7%8A%AF%E7%BD%AA"], "犯罪")
 
+    def test_catalog_generates_next_batch_only_for_deficient_categories(self):
+        import bulk_generate_catalog
+        original = bulk_generate_catalog.SEARCH_URL_TEMPLATES
+        try:
+            bulk_generate_catalog.SEARCH_URL_TEMPLATES = {
+                "example.com": "https://example.com/search?q={keyword}",
+            }
+            entrypoints = category_search_entrypoints(
+                "example.com", {"fanzui"}, term_start=1, term_count=2,
+            )
+        finally:
+            bulk_generate_catalog.SEARCH_URL_TEMPLATES = original
+        self.assertEqual(set(entrypoints.values()), {"杀手", "黑帮"})
+        self.assertEqual(len(entrypoints), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -106,6 +106,7 @@ jobs:
           test -s "generated/pipeline_audit.${PIPELINE_LANGUAGE}.json"
           test -s "generated/domain_coverage.${PIPELINE_LANGUAGE}.json"
           test -s "generated/catalog_gaps.${PIPELINE_LANGUAGE}.json"
+          test -s "generated/catalog_parameter_iterations.${PIPELINE_LANGUAGE}.json"
           test -s generated/parameter_provenance.json
           echo "审计统计已写入 Job Summary 和 generated/"
 
@@ -120,6 +121,7 @@ jobs:
             generated/pipeline_audit.${{ env.PIPELINE_LANGUAGE }}.json
             generated/domain_coverage.${{ env.PIPELINE_LANGUAGE }}.json
             generated/catalog_gaps.${{ env.PIPELINE_LANGUAGE }}.json
+            generated/catalog_parameter_iterations.${{ env.PIPELINE_LANGUAGE }}.json
             generated/parameter_provenance.json
             generated/rulebot_report.${{ env.PIPELINE_LANGUAGE }}.json
             generated/domain_discovery_report.json

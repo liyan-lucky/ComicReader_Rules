@@ -18,7 +18,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Set
+from typing import Any, Dict, List, Optional, Set
 from urllib.parse import quote_plus
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -317,8 +317,13 @@ def _auto_discover_ranking(domain: str) -> List[str]:
     return list(SEED_SITES_CFG.get(domain, []))
 
 
-def category_search_entrypoints(domain: str) -> Dict[str, str]:
-    """Build public category entrypoints from an online-discovered search form."""
+def category_search_entrypoints(
+    domain: str,
+    category_ids: Optional[Set[str]] = None,
+    term_start: int = 0,
+    term_count: int = 1,
+) -> Dict[str, str]:
+    """Generate one search-parameter batch from an online-discovered form."""
     template = str(SEARCH_URL_TEMPLATES.get(domain, "")).strip()
     if "{keyword}" not in template:
         return {}
@@ -328,15 +333,26 @@ def category_search_entrypoints(domain: str) -> Dict[str, str]:
         category_id = str(category.get("id", ""))
         if not category_id or category_id == "weifenlei":
             continue
-        terms = configured.get(category_id, [])
-        keyword = str(terms[0] if terms else category.get("name", "")).strip()
-        if not keyword:
+        if category_ids is not None and category_id not in category_ids:
             continue
-        entrypoints[template.replace("{keyword}", quote_plus(keyword))] = keyword
+        terms = [str(term).strip() for term in configured.get(category_id, []) if str(term).strip()]
+        if not terms:
+            fallback = str(category.get("name", "")).strip()
+            terms = [fallback] if fallback else []
+        for keyword in terms[max(0, term_start):max(0, term_start) + max(1, term_count)]:
+            entrypoints[template.replace("{keyword}", quote_plus(keyword))] = keyword
     return entrypoints
 
 
-def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
+def crawl_ranking_pages(
+    domains: List[str],
+    lang: str,
+    existing_titles: Set[str],
+    category_ids: Optional[Set[str]] = None,
+    term_start: int = 0,
+    term_count: int = 1,
+    include_seed_sites: bool = True,
+) -> Dict[str, Dict[str, Any]]:
     import re as _re
     import urllib.request
     import urllib.error
@@ -355,10 +371,11 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
             continue
         if domain in excluded:
             continue
-        category_entrypoints = category_search_entrypoints(domain)
+        category_entrypoints = category_search_entrypoints(domain, category_ids, term_start, term_count)
         # Category searches go first so scarce shelves are explored before
         # broad home/ranking pages consume the crawl time budget.
-        urls = list(dict.fromkeys([*category_entrypoints, *_auto_discover_ranking(domain)]))
+        seed_urls = _auto_discover_ranking(domain) if include_seed_sites else []
+        urls = list(dict.fromkeys([*category_entrypoints, *seed_urls]))
         if urls:
             print(f"  [{domain}] using {len(urls)} online-discovered catalog URLs")
         if not urls:
@@ -506,7 +523,47 @@ def crawl_ranking_pages(domains: List[str], lang: str, existing_titles: Set[str]
     return by_title
 
 
-def crawl_domains_parallel(domains: List[str], lang: str, existing_titles: Set[str]) -> Dict[str, Dict[str, Any]]:
+def merge_catalog_items(target: Dict[str, Dict[str, Any]], incoming: Dict[str, Dict[str, Any]]) -> None:
+    """Merge independently discovered candidates without losing provenance."""
+    for key, item in incoming.items():
+        if key not in target:
+            target[key] = item
+            continue
+        known = {source.get("domain") for source in target[key].get("sources", [])}
+        target[key].setdefault("sources", []).extend(
+            source for source in item.get("sources", []) if source.get("domain") not in known
+        )
+        if not target[key].get("category") and item.get("category"):
+            target[key]["category"] = item["category"]
+            target[key]["categoryEvidence"] = item.get("categoryEvidence", {})
+        target[key].setdefault("categoryEvidenceByCategory", {}).update(
+            item.get("categoryEvidenceByCategory", {})
+        )
+
+
+def publishable_category_counts(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
+    counts = {str(category["id"]): 0 for category in CATEGORY_RULES if category.get("id") != "weifenlei"}
+    for item in items.values():
+        if not has_publishable_source(item):
+            continue
+        categories = set(item.get("categoryEvidenceByCategory", {}))
+        if not categories and item.get("category") and item.get("categoryEvidence"):
+            categories.add(str(item["category"]))
+        for category_id in categories:
+            if category_id in counts:
+                counts[category_id] += 1
+    return counts
+
+
+def crawl_domains_parallel(
+    domains: List[str],
+    lang: str,
+    existing_titles: Set[str],
+    category_ids: Optional[Set[str]] = None,
+    term_start: int = 0,
+    term_count: int = 1,
+    include_seed_sites: bool = True,
+) -> Dict[str, Dict[str, Any]]:
     """Crawl different public domains concurrently while keeping each domain sequential."""
     merged: Dict[str, Dict[str, Any]] = {}
     if not domains:
@@ -514,25 +571,15 @@ def crawl_domains_parallel(domains: List[str], lang: str, existing_titles: Set[s
     workers = min(12, max(2, len(domains)))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         future_domains = {
-            pool.submit(crawl_ranking_pages, [domain], lang, set(existing_titles)): domain
+            pool.submit(
+                crawl_ranking_pages, [domain], lang, set(existing_titles),
+                category_ids, term_start, term_count, include_seed_sites,
+            ): domain
             for domain in domains
         }
         for future in as_completed(future_domains):
             domain_items = future.result()
-            for key, item in domain_items.items():
-                if key not in merged:
-                    merged[key] = item
-                    continue
-                known = {source.get("domain") for source in merged[key].get("sources", [])}
-                merged[key].setdefault("sources", []).extend(
-                    source for source in item.get("sources", []) if source.get("domain") not in known
-                )
-                if not merged[key].get("category") and item.get("category"):
-                    merged[key]["category"] = item["category"]
-                    merged[key]["categoryEvidence"] = item.get("categoryEvidence", {})
-                merged[key].setdefault("categoryEvidenceByCategory", {}).update(
-                    item.get("categoryEvidenceByCategory", {})
-                )
+            merge_catalog_items(merged, domain_items)
     return merged
 
 
@@ -633,8 +680,62 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         crawl_domains = crawl_domains[:max_crawl_domains]
     if max_crawl_domains > 0 and len(domains) > max_crawl_domains:
         print(f"[{lang}] Limiting crawl to {max_crawl_domains}/{len(domains)} domains")
-    crawled_items = crawl_domains_parallel(crawl_domains, lang, existing_titles)
-    existing_titles.update(crawled_items.keys())
+    crawled_items: Dict[str, Dict[str, Any]] = {}
+    parameter_rounds: List[Dict[str, Any]] = []
+    try:
+        max_iterations = max(1, int(os.environ.get("PIPELINE_CATALOG_ITERATIONS", "4")))
+    except ValueError:
+        max_iterations = 4
+    requested_categories: Optional[Set[str]] = None
+    for iteration in range(max_iterations):
+        round_items = crawl_domains_parallel(
+            crawl_domains,
+            lang,
+            existing_titles,
+            category_ids=requested_categories,
+            term_start=iteration,
+            term_count=1,
+            include_seed_sites=iteration == 0,
+        )
+        merge_catalog_items(crawled_items, round_items)
+        existing_titles.update(round_items.keys())
+        evaluated = {**report_items, **crawled_items}
+        counts = publishable_category_counts(evaluated)
+        deficits = {
+            category_id: CATEGORY_MINIMUM - count
+            for category_id, count in counts.items()
+            if count < CATEGORY_MINIMUM
+        }
+        parameter_rounds.append({
+            "iteration": iteration + 1,
+            "parameterSource": "generated-from-previous-round-deficits" if iteration else "initial-category-batch",
+            "requestedCategories": sorted(requested_categories) if requested_categories is not None else sorted(counts),
+            "termOffset": iteration,
+            "newCandidateCount": len(round_items),
+            "candidateCategoryCounts": counts,
+            "remainingDeficits": deficits,
+        })
+        print(f"[{lang}] adaptive catalog round {iteration + 1}: +{len(round_items)}, deficits={deficits}")
+        if not deficits:
+            break
+        requested_categories = set(deficits)
+        if not any(category_search_entrypoints(domain, requested_categories, iteration + 1, 1) for domain in crawl_domains):
+            print(f"[{lang}] adaptive parameter pool exhausted after round {iteration + 1}")
+            break
+
+    parameter_report = {
+        "schema": "womh_catalog_parameter_iterations_v1",
+        "language": lang,
+        "targetPerCategory": CATEGORY_MINIMUM,
+        "maxIterations": max_iterations,
+        "parameterPool": "config/catalog_config.json#search_keywords (transitional; generated batches only)",
+        "rounds": parameter_rounds,
+    }
+    report_path = ROOT / "generated" / f"catalog_parameter_iterations.{lang}.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_tmp = report_path.with_suffix(".tmp")
+    report_tmp.write_text(json.dumps(parameter_report, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_tmp.replace(report_path)
 
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
 
