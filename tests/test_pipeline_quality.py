@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import category_search_entrypoints, classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import adaptive_term_window, category_search_entrypoints, classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 from generate_site_configs import is_catalog_navigation_link
@@ -143,6 +143,17 @@ class CatalogQualityTests(unittest.TestCase):
             bulk_generate_catalog.SEARCH_URL_TEMPLATES = original
         self.assertEqual(set(entrypoints.values()), {"杀手", "黑帮"})
         self.assertEqual(len(entrypoints), 2)
+
+    def test_adaptive_catalog_term_windows_do_not_repeat(self):
+        self.assertEqual(adaptive_term_window(0, 3), (0, 1))
+        self.assertEqual(adaptive_term_window(1, 3), (1, 3))
+        self.assertEqual(adaptive_term_window(2, 3), (4, 3))
+        self.assertEqual(adaptive_term_window(3, 3), (7, 3))
+
+    def test_scarce_categories_include_specific_public_evidence(self):
+        matches = classify_evidence_all("电子竞技联赛与舰队海战")
+        self.assertIn("jingji", matches)
+        self.assertIn("zhanzheng", matches)
 
 
 if __name__ == "__main__":

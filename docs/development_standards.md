@@ -112,3 +112,10 @@ generated/GeneratedSourceRules.ets 无后缀旧版
 - 目录索引：`catalog/catalog.{lang}.json`
 - 报告文件：`generated/{report_name}.{lang}.json`
 - 脚本文件：`scripts/{verb}_{noun}.py`
+
+## 稀缺分类的自适应补齐
+
+- 首轮每分类使用一个宽泛公开搜索参数，避免无差别扩大请求量。
+- 后续轮次只处理未达到质量门槛的分类，并按不重叠窗口推进多个搜索参数。
+- 搜索参数只能用于发现候选；条目仍必须具备公开标题、详情链接、封面和分类证据才能发布。
+- 禁止通过复制条目、跨分类伪造数量或降低质量门槛补齐分类。

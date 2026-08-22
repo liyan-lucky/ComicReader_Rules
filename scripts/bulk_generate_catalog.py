@@ -344,6 +344,14 @@ def category_search_entrypoints(
     return entrypoints
 
 
+def adaptive_term_window(iteration: int, batch_size: int = 3) -> tuple[int, int]:
+    """Use one broad term first, then advance through non-overlapping deficit batches."""
+    if iteration <= 0:
+        return 0, 1
+    safe_batch_size = max(1, batch_size)
+    return 1 + (iteration - 1) * safe_batch_size, safe_batch_size
+
+
 def crawl_ranking_pages(
     domains: List[str],
     lang: str,
@@ -686,15 +694,20 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         max_iterations = max(1, int(os.environ.get("PIPELINE_CATALOG_ITERATIONS", "4")))
     except ValueError:
         max_iterations = 4
+    try:
+        deficit_batch_size = max(1, int(os.environ.get("PIPELINE_CATALOG_DEFICIT_BATCH", "3")))
+    except ValueError:
+        deficit_batch_size = 3
     requested_categories: Optional[Set[str]] = None
     for iteration in range(max_iterations):
+        term_start, term_count = adaptive_term_window(iteration, deficit_batch_size)
         round_items = crawl_domains_parallel(
             crawl_domains,
             lang,
             existing_titles,
             category_ids=requested_categories,
-            term_start=iteration,
-            term_count=1,
+            term_start=term_start,
+            term_count=term_count,
             include_seed_sites=iteration == 0,
         )
         merge_catalog_items(crawled_items, round_items)
@@ -710,7 +723,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
             "iteration": iteration + 1,
             "parameterSource": "generated-from-previous-round-deficits" if iteration else "initial-category-batch",
             "requestedCategories": sorted(requested_categories) if requested_categories is not None else sorted(counts),
-            "termOffset": iteration,
+            "termOffset": term_start,
+            "termCount": term_count,
             "newCandidateCount": len(round_items),
             "candidateCategoryCounts": counts,
             "remainingDeficits": deficits,
@@ -719,7 +733,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         if not deficits:
             break
         requested_categories = set(deficits)
-        if not any(category_search_entrypoints(domain, requested_categories, iteration + 1, 1) for domain in crawl_domains):
+        next_term_start, next_term_count = adaptive_term_window(iteration + 1, deficit_batch_size)
+        if not any(category_search_entrypoints(domain, requested_categories, next_term_start, next_term_count) for domain in crawl_domains):
             print(f"[{lang}] adaptive parameter pool exhausted after round {iteration + 1}")
             break
 
@@ -728,6 +743,7 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
         "language": lang,
         "targetPerCategory": CATEGORY_MINIMUM,
         "maxIterations": max_iterations,
+        "deficitBatchSize": deficit_batch_size,
         "parameterPool": "config/catalog_config.json#search_keywords (transitional; generated batches only)",
         "rounds": parameter_rounds,
     }
