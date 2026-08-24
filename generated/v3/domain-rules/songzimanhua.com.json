@@ -1,0 +1,36 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "songzimanhua_com",
+  "domain": "songzimanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.hot",
+    "a.btn",
+    "* a[href]",
+    "*.detail-line a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "f935f20a3713a345",
+    "9b1905cfef5c5bcb",
+    "cfa348a6fa8f850d",
+    "193e5864c8954768",
+    "4a75b8e1af2013b5",
+    "53a308aa2cacfd5b"
+  ],
+  "replayWorkCount": 6,
+  "failures": [],
+  "status": "rejected"
+}

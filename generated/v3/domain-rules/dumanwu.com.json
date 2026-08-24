@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "dumanwu_com",
+  "domain": "dumanwu.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "*.folat-prev1 img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "c8c9c15c88ac4053",
+    "ea53db395710a7a0",
+    "b7af8a9b040acaa9",
+    "d3fdf8f7711c4b28",
+    "2ba809c28bbc8777"
+  ],
+  "replayWorkCount": 5,
+  "failures": [],
+  "status": "verified"
+}

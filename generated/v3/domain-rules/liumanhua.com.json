@@ -1,0 +1,115 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "liumanhua_com",
+  "domain": "liumanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.r-top",
+    "a.jiathis",
+    "* a[href]",
+    "*.cy_yuepiao a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img",
+    "img.j-user-avatar"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "2486377ebd16043b",
+    "4f01251bdae2f8a6",
+    "cc90c75e7babe85a",
+    "ea5820f9a635825e",
+    "0e798e09c9872c3b",
+    "1768a4e53c1cd8ce",
+    "1eda36ef07386f91",
+    "2feb9fb55eddcc68",
+    "3dcd3f1aed0f0914",
+    "6ce584a8896c1c1b",
+    "7d0a88c8419c2d2b",
+    "cc816ddf0ce2fe5e",
+    "1456ce1fb22cbadc",
+    "54bb42da09fae750",
+    "bd5bf8613ed1f658",
+    "d5ce6b2f16e3dc6f",
+    "dd52c5c40bd9cbbf",
+    "091f3b2b1a0c9241",
+    "e714d1150d535339",
+    "279bdf5aa7a0fc6e",
+    "4197a6add2c4c310",
+    "4b8becaacf6001f2",
+    "afe63cd62fce7663",
+    "4dd932b65810177a",
+    "5a35b0562302fddd",
+    "6a6b3678241cd846",
+    "9a61c7979f023b77",
+    "0e9af01c39cf0232",
+    "2a04418060d51db2",
+    "4bd1cbb63974f6b6",
+    "4fc09ae93dca403c",
+    "6f3f73c72102cb41",
+    "94abf178d29140ee"
+  ],
+  "replayWorkCount": 33,
+  "failures": [
+    {
+      "workId": "6ce584a8896c1c1b",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/225153/60975.html"
+    },
+    {
+      "workId": "7d0a88c8419c2d2b",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231155/58573.html"
+    },
+    {
+      "workId": "cc816ddf0ce2fe5e",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/227674"
+    },
+    {
+      "workId": "279bdf5aa7a0fc6e",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/262646"
+    },
+    {
+      "workId": "4197a6add2c4c310",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/225083"
+    },
+    {
+      "workId": "4b8becaacf6001f2",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233765"
+    },
+    {
+      "workId": "afe63cd62fce7663",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/228227"
+    },
+    {
+      "workId": "4dd932b65810177a",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235881/55238.html"
+    },
+    {
+      "workId": "5a35b0562302fddd",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232332"
+    },
+    {
+      "workId": "9a61c7979f023b77",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/259091"
+    },
+    {
+      "workId": "0e9af01c39cf0232",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230268"
+    },
+    {
+      "workId": "4bd1cbb63974f6b6",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/409601/131235.html"
+    }
+  ],
+  "status": "rejected"
+}

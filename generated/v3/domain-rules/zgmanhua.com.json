@@ -1,0 +1,40 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "zgmanhua_com",
+  "domain": "zgmanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.btn",
+    "a.chapter-item",
+    "*.col-md-9 a[href]",
+    "*.chapter-grid a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "*.chapter-content img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "aa2f0828028958c1",
+    "e6e45d0bd820d312",
+    "af43b2bf8475ada6",
+    "882c556a001133ef",
+    "59db90c8654771b6",
+    "a6cdbf25d00c5766",
+    "144acea1d8e27ccf",
+    "4e0e6e23b0f73d8e"
+  ],
+  "replayWorkCount": 8,
+  "failures": [],
+  "status": "verified"
+}

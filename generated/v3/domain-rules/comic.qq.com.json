@@ -1,0 +1,32 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "comic_qq_com",
+  "domain": "comic.qq.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.chapter-link",
+    "*.chapter-item a[href]",
+    "*.bottom-chapter-item a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.app-guiding-img",
+    "*.app-guiding-pad img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "6c4eb0b77ab00897"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}
