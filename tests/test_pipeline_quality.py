@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from bulk_generate_catalog import adaptive_term_window, category_search_entrypoints, classify_evidence, classify_evidence_all, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title
+from bulk_generate_catalog import adaptive_term_window, category_search_entrypoints, classify_evidence, classify_evidence_all, extract_detail_cover, extract_public_category_texts, has_publishable_source, is_valid_detail_url, is_valid_title, select_enrichment_records
 from pipeline_seed import ROOT_TERMS
 from audit_pipeline_outputs import related_domain
 from generate_site_configs import is_catalog_navigation_link
@@ -154,6 +154,41 @@ class CatalogQualityTests(unittest.TestCase):
         matches = classify_evidence_all("电子竞技联赛与舰队海战")
         self.assertIn("jingji", matches)
         self.assertIn("zhanzheng", matches)
+
+    def test_enrichment_prioritizes_incomplete_scarce_categories(self):
+        def item(title, category, cover=""):
+            return {
+                "title": title,
+                "category": category,
+                "categoryEvidence": {"matched": category},
+                "categoryEvidenceByCategory": {category: {"matched": category}},
+                "sources": [{
+                    "detailUrl": f"https://example.com/comic/{title}",
+                    "coverUrl": cover,
+                }],
+            }
+        items = {
+            "romance": item("romance", "lianai"),
+            "sport-a": item("sport-a", "jingji"),
+            "sport-b": item("sport-b", "jingji", "https://example.com/b.webp"),
+            "war": item("war", "zhanzheng"),
+        }
+        selected = select_enrichment_records(items, {"jingji": 2, "zhanzheng": 1}, 3)
+        selected_keys = [record[0] for record in selected]
+        self.assertEqual(set(selected_keys), {"sport-a", "sport-b", "war"})
+        self.assertLess(selected_keys.index("sport-a"), selected_keys.index("sport-b"))
+
+    def test_detail_cover_supports_reversed_meta_and_json(self):
+        reversed_meta = '<meta content="/covers/a.webp" property="og:image">'
+        self.assertEqual(
+            extract_detail_cover(reversed_meta, "https://example.com/comic/1"),
+            "https://example.com/covers/a.webp",
+        )
+        json_cover = '{"coverUrl":"https:\\/\\/img.example.com\\/b.jpg"}'
+        self.assertEqual(
+            extract_detail_cover(json_cover, "https://example.com/comic/1"),
+            "https://img.example.com/b.jpg",
+        )
 
 
 if __name__ == "__main__":

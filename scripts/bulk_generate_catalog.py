@@ -591,35 +591,136 @@ def crawl_domains_parallel(
     return merged
 
 
-def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
-    """Use public detail metadata to recover category and cover evidence."""
-    import html as _html
-    import urllib.request
-    from urllib.parse import urljoin
+def category_deficits(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
+    counts = publishable_category_counts(items)
+    return {
+        category_id: CATEGORY_MINIMUM - count
+        for category_id, count in counts.items()
+        if count < CATEGORY_MINIMUM
+    }
 
-    pending_by_category: Dict[str, List[tuple[str, Dict[str, Any], Dict[str, Any]]]] = {}
+
+def select_enrichment_records(
+    items: Dict[str, Dict[str, Any]],
+    deficits: Dict[str, int],
+    budget: int,
+) -> List[tuple[str, Dict[str, Any], Dict[str, Any]]]:
+    """Prioritize incomplete candidates that already carry scarce-category evidence."""
+    records: List[tuple[str, Dict[str, Any], Dict[str, Any]]] = []
+    general_buckets: Dict[str, List[tuple[str, Dict[str, Any], Dict[str, Any]]]] = {}
+    priority_buckets: Dict[str, List[tuple[str, Dict[str, Any], Dict[str, Any]]]] = {
+        category_id: [] for category_id in sorted(deficits)
+    }
     for key, item in items.items():
-        # A complete source only proves that the item is publishable.  It does
-        # not prove that the first category found is its only public category.
-        # Fetch detail metadata until multiple category facts are available.
         if len(item.get("categoryEvidenceByCategory", {})) > 1 and has_publishable_source(item):
             continue
         source = next((s for s in item.get("sources", []) if is_valid_detail_url(str(s.get("detailUrl", "")))), None)
-        if source:
-            bucket = str(item.get("category") or "unclassified")
-            pending_by_category.setdefault(bucket, []).append((key, item, source))
+        if not source:
+            continue
+        record = (key, item, source)
+        records.append(record)
+        categories = set(item.get("categoryEvidenceByCategory", {}))
+        if not categories and item.get("category") and item.get("categoryEvidence"):
+            categories.add(str(item["category"]))
+        for category_id in priority_buckets:
+            if category_id in categories:
+                priority_buckets[category_id].append(record)
+        bucket = str(item.get("category") or "unclassified")
+        general_buckets.setdefault(bucket, []).append(record)
+
+    # Missing-cover candidates are the shortest path from audited discovery to
+    # a publishable item, so keep them ahead of already publishable records.
+    def incomplete_first(record: tuple[str, Dict[str, Any], Dict[str, Any]]) -> int:
+        return 0 if not has_publishable_source(record[1]) else 1
+
+    for bucket in priority_buckets.values():
+        bucket.sort(key=incomplete_first)
+    for bucket in general_buckets.values():
+        bucket.sort(key=incomplete_first)
+
+    selected: List[tuple[str, Dict[str, Any], Dict[str, Any]]] = []
+    selected_keys: Set[str] = set()
+    priority_limits = {
+        category_id: max(CATEGORY_MINIMUM, deficit * 3)
+        for category_id, deficit in deficits.items()
+    }
+    priority_taken = {category_id: 0 for category_id in deficits}
+    active = [category_id for category_id in sorted(priority_buckets) if priority_buckets[category_id]]
+    offsets = {category_id: 0 for category_id in active}
+    while active and len(selected) < budget:
+        remaining = []
+        for category_id in active:
+            bucket = priority_buckets[category_id]
+            offset = offsets[category_id]
+            while offset < len(bucket) and bucket[offset][0] in selected_keys:
+                offset += 1
+            offsets[category_id] = offset
+            if offset < len(bucket) and priority_taken[category_id] < priority_limits[category_id]:
+                record = bucket[offset]
+                offsets[category_id] += 1
+                selected.append(record)
+                selected_keys.add(record[0])
+                priority_taken[category_id] += 1
+            if offsets[category_id] < len(bucket) and priority_taken[category_id] < priority_limits[category_id]:
+                remaining.append(category_id)
+            if len(selected) >= budget:
+                break
+        active = remaining
+
+    buckets = [general_buckets[key] for key in sorted(general_buckets)]
+    offsets_general = [0 for _ in buckets]
+    while buckets and len(selected) < budget:
+        remaining_buckets = []
+        remaining_offsets = []
+        for index, bucket in enumerate(buckets):
+            offset = offsets_general[index]
+            while offset < len(bucket) and bucket[offset][0] in selected_keys:
+                offset += 1
+            if offset < len(bucket):
+                record = bucket[offset]
+                selected.append(record)
+                selected_keys.add(record[0])
+                offset += 1
+            if offset < len(bucket):
+                remaining_buckets.append(bucket)
+                remaining_offsets.append(offset)
+            if len(selected) >= budget:
+                break
+        buckets = remaining_buckets
+        offsets_general = remaining_offsets
+    return selected
+
+
+def extract_detail_cover(body: str, page_url: str) -> str:
+    import html as _html
+    from urllib.parse import urljoin
+
+    patterns = (
+        r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image|twitter:image:src)["\'][^>]+content=["\']([^"\']+)',
+        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:og:image|twitter:image|twitter:image:src)["\']',
+        r'"(?:cover|coverUrl|cover_url|image|imageUrl|image_url|thumbnail)"\s*:\s*"((?:\\.|[^"\\])+\.(?:jpg|jpeg|png|webp|gif|avif)(?:\?(?:\\.|[^"\\])*)?)"',
+    )
+    for pattern in patterns:
+        match = re.search(pattern, body, re.I)
+        if match:
+            candidate = _html.unescape(match.group(1).strip()).replace('\\/', '/')
+            resolved = urljoin(page_url, candidate)
+            if resolved.startswith(("http://", "https://")):
+                return resolved
+    return ""
+
+
+def enrich_catalog_evidence(
+    items: Dict[str, Dict[str, Any]],
+    deficits: Optional[Dict[str, int]] = None,
+) -> Dict[str, Any]:
+    """Use public detail metadata to recover category and cover evidence."""
+    import urllib.request
+
     # Budget is derived from the requested minimum, not a hidden fixed crawl count.
     budget = max(CATEGORY_MINIMUM * len(CATEGORY_RULES), CATEGORY_MINIMUM)
-    pending = []
-    buckets = [pending_by_category[key] for key in sorted(pending_by_category)]
-    while buckets and len(pending) < budget:
-        remaining = []
-        for bucket in buckets:
-            if bucket and len(pending) < budget:
-                pending.append(bucket.pop(0))
-            if bucket:
-                remaining.append(bucket)
-        buckets = remaining
+    active_deficits = deficits if deficits is not None else category_deficits(items)
+    pending = select_enrichment_records(items, active_deficits, budget)
 
     def fetch_one(record: tuple[str, Dict[str, Any], Dict[str, Any]]):
         key, item, source = record
@@ -646,12 +747,15 @@ def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
             item["category"] = category
             item["categoryEvidence"] = {**evidence, "detailUrl": url}
         if not str(source.get("coverUrl", "")).startswith(("http://", "https://")):
-            cover = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', body, re.I)
+            cover = extract_detail_cover(body, url)
             if cover:
-                source["coverUrl"] = urljoin(url, _html.unescape(cover.group(1).strip()))
+                source["coverUrl"] = cover
         return key, "enriched", ""
 
-    stats = {"attempted": len(pending), "enriched": 0, "fetchFailed": 0}
+    stats: Dict[str, Any] = {
+        "attempted": len(pending), "enriched": 0, "fetchFailed": 0,
+        "priorityDeficits": active_deficits,
+    }
     with ThreadPoolExecutor(max_workers=min(16, max(2, len(pending)))) as pool:
         futures = [pool.submit(fetch_one, record) for record in pending]
         for future in as_completed(futures):
@@ -660,6 +764,8 @@ def enrich_catalog_evidence(items: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
                 stats["enriched"] += 1
             else:
                 stats["fetchFailed"] += 1
+    stats["publishableCategoryCounts"] = publishable_category_counts(items)
+    stats["remainingDeficits"] = category_deficits(items)
     return stats
 
 
@@ -756,7 +862,8 @@ def generate_catalog_for_lang(lang: str, max_crawl_domains: int = 20) -> Dict[st
     kw_items = build_items_from_keywords(keywords, domains, lang, existing_titles)
 
     candidate_items = {**report_items, **crawled_items, **kw_items}
-    enrichment_stats = enrich_catalog_evidence(candidate_items)
+    pre_enrichment_deficits = category_deficits(candidate_items)
+    enrichment_stats = enrich_catalog_evidence(candidate_items, pre_enrichment_deficits)
     print(f"[{lang}] detail evidence enrichment: {enrichment_stats}")
     all_items = {
         key: item for key, item in candidate_items.items()
