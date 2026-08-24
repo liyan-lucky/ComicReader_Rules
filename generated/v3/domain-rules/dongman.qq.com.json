@@ -1,18 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "mh250_com",
-  "domain": "mh250.com",
+  "id": "dongman_qq_com",
+  "domain": "dongman.qq.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a",
-    "* a[href]"
+    "a.chapter-link",
+    "*.chapter-item a[href]",
+    "*.bottom-chapter-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img",
-    "*.mu_list img"
+    "img.app-guiding-img",
+    "*.app-guiding-pad img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -23,10 +24,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "f30ed8fc6682d875",
-    "b0ddabe28d6af5e3"
+    "048e5ca9ca096a1e"
   ],
-  "replayWorkCount": 2,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

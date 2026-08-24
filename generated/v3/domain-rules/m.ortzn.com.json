@@ -1,18 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "mh250_com",
-  "domain": "mh250.com",
+  "id": "m_ortzn_com",
+  "domain": "m.ortzn.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a",
-    "* a[href]"
+    "a.cart-item",
+    "*.cartoon-block-box a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
     "img",
-    "*.mu_list img"
+    "*.cart-cover img",
+    "*.detail-main img",
+    "img.detail-main-bg",
+    "*.detail-main-cover img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -23,10 +26,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "f30ed8fc6682d875",
-    "b0ddabe28d6af5e3"
+    "0591d29b0f66971d"
   ],
-  "replayWorkCount": 2,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

@@ -1,13 +1,15 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "dumanwu_com",
-  "domain": "dumanwu.com",
+  "id": "mwbook_book_qq_com",
+  "domain": "mwbook.book.qq.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a",
-    "* a[href]"
+    "a.btn",
+    "a.catalogue_item_link",
+    "*.action-buttons a[href]",
+    "*.catalogue_item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
@@ -20,19 +22,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "b1092dd24b60cd43",
-    "e88056af71e0e678",
-    "82e49a345c9db4e8",
-    "67602282e7ed768a",
-    "c8c9c15c88ac4053",
-    "6812f0429e747bc0",
-    "b7af8a9b040acaa9",
-    "2ba809c28bbc8777",
-    "979babf30d62ead8",
-    "a6068ddafe990b83",
-    "fe5821db5a7b4e57"
+    "6df870ca78feacb8"
   ],
-  "replayWorkCount": 11,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "rejected"
 }
