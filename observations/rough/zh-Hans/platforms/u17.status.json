@@ -10,7 +10,7 @@
   },
   "status": "failed",
   "itemCount": 0,
-  "error": "ConnectionError: HTTPSConnectionPool(host='www.u17.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError(\"HTTPSConnection(host='www.u17.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))",
-  "startedAt": "2026-08-24T19:03:30.375031+00:00",
-  "elapsedSeconds": 0.54
+  "error": "ConnectTimeout: HTTPSConnectionPool(host='www.u17.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.u17.com', port=443) at 0x7ff109eaf350>, 'Connection to www.u17.com timed out. (connect timeout=30)'))",
+  "startedAt": "2026-08-24T22:43:24.113991+00:00",
+  "elapsedSeconds": 30.26
 }
