@@ -1,16 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-维护 generated/update_manifest.json。
-
-用途：
-  - App 只读取一个总入口文件；
-  - 规则流程只更新 rules section；
-  - 目录流程只更新 catalog section；
-  - 两个流程发布频率可以不同，互不覆盖。
-
-所有路径均使用 {lang} 后缀，无后缀文件已废弃。
-"""
+"""Publish the single App manifest after the V3 evidence gates pass."""
 from __future__ import annotations
 
 import argparse
@@ -83,9 +73,6 @@ def build_section(section: str, tag: str, language_code: str = "", language_name
             "name": language_name or language_code,
         },
     }
-    if section == "rules":
-        data["reportUrl"] = f"{REPO_RAW_BASE}/generated/rulebot_report.{language_code}.json"
-        data["etsUrl"] = f"{REPO_RAW_BASE}/generated/GeneratedSourceRules.{language_code}.ets"
     return data
 
 

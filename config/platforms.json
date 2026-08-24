@@ -1,0 +1,29 @@
+{
+  "schema": "comic_platform_registry_v1",
+  "language": "zh-Hans",
+  "platforms": [
+    {"id":"tencent","name":"腾讯动漫","baseUrl":"https://ac.qq.com","adapter":"tencent","entryUrl":"https://ac.qq.com/Comic/all","enabled":true},
+    {"id":"bilibili","name":"哔哩哔哩漫画","baseUrl":"https://manga.bilibili.com","adapter":"bilibili","entryUrl":"https://manga.bilibili.com/classify","enabled":true},
+    {"id":"kuaikan","name":"快看漫画","baseUrl":"https://www.kuaikanmanhua.com","adapter":"kuaikan","entryUrl":"https://www.kuaikanmanhua.com/tag/0","enabled":true},
+    {"id":"dongman","name":"咚漫（用户称“破洞”）","aliases":["破洞"],"baseUrl":"https://www.dongmanmanhua.cn","adapter":"generic","entryUrl":"https://www.dongmanmanhua.cn","enabled":true},
+    {"id":"manhuadao","name":"漫画岛","baseUrl":"https://www.manhuadao.cn","adapter":"generic","entryUrl":"https://www.manhuadao.cn","enabled":true},
+    {"id":"u17","name":"有妖气","baseUrl":"https://www.u17.com","adapter":"generic","entryUrl":"https://www.u17.com","enabled":true},
+    {"id":"kanman","name":"看漫画","baseUrl":"https://www.kanman.com","adapter":"generic","entryUrl":"https://www.kanman.com","enabled":true},
+    {"id":"boluobao","name":"菠萝包漫画","baseUrl":"https://manhua.sfacg.com","adapter":"generic","entryUrl":"https://manhua.sfacg.com","enabled":true},
+    {"id":"dmzj","name":"动漫之家","baseUrl":"https://manhua.dmzj.com","adapter":"generic","entryUrl":"https://manhua.dmzj.com","enabled":true},
+    {"id":"manhuatai","name":"漫画台","baseUrl":"https://www.manhuatai.com","adapter":"generic","entryUrl":"https://www.manhuatai.com","enabled":true}
+  ],
+  "tencentThemeIds": {
+    "lianai":105,"xuanhuan":101,"yineng":103,"kongbu":110,"juqing":106,"kehuan":108,"xuanyi":112,"qihuan":102,
+    "maoxian":104,"fanzui":111,"dongzuo":109,"richang":113,"jingji":114,"wuxia":115,"lishi":116,"zhanzheng":117
+  },
+  "kuaikanThemeIds": {
+    "lianai":20,"xuanhuan":63,"yineng":68,"kongbu":81,"juqing":23,"kehuan":91,"xuanyi":65,"qihuan":22,"dongzuo":67,"wuxia":85
+  },
+  "categoryAliases": {
+    "恋爱":"lianai","爱情":"lianai","玄幻":"xuanhuan","修仙":"xuanhuan","异能":"yineng","恐怖":"kongbu","剧情":"juqing",
+    "科幻":"kehuan","末世":"kehuan","悬疑":"xuanyi","推理":"xuanyi","奇幻":"qihuan","冒险":"maoxian","犯罪":"fanzui",
+    "动作":"dongzuo","热血":"dongzuo","战斗":"dongzuo","日常":"richang","竞技":"jingji","运动":"jingji","武侠":"wuxia",
+    "历史":"lishi","古风":"lishi","战争":"zhanzheng","军事":"zhanzheng"
+  }
+}

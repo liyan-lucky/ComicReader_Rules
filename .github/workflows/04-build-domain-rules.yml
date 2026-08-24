@@ -1,0 +1,50 @@
+name: 04 域名规则分析回放
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['03 分类逐书找源']
+    types: [completed]
+permissions: {contents: write}
+concurrency: {group: catalog-v3-domain-rules, cancel-in-progress: false}
+jobs:
+  matrix:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs: {domains: '${{ steps.domains.outputs.value }}'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - id: domains
+        run: echo "value=$(python scripts/list_domains.py --ledger generated/v3/domain_ledger.zh-Hans.json)" >> "$GITHUB_OUTPUT"
+  analyze:
+    needs: matrix
+    if: needs.matrix.outputs.domains != '[]'
+    strategy:
+      fail-fast: false
+      matrix: {domain: '${{ fromJSON(needs.matrix.outputs.domains) }}'}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - run: python scripts/analyze_domain_rule.py --ledger generated/v3/domain_ledger.zh-Hans.json --domain '${{ matrix.domain }}' --output 'out/${{ matrix.domain }}.json'
+      - uses: actions/upload-artifact@v4
+        with: {name: 'domain-${{ strategy.job-index }}', path: out/}
+  merge:
+    needs: analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/download-artifact@v4
+        with: {pattern: domain-*, path: generated/v3/domain-rules, merge-multiple: true}
+      - run: python scripts/merge_domain_rules.py --input-dir generated/v3/domain-rules --output rules/index.zh-Hans.json
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add rules/index.zh-Hans.json generated/v3/domain-rules
+          git diff --cached --quiet || git commit -m 'rules: rebuild verified domain rules'
+          git pull --rebase origin main
+          git push origin HEAD:main

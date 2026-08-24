@@ -1,0 +1,52 @@
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from title_normalization import build, clean_title, identity_key
+from select_sources import choose
+
+
+def test_chapter_suffix_is_not_a_separate_work():
+    assert clean_title("斗破苍穹 第1话") == "斗破苍穹"
+    assert clean_title("斗破苍穹 第一集 在线阅读") == "斗破苍穹"
+    assert identity_key(clean_title("斗破苍穹 第1话"), "zh-Hans") == identity_key("斗破苍穹", "zh-Hans")
+
+
+def test_season_and_side_story_remain_distinct():
+    assert identity_key(clean_title("某某 第一季"), "zh-Hans") != identity_key(clean_title("某某 第二季"), "zh-Hans")
+    assert identity_key(clean_title("某某"), "zh-Hans") != identity_key(clean_title("某某 外传"), "zh-Hans")
+
+
+def test_platform_observations_are_deduplicated_with_evidence():
+    observations = [
+        {"platform": "A", "url": "https://a.example/work/1", "title": "斗破苍穹", "category": "xuanhuan", "language": "zh-Hans"},
+        {"platform": "B", "url": "https://b.example/work/2", "title": "斗破苍穹 第1话", "category": "xuanhuan", "language": "zh-Hans"},
+    ]
+    result = build(observations, "zh-Hans", "xuanhuan")
+    assert len(result["works"]) == 1
+    assert len(result["works"][0]["platformEvidence"]) == 2
+
+
+def _audit(domain: str, chapters: int, title: str = "斗破苍穹", readable: bool = True):
+    return {"workId": "work-1", "language": "zh-Hans", "queryTitle": "斗破苍穹", "matchedTitle": title,
+            "detailUrl": f"https://{domain}/comic/1", "domain": domain, "chapterCount": chapters,
+            "status": "verified", "samples": [
+                {"position": position, "chapterUrl": f"https://{domain}/chapter/{position}",
+                 "imageCount": 20 if readable else 1, "readable": readable}
+                for position in ("first", "middle", "latest")
+            ]}
+
+
+def test_best_source_uses_highest_verified_chapter_count():
+    result = choose([_audit("a.example", 100), _audit("b.example", 250)])
+    assert result["selected"][0]["domain"] == "b.example"
+    assert result["selected"][0]["verifiedChapterCount"] == 250
+
+
+def test_unreadable_or_wrong_title_source_cannot_win():
+    result = choose([_audit("bad.example", 999, readable=False), _audit("wrong.example", 888, title="斗罗大陆"),
+                     _audit("good.example", 120)])
+    assert result["selected"][0]["domain"] == "good.example"
+    assert len(result["rejected"]) == 2

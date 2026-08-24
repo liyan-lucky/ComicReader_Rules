@@ -1,0 +1,28 @@
+name: 05 发布可读目录
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['04 域名规则分析回放']
+    types: [completed]
+permissions: {contents: write}
+concurrency: {group: catalog-v3-publish, cancel-in-progress: false}
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/publish_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --rules rules/index.zh-Hans.json --output catalog/catalog.zh-Hans.json
+      - run: python scripts/validate_release.py --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json | tee generated/v3/release_audit.zh-Hans.json
+      - run: python scripts/update_manifest.py --section rules --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
+      - run: python scripts/update_manifest.py --section catalog --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add catalog/catalog.zh-Hans.json rules/index.zh-Hans.json generated/update_manifest.json generated/v3/release_audit.zh-Hans.json
+          git diff --cached --quiet || git commit -m 'publish: validated readable catalog and domain rules'
+          git pull --rebase origin main
+          git push origin HEAD:main

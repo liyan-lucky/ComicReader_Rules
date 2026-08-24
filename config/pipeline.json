@@ -1,0 +1,17 @@
+{
+  "schema": "comic_catalog_pipeline_v3",
+  "languages": ["zh-Hans", "zh-Hant", "en", "ja", "ko"],
+  "primaryLanguage": "zh-Hans",
+  "categoriesFrom": "config/catalog_config.json",
+  "minimumPlatformEvidence": 1,
+  "minimumReadableImagesPerSample": 3,
+  "sampleChapterPositions": ["first", "middle", "latest"],
+  "minimumReadableSampleRatio": 1.0,
+  "sourceChoice": "highest_verified_chapter_count",
+  "oneRulePerDomain": true,
+  "allowCrossLanguageCatalogFill": false,
+  "titleRules": {
+    "preserveWorkQualifiers": ["第一季", "第二季", "第三季", "前传", "后传", "外传", "番外", "重制版", "续篇", "season 1", "season 2", "prequel", "sequel"],
+    "stripChapterSuffixes": ["第1话", "第一话", "第1章", "第一章", "第1集", "第一集", "最新话", "最新章节", "全集", "在线阅读"]
+  }
+}

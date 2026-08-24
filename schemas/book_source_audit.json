@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "book_source_audit.schema.json",
+  "type": "object",
+  "required": ["workId", "language", "queryTitle", "detailUrl", "domain", "chapterCount", "samples", "status"],
+  "properties": {
+    "workId": {"type": "string"},
+    "language": {"type": "string"},
+    "queryTitle": {"type": "string"},
+    "matchedTitle": {"type": "string"},
+    "detailUrl": {"type": "string", "format": "uri"},
+    "domain": {"type": "string"},
+    "chapterCount": {"type": "integer", "minimum": 0},
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "chapterUrl", "imageCount", "readable"],
+        "properties": {
+          "position": {"enum": ["first", "middle", "latest"]},
+          "chapterUrl": {"type": "string"},
+          "imageCount": {"type": "integer", "minimum": 0},
+          "readable": {"type": "boolean"}
+        }
+      }
+    },
+    "status": {"enum": ["verified", "rejected", "unreachable"]},
+    "rejectionReasons": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,47 @@
+name: 01 每日平台粗采集
+on:
+  workflow_dispatch:
+    inputs:
+      pages: {description: 每个平台每分类页数, required: true, default: '2'}
+  schedule:
+    - cron: '20 18 * * *'
+permissions: {contents: write}
+concurrency: {group: catalog-v3-platform-collection, cancel-in-progress: false}
+jobs:
+  collect:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [tencent, bilibili, kuaikan, dongman, manhuadao, u17, kanman, boluobao, dmzj, manhuatai]
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - name: 独立采集 ${{ matrix.platform }}
+        run: python scripts/collect_platform.py --platform '${{ matrix.platform }}' --pages '${{ inputs.pages || 2 }}' --output-dir out
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: 'rough-${{ matrix.platform }}', path: out/, if-no-files-found: warn}
+  aggregate:
+    if: always()
+    needs: collect
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with: {pattern: rough-*, path: daily, merge-multiple: true}
+      - run: python scripts/aggregate_rough_catalog.py --input-dir daily --fallback-dir observations/rough/zh-Hans/platforms --platform-output-dir observations/rough/zh-Hans/platforms --output-dir observations/rough/zh-Hans/categories
+      - name: 提交粗分类文件和平台状态
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add observations/rough/zh-Hans
+          git diff --cached --quiet || git commit -m 'rough: refresh daily platform observations'
+          git pull --rebase origin main
+          git push origin HEAD:main

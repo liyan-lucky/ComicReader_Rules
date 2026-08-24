@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "catalog_title_parameter.schema.json",
+  "type": "object",
+  "required": ["schema", "language", "category", "works"],
+  "properties": {
+    "schema": {"const": "comic_title_parameters_v2"},
+    "language": {"enum": ["zh-Hans", "zh-Hant", "en", "ja", "ko"]},
+    "category": {"type": "object", "required": ["id", "name"]},
+    "works": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "canonicalTitle", "language", "category", "aliases", "platformEvidence"],
+        "properties": {
+          "id": {"type": "string", "minLength": 8},
+          "canonicalTitle": {"type": "string", "minLength": 2},
+          "seriesQualifier": {"type": "string"},
+          "language": {"type": "string"},
+          "category": {"type": "string"},
+          "aliases": {"type": "array", "items": {"type": "string"}},
+          "platformEvidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["platform", "url", "observedTitle", "observedAt"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

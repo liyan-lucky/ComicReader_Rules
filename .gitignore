@@ -51,11 +51,6 @@ secrets.*
 
 # IDE / tool cache
 .codeartsdoer/
+.codegraph/
 .agents/
-
-# Intermediate index files (build_index_from_report.py output, consumed by sanitize_rule_outputs.py)
-# The final published index is rules/index.{lang}.json
-generated/index.*.json
-
-# Old no-suffix files (deprecated)
-generated/GeneratedSourceRules.ets
+.tmp/

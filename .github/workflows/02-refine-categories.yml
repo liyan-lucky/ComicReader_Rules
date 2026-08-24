@@ -1,0 +1,42 @@
+name: 02 分类独立精加工
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['01 每日平台粗采集']
+    types: [completed]
+permissions: {contents: write, actions: read}
+concurrency: {group: catalog-v3-category-refinement, cancel-in-progress: false}
+jobs:
+  refine:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    strategy:
+      fail-fast: false
+      matrix:
+        category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: 精加工单个分类
+        run: python scripts/refine_category.py --input 'observations/rough/zh-Hans/categories/${{ matrix.category }}.jsonl' --category '${{ matrix.category }}' --language zh-Hans --output 'out/${{ matrix.category }}.json'
+      - uses: actions/upload-artifact@v4
+        with: {name: 'refined-${{ matrix.category }}', path: out/}
+  merge:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    needs: refine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/download-artifact@v4
+        with: {pattern: refined-*, path: parameters/catalog/zh-Hans, merge-multiple: true}
+      - name: 仅在参数变化时提交
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add parameters/catalog/zh-Hans
+          git diff --cached --quiet || git commit -m 'parameters: refine changed categories'
+          git pull --rebase origin main
+          git push origin HEAD:main

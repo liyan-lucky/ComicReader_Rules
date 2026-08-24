@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""Select one best readable public source per work from independent audits."""
+from __future__ import annotations
+
+import argparse
+import json
+from collections import defaultdict
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urlparse
+
+from title_normalization import identity_key
+
+
+def valid_audit(item: dict, min_images: int = 3) -> bool:
+    samples = item.get("samples", [])
+    positions = {sample.get("position") for sample in samples if isinstance(sample, dict)}
+    if item.get("status") != "verified" or int(item.get("chapterCount") or 0) <= 0:
+        return False
+    if not {"first", "middle", "latest"}.issubset(positions):
+        return False
+    if any(not sample.get("readable") or int(sample.get("imageCount") or 0) < min_images for sample in samples):
+        return False
+    host = (urlparse(str(item.get("detailUrl", ""))).hostname or "").lower().removeprefix("www.")
+    return bool(host and host == str(item.get("domain", "")).lower().removeprefix("www."))
+
+
+def title_matches(item: dict) -> bool:
+    language = str(item.get("language", ""))
+    return identity_key(str(item.get("queryTitle", "")), language) == identity_key(str(item.get("matchedTitle", "")), language)
+
+
+def score(item: dict) -> tuple[int, int, str]:
+    images = sum(int(sample.get("imageCount") or 0) for sample in item.get("samples", []))
+    return int(item.get("chapterCount") or 0), images, str(item.get("detailUrl", ""))
+
+
+def choose(audits: list[dict]) -> dict:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    rejected: list[dict] = []
+    for item in audits:
+        reasons = []
+        if not title_matches(item): reasons.append("title_identity_mismatch")
+        if not valid_audit(item): reasons.append("three_chapter_readability_gate_failed")
+        if reasons:
+            rejected.append({"workId": item.get("workId"), "detailUrl": item.get("detailUrl"), "reasons": reasons})
+        else:
+            grouped[str(item.get("workId", ""))].append(item)
+    selected = []
+    for work_id, candidates in sorted(grouped.items()):
+        winner = sorted(candidates, key=score, reverse=True)[0]
+        selected.append({
+            "workId": work_id, "language": winner["language"], "title": winner["queryTitle"],
+            "domain": winner["domain"], "detailUrl": winner["detailUrl"],
+            "coverUrl": winner.get("coverUrl", ""),
+            "verifiedChapterCount": winner["chapterCount"], "samples": winner["samples"],
+            "candidateCount": len(candidates), "selectionReason": "highest_verified_chapter_count",
+        })
+    return {"schema": "comic_best_sources_v2", "generatedAt": datetime.now(timezone.utc).isoformat(),
+            "selected": selected, "rejected": rejected}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--audits", required=True, type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    args = parser.parse_args()
+    audits = [json.loads(line) for line in args.audits.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
+    result = choose(audits)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"best readable sources: {len(result['selected'])} -> {args.output}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
