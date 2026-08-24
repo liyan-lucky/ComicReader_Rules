@@ -1,0 +1,170 @@
+{
+  "schema": "womh_catalog_parameter_iterations_v1",
+  "language": "zh-Hans",
+  "targetPerCategory": 200,
+  "maxIterations": 4,
+  "deficitBatchSize": 3,
+  "parameterPool": "config/catalog_config.json#search_keywords (transitional; generated batches only)",
+  "rounds": [
+    {
+      "iteration": 1,
+      "parameterSource": "initial-category-batch",
+      "requestedCategories": [
+        "dongzuo",
+        "fanzui",
+        "jingji",
+        "juqing",
+        "kehuan",
+        "kongbu",
+        "lianai",
+        "lishi",
+        "maoxian",
+        "qihuan",
+        "richang",
+        "wuxia",
+        "xuanhuan",
+        "xuanyi",
+        "yineng",
+        "zhanzheng"
+      ],
+      "termOffset": 0,
+      "termCount": 1,
+      "newCandidateCount": 5954,
+      "candidateCategoryCounts": {
+        "lianai": 1298,
+        "xuanhuan": 375,
+        "yineng": 319,
+        "kongbu": 320,
+        "juqing": 447,
+        "kehuan": 316,
+        "xuanyi": 364,
+        "qihuan": 1222,
+        "maoxian": 850,
+        "fanzui": 133,
+        "dongzuo": 708,
+        "richang": 721,
+        "jingji": 79,
+        "wuxia": 161,
+        "lishi": 568,
+        "zhanzheng": 122
+      },
+      "remainingDeficits": {
+        "fanzui": 67,
+        "jingji": 121,
+        "wuxia": 39,
+        "zhanzheng": 78
+      }
+    },
+    {
+      "iteration": 2,
+      "parameterSource": "generated-from-previous-round-deficits",
+      "requestedCategories": [
+        "fanzui",
+        "jingji",
+        "wuxia",
+        "zhanzheng"
+      ],
+      "termOffset": 1,
+      "termCount": 3,
+      "newCandidateCount": 843,
+      "candidateCategoryCounts": {
+        "lianai": 1298,
+        "xuanhuan": 375,
+        "yineng": 319,
+        "kongbu": 320,
+        "juqing": 447,
+        "kehuan": 316,
+        "xuanyi": 364,
+        "qihuan": 1222,
+        "maoxian": 850,
+        "fanzui": 133,
+        "dongzuo": 708,
+        "richang": 721,
+        "jingji": 79,
+        "wuxia": 161,
+        "lishi": 568,
+        "zhanzheng": 122
+      },
+      "remainingDeficits": {
+        "fanzui": 67,
+        "jingji": 121,
+        "wuxia": 39,
+        "zhanzheng": 78
+      }
+    },
+    {
+      "iteration": 3,
+      "parameterSource": "generated-from-previous-round-deficits",
+      "requestedCategories": [
+        "fanzui",
+        "jingji",
+        "wuxia",
+        "zhanzheng"
+      ],
+      "termOffset": 4,
+      "termCount": 3,
+      "newCandidateCount": 813,
+      "candidateCategoryCounts": {
+        "lianai": 1298,
+        "xuanhuan": 375,
+        "yineng": 319,
+        "kongbu": 320,
+        "juqing": 447,
+        "kehuan": 316,
+        "xuanyi": 364,
+        "qihuan": 1222,
+        "maoxian": 850,
+        "fanzui": 133,
+        "dongzuo": 708,
+        "richang": 721,
+        "jingji": 79,
+        "wuxia": 161,
+        "lishi": 568,
+        "zhanzheng": 122
+      },
+      "remainingDeficits": {
+        "fanzui": 67,
+        "jingji": 121,
+        "wuxia": 39,
+        "zhanzheng": 78
+      }
+    },
+    {
+      "iteration": 4,
+      "parameterSource": "generated-from-previous-round-deficits",
+      "requestedCategories": [
+        "fanzui",
+        "jingji",
+        "wuxia",
+        "zhanzheng"
+      ],
+      "termOffset": 7,
+      "termCount": 3,
+      "newCandidateCount": 615,
+      "candidateCategoryCounts": {
+        "lianai": 1298,
+        "xuanhuan": 375,
+        "yineng": 319,
+        "kongbu": 320,
+        "juqing": 447,
+        "kehuan": 316,
+        "xuanyi": 364,
+        "qihuan": 1222,
+        "maoxian": 850,
+        "fanzui": 133,
+        "dongzuo": 708,
+        "richang": 721,
+        "jingji": 79,
+        "wuxia": 161,
+        "lishi": 568,
+        "zhanzheng": 122
+      },
+      "remainingDeficits": {
+        "fanzui": 67,
+        "jingji": 121,
+        "wuxia": 39,
+        "zhanzheng": 78
+      }
+    }
+  ]
+}

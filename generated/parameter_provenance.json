@@ -1,0 +1,282 @@
+{
+  "generatedAt": "2026-08-24T06:53:21.065811+00:00",
+  "rootTerms": [
+    {
+      "value": "漫画",
+      "source": "fixed-code",
+      "path": "scripts/pipeline_seed.py"
+    },
+    {
+      "value": "漫书",
+      "source": "fixed-code",
+      "path": "scripts/pipeline_seed.py"
+    }
+  ],
+  "searchTemplates": {
+    "asurascansmanhua.com": {
+      "value": "https://kunmanhua.com/?s={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "baozimh.com": {
+      "value": "https://www.baozimh.com/search?q={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "book.zhulang.com": {
+      "value": "https://www.zhulang.com/search/index.html?k={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "guazimanhua.com": {
+      "value": "https://www.guazimanhua.com/category.php?keyword={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "haoduoman.com": {
+      "value": "https://www.haoduoman.com/search?q={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "kunmanhua.com": {
+      "value": "https://kunmanhua.com/?s={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "labimanhua.com": {
+      "value": "https://www.labimanhua.com/search?q={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "mechacomic.jp": {
+      "value": "https://mechacomic.jp/books?text={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "mgeko.cc": {
+      "value": "https://www.mgeko.cc/search/?csrfmiddlewaretoken={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "pipimanhua.com": {
+      "value": "https://pipimanhua.com/17d/?searchkey={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    },
+    "ravenscans.net": {
+      "value": "https://ravenscans.net/?s={keyword}",
+      "source": "public-form-discovery",
+      "path": "config/search_url_templates.json"
+    }
+  },
+  "seedSites": {
+    "1kkk.com": {
+      "count": 9,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "asurascansmanhua.com": {
+      "count": 23,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "baomh.com": {
+      "count": 4,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "baozimh.com": {
+      "count": 2,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "book.sfacg.com": {
+      "count": 12,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "book.zhulang.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "cn.bzmanga.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "comic-con.org": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "comikey.com": {
+      "count": 10,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "dm5.cn": {
+      "count": 8,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "dm5.com": {
+      "count": 8,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "dongmanmanhua.cn": {
+      "count": 17,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "gmanhua.com": {
+      "count": 4,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "guazimanhua.com": {
+      "count": 24,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "guomanwu.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "haoduoman.com": {
+      "count": 3,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "itunman.com": {
+      "count": 4,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "kaimanhua.com": {
+      "count": 23,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "kanman.com": {
+      "count": 32,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "kkmh.com": {
+      "count": 3,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "kuaikanmanhua.com": {
+      "count": 18,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "kunmanhua.com": {
+      "count": 23,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "labimanhua.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "m.manhuagui.com": {
+      "count": 53,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manben.com": {
+      "count": 4,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manga-shinchan.com": {
+      "count": 3,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manga.bilibili.com": {
+      "count": 2,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "mangabz.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manhuaren.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manhuaren.net": {
+      "count": 12,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "manmanapp.com": {
+      "count": 20,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "mechacomic.jp": {
+      "count": 15,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "mgeko.cc": {
+      "count": 16,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "pipimanhua.com": {
+      "count": 21,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "qimanwu.app": {
+      "count": 17,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "ravenscans.net": {
+      "count": 35,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "tmanga.com": {
+      "count": 20,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "tw.manhuagui.com": {
+      "count": 115,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    },
+    "xmanhua.com": {
+      "count": 1,
+      "source": "public-navigation-discovery",
+      "path": "config/seed_sites.json"
+    }
+  },
+  "searchEngineProtocol": {
+    "source": "configured-adapter",
+    "path": "config/search.json"
+  },
+  "categoryTaxonomy": {
+    "source": "configured-output-taxonomy",
+    "path": "config/catalog_config.json"
+  },
+  "categoryEvidence": {
+    "source": "public-page-and-detail-metadata",
+    "path": "scripts/bulk_generate_catalog.py"
+  },
+  "generatedSearchTemplateCoveragePercent": 23.91
+}
