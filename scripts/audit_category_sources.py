@@ -13,6 +13,11 @@ CHAPTER=re.compile(r'(第\s*[0-9一二三四五六七八九十百千零〇两]+\
 IMAGE_BAD=re.compile(r'(logo|avatar|icon|banner|cover|poster|thumb|sprite|loading|placeholder|mascot|comment|recommend|header|footer|qrcode|advert)',re.I)
 IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
+NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
+POLICY_VERSION='readability-v2'
+PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
+MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
+BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
 
 def host(url): return (urlparse(url).hostname or '').lower().removeprefix('www.')
 def same_title(query,matched,lang): return identity_key(clean_title(query),lang)==identity_key(clean_title(matched),lang)
@@ -57,6 +62,8 @@ def search(s,title,limit):
 def audit(s,work,url):
     base={'workId':work['id'],'language':work['language'],'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url)}
     try:
+        if base['domain'] in BLOCKED_DOMAINS or NON_COMIC_PATH.search(url):
+            return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['non_comic_source']}
         body=fetch(s,url); soup=BeautifulSoup(body,'lxml'); title=page_title(soup); base['matchedTitle']=title
         if not same_title(work['canonicalTitle'],title,work['language']): return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['title_identity_mismatch']}
         ch=chapters(soup,url)
@@ -64,7 +71,7 @@ def audit(s,work,url):
         indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]
         for pos,index in zip(positions,indexes):
             chapter_title,chapter_url=ch[index]; chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
-            samples.append({'position':pos,'chapterTitle':chapter_title,'chapterUrl':chapter_url,'imageCount':len(found),'readable':len(found)>=3,'firstImageUrl':found[0] if found else ''})
+            samples.append({'position':pos,'chapterTitle':chapter_title,'chapterUrl':chapter_url,'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,'firstImageUrl':found[0] if found else ''})
         ok=all(x['readable'] for x in samples)
         return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'samples':samples,
                 'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['three_chapter_readability_gate_failed']}
@@ -74,7 +81,7 @@ def main():
     doc=json.loads(a.parameters.read_text(encoding='utf-8-sig')); a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
     all_audits=[]
     for i,work in enumerate(doc['works'],1):
-        fingerprint=hashlib.sha256(json.dumps(work,sort_keys=True,ensure_ascii=False).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
+        fingerprint=hashlib.sha256((POLICY_VERSION+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
         if checkpoint.exists():
             saved=json.loads(checkpoint.read_text(encoding='utf-8'))
             if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(doc["works"])}] resume {work["canonicalTitle"]}'); continue

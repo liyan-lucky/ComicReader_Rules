@@ -15,6 +15,7 @@ def main():
    elif source.get('domain') not in domains:reason='domain_rule_not_verified'
    cover=(source or {}).get('coverUrl','') or next((e.get('coverUrl','') for e in work.get('platformEvidence',[]) if str(e.get('coverUrl','')).startswith(('http://','https://')) and not str(e.get('coverUrl','')).startswith('data:')),'')
    if not reason and not cover:reason='no_cover'
+   elif not reason and not cover.startswith('https://'):reason='insecure_cover'
    if reason:rejected.append({'workId':work['id'],'title':work['canonicalTitle'],'category':cat['id'],'reason':reason});continue
    item={'id':work['id'],'title':work['canonicalTitle'],'sources':[{'domain':source['domain'],'detailUrl':source['detailUrl'],'coverUrl':cover}],'category':cat['id'],'language':'zh-Hans','verifiedChapterCount':source['verifiedChapterCount']};items.append(item);flat.append(item)
   categories[cat['id']]={'id':cat['id'],'name':cat['name'],'count':len(items),'items':items}

@@ -6,6 +6,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from title_normalization import build, clean_title, identity_key
 from select_sources import choose
+from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH
 
 
 def test_chapter_suffix_is_not_a_separate_work():
@@ -50,3 +51,9 @@ def test_unreadable_or_wrong_title_source_cannot_win():
                      _audit("good.example", 120)])
     assert result["selected"][0]["domain"] == "good.example"
     assert len(result["rejected"]) == 2
+
+
+def test_readability_policy_rejects_sparse_or_novel_sources():
+    assert MIN_IMAGES >= 8
+    assert "ffppt.com" in BLOCKED_DOMAINS
+    assert NON_COMIC_PATH.search("https://example.com/novel16827/")

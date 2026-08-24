@@ -21,7 +21,7 @@ def main():
    if not sources:errors.append(f'{item.get("id")} no source');continue
    s=sources[0]
    if not str(s.get('detailUrl','')).startswith(('http://','https://')):errors.append(f'{item.get("id")} no detail link')
-   if not str(s.get('coverUrl','')).startswith(('http://','https://')):errors.append(f'{item.get("id")} no cover')
+   if not str(s.get('coverUrl','')).startswith('https://'):errors.append(f'{item.get("id")} cover is not HTTPS')
    if s.get('domain') not in domains:errors.append(f'{item.get("id")} no domain rule')
  if c.get('totalItems')!=count:errors.append('catalog count mismatch')
  report={'passed':not errors,'ruleCount':len(domains),'catalogCount':count,'categoryCounts':{k:len(v.get('items',[])) for k,v in c.get('categories',{}).items()},'errors':errors[:100]};print(json.dumps(report,ensure_ascii=False,indent=2))
