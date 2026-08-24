@@ -1,21 +1,20 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "shenqimanhua_net",
-  "domain": "shenqimanhua.net",
+  "id": "kkwebtoon_com",
+  "domain": "kkwebtoon.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a.ml-2",
-    "a.px-3",
-    "a.text-sm",
-    "* a[href]",
-    "*.grid a[href]"
+    "a",
+    "a.start-read",
+    "*.chapter-item a[href]",
+    "*.neo-comic-actions a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "*.relative img",
-    "img.object-contain"
+    "img",
+    "*.comic-page img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,12 +25,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "f70abf0db6b5e115",
-    "c8598909d0bacc82",
-    "710f0bf3a3d3bcd3",
-    "8a92e36dc8e91798"
+    "9c96b24fd09dd0a3"
   ],
-  "replayWorkCount": 4,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

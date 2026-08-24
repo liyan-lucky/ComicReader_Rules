@@ -1,13 +1,16 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "dumanwu_com",
-  "domain": "dumanwu.com",
+  "id": "haohuagg_com",
+  "domain": "haohuagg.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
     "a",
-    "* a[href]"
+    "a.btn-3",
+    "a.hover-a",
+    "a.cart-cover",
+    "*.cart-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
@@ -20,11 +23,10 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "509b7503e407d8fe",
-    "55d3ee1257c2fbe7",
-    "82e49a345c9db4e8"
+    "767f667deb9a8779",
+    "93be078587ede404"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 2,
   "failures": [],
   "status": "rejected"
 }
