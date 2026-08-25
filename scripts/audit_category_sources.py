@@ -50,10 +50,11 @@ def images(body,base):
         url=html.unescape(match.group(0).replace('\\/','/'))
         if url not in seen and not IMAGE_BAD.search(url): seen.add(url); values.append(url)
     return values
-def search(s,title,limit):
+def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'
     headers={'X-Search-Token':os.getenv('SEARXNG_API_TOKEN','')}
-    r=s.get(endpoint,params={'q':f'"{title}" 漫画 在线阅读 章节','format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
+    terms=' '.join(search_terms or ['漫画','在线阅读','章节'])
+    r=s.get(endpoint,params={'q':f'"{title}" {terms}','format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
     out=[]
     for x in r.json().get('results',[]):
         u=str(x.get('url',''))
@@ -77,15 +78,20 @@ def audit(s,work,url):
                 'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['three_chapter_readability_gate_failed']}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--candidate-limit',type=int,default=12); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); a=p.parse_args()
+    category_policy=json.loads(a.category_config.read_text(encoding='utf-8-sig')) if a.category_config else {}
+    global MIN_IMAGES, BLOCKED_DOMAINS
+    MIN_IMAGES=int(category_policy.get('minimumReadableImagesPerSample',MIN_IMAGES))
+    BLOCKED_DOMAINS=BLOCKED_DOMAINS|{str(x).lower().removeprefix('www.') for x in category_policy.get('extraBlockedDomains',[])}
+    candidate_limit=a.candidate_limit or int(category_policy.get('candidateLimit',12))
     doc=json.loads(a.parameters.read_text(encoding='utf-8-sig')); a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
     all_audits=[]
     for i,work in enumerate(doc['works'],1):
-        fingerprint=hashlib.sha256((POLICY_VERSION+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
+        fingerprint=hashlib.sha256((POLICY_VERSION+json.dumps(category_policy,sort_keys=True,ensure_ascii=False)+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
         if checkpoint.exists():
             saved=json.loads(checkpoint.read_text(encoding='utf-8'))
             if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(doc["works"])}] resume {work["canonicalTitle"]}'); continue
-        urls=search(session,work['canonicalTitle'],a.candidate_limit)
+        urls=search(session,work['canonicalTitle'],candidate_limit,category_policy.get('searchTerms'))
         for evidence in work.get('platformEvidence',[]):
             u=str(evidence.get('url',''))
             if u.startswith(('http://','https://')) and u not in urls: urls.append(u)

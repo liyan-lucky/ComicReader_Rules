@@ -2,7 +2,7 @@ name: 04 域名规则分析回放
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['03 分类逐书找源']
+    workflows: ['02 分类完整分级处理']
     types: [completed]
 permissions: {contents: write}
 concurrency: {group: catalog-v3-domain-rules, cancel-in-progress: false}
