@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -70,6 +71,11 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"best readable sources: {len(result['selected'])} -> {args.output}")
+    summary = os.getenv("GITHUB_STEP_SUMMARY")
+    if summary:
+        category = args.output.stem
+        with Path(summary).open("a", encoding="utf-8") as stream:
+            stream.write(f"### {category} 来源筛选\n\n- 通过：**{len(result['selected'])} 本**\n- 拒绝：**{len(result['rejected'])} 条候选**\n\n")
     return 0
 
 

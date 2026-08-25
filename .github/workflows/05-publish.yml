@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: python scripts/publish_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --rules rules/index.zh-Hans.json --output catalog/catalog.zh-Hans.json
-      - run: python scripts/validate_release.py --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json | tee generated/v3/release_audit.zh-Hans.json
+      - run: set -o pipefail; python scripts/validate_release.py --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --sources generated/v3/best_sources.zh-Hans.json | tee generated/v3/release_audit.zh-Hans.json
       - run: python scripts/update_manifest.py --section rules --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
       - run: python scripts/update_manifest.py --section catalog --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
       - run: |

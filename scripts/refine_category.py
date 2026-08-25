@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministically refine one category; suitable for an independent matrix job."""
 from __future__ import annotations
-import argparse, hashlib, json, re
+import argparse, hashlib, json, re, os
 from pathlib import Path
 from title_normalization import build, load_observations
 
@@ -16,5 +16,8 @@ def main() -> int:
     semantic=[{k:v for k,v in item.items() if k not in {'observedAt','_input','categoryPage'}} for item in observations]
     result['inputSha256']=hashlib.sha256(json.dumps(semantic,ensure_ascii=False,sort_keys=True).encode()).hexdigest(); result['roughObservationCount']=len(raw.splitlines())
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(f"{a.category}: {result['roughObservationCount']} rough -> {len(result['works'])} works"); return 0
+    print(f"{a.category}: {result['roughObservationCount']} rough -> {len(result['works'])} works")
+    if os.getenv('GITHUB_STEP_SUMMARY'):
+        Path(os.environ['GITHUB_STEP_SUMMARY']).open('a',encoding='utf-8').write(f"## {a.category} 分类进度\n\n- 粗目录：**{result['roughObservationCount']} 条**\n- 清洗后作品：**{len(result['works'])} 本**\n\n")
+    return 0
 if __name__=='__main__': raise SystemExit(main())

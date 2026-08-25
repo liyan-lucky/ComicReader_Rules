@@ -11,6 +11,11 @@
   "oneRulePerDomain": true,
   "allowCrossLanguageCatalogFill": false,
   "blockedSourceDomains": ["ffppt.com", "t.shuqi.com"],
+  "releaseGates": {
+    "minimumCatalogItems": 100,
+    "minimumNonEmptyCategories": 12,
+    "allowDuplicateTitles": false
+  },
   "titleRules": {
     "preserveWorkQualifiers": ["第一季", "第二季", "第三季", "前传", "后传", "外传", "番外", "重制版", "续篇", "season 1", "season 2", "prequel", "sequel"],
     "stripChapterSuffixes": ["第1话", "第一话", "第1章", "第一章", "第1集", "第一集", "最新话", "最新章节", "全集", "在线阅读"]
