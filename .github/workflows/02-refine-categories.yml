@@ -30,18 +30,16 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12', cache: pip}
       - run: pip install -r requirements.txt
-      - name: 第一级：清洗本类目录
-        run: python scripts/refine_category.py --input 'observations/rough/zh-Hans/categories/${{ matrix.category }}.jsonl' --category '${{ matrix.category }}' --language zh-Hans --config 'config/categories/${{ matrix.category }}.json' --output 'out/parameters/catalog/zh-Hans/${{ matrix.category }}.json'
       - name: 恢复本类逐书检查点
         uses: actions/cache@v4
         with:
           path: checkpoints/${{ matrix.category }}
-          key: category-v2-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category)) }}
+          key: category-v2-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category), format('parameters/catalog/zh-Hans/{0}.json', matrix.category)) }}
           restore-keys: category-v2-${{ matrix.category }}-
       - name: 第二级：本类逐书搜索与三章节验证
         run: |
           for attempt in 1 2 3; do
-            python scripts/audit_category_sources.py --parameters 'out/parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --output 'out/generated/v3/audits/${{ matrix.category }}.jsonl' && exit 0
+            python scripts/audit_category_sources.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --output 'out/generated/v3/audits/${{ matrix.category }}.jsonl' && exit 0
             echo "第 $attempt 次审核失败，使用检查点重试"
           done
           exit 1
@@ -62,14 +60,13 @@ jobs:
         with: {pattern: category-pipeline-*, path: merged, merge-multiple: true}
       - name: 汇总分类产物并建立域名账本
         run: |
-          cp -a merged/parameters/. parameters/
           cp -a merged/generated/. generated/
           python scripts/merge_best_sources.py --input-dir generated/v3/best --output generated/v3/best_sources.zh-Hans.json --domain-output generated/v3/domain_ledger.zh-Hans.json
       - name: 一次性提交所有分类结果
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add parameters/catalog/zh-Hans generated/v3
+          git add generated/v3
           git diff --cached --quiet || git commit -m 'categories: refresh independent staged pipelines'
           git pull --rebase origin main
           git push origin HEAD:main

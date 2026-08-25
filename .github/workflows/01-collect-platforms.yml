@@ -55,8 +55,10 @@ jobs:
         with: {name: rough-platform-snapshot, path: snapshot}
       - name: 独立生成 ${{ matrix.category }} 分类文件
         run: python scripts/aggregate_rough_catalog.py --input-dir snapshot/platforms --output-dir 'out/categories' --category '${{ matrix.category }}'
+      - name: 规范化并去重 ${{ matrix.category }} 文字目录
+        run: python scripts/refine_category.py --input 'out/categories/${{ matrix.category }}.jsonl' --category '${{ matrix.category }}' --language zh-Hans --config 'config/categories/${{ matrix.category }}.json' --output 'out/parameters/catalog/zh-Hans/${{ matrix.category }}.json'
       - uses: actions/upload-artifact@v4
-        with: {name: 'rough-category-${{ matrix.category }}', path: 'out/categories/${{ matrix.category }}.jsonl'}
+        with: {name: 'rough-category-${{ matrix.category }}', path: out/}
   commit:
     needs: [prepare, categorize]
     runs-on: ubuntu-latest
@@ -71,14 +73,17 @@ jobs:
         run: |
           mkdir -p observations/rough/zh-Hans/platforms observations/rough/zh-Hans/categories
           cp -a snapshot/platforms/. observations/rough/zh-Hans/platforms/
-          cp -a category-files/. observations/rough/zh-Hans/categories/
+          cp -a category-files/categories/. observations/rough/zh-Hans/categories/
+          cp -a category-files/parameters/. parameters/
           cp snapshot/categories/report.json observations/rough/zh-Hans/categories/report.json
           cp snapshot/categories/unclassified.jsonl observations/rough/zh-Hans/categories/unclassified.jsonl
+      - name: 审计第一步文字目录
+        run: python scripts/audit_text_catalog.py --parameters parameters/catalog/zh-Hans --platform-report observations/rough/zh-Hans/categories/report.json
       - name: 提交粗分类文件和平台状态
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add observations/rough/zh-Hans
-          git diff --cached --quiet || git commit -m 'rough: refresh daily platform observations'
+          git add observations/rough/zh-Hans parameters/catalog/zh-Hans
+          git diff --cached --quiet || git commit -m 'names: refresh audited platform text catalogs'
           git pull --rebase origin main
           git push origin HEAD:main

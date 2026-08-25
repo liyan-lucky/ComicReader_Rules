@@ -86,13 +86,11 @@ def build(observations: list[dict[str, Any]], language: str, category: str) -> d
         observed = str(item.get("title", "")).strip()
         if observed and observed != title and observed not in entry["aliases"]:
             entry["aliases"].append(observed)
-        evidence_key = (item.get("platform"), item.get("url"), observed)
-        existing = {(e["platform"], e["url"], e["observedTitle"]) for e in entry["platformEvidence"]}
+        evidence_key = (item.get("platform"), observed)
+        existing = {(e["platform"], e["observedTitle"]) for e in entry["platformEvidence"]}
         if evidence_key not in existing:
             entry["platformEvidence"].append({
-                "platform": str(item.get("platform", "")), "url": str(item.get("url", "")),
-                "observedTitle": observed, "coverUrl": str(item.get("coverUrl", "")),
-                "platformChapterHint": item.get("platformChapterHint"),
+                "platform": str(item.get("platform", "")), "observedTitle": observed,
             })
     return {"schema": "comic_title_parameters_v2",
             "language": language, "category": {"id": category, "name": category},

@@ -44,8 +44,7 @@ def main() -> int:
                     "category": category["id"], "reason": reason})
                 continue
             source = eligible[0]
-            cover = source.get("coverUrl", "") or next((e.get("coverUrl", "") for e in work.get("platformEvidence", [])
-                if str(e.get("coverUrl", "")).startswith("https://")), "")
+            cover = source.get("coverUrl", "")
             if not cover:
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
                     "category": category["id"], "reason": "no_cover"})

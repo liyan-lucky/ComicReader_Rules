@@ -4,6 +4,11 @@
   "primaryLanguage": "zh-Hans",
   "categoriesFrom": "config/catalog_config.json",
   "minimumPlatformEvidence": 1,
+  "textCatalogGates": {
+    "minimumPlatformsWithNames": 5,
+    "minimumUniqueNames": 1000,
+    "minimumNamesPerCategory": 1
+  },
   "minimumReadableImagesPerSample": 8,
   "sampleChapterPositions": ["first", "middle", "latest"],
   "minimumReadableSampleRatio": 1.0,

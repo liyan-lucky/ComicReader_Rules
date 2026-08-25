@@ -92,9 +92,6 @@ def main():
             saved=json.loads(checkpoint.read_text(encoding='utf-8'))
             if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(doc["works"])}] resume {work["canonicalTitle"]}'); continue
         urls=search(session,work['canonicalTitle'],candidate_limit,category_policy.get('searchTerms'))
-        for evidence in work.get('platformEvidence',[]):
-            u=str(evidence.get('url',''))
-            if u.startswith(('http://','https://')) and u not in urls: urls.append(u)
         audits=[audit(session,work,u) for u in urls]; payload={'workFingerprint':fingerprint,'workId':work['id'],'audits':audits}
         checkpoint.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); all_audits.extend(audits); print(f'[{i}/{len(doc["works"])}] {work["canonicalTitle"]}: {sum(x["status"]=="verified" for x in audits)}/{len(audits)}')
         time.sleep(.15)

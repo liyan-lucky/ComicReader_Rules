@@ -38,9 +38,10 @@ def fetch(session: requests.Session, url: str) -> str:
 
 def observation(platform: dict, category: str, title: str, url: str, page: str, observed_at: str,
                 cover: str = "", chapter_hint: int | None = None) -> dict:
-    return {"platform": platform["name"], "platformId": platform["id"], "url": url, "title": title,
-            "coverUrl": cover, "category": category, "language": "zh-Hans", "platformChapterHint": chapter_hint,
-            "categoryPage": page, "observedAt": observed_at}
+    # Stage 01 is a text catalog only. URLs, covers and chapter hints are
+    # intentionally not persisted or passed to source discovery.
+    return {"platform": platform["name"], "platformId": platform["id"], "title": title,
+            "category": category, "language": "zh-Hans", "observedAt": observed_at}
 
 
 def collect_tencent(session, platform, config, pages, observed_at):
@@ -50,7 +51,11 @@ def collect_tencent(session, platform, config, pages, observed_at):
         seen_urls = set()
         for page_no in range(1, limit + 1):
             page = f"{platform['baseUrl']}/Comic/all/theme/{theme}/page/{page_no}"
-            soup = BeautifulSoup(fetch(session, page), "lxml")
+            try:
+                soup = BeautifulSoup(fetch(session, page), "lxml")
+            except requests.RequestException:
+                if page_no > 1 and seen_urls: break
+                raise
             rows = soup.select("li.ret-search-item")
             new_on_page = 0
             for row in rows:
@@ -77,7 +82,11 @@ def collect_kuaikan(session, platform, config, pages, observed_at):
         seen_urls = set()
         for page_no in range(1, limit + 1):
             page = f"{platform['baseUrl']}/tag/{theme}?region=1&pays=0&state=0&sort=1&page={page_no}"
-            soup = BeautifulSoup(fetch(session, page), "lxml")
+            try:
+                soup = BeautifulSoup(fetch(session, page), "lxml")
+            except requests.RequestException:
+                if page_no > 1 and seen_urls: break
+                raise
             rows = soup.select("div.ItemSpecial")
             new_on_page = 0
             for row in rows:
