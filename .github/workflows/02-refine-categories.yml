@@ -1,4 +1,5 @@
 name: 02 分类完整分级处理
+run-name: 02 分类完整分级处理（上游 01 #${{ github.event.workflow_run.id || '手动' }}）
 on:
   workflow_dispatch:
   workflow_run:
@@ -14,6 +15,7 @@ jobs:
       matrix:
         category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
     runs-on: ubuntu-latest
+    continue-on-error: true
     timeout-minutes: 330
     services:
       searxng:
@@ -37,13 +39,18 @@ jobs:
           key: category-v2-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category)) }}
           restore-keys: category-v2-${{ matrix.category }}-
       - name: 第二级：本类逐书搜索与三章节验证
-        run: python scripts/audit_category_sources.py --parameters 'out/parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --output 'out/generated/v3/audits/${{ matrix.category }}.jsonl'
+        run: |
+          for attempt in 1 2 3; do
+            python scripts/audit_category_sources.py --parameters 'out/parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --output 'out/generated/v3/audits/${{ matrix.category }}.jsonl' && exit 0
+            echo "第 $attempt 次审核失败，使用检查点重试"
+          done
+          exit 1
       - name: 第三级：本类选择章节最多的可读源
         run: python scripts/select_sources.py --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --output 'out/generated/v3/best/${{ matrix.category }}.json'
       - uses: actions/upload-artifact@v4
         with: {name: 'category-pipeline-${{ matrix.category }}', path: out/}
   merge:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: always() && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
     needs: category_pipeline
     runs-on: ubuntu-latest
     steps:
