@@ -1,12 +1,90 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260824233903",
-  "updatedAt": "2026-08-24T23:39:03.926171+00:00",
+  "version": "20260825011748",
+  "updatedAt": "2026-08-25T01:17:48.706280+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
   },
   "rules": [
+    {
+      "id": "288manhua_com",
+      "name": "288manhua.com 已验证公开源",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "homepage": "https://288manhua.com",
+      "searchUrl": "",
+      "searchMethod": "url-only",
+      "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{1,240}?)<\\/a>",
+      "searchTitleGroups": [
+        2
+      ],
+      "searchUrlGroups": [
+        1
+      ],
+      "searchCoverGroups": [],
+      "searchResultIsChapter": false,
+      "searchFilterByKeyword": true,
+      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterTitleGroups": [
+        2
+      ],
+      "detailChapterUrlGroups": [
+        1
+      ],
+      "detailChapterFilter": true,
+      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageGroups": [
+        1,
+        2
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
+      "referer": "https://288manhua.com/",
+      "maxReaderPages": 12,
+      "license": "MIT",
+      "sourceType": "verified-public-domain-rule",
+      "compliance": {
+        "publicOnly": true,
+        "noLoginRequired": true,
+        "noPaymentBypass": true,
+        "noCaptchaBypass": true
+      },
+      "domainApplicabilityList": [
+        "288manhua.com"
+      ],
+      "audit": {
+        "schema": "comic_domain_rule_v1",
+        "id": "288manhua_com",
+        "domain": "288manhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "detailChapterSelectors": [
+          "a",
+          "a.start-read",
+          "*.m-dt-bottom a[href]",
+          "*.chapter-item a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "*.comic-page img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "a86abd4e75b6cf91"
+        ],
+        "replayWorkCount": 1,
+        "failures": [],
+        "status": "verified"
+      }
+    },
     {
       "id": "akmh666_com",
       "name": "akmh666.com 已验证公开源",
@@ -230,7 +308,7 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "6c4eb0b77ab00897"
+          "4b38aaf4ec965f23"
         ],
         "replayWorkCount": 1,
         "failures": [],
@@ -368,6 +446,7 @@
         ],
         "detailChapterSelectors": [
           "a",
+          "a.red",
           "* a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -384,7 +463,7 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "759c27649e84650e"
+          "c324b44e825aeb8b"
         ],
         "replayWorkCount": 1,
         "failures": [],
@@ -461,7 +540,7 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "048e5ca9ca096a1e"
+          "9b2dc4908b7d3627"
         ],
         "replayWorkCount": 1,
         "failures": [],
@@ -862,6 +941,82 @@
       }
     },
     {
+      "id": "m_kuaikanmanhua_com",
+      "name": "m.kuaikanmanhua.com 已验证公开源",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "homepage": "https://m.kuaikanmanhua.com",
+      "searchUrl": "",
+      "searchMethod": "url-only",
+      "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{1,240}?)<\\/a>",
+      "searchTitleGroups": [
+        2
+      ],
+      "searchUrlGroups": [
+        1
+      ],
+      "searchCoverGroups": [],
+      "searchResultIsChapter": false,
+      "searchFilterByKeyword": true,
+      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterTitleGroups": [
+        2
+      ],
+      "detailChapterUrlGroups": [
+        1
+      ],
+      "detailChapterFilter": true,
+      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageGroups": [
+        1,
+        2
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
+      "referer": "https://m.kuaikanmanhua.com/",
+      "maxReaderPages": 12,
+      "license": "MIT",
+      "sourceType": "verified-public-domain-rule",
+      "compliance": {
+        "publicOnly": true,
+        "noLoginRequired": true,
+        "noPaymentBypass": true,
+        "noCaptchaBypass": true
+      },
+      "domainApplicabilityList": [
+        "m.kuaikanmanhua.com"
+      ],
+      "audit": {
+        "schema": "comic_domain_rule_v1",
+        "id": "m_kuaikanmanhua_com",
+        "domain": "m.kuaikanmanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "detailChapterSelectors": [
+          "a.list-item",
+          "*.template a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "* img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "497a06f54cf6b516"
+        ],
+        "replayWorkCount": 1,
+        "failures": [],
+        "status": "verified"
+      }
+    },
+    {
       "id": "m_ortzn_com",
       "name": "m.ortzn.com 已验证公开源",
       "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
@@ -1017,9 +1172,85 @@
       }
     },
     {
+      "id": "maomaoks_com",
+      "name": "maomaoks.com 已验证公开源",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "homepage": "https://maomaoks.com",
+      "searchUrl": "",
+      "searchMethod": "url-only",
+      "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{1,240}?)<\\/a>",
+      "searchTitleGroups": [
+        2
+      ],
+      "searchUrlGroups": [
+        1
+      ],
+      "searchCoverGroups": [],
+      "searchResultIsChapter": false,
+      "searchFilterByKeyword": true,
+      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterTitleGroups": [
+        2
+      ],
+      "detailChapterUrlGroups": [
+        1
+      ],
+      "detailChapterFilter": true,
+      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageGroups": [
+        1,
+        2
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
+      "referer": "https://maomaoks.com/",
+      "maxReaderPages": 12,
+      "license": "MIT",
+      "sourceType": "verified-public-domain-rule",
+      "compliance": {
+        "publicOnly": true,
+        "noLoginRequired": true,
+        "noPaymentBypass": true,
+        "noCaptchaBypass": true
+      },
+      "domainApplicabilityList": [
+        "maomaoks.com"
+      ],
+      "audit": {
+        "schema": "comic_domain_rule_v1",
+        "id": "maomaoks_com",
+        "domain": "maomaoks.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "detailChapterSelectors": [
+          "a",
+          "*.text-sm a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "* img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "e367bf220cb82f6e"
+        ],
+        "replayWorkCount": 1,
+        "failures": [],
+        "status": "verified"
+      }
+    },
+    {
       "id": "medyakey_com",
       "name": "medyakey.com 已验证公开源",
-      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://medyakey.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1086,9 +1317,10 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "a808bc776c4397db"
+          "a808bc776c4397db",
+          "1f2692bb9ab1fcb0"
         ],
-        "replayWorkCount": 1,
+        "replayWorkCount": 2,
         "failures": [],
         "status": "verified"
       }
@@ -1096,7 +1328,7 @@
     {
       "id": "mh250_com",
       "name": "mh250.com 已验证公开源",
-      "description": "由 6 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 3 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://mh250.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1162,23 +1394,20 @@
           "srcset"
         ],
         "verifiedWorkIds": [
+          "c7901f5795f64fe2",
           "c8e74b063dca7c39",
-          "e3ac4e7f5f2fdcb3",
-          "f30ed8fc6682d875",
-          "74c9d5767a18d6bf",
-          "b0ddabe28d6af5e3",
-          "d49b8c73f063b757"
+          "b0ddabe28d6af5e3"
         ],
-        "replayWorkCount": 6,
+        "replayWorkCount": 3,
         "failures": [],
         "status": "verified"
       }
     },
     {
-      "id": "pipimanhua_com",
-      "name": "pipimanhua.com 已验证公开源",
-      "description": "由 10 部作品首/中/末章回放验证；每域一条规则。",
-      "homepage": "https://pipimanhua.com",
+      "id": "mobile_ac_qq_com",
+      "name": "mobile.ac.qq.com 已验证公开源",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "homepage": "https://mobile.ac.qq.com",
       "searchUrl": "",
       "searchMethod": "url-only",
       "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{1,240}?)<\\/a>",
@@ -1205,7 +1434,7 @@
         2
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
-      "referer": "https://pipimanhua.com/",
+      "referer": "https://mobile.ac.qq.com/",
       "maxReaderPages": 12,
       "license": "MIT",
       "sourceType": "verified-public-domain-rule",
@@ -1216,22 +1445,24 @@
         "noCaptchaBypass": true
       },
       "domainApplicabilityList": [
-        "pipimanhua.com"
+        "mobile.ac.qq.com"
       ],
       "audit": {
         "schema": "comic_domain_rule_v1",
-        "id": "pipimanhua_com",
-        "domain": "pipimanhua.com",
+        "id": "mobile_ac_qq_com",
+        "domain": "mobile.ac.qq.com",
         "languages": [
           "zh-Hans"
         ],
         "detailChapterSelectors": [
-          "a",
-          "* a[href]"
+          "a.chapter-link",
+          "*.chapter-item a[href]",
+          "*.bottom-chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "*.imgpic img"
+          "img.app-guiding-img",
+          "*.app-guiding-pad img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -1242,18 +1473,9 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "2582b3743eb0ae95",
-          "a5a6acc385f18eba",
-          "731365488ae7b51a",
-          "4a49b960ea9ee703",
-          "87614d23b4c7650b",
-          "55f788bfe76e4633",
-          "3013f37296dae7e6",
-          "69b730d552e7de8f",
-          "255e3afa70e00d32",
-          "c2018bb3ea969ed8"
+          "048e5ca9ca096a1e"
         ],
-        "replayWorkCount": 10,
+        "replayWorkCount": 1,
         "failures": [],
         "status": "verified"
       }
@@ -1416,7 +1638,7 @@
     {
       "id": "shenqimanhua_net",
       "name": "shenqimanhua.net 已验证公开源",
-      "description": "由 4 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 3 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://shenqimanhua.net",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1465,11 +1687,11 @@
           "zh-Hans"
         ],
         "detailChapterSelectors": [
-          "a.ml-2",
           "a.px-3",
+          "a.ml-2",
           "a.text-sm",
           "* a[href]",
-          "*.grid a[href]"
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1485,12 +1707,11 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "f70abf0db6b5e115",
-          "c8598909d0bacc82",
+          "b3cae191daf6ad2b",
           "710f0bf3a3d3bcd3",
           "8a92e36dc8e91798"
         ],
-        "replayWorkCount": 4,
+        "replayWorkCount": 3,
         "failures": [],
         "status": "verified"
       }
@@ -1655,7 +1876,7 @@
     {
       "id": "zgmanhua_com",
       "name": "zgmanhua.com 已验证公开源",
-      "description": "由 16 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 6 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://zgmanhua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1724,23 +1945,13 @@
         ],
         "verifiedWorkIds": [
           "0ed1d118d2d1a248",
-          "27afe9c543657f8f",
-          "b790d0a6dd3dc144",
-          "f89182635814794c",
-          "1eda36ef07386f91",
-          "a3f97d20627426a2",
+          "62e5785ae255f53c",
           "aa2f0828028958c1",
           "e6e45d0bd820d312",
-          "62542ea5abe3e24d",
-          "7d1fcb19cf0f7770",
-          "03af8342c8486044",
-          "7f393bc7339915ee",
           "59db90c8654771b6",
-          "a6cdbf25d00c5766",
-          "d61782afcae86203",
           "4e0e6e23b0f73d8e"
         ],
-        "replayWorkCount": 16,
+        "replayWorkCount": 6,
         "failures": [],
         "status": "verified"
       }
@@ -1775,13 +1986,11 @@
           "1b5f1adb0e9c920c",
           "604bfe1cf700d5d2",
           "6b42c7e63f3e168f",
-          "76b383cc733cbfaa",
           "8a3306780d24b708",
           "a15b32acaa340502",
           "a1bffae874b5dfa1",
           "a51e30eab4831362",
           "a734eaf47396366a",
-          "acd2e62c57972ce5",
           "c05f9b2c841c22e1",
           "ca16e393615e5186",
           "d3d88aef4501cc81",
@@ -1789,11 +1998,8 @@
           "dca9cb598c2f2a21",
           "e8eabe096dc1231a",
           "eaa7e686b69e98ad",
-          "f2e3c4fae45095d8",
-          "f935f20a3713a345",
-          "048e5ca9ca096a1e",
+          "6c4eb0b77ab00897",
           "6eff21b89177f11c",
-          "9b2dc4908b7d3627",
           "13a2a9a4b91354f4",
           "25ca1b50e2fec863",
           "29fbabceec30983b",
@@ -1803,361 +2009,201 @@
           "9ddc8672092c68fb",
           "0dc7ac896e9e571f",
           "0e4beac3aa68a076",
-          "15671c59767ac3d9",
           "1d1d4fd12e8be5ed",
-          "21df7d000994a284",
-          "36404ab8a3544a43",
-          "382fb3a678d77f2b",
           "49c510562aafbd05",
           "543add6fac04df6b",
           "5c547bd8e74a78fc",
           "618474fc891a1bc9",
-          "73251d9f6197aca7",
-          "84e3ea0df430014a",
           "8a4535bfcc02c92c",
           "8ab9a464ed334956",
-          "8e977927bf4f9884",
           "9148a3d19ea58411",
-          "9af59a4248c5924b",
-          "a1fac8825ffc740b",
+          "9ee0d97515a74284",
           "a7c98a4c433f7762",
-          "ba8f1e9975102e27",
           "cc0d68057ffe9cfc",
-          "cf5dc86a659e7c7b",
           "d26106b3e6449cf1",
           "d6950514d53abaca",
           "dd37cf732dcc18bd",
           "f2eca428657765b2",
-          "f376ff26af5fbe7a",
-          "f37df4a321b5c68e",
           "03c910026e9116c0",
-          "09b7003bd265520d",
+          "0acf7bfa8773ce09",
           "115b0b51c0c5c488",
           "1739600bddf4f1fc",
-          "25a8132b74d05219",
           "3c2c624369016cc3",
-          "567ed492637d6288",
+          "5191968458496fa2",
           "56e304f8955c01df",
           "57b83e3d5f535b79",
           "666bb3e585a42100",
-          "6bd07359dafa0b32",
-          "6f43fd5a78034e23",
-          "6f4e605353a962ab",
-          "789e8a31f030ee7b",
-          "7f2e33771a74e89d",
-          "805c94c4fe47a6a8",
-          "869f223698d577cb",
-          "902ba96c18926671",
-          "943961b0d1860bd0",
-          "a812a675140918f7",
-          "a87fdcfa2fa474be",
-          "a9c4a6b8c4c71e20",
           "aab597f9d859f499",
-          "b01edd101e48d48e",
-          "b1ea29484370d2d2",
           "b48c5937f1b23e8d",
           "c5e03f0279528f68",
-          "c9216875bde182a5",
           "d84ff40e8651e557",
           "e7f3d4b32f7c5734",
-          "e8702dad25fd75cb",
           "f4fb85d48346c21a",
+          "f89182635814794c",
           "0c86633f7fed5fed",
-          "2a6c8ee3a7ade784",
-          "374ef488e4cd5a0d",
-          "43e6e7d6626b8e86",
           "479000b83660de76",
           "493a97e81b38f5aa",
-          "54452d4b0361095f",
           "6c6af8feef4b4f28",
           "71cc644af30c4656",
           "723c32e7ffba5039",
           "7585d5beefd40222",
           "7d2c4fb87fa6c2e2",
           "8531c8711abd680d",
-          "8978c9c6a7364996",
           "9a00697008435fb3",
-          "a349ae4474948a56",
           "a486ad25b5d6096a",
           "a9226ac276bb7117",
-          "b04f9be19d5d19c2",
-          "b99276f880e1a152",
           "c26d838c02fc8297",
           "fa155bb32ee8f2aa",
           "02e9f4db17f52f15",
-          "07d7882bb4dd3f70",
           "089a83e359f0a216",
           "12c340facbdde508",
-          "1ff14f218cbd7f6f",
+          "324228599bc69a97",
           "3262566a386c2977",
-          "35bb282e8d8655f9",
-          "3bae768f1a8470d1",
           "463bf8b73daf703b",
-          "4a679b44031220b3",
           "4b3422e67681cd4b",
-          "4d75c85bf631c9f2",
           "55b981363e5dc86c",
-          "55f3c14e333c37f7",
-          "66556860df74e900",
-          "6adc0379c7fac5e7",
-          "6b896eeffa09df0a",
           "93e9591fb75aca51",
           "9a41a27b9ac59cc5",
           "9b40027f8fda2a87",
-          "a66b0c7315570d9d",
+          "b4bd24324043e64d",
           "b758a3e190094dc5",
-          "bd1220f049d3def5",
           "c52f375ad00b4da3",
           "cb83e798a1297c0d",
-          "d5ce6b2f16e3dc6f",
           "d8e9ffd1b3002551",
-          "e1cd4dd01c0f4813",
           "edb86726a0e7a094",
-          "fc56880253065fea",
           "0942e06cb0b33369",
-          "1609b0982156a9e2",
           "1814a3d2e1a07bef",
           "467dc94abb5f6d64",
-          "480bbb199c8aa496",
-          "55194a4b4f493970",
           "56a562e989e2ace4",
-          "59984216da3c2748",
           "5a104c69dd43667a",
-          "688214181d19935d",
-          "7d3b847ec05f5447",
           "7dcf92bd5ad1e409",
-          "859b16c8ff83594c",
           "87a5903b2debfc76",
           "97601584ecc2cc30",
-          "9995d654d8cab987",
-          "a9523c6317d294a7",
           "af5c181962d16cac",
-          "c1c77d9459bd9d4f",
-          "d5b1fa7828cd6cd0",
           "f819f81841217b8c",
-          "fa1bc24a19bf07d1",
           "fc898c2bbd669696",
           "fca4a73ead0f86f3",
           "15c9c7de89df089a",
-          "1c7529796502c0bd",
           "295664f26574e411",
-          "31fe484573cfc92f",
-          "3738b71361dd3bc4",
-          "502fa6e71917a991",
           "5cc34912e8104221",
           "711e3ef6b38d0d10",
           "72cb57d9110a77bf",
           "7e65a4a16a8c6919",
           "96fe7f4c3bbff9c4",
           "9b4b6b1b83153223",
-          "a1058cb2bfdeee42",
-          "a1894059833a90a0",
-          "a1927c3ab502d400",
-          "a22d12b288b25e4f",
           "b49dba5dd930998c",
-          "bc948e6ad8acb717",
-          "d9c84bbf3bf9ba79",
           "003a929db8322a4f",
-          "042078622ee5f4aa",
-          "0b434efc3582cf00",
-          "0d29588b865c0c72",
           "0ecd2895400ebc7b",
           "22303a8ce18bcbfb",
           "2536afe32f114d5f",
           "327cf716defee1e4",
           "39f9cb5216384fb9",
-          "41da585cf8259571",
           "4a6fb764a2466fc8",
-          "51e325bd07c0af78",
-          "590bd4e333ee0751",
-          "6663033996d99868",
-          "669c461804241d0f",
-          "706bc23012b90f73",
-          "7c1f4685a6c0f8e8",
-          "89827108863b6b09",
           "8ff237aa173f1d16",
           "9545d4ba10b3ef7e",
-          "98be1d0f3b6574cd",
-          "a9f68387a5f371f7",
-          "ab2e4e87b56692e0",
-          "cbc285624aaef3c7",
           "d6784f20c5471d2d",
-          "eeeec0252324a777",
           "ef5be4325b80440d",
           "f756dc01f1253b11",
-          "fe73f34d38994fea",
-          "0d22a5578b2c3f32",
           "400aaf4bc9486e55",
-          "4e10999ac025e5a7",
           "4eba1f452f9a65a7",
           "66b07bc61b0cdebe",
-          "6d0211a304bffef0",
-          "7cd0e4c7e868e2aa",
           "98c7c17d92ac4711",
-          "9c40dc80ea5be807",
           "a2bf13c752190f3c",
-          "a4e04e393f175972",
           "a5669f6ffd789023",
-          "b13756b9391cde5a",
           "c0404b78c128f3b1",
           "c20c7dcb9e2ae040",
-          "cc9a4375aada9cc3",
           "d446a0d75ed37995",
-          "d4626b1fbb41a060",
           "d73d85018d2be763",
-          "de3d34cacf8ec2a5",
-          "efa42b2456fe4339",
           "f2f0a176e90482e1",
-          "f414f6190678e370",
           "021a6a6b2dc7be7f",
-          "0757d50e1f319929",
-          "100d5629d045d825",
           "202f7cdd0937b0c3",
-          "497a06f54cf6b516",
-          "49e3bf104130a710",
           "4b8becaacf6001f2",
           "5938ccc1b2d4db66",
-          "6212bf971a2104f7",
           "642b45ea68c321c3",
           "73366a112b08cb7d",
-          "78fcd1ca49562444",
           "7cb9e07ae483f694",
-          "7eb0615bcbe306b8",
           "805187569488b5cf",
           "8c908cd02abbefb1",
           "a41ca5ffaef2b5eb",
-          "a86abd4e75b6cf91",
           "ace8c91d7d18b716",
-          "ae195fcd7f626267",
           "b3347ecca95390ab",
-          "c8fe830ea3bf6ac3",
-          "d37ea2f7a8145025",
+          "b854e0a6b932ef62",
           "d79dca92d7870ad2",
           "eb610a2da1fa44e5",
           "f21632c379365dcf",
           "fd7d1eb963a9e3e3",
           "fed79b94e7aaf45e",
           "ff1718f920845d3f",
-          "05d96f8585f8aae3",
           "0803873a4f7d845f",
-          "0c52334e681d8bef",
           "1d1538576aecd970",
-          "23a0980147b4c4c5",
           "2a00b81385f35a08",
+          "311cf36ae452fce1",
           "388f90fec2754619",
-          "3d0cf98c04040195",
           "441ec143f4d10e2e",
           "4637302e5c26136f",
           "47ca947ea6c4f982",
-          "4b38aaf4ec965f23",
+          "4dd932b65810177a",
           "544d13860ffc258f",
+          "54b84969d8db7c4f",
           "5776e545c58f10f3",
-          "5bb0929ad6908373",
-          "5f91b34ad4f7c89f",
-          "60b43e7517f030ba",
-          "69873e84e1e33137",
-          "6ac41ebb2c0fc428",
-          "7e98fe2200a5a170",
+          "6836a6f750a29c45",
           "7f38f1e2863ca192",
-          "8394b6fc921a4fe2",
-          "85eb92152018235c",
           "891de6386e425d87",
           "8d542797876b5628",
           "8f24604bfd382c19",
-          "9d082943659b2751",
           "a631bf903cf019aa",
           "ac207d84b258f551",
-          "b90f2a2cb88f1750",
+          "ac6a5c504aa3f446",
           "b95baccc4f22815d",
+          "bdf14bd3cbd2a470",
           "c42765cf3006ce24",
-          "c990a0c2ea8e3b46",
+          "dcdf1d9d90126a6f",
           "ee954752c3cbe97e",
           "f4b1d46240723b8b",
           "f4e0e1cea61fbd0e",
-          "f7bb86058c449468",
           "082a98f39087ca5d",
-          "1152296f606f26a7",
-          "177594b918b390d8",
-          "1bfd772968f6b004",
-          "1c25c2b618d9d820",
           "1ee88ca4d5c63c55",
           "1fa1a3ca78015bf7",
-          "25f06f303626ae21",
           "34d0cab4cb9cfff7",
-          "4f6d252cb70915fc",
-          "4fe7b855bbf4587f",
-          "5b406ace516bb1c2",
-          "622d933b92f3a942",
           "62b1b3e30d6c8bf5",
-          "6308fa7b85682ddf",
           "6f93c5b7ab286a7e",
-          "705093e04e5bc282",
           "748c70950f2ba9f7",
-          "76da05b92efda622",
-          "85deb061a579a4d9",
           "88d807a58e292796",
-          "8b23554d97d26a81",
-          "988929c6d4970e0d",
-          "99d150fe2bfb3174",
           "9faa8a54f7c3d900",
-          "a010b2a12931e304",
-          "b7342afe9e562542",
-          "b960b46d21a00d4e",
           "ba5de0c076ac2e80",
-          "c375ef4806f96dbb",
-          "d2f71fb2769f34ff",
           "d7c12ee91d72539c",
           "dc51df1bf428bda8",
           "df257a23cb0a5b85",
-          "e314f8889462dc48",
           "f92c15bf9db749c4",
           "f94cc6731db1d327",
-          "04d95765016e8e61",
-          "0591d29b0f66971d",
           "0e68cd33ebfa4599",
           "0eab9a0ccf9dbf9b",
+          "16da259f7eb45c23",
           "19d7df0e47cec0cb",
-          "1ee0b3a4a07e5287",
           "214749cdbc225e57",
           "21b0323808dfa912",
-          "281df668596380de",
           "2871ce073a9e10e6",
-          "2dbfeb8478013e43",
-          "2ec9728268a67629",
           "3902d5e51450b5f2",
-          "3a2033eab9f3b7b1",
-          "3b1447eeffe09fa3",
           "44015354188c7cb5",
-          "48af8f1f7996542d",
-          "5d5dca6e54009d41",
           "63d07763145bd40e",
           "668df6a165df6edf",
           "6df870ca78feacb8",
           "734babbac421c27a",
           "760156bae0b929c3",
-          "7c46e11a31b2629d",
-          "93309d6a79469be6",
           "949da3f41feec89b",
-          "9f2a615397387f67",
-          "af664b650da6dd9c",
-          "b2606ebe35575daf",
           "b437004716bffd5d",
-          "b6a86c63ee42e683",
           "bc3bffecfc095109",
           "c2f3861d86ba66bf",
-          "c34eafe2c18050b6",
           "c905fcd93bb0b57a",
           "ca6771ec1336e1cc",
           "cae091ce985a1dbf",
           "d6964702e8a13e31",
           "ebd21a51a4308718",
           "ec29b7bd251376de",
-          "ef1c13f9c0172316",
           "eff9675d49a22992",
-          "f87f4287a330400d",
           "dc1824fdda7d2956"
         ],
-        "replayWorkCount": 386,
+        "replayWorkCount": 221,
         "failures": [],
         "status": "rejected"
       },
@@ -2183,11 +2229,9 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "509b7503e407d8fe",
-          "55d3ee1257c2fbe7",
           "82e49a345c9db4e8"
         ],
-        "replayWorkCount": 3,
+        "replayWorkCount": 1,
         "failures": [],
         "status": "rejected"
       },
@@ -2219,126 +2263,58 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "046138939b437415",
-          "27346ffc6068b374",
-          "29938e9b636dc551",
-          "2d07a639cdc43e2c",
-          "435f8bb93331d1be",
           "6d983018827900ee",
-          "95c72b1c5a4cf9e2",
           "984788b5dc9bf35c",
-          "a21c996402d5d51a",
-          "a5065f2fe6859fae",
           "a558359a6bd4f7d5",
-          "cb76b56f9c7c6ca2",
-          "cd633f86f42c9d42",
-          "d19df7145e1fabe8",
-          "02f634c2687538ca",
           "11c8b2967238e5b8",
-          "141332df115f4693",
-          "2332fa7d891b49f1",
-          "25d4cab354794116",
-          "325898d9d8f35df2",
           "352b6ed0e09a3168",
           "372317ddc43f9e9a",
-          "426b53279c27e5c1",
-          "7324a14127f3f9f1",
           "774f7255745731ca",
-          "8742308d4c537731",
-          "92dffdc0b69e671f",
-          "9de6a85bd1c535b1",
-          "c3f2c3130a86585e",
-          "d53d978526a9c4f7",
-          "d540900df72d4581",
           "d8a0163f03f154bb",
-          "d9bb2b116d2741ad",
-          "de42e227d25bc6c3",
           "eaefdc59a1351382",
-          "ec80c98c48ec63ac",
-          "f39823cc97bb2ad5",
+          "4f25adae3c249146",
+          "c7f65abce9d0841c",
+          "ce33fe14cef99eb7",
           "1d8f9634aed3d236",
           "6e11bf056589cb92",
           "82b17ec16641e2fc",
-          "c39793ece844b701",
-          "da8793937c72bb7b",
           "0019bb2f07210db3",
           "012b1c7a5371efa9",
           "0cd15ab92ae39db3",
-          "15238a19143820cd",
-          "1e12ea2e04e8a04d",
-          "21503fb460036ae0",
           "2526f92fa52c2c3a",
-          "28766d70880bb865",
-          "2c093465865bbf0f",
-          "324228599bc69a97",
-          "346c1f89f0f66301",
           "402a7ee55eda14de",
-          "489c525982d376f4",
           "4ce0fca4585c00eb",
           "565decae2c8ec9b8",
-          "587816416a40f86e",
-          "7a12f23c80051ba4",
           "7bd23b934f1082a3",
           "8912d0902f725d49",
-          "8a8f324e4ed84631",
-          "91e5faa8dfca23c1",
           "a0ae74cc7148e72c",
-          "a8b36b8db1c16f6a",
-          "b4bd24324043e64d",
-          "c2342258e30ed0b6",
-          "c8883666ac573f61",
           "cdab59c92d7c16e2",
-          "cdaff82b517ebe2e",
-          "d381f7371ef55df9",
-          "d44af0633550264c",
-          "d7c48b4988eb0871",
-          "e4d1b01e800e9427",
-          "ec9807a0825ff2b4",
           "edf02a77dac5030a",
           "f1cdd8c71cc76112",
-          "f30b85760bec425d",
-          "ff154e8bc193933b",
-          "0bba5360ef8e4712",
+          "049dde4305b740e6",
           "135e590f768c78a3",
           "2f6fad505496ac90",
           "34c66c47d319e4d6",
-          "452e6a4b7ce73105",
           "521b88822ea81d90",
-          "6bde5ca0985e041c",
           "745ada457d346b5e",
-          "794bf42a6e4f04c5",
-          "7e847f2d34575d87",
           "8c8a2d119a2af35b",
-          "902ce8600731f064",
-          "936ff1e5862496e8",
-          "94112777159d1984",
-          "9f72ab3def756e1b",
-          "ae0c799b3377f1dd",
           "af067a66c2d4a4cd",
-          "d7fbb3a139badde3",
           "dc6db08f033b67f3",
           "de89bbc759b07f3e",
-          "e0ec686711a8427a",
           "e9c6e1a756506d79",
           "ecf4e41bafba8123",
-          "f054d7f417e5ed2a",
-          "fbb00b0448dfc47c",
           "7bda3ce38514ee39",
+          "7f393bc7339915ee",
           "9e9a0bf9af00d394",
           "c5850eefe1d4ca15",
           "fe3649eef45ae41f",
-          "1fa5d3c7e3f177c1",
-          "aeef366eea9c11bb",
-          "b33979f4462a879d",
+          "b2da9267d2d3a87e",
           "f240e4b8e22094ee",
-          "2a04418060d51db2",
-          "2b184cca09713e70",
+          "151199ab1d03d70a",
           "3e185eeab9f08a3a",
-          "639d3c3c9f52393e",
           "85eb08ee8d09f935",
           "cbc0c403c59812e1",
           "ecc0ddf528197085",
-          "ede8b69afea3acf0",
           "476cb8f35a23f9e1",
           "6080afdc27b89adb",
           "8511affa6a8fe6ff",
@@ -2346,83 +2322,11 @@
           "e961cf011c6e58bb",
           "e9ab2ceae93e3812"
         ],
-        "replayWorkCount": 126,
+        "replayWorkCount": 58,
         "failures": [
           {
-            "workId": "c3f2c3130a86585e",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-          },
-          {
-            "workId": "1fa5d3c7e3f177c1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1034843"
-          },
-          {
-            "workId": "aeef366eea9c11bb",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24441"
-          },
-          {
-            "workId": "b33979f4462a879d",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24180"
-          },
-          {
-            "workId": "f240e4b8e22094ee",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=13249"
-          },
-          {
-            "workId": "2a04418060d51db2",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20528"
-          },
-          {
-            "workId": "2b184cca09713e70",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23356"
-          },
-          {
-            "workId": "3e185eeab9f08a3a",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25485"
-          },
-          {
-            "workId": "639d3c3c9f52393e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22773"
-          },
-          {
-            "workId": "85eb08ee8d09f935",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12536"
-          },
-          {
             "workId": "cbc0c403c59812e1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=21433"
-          },
-          {
-            "workId": "ecc0ddf528197085",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24314"
-          },
-          {
-            "workId": "ede8b69afea3acf0",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17416"
-          },
-          {
-            "workId": "476cb8f35a23f9e1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25000"
-          },
-          {
-            "workId": "6080afdc27b89adb",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23819"
-          },
-          {
-            "workId": "8511affa6a8fe6ff",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12138"
-          },
-          {
-            "workId": "8918ed4b3c88feaf",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18658"
-          },
-          {
-            "workId": "e961cf011c6e58bb",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17593"
-          },
-          {
-            "workId": "e9ab2ceae93e3812",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22773"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           }
         ],
         "status": "rejected"
@@ -2469,8 +2373,8 @@
         "detailChapterSelectors": [
           "a",
           "a.r-top",
-          "* a[href]",
           "a.jiathis",
+          "* a[href]",
           "*.cy_yuepiao a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -2487,131 +2391,113 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "0ed040ef772a4891",
+          "046138939b437415",
+          "48567b870351cf23",
+          "4f425db928f45fa5",
           "5a8b30b97bc4dbcd",
-          "96c271573ba4808a",
+          "6b198f6553dd5e54",
           "aa3abdd7909e7c91",
-          "b0008971bbe2d189",
-          "c7901f5795f64fe2",
-          "ddb7606a22cb2cb8",
+          "b7d2c4ac6b9d8cec",
+          "cb76b56f9c7c6ca2",
+          "cf65282223a084cb",
+          "d221ae875614a5c9",
           "ddbc61688e700313",
+          "f935f20a3713a345",
           "2486377ebd16043b",
-          "3a93e45f95f40415",
-          "4f01251bdae2f8a6",
           "7482551631357b37",
           "856ec13088c658e9",
           "96ce9ce8a3c00c19",
-          "a795cfbaf5599cb4",
-          "b70c63d58a106a16",
-          "c409c2f71b48d2f7",
+          "a5a6acc385f18eba",
           "cc90c75e7babe85a",
-          "cedc6c1582a266e6",
-          "f4fbadb478cf72f0",
-          "59961c00ec8cff13",
-          "0d330378116b6d9c",
+          "ea5820f9a635825e",
+          "0daaea46940d43de",
+          "0e798e09c9872c3b",
           "1768a4e53c1cd8ce",
+          "1eda36ef07386f91",
           "25dc6dd9e6ec7a14",
           "2feb9fb55eddcc68",
-          "35088585af81ab52",
-          "3c897dcb954ba092",
           "3dcd3f1aed0f0914",
+          "410e5cae5764c03d",
           "4ac96e72f251d6d1",
           "5e113732188b8881",
-          "6243435101301521",
-          "62e5785ae255f53c",
           "7d0a88c8419c2d2b",
           "889c605753b4de70",
           "97cd02de8d00771f",
-          "9f6cfeb31d8eb910",
-          "a74877b1ffe3479b",
           "cc816ddf0ce2fe5e",
+          "d72978eff5a1ffc6",
           "dcb82d561c488217",
           "ff20e2f5c90a3133",
-          "0993337188ce060c",
           "1456ce1fb22cbadc",
-          "3918549c8c099b6d",
-          "402408c4123a8d75",
-          "672304c95f1f3c65",
-          "75adf32366abb855",
+          "1e12ea2e04e8a04d",
+          "54bb42da09fae750",
           "80844c1b44d5c06e",
-          "836dd006203fc87b",
-          "915326a60dd7e433",
-          "a343852ed0e965ba",
-          "bf81760fd5c58f3a",
-          "c2c895641e05c822",
-          "cd63d367d4469174",
-          "f94e13802f024052",
-          "fe7dbaabe4b66eeb",
-          "0ae6f66b53e28e1f",
-          "010c419171364d68",
-          "05295391dcc0d553",
-          "2f2b5d436c3230ce",
-          "4dd4b0fc41cd18b6",
+          "bd5bf8613ed1f658",
+          "c2342258e30ed0b6",
+          "c2dd31a68b5b257f",
+          "c8883666ac573f61",
+          "d5ce6b2f16e3dc6f",
+          "dd52c5c40bd9cbbf",
           "50b743b5459987d6",
-          "8741b1caff0a8121",
+          "6ab99076831305c2",
+          "77f114079cff8394",
+          "7e847f2d34575d87",
           "c7f45b4d0b4be212",
           "e15b0cc790bd04cf",
           "e714d1150d535339",
           "8e9cea8f5e43056a",
-          "09f310e34050c1cd",
-          "279bdf5aa7a0fc6e",
-          "610c512590e988c4",
-          "721eb4615b385205",
+          "1b73d218393bd04e",
+          "4197a6add2c4c310",
+          "77857de3fc4c9cc8",
           "afe63cd62fce7663",
-          "0142f11f9c4adca4",
-          "48e5e4c933b728a4",
+          "123c7d33d4f24397",
+          "47c43c30ae39ff9e",
           "5a35b0562302fddd",
+          "6a6b3678241cd846",
           "966ec6ecb1262c2d",
-          "d283391b6666a515",
-          "f6d8895f97d2420f",
-          "0a28c32f04924917",
+          "9d082943659b2751",
           "0e9af01c39cf0232",
-          "151199ab1d03d70a",
-          "1a507521426e37ac",
-          "1f2692bb9ab1fcb0",
           "1f52737047ca9ffb",
+          "4bcdd8d17efabe65",
           "4bd1cbb63974f6b6",
           "575a27445ce22234",
-          "6d1b7ab070f844e1",
-          "a41e58da76f6efc3",
-          "d60e1961abe9aee8",
-          "f6ecc0da65efda17",
-          "fb3d553f0f905bf4",
           "fed62d0fab4ebb9a",
           "ffda8b5c9a54cdc9",
           "066c609b375eedd8",
-          "16da259f7eb45c23",
-          "41904944879cadc8",
-          "4bf0df81fae5c5d4",
           "4fc09ae93dca403c",
           "53a308aa2cacfd5b",
           "6f3f73c72102cb41",
-          "92008955427f8a3b",
-          "943333bd271a985e",
           "94abf178d29140ee",
-          "9cd01f29a0677a69",
-          "a6010adc6361c5c3",
-          "cbc8e223fc0349a5",
-          "ccf654a459d1d629",
-          "f6ca47a5eb3df07b"
+          "d49b8c73f063b757"
         ],
-        "replayWorkCount": 107,
+        "replayWorkCount": 77,
         "failures": [
           {
-            "workId": "f4fbadb478cf72f0",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234526"
+            "workId": "f935f20a3713a345",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234825/58588.html"
           },
           {
-            "workId": "59961c00ec8cff13",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235966"
+            "workId": "7482551631357b37",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231155/58573.html"
           },
           {
-            "workId": "0d330378116b6d9c",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/229648"
+            "workId": "856ec13088c658e9",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235980"
+          },
+          {
+            "workId": "0daaea46940d43de",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/226808"
+          },
+          {
+            "workId": "0e798e09c9872c3b",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/408240/125719.html"
           },
           {
             "workId": "1768a4e53c1cd8ce",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233816"
+          },
+          {
+            "workId": "1eda36ef07386f91",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230024"
           },
           {
             "workId": "25dc6dd9e6ec7a14",
@@ -2619,31 +2505,23 @@
           },
           {
             "workId": "2feb9fb55eddcc68",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232454"
-          },
-          {
-            "workId": "35088585af81ab52",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/227213"
-          },
-          {
-            "workId": "3c897dcb954ba092",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/409422"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232454/54758.html"
           },
           {
             "workId": "3dcd3f1aed0f0914",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234151"
           },
           {
+            "workId": "4ac96e72f251d6d1",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235980"
+          },
+          {
             "workId": "5e113732188b8881",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234282"
           },
           {
-            "workId": "6243435101301521",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/226530"
-          },
-          {
-            "workId": "62e5785ae255f53c",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231934"
+            "workId": "7d0a88c8419c2d2b",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231155/58573.html"
           },
           {
             "workId": "889c605753b4de70",
@@ -2654,12 +2532,12 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231735"
           },
           {
-            "workId": "a74877b1ffe3479b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/224253"
-          },
-          {
             "workId": "cc816ddf0ce2fe5e",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/227674"
+          },
+          {
+            "workId": "d72978eff5a1ffc6",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234719"
           },
           {
             "workId": "dcb82d561c488217",
@@ -2670,104 +2548,60 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/255551"
           },
           {
-            "workId": "0993337188ce060c",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234146"
+            "workId": "1456ce1fb22cbadc",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235039"
           },
           {
-            "workId": "3918549c8c099b6d",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233308"
+            "workId": "bd5bf8613ed1f658",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235202"
           },
           {
-            "workId": "672304c95f1f3c65",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235798"
+            "workId": "dd52c5c40bd9cbbf",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234526"
           },
           {
-            "workId": "75adf32366abb855",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231020"
+            "workId": "6ab99076831305c2",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235202"
           },
           {
-            "workId": "80844c1b44d5c06e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235662"
+            "workId": "1b73d218393bd04e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/226180"
           },
           {
-            "workId": "836dd006203fc87b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232012"
+            "workId": "4197a6add2c4c310",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/225083"
           },
           {
-            "workId": "915326a60dd7e433",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232160"
-          },
-          {
-            "workId": "bf81760fd5c58f3a",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/224552"
-          },
-          {
-            "workId": "c2c895641e05c822",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230180"
-          },
-          {
-            "workId": "cd63d367d4469174",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230621"
-          },
-          {
-            "workId": "f94e13802f024052",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/260195"
-          },
-          {
-            "workId": "fe7dbaabe4b66eeb",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233861"
-          },
-          {
-            "workId": "09f310e34050c1cd",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/412413"
-          },
-          {
-            "workId": "279bdf5aa7a0fc6e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/262646"
-          },
-          {
-            "workId": "610c512590e988c4",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/226472"
-          },
-          {
-            "workId": "721eb4615b385205",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/450603"
+            "workId": "77857de3fc4c9cc8",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/258530"
           },
           {
             "workId": "afe63cd62fce7663",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/228227"
           },
           {
-            "workId": "0a28c32f04924917",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/227008"
+            "workId": "123c7d33d4f24397",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233180"
+          },
+          {
+            "workId": "47c43c30ae39ff9e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234854"
+          },
+          {
+            "workId": "9d082943659b2751",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232115/57630.html"
           },
           {
             "workId": "0e9af01c39cf0232",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230268"
           },
           {
-            "workId": "1a507521426e37ac",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/448298"
-          },
-          {
-            "workId": "1f2692bb9ab1fcb0",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/230548"
-          },
-          {
-            "workId": "4bd1cbb63974f6b6",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/409601"
+            "workId": "4bcdd8d17efabe65",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231934"
           },
           {
             "workId": "575a27445ce22234",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/225328"
-          },
-          {
-            "workId": "6d1b7ab070f844e1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234545"
-          },
-          {
-            "workId": "fb3d553f0f905bf4",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/234151"
           },
           {
             "workId": "fed62d0fab4ebb9a",
@@ -2778,56 +2612,20 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/227213"
           },
           {
-            "workId": "066c609b375eedd8",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231601"
-          },
-          {
-            "workId": "16da259f7eb45c23",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/231836"
-          },
-          {
-            "workId": "41904944879cadc8",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235857"
-          },
-          {
-            "workId": "4bf0df81fae5c5d4",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/260381"
+            "workId": "4fc09ae93dca403c",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/232693"
           },
           {
             "workId": "53a308aa2cacfd5b",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/236151"
           },
           {
-            "workId": "92008955427f8a3b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233057"
-          },
-          {
-            "workId": "943333bd271a985e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/226459"
-          },
-          {
             "workId": "94abf178d29140ee",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/552593"
           },
           {
-            "workId": "9cd01f29a0677a69",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235898"
-          },
-          {
-            "workId": "a6010adc6361c5c3",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/233581"
-          },
-          {
-            "workId": "cbc8e223fc0349a5",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/236065"
-          },
-          {
-            "workId": "ccf654a459d1d629",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235966"
-          },
-          {
-            "workId": "f6ca47a5eb3df07b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/256285"
+            "workId": "d49b8c73f063b757",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.liumanhua.com/235257"
           }
         ],
         "status": "rejected"
@@ -2894,8 +2692,8 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "eb75950dd9d6ab32",
-          "388e35bc33dadc4e"
+          "cbaf4eaa498ff551",
+          "eb75950dd9d6ab32"
         ],
         "replayWorkCount": 2,
         "failures": [],
@@ -2993,6 +2791,48 @@
       },
       {
         "schema": "comic_domain_rule_v1",
+        "id": "pipimanhua_com",
+        "domain": "pipimanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "*.imgpic img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "0ed040ef772a4891",
+          "325898d9d8f35df2",
+          "98ca690563b84dde",
+          "ecc11d68efd1783f",
+          "4a49b960ea9ee703",
+          "87614d23b4c7650b",
+          "3013f37296dae7e6",
+          "c2018bb3ea969ed8"
+        ],
+        "replayWorkCount": 8,
+        "failures": [
+          {
+            "workId": "98ca690563b84dde",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
         "id": "songzimanhua_com",
         "domain": "songzimanhua.com",
         "languages": [
@@ -3017,20 +2857,13 @@
         ],
         "verifiedWorkIds": [
           "957ad67447a6becf",
-          "99393a8644bfa318",
           "9b1905cfef5c5bcb",
           "a8cac732ecdbde64",
           "cfa348a6fa8f850d",
-          "56d5cfd435aac761",
           "f969a891b533c193",
-          "193e5864c8954768",
-          "4a75b8e1af2013b5",
-          "5bcde7413386c24d",
-          "795e1e98f52f0cb2",
-          "8a5afb4b2d72687a",
-          "1bb9874539aec75d"
+          "4a75b8e1af2013b5"
         ],
-        "replayWorkCount": 13,
+        "replayWorkCount": 6,
         "failures": [],
         "status": "rejected"
       },
@@ -3058,10 +2891,9 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "3a586bb38da102f4",
-          "16d6bb66676ff011"
+          "a3f97d20627426a2"
         ],
-        "replayWorkCount": 2,
+        "replayWorkCount": 1,
         "failures": [],
         "status": "rejected"
       },
@@ -3087,11 +2919,14 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "a5259e0d4bbd9a12",
-          "960e2caa9b9a1df0",
-          "bf0672f1d3d413f3"
+          "2582b3743eb0ae95",
+          "e87b6d14e43ab4c5",
+          "d8ec24d8936cf18d",
+          "c0653f96f99ea1ff",
+          "43643d9cebc02830",
+          "c8e15ca7d7324e36"
         ],
-        "replayWorkCount": 3,
+        "replayWorkCount": 6,
         "failures": [],
         "status": "rejected"
       }

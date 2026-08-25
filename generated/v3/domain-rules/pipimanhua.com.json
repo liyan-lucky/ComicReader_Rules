@@ -22,18 +22,21 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "2582b3743eb0ae95",
-    "a5a6acc385f18eba",
-    "731365488ae7b51a",
+    "0ed040ef772a4891",
+    "325898d9d8f35df2",
+    "98ca690563b84dde",
+    "ecc11d68efd1783f",
     "4a49b960ea9ee703",
     "87614d23b4c7650b",
-    "55f788bfe76e4633",
     "3013f37296dae7e6",
-    "69b730d552e7de8f",
-    "255e3afa70e00d32",
     "c2018bb3ea969ed8"
   ],
-  "replayWorkCount": 10,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 8,
+  "failures": [
+    {
+      "workId": "98ca690563b84dde",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
+    }
+  ],
+  "status": "rejected"
 }

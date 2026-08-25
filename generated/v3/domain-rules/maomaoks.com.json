@@ -1,21 +1,18 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "shenqimanhua_net",
-  "domain": "shenqimanhua.net",
+  "id": "maomaoks_com",
+  "domain": "maomaoks.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a.px-3",
-    "a.ml-2",
-    "a.text-sm",
-    "* a[href]",
-    "*.flex a[href]"
+    "a",
+    "*.text-sm a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "*.relative img",
-    "img.object-contain"
+    "img",
+    "* img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,11 +23,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "b3cae191daf6ad2b",
-    "710f0bf3a3d3bcd3",
-    "8a92e36dc8e91798"
+    "e367bf220cb82f6e"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }
