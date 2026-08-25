@@ -135,6 +135,26 @@ def collect_bilibili(session, platform, config, pages, observed_at):
     return out
 
 
+def collect_dongman(session, platform, config, pages, observed_at):
+    soup = BeautifulSoup(fetch(session, platform["entryUrl"]), "lxml")
+    genre_map = {"LOVE":"lianai", "ROMANCE":"lianai", "FANTASY":"qihuan", "BOY":"dongzuo",
+        "ACTION":"dongzuo", "SUSPENSE":"xuanyi", "THRILLER":"kongbu", "HORROR":"kongbu",
+        "DRAMA":"juqing", "CAMPUS":"richang", "SLICE-OF-LIFE":"richang", "SPORTS":"jingji",
+        "HISTORICAL":"lishi", "HISTORY":"lishi", "SCI-FI":"kehuan", "SF":"kehuan"}
+    out, seen = [], set()
+    for link in soup.select('a.card_item[href*="title_no="]'):
+        href = str(link.get("href", "")); url = urljoin(platform["entryUrl"], href)
+        if url in seen: continue
+        title_node = link.select_one(".subj")
+        title = title_node.get_text(" ", strip=True) if title_node else ""
+        if len(title) < 2 or BAD_TITLE.search(title): continue
+        seen.add(url)
+        path_parts = [part.upper() for part in urlparse(url).path.split("/") if part]
+        category = next((genre_map[part] for part in path_parts if part in genre_map), "juqing")
+        out.append(observation(platform, category, title, url, platform["entryUrl"], observed_at))
+    return out
+
+
 def inferred_category(text: str, aliases: dict) -> str:
     for label, category in aliases.items():
         if label in text:
@@ -184,6 +204,7 @@ def main() -> int:
         adapter = platform["adapter"]
         if adapter == "tencent": rows = collect_tencent(session, platform, config, args.pages, observed_at)
         elif adapter == "bilibili": rows = collect_bilibili(session, platform, config, args.pages, observed_at)
+        elif adapter == "dongman": rows = collect_dongman(session, platform, config, args.pages, observed_at)
         elif adapter == "kuaikan": rows = collect_kuaikan(session, platform, config, args.pages, observed_at)
         else: rows = collect_generic(session, platform, config, args.pages, observed_at)
         if not rows: status = "no_items"
