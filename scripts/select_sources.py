@@ -48,17 +48,16 @@ def choose(audits: list[dict]) -> dict:
         else:
             grouped[str(item.get("workId", ""))].append(item)
     selected = []
+    verified_candidates = []
     for work_id, candidates in sorted(grouped.items()):
-        winner = sorted(candidates, key=score, reverse=True)[0]
-        selected.append({
-            "workId": work_id, "language": winner["language"], "title": winner["queryTitle"],
-            "domain": winner["domain"], "detailUrl": winner["detailUrl"],
-            "coverUrl": winner.get("coverUrl", ""),
-            "verifiedChapterCount": winner["chapterCount"], "samples": winner["samples"],
-            "candidateCount": len(candidates), "selectionReason": "highest_verified_chapter_count",
-        })
+        normalized = [{"workId": work_id, "language": item["language"], "title": item["queryTitle"],
+            "domain": item["domain"], "detailUrl": item["detailUrl"], "coverUrl": item.get("coverUrl", ""),
+            "verifiedChapterCount": item["chapterCount"], "samples": item["samples"]} for item in candidates]
+        normalized.sort(key=lambda item: (item["verifiedChapterCount"], sum(x["imageCount"] for x in item["samples"]), item["detailUrl"]), reverse=True)
+        verified_candidates.extend(normalized)
+        selected.append({**normalized[0], "candidateCount": len(normalized), "selectionReason": "highest_verified_chapter_count_before_domain_replay"})
     return {"schema": "comic_best_sources_v2", "generatedAt": datetime.now(timezone.utc).isoformat(),
-            "selected": selected, "rejected": rejected}
+            "selected": selected, "verifiedCandidates": verified_candidates, "rejected": rejected}
 
 
 def main() -> int:

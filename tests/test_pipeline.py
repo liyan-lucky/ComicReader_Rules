@@ -44,6 +44,7 @@ def test_best_source_uses_highest_verified_chapter_count():
     result = choose([_audit("a.example", 100), _audit("b.example", 250)])
     assert result["selected"][0]["domain"] == "b.example"
     assert result["selected"][0]["verifiedChapterCount"] == 250
+    assert {x["domain"] for x in result["verifiedCandidates"]} == {"a.example", "b.example"}
 
 
 def test_unreadable_or_wrong_title_source_cannot_win():

@@ -11,7 +11,7 @@ from pathlib import Path
 
 def build(best_sources: dict) -> dict:
     domains = defaultdict(lambda: {"languages": set(), "works": []})
-    for source in best_sources.get("selected", []):
+    for source in best_sources.get("verifiedCandidates", best_sources.get("selected", [])):
         record = domains[source["domain"]]
         record["languages"].add(source["language"])
         record["works"].append({"workId": source["workId"], "title": source["title"],

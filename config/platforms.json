@@ -1,6 +1,7 @@
 {
   "schema": "comic_platform_registry_v1",
   "language": "zh-Hans",
+  "maximumPagesPerCategory": 200,
   "platforms": [
     {"id":"tencent","name":"腾讯动漫","baseUrl":"https://ac.qq.com","adapter":"tencent","entryUrl":"https://ac.qq.com/Comic/all","enabled":true},
     {"id":"bilibili","name":"哔哩哔哩漫画","baseUrl":"https://manga.bilibili.com","adapter":"bilibili","entryUrl":"https://manga.bilibili.com/classify","enabled":true},

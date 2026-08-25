@@ -2,7 +2,7 @@ name: 01 每日平台粗采集
 on:
   workflow_dispatch:
     inputs:
-      pages: {description: 每个平台每分类页数, required: true, default: '2'}
+      pages: {description: 每个平台每分类页数（0=自动抓到末页）, required: true, default: '0'}
   schedule:
     - cron: '20 18 * * *'
 permissions: {contents: write}
@@ -21,7 +21,7 @@ jobs:
         with: {python-version: '3.12', cache: pip}
       - run: pip install -r requirements.txt
       - name: 独立采集 ${{ matrix.platform }}
-        run: python scripts/collect_platform.py --platform '${{ matrix.platform }}' --pages '${{ inputs.pages || 2 }}' --output-dir out
+        run: python scripts/collect_platform.py --platform '${{ matrix.platform }}' --pages '${{ inputs.pages || 0 }}' --output-dir out
       - if: always()
         uses: actions/upload-artifact@v4
         with: {name: 'rough-${{ matrix.platform }}', path: out/, if-no-files-found: warn}

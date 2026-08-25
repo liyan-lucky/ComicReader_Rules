@@ -43,43 +43,53 @@ def observation(platform: dict, category: str, title: str, url: str, page: str, 
 
 def collect_tencent(session, platform, config, pages, observed_at):
     out = []
+    limit = pages if pages > 0 else int(config.get("maximumPagesPerCategory", 200))
     for category, theme in config["tencentThemeIds"].items():
-        for page_no in range(1, pages + 1):
-            page = f"{platform['baseUrl']}/Comic/all/theme/{theme}/vip/1/page/{page_no}"
+        seen_urls = set()
+        for page_no in range(1, limit + 1):
+            page = f"{platform['baseUrl']}/Comic/all/theme/{theme}/page/{page_no}"
             soup = BeautifulSoup(fetch(session, page), "lxml")
             rows = soup.select("li.ret-search-item")
+            new_on_page = 0
             for row in rows:
                 link = row.select_one("h3.ret-works-title a[href]") or row.select_one("a.mod-cover-list-thumb[href]")
                 if not link: continue
                 title = str(link.get("title") or link.get_text(" ")).strip()
                 url = urljoin(page, str(link.get("href", "")))
+                if url in seen_urls: continue
+                seen_urls.add(url); new_on_page += 1
                 image = row.select_one("img[data-original], img[src]")
                 cover = urljoin(page, str(image.get("data-original") or image.get("src") or "")) if image else ""
                 update = row.select_one("span.mod-cover-list-text")
                 match = re.search(r"(\d+)\s*[话話章回集]", update.get_text(" ") if update else "")
                 out.append(observation(platform, category, title, url, page, observed_at, cover,
                                        int(match.group(1)) if match else None))
-            if not rows: break
+            if not rows or not new_on_page: break
     return out
 
 
 def collect_kuaikan(session, platform, config, pages, observed_at):
     out = []
+    limit = pages if pages > 0 else int(config.get("maximumPagesPerCategory", 200))
     for category, theme in config["kuaikanThemeIds"].items():
-        for page_no in range(1, pages + 1):
+        seen_urls = set()
+        for page_no in range(1, limit + 1):
             page = f"{platform['baseUrl']}/tag/{theme}?region=1&pays=0&state=0&sort=1&page={page_no}"
             soup = BeautifulSoup(fetch(session, page), "lxml")
             rows = soup.select("div.ItemSpecial")
+            new_on_page = 0
             for row in rows:
                 link = row.select_one("a.itemLink[href]")
                 title_node = row.select_one("span.itemTitle")
                 if not link or not title_node: continue
                 title = title_node.get_text(" ", strip=True)
                 url = urljoin(page, str(link.get("href", "")))
+                if url in seen_urls: continue
+                seen_urls.add(url); new_on_page += 1
                 image = row.select_one("img[data-src], img[src]")
                 cover = urljoin(page, str(image.get("data-src") or image.get("src") or "")) if image else ""
                 out.append(observation(platform, category, title, url, page, observed_at, cover))
-            if not rows: break
+            if not rows or not new_on_page: break
     return out
 
 
@@ -146,7 +156,7 @@ def collect_generic(session, platform, config, pages, observed_at):
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--platform", required=True)
-    parser.add_argument("--pages", type=int, default=2)
+    parser.add_argument("--pages", type=int, default=0, help="0 means crawl until an empty/repeated page")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "observations/rough/zh-Hans")
     args = parser.parse_args()
     config = registry()
