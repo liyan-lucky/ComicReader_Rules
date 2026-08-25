@@ -1,5 +1,5 @@
 name: 02 分类完整分级处理
-run-name: 02 分类完整分级处理（上游 01 #${{ github.event.workflow_run.id || '手动' }}）
+run-name: "02 分类完整分级处理（上游 01 #${{ github.event.workflow_run.id || '手动' }}）"
 on:
   workflow_dispatch:
   workflow_run:

@@ -1,5 +1,5 @@
 name: 04 域名规则分析回放
-run-name: 04 域名规则分析回放（上游 02 #${{ github.event.workflow_run.id || '手动' }}）
+run-name: "04 域名规则分析回放（上游 02 #${{ github.event.workflow_run.id || '手动' }}）"
 on:
   workflow_dispatch:
   workflow_run:
