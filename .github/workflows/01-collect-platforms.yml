@@ -25,7 +25,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with: {name: 'rough-${{ matrix.platform }}', path: out/, if-no-files-found: warn}
-  aggregate:
+  prepare:
     if: always()
     needs: collect
     runs-on: ubuntu-latest
@@ -36,7 +36,44 @@ jobs:
         with: {python-version: '3.12'}
       - uses: actions/download-artifact@v4
         with: {pattern: rough-*, path: daily, merge-multiple: true}
-      - run: python scripts/aggregate_rough_catalog.py --input-dir daily --fallback-dir observations/rough/zh-Hans/platforms --platform-output-dir observations/rough/zh-Hans/platforms --output-dir observations/rough/zh-Hans/categories
+      - run: python scripts/aggregate_rough_catalog.py --input-dir daily --fallback-dir observations/rough/zh-Hans/platforms --platform-output-dir staging/platforms --output-dir staging/categories
+      - uses: actions/upload-artifact@v4
+        with: {name: rough-platform-snapshot, path: staging/}
+  categorize:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with: {name: rough-platform-snapshot, path: snapshot}
+      - name: 独立生成 ${{ matrix.category }} 分类文件
+        run: python scripts/aggregate_rough_catalog.py --input-dir snapshot/platforms --output-dir 'out/categories' --category '${{ matrix.category }}'
+      - uses: actions/upload-artifact@v4
+        with: {name: 'rough-category-${{ matrix.category }}', path: 'out/categories/${{ matrix.category }}.jsonl'}
+  commit:
+    needs: [prepare, categorize]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/download-artifact@v4
+        with: {name: rough-platform-snapshot, path: snapshot}
+      - uses: actions/download-artifact@v4
+        with: {pattern: rough-category-*, path: category-files, merge-multiple: true}
+      - name: 合并独立分类工件
+        run: |
+          mkdir -p observations/rough/zh-Hans/platforms observations/rough/zh-Hans/categories
+          cp -a snapshot/platforms/. observations/rough/zh-Hans/platforms/
+          cp -a category-files/. observations/rough/zh-Hans/categories/
+          cp snapshot/categories/report.json observations/rough/zh-Hans/categories/report.json
+          cp snapshot/categories/unclassified.jsonl observations/rough/zh-Hans/categories/unclassified.jsonl
       - name: 提交粗分类文件和平台状态
         run: |
           git config user.name github-actions[bot]

@@ -8,9 +8,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> int:
-    p=argparse.ArgumentParser(); p.add_argument('--input-dir',type=Path,required=True); p.add_argument('--fallback-dir',type=Path); p.add_argument('--platform-output-dir',type=Path); p.add_argument('--output-dir',type=Path,required=True); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--input-dir',type=Path,required=True); p.add_argument('--fallback-dir',type=Path); p.add_argument('--platform-output-dir',type=Path); p.add_argument('--output-dir',type=Path,required=True); p.add_argument('--category'); a=p.parse_args()
     cfg=json.loads((ROOT/'config/catalog_config.json').read_text(encoding='utf-8-sig'))
     categories=[x['id'] for x in cfg['categories'] if not x.get('internal')]
+    if a.category:
+        if a.category not in categories: raise SystemExit(f'unknown category: {a.category}')
+        categories=[a.category]
     buckets={key:[] for key in categories}; unknown=[]; platform_counts=Counter()
     inputs=[]
     platform_ids={p.stem for p in a.input_dir.glob('*.jsonl')}
