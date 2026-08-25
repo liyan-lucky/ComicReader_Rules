@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
@@ -182,9 +184,15 @@ def main() -> int:
     data_path = args.output_dir / f"{platform['id']}.jsonl"
     report_path = args.output_dir / f"{platform['id']}.status.json"
     data_path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+    category_counts=dict(sorted(Counter(row.get("category", "unclassified") for row in rows).items()))
     report_path.write_text(json.dumps({"schema":"platform_collection_status_v1","platform":platform,
         "status":status,"itemCount":len(rows),"error":error,"startedAt":observed_at,
-        "elapsedSeconds":round(time.monotonic()-started,2)}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+        "categoryCounts":category_counts,"elapsedSeconds":round(time.monotonic()-started,2)}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+    if os.getenv("GITHUB_STEP_SUMMARY"):
+        lines=[f"## {platform['name']} 采集表", "", f"- 状态：**{status}**", f"- 总数：**{len(rows)} 条**", "", "| 分类 | 数量 |", "|---|---:|"]
+        lines += [f"| {key} | {value} |" for key,value in category_counts.items()]
+        if error: lines += ["", f"- 错误：`{error}`"]
+        Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a",encoding="utf-8").write("\n".join(lines)+"\n")
     print(f"{platform['id']}: {status}, {len(rows)} items")
     return 0 if status != "failed" else 2
 
