@@ -30,6 +30,7 @@ def main() -> int:
             title = str(work.get("canonicalTitle", "")).strip()
             names.append(title.casefold())
             if work.get("language") != "zh-Hans": errors.append(f"{path.stem}: wrong language: {title}")
+            if not re.search(r"[\u3400-\u9fff]", title): errors.append(f"{path.stem}: non-Chinese title: {title}")
             if NOISE.search(title): errors.append(f"{path.stem}: navigation noise: {title}")
     unique_names = len(set(names)); duplicate_within_output = sum(v - 1 for v in Counter(names).values() if v > 1)
     # Cross-category title overlap is allowed; each individual category file is already identity-deduplicated.

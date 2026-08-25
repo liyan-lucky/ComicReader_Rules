@@ -30,6 +30,13 @@ def test_platform_observations_are_deduplicated_with_evidence():
     assert len(result["works"][0]["platformEvidence"]) == 2
 
 
+def test_simplified_chinese_catalog_excludes_english_only_titles():
+    observations = [{"platform": "A", "title": "Hero Killer", "category": "dongzuo", "language": "zh-Hans"},
+                    {"platform": "A", "title": "英雄杀手 Hero Killer", "category": "dongzuo", "language": "zh-Hans"}]
+    result = build(observations, "zh-Hans", "dongzuo")
+    assert [work["canonicalTitle"] for work in result["works"]] == ["英雄杀手 Hero Killer"]
+
+
 def _audit(domain: str, chapters: int, title: str = "斗破苍穹", readable: bool = True):
     return {"workId": "work-1", "language": "zh-Hans", "queryTitle": "斗破苍穹", "matchedTitle": title,
             "detailUrl": f"https://{domain}/comic/1", "domain": domain, "chapterCount": chapters,

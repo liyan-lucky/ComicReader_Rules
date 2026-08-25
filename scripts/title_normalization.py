@@ -77,6 +77,8 @@ def build(observations: list[dict[str, Any]], language: str, category: str) -> d
         title = clean_title(item.get("title", ""))
         if len(title) < 2:
             continue
+        if language == "zh-Hans" and not re.search(r"[\u3400-\u9fff]", title):
+            continue
         key = identity_key(title, language)
         entry = groups.setdefault(key, {
             "id": work_id(language, category, key), "canonicalTitle": title,
