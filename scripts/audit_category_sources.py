@@ -78,22 +78,27 @@ def audit(s,work,url):
                 'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['three_chapter_readability_gate_failed']}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); p.add_argument('--start',type=int,default=0); p.add_argument('--limit',type=int); a=p.parse_args()
     category_policy=json.loads(a.category_config.read_text(encoding='utf-8-sig')) if a.category_config else {}
     global MIN_IMAGES, BLOCKED_DOMAINS
     MIN_IMAGES=int(category_policy.get('minimumReadableImagesPerSample',MIN_IMAGES))
     BLOCKED_DOMAINS=BLOCKED_DOMAINS|{str(x).lower().removeprefix('www.') for x in category_policy.get('extraBlockedDomains',[])}
     candidate_limit=a.candidate_limit or int(category_policy.get('candidateLimit',12))
-    doc=json.loads(a.parameters.read_text(encoding='utf-8-sig')); a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
+    doc=json.loads(a.parameters.read_text(encoding='utf-8-sig'))
+    works=doc.get('works',[])
+    if a.start < 0 or (a.limit is not None and a.limit <= 0): p.error('--start must be >= 0 and --limit must be > 0')
+    works=works[a.start:a.start+a.limit if a.limit is not None else None]
+    if not works: raise SystemExit(f'empty work shard: start={a.start}, limit={a.limit}, total={len(doc.get("works",[]))}')
+    a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
     all_audits=[]
-    for i,work in enumerate(doc['works'],1):
+    for i,work in enumerate(works,1):
         fingerprint=hashlib.sha256((POLICY_VERSION+json.dumps(category_policy,sort_keys=True,ensure_ascii=False)+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
         if checkpoint.exists():
             saved=json.loads(checkpoint.read_text(encoding='utf-8'))
-            if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(doc["works"])}] resume {work["canonicalTitle"]}'); continue
+            if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(works)}] resume {work["canonicalTitle"]}',flush=True); continue
         urls=search(session,work['canonicalTitle'],candidate_limit,category_policy.get('searchTerms'))
         audits=[audit(session,work,u) for u in urls]; payload={'workFingerprint':fingerprint,'workId':work['id'],'audits':audits}
-        checkpoint.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); all_audits.extend(audits); print(f'[{i}/{len(doc["works"])}] {work["canonicalTitle"]}: {sum(x["status"]=="verified" for x in audits)}/{len(audits)}')
+        checkpoint.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); all_audits.extend(audits); print(f'[{i}/{len(works)}] {work["canonicalTitle"]}: {sum(x["status"]=="verified" for x in audits)}/{len(audits)}',flush=True)
         time.sleep(.15)
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(''.join(json.dumps(x,ensure_ascii=False)+'\n' for x in all_audits),encoding='utf-8'); return 0
 if __name__=='__main__': raise SystemExit(main())

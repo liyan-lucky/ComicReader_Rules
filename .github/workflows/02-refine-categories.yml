@@ -8,15 +8,26 @@ on:
 permissions: {contents: write, actions: read}
 concurrency: {group: catalog-v3-category-pipelines, cancel-in-progress: false}
 jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - id: shards
+        name: 按每批 75 本建立分类分片
+        run: python scripts/build_category_shard_matrix.py --input-dir parameters/catalog/zh-Hans --batch-size 75
   category_pipeline:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    needs: prepare
     strategy:
       fail-fast: false
-      matrix:
-        category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     runs-on: ubuntu-latest
-    continue-on-error: true
-    timeout-minutes: 330
+    timeout-minutes: 120
     services:
       searxng:
         image: ghcr.io/liyan-lucky/searxng_diy:latest
@@ -33,22 +44,22 @@ jobs:
       - name: 恢复本类逐书检查点
         uses: actions/cache@v4
         with:
-          path: checkpoints/${{ matrix.category }}
-          key: category-v2-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category), format('parameters/catalog/zh-Hans/{0}.json', matrix.category)) }}
-          restore-keys: category-v2-${{ matrix.category }}-
+          path: checkpoints/${{ matrix.category }}/${{ matrix.shard }}
+          key: category-v3-${{ matrix.category }}-${{ matrix.shard }}-${{ hashFiles('scripts/audit_category_sources.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category), format('parameters/catalog/zh-Hans/{0}.json', matrix.category)) }}
+          restore-keys: category-v3-${{ matrix.category }}-${{ matrix.shard }}-
       - name: 第二级：本类逐书搜索与三章节验证
         run: |
           for attempt in 1 2 3; do
-            python scripts/audit_category_sources.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --output 'out/generated/v3/audits/${{ matrix.category }}.jsonl' && exit 0
+            python scripts/audit_category_sources.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --checkpoint-dir 'checkpoints/${{ matrix.category }}/${{ matrix.shard }}' --start '${{ matrix.start }}' --limit '${{ matrix.limit }}' --output 'out/generated/v3/audits/${{ matrix.category }}/${{ matrix.shard }}.jsonl' && exit 0
             echo "第 $attempt 次审核失败，使用检查点重试"
           done
           exit 1
       - name: 第三级：本类选择章节最多的可读源
-        run: python scripts/select_sources.py --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --output 'out/generated/v3/best/${{ matrix.category }}.json'
+        run: python scripts/select_sources.py --audits 'out/generated/v3/audits/${{ matrix.category }}/${{ matrix.shard }}.jsonl' --output 'out/generated/v3/best/${{ matrix.category }}/${{ matrix.shard }}.json'
       - uses: actions/upload-artifact@v4
-        with: {name: 'category-pipeline-${{ matrix.category }}', path: out/}
+        with: {name: 'category-pipeline-${{ matrix.category }}-${{ matrix.shard }}', path: out/}
   merge:
-    if: always() && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     needs: category_pipeline
     runs-on: ubuntu-latest
     steps:
@@ -60,8 +71,9 @@ jobs:
         with: {pattern: category-pipeline-*, path: merged, merge-multiple: true}
       - name: 汇总分类产物并建立域名账本
         run: |
+          rm -rf generated/v3/audits generated/v3/best
           cp -a merged/generated/. generated/
-          python scripts/merge_best_sources.py --input-dir generated/v3/best --output generated/v3/best_sources.zh-Hans.json --domain-output generated/v3/domain_ledger.zh-Hans.json
+          python scripts/merge_best_sources.py --input-dir generated/v3/best --recursive --output generated/v3/best_sources.zh-Hans.json --domain-output generated/v3/domain_ledger.zh-Hans.json
       - name: 一次性提交所有分类结果
         run: |
           git config user.name github-actions[bot]
