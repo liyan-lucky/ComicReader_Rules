@@ -12,12 +12,14 @@ from pathlib import Path
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-dir", type=Path, required=True)
-    parser.add_argument("--batch-size", type=int, default=75)
+    parser.add_argument("--batch-size", type=int, default=125)
+    parser.add_argument("--max-jobs", type=int, default=240)
     args = parser.parse_args()
     if args.batch_size <= 0:
         parser.error("--batch-size must be > 0")
+    if not 1 <= args.max_jobs <= 256:
+        parser.error("--max-jobs must be between 1 and 256")
 
-    include = []
     counts = {}
     for path in sorted(args.input_dir.glob("*.json")):
         doc = json.loads(path.read_text(encoding="utf-8-sig"))
@@ -25,19 +27,21 @@ def main() -> int:
         counts[path.stem] = count
         if count == 0:
             raise SystemExit(f"stage 01 category is empty: {path.stem}")
-        for shard in range(math.ceil(count / args.batch_size)):
-            include.append({"category": path.stem, "shard": shard, "start": shard * args.batch_size, "limit": args.batch_size})
-
-    if not include:
+    if not counts:
         raise SystemExit("no stage 01 category parameters found")
-    if len(include) > 256:
-        raise SystemExit(f"matrix has {len(include)} jobs, exceeding GitHub's 256-job limit")
+    batch_size = args.batch_size
+    while sum(math.ceil(count / batch_size) for count in counts.values()) > args.max_jobs:
+        batch_size += 25
+    include = []
+    for category, count in counts.items():
+        for shard in range(math.ceil(count / batch_size)):
+            include.append({"category": category, "shard": shard, "start": shard * batch_size, "limit": batch_size})
     matrix = json.dumps({"include": include}, separators=(",", ":"))
     output = os.getenv("GITHUB_OUTPUT")
     if output:
         with Path(output).open("a", encoding="utf-8") as stream:
             stream.write(f"matrix={matrix}\n")
-    print(json.dumps({"categories": counts, "shards": len(include), "batchSize": args.batch_size}, ensure_ascii=False, indent=2))
+    print(json.dumps({"categories": counts, "shards": len(include), "batchSize": batch_size}, ensure_ascii=False, indent=2))
     return 0
 
 
