@@ -12,8 +12,8 @@ from pathlib import Path
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-dir", type=Path, required=True)
-    parser.add_argument("--batch-size", type=int, default=125)
-    parser.add_argument("--max-jobs", type=int, default=240)
+    parser.add_argument("--batch-size", type=int, default=100)
+    parser.add_argument("--max-jobs", type=int, default=256)
     args = parser.parse_args()
     if args.batch_size <= 0:
         parser.error("--batch-size must be > 0")

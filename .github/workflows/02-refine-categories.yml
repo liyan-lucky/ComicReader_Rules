@@ -17,8 +17,8 @@ jobs:
       - uses: actions/checkout@v4
         with: {ref: main}
       - id: shards
-        name: 按每批 125 本建立分类分片
-        run: python scripts/build_category_shard_matrix.py --input-dir parameters/catalog/zh-Hans --batch-size 125
+        name: 按每批 100 本建立分类分片
+        run: python scripts/build_category_shard_matrix.py --input-dir parameters/catalog/zh-Hans --batch-size 100 --max-jobs 256
   category_pipeline:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     needs: prepare
@@ -27,7 +27,7 @@ jobs:
       max-parallel: 20
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     services:
       searxng:
         image: ghcr.io/liyan-lucky/searxng_diy:latest
