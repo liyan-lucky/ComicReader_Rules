@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "25mh_net",
+  "domain": "25mh.net",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.hidden-xs",
+    "*.con_top a[href]",
+    "*.hidden-xs a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "c58a27b96aa3be82"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "rejected"
+}

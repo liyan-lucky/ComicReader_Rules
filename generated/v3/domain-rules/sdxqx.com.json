@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "sdxqx_com",
+  "domain": "sdxqx.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.pure-button",
+    "*.pure-u-1-1 a[href]",
+    "a.comics-chapters__item"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img",
+    "img.lazy-img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "3e4f98529d72392e",
+    "eb8b03b5a3ad2615"
+  ],
+  "replayWorkCount": 2,
+  "failures": [],
+  "status": "verified"
+}

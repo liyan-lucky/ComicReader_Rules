@@ -5,15 +5,9 @@
   "languages": [
     "zh-Hans"
   ],
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.lazy-img",
-    "*.chapter-content img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -23,15 +17,74 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "1bff23bf15919106",
+    "66a3515dce9d63ed",
+    "cf8eaa54da8054db",
+    "036807ac7d07d938",
+    "81980f7958b06753",
+    "c6fbae1910010afd",
+    "f3dae72907aca943",
+    "95ec1be544420eff",
     "03e6613177d49753",
+    "c324b44e825aeb8b",
+    "f5fe2729c4b0d2cc",
     "1263b25a12fafcf9",
     "72ec1fd5fc28799e",
-    "83648f2590b17f78",
-    "1b74ae2d2914db36",
-    "bdc76499861b73f2"
+    "83648f2590b17f78"
   ],
-  "replayWorkCount": 7,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 13,
+  "failures": [
+    {
+      "workId": "66a3515dce9d63ed",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dayiming.cn', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "cf8eaa54da8054db",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dayiming.cn', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "036807ac7d07d938",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dayiming.cn', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "81980f7958b06753",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.931812.html"
+    },
+    {
+      "workId": "c6fbae1910010afd",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.928260.html"
+    },
+    {
+      "workId": "f3dae72907aca943",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.932112.html"
+    },
+    {
+      "workId": "95ec1be544420eff",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.928969.html"
+    },
+    {
+      "workId": "03e6613177d49753",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.931273.html"
+    },
+    {
+      "workId": "c324b44e825aeb8b",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.932607.html"
+    },
+    {
+      "workId": "f5fe2729c4b0d2cc",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.928969.html"
+    },
+    {
+      "workId": "1263b25a12fafcf9",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.922200.html"
+    },
+    {
+      "workId": "72ec1fd5fc28799e",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.926751.html"
+    },
+    {
+      "workId": "83648f2590b17f78",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.dayiming.cn/tuhao_zuopin.928255.html"
+    }
+  ],
+  "status": "rejected"
 }

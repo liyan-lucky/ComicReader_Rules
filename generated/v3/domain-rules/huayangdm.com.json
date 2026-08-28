@@ -1,0 +1,34 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "huayangdm_com",
+  "domain": "huayangdm.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.btn",
+    "* a[href]",
+    "*.col-lg-8 a[href]",
+    "a.myui-vodlist__thumb"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "*.logo img",
+    "img.img-responsive"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "947d61e6f30db5ea"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

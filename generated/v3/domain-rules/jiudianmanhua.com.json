@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "jiudianmanhua_com",
+  "domain": "jiudianmanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.btn",
+    "* a[href]",
+    "a.vodlist_thumb",
+    "*.playbtn a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "3d55e8aa1dbde7ce"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "rejected"
+}

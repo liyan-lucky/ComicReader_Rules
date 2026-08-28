@@ -1,0 +1,29 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_manhuat_cc",
+  "domain": "m.manhuat.cc",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "*.w100 a[href]",
+    "*.info-chapters a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "6e3b1c606c5b3504"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "rejected"
+}
