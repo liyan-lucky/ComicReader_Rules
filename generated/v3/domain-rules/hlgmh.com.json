@@ -6,11 +6,10 @@
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a",
-    "* a[href]",
     "a.mcd-read",
     "a.mcd-chapter",
-    "*.mcd-catalog a[href]"
+    "*.mcd-catalog a[href]",
+    "*.mcd-reader-actions a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -26,9 +25,108 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "e2a1709a3d60b723"
+    "eeded110f509dc04",
+    "c4d625717ae3bac8",
+    "a204d81011b5120b",
+    "c5520b4bce69c169",
+    "8d3b474c098f7149",
+    "6b7155a5b81f29db",
+    "cbbfdaf99c390e2b",
+    "78be7181543db8de",
+    "c4a88570a6f1cbb2",
+    "36e70a89af56ea59",
+    "7f2e33771a74e89d",
+    "843b2a20bbcf64ee",
+    "4bbc612ed51322e4",
+    "0fd290a39330fcbf",
+    "989409a8c627fe81",
+    "1778a061bd8b8d4d",
+    "3523b3b11de75cd5",
+    "98f7f5549944b531",
+    "3211af59c13509a5",
+    "eada9b5f34dd0c86",
+    "328412bbe482f7de",
+    "498ff10ae7e93034",
+    "f5c649661d9942f9"
   ],
-  "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 23,
+  "failures": [
+    {
+      "workId": "8d3b474c098f7149",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1bj6k"
+    },
+    {
+      "workId": "6b7155a5b81f29db",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-wvx3"
+    },
+    {
+      "workId": "cbbfdaf99c390e2b",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-i95d"
+    },
+    {
+      "workId": "78be7181543db8de",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-11gxg"
+    },
+    {
+      "workId": "c4a88570a6f1cbb2",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1bjbf"
+    },
+    {
+      "workId": "36e70a89af56ea59",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-rw0p"
+    },
+    {
+      "workId": "7f2e33771a74e89d",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-pt5v"
+    },
+    {
+      "workId": "843b2a20bbcf64ee",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-wtwa"
+    },
+    {
+      "workId": "4bbc612ed51322e4",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1d98h"
+    },
+    {
+      "workId": "0fd290a39330fcbf",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-rjeu"
+    },
+    {
+      "workId": "989409a8c627fe81",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-14id2"
+    },
+    {
+      "workId": "1778a061bd8b8d4d",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-xg2p"
+    },
+    {
+      "workId": "3523b3b11de75cd5",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-ofwq"
+    },
+    {
+      "workId": "98f7f5549944b531",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-voja"
+    },
+    {
+      "workId": "3211af59c13509a5",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v5vt"
+    },
+    {
+      "workId": "eada9b5f34dd0c86",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vvqh"
+    },
+    {
+      "workId": "328412bbe482f7de",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-k5dd"
+    },
+    {
+      "workId": "498ff10ae7e93034",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-wvx3"
+    },
+    {
+      "workId": "f5c649661d9942f9",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-kew6"
+    }
+  ],
+  "status": "rejected"
 }

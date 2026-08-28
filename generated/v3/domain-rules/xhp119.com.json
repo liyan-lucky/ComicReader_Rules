@@ -1,0 +1,41 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "xhp119_com",
+  "domain": "xhp119.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.listing_a",
+    "a.chapter-item",
+    "*.column a[href]",
+    "*.read_btn a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img",
+    "img.menu_btn",
+    "*.toggle_menu_box img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "6925baedc83d4459",
+    "15743bfc5d481367",
+    "d646bc73043f36fe",
+    "ba302fbd4fb0ad06",
+    "d2855a56f5e5b7ab",
+    "0c907b896d0fb717",
+    "9cb18729b4832c9c",
+    "c7e6e2e92ef8a748"
+  ],
+  "replayWorkCount": 8,
+  "failures": [],
+  "status": "verified"
+}

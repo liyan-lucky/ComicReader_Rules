@@ -1,0 +1,37 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_jingmingbg_com",
+  "domain": "m.jingmingbg.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "b1fd491d7480cf82",
+    "d7875e2b98c60544",
+    "af47cca3fe0d592b",
+    "63b63728ede919cc",
+    "2721cf2de8f15896",
+    "21adb12be05b4141",
+    "184bec9af2f2ff2b"
+  ],
+  "replayWorkCount": 7,
+  "failures": [],
+  "status": "verified"
+}

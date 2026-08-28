@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "pdbgds_com",
+  "domain": "pdbgds.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.chapter-link",
+    "*.chapter-item a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy",
+    "*.comic-images img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "df3748620726fc3f"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

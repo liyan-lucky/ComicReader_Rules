@@ -1,0 +1,32 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "shoujimanhua_com",
+  "domain": "shoujimanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "6355734195dcfef5",
+    "d166d00640e8e510"
+  ],
+  "replayWorkCount": 2,
+  "failures": [],
+  "status": "verified"
+}

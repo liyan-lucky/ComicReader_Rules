@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "tianyoumh_com",
+  "domain": "tianyoumh.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "9144f52e2ac41ea3"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "kuaikan321_com",
+  "domain": "kuaikan321.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "2ea35b5edcce7904"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

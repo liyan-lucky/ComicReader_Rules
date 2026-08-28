@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "iieye_com",
+  "domain": "iieye.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.btn-read",
+    "*.vr-empty a[href]",
+    "*.book-btn a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "555b20b4dfc99070"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "rejected"
+}

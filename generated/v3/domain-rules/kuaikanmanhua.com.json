@@ -1,0 +1,41 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "kuaikanmanhua_com",
+  "domain": "kuaikanmanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.logo",
+    "a.link-item",
+    "*.nav-con a[href]",
+    "*.link-item-wrap a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "a9875bcb5b3d9990",
+    "2854631e061b252a",
+    "58669aa830b76564",
+    "8bdd57cbb1502d89",
+    "cdca9a33cf357552",
+    "3c1368cbf4e073c3",
+    "0d963b40fbdc6dea",
+    "dfd56f543a60be9b",
+    "0d439916fa8db6be",
+    "c03ad81a722fca61"
+  ],
+  "replayWorkCount": 10,
+  "failures": [],
+  "status": "verified"
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "dandanmh_com",
+  "domain": "dandanmh.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "c6059aa7918ebfd5",
+    "fdc4a7c961225f32",
+    "669b24a692dd1fd8"
+  ],
+  "replayWorkCount": 3,
+  "failures": [],
+  "status": "verified"
+}

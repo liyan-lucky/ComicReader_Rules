@@ -1,0 +1,30 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "benzhu_cc",
+  "domain": "benzhu.cc",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "ced37b897cd4d317"
+  ],
+  "replayWorkCount": 1,
+  "failures": [
+    {
+      "workId": "ced37b897cd4d317",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: http://www.benzhu.cc/comic/33136.html"
+    }
+  ],
+  "status": "rejected"
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "mangatoon_mobi",
+  "domain": "mangatoon.mobi",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.episode-item-new",
+    "a.detail-read1-phone-bg",
+    "*.episodes-wrap-new a[href]",
+    "*.detail-bottom-phone-bg a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazyload_img",
+    "*.lazyload_img_box img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "805984aab1431286",
+    "b5402c120e0a1720",
+    "6a31e4ee0307585a",
+    "21c437ee1206a161",
+    "d58c7b2cc7448206"
+  ],
+  "replayWorkCount": 5,
+  "failures": [],
+  "status": "verified"
+}

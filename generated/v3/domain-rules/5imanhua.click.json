@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "5imanhua_click",
+  "domain": "5imanhua.click",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.btn-2",
+    "* a[href]",
+    "*.bottom a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy",
+    "*.view-main-1 img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "cded48d9fc8f1fae"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

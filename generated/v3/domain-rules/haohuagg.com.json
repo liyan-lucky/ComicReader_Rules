@@ -6,11 +6,11 @@
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a",
     "a.btn-3",
     "a.hover-a",
     "a.cart-cover",
-    "*.cart-item a[href]"
+    "*.cart-item a[href]",
+    "*.line-clamp-1 a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
@@ -23,10 +23,23 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "767f667deb9a8779",
-    "93be078587ede404"
+    "a641bd94094e5fc4",
+    "e85f75691177e889",
+    "521bd51bb6192ee5",
+    "c423d2bdfc638552",
+    "3d589cce2ca62a70",
+    "11857db767a16901"
   ],
-  "replayWorkCount": 2,
-  "failures": [],
+  "replayWorkCount": 6,
+  "failures": [
+    {
+      "workId": "3d589cce2ca62a70",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.haohuagg.com', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "11857db767a16901",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.haohuagg.com', port=443): Read timed out. (read timeout=25)"
+    }
+  ],
   "status": "rejected"
 }

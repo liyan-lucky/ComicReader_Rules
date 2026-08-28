@@ -1,0 +1,31 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_gaoch_cn",
+  "domain": "m.gaoch.cn",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.cart-item",
+    "*.flex-1 a[href]",
+    "*.cartoon-block-box a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "022f8948934b02e5"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "rejected"
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_maomimh_com",
+  "domain": "m.maomimh.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.Btn",
+    "* a[href]",
+    "*.sub_r a[href]",
+    "*.zjhide a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "de655d7be43c3f9d",
+    "ae2c37ca0222171d",
+    "d509c68f8e55988f"
+  ],
+  "replayWorkCount": 3,
+  "failures": [],
+  "status": "verified"
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "yinglifan_com",
+  "domain": "yinglifan.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "14691cac66e94bce",
+    "31e47dc53fd231f4",
+    "8c2b910ef9ffbdfa"
+  ],
+  "replayWorkCount": 3,
+  "failures": [],
+  "status": "verified"
+}

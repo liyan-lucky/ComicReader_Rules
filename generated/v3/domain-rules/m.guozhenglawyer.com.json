@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_guozhenglawyer_com",
+  "domain": "m.guozhenglawyer.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.cart-item",
+    "*.cartoon-block-box a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "*.detail-main img",
+    "img.detail-main-bg",
+    "*.detail-main-cover img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "4dbda71a8fc027e2"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

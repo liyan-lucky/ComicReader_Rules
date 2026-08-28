@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "yandans_com",
+  "domain": "yandans.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.fraa_btn",
+    "a.iconfont",
+    "*.nav_one a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "05dbedb8090314f4",
+    "230f23981406fc69"
+  ],
+  "replayWorkCount": 2,
+  "failures": [],
+  "status": "verified"
+}

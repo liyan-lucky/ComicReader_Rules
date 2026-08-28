@@ -1,0 +1,36 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "tzysjx_cn",
+  "domain": "tzysjx.cn",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.chapter-content img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "46165aa6a1978da1",
+    "6fcee1b5a34325ad",
+    "47d773b24262f60f",
+    "c32cf1dc861eef50",
+    "fc5c5a4cfa9f8bb8",
+    "d22cac7fe7868809"
+  ],
+  "replayWorkCount": 6,
+  "failures": [],
+  "status": "verified"
+}

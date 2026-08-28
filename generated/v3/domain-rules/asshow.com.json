@@ -1,0 +1,34 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "asshow_com",
+  "domain": "asshow.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.flex",
+    "a.item_box",
+    "a.read_btn",
+    "*.flex a[href]",
+    "*.btn_box a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.mx-auto",
+    "*.reader-page-block img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "e9b227798b2c3e59"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

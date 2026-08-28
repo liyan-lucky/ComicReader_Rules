@@ -1,0 +1,38 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "mzywwcm_com",
+  "domain": "mzywwcm.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "*.pure-u-1-1 a[href]",
+    "a.comics-chapters__item"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img",
+    "img.lazy-img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "0233b47995a1983f",
+    "2b0f51c5d24e6ad6",
+    "d9a24562b29c3a5e",
+    "a11298cb322c10d5",
+    "b9a600fd7d58da22",
+    "438b0e947d92a22b"
+  ],
+  "replayWorkCount": 6,
+  "failures": [],
+  "status": "verified"
+}

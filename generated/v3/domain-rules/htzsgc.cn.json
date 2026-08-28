@@ -1,0 +1,34 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "htzsgc_cn",
+  "domain": "htzsgc.cn",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.chapter-content img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "30a158ab2c178167",
+    "e5add1fd461cd25e",
+    "f793e8888a1ce294",
+    "a6465a481071c8fa"
+  ],
+  "replayWorkCount": 4,
+  "failures": [],
+  "status": "verified"
+}

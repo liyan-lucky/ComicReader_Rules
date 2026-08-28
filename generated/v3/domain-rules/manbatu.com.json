@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "manbatu_com",
+  "domain": "manbatu.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "*.action a[href]",
+    "*.update a[href]",
+    "*.desc_item a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazyload",
+    "*.episode-detail img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "94d8ee9b0cf2bda2"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

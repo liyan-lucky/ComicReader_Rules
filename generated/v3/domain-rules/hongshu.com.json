@@ -1,0 +1,34 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "hongshu_com",
+  "domain": "hongshu.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.tx",
+    "a.cgirl",
+    "*.left a[href]",
+    "*.bom10 a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "82e6f18c9320a6bc",
+    "0912bfb2f682f258"
+  ],
+  "replayWorkCount": 2,
+  "failures": [],
+  "status": "verified"
+}

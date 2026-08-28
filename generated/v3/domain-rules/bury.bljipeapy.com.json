@@ -1,0 +1,34 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "bury_bljipeapy_com",
+  "domain": "bury.bljipeapy.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.xqbj-cat-card",
+    "a.breadcrumb-link",
+    "*.xqbj-list a[href]",
+    "*.breadcrumb-wrap a[href]",
+    "a.xqbj-component-popularity-list-item"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "*.menu-btn img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "a147ade5dd811c0c"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}

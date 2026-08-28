@@ -1,0 +1,38 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "sqmh_app",
+  "domain": "sqmh.app",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a.px-3",
+    "a.ml-2",
+    "* a[href]",
+    "*.grid a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.w-full",
+    "*.pt-16 img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "d2636dd58710ecb9",
+    "6cb3b1556ec6ae65",
+    "53d136ed6bcbe611",
+    "8811c4c066901da1",
+    "8d3186310a00f503",
+    "43ae48b13a610855"
+  ],
+  "replayWorkCount": 6,
+  "failures": [],
+  "status": "verified"
+}

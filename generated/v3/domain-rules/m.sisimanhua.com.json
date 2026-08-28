@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_sisimanhua_com",
+  "domain": "m.sisimanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "a.Btn",
+    "* a[href]",
+    "*.sub_r a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "8905e0111caa62c9",
+    "095f4ac719aea903",
+    "2ea07028e01a5c80"
+  ],
+  "replayWorkCount": 3,
+  "failures": [],
+  "status": "verified"
+}

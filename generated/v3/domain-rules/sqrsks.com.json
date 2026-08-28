@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "sqrsks_com",
+  "domain": "sqrsks.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "* img",
+    "img.img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "73dd4b8dc77d9283",
+    "54797e93a654d5a9",
+    "2bb9ba6bb243b988"
+  ],
+  "replayWorkCount": 3,
+  "failures": [],
+  "status": "verified"
+}

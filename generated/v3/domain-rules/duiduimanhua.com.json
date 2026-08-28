@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "duiduimanhua_com",
+  "domain": "duiduimanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "dc6b91ced383fe1f",
+    "92a82802b65384e9",
+    "669b24a692dd1fd8",
+    "dadd7f8cf44989f9",
+    "795e1e98f52f0cb2"
+  ],
+  "replayWorkCount": 5,
+  "failures": [],
+  "status": "verified"
+}
