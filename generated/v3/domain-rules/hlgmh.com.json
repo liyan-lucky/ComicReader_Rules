@@ -13,10 +13,7 @@
     "*.mcd-catalog a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reader-page-image",
-    "*.reader-page-wrap img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -28,40 +25,21 @@
   "verifiedWorkIds": [
     "c4d625717ae3bac8",
     "05c598f9a0f30c21",
-    "68543135135e19d8",
-    "78be7181543db8de",
-    "c4a88570a6f1cbb2",
-    "bb4b59324ea0093e",
-    "1778a061bd8b8d4d",
-    "98f7f5549944b531",
-    "328412bbe482f7de",
-    "67e03782efd855db"
+    "328412bbe482f7de"
   ],
-  "replayWorkCount": 10,
+  "replayWorkCount": 3,
   "failures": [
     {
-      "workId": "c4a88570a6f1cbb2",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1bj6k"
+      "workId": "c4d625717ae3bac8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=25)"
     },
     {
-      "workId": "bb4b59324ea0093e",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-jxmd"
-    },
-    {
-      "workId": "1778a061bd8b8d4d",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-xg2p"
-    },
-    {
-      "workId": "98f7f5549944b531",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vp2j"
+      "workId": "05c598f9a0f30c21",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=25)"
     },
     {
       "workId": "328412bbe482f7de",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-k5dd"
-    },
-    {
-      "workId": "67e03782efd855db",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-ygc7"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=25)"
     }
   ],
   "status": "rejected"

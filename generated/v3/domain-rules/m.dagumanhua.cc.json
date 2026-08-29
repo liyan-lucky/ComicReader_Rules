@@ -1,21 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "m_ortzn_com",
-  "domain": "m.ortzn.com",
+  "id": "m_dagumanhua_cc",
+  "domain": "m.dagumanhua.cc",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
-    "a.cart-item",
-    "*.cartoon-block-box a[href]"
+    "a",
+    "* a[href]",
+    "a.iconfont",
+    "a.ksaa_btn",
+    "*.nav_one a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
     "img",
-    "*.cart-cover img",
-    "*.detail-main img",
-    "img.detail-main-bg",
-    "*.detail-main-cover img"
+    "* img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,10 +26,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "f5fe2729c4b0d2cc",
-    "0591d29b0f66971d"
+    "b35e28e6ad2baba1"
   ],
-  "replayWorkCount": 2,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

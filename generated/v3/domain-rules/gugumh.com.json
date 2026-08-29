@@ -5,12 +5,7 @@
   "languages": [
     "zh-Hans"
   ],
-  "detailChapterSelectors": [
-    "a.nav-link",
-    "a.button-read",
-    "*.actions a[href]",
-    "*.nav-item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -24,16 +19,37 @@
   "verifiedWorkIds": [
     "e6827d3740d4423d",
     "2926997154db53a7",
-    "426634e10d652f8e",
-    "7eb390d9603344bc",
-    "2c74feee70a3805d",
-    "219a286a2b68d4a7",
     "a285b1bc752f33eb",
     "299822a51a294c98",
     "f1ffd9173fa84e03",
     "23d852eec161ac5e"
   ],
-  "replayWorkCount": 10,
-  "failures": [],
+  "replayWorkCount": 6,
+  "failures": [
+    {
+      "workId": "e6827d3740d4423d",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/11453/"
+    },
+    {
+      "workId": "2926997154db53a7",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/27257/"
+    },
+    {
+      "workId": "a285b1bc752f33eb",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/1581/"
+    },
+    {
+      "workId": "299822a51a294c98",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/25757/"
+    },
+    {
+      "workId": "f1ffd9173fa84e03",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/28792/"
+    },
+    {
+      "workId": "23d852eec161ac5e",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.gugumh.com/manhua/27499/"
+    }
+  ],
   "status": "rejected"
 }

@@ -10,7 +10,12 @@
     "*.cartoon-block-box a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.detail-main img",
+    "img.detail-main-bg",
+    "*.detail-main-cover img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -20,11 +25,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "0415e11dc9cf5d4a",
-    "3d589cce2ca62a70",
     "4503e03a09e7644c"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 1,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
