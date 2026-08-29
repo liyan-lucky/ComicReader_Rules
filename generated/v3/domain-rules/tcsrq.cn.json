@@ -1,18 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "dincool_cn",
-  "domain": "dincool.cn",
+  "id": "tcsrq_cn",
+  "domain": "tcsrq.cn",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
     "a",
     "* a[href]",
-    "a.article-chapter",
-    "*.article a[href]"
+    "*.line-clamp-1 a[href]",
+    "*.article-chapter-list a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.chapter-content img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -22,9 +25,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "7780e797558833fd"
+    "984289014f2de466"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }

@@ -61,11 +61,9 @@
     "65c6dacaa1726440",
     "ea691640e008f541",
     "0a600243139f9ec9",
-    "f402e757168d0013",
     "75d16394210b4ef1",
     "c61da893e8bfa85f",
     "e61b0296d3075bd8",
-    "3b102a35dbc4b429",
     "6ec18467f5288499",
     "19a2057cf16d6e50",
     "e697e0228e4eaba4",
@@ -104,7 +102,6 @@
     "69873e84e1e33137",
     "4298b05edf742f73",
     "2f0dceea3470a423",
-    "d0b4389d436b06fe",
     "b249e9e3e6d51c0f",
     "f177ff874129d9c0",
     "737eceb72492b552",
@@ -117,7 +114,6 @@
     "5b938ec8ee404c74",
     "94f8ffdb6f2fa7af",
     "99267616a64b5b04",
-    "fc5765dc321d737d",
     "b58868bab7c5fc15",
     "c65e1d995d8a73e3",
     "8280d0fd753abcaa",
@@ -136,31 +132,39 @@
     "866044d24c771f75",
     "f67bcff1383138d5"
   ],
-  "replayWorkCount": 118,
+  "replayWorkCount": 114,
   "failures": [
     {
-      "workId": "6c853e5b52cefe4e",
+      "workId": "18e357d94233a639",
       "reason": "ReadTimeout: HTTPConnectionPool(host='pipimanhua.com', port=80): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "84a4cf771c9472b4",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "0880f55500608745",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "59961c00ec8cff13",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.pipimanhua.com/read/2241/147422.html"
     },
     {
       "workId": "ea691640e008f541",
       "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
     },
     {
-      "workId": "6ec18467f5288499",
-      "reason": "ReadTimeout: HTTPConnectionPool(host='pipimanhua.com', port=80): Read timed out. (read timeout=25)"
-    },
-    {
-      "workId": "eb610a2da1fa44e5",
+      "workId": "9d71f0de783466c2",
       "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
     },
     {
-      "workId": "fd7d1eb963a9e3e3",
+      "workId": "d59cf3468bab377c",
       "reason": "ReadTimeout: HTTPConnectionPool(host='pipimanhua.com', port=80): Read timed out. (read timeout=25)"
     },
     {
-      "workId": "f177ff874129d9c0",
-      "reason": "HTTPError: 404 Client Error: Not Found for url: http://pipimanhua.com/read/3688/217726.html"
+      "workId": "1756ca8ce33c62e3",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=25)"
     }
   ],
   "status": "rejected"

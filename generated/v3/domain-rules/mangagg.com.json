@@ -1,15 +1,16 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "dincool_cn",
-  "domain": "dincool.cn",
+  "id": "mangagg_com",
+  "domain": "mangagg.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.article-chapter",
-    "*.article a[href]"
+    "a.btn-link",
+    "a.menu-link",
+    "*.chapter a[href]",
+    "a.btn-active-modal"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
@@ -22,7 +23,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "7780e797558833fd"
+    "558c66f9604988b1"
   ],
   "replayWorkCount": 1,
   "failures": [],
