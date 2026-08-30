@@ -43,14 +43,18 @@ def main() -> int:
         for work in parameter_doc["works"]:
             all_candidates = candidates_by_work.get(work["id"], [])
             eligible = [source for source in all_candidates if source.get("domain") in verified_domains
-                        and source.get("validationPolicy") == "readability-v4"]
+                        and source.get("validationPolicy") == "readability-v4"
+                        and len(source.get("chapters", [])) == int(source.get("verifiedChapterCount") or 0)]
             eligible.sort(key=lambda source: (int(source.get("verifiedChapterCount") or 0),
                 sum(int(sample.get("imageCount") or 0) for sample in source.get("samples", [])),
                 str(source.get("detailUrl", ""))), reverse=True)
             if not eligible:
                 prior = old_by_id.get(str(work["id"]))
                 state = states.get(category["id"], {}).get(str(work["id"]), {})
-                if prior and prior.get("validationPolicy") == "readability-v4" and state.get("status") != "searched":
+                prior_sources = prior.get("sources", []) if prior else []
+                prior_manifest_count = len(prior_sources[0].get("chapters", [])) if prior_sources else 0
+                if prior and prior.get("validationPolicy") == "readability-v4" and state.get("status") != "searched" \
+                        and prior_manifest_count == int(prior.get("verifiedChapterCount") or 0):
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
                     if prior_domain in verified_domains:
                         title_key = str(work["canonicalTitle"]).strip().casefold()

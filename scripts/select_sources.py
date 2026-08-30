@@ -20,6 +20,12 @@ def valid_audit(item: dict, min_images: int = 8) -> bool:
         return False
     if item.get("status") != "verified" or int(item.get("chapterCount") or 0) <= 0:
         return False
+    chapters = item.get("chapters", [])
+    if len(chapters) != int(item.get("chapterCount") or 0):
+        return False
+    chapter_urls = [str(chapter.get("url", "")) for chapter in chapters if isinstance(chapter, dict)]
+    if len(chapter_urls) != len(chapters) or len(chapter_urls) != len(set(chapter_urls)):
+        return False
     if not {"first", "middle", "latest"}.issubset(positions):
         return False
     if any(not sample.get("readable") or int(sample.get("imageCount") or 0) < min_images for sample in samples):
