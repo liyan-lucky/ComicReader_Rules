@@ -1,16 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "dumanwu_com",
-  "domain": "dumanwu.com",
+  "id": "mdb88_com",
+  "domain": "mdb88.com",
   "languages": [
     "zh-Hans"
   ],
   "detailChapterSelectors": [
     "a",
-    "* a[href]"
+    "a.chapter-info",
+    "*.action a[href]",
+    "*.item-left a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.lazyload",
+    "*.episode-detail img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -20,11 +25,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "73251d9f6197aca7",
-    "c6272323baa3f644",
-    "b19c954c566b0317"
+    "46363daa96479a0e"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 1,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }

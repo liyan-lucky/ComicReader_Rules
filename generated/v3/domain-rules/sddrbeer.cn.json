@@ -5,17 +5,9 @@
   "languages": [
     "zh-Hans"
   ],
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]",
-    "*.line-clamp-1 a[href]",
-    "*.article-chapter-list a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.lazy-img",
-    "*.chapter-content img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -28,6 +20,11 @@
     "4d05cb434d190a83"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "4d05cb434d190a83",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.sddrbeer.cn', port=443): Read timed out. (read timeout=25)"
+    }
+  ],
+  "status": "rejected"
 }
