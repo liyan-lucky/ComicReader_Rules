@@ -1,19 +1,35 @@
 {
   "schema": "comic_catalog_v1",
-  "version": "20260830053419",
-  "updatedAt": "2026-08-30T05:34:19.566599+00:00",
+  "version": "20260830065931",
+  "updatedAt": "2026-08-30T06:59:31.503450+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
   },
-  "totalItems": 0,
+  "totalItems": 6,
   "categoryCount": 16,
   "categories": {
     "lianai": {
       "id": "lianai",
       "name": "恋爱",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "d2e05d3a5a618dd2",
+          "title": "一天的一天",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/LOVE/yitiandeyitian/list?title_no=1841",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/2a3c79c6-9b56-445a-b2d7-8419458289f1.jpg"
+            }
+          ],
+          "category": "lianai",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 10,
+          "validationPolicy": "readability-v4"
+        }
+      ]
     },
     "xuanhuan": {
       "id": "xuanhuan",
@@ -48,14 +64,46 @@
     "xuanyi": {
       "id": "xuanyi",
       "name": "悬疑",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "a9b1e057dff11a0a",
+          "title": "争夺游戏",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/SUSPENSE/zhengduoyouxi/list?title_no=1534",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/064cd358-10a7-4624-b054-07e30c24e4c7.jpg"
+            }
+          ],
+          "category": "xuanyi",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 7,
+          "validationPolicy": "readability-v4"
+        }
+      ]
     },
     "qihuan": {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "3dc9d6ea3489f34a",
+          "title": "你好，小肥啾格里芬！",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/nihaoxiaofeijiugelifen/list?title_no=2824&page=1",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/2edc8d2b-bbb2-4811-af70-8051932ec56f.jpg"
+            }
+          ],
+          "category": "qihuan",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 10,
+          "validationPolicy": "readability-v4"
+        }
+      ]
     },
     "maoxian": {
       "id": "maoxian",
@@ -78,8 +126,24 @@
     "richang": {
       "id": "richang",
       "name": "日常",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "5f0c9d3ea967587d",
+          "title": "30分钟浪漫路",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/CAMPUS/30fenzhong/list?title_no=1218",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/8b95d351-a9ca-435a-85d8-ca40d4cf328a.jpg"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 8,
+          "validationPolicy": "readability-v4"
+        }
+      ]
     },
     "jingji": {
       "id": "jingji",
@@ -90,8 +154,44 @@
     "wuxia": {
       "id": "wuxia",
       "name": "武侠",
-      "count": 0,
-      "items": []
+      "count": 2,
+      "items": [
+        {
+          "id": "1604b44701ae0289",
+          "title": "绝对剑感",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/list?title_no=2242&page=1",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/f0f69c62-5a4e-4674-847e-4b3522c6afd9.jpg"
+            },
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://dongmanmanhua.cn/BOY/jueduijiangan/list?title_no=2242",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/f0f69c62-5a4e-4674-847e-4b3522c6afd9.jpg"
+            }
+          ],
+          "category": "wuxia",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 10,
+          "validationPolicy": "readability-v4"
+        },
+        {
+          "id": "845e49a66a5f349f",
+          "title": "魔道转生记",
+          "sources": [
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/BOY/modaozhuanshengji/list?title_no=2393&page=1",
+              "coverUrl": "https://cdn-sns.dongmanmanhua.cn/313fca01-14ce-4fce-9b4d-f00e03a70951.jpg"
+            }
+          ],
+          "category": "wuxia",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 10,
+          "validationPolicy": "readability-v4"
+        }
+      ]
     },
     "lishi": {
       "id": "lishi",
@@ -405,12 +505,6 @@
       {
         "workId": "36e38941e24caecb",
         "title": "一天",
-        "category": "lianai",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "d2e05d3a5a618dd2",
-        "title": "一天的一天",
         "category": "lianai",
         "reason": "no_verified_source"
       },
@@ -51013,12 +51107,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "a9b1e057dff11a0a",
-        "title": "争夺游戏",
-        "category": "xuanyi",
-        "reason": "insecure_cover"
-      },
-      {
         "workId": "2ef5ee824023797f",
         "title": "二十六局之生物分局",
         "category": "xuanyi",
@@ -56151,12 +56239,6 @@
       {
         "workId": "7242e056abb5653c",
         "title": "你再动我一下试试！",
-        "category": "qihuan",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "3dc9d6ea3489f34a",
-        "title": "你好，小肥啾格里芬！",
         "category": "qihuan",
         "reason": "no_verified_source"
       },
@@ -79483,12 +79565,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "5f0c9d3ea967587d",
-        "title": "30分钟浪漫路",
-        "category": "richang",
-        "reason": "insecure_cover"
-      },
-      {
         "workId": "d4626b1fbb41a060",
         "title": "5秒童话",
         "category": "richang",
@@ -82717,12 +82793,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "1604b44701ae0289",
-        "title": "绝对剑感",
-        "category": "wuxia",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "a5510564b89ff4fb",
         "title": "绝对回归",
         "category": "wuxia",
@@ -82965,12 +83035,6 @@
       {
         "workId": "0757d50e1f319929",
         "title": "鬼医凤九",
-        "category": "wuxia",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "845e49a66a5f349f",
-        "title": "魔道转生记",
         "category": "wuxia",
         "reason": "no_verified_source"
       },
