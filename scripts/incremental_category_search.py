@@ -96,7 +96,14 @@ def main() -> int:
             urls = engine.search(session, work["canonicalTitle"], candidate_limit, policy.get("searchTerms"))
             work_audits = [engine.audit(session, work, url) for url in urls]
             checkpoint.write_text(json.dumps({"workFingerprint": entries[work_id]["workFingerprint"], "workId": work_id, "audits": work_audits}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        existing[work_id] = work_audits
+        # Search engines are non-deterministic. A temporary miss must not erase
+        # a source that already passed readability-v4. Keep last-known-good
+        # audits until the same URL is explicitly replayed and fails.
+        prior_good = [item for item in existing.get(work_id, []) if item.get("status") == "verified"
+                      and item.get("policyVersion") == engine.POLICY_VERSION]
+        replayed_urls = {str(item.get("detailUrl", "")) for item in work_audits}
+        existing[work_id] = work_audits + [item for item in prior_good
+                                           if str(item.get("detailUrl", "")) not in replayed_urls]
         entries[work_id]["status"] = "searched"
         entries[work_id]["searchedAt"] = now()
         processed += 1

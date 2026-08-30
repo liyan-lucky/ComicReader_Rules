@@ -50,10 +50,13 @@ def main() -> int:
                 str(source.get("detailUrl", ""))), reverse=True)
             if not eligible:
                 prior = old_by_id.get(str(work["id"]))
-                state = states.get(category["id"], {}).get(str(work["id"]), {})
                 prior_sources = prior.get("sources", []) if prior else []
                 prior_manifest_count = len(prior_sources[0].get("chapters", [])) if prior_sources else 0
-                if prior and prior.get("validationPolicy") == "readability-v4" and state.get("status") != "searched" \
+                # A completed search with no fresh hit is not evidence that an
+                # already replay-validated source became invalid. Preserve the
+                # last-good catalog entry until an explicit replay/invalidation
+                # mechanism marks that exact URL bad.
+                if prior and prior.get("validationPolicy") == "readability-v4" \
                         and prior_manifest_count == int(prior.get("verifiedChapterCount") or 0):
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
                     if prior_domain in verified_domains:
