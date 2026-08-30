@@ -3,7 +3,7 @@ run-name: "04 域名规则分析回放（上游 02 #${{ github.event.workflow_ru
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['02 分类完整分级处理']
+    workflows: ['02 分类增量搜索处理']
     types: [completed]
 permissions: {contents: write}
 concurrency: {group: catalog-v3-domain-rules, cancel-in-progress: false}
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with: {ref: main}
       - id: domains
-        run: echo "value=$(python scripts/list_domains.py --ledger generated/v3/domain_ledger.zh-Hans.json)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(python scripts/list_domains.py --ledger generated/v3/domain_ledger.zh-Hans.json --cycle-file generated/v3/search_cycle.zh-Hans.json)" >> "$GITHUB_OUTPUT"
   analyze:
     needs: matrix
     if: needs.matrix.outputs.domains != '[]'

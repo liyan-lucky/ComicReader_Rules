@@ -78,7 +78,7 @@ def audit(s,work,url):
                 'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['three_chapter_readability_gate_failed']}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); p.add_argument('--start',type=int,default=0); p.add_argument('--limit',type=int); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); a=p.parse_args()
     category_policy=json.loads(a.category_config.read_text(encoding='utf-8-sig')) if a.category_config else {}
     global MIN_IMAGES, BLOCKED_DOMAINS
     MIN_IMAGES=int(category_policy.get('minimumReadableImagesPerSample',MIN_IMAGES))
@@ -86,9 +86,7 @@ def main():
     candidate_limit=a.candidate_limit or int(category_policy.get('candidateLimit',12))
     doc=json.loads(a.parameters.read_text(encoding='utf-8-sig'))
     works=doc.get('works',[])
-    if a.start < 0 or (a.limit is not None and a.limit <= 0): p.error('--start must be >= 0 and --limit must be > 0')
-    works=works[a.start:a.start+a.limit if a.limit is not None else None]
-    if not works: raise SystemExit(f'empty work shard: start={a.start}, limit={a.limit}, total={len(doc.get("works",[]))}')
+    if not works: raise SystemExit(f'empty category: {a.parameters}')
     a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
     all_audits=[]
     for i,work in enumerate(works,1):
