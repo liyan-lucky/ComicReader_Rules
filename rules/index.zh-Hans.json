@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260830053407",
-  "updatedAt": "2026-08-30T05:34:07.913984+00:00",
+  "version": "20260830073138",
+  "updatedAt": "2026-08-30T07:31:38.204497+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1911,7 +1911,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 8 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1963,8 +1963,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1980,10 +1980,16 @@
           "srcset"
         ],
         "verifiedWorkIds": [
+          "d2e05d3a5a618dd2",
+          "05851cd39444fcd8",
+          "3dc9d6ea3489f34a",
           "5f0c9d3ea967587d",
+          "1604b44701ae0289",
+          "1604b44701ae0289",
+          "845e49a66a5f349f",
           "a9b1e057dff11a0a"
         ],
-        "replayWorkCount": 2,
+        "replayWorkCount": 8,
         "failures": [],
         "status": "verified"
       }
@@ -2933,7 +2939,7 @@
     {
       "id": "jincs_cn",
       "name": "jincs.cn 已验证公开源",
-      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://jincs.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2982,8 +2988,11 @@
           "zh-Hans"
         ],
         "detailChapterSelectors": [
+          "a.chapter-link",
           "*.lay-flex a[href]",
-          "a.toolBar-toolRead"
+          "a.toolBar-toolRead",
+          "*.chapter-item a[href]",
+          "*.bottom-chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2999,10 +3008,9 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "32b1e5f09a196425",
-          "022f8948934b02e5"
+          "94e7ef363fe13978"
         ],
-        "replayWorkCount": 2,
+        "replayWorkCount": 1,
         "failures": [],
         "status": "verified"
       }
@@ -3231,6 +3239,84 @@
         ],
         "verifiedWorkIds": [
           "95c9b8cd148d233c"
+        ],
+        "replayWorkCount": 1,
+        "failures": [],
+        "status": "verified"
+      }
+    },
+    {
+      "id": "katadyngroup_com_cn",
+      "name": "katadyngroup.com.cn 已验证公开源",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "homepage": "https://katadyngroup.com.cn",
+      "searchUrl": "",
+      "searchMethod": "url-only",
+      "searchItemRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{1,240}?)<\\/a>",
+      "searchTitleGroups": [
+        2
+      ],
+      "searchUrlGroups": [
+        1
+      ],
+      "searchCoverGroups": [],
+      "searchResultIsChapter": false,
+      "searchFilterByKeyword": true,
+      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterTitleGroups": [
+        2
+      ],
+      "detailChapterUrlGroups": [
+        1
+      ],
+      "detailChapterFilter": true,
+      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageGroups": [
+        1,
+        2
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
+      "referer": "https://katadyngroup.com.cn/",
+      "maxReaderPages": 12,
+      "license": "MIT",
+      "sourceType": "verified-public-domain-rule",
+      "compliance": {
+        "publicOnly": true,
+        "noLoginRequired": true,
+        "noPaymentBypass": true,
+        "noCaptchaBypass": true
+      },
+      "domainApplicabilityList": [
+        "katadyngroup.com.cn"
+      ],
+      "audit": {
+        "schema": "comic_domain_rule_v1",
+        "id": "katadyngroup_com_cn",
+        "domain": "katadyngroup.com.cn",
+        "languages": [
+          "zh-Hans"
+        ],
+        "detailChapterSelectors": [
+          "a",
+          "a.btn-3",
+          "* a[href]",
+          "*.info-item-button a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.lazy-img",
+          "*.chapter-content img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "e67ff37b4136d205"
         ],
         "replayWorkCount": 1,
         "failures": [],
@@ -9789,37 +9875,6 @@
         ],
         "verifiedWorkIds": [
           "3d55e8aa1dbde7ce"
-        ],
-        "replayWorkCount": 1,
-        "failures": [],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "katadyngroup_com_cn",
-        "domain": "katadyngroup.com.cn",
-        "languages": [
-          "zh-Hans"
-        ],
-        "detailChapterSelectors": [
-          "a",
-          "a.btn-3",
-          "a.hover-a",
-          "a.cart-cover",
-          "*.cart-item a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "6fd1fbe343988f6c"
         ],
         "replayWorkCount": 1,
         "failures": [],

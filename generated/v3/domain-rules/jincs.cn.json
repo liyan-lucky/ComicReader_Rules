@@ -6,8 +6,11 @@
     "zh-Hans"
   ],
   "detailChapterSelectors": [
+    "a.chapter-link",
     "*.lay-flex a[href]",
-    "a.toolBar-toolRead"
+    "a.toolBar-toolRead",
+    "*.chapter-item a[href]",
+    "*.bottom-chapter-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -23,10 +26,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "32b1e5f09a196425",
-    "022f8948934b02e5"
+    "94e7ef363fe13978"
   ],
-  "replayWorkCount": 2,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

@@ -8,12 +8,14 @@
   "detailChapterSelectors": [
     "a",
     "a.btn-3",
-    "a.hover-a",
-    "a.cart-cover",
-    "*.cart-item a[href]"
+    "* a[href]",
+    "*.info-item-button a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.chapter-content img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -23,9 +25,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "6fd1fbe343988f6c"
+    "e67ff37b4136d205"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
