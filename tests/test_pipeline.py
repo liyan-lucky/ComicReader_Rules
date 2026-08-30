@@ -6,6 +6,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from title_normalization import build, clean_title, identity_key
 from select_sources import choose
+import audit_category_sources as source_audit
 from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit
 
 
@@ -80,3 +81,35 @@ def test_descending_source_chapter_order_is_detected_before_publication():
                                  ('第8话', 'https://example.com/8')])
     assert audit["direction"] == "descending"
     assert audit["monotonic"] is True
+
+
+class _SearchResponse:
+    def __init__(self, rows):
+        self.rows = rows
+
+    def raise_for_status(self):
+        return None
+
+    def json(self):
+        return {"results": self.rows}
+
+
+class _SearchSession:
+    def get(self, url, params=None, headers=None, timeout=None):
+        query = (params or {}).get("q", "")
+        if query.startswith("site:good.example"):
+            return _SearchResponse([
+                {"url": "https://noise.example/shop", "title": "目标漫画"},
+                {"url": "https://good.example/comic/1", "title": "目标漫画"},
+            ])
+        return _SearchResponse([
+            {"url": "https://noise.example/unrelated", "title": "无关页面"},
+            {"url": "https://new.example/comic/target", "title": "目标漫画在线阅读"},
+        ])
+
+
+def test_search_enforces_site_bucket_and_title_evidence(monkeypatch):
+    monkeypatch.setattr(source_audit, "PREFERRED_READABLE_DOMAINS", ["good.example"])
+    monkeypatch.setenv("SEARXNG_URL", "http://search.test")
+    urls = source_audit.search(_SearchSession(), "目标漫画", 8)
+    assert urls == ["https://good.example/comic/1", "https://new.example/comic/target"]

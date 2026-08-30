@@ -85,14 +85,20 @@ def search(s,title,limit,search_terms=None):
     # Proven domains are reusable search parameters derived from previously
     # readable books. Keep a reserved share for unrestricted web discovery so
     # new domains can still enter the ledger and produce descendant rules.
-    queries=[f'site:{domain} "{title}"' for domain in PREFERRED_READABLE_DOMAINS]
-    queries.append(f'"{title}" {terms}')
+    queries=[(f'site:{domain} "{title}"',domain) for domain in PREFERRED_READABLE_DOMAINS]
+    queries.append((f'"{title}" {terms}',''))
     per_query=max(2,limit//max(1,len(queries))); buckets=[]
-    for query in queries:
+    normalized_title=re.sub(r'\s+','',clean_title(title)).lower()
+    for query,expected_domain in queries:
         r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
         bucket=[]
         for x in r.json().get('results',[]):
             u=str(x.get('url',''))
+            result_host=host(u)
+            if expected_domain and not (result_host==expected_domain or result_host.endswith('.'+expected_domain)): continue
+            evidence=re.sub(r'\s+','',html.unescape(str(x.get('title',''))+' '+str(x.get('content',''))+' '+u)).lower()
+            if not expected_domain and normalized_title and normalized_title not in evidence: continue
+            if result_host in BLOCKED_DOMAINS or NON_COMIC_PATH.search(u): continue
             if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in bucket: bucket.append(u)
         buckets.append(bucket)
     out=[]
