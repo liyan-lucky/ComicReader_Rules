@@ -42,7 +42,8 @@ def main() -> int:
         items = []
         for work in parameter_doc["works"]:
             all_candidates = candidates_by_work.get(work["id"], [])
-            eligible = [source for source in all_candidates if source.get("domain") in verified_domains]
+            eligible = [source for source in all_candidates if source.get("domain") in verified_domains
+                        and source.get("validationPolicy") == "readability-v4"]
             eligible.sort(key=lambda source: (int(source.get("verifiedChapterCount") or 0),
                 sum(int(sample.get("imageCount") or 0) for sample in source.get("samples", [])),
                 str(source.get("detailUrl", ""))), reverse=True)
