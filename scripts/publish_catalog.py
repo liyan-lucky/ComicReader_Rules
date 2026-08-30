@@ -66,6 +66,8 @@ def main() -> int:
                 continue
             source = eligible[0]
             cover = source.get("coverUrl", "")
+            if cover.startswith("http://"):
+                cover = "https://" + cover[len("http://"):]
             if not cover:
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
                     "category": category["id"], "reason": "no_cover"})
