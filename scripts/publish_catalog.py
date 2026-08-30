@@ -49,7 +49,7 @@ def main() -> int:
             if not eligible:
                 prior = old_by_id.get(str(work["id"]))
                 state = states.get(category["id"], {}).get(str(work["id"]), {})
-                if prior and state.get("status") != "searched":
+                if prior and prior.get("validationPolicy") == "readability-v3" and state.get("status") != "searched":
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
                     if prior_domain in verified_domains:
                         title_key = str(work["canonicalTitle"]).strip().casefold()
@@ -75,7 +75,8 @@ def main() -> int:
                 continue
             item = {"id": work["id"], "title": work["canonicalTitle"], "sources": [{"domain": source["domain"],
                 "detailUrl": source["detailUrl"], "coverUrl": cover}], "category": category["id"],
-                "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"]}
+                "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"],
+                "validationPolicy": source.get("validationPolicy", "")}
             title_key = str(work["canonicalTitle"]).strip().casefold()
             if title_key in published_titles:
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"], "category": category["id"], "reason": "duplicate_title_across_categories"})

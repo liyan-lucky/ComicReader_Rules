@@ -14,7 +14,7 @@ IMAGE_BAD=re.compile(r'(logo|avatar|icon|banner|cover|poster|thumb|sprite|loadin
 IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
-POLICY_VERSION='readability-v2'
+POLICY_VERSION='readability-v3'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -33,9 +33,13 @@ def cover(soup,base):
     return ''
 def chapters(soup,detail):
     values=[]; seen=set()
+    # A work identifier appearing in the detail URL must remain present in its
+    # chapter URLs.  This rejects recommendation cards from another comic.
+    detail_ids=re.findall(r'(?<!\d)(\d{4,})(?!\d)',urlparse(detail).path)
     for a in soup.select('a[href]'):
         title=re.sub(r'\s+',' ',a.get_text(' ',strip=True)); url=urljoin(detail,str(a.get('href','')))
         if host(url)!=host(detail) or url==detail or BAD_PATH.search(url) or not (CHAPTER.search(title) or re.search(r'/(?:chapter|chap|read|viewer|episode)/',url,re.I)): continue
+        if detail_ids and not any(token in urlparse(url).path for token in detail_ids): continue
         if url not in seen: seen.add(url); values.append((title or url,url))
     return values
 def images(body,base):
@@ -61,7 +65,7 @@ def search(s,title,limit,search_terms=None):
         if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in out: out.append(u)
     return out[:limit]
 def audit(s,work,url):
-    base={'workId':work['id'],'language':work['language'],'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url)}
+    base={'workId':work['id'],'language':work['language'],'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url),'policyVersion':POLICY_VERSION}
     try:
         if base['domain'] in BLOCKED_DOMAINS or NON_COMIC_PATH.search(url):
             return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['non_comic_source']}
@@ -69,13 +73,24 @@ def audit(s,work,url):
         if not same_title(work['canonicalTitle'],title,work['language']): return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['title_identity_mismatch']}
         ch=chapters(soup,url)
         if not ch: return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['no_chapters']}
-        indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]
+        indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]; image_sets=[]
         for pos,index in zip(positions,indexes):
             chapter_title,chapter_url=ch[index]; chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
+            image_sets.append(set(found))
             samples.append({'position':pos,'chapterTitle':chapter_title,'chapterUrl':chapter_url,'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,'firstImageUrl':found[0] if found else ''})
-        ok=all(x['readable'] for x in samples)
+        # Static decorations and recommendation thumbnails repeat between
+        # chapters. Real comic pages must provide substantially different image
+        # sets for first/middle/latest samples.
+        distinct_chapters=len({x['chapterUrl'] for x in samples})==len(samples)
+        overlaps=[]
+        for left in range(len(image_sets)):
+            for right in range(left+1,len(image_sets)):
+                union=image_sets[left]|image_sets[right]
+                overlaps.append(len(image_sets[left]&image_sets[right])/len(union) if union else 1.0)
+        content_varies=bool(overlaps) and max(overlaps)<0.60
+        ok=all(x['readable'] for x in samples) and distinct_chapters and content_varies
         return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'samples':samples,
-                'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['three_chapter_readability_gate_failed']}
+                'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['chapter_identity_or_content_variation_gate_failed']}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); a=p.parse_args()

@@ -13,9 +13,11 @@ from urllib.parse import urlparse
 from title_normalization import identity_key
 
 
-def valid_audit(item: dict, min_images: int = 3) -> bool:
+def valid_audit(item: dict, min_images: int = 8) -> bool:
     samples = item.get("samples", [])
     positions = {sample.get("position") for sample in samples if isinstance(sample, dict)}
+    if item.get("policyVersion") != "readability-v3":
+        return False
     if item.get("status") != "verified" or int(item.get("chapterCount") or 0) <= 0:
         return False
     if not {"first", "middle", "latest"}.issubset(positions):
@@ -52,7 +54,8 @@ def choose(audits: list[dict]) -> dict:
     for work_id, candidates in sorted(grouped.items()):
         normalized = [{"workId": work_id, "language": item["language"], "title": item["queryTitle"],
             "domain": item["domain"], "detailUrl": item["detailUrl"], "coverUrl": item.get("coverUrl", ""),
-            "verifiedChapterCount": item["chapterCount"], "samples": item["samples"]} for item in candidates]
+            "verifiedChapterCount": item["chapterCount"], "samples": item["samples"],
+            "validationPolicy": item["policyVersion"]} for item in candidates]
         normalized.sort(key=lambda item: (item["verifiedChapterCount"], sum(x["imageCount"] for x in item["samples"]), item["detailUrl"]), reverse=True)
         verified_candidates.extend(normalized)
         selected.append({**normalized[0], "candidateCount": len(normalized), "selectionReason": "highest_verified_chapter_count_before_domain_replay"})
