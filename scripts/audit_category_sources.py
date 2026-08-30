@@ -15,10 +15,11 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v2-preferred-domains'
+CHECKPOINT_SCHEMA='chapter-manifest-v3-domain-descendants'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
+PREFERRED_READABLE_DOMAINS=[str(x).lower().removeprefix('www.') for x in PIPELINE.get('preferredReadableDomains',[])]
 
 def host(url): return (urlparse(url).hostname or '').lower().removeprefix('www.')
 def same_title(query,matched,lang):
@@ -81,14 +82,26 @@ def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'
     headers={'X-Search-Token':os.getenv('SEARXNG_API_TOKEN','')}
     terms=' '.join(search_terms or ['漫画','在线阅读','章节'])
-    queries=[f'"{title}" {terms}']
-    queries.extend(f'site:{domain} "{title}"' for domain in PIPELINE.get('preferredReadableDomains',[]))
-    out=[]
+    # Proven domains are reusable search parameters derived from previously
+    # readable books. Keep a reserved share for unrestricted web discovery so
+    # new domains can still enter the ledger and produce descendant rules.
+    queries=[f'site:{domain} "{title}"' for domain in PREFERRED_READABLE_DOMAINS]
+    queries.append(f'"{title}" {terms}')
+    per_query=max(2,limit//max(1,len(queries))); buckets=[]
     for query in queries:
         r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
+        bucket=[]
         for x in r.json().get('results',[]):
             u=str(x.get('url',''))
-            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in out: out.append(u)
+            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in bucket: bucket.append(u)
+        buckets.append(bucket)
+    out=[]
+    for bucket in buckets:
+        for u in bucket[:per_query]:
+            if u not in out: out.append(u)
+    for bucket in buckets:
+        for u in bucket[per_query:]:
+            if u not in out: out.append(u)
             if len(out)>=limit: break
         if len(out)>=limit: break
     return out[:limit]

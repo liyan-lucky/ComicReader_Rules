@@ -47,6 +47,10 @@ def main() -> int:
     candidate_limit = int(policy.get("candidateLimit", 12))
     engine.MIN_IMAGES = int(policy.get("minimumReadableImagesPerSample", engine.MIN_IMAGES))
     engine.BLOCKED_DOMAINS |= {str(x).lower().removeprefix("www.") for x in policy.get("extraBlockedDomains", [])}
+    ledger = load_json(Path("generated/v3/domain_ledger.zh-Hans.json"), {})
+    discovered_domains = [str(item.get("domain", "")).lower().removeprefix("www.")
+                          for item in ledger.get("domains", []) if item.get("domain")]
+    engine.PREFERRED_READABLE_DOMAINS = list(dict.fromkeys(engine.PREFERRED_READABLE_DOMAINS + discovered_domains))
 
     previous = load_json(args.state, {})
     previous_entries = previous.get("entries", {})
