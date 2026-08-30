@@ -76,9 +76,14 @@ def main() -> int:
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
                     "category": category["id"], "reason": "insecure_cover"})
                 continue
-            published_sources = [{"domain": candidate["domain"], "detailUrl": candidate["detailUrl"],
-                "coverUrl": candidate.get("coverUrl", "")} for candidate in eligible[:3]
-                if str(candidate.get("detailUrl", "")).startswith("https://")]
+            published_sources = []
+            for candidate in eligible[:3]:
+                if not str(candidate.get("detailUrl", "")).startswith("https://"): continue
+                candidate_cover = str(candidate.get("coverUrl", ""))
+                if candidate_cover.startswith("http://"):
+                    candidate_cover = "https://" + candidate_cover[len("http://"):]
+                published_sources.append({"domain": candidate["domain"], "detailUrl": candidate["detailUrl"],
+                    "coverUrl": candidate_cover})
             item = {"id": work["id"], "title": work["canonicalTitle"], "sources": published_sources, "category": category["id"],
                 "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"],
                 "validationPolicy": source.get("validationPolicy", "")}
