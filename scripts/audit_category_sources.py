@@ -15,7 +15,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v3-domain-descendants'
+CHECKPOINT_SCHEMA='chapter-manifest-v4-normalized-order'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -106,7 +106,8 @@ def search(s,title,limit,search_terms=None):
         if len(out)>=limit: break
     return out[:limit]
 def audit(s,work,url):
-    base={'workId':work['id'],'language':work['language'],'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url),'policyVersion':POLICY_VERSION}
+    base={'workId':work['id'],'language':work['language'],'category':work.get('category',''),
+          'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url),'policyVersion':POLICY_VERSION}
     try:
         if base['domain'] in BLOCKED_DOMAINS or NON_COMIC_PATH.search(url):
             return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['non_comic_source']}
@@ -115,6 +116,14 @@ def audit(s,work,url):
         ch=chapters(soup,url)
         if not ch: return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['no_chapters']}
         order_audit=chapter_order_audit(ch)
+        # Most comic sites render the newest chapter first.  The published
+        # manifest is an app-facing reading order and must start at chapter 1;
+        # keep the detected source direction as audit evidence while reversing
+        # a complete descending list before sampling and publication.
+        source_direction=order_audit['direction']
+        if order_audit['complete'] and source_direction=='descending': ch=list(reversed(ch))
+        order_audit={**order_audit,'sourceDirection':source_direction,
+                     'publishedDirection':'ascending' if source_direction=='descending' else source_direction}
         indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]; image_sets=[]
         for pos,index in zip(positions,indexes):
             chapter_title,chapter_url=ch[index]; chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)

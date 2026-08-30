@@ -6,7 +6,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from title_normalization import build, clean_title, identity_key
 from select_sources import choose
-from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH
+from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit
 
 
 def test_chapter_suffix_is_not_a_separate_work():
@@ -42,7 +42,8 @@ def _audit(domain: str, chapters: int, title: str = "斗破苍穹", readable: bo
         {"title": f"第{index + 1}话", "url": f"https://{domain}/chapter/{index + 1}"}
         for index in range(chapters)
     ]
-    return {"workId": "work-1", "language": "zh-Hans", "queryTitle": "斗破苍穹", "matchedTitle": title,
+    return {"workId": "work-1", "language": "zh-Hans", "category": "xuanhuan",
+            "queryTitle": "斗破苍穹", "matchedTitle": title,
             "detailUrl": f"https://{domain}/comic/1", "domain": domain, "chapterCount": chapters,
             "policyVersion": "readability-v4", "chapters": chapter_manifest,
             "status": "verified", "samples": [
@@ -56,6 +57,7 @@ def test_best_source_uses_highest_verified_chapter_count():
     result = choose([_audit("a.example", 100), _audit("b.example", 250)])
     assert result["selected"][0]["domain"] == "b.example"
     assert result["selected"][0]["verifiedChapterCount"] == 250
+    assert result["selected"][0]["category"] == "xuanhuan"
     assert {x["domain"] for x in result["verifiedCandidates"]} == {"a.example", "b.example"}
 
 
@@ -70,3 +72,11 @@ def test_readability_policy_rejects_sparse_or_novel_sources():
     assert MIN_IMAGES >= 8
     assert "ffppt.com" in BLOCKED_DOMAINS
     assert NON_COMIC_PATH.search("https://example.com/novel16827/")
+
+
+def test_descending_source_chapter_order_is_detected_before_publication():
+    audit = chapter_order_audit([('第10话', 'https://example.com/10'),
+                                 ('第9话', 'https://example.com/9'),
+                                 ('第8话', 'https://example.com/8')])
+    assert audit["direction"] == "descending"
+    assert audit["monotonic"] is True
