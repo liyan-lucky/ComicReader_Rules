@@ -38,8 +38,13 @@ def test_simplified_chinese_catalog_excludes_english_only_titles():
 
 
 def _audit(domain: str, chapters: int, title: str = "斗破苍穹", readable: bool = True):
+    chapter_manifest = [
+        {"title": f"第{index + 1}话", "url": f"https://{domain}/chapter/{index + 1}"}
+        for index in range(chapters)
+    ]
     return {"workId": "work-1", "language": "zh-Hans", "queryTitle": "斗破苍穹", "matchedTitle": title,
             "detailUrl": f"https://{domain}/comic/1", "domain": domain, "chapterCount": chapters,
+            "policyVersion": "readability-v4", "chapters": chapter_manifest,
             "status": "verified", "samples": [
                 {"position": position, "chapterUrl": f"https://{domain}/chapter/{position}",
                  "imageCount": 20 if readable else 1, "readable": readable}
