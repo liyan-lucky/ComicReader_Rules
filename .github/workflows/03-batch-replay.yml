@@ -1,0 +1,30 @@
+name: 03 五十本兼容性回放
+run-name: "03 五十本兼容性回放（上游 02 #${{ github.event.workflow_run.id || '手动' }}）"
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['02 分类增量搜索处理']
+    types: [completed]
+permissions: {contents: write}
+concurrency: {group: catalog-v3-batch-replay, cancel-in-progress: false}
+jobs:
+  replay:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - name: 回放至少五十个不同作品来源
+        run: python scripts/batch_replay_audit.py --audits-dir generated/v3/audits --output generated/v3/batch_replay.zh-Hans.json --limit 50 --workers 8
+      - name: 提交兼容性报告
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add generated/v3/batch_replay.zh-Hans.json
+          git diff --cached --quiet || git commit -m 'audit: replay 50 catalog candidates'
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -14,7 +14,7 @@ IMAGE_BAD=re.compile(r'(logo|avatar|icon|banner|cover|poster|thumb|sprite|loadin
 IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
-POLICY_VERSION='readability-v3'
+POLICY_VERSION='readability-v4'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -42,6 +42,21 @@ def chapters(soup,detail):
         if detail_ids and not any(token in urlparse(url).path for token in detail_ids): continue
         if url not in seen: seen.add(url); values.append((title or url,url))
     return values
+def chapter_order_audit(values):
+    numbers=[]
+    for title,_ in values:
+        match=re.search(r'第\s*(\d+)\s*[话話章回集]',title)
+        if match: numbers.append(int(match.group(1)))
+    unique=sorted(set(numbers))
+    ascending=all(numbers[i]<=numbers[i+1] for i in range(len(numbers)-1)) if numbers else False
+    descending=all(numbers[i]>=numbers[i+1] for i in range(len(numbers)-1)) if numbers else False
+    span=(unique[-1]-unique[0]+1) if unique else 0
+    coverage=(len(unique)/span) if span else 0.0
+    return {'numberedCount':len(numbers),'firstNumber':numbers[0] if numbers else None,
+            'lastNumber':numbers[-1] if numbers else None,'minimumNumber':unique[0] if unique else None,
+            'maximumNumber':unique[-1] if unique else None,'direction':'ascending' if ascending else 'descending' if descending else 'mixed',
+            'monotonic':ascending or descending,'coverage':round(coverage,4),
+            'complete':len(numbers)>=3 and (ascending or descending) and unique[0]<=1 and coverage>=0.95}
 def images(body,base):
     soup=BeautifulSoup(body,'lxml'); values=[]; seen=set()
     for img in soup.select('img,source'):
@@ -73,6 +88,7 @@ def audit(s,work,url):
         if not same_title(work['canonicalTitle'],title,work['language']): return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['title_identity_mismatch']}
         ch=chapters(soup,url)
         if not ch: return {**base,'chapterCount':0,'samples':[],'status':'rejected','rejectionReasons':['no_chapters']}
+        order_audit=chapter_order_audit(ch)
         indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]; image_sets=[]
         for pos,index in zip(positions,indexes):
             chapter_title,chapter_url=ch[index]; chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
@@ -88,9 +104,13 @@ def audit(s,work,url):
                 union=image_sets[left]|image_sets[right]
                 overlaps.append(len(image_sets[left]&image_sets[right])/len(union) if union else 1.0)
         content_varies=bool(overlaps) and max(overlaps)<0.60
-        ok=all(x['readable'] for x in samples) and distinct_chapters and content_varies
-        return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'samples':samples,
-                'status':'verified' if ok else 'rejected','rejectionReasons':[] if ok else ['chapter_identity_or_content_variation_gate_failed']}
+        readable=all(x['readable'] for x in samples) and distinct_chapters and content_varies
+        ok=readable and order_audit['complete']
+        reasons=[]
+        if not readable: reasons.append('chapter_identity_or_content_variation_gate_failed')
+        if not order_audit['complete']: reasons.append('chapter_order_or_completeness_gate_failed')
+        return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'chapterOrder':order_audit,'samples':samples,
+                'status':'verified' if ok else 'rejected','rejectionReasons':reasons}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--parameters',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--checkpoint-dir',type=Path,required=True); p.add_argument('--category-config',type=Path); p.add_argument('--candidate-limit',type=int); a=p.parse_args()

@@ -1,9 +1,9 @@
 name: 04 域名规则分析回放
-run-name: "04 域名规则分析回放（上游 02 #${{ github.event.workflow_run.id || '手动' }}）"
+run-name: "04 域名规则分析回放（上游 03 #${{ github.event.workflow_run.id || '手动' }}）"
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['02 分类增量搜索处理']
+    workflows: ['03 五十本兼容性回放']
     types: [completed]
 permissions: {contents: write}
 concurrency: {group: catalog-v3-domain-rules, cancel-in-progress: false}

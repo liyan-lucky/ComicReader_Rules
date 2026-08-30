@@ -49,7 +49,7 @@ def main() -> int:
             if not eligible:
                 prior = old_by_id.get(str(work["id"]))
                 state = states.get(category["id"], {}).get(str(work["id"]), {})
-                if prior and prior.get("validationPolicy") == "readability-v3" and state.get("status") != "searched":
+                if prior and prior.get("validationPolicy") == "readability-v4" and state.get("status") != "searched":
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
                     if prior_domain in verified_domains:
                         title_key = str(work["canonicalTitle"]).strip().casefold()
@@ -73,8 +73,10 @@ def main() -> int:
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
                     "category": category["id"], "reason": "insecure_cover"})
                 continue
-            item = {"id": work["id"], "title": work["canonicalTitle"], "sources": [{"domain": source["domain"],
-                "detailUrl": source["detailUrl"], "coverUrl": cover}], "category": category["id"],
+            published_sources = [{"domain": candidate["domain"], "detailUrl": candidate["detailUrl"],
+                "coverUrl": candidate.get("coverUrl", "")} for candidate in eligible[:3]
+                if str(candidate.get("detailUrl", "")).startswith("https://")]
+            item = {"id": work["id"], "title": work["canonicalTitle"], "sources": published_sources, "category": category["id"],
                 "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"],
                 "validationPolicy": source.get("validationPolicy", "")}
             title_key = str(work["canonicalTitle"]).strip().casefold()
