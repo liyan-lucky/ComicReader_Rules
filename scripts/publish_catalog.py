@@ -14,8 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--parameters", type=Path, required=True)
+    parser.add_argument("--states", type=Path)
     parser.add_argument("--sources", type=Path, required=True)
     parser.add_argument("--rules", type=Path, required=True)
+    parser.add_argument("--existing", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -25,9 +27,15 @@ def main() -> int:
         candidates_by_work[str(source["workId"])].append(source)
 
     rule_doc = json.loads(args.rules.read_text(encoding="utf-8-sig"))
-    verified_domains = {rule["homepage"].split("://", 1)[-1].strip("/") for rule in rule_doc.get("rules", [])}
+    verified_domains = {rule["homepage"].split("://", 1)[-1].strip("/").removeprefix("www.") for rule in rule_doc.get("rules", [])}
     config = json.loads((ROOT / "config/catalog_config.json").read_text(encoding="utf-8-sig"))
-    categories, flat, rejected = {}, [], []
+    old_doc = json.loads(args.existing.read_text(encoding="utf-8-sig")) if args.existing and args.existing.exists() else {}
+    old_by_id = {str(item["id"]): item for value in old_doc.get("categories", {}).values() for item in value.get("items", [])}
+    states = {}
+    if args.states and args.states.exists():
+        for path in args.states.glob("*.json"):
+            states[path.stem] = json.loads(path.read_text(encoding="utf-8-sig")).get("entries", {})
+    categories, flat, rejected, published_titles = {}, [], [], set()
 
     for category in config["categories"]:
         parameter_doc = json.loads((args.parameters / f"{category['id']}.json").read_text(encoding="utf-8-sig"))
@@ -39,6 +47,18 @@ def main() -> int:
                 sum(int(sample.get("imageCount") or 0) for sample in source.get("samples", [])),
                 str(source.get("detailUrl", ""))), reverse=True)
             if not eligible:
+                prior = old_by_id.get(str(work["id"]))
+                state = states.get(category["id"], {}).get(str(work["id"]), {})
+                if prior and state.get("status") != "searched":
+                    prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
+                    if prior_domain in verified_domains:
+                        title_key = str(work["canonicalTitle"]).strip().casefold()
+                        if title_key in published_titles:
+                            rejected.append({"workId": work["id"], "title": work["canonicalTitle"], "category": category["id"], "reason": "duplicate_title_across_categories"})
+                            continue
+                        published_titles.add(title_key)
+                        items.append(prior); flat.append(prior)
+                        continue
                 reason = "domain_rule_not_verified" if all_candidates else "no_verified_source"
                 rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
                     "category": category["id"], "reason": reason})
@@ -56,10 +76,20 @@ def main() -> int:
             item = {"id": work["id"], "title": work["canonicalTitle"], "sources": [{"domain": source["domain"],
                 "detailUrl": source["detailUrl"], "coverUrl": cover}], "category": category["id"],
                 "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"]}
+            title_key = str(work["canonicalTitle"]).strip().casefold()
+            if title_key in published_titles:
+                rejected.append({"workId": work["id"], "title": work["canonicalTitle"], "category": category["id"], "reason": "duplicate_title_across_categories"})
+                continue
+            published_titles.add(title_key)
             items.append(item); flat.append(item)
         categories[category["id"]] = {"id": category["id"], "name": category["name"],
             "count": len(items), "items": items}
 
+    old_items = {key: value.get("items", []) for key, value in old_doc.get("categories", {}).items()}
+    new_items = {key: value.get("items", []) for key, value in categories.items()}
+    if args.existing and args.existing.exists() and old_items == new_items:
+        print(f"catalog unchanged: {len(flat)} items; keeping version {old_doc.get('version', '')}")
+        return 0
     now = datetime.now(timezone.utc)
     result = {"schema": "comic_catalog_v1", "version": now.strftime("%Y%m%d%H%M%S"),
         "updatedAt": now.isoformat(), "language": {"code": "zh-Hans", "name": "简体中文"},

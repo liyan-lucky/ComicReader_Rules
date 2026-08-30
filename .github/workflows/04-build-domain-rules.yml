@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with: {ref: main}
       - id: domains
-        run: echo "value=$(python scripts/list_domains.py --ledger generated/v3/domain_ledger.zh-Hans.json --cycle-file generated/v3/search_cycle.zh-Hans.json)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(python scripts/list_domains.py --ledger generated/v3/domain_ledger.zh-Hans.json)" >> "$GITHUB_OUTPUT"
   analyze:
     needs: matrix
     if: needs.matrix.outputs.domains != '[]'

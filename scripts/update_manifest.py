@@ -82,6 +82,7 @@ def main() -> int:
     parser.add_argument("--tag", required=True)
     parser.add_argument("--language-code", default="")
     parser.add_argument("--language-name", default="")
+    parser.add_argument("--only-if-changed", action="store_true")
     args = parser.parse_args()
 
     manifest = load_json(MANIFEST_PATH)
@@ -95,6 +96,10 @@ def main() -> int:
     section_data = build_section(args.section, args.tag, args.language_code, args.language_name)
     section_key = args.section
     existing = manifest.get(section_key) if isinstance(manifest.get(section_key), dict) else {}
+    existing_language = existing.get("languages", {}).get(args.language_code, {}) if isinstance(existing.get("languages"), dict) else {}
+    if args.only_if_changed and str(existing_language.get("version", "")) == section_data["version"]:
+        print(f"Unchanged {args.section}/{args.language_code}: {section_data['version']}")
+        return 0
     languages = existing.get("languages") if isinstance(existing.get("languages"), dict) else {}
     languages[args.language_code] = section_data
     top = dict(section_data)
