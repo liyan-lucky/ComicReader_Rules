@@ -83,7 +83,7 @@ def main() -> int:
                 if candidate_cover.startswith("http://"):
                     candidate_cover = "https://" + candidate_cover[len("http://"):]
                 published_sources.append({"domain": candidate["domain"], "detailUrl": candidate["detailUrl"],
-                    "coverUrl": candidate_cover})
+                    "coverUrl": candidate_cover, "chapters": candidate.get("chapters", [])})
             item = {"id": work["id"], "title": work["canonicalTitle"], "sources": published_sources, "category": category["id"],
                 "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"],
                 "validationPolicy": source.get("validationPolicy", "")}

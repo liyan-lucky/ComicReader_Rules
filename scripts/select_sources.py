@@ -54,7 +54,7 @@ def choose(audits: list[dict]) -> dict:
     for work_id, candidates in sorted(grouped.items()):
         normalized = [{"workId": work_id, "language": item["language"], "title": item["queryTitle"],
             "domain": item["domain"], "detailUrl": item["detailUrl"], "coverUrl": item.get("coverUrl", ""),
-            "verifiedChapterCount": item["chapterCount"], "samples": item["samples"],
+            "verifiedChapterCount": item["chapterCount"], "chapters": item.get("chapters", []), "samples": item["samples"],
             "validationPolicy": item["policyVersion"], "chapterOrder": item.get("chapterOrder", {})} for item in candidates]
         normalized.sort(key=lambda item: (item["verifiedChapterCount"], sum(x["imageCount"] for x in item["samples"]), item["detailUrl"]), reverse=True)
         verified_candidates.extend(normalized)

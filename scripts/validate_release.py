@@ -22,6 +22,12 @@ def main():
    sources=item.get('sources',[])
    if not sources:errors.append(f'{item.get("id")} no source');continue
    s=sources[0]
+   chapters=s.get('chapters',[])
+   expected=int(item.get('verifiedChapterCount') or 0)
+   chapter_urls=[str(ch.get('url','')) for ch in chapters if isinstance(ch,dict)]
+   if len(chapters)!=expected:errors.append(f'{item.get("id")} chapter manifest mismatch: {len(chapters)}/{expected}')
+   if len(chapter_urls)!=len(set(chapter_urls)):errors.append(f'{item.get("id")} duplicate chapter links')
+   if any(not url.startswith('https://') for url in chapter_urls):errors.append(f'{item.get("id")} insecure chapter link')
    if not str(s.get('detailUrl','')).startswith(('http://','https://')):errors.append(f'{item.get("id")} no detail link')
    if not str(s.get('coverUrl','')).startswith('https://'):errors.append(f'{item.get("id")} cover is not HTTPS')
    if s.get('domain') not in domains:errors.append(f'{item.get("id")} no domain rule')

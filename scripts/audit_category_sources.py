@@ -109,7 +109,8 @@ def audit(s,work,url):
         reasons=[]
         if not readable: reasons.append('chapter_identity_or_content_variation_gate_failed')
         if not order_audit['complete']: reasons.append('chapter_order_or_completeness_gate_failed')
-        return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'chapterOrder':order_audit,'samples':samples,
+        chapter_manifest=[{'title':chapter_title,'url':chapter_url} for chapter_title,chapter_url in ch]
+        return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'chapters':chapter_manifest,'chapterOrder':order_audit,'samples':samples,
                 'status':'verified' if ok else 'rejected','rejectionReasons':reasons}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
 def main():
