@@ -15,6 +15,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
+CHECKPOINT_SCHEMA='chapter-manifest-v1'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -126,7 +127,7 @@ def main():
     a.checkpoint_dir.mkdir(parents=True,exist_ok=True); session=requests.Session(); session.headers.update({'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9'})
     all_audits=[]
     for i,work in enumerate(works,1):
-        fingerprint=hashlib.sha256((POLICY_VERSION+json.dumps(category_policy,sort_keys=True,ensure_ascii=False)+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
+        fingerprint=hashlib.sha256((POLICY_VERSION+CHECKPOINT_SCHEMA+json.dumps(category_policy,sort_keys=True,ensure_ascii=False)+json.dumps(work,sort_keys=True,ensure_ascii=False)).encode()).hexdigest(); checkpoint=a.checkpoint_dir/f"{work['id']}.json"
         if checkpoint.exists():
             saved=json.loads(checkpoint.read_text(encoding='utf-8'))
             if saved.get('workFingerprint')==fingerprint: all_audits.extend(saved['audits']); print(f'[{i}/{len(works)}] resume {work["canonicalTitle"]}',flush=True); continue
