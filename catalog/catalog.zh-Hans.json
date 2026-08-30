@@ -1,68 +1,56 @@
 {
   "schema": "comic_catalog_v1",
-  "version": "20260830030712",
-  "updatedAt": "2026-08-30T03:07:12.524193+00:00",
+  "version": "20260830050254",
+  "updatedAt": "2026-08-30T05:02:54.874599+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
   },
-  "totalItems": 25,
+  "totalItems": 35,
   "categoryCount": 16,
   "categories": {
     "lianai": {
       "id": "lianai",
       "name": "恋爱",
-      "count": 0,
-      "items": []
+      "count": 2,
+      "items": [
+        {
+          "id": "f48619a41492c720",
+          "title": "世界唯有你喜欢",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/643733",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/04_16_33_5b4a4cf8f0ba5e2b061b09caa1560175_1641285230225.jpg/0"
+            }
+          ],
+          "category": "lianai",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 57,
+          "validationPolicy": ""
+        },
+        {
+          "id": "9659bb47ecb9855e",
+          "title": "乖乖女的恋爱指南",
+          "sources": [
+            {
+              "domain": "veryim.com",
+              "detailUrl": "https://www.veryim.com/manhua/46892/",
+              "coverUrl": "https://www.veryim.com/upload2/46892/2024/05-13/20240513225102ca00ama_small.jpg"
+            }
+          ],
+          "category": "lianai",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 143,
+          "validationPolicy": ""
+        }
+      ]
     },
     "xuanhuan": {
       "id": "xuanhuan",
       "name": "玄幻",
-      "count": 3,
-      "items": [
-        {
-          "id": "8a92e36dc8e91798",
-          "title": "我！天命大反派",
-          "sources": [
-            {
-              "domain": "shenqimanhua.net",
-              "detailUrl": "https://shenqimanhua.net/comic/cminamw1qm1pznkk6pmwmuaq3",
-              "coverUrl": "https://shenqimanhua.net/image/crawlBaozhi/comicsStore/img/wotianmingdafanpai-tianmingfanpaiyuanzhuhuizhudongman.webp"
-            }
-          ],
-          "category": "xuanhuan",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 20
-        },
-        {
-          "id": "710f0bf3a3d3bcd3",
-          "title": "这一世我要当至尊",
-          "sources": [
-            {
-              "domain": "shenqimanhua.net",
-              "detailUrl": "https://shenqimanhua.net/comic/cmj9kokdu5zgwy0hm60k5zmau",
-              "coverUrl": "https://shenqimanhua.net/image/crawlBaozhi/comicsStore/img/zheyishiwoyaodangzhizun-taiyishengshuiyuanzhua4manye.webp"
-            }
-          ],
-          "category": "xuanhuan",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 20
-        },
-        {
-          "id": "4b38aaf4ec965f23",
-          "title": "龙脉武神",
-          "sources": [
-            {
-              "domain": "comic.qq.com",
-              "detailUrl": "https://comic.qq.com/Comic/comicInfo/id/652625",
-              "coverUrl": "https://manhua.acimg.cn/horizontal/0/15_06_40_181653e91add469584ac8a6efbad8fe4_1657838442154.jpg/0"
-            }
-          ],
-          "category": "xuanhuan",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 93
-        }
-      ]
+      "count": 0,
+      "items": []
     },
     "yineng": {
       "id": "yineng",
@@ -81,7 +69,8 @@
           ],
           "category": "yineng",
           "language": "zh-Hans",
-          "verifiedChapterCount": 208
+          "verifiedChapterCount": 208,
+          "validationPolicy": ""
         },
         {
           "id": "a8c743c08c39765e",
@@ -95,7 +84,8 @@
           ],
           "category": "yineng",
           "language": "zh-Hans",
-          "verifiedChapterCount": 190
+          "verifiedChapterCount": 190,
+          "validationPolicy": ""
         },
         {
           "id": "d11efbe2e980935f",
@@ -109,35 +99,21 @@
           ],
           "category": "yineng",
           "language": "zh-Hans",
-          "verifiedChapterCount": 276
+          "verifiedChapterCount": 276,
+          "validationPolicy": ""
         }
       ]
     },
     "kongbu": {
       "id": "kongbu",
       "name": "恐怖",
-      "count": 1,
-      "items": [
-        {
-          "id": "a808bc776c4397db",
-          "title": "虫岭怪谈",
-          "sources": [
-            {
-              "domain": "medyakey.com",
-              "detailUrl": "https://www.medyakey.com/comic-2399/",
-              "coverUrl": "https://img.medyakey.com/uploadfile/comic/thumb/2026/0428/yoaz4j3lovo.jpg"
-            }
-          ],
-          "category": "kongbu",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 50
-        }
-      ]
+      "count": 0,
+      "items": []
     },
     "juqing": {
       "id": "juqing",
       "name": "剧情",
-      "count": 2,
+      "count": 4,
       "items": [
         {
           "id": "652ebea54c9d17c0",
@@ -151,7 +127,8 @@
           ],
           "category": "juqing",
           "language": "zh-Hans",
-          "verifiedChapterCount": 56
+          "verifiedChapterCount": 56,
+          "validationPolicy": ""
         },
         {
           "id": "7d5cd2916ac240d2",
@@ -165,42 +142,60 @@
           ],
           "category": "juqing",
           "language": "zh-Hans",
-          "verifiedChapterCount": 26
+          "verifiedChapterCount": 26,
+          "validationPolicy": ""
+        },
+        {
+          "id": "bbb53fba315129f1",
+          "title": "公爵小姐和逃犯闪婚了",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/656295",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/11_07_11_8193446b40924e2d92246b0a281dfda4_1739229087303.jpg/0"
+            }
+          ],
+          "category": "juqing",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 16,
+          "validationPolicy": ""
+        },
+        {
+          "id": "46363daa96479a0e",
+          "title": "劝君入我怀",
+          "sources": [
+            {
+              "domain": "mdb88.com",
+              "detailUrl": "https://www.mdb88.com/book_22983.html",
+              "coverUrl": "https://www.mdb88.com/storage/comic/cover/15097.jpg"
+            }
+          ],
+          "category": "juqing",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 71,
+          "validationPolicy": ""
         }
       ]
     },
     "kehuan": {
       "id": "kehuan",
       "name": "科幻",
-      "count": 2,
+      "count": 1,
       "items": [
         {
-          "id": "4d05cb434d190a83",
-          "title": "力量点满？我可是亡灵法师啊！",
+          "id": "df1435c942a6f4cd",
+          "title": "我竟成了异世界后宫的采集对象",
           "sources": [
             {
-              "domain": "sddrbeer.cn",
-              "detailUrl": "https://www.sddrbeer.cn/shidai-coninfos_841962.html",
-              "coverUrl": "https://img.testrainshine.top/prod/75/75220/75220s.jpg"
+              "domain": "veryim.com",
+              "detailUrl": "https://www.veryim.com/manhua/48671/",
+              "coverUrl": "https://www.veryim.com/upload2/48671/2024/07-07/202407070931440r4x21a_small.jpg"
             }
           ],
           "category": "kehuan",
           "language": "zh-Hans",
-          "verifiedChapterCount": 82
-        },
-        {
-          "id": "c324b44e825aeb8b",
-          "title": "白雪公主新编",
-          "sources": [
-            {
-              "domain": "dayiming.cn",
-              "detailUrl": "https://www.dayiming.cn/tuhao_zuopin.932607.html",
-              "coverUrl": "https://img.testrainshine.top/prod/95/95917/95917s.jpg"
-            }
-          ],
-          "category": "kehuan",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 18
+          "verifiedChapterCount": 25,
+          "validationPolicy": ""
         }
       ]
     },
@@ -213,13 +208,29 @@
     "qihuan": {
       "id": "qihuan",
       "name": "奇幻",
-      "count": 0,
-      "items": []
+      "count": 1,
+      "items": [
+        {
+          "id": "7301b04570746691",
+          "title": "养兽为妃",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/647674",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/10_15_19_4881ecd4ab6ad34ed56cf64c79bd4d8e_1602314393962.jpg/0"
+            }
+          ],
+          "category": "qihuan",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 81,
+          "validationPolicy": ""
+        }
+      ]
     },
     "maoxian": {
       "id": "maoxian",
       "name": "冒险",
-      "count": 3,
+      "count": 9,
       "items": [
         {
           "id": "ab71f526279c49f2",
@@ -233,7 +244,8 @@
           ],
           "category": "maoxian",
           "language": "zh-Hans",
-          "verifiedChapterCount": 63
+          "verifiedChapterCount": 63,
+          "validationPolicy": ""
         },
         {
           "id": "502fa6e71917a991",
@@ -247,7 +259,8 @@
           ],
           "category": "maoxian",
           "language": "zh-Hans",
-          "verifiedChapterCount": 42
+          "verifiedChapterCount": 42,
+          "validationPolicy": ""
         },
         {
           "id": "01c83f29bb431aea",
@@ -261,7 +274,103 @@
           ],
           "category": "maoxian",
           "language": "zh-Hans",
-          "verifiedChapterCount": 91
+          "verifiedChapterCount": 91,
+          "validationPolicy": ""
+        },
+        {
+          "id": "3db2ad2910decae3",
+          "title": "提取成亡灵法神",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/657655",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/15_15_05_650b369432950840c74493b9a7b3db1a_1781507151774.jpg/0"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 15,
+          "validationPolicy": ""
+        },
+        {
+          "id": "b3a79b556cca665b",
+          "title": "最强兵王",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/631111",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/18_15_10_e420eeb55fee5fc62ea37c726f1d18cf_1571382642691.jpg/0"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 156,
+          "validationPolicy": ""
+        },
+        {
+          "id": "8fafc6e237db7f03",
+          "title": "末日独行：我的黑暗契约",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/656059",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/11_17_58_00d0b12a824db2a5a6b4af2e1d2e25c9_1731319107678.JPG/0"
+            },
+            {
+              "domain": "m.dumanwu.com",
+              "detailUrl": "https://m.dumanwu.com/DDjNZyq/",
+              "coverUrl": "https://p6.ecombdimg.com/tos-cn-i-scl3phc04j/596448b40d9f4a7ba0991655e19f1f39~tplv-scl3phc04j-image.jpeg"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 67,
+          "validationPolicy": ""
+        },
+        {
+          "id": "d79325fad0225fc3",
+          "title": "王者大师兄(我就是不按套路出牌",
+          "sources": [
+            {
+              "domain": "veryim.com",
+              "detailUrl": "https://www.veryim.com/manhua/11590/",
+              "coverUrl": "https://www.veryim.com/upload2/11590/2024/08-24/202408242235411llqu5_small.jpg"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 328,
+          "validationPolicy": ""
+        },
+        {
+          "id": "698a4b49213ce522",
+          "title": "簪花郎",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/647715",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/27_10_56_a675f55aad4db037a85524bbc1c9bdb7_1587956195823.jpg/0"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 46,
+          "validationPolicy": ""
+        },
+        {
+          "id": "f8429274698383fd",
+          "title": "系统送我避难所",
+          "sources": [
+            {
+              "domain": "veryim.com",
+              "detailUrl": "https://www.veryim.com/manhua/12069/",
+              "coverUrl": "https://www.veryim.com/upload2/12069/2026/06-17/20260617112305pkp9gk_small.jpg"
+            }
+          ],
+          "category": "maoxian",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 220,
+          "validationPolicy": ""
         }
       ]
     },
@@ -274,56 +383,13 @@
     "dongzuo": {
       "id": "dongzuo",
       "name": "动作",
-      "count": 3,
-      "items": [
-        {
-          "id": "b3cae191daf6ad2b",
-          "title": "全球诡异时代",
-          "sources": [
-            {
-              "domain": "shenqimanhua.net",
-              "detailUrl": "https://shenqimanhua.net/comic/cmkeqsyo0fcxkkqvd7s8oyxg4",
-              "coverUrl": "https://shenqimanhua.net/image/crawlBaozhi/comicsStore/img/quanqiuguiyishidai-heibaichayuanzhuqixiaoguai.webp"
-            }
-          ],
-          "category": "dongzuo",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 20
-        },
-        {
-          "id": "e367bf220cb82f6e",
-          "title": "废土就业指南",
-          "sources": [
-            {
-              "domain": "maomaoks.com",
-              "detailUrl": "https://www.maomaoks.com/storyline/303908.html",
-              "coverUrl": "https://www.maomaoks.com/thumb/273/273387.jpg"
-            }
-          ],
-          "category": "dongzuo",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 4
-        },
-        {
-          "id": "c7901f5795f64fe2",
-          "title": "我来自游戏",
-          "sources": [
-            {
-              "domain": "mh250.com",
-              "detailUrl": "https://www.mh250.com/book/d98f5be5a9/",
-              "coverUrl": "https://cover.tupian.run/upload/book/cover/2024/6631d87bca89a_57951.webp"
-            }
-          ],
-          "category": "dongzuo",
-          "language": "zh-Hans",
-          "verifiedChapterCount": 344
-        }
-      ]
+      "count": 0,
+      "items": []
     },
     "richang": {
       "id": "richang",
       "name": "日常",
-      "count": 1,
+      "count": 6,
       "items": [
         {
           "id": "d73d85018d2be763",
@@ -337,7 +403,83 @@
           ],
           "category": "richang",
           "language": "zh-Hans",
-          "verifiedChapterCount": 71
+          "verifiedChapterCount": 71,
+          "validationPolicy": ""
+        },
+        {
+          "id": "a4e04e393f175972",
+          "title": "我的末世系统崩了",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/656559",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/25_15_16_083416e9fdef79857584746141508630_1745565373466.jpg/0"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 12,
+          "validationPolicy": ""
+        },
+        {
+          "id": "b13756b9391cde5a",
+          "title": "我的父亲",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/649649",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/21_17_37_7cea0513c64308b5c7f127770802b4e3_1608543450227.png/0"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 2,
+          "validationPolicy": ""
+        },
+        {
+          "id": "b9ea22221808680f",
+          "title": "机甲大师",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/633522",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/09_20_58_260b295e624fb661569df1b00b4ef150_1525870687604.jpg/0"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 36,
+          "validationPolicy": ""
+        },
+        {
+          "id": "8d96e2a77faacfa8",
+          "title": "没有我的聊天群",
+          "sources": [
+            {
+              "domain": "veryim.com",
+              "detailUrl": "https://www.veryim.com/manhua/50541/",
+              "coverUrl": "https://www.veryim.com/upload2/50541/2024/08-13/202408131803347gwa61a_small.jpg"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 29,
+          "validationPolicy": ""
+        },
+        {
+          "id": "17de4e7ec8434130",
+          "title": "片儿区战警",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/621536",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/10_21_15_a351a74c743f7907d71359f869f32ea7_1494422154339.jpg/0"
+            }
+          ],
+          "category": "richang",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 29,
+          "validationPolicy": ""
         }
       ]
     },
@@ -350,7 +492,7 @@
     "wuxia": {
       "id": "wuxia",
       "name": "武侠",
-      "count": 1,
+      "count": 3,
       "items": [
         {
           "id": "fd7d1eb963a9e3e3",
@@ -364,7 +506,48 @@
           ],
           "category": "wuxia",
           "language": "zh-Hans",
-          "verifiedChapterCount": 87
+          "verifiedChapterCount": 87,
+          "validationPolicy": ""
+        },
+        {
+          "id": "1604b44701ae0289",
+          "title": "绝对剑感",
+          "sources": [
+            {
+              "domain": "ac.qq.com",
+              "detailUrl": "https://ac.qq.com/Comic/comicInfo/id/657410",
+              "coverUrl": "https://manhua.acimg.cn/horizontal/0/04_15_16_fbe83a25317745dd0fe7cd8be830e4cc_1770189419186.png/0"
+            },
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/list?title_no=2242&page=1",
+              "coverUrl": "http://cdn-sns.dongmanmanhua.cn/f0f69c62-5a4e-4674-847e-4b3522c6afd9.jpg"
+            },
+            {
+              "domain": "dongmanmanhua.cn",
+              "detailUrl": "https://dongmanmanhua.cn/BOY/jueduijiangan/list?title_no=2242",
+              "coverUrl": "http://cdn-sns.dongmanmanhua.cn/f0f69c62-5a4e-4674-847e-4b3522c6afd9.jpg"
+            }
+          ],
+          "category": "wuxia",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 197,
+          "validationPolicy": ""
+        },
+        {
+          "id": "cdb76f731008d18d",
+          "title": "飞雷刀",
+          "sources": [
+            {
+              "domain": "sqmh.app",
+              "detailUrl": "https://sqmh.app/comic/cmj80yfj75zqmzkxv0zlo2lg7",
+              "coverUrl": "https://sqmh.app/image/crawlBaozhi/comicsStore/img/feileidao-maoyouhungeomryuhonwuzhouojuawin-a02.webp"
+            }
+          ],
+          "category": "wuxia",
+          "language": "zh-Hans",
+          "verifiedChapterCount": 21,
+          "validationPolicy": ""
         }
       ]
     },
@@ -385,7 +568,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 105
+          "verifiedChapterCount": 105,
+          "validationPolicy": ""
         },
         {
           "id": "e45cd4e87eb4a16c",
@@ -399,7 +583,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 15
+          "verifiedChapterCount": 15,
+          "validationPolicy": ""
         },
         {
           "id": "993c21523340cd4b",
@@ -413,7 +598,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 162
+          "verifiedChapterCount": 162,
+          "validationPolicy": ""
         },
         {
           "id": "bb38ddcd4d9de8d2",
@@ -427,7 +613,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 12
+          "verifiedChapterCount": 12,
+          "validationPolicy": ""
         },
         {
           "id": "8ba89ee263350ef8",
@@ -441,7 +628,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 214
+          "verifiedChapterCount": 214,
+          "validationPolicy": ""
         },
         {
           "id": "5a104c69dd43667a",
@@ -455,7 +643,8 @@
           ],
           "category": "lishi",
           "language": "zh-Hans",
-          "verifiedChapterCount": 137
+          "verifiedChapterCount": 137,
+          "validationPolicy": ""
         }
       ]
     },
@@ -1363,12 +1552,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "f48619a41492c720",
-        "title": "世界唯有你喜欢",
-        "category": "lianai",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "0dbe5c8722046cad",
         "title": "东南西北",
         "category": "lianai",
@@ -1549,12 +1732,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "9659bb47ecb9855e",
-        "title": "乖乖女的恋爱指南",
-        "category": "lianai",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "c6e4a06d7f1b3009",
         "title": "九州天空城之凤凰阵",
         "category": "lianai",
@@ -1642,13 +1819,13 @@
         "workId": "ed61d2001016e885",
         "title": "亥时的蜃楼",
         "category": "lianai",
-        "reason": "no_verified_source"
+        "reason": "insecure_cover"
       },
       {
         "workId": "23fec453ff46ecb7",
         "title": "亲密的入侵者",
         "category": "lianai",
-        "reason": "no_verified_source"
+        "reason": "insecure_cover"
       },
       {
         "workId": "2ac62929ee76ba37",
@@ -22153,6 +22330,12 @@
         "reason": "no_verified_source"
       },
       {
+        "workId": "8a92e36dc8e91798",
+        "title": "我！天命大反派",
+        "category": "xuanhuan",
+        "reason": "no_verified_source"
+      },
+      {
         "workId": "3d9a7a488aa259f7",
         "title": "我，炼药成圣",
         "category": "xuanhuan",
@@ -26263,6 +26446,12 @@
         "reason": "no_verified_source"
       },
       {
+        "workId": "710f0bf3a3d3bcd3",
+        "title": "这一世我要当至尊",
+        "category": "xuanhuan",
+        "reason": "no_verified_source"
+      },
+      {
         "workId": "364a39b3ea6f6c8d",
         "title": "这个保安有点邪",
         "category": "xuanhuan",
@@ -27729,6 +27918,12 @@
       {
         "workId": "da4ccd3d92d22167",
         "title": "龙皇武神",
+        "category": "xuanhuan",
+        "reason": "no_verified_source"
+      },
+      {
+        "workId": "4b38aaf4ec965f23",
+        "title": "龙脉武神",
         "category": "xuanhuan",
         "reason": "no_verified_source"
       },
@@ -37696,7 +37891,7 @@
         "workId": "b19c954c566b0317",
         "title": "全球诡异时代",
         "category": "kongbu",
-        "reason": "no_verified_source"
+        "reason": "domain_rule_not_verified"
       },
       {
         "workId": "e4433c60bf053246",
@@ -40783,6 +40978,12 @@
         "reason": "no_verified_source"
       },
       {
+        "workId": "a808bc776c4397db",
+        "title": "虫岭怪谈",
+        "category": "kongbu",
+        "reason": "no_verified_source"
+      },
+      {
         "workId": "aa6b7962998aa77d",
         "title": "蜘蛛丝",
         "category": "kongbu",
@@ -42565,12 +42766,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "bbb53fba315129f1",
-        "title": "公爵小姐和逃犯闪婚了",
-        "category": "juqing",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "8f33dc02c289c55e",
         "title": "六亲不认",
         "category": "juqing",
@@ -42771,12 +42966,6 @@
       {
         "workId": "24e5e0064d6f96d1",
         "title": "前辈，请不要涂那支口红",
-        "category": "juqing",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "46363daa96479a0e",
-        "title": "劝君入我怀",
         "category": "juqing",
         "reason": "no_verified_source"
       },
@@ -43126,7 +43315,7 @@
         "workId": "73251d9f6197aca7",
         "title": "名门挚爱",
         "category": "juqing",
-        "reason": "no_verified_source"
+        "reason": "domain_rule_not_verified"
       },
       {
         "workId": "15d3fd5020606050",
@@ -49141,6 +49330,12 @@
         "reason": "no_verified_source"
       },
       {
+        "workId": "4d05cb434d190a83",
+        "title": "力量点满？我可是亡灵法师啊！",
+        "category": "kehuan",
+        "reason": "domain_rule_not_verified"
+      },
+      {
         "workId": "1e29fa0d54878d5a",
         "title": "化作清风亲吻你",
         "category": "kehuan",
@@ -49653,12 +49848,6 @@
       {
         "workId": "84571433537ff896",
         "title": "我的避难所只收美少女",
-        "category": "kehuan",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "df1435c942a6f4cd",
-        "title": "我竟成了异世界后宫的采集对象",
         "category": "kehuan",
         "reason": "no_verified_source"
       },
@@ -50212,7 +50401,7 @@
         "workId": "c6272323baa3f644",
         "title": "死灵法师：重生的我全技能精通",
         "category": "kehuan",
-        "reason": "no_verified_source"
+        "reason": "domain_rule_not_verified"
       },
       {
         "workId": "eb211931eb143872",
@@ -50409,6 +50598,12 @@
       {
         "workId": "667cf101ffdf85dd",
         "title": "登陆未来一万年",
+        "category": "kehuan",
+        "reason": "no_verified_source"
+      },
+      {
+        "workId": "c324b44e825aeb8b",
+        "title": "白雪公主新编",
         "category": "kehuan",
         "reason": "no_verified_source"
       },
@@ -54796,7 +54991,7 @@
         "workId": "1f2692bb9ab1fcb0",
         "title": "虫岭怪谈",
         "category": "xuanyi",
-        "reason": "duplicate_title_across_categories"
+        "reason": "no_verified_source"
       },
       {
         "workId": "22efabaf1faf10b3",
@@ -56691,12 +56886,6 @@
       {
         "workId": "cf2bcdc8bbd6edb3",
         "title": "关于死亡",
-        "category": "qihuan",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "7301b04570746691",
-        "title": "养兽为妃",
         "category": "qihuan",
         "reason": "no_verified_source"
       },
@@ -63751,12 +63940,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "3db2ad2910decae3",
-        "title": "提取成亡灵法神",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "970d63372a99c2a4",
         "title": "撕开画布让作者为我开挂",
         "category": "maoxian",
@@ -63837,12 +64020,6 @@
       {
         "workId": "d7b17e66d77f3746",
         "title": "最后的龙击",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "b3a79b556cca665b",
-        "title": "最强兵王",
         "category": "maoxian",
         "reason": "no_verified_source"
       },
@@ -63933,12 +64110,6 @@
       {
         "workId": "ce6ceb7092598aec",
         "title": "末日物流中心",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "8fafc6e237db7f03",
-        "title": "末日独行：我的黑暗契约",
         "category": "maoxian",
         "reason": "no_verified_source"
       },
@@ -64093,12 +64264,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "d79325fad0225fc3",
-        "title": "王者大师兄(我就是不按套路出牌",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "5f3c8210279344d8",
         "title": "白夜之魇",
         "category": "maoxian",
@@ -64225,12 +64390,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "698a4b49213ce522",
-        "title": "簪花郎",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "171bd87c8351bf7f",
         "title": "精灵王战纪",
         "category": "maoxian",
@@ -64239,12 +64398,6 @@
       {
         "workId": "3aa22ec7e9ddf3eb",
         "title": "精神病面前，鬼东西算个球",
-        "category": "maoxian",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "f8429274698383fd",
-        "title": "系统送我避难所",
         "category": "maoxian",
         "reason": "no_verified_source"
       },
@@ -66639,6 +66792,12 @@
       {
         "workId": "2af65d57e5d9175c",
         "title": "全球生命倒计时",
+        "category": "dongzuo",
+        "reason": "no_verified_source"
+      },
+      {
+        "workId": "b3cae191daf6ad2b",
+        "title": "全球诡异时代",
         "category": "dongzuo",
         "reason": "no_verified_source"
       },
@@ -70003,6 +70162,12 @@
         "reason": "no_verified_source"
       },
       {
+        "workId": "e367bf220cb82f6e",
+        "title": "废土就业指南",
+        "category": "dongzuo",
+        "reason": "no_verified_source"
+      },
+      {
         "workId": "7c4b52b4ffbacaec",
         "title": "废土时代：我带全家去修仙",
         "category": "dongzuo",
@@ -71205,6 +71370,12 @@
       {
         "workId": "0d4247514904c654",
         "title": "我来也",
+        "category": "dongzuo",
+        "reason": "no_verified_source"
+      },
+      {
+        "workId": "c7901f5795f64fe2",
+        "title": "我来自游戏",
         "category": "dongzuo",
         "reason": "no_verified_source"
       },
@@ -80404,7 +80575,7 @@
         "workId": "a2bf661b6344b490",
         "title": "安娜拉苏玛娜拉(魔幻之音)",
         "category": "richang",
-        "reason": "no_verified_source"
+        "reason": "insecure_cover"
       },
       {
         "workId": "f2fce0a152dc056e",
@@ -80746,7 +80917,7 @@
         "workId": "35c920c35d52b516",
         "title": "我是大仙尊",
         "category": "richang",
-        "reason": "no_verified_source"
+        "reason": "domain_rule_not_verified"
       },
       {
         "workId": "9e24c5ebec1d1fdd",
@@ -80793,18 +80964,6 @@
       {
         "workId": "3f1489881db4c692",
         "title": "我的微信连三界",
-        "category": "richang",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "a4e04e393f175972",
-        "title": "我的末世系统崩了",
-        "category": "richang",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "b13756b9391cde5a",
-        "title": "我的父亲",
         "category": "richang",
         "reason": "no_verified_source"
       },
@@ -81019,12 +81178,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "b9ea22221808680f",
-        "title": "机甲大师",
-        "category": "richang",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "832689e9f1436db4",
         "title": "极光行动",
         "category": "richang",
@@ -81121,12 +81274,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "8d96e2a77faacfa8",
-        "title": "没有我的聊天群",
-        "category": "richang",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "8028483042c3033f",
         "title": "治愈熊与抑郁猫",
         "category": "richang",
@@ -81201,12 +81348,6 @@
       {
         "workId": "35c12fd730db2edf",
         "title": "爹你今天读书了吗",
-        "category": "richang",
-        "reason": "no_verified_source"
-      },
-      {
-        "workId": "17de4e7ec8434130",
-        "title": "片儿区战警",
         "category": "richang",
         "reason": "no_verified_source"
       },
@@ -82963,12 +83104,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "1604b44701ae0289",
-        "title": "绝对剑感",
-        "category": "wuxia",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "a5510564b89ff4fb",
         "title": "绝对回归",
         "category": "wuxia",
@@ -83197,12 +83332,6 @@
         "reason": "no_verified_source"
       },
       {
-        "workId": "cdb76f731008d18d",
-        "title": "飞雷刀",
-        "category": "wuxia",
-        "reason": "no_verified_source"
-      },
-      {
         "workId": "dc8b74b0a14756e1",
         "title": "高手（고수）",
         "category": "wuxia",
@@ -83218,7 +83347,7 @@
         "workId": "845e49a66a5f349f",
         "title": "魔道转生记",
         "category": "wuxia",
-        "reason": "no_verified_source"
+        "reason": "insecure_cover"
       },
       {
         "workId": "2de9a30f43703431",
