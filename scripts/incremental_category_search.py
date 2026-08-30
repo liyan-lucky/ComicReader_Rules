@@ -23,7 +23,7 @@ def load_json(path: Path, default):
 
 
 def fingerprint(work: dict, policy: dict) -> str:
-    value = engine.POLICY_VERSION + json.dumps(policy, sort_keys=True, ensure_ascii=False) + json.dumps(work, sort_keys=True, ensure_ascii=False)
+    value = engine.POLICY_VERSION + engine.CHECKPOINT_SCHEMA + json.dumps(policy, sort_keys=True, ensure_ascii=False) + json.dumps(work, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(value.encode()).hexdigest()
 
 

@@ -15,13 +15,20 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v1'
+CHECKPOINT_SCHEMA='chapter-manifest-v2-preferred-domains'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
 
 def host(url): return (urlparse(url).hostname or '').lower().removeprefix('www.')
-def same_title(query,matched,lang): return identity_key(clean_title(query),lang)==identity_key(clean_title(matched),lang)
+def same_title(query,matched,lang):
+    query_key=identity_key(clean_title(query),lang)
+    matched_key=identity_key(clean_title(matched),lang)
+    if query_key==matched_key: return True
+    query_text=query_key.split(':',1)[-1]; matched_text=matched_key.split(':',1)[-1]
+    # Accept common page-title decorations such as “作品名漫画在线阅读-站名”,
+    # but never accept a shorter/unrelated title merely returned by search.
+    return len(query_text)>=4 and query_text in matched_text and len(matched_text)-len(query_text)<=18
 def fetch(s,url,referer=''):
     h={'Referer':referer} if referer else {}; r=s.get(url,headers=h,timeout=25); r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
 def page_title(soup):
@@ -74,11 +81,16 @@ def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'
     headers={'X-Search-Token':os.getenv('SEARXNG_API_TOKEN','')}
     terms=' '.join(search_terms or ['漫画','在线阅读','章节'])
-    r=s.get(endpoint,params={'q':f'"{title}" {terms}','format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
+    queries=[f'"{title}" {terms}']
+    queries.extend(f'site:{domain} "{title}"' for domain in PIPELINE.get('preferredReadableDomains',[]))
     out=[]
-    for x in r.json().get('results',[]):
-        u=str(x.get('url',''))
-        if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in out: out.append(u)
+    for query in queries:
+        r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
+        for x in r.json().get('results',[]):
+            u=str(x.get('url',''))
+            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in out: out.append(u)
+            if len(out)>=limit: break
+        if len(out)>=limit: break
     return out[:limit]
 def audit(s,work,url):
     base={'workId':work['id'],'language':work['language'],'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url),'policyVersion':POLICY_VERSION}
