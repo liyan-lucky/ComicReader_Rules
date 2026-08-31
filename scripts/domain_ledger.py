@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def build(best_sources: dict) -> dict:
-    domains = defaultdict(lambda: {"languages": set(), "works": []})
+    domains = defaultdict(lambda: {"languages": set(), "policyVersions": set(), "works": []})
     seen = set()
     for source in best_sources.get("verifiedCandidates", best_sources.get("selected", [])):
         identity = (source["domain"], source["workId"])
@@ -19,11 +19,13 @@ def build(best_sources: dict) -> dict:
         seen.add(identity)
         record = domains[source["domain"]]
         record["languages"].add(source["language"])
+        record["policyVersions"].add(source.get("validationPolicy", ""))
         record["works"].append({"workId": source["workId"], "title": source["title"],
                                 "detailUrl": source["detailUrl"], "verifiedChapterCount": source["verifiedChapterCount"],
                                 "samples": source["samples"]})
     return {"schema": "comic_domain_ledger_v2", "generatedAt": datetime.now(timezone.utc).isoformat(),
             "domains": [{"domain": domain, "languages": sorted(value["languages"]),
+                         "policyVersions": sorted(x for x in value["policyVersions"] if x),
                          "verifiedWorkCount": len(value["works"]), "works": value["works"],
                          "ruleStatus": "pending_domain_analysis"}
                         for domain, value in sorted(domains.items())]}

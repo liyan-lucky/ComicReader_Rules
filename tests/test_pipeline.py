@@ -9,6 +9,7 @@ from select_sources import choose
 import audit_category_sources as source_audit
 from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit, clean_chapter_title, images
 from domain_ledger import build as build_domain_ledger
+from publish_catalog import rule_supports_source
 
 
 def test_chapter_suffix_is_not_a_separate_work():
@@ -102,10 +103,20 @@ def test_chapter_title_keeps_source_name_but_drops_page_metadata():
 
 def test_domain_ledger_deduplicates_same_work_proof():
     source = _audit('good.example', 10)
-    source.update({'title': '斗破苍穹', 'verifiedChapterCount': 10})
+    source.update({'title': '斗破苍穹', 'verifiedChapterCount': 10, 'validationPolicy': 'readability-v5'})
     ledger = build_domain_ledger({'verifiedCandidates': [source, dict(source)]})
     assert ledger['domains'][0]['verifiedWorkCount'] == 1
     assert len(ledger['domains'][0]['works']) == 1
+    assert ledger['domains'][0]['policyVersions'] == ['readability-v5']
+
+
+def test_catalog_requires_same_work_precise_v5_domain_rule():
+    source = {'workId': 'work-1'}
+    precise = {'readerImageGroups': [1], 'audit': {'status': 'verified', 'policyVersion': 'readability-v5',
+               'verifiedWorkIds': ['work-1']}}
+    assert rule_supports_source(precise, source)
+    assert not rule_supports_source({**precise, 'readerImageGroups': [1, 2]}, source)
+    assert not rule_supports_source({**precise, 'audit': {**precise['audit'], 'verifiedWorkIds': ['other']}}, source)
 
 
 class _SearchResponse:

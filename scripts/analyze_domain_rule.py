@@ -36,8 +36,9 @@ def main():
   except Exception as exc: failures.append({'workId':work['workId'],'reason':f'{type(exc).__name__}: {exc}'})
  detail_common=set.intersection(*detail_sets) if detail_sets else set();reader_common=set.intersection(*reader_sets) if reader_sets else set()
  rule={'schema':'comic_domain_rule_v1','id':a.domain.replace('.','_'),'domain':a.domain,'languages':record['languages'],
+       'policyVersion':'readability-v5' if record.get('policyVersions')==['readability-v5'] else '',
        'detailChapterSelectors':sorted(detail_common,key=len)[:5],'detailUrlAttribute':'href','readerImageSelectors':sorted(reader_common,key=len)[:5],
        'readerImageAttributes':list(ATTRS),'verifiedWorkIds':[x['workId'] for x in record['works']],
-       'replayWorkCount':len(record['works']),'failures':failures,'status':'verified' if detail_common and reader_common and not failures else 'rejected'}
+       'replayWorkCount':len(record['works']),'failures':failures,'status':'verified' if detail_common and reader_common and not failures and record.get('policyVersions')==['readability-v5'] else 'rejected'}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(rule,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print(f'{a.domain}: {rule["status"]} detail={len(detail_common)} reader={len(reader_common)}');return 0
 if __name__=='__main__':raise SystemExit(main())

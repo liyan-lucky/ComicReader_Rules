@@ -11,6 +11,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def rule_supports_source(rule: dict | None, source: dict) -> bool:
+    if not rule or rule.get("audit", {}).get("status") != "verified":
+        return False
+    audit = rule.get("audit", {})
+    return audit.get("policyVersion") == "readability-v5" \
+        and source.get("workId") in audit.get("verifiedWorkIds", []) \
+        and rule.get("readerImageGroups") == [1]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--parameters", type=Path, required=True)
@@ -27,7 +36,8 @@ def main() -> int:
         candidates_by_work[str(source["workId"])].append(source)
 
     rule_doc = json.loads(args.rules.read_text(encoding="utf-8-sig"))
-    verified_domains = {rule["homepage"].split("://", 1)[-1].strip("/").removeprefix("www.") for rule in rule_doc.get("rules", [])}
+    rules_by_domain = {rule["homepage"].split("://", 1)[-1].strip("/").removeprefix("www."): rule
+                       for rule in rule_doc.get("rules", [])}
     config = json.loads((ROOT / "config/catalog_config.json").read_text(encoding="utf-8-sig"))
     old_doc = json.loads(args.existing.read_text(encoding="utf-8-sig")) if args.existing and args.existing.exists() else {}
     old_by_id = {str(item["id"]): item for value in old_doc.get("categories", {}).values() for item in value.get("items", [])}
@@ -42,7 +52,7 @@ def main() -> int:
         items = []
         for work in parameter_doc["works"]:
             all_candidates = candidates_by_work.get(work["id"], [])
-            eligible = [source for source in all_candidates if source.get("domain") in verified_domains
+            eligible = [source for source in all_candidates if rule_supports_source(rules_by_domain.get(source.get("domain")), source)
                         and source.get("validationPolicy") == "readability-v5"
                         and len(source.get("chapters", [])) == int(source.get("verifiedChapterCount") or 0)]
             eligible.sort(key=lambda source: (int(source.get("verifiedChapterCount") or 0),
@@ -59,7 +69,9 @@ def main() -> int:
                 if prior and prior.get("validationPolicy") == "readability-v5" \
                         and prior_manifest_count == int(prior.get("verifiedChapterCount") or 0):
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
-                    if prior_domain in verified_domains:
+                    prior_rule = rules_by_domain.get(prior_domain)
+                    prior_source_proof = {"workId": str(work["id"])}
+                    if rule_supports_source(prior_rule, prior_source_proof):
                         title_key = str(work["canonicalTitle"]).strip().casefold()
                         if title_key in published_titles:
                             rejected.append({"workId": work["id"], "title": work["canonicalTitle"], "category": category["id"], "reason": "duplicate_title_across_categories"})

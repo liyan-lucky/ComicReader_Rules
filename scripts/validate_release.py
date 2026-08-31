@@ -6,9 +6,9 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--catalog',type=Path,required=True);p.add_argument('--rules',type=Path,required=True);p.add_argument('--sources',type=Path);p.add_argument('--incremental',action='store_true');a=p.parse_args();errors=[];c=json.loads(a.catalog.read_text(encoding='utf-8-sig'));r=json.loads(a.rules.read_text(encoding='utf-8-sig'))
  if c.get('schema')!='comic_catalog_v1':errors.append('invalid catalog schema')
  if r.get('schema')!='womh_comic_rules_index_v1':errors.append('invalid rules schema')
- domains=[]
+ domains=[];rules_by_domain={}
  for rule in r.get('rules',[]):
-  domain=rule.get('homepage','').split('://',1)[-1].strip('/').removeprefix('www.');domains.append(domain)
+  domain=rule.get('homepage','').split('://',1)[-1].strip('/').removeprefix('www.');domains.append(domain);rules_by_domain[domain]=rule
   if rule.get('domainApplicabilityList')!=[domain]:errors.append(f'rule {rule.get("id")} is not exact-domain')
   if rule.get('audit',{}).get('status')!='verified':errors.append(f'rule {rule.get("id")} lacks replay proof')
  if len(domains)!=len(set(domains)):errors.append('duplicate domain rules')
@@ -31,6 +31,11 @@ def main():
    if not str(s.get('detailUrl','')).startswith(('http://','https://')):errors.append(f'{item.get("id")} no detail link')
    if not str(s.get('coverUrl','')).startswith('https://'):errors.append(f'{item.get("id")} cover is not HTTPS')
    if s.get('domain') not in domains:errors.append(f'{item.get("id")} no domain rule')
+   else:
+    matched_rule=rules_by_domain[s.get('domain')];audit=matched_rule.get('audit',{})
+    if audit.get('policyVersion')!='readability-v5':errors.append(f'{item.get("id")} domain rule has legacy replay policy')
+    if str(item.get('id')) not in audit.get('verifiedWorkIds',[]):errors.append(f'{item.get("id")} absent from domain replay proof')
+    if matched_rule.get('readerImageGroups')!=[1]:errors.append(f'{item.get("id")} domain rule is not precise reader selector')
  if c.get('totalItems')!=count:errors.append('catalog count mismatch')
  category_counts={k:len(v.get('items',[])) for k,v in c.get('categories',{}).items()}; non_empty=sum(v>0 for v in category_counts.values())
  titles=[str(x.get('title','')).strip().casefold() for v in c.get('categories',{}).values() for x in v.get('items',[])];duplicates=sorted({x for x in titles if titles.count(x)>1})
