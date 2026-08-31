@@ -15,7 +15,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v4-normalized-order'
+CHECKPOINT_SCHEMA='chapter-manifest-v5-search-title-evidence'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -88,7 +88,7 @@ def search(s,title,limit,search_terms=None):
     queries=[(f'site:{domain} "{title}"',domain) for domain in PREFERRED_READABLE_DOMAINS]
     queries.append((f'"{title}" {terms}',''))
     per_query=max(2,limit//max(1,len(queries))); buckets=[]
-    normalized_title=re.sub(r'\s+','',clean_title(title)).lower()
+    normalized_title=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',clean_title(title).lower())
     for query,expected_domain in queries:
         r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
         bucket=[]
@@ -96,8 +96,14 @@ def search(s,title,limit,search_terms=None):
             u=str(x.get('url',''))
             result_host=host(u)
             if expected_domain and not (result_host==expected_domain or result_host.endswith('.'+expected_domain)): continue
-            evidence=re.sub(r'\s+','',html.unescape(str(x.get('title',''))+' '+str(x.get('content',''))+' '+u)).lower()
-            if not expected_domain and normalized_title and normalized_title not in evidence: continue
+            # A proven domain is only a search scope, never proof that the
+            # returned page is the requested work. SearX backends sometimes
+            # ignore quoted terms and return the domain home page, rankings or
+            # a different comic. Require title evidence for every bucket so
+            # those pages cannot consume the small audit candidate budget.
+            evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(
+                str(x.get('title',''))+' '+str(x.get('content',''))+' '+u).lower())
+            if normalized_title and normalized_title not in evidence: continue
             if result_host in BLOCKED_DOMAINS or NON_COMIC_PATH.search(u): continue
             if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in bucket: bucket.append(u)
         buckets.append(bucket)

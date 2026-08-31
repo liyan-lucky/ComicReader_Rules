@@ -100,6 +100,7 @@ class _SearchSession:
         if query.startswith("site:good.example"):
             return _SearchResponse([
                 {"url": "https://noise.example/shop", "title": "目标漫画"},
+                {"url": "https://good.example/comic/unrelated", "title": "完全无关作品"},
                 {"url": "https://good.example/comic/1", "title": "目标漫画"},
             ])
         return _SearchResponse([
