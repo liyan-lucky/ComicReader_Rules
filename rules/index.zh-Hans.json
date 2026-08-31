@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831125732",
-  "updatedAt": "2026-08-31T12:57:32.247728+00:00",
+  "version": "20260831130208",
+  "updatedAt": "2026-08-31T13:02:08.998135+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1894,7 +1894,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 30 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1916,7 +1916,7 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\b_thumbnailImages\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\b_images\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
         1
       ],
@@ -1945,13 +1945,13 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "*.thmb img",
-          "img._thumbnailImages"
+          "img._images",
+          "*.viewer_img img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -1962,38 +1962,9 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "53668c3c134875db",
-          "735b033b1e4b596f",
-          "86c67cb53ce99773",
-          "9145889cc953ab74",
-          "a20bd383c2230c32",
-          "a3cbf88ae78a248f",
-          "b9caeea7a6f2e998",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "d695c5b2d9791d1b",
-          "0cf0d49231d5d0ea",
-          "409ed5d587ed1da8",
-          "a15d65d41baf30e5",
-          "d57dcf710272a0c7",
-          "02abdbf31dcffd9e",
-          "02abdbf31dcffd9e",
-          "2bebd2c10bd18a28",
-          "d2e05d3a5a618dd2",
-          "0d6b55e2daa54a6c",
-          "8383274e7c215ea2",
-          "8dd12fc3b72cb521",
-          "c91df665198a0483",
-          "eea8e84eca21cbb7",
-          "a5510564b89ff4fb",
-          "082f84983d86c776",
-          "f213c8d003926e50"
+          "cdee4caab8ab00d6"
         ],
-        "replayWorkCount": 30,
+        "replayWorkCount": 1,
         "failures": [],
         "status": "verified"
       }
