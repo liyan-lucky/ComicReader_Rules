@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831161252",
-  "updatedAt": "2026-08-31T16:12:52.787491+00:00",
+  "version": "20260831161847",
+  "updatedAt": "2026-08-31T16:18:47.436751+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8295,6 +8295,57 @@
         ],
         "replayWorkCount": 3,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "guazimanhua_com",
+        "domain": "guazimanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "a.btn",
+          "* a[href]",
+          "a.mobile-primary-btn",
+          "*.hero-actions a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.reading-image",
+          "*.reader-images img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "4ebcc2161d7d233f",
+          "9a52e52cb19d0172",
+          "a20bd383c2230c32",
+          "a3cbf88ae78a248f",
+          "41ad48a82668ec5a",
+          "bbe21c0a93f91334",
+          "36bf7aa7ab1ad01b",
+          "8080175ab0af2f99",
+          "8383274e7c215ea2",
+          "07eaebec3a064710",
+          "9f891060bbebb76b",
+          "8855ed73c0abcb96"
+        ],
+        "replayWorkCount": 12,
+        "failures": [
+          {
+            "workId": "9f891060bbebb76b",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          }
+        ],
         "status": "rejected"
       },
       {
