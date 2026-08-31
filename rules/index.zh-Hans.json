@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831140939",
-  "updatedAt": "2026-08-31T14:09:39.503832+00:00",
+  "version": "20260831141225",
+  "updatedAt": "2026-08-31T14:12:25.453850+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -3666,8 +3666,10 @@
         "languages": [
           "zh-Hans"
         ],
+        "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
+          "*.action a[href]",
           "*.desc_item a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -3684,7 +3686,7 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "101f395612e9ca51"
+          "9461938af1f8d1c8"
         ],
         "replayWorkCount": 1,
         "failures": [],
