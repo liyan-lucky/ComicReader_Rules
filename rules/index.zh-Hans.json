@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831234353",
-  "updatedAt": "2026-08-31T23:43:53.687399+00:00",
+  "version": "20260831235558",
+  "updatedAt": "2026-08-31T23:55:58.614636+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8301,61 +8301,6 @@
         ],
         "replayWorkCount": 3,
         "failures": [],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "guazimanhua_com",
-        "domain": "guazimanhua.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "a.btn",
-          "* a[href]",
-          "a.mobile-primary-btn",
-          "*.hero-actions a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img.reading-image",
-          "*.reader-images img"
-        ],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "4ebcc2161d7d233f",
-          "9a52e52cb19d0172",
-          "a20bd383c2230c32",
-          "a3cbf88ae78a248f",
-          "382fb3a678d77f2b",
-          "41ad48a82668ec5a",
-          "adecbe8c35cc3505",
-          "ed47b2d017288942",
-          "bbe21c0a93f91334",
-          "36bf7aa7ab1ad01b",
-          "8080175ab0af2f99",
-          "8383274e7c215ea2",
-          "07eaebec3a064710",
-          "7c4e3545c1a7ad59",
-          "9f891060bbebb76b",
-          "8855ed73c0abcb96"
-        ],
-        "replayWorkCount": 16,
-        "failures": [
-          {
-            "workId": "4ebcc2161d7d233f",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-          }
-        ],
         "status": "rejected"
       },
       {
