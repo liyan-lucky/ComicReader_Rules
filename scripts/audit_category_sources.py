@@ -15,7 +15,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v5-search-title-evidence'
+CHECKPOINT_SCHEMA='chapter-manifest-v6-readable-prefix'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -136,11 +136,36 @@ def audit(s,work,url):
         if order_audit['complete'] and source_direction=='descending': ch=list(reversed(ch))
         order_audit={**order_audit,'sourceDirection':source_direction,
                      'publishedDirection':'ascending' if source_direction=='descending' else source_direction}
+        # A site can leave one or more dead/locked trailing episodes in an
+        # otherwise readable catalog. Find the newest readable episode and
+        # publish the longest accessible prefix instead of discarding hundreds
+        # of earlier readable chapters because the final link is broken.
+        original_chapter_count=len(ch); latest_probe=None; latest_index=len(ch)-1
+        for probe_index in range(len(ch)-1,max(-1,len(ch)-21),-1):
+            chapter_title,chapter_url=ch[probe_index]
+            try:
+                chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
+            except Exception:
+                found=[]
+            probe={'position':'latest','chapterTitle':chapter_title,'chapterUrl':chapter_url,
+                   'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,
+                   'firstImageUrl':found[0] if found else ''}
+            if probe['readable']:
+                latest_probe=(probe,set(found));latest_index=probe_index;break
+            if latest_probe is None: latest_probe=(probe,set(found))
+        inaccessible_tail=max(0,original_chapter_count-latest_index-1) if latest_probe and latest_probe[0]['readable'] else 0
+        if inaccessible_tail: ch=ch[:latest_index+1]
         indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]; image_sets=[]
         for pos,index in zip(positions,indexes):
-            chapter_title,chapter_url=ch[index]; chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
-            image_sets.append(set(found))
-            samples.append({'position':pos,'chapterTitle':chapter_title,'chapterUrl':chapter_url,'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,'firstImageUrl':found[0] if found else ''})
+            chapter_title,chapter_url=ch[index]
+            if pos=='latest' and latest_probe and latest_probe[0]['chapterUrl']==chapter_url:
+                sample,found_set=latest_probe
+            else:
+                chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url);found_set=set(found)
+                sample={'position':pos,'chapterTitle':chapter_title,'chapterUrl':chapter_url,
+                        'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,
+                        'firstImageUrl':found[0] if found else ''}
+            samples.append(sample);image_sets.append(found_set)
         # Static decorations and recommendation thumbnails repeat between
         # chapters. Real comic pages must provide substantially different image
         # sets for first/middle/latest samples.
@@ -157,6 +182,8 @@ def audit(s,work,url):
         if not readable: reasons.append('chapter_identity_or_content_variation_gate_failed')
         if not order_audit['complete']: reasons.append('chapter_order_or_completeness_gate_failed')
         chapter_manifest=[{'title':chapter_title,'url':chapter_url} for chapter_title,chapter_url in ch]
+        order_audit={**order_audit,'sourceChapterCount':original_chapter_count,
+                     'publishedChapterCount':len(ch),'inaccessibleTailSkipped':inaccessible_tail}
         return {**base,'matchedTitle':title,'coverUrl':cover(soup,url),'chapterCount':len(ch),'chapters':chapter_manifest,'chapterOrder':order_audit,'samples':samples,
                 'status':'verified' if ok else 'rejected','rejectionReasons':reasons}
     except Exception as exc: return {**base,'matchedTitle':'','chapterCount':0,'samples':[],'status':'unreachable','rejectionReasons':[f'{type(exc).__name__}: {exc}']}
