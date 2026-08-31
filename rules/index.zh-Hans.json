@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831092705",
-  "updatedAt": "2026-08-31T09:27:05.948281+00:00",
+  "version": "20260831125732",
+  "updatedAt": "2026-08-31T12:57:32.247728+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -24,7 +24,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bstart\\-read\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -110,10 +110,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://590ac.com/",
@@ -178,7 +177,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\-2\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -186,10 +185,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://5imanhua.click/",
@@ -256,7 +254,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -264,10 +262,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bapp\\-guiding\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://ac.qq.com/",
@@ -434,7 +431,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bflex\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -442,10 +439,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bmx\\-auto\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://asshow.com/",
@@ -513,7 +509,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bcolorHui\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -521,10 +517,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bmengCeng1\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://b.faloo.com/",
@@ -593,7 +588,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bep\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -672,7 +667,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\-3\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -680,10 +675,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://bjzf.org/",
@@ -750,7 +744,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-item\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -758,10 +752,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\babsolute\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://bkmh555.com/",
@@ -826,7 +819,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bxqbj\\-cat\\-card\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -905,7 +898,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bread\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -913,10 +906,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bcomicimg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://cdt-gz.cn/",
@@ -1060,7 +1052,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1068,10 +1060,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bapp\\-guiding\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://comic.qq.com/",
@@ -1146,7 +1137,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\br\\-top\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1154,10 +1145,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bj\\-user\\-avatar\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://cuimanhua.com/",
@@ -1225,7 +1215,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bred\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1233,10 +1223,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bj\\-user\\-avatar\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://cuimh.com/",
@@ -1305,7 +1294,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1313,10 +1302,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bcomic\\-pic\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://cxjob.com.cn/",
@@ -1385,7 +1373,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\biconfont\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1471,10 +1459,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://dagumh.com/",
@@ -1547,10 +1534,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://dandanmh.com/",
@@ -1623,10 +1609,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://dayiming.cn/",
@@ -1778,10 +1763,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://digumh.com/",
@@ -1846,7 +1830,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1854,10 +1838,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bapp\\-guiding\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://dongman.qq.com/",
@@ -1925,7 +1908,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bon\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -1933,10 +1916,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\b_thumbnailImages\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://dongmanmanhua.cn/",
@@ -2041,10 +2023,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://duiduimanhua.com/",
@@ -2195,10 +2176,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blight\\-on\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://ffppt.com/",
@@ -2254,7 +2234,7 @@
     {
       "id": "guazimanhua_com",
       "name": "guazimanhua.com 已验证公开源",
-      "description": "由 15 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://guazimanhua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2268,7 +2248,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2276,10 +2256,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\breading\\-image\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://guazimanhua.com/",
@@ -2323,23 +2302,10 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "3bd7ad7104a677e0",
-          "7c71123bb1c21b83",
-          "984788b5dc9bf35c",
-          "a20bd383c2230c32",
-          "a3cbf88ae78a248f",
-          "49989fad99254eef",
-          "e52757104afe19d4",
-          "292e2103e35584a0",
-          "098f4bb9c634cdfb",
-          "8383274e7c215ea2",
           "07eaebec3a064710",
-          "9f891060bbebb76b",
-          "c8e15ca7d7324e36",
-          "d70430261cb6e444",
-          "8511affa6a8fe6ff"
+          "8855ed73c0abcb96"
         ],
-        "replayWorkCount": 15,
+        "replayWorkCount": 2,
         "failures": [],
         "status": "verified"
       }
@@ -2361,7 +2327,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2439,7 +2405,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bdetail\\-primary\\-action\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2518,7 +2484,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bstart\\-read\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2596,7 +2562,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\btx\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2758,10 +2724,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://htzsgc.cn/",
@@ -2826,7 +2791,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2834,10 +2799,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bimg\\-responsive\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://huayangdm.com/",
@@ -2905,7 +2869,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bon\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -2913,10 +2877,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\b_thumbnailImages\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://huozx.net/",
@@ -3068,7 +3031,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3076,10 +3039,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bcomic\\-pic\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://jincs.cn/",
@@ -3155,10 +3117,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://jiujiumanhua.com/",
@@ -3309,10 +3270,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://jsmanhuawang.com/",
@@ -3377,7 +3337,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\-3\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3385,10 +3345,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://katadyngroup.com.cn/",
@@ -3455,7 +3414,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bstart\\-read\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3545,10 +3504,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://kuaikan321.com/",
@@ -3613,7 +3571,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\blogo\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3621,10 +3579,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bavatar\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://kuaikanmanhua.com/",
@@ -3699,10 +3656,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.bikamanhua.com/",
@@ -3767,7 +3723,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bcart\\-item\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3775,10 +3731,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bdetail\\-main\\-bg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.bjwsxx.com/",
@@ -3845,7 +3800,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\biconfont\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -3932,10 +3887,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bifw\\-nav_search\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.dumanwu.com/",
@@ -4008,10 +3962,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bifw\\-nav_search\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.dumanwu1.com/",
@@ -4076,7 +4029,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bcart\\-item\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4084,10 +4037,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bdetail\\-main\\-bg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.guozhenglawyer.com/",
@@ -4154,7 +4106,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bcart\\-item\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4162,10 +4114,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bdetail\\-main\\-bg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.haohuagg.com/",
@@ -4232,7 +4183,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bflex\\-1\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4240,10 +4191,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.jingmingbg.com/",
@@ -4312,7 +4262,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bBtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4391,7 +4341,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bcart\\-item\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4399,10 +4349,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bdetail\\-main\\-bg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.ortzn.com/",
@@ -4471,7 +4420,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bBtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4558,10 +4507,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://m.tcsrq.cn/",
@@ -4634,10 +4582,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazyload\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://manbatu.com/",
@@ -4704,7 +4651,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bepisode\\-item\\-new\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -4712,10 +4659,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazyload_img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mangatoon.mobi/",
@@ -4790,10 +4736,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://manhua1234.com/",
@@ -4866,10 +4811,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://manhuarenren.com/",
@@ -5012,7 +4956,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-info\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5020,10 +4964,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazyload\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mdb88.com/",
@@ -5098,10 +5041,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bcomic\\-page\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://medyakey.com/",
@@ -5358,10 +5300,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mhz4.com/",
@@ -5426,7 +5367,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5434,10 +5375,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bapp\\-guiding\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mobile.ac.qq.com/",
@@ -5504,7 +5444,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\-3\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5512,10 +5452,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mwjsiot.com/",
@@ -5582,7 +5521,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bpure\\-button\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5590,10 +5529,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://mzywwcm.com/",
@@ -5661,7 +5599,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bitem\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5740,7 +5678,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bksaa_btn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5819,7 +5757,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bchapter\\-link\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5827,10 +5765,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://pdbgds.com/",
@@ -5903,10 +5840,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://pufeimanhuaw.com/",
@@ -5971,7 +5907,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bflex\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -5979,10 +5915,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bmx\\-auto\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://runshua.com/",
@@ -6053,7 +5988,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bpure\\-button\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -6061,10 +5996,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://sdxqx.com/",
@@ -6141,10 +6075,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://sfmanhua.com/",
@@ -6209,7 +6142,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bpx\\-3\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -6217,10 +6150,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bobject\\-contain\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://shenqimanhua.net/",
@@ -6318,10 +6250,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://shilunmh.com/",
@@ -6394,10 +6325,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://shoujimanhua.com/",
@@ -6470,10 +6400,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://songyuanman.com/",
@@ -6539,7 +6468,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bml\\-2\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -6547,10 +6476,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bw\\-full\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://sqmh.app/",
@@ -6625,10 +6553,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bimg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://sqrsks.com/",
@@ -6777,10 +6704,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://tcsrq.cn/",
@@ -6855,10 +6781,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://tzysjx.cn/",
@@ -6932,10 +6857,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bimg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://veryim.com/",
@@ -7007,7 +6931,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bnewNode\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7085,7 +7009,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\blisting_a\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7093,10 +7017,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bmenu_btn\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://xhp119.com/",
@@ -7165,7 +7088,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\blisting_a\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7173,10 +7096,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bmenu_btn\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://xhp124.com/",
@@ -7252,10 +7174,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://xkanmanhua.com/",
@@ -7320,7 +7241,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bfraa_btn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7408,10 +7329,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://yinglifan.com/",
@@ -7476,7 +7396,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bhover\\-a\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7563,10 +7483,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://yinxiang17.com/",
@@ -7639,10 +7558,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bimg\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://yixiuche.com/",
@@ -7715,10 +7633,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://youzimanhua.com/",
@@ -7783,7 +7700,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bsocial\\-icon\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7791,10 +7708,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\bcomic\\-image\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://z525.com/",
@@ -7870,7 +7786,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,180}?(?:第\\s*\\d+|第[一二三四五六七八九十百千零〇两]+|话|章|回|Chapter|Episode)[\\s\\S]{0,100}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bbtn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -8013,10 +7929,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blazy\\-img\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://zhongkeman.com/",
@@ -8089,10 +8004,9 @@
         1
       ],
       "detailChapterFilter": true,
-      "readerImageRegex": "<img[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>|[\"\\']((?:https?:)?\\/\\/[^\"\\']+\\.(?:jpg|jpeg|png|webp|avif)(?:\\?[^\"\\']*)?)[\"\\']",
+      "readerImageRegex": "<img(?=[^>]*class=[\"\\'][^\"\\']*\\blink\\b[^\"\\']*[\"\\'])[^>]+(?:data-original|data-src|data-lazy-src|data-url|src|srcset)=[\"\\']([^\"\\']+)[\"\\'][^>]*>",
       "readerImageGroups": [
-        1,
-        2
+        1
       ],
       "userAgent": "Mozilla/5.0 (Linux; HarmonyOS; Mobile) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36 ComicReader",
       "referer": "https://zymk.cn/",
