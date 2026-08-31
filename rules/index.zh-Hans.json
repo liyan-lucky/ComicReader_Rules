@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831130208",
-  "updatedAt": "2026-08-31T13:02:08.998135+00:00",
+  "version": "20260831131036",
+  "updatedAt": "2026-08-31T13:10:36.927847+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1894,7 +1894,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 1 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1941,12 +1941,13 @@
         "languages": [
           "zh-Hans"
         ],
+        "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1962,9 +1963,10 @@
           "srcset"
         ],
         "verifiedWorkIds": [
+          "1604b44701ae0289",
           "cdee4caab8ab00d6"
         ],
-        "replayWorkCount": 1,
+        "replayWorkCount": 2,
         "failures": [],
         "status": "verified"
       }
@@ -2205,7 +2207,7 @@
     {
       "id": "guazimanhua_com",
       "name": "guazimanhua.com 已验证公开源",
-      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 4 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://guazimanhua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2252,6 +2254,7 @@
         "languages": [
           "zh-Hans"
         ],
+        "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
           "a.btn",
@@ -2273,10 +2276,12 @@
           "srcset"
         ],
         "verifiedWorkIds": [
+          "a20bd383c2230c32",
+          "bbe21c0a93f91334",
           "07eaebec3a064710",
           "8855ed73c0abcb96"
         ],
-        "replayWorkCount": 2,
+        "replayWorkCount": 4,
         "failures": [],
         "status": "verified"
       }
