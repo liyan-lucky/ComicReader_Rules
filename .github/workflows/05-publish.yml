@@ -21,5 +21,4 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add catalog/catalog.zh-Hans.json rules/index.zh-Hans.json generated/update_manifest.json generated/v3/release_audit.zh-Hans.json
           git diff --cached --quiet || git commit -m 'publish: validated readable catalog and domain rules'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          bash scripts/ci_push_with_retry.sh

@@ -75,8 +75,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add state/search/zh-Hans generated/v3
           git diff --cached --quiet || git commit -m 'search: advance category progress'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          bash scripts/ci_push_with_retry.sh
       - name: 每批完成后显式传递到 03
         env: {GH_TOKEN: '${{ github.token }}'}
         run: gh workflow run 03-batch-replay.yml --ref main
