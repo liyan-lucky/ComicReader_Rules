@@ -16,7 +16,7 @@ from title_normalization import identity_key
 def valid_audit(item: dict, min_images: int = 8) -> bool:
     samples = item.get("samples", [])
     positions = {sample.get("position") for sample in samples if isinstance(sample, dict)}
-    if item.get("policyVersion") != "readability-v4":
+    if item.get("policyVersion") != "readability-v5":
         return False
     if item.get("status") != "verified" or int(item.get("chapterCount") or 0) <= 0:
         return False

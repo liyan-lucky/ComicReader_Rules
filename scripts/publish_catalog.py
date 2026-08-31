@@ -43,7 +43,7 @@ def main() -> int:
         for work in parameter_doc["works"]:
             all_candidates = candidates_by_work.get(work["id"], [])
             eligible = [source for source in all_candidates if source.get("domain") in verified_domains
-                        and source.get("validationPolicy") == "readability-v4"
+                        and source.get("validationPolicy") == "readability-v5"
                         and len(source.get("chapters", [])) == int(source.get("verifiedChapterCount") or 0)]
             eligible.sort(key=lambda source: (int(source.get("verifiedChapterCount") or 0),
                 sum(int(sample.get("imageCount") or 0) for sample in source.get("samples", [])),
@@ -56,7 +56,7 @@ def main() -> int:
                 # already replay-validated source became invalid. Preserve the
                 # last-good catalog entry until an explicit replay/invalidation
                 # mechanism marks that exact URL bad.
-                if prior and prior.get("validationPolicy") == "readability-v4" \
+                if prior and prior.get("validationPolicy") == "readability-v5" \
                         and prior_manifest_count == int(prior.get("verifiedChapterCount") or 0):
                     prior_domain = str(prior.get("sources", [{}])[0].get("domain", "")) if prior.get("sources") else ""
                     if prior_domain in verified_domains:

@@ -14,8 +14,8 @@ IMAGE_BAD=re.compile(r'(logo|avatar|icon|banner|cover|poster|thumb|sprite|loadin
 IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
-POLICY_VERSION='readability-v4'
-CHECKPOINT_SCHEMA='chapter-manifest-v6-readable-prefix'
+POLICY_VERSION='readability-v5'
+CHECKPOINT_SCHEMA='chapter-manifest-v7-content-identity'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -40,13 +40,18 @@ def cover(soup,base):
         n=soup.select_one(sel); value=str(n.get(attr) or '') if n else ''
         if value: return urljoin(base,value)
     return ''
+def clean_chapter_title(value):
+    value=re.sub(r'\s+',' ',value).strip()
+    value=re.sub(r'\s+\d{4}[-/.]\d{1,2}[-/.]\d{1,2}(?:\s+like\s*\d+)?(?:\s+#\d+)?\s*$','',value,flags=re.I)
+    value=re.sub(r'\s+like\s*\d+(?:\s+#\d+)?\s*$','',value,flags=re.I)
+    return value.strip()
 def chapters(soup,detail):
     values=[]; seen=set()
     # A work identifier appearing in the detail URL must remain present in its
     # chapter URLs.  This rejects recommendation cards from another comic.
     detail_ids=re.findall(r'(?<!\d)(\d{4,})(?!\d)',urlparse(detail).path)
     for a in soup.select('a[href]'):
-        title=re.sub(r'\s+',' ',a.get_text(' ',strip=True)); url=urljoin(detail,str(a.get('href','')))
+        title=clean_chapter_title(a.get_text(' ',strip=True)); url=urljoin(detail,str(a.get('href','')))
         if host(url)!=host(detail) or url==detail or BAD_PATH.search(url) or not (CHAPTER.search(title) or re.search(r'/(?:chapter|chap|read|viewer|episode)/',url,re.I)): continue
         if detail_ids and not any(token in urlparse(url).path for token in detail_ids): continue
         if url not in seen: seen.add(url); values.append((title or url,url))
@@ -69,14 +74,25 @@ def chapter_order_audit(values):
 def images(body,base):
     soup=BeautifulSoup(body,'lxml'); values=[]; seen=set()
     for img in soup.select('img,source'):
+        marker=' '.join([img.name,str(img.get('id') or ''),str(img.get('class') or ''),str(img.get('alt') or '')])
+        # Viewer thumbnail strips often contain the first pages of another or
+        # previous chapter and were previously counted as readable content.
+        # They made every sampled chapter share the same "first image" while
+        # the App rendered only covers/thumbnails. Audit only main-view images.
+        if IMAGE_BAD.search(marker) or re.search(r'(?:thumbnail|_thmb|\bthmb\b)',marker,re.I):
+            continue
         for attr in ('data-original','data-src','data-lazy-src','data-url','src','srcset'):
             raw=str(img.get(attr) or '')
             for token in raw.split(','):
                 url=urljoin(base,token.strip().split(' ')[0]) if token.strip() else ''
                 if url and url not in seen and IMAGE_EXT.search(url) and not IMAGE_BAD.search(url): seen.add(url); values.append(url)
-    for match in re.finditer(r'https?:\\?/\\?/[^\s\"\']+?\.(?:jpe?g|png|webp|avif)(?:\?[^\s\"\']*)?',body,re.I):
-        url=html.unescape(match.group(0).replace('\\/','/'))
-        if url not in seen and not IMAGE_BAD.search(url): seen.add(url); values.append(url)
+    # Script/JSON fallback is useful for viewers without image nodes, but
+    # mixing it into a valid DOM result reintroduces logos, thumbnails and
+    # recommendation assets from unrelated page regions.
+    if len(values)<MIN_IMAGES:
+        for match in re.finditer(r'https?:\\?/\\?/[^\s\"\']+?\.(?:jpe?g|png|webp|avif)(?:\?[^\s\"\']*)?',body,re.I):
+            url=html.unescape(match.group(0).replace('\\/','/'))
+            if url not in seen and not IMAGE_BAD.search(url): seen.add(url); values.append(url)
     return values
 def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'

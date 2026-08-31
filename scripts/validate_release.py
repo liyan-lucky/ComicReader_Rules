@@ -16,7 +16,7 @@ def main():
  for category in c.get('categories',{}).values():
   for item in category.get('items',[]):
    count+=1
-   if item.get('validationPolicy')!='readability-v4':errors.append(f'{item.get("id")} has legacy validation policy')
+   if item.get('validationPolicy')!='readability-v5':errors.append(f'{item.get("id")} has legacy validation policy')
    if item.get('language')!='zh-Hans':errors.append(f'{item.get("id")} wrong language')
    if int(item.get('verifiedChapterCount') or 0)<=0:errors.append(f'{item.get("id")} no chapters')
    sources=item.get('sources',[])

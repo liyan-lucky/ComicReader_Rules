@@ -7,7 +7,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from title_normalization import build, clean_title, identity_key
 from select_sources import choose
 import audit_category_sources as source_audit
-from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit
+from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit, clean_chapter_title, images
+from domain_ledger import build as build_domain_ledger
 
 
 def test_chapter_suffix_is_not_a_separate_work():
@@ -46,7 +47,7 @@ def _audit(domain: str, chapters: int, title: str = "斗破苍穹", readable: bo
     return {"workId": "work-1", "language": "zh-Hans", "category": "xuanhuan",
             "queryTitle": "斗破苍穹", "matchedTitle": title,
             "detailUrl": f"https://{domain}/comic/1", "domain": domain, "chapterCount": chapters,
-            "policyVersion": "readability-v4", "chapters": chapter_manifest,
+            "policyVersion": "readability-v5", "chapters": chapter_manifest,
             "status": "verified", "samples": [
                 {"position": position, "chapterUrl": f"https://{domain}/chapter/{position}",
                  "imageCount": 20 if readable else 1, "readable": readable}
@@ -81,6 +82,30 @@ def test_descending_source_chapter_order_is_detected_before_publication():
                                  ('第8话', 'https://example.com/8')])
     assert audit["direction"] == "descending"
     assert audit["monotonic"] is True
+
+
+def test_reader_images_exclude_thumbnail_strip_when_content_nodes_exist():
+    content = ''.join(
+        f'<img class="_images" data-url="https://cdn.example/page-{index}.jpg" src="placeholder.png">'
+        for index in range(max(MIN_IMAGES, 8))
+    )
+    html = '<img class="_thumbnailImages" data-url="https://cdn.example/cover.jpg">' + content
+    found = images(html, 'https://reader.example/chapter/1')
+    assert len(found) == max(MIN_IMAGES, 8)
+    assert found[0] == 'https://cdn.example/page-0.jpg'
+    assert all('cover.jpg' not in url for url in found)
+
+
+def test_chapter_title_keeps_source_name_but_drops_page_metadata():
+    assert clean_chapter_title('[第1话] 吴一天 2021-10-11 like 0 #1') == '[第1话] 吴一天'
+
+
+def test_domain_ledger_deduplicates_same_work_proof():
+    source = _audit('good.example', 10)
+    source.update({'title': '斗破苍穹', 'verifiedChapterCount': 10})
+    ledger = build_domain_ledger({'verifiedCandidates': [source, dict(source)]})
+    assert ledger['domains'][0]['verifiedWorkCount'] == 1
+    assert len(ledger['domains'][0]['works']) == 1
 
 
 class _SearchResponse:
