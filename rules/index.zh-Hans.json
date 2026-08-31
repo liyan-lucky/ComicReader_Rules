@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260831172151",
-  "updatedAt": "2026-08-31T17:21:51.371952+00:00",
+  "version": "20260831172416",
+  "updatedAt": "2026-08-31T17:24:16.165261+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2222,7 +2222,7 @@
     {
       "id": "guazimanhua_com",
       "name": "guazimanhua.com 已验证公开源",
-      "description": "由 14 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 16 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://guazimanhua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2298,15 +2298,17 @@
           "382fb3a678d77f2b",
           "41ad48a82668ec5a",
           "adecbe8c35cc3505",
+          "ed47b2d017288942",
           "bbe21c0a93f91334",
           "36bf7aa7ab1ad01b",
           "8080175ab0af2f99",
           "8383274e7c215ea2",
           "07eaebec3a064710",
+          "7c4e3545c1a7ad59",
           "9f891060bbebb76b",
           "8855ed73c0abcb96"
         ],
-        "replayWorkCount": 14,
+        "replayWorkCount": 16,
         "failures": [],
         "status": "verified"
       }
@@ -8299,60 +8301,6 @@
         ],
         "replayWorkCount": 3,
         "failures": [],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "guazimanhua_com",
-        "domain": "guazimanhua.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "a.btn",
-          "* a[href]",
-          "a.mobile-primary-btn",
-          "*.hero-actions a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img.reading-image",
-          "*.reader-images img"
-        ],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "4ebcc2161d7d233f",
-          "9a52e52cb19d0172",
-          "a20bd383c2230c32",
-          "a3cbf88ae78a248f",
-          "382fb3a678d77f2b",
-          "41ad48a82668ec5a",
-          "adecbe8c35cc3505",
-          "bbe21c0a93f91334",
-          "36bf7aa7ab1ad01b",
-          "8080175ab0af2f99",
-          "8383274e7c215ea2",
-          "07eaebec3a064710",
-          "7c4e3545c1a7ad59",
-          "9f891060bbebb76b",
-          "8855ed73c0abcb96"
-        ],
-        "replayWorkCount": 15,
-        "failures": [
-          {
-            "workId": "8855ed73c0abcb96",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-          }
-        ],
         "status": "rejected"
       },
       {
