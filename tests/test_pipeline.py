@@ -10,6 +10,7 @@ import audit_category_sources as source_audit
 from audit_category_sources import BLOCKED_DOMAINS, MIN_IMAGES, NON_COMIC_PATH, chapter_order_audit, clean_chapter_title, images
 from domain_ledger import build as build_domain_ledger
 from publish_catalog import rule_supports_source
+from build_cover_index import build as build_cover_index
 
 
 def test_chapter_suffix_is_not_a_separate_work():
@@ -150,3 +151,17 @@ def test_search_enforces_site_bucket_and_title_evidence(monkeypatch):
     monkeypatch.setenv("SEARXNG_URL", "http://search.test")
     urls = source_audit.search(_SearchSession(), "目标漫画", 8)
     assert urls == ["https://good.example/comic/1", "https://new.example/comic/target"]
+
+
+def test_cover_index_only_publishes_title_bound_v5_https_cover():
+    catalog = {"categories": {"x": {"items": [
+        {"id": "1", "title": "目标漫画", "language": "zh-Hans", "validationPolicy": "readability-v5",
+         "sources": [{"domain": "good.example", "detailUrl": "https://good.example/book/1",
+                      "coverUrl": "https://img.example/cover.jpg", "chapters": [{"url": "c1"}]}]},
+        {"id": "2", "title": "旧规则作品", "validationPolicy": "readability-v4",
+         "sources": [{"coverUrl": "https://img.example/wrong.jpg"}]}
+    ]}}}
+    result = build_cover_index(catalog, online=False)
+    assert result["count"] == 1
+    assert result["entries"][0]["titleKey"] == "目标漫画"
+    assert result["entries"][0]["confidence"] == "verified-title-bound-cover"

@@ -25,6 +25,11 @@ SECTION_CONFIG = {
         "source_template": "catalog/catalog.{lang}.json",
         "url_template": f"{REPO_RAW_BASE}/catalog/catalog.{{lang}}.json",
     },
+    "coverAudit": {
+        "name": "cover accuracy index",
+        "source_template": "generated/v3/cover_index.{lang}.json",
+        "url_template": f"{REPO_RAW_BASE}/generated/v3/cover_index.{{lang}}.json",
+    },
 }
 
 
