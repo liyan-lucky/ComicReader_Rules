@@ -1,15 +1,11 @@
 name: 03 五十本兼容性回放
-run-name: "03 五十本兼容性回放（上游 02 #${{ github.event.workflow_run.id || '手动' }}）"
+run-name: "03 五十本兼容性回放（02 每批显式传递）"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ['02 分类增量搜索处理']
-    types: [completed]
-permissions: {contents: write}
+permissions: {contents: write, actions: write}
 concurrency: {group: catalog-v3-batch-replay, cancel-in-progress: false}
 jobs:
   replay:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -28,3 +24,6 @@ jobs:
           git diff --cached --quiet || git commit -m 'audit: replay 50 catalog candidates'
           git pull --rebase origin main
           git push origin HEAD:main
+      - name: 本批回放完成后显式传递到 04
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh workflow run 04-build-domain-rules.yml --ref main
