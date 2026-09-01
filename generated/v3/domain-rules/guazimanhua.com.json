@@ -37,6 +37,7 @@
     "382fb3a678d77f2b",
     "41ad48a82668ec5a",
     "adecbe8c35cc3505",
+    "e1749fe9cea8b9fb",
     "e52757104afe19d4",
     "ed47b2d017288942",
     "bbe21c0a93f91334",
@@ -58,7 +59,12 @@
     "768d00f20740ee75",
     "8855ed73c0abcb96"
   ],
-  "replayWorkCount": 30,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 31,
+  "failures": [
+    {
+      "workId": "c1981154b202460d",
+      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    }
+  ],
+  "status": "rejected"
 }
