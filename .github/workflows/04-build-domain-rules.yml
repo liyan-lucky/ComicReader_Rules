@@ -2,7 +2,7 @@ name: 04 域名规则分析回放
 run-name: "04 域名规则分析回放（03 每批显式传递）"
 on:
   workflow_dispatch:
-permissions: {contents: write}
+permissions: {contents: write, actions: write}
 concurrency: {group: catalog-v3-domain-rules, cancel-in-progress: false}
 jobs:
   matrix:
@@ -46,4 +46,7 @@ jobs:
           bash scripts/ci_push_with_retry.sh
   publish:
     needs: merge
+    uses: ./.github/workflows/06-publish-rules.yml
+  publish_catalog:
+    needs: publish
     uses: ./.github/workflows/05-publish.yml

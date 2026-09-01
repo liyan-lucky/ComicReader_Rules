@@ -1,0 +1,23 @@
+name: 07 封面准确性校验
+on:
+  workflow_dispatch:
+  workflow_call:
+permissions: {contents: write}
+concurrency: {group: catalog-v3-cover-audit, cancel-in-progress: false}
+jobs:
+  cover_audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -r requirements.txt
+      - run: python scripts/build_cover_index.py --catalog catalog/catalog.zh-Hans.json --output generated/v3/cover_index.zh-Hans.json
+      - run: python scripts/update_manifest.py --only-if-changed --section coverAudit --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add generated/update_manifest.json generated/v3/cover_index.zh-Hans.json
+          git diff --cached --quiet || git commit -m 'cover: refresh accuracy index'
+          bash scripts/ci_push_with_retry.sh
