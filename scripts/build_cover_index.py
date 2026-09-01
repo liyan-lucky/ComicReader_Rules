@@ -76,7 +76,7 @@ def main() -> int:
     args = parser.parse_args()
     result = build(json.loads(args.catalog.read_text(encoding="utf-8-sig")), not args.offline)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"published {result['count']} verified title-bound covers")
     return 0
 

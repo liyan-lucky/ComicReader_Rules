@@ -115,6 +115,36 @@ def main() -> int:
         categories[category["id"]] = {"id": category["id"], "name": category["name"],
             "count": len(items), "items": items}
 
+    # Incremental discovery must be monotonic. A platform refresh may rename or
+    # temporarily omit a work from the latest parameter file; that is not an
+    # explicit invalidation of a previously replay-verified source. Preserve
+    # every last-good item whose domain rule still carries readability-v5 proof
+    # for that exact work ID. This also keeps the App's cached catalog stable
+    # while category jobs finish at different times.
+    published_ids = {str(item["id"]) for item in flat}
+    for category_id, old_category in old_doc.get("categories", {}).items():
+        if category_id not in categories:
+            continue
+        for prior in old_category.get("items", []):
+            work_id = str(prior.get("id", ""))
+            if not work_id or work_id in published_ids or prior.get("validationPolicy") != "readability-v5":
+                continue
+            sources = prior.get("sources", [])
+            verified = any(rule_supports_source(rules_by_domain.get(str(source.get("domain", ""))),
+                                                {"workId": work_id})
+                           and source.get("detailUrl") and source.get("chapters")
+                           for source in sources)
+            if not verified:
+                continue
+            title_key = str(prior.get("title", "")).strip().casefold()
+            if not title_key or title_key in published_titles:
+                continue
+            published_titles.add(title_key)
+            published_ids.add(work_id)
+            categories[category_id]["items"].append(prior)
+            categories[category_id]["count"] = len(categories[category_id]["items"])
+            flat.append(prior)
+
     old_items = {key: value.get("items", []) for key, value in old_doc.get("categories", {}).items()}
     new_items = {key: value.get("items", []) for key, value in categories.items()}
     if args.existing and args.existing.exists() and old_items == new_items:
@@ -126,7 +156,7 @@ def main() -> int:
         "totalItems": len(flat), "categoryCount": len(categories), "categories": categories,
         "audit": {"rejected": rejected}}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"published {len(flat)}, rejected {len(rejected)}")
     return 0
 

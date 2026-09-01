@@ -14,7 +14,7 @@ jobs:
         with: {python-version: '3.12'}
       - run: python -m pip install -r requirements.txt
       - run: python scripts/publish_catalog.py --parameters parameters/catalog/zh-Hans --states state/search/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --rules rules/index.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json
-      - run: set -o pipefail; python scripts/validate_release.py --incremental --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --sources generated/v3/best_sources.zh-Hans.json | tee generated/v3/release_audit.zh-Hans.json
+      - run: python scripts/validate_release.py --incremental --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --sources generated/v3/best_sources.zh-Hans.json --output generated/v3/release_audit.zh-Hans.json
       - run: python scripts/build_cover_index.py --catalog catalog/catalog.zh-Hans.json --output generated/v3/cover_index.zh-Hans.json
       - run: python scripts/update_manifest.py --only-if-changed --section rules --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
       - run: python scripts/update_manifest.py --only-if-changed --section catalog --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文

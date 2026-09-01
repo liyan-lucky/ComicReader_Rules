@@ -3,7 +3,7 @@ import argparse,json,re,sys,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def main():
- p=argparse.ArgumentParser();p.add_argument('--catalog',type=Path,required=True);p.add_argument('--rules',type=Path,required=True);p.add_argument('--sources',type=Path);p.add_argument('--incremental',action='store_true');a=p.parse_args();errors=[];c=json.loads(a.catalog.read_text(encoding='utf-8-sig'));r=json.loads(a.rules.read_text(encoding='utf-8-sig'))
+ p=argparse.ArgumentParser();p.add_argument('--catalog',type=Path,required=True);p.add_argument('--rules',type=Path,required=True);p.add_argument('--sources',type=Path);p.add_argument('--output',type=Path);p.add_argument('--incremental',action='store_true');a=p.parse_args();errors=[];c=json.loads(a.catalog.read_text(encoding='utf-8-sig'));r=json.loads(a.rules.read_text(encoding='utf-8-sig'))
  if c.get('schema')!='comic_catalog_v1':errors.append('invalid catalog schema')
  if r.get('schema')!='womh_comic_rules_index_v1':errors.append('invalid rules schema')
  domains=[];rules_by_domain={}
@@ -44,7 +44,9 @@ def main():
  if not a.incremental and non_empty<int(gates.get('minimumNonEmptyCategories',0)):errors.append(f'non-empty categories below minimum: {non_empty}/{gates["minimumNonEmptyCategories"]}')
  if duplicates and not gates.get('allowDuplicateTitles',False):errors.append(f'duplicate titles: {duplicates[:20]}')
  selected_count=len(json.loads(a.sources.read_text(encoding='utf-8-sig')).get('selected',[])) if a.sources else None
- report={'passed':not errors,'ruleCount':len(domains),'catalogCount':count,'selectedSourceCount':selected_count,'nonEmptyCategoryCount':non_empty,'emptyCategoryCount':len(category_counts)-non_empty,'duplicateTitleCount':len(duplicates),'categoryCounts':category_counts,'errors':errors[:100]};print(json.dumps(report,ensure_ascii=False,indent=2))
+ report={'passed':not errors,'ruleCount':len(domains),'catalogCount':count,'selectedSourceCount':selected_count,'nonEmptyCategoryCount':non_empty,'emptyCategoryCount':len(category_counts)-non_empty,'duplicateTitleCount':len(duplicates),'categoryCounts':category_counts,'errors':errors[:100]};rendered=json.dumps(report,ensure_ascii=False,indent=2);print(rendered)
+ if a.output:
+  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(rendered+'\n',encoding='utf-8',newline='\n')
  summary=os.getenv('GITHUB_STEP_SUMMARY')
  if summary:
   lines=['## 发布数量与质量审计','',f'- 初选可读书源：**{selected_count if selected_count is not None else "未提供"} 本**',f'- 最终目录：**{count} 本**',f'- 域名规则：**{len(domains)} 条**',f'- 非空分类：**{non_empty}/{len(category_counts)}**',f'- 重复标题：**{len(duplicates)}**',f'- 发布门禁：**{"通过" if not errors else "未通过"}**','','| 分类 | 数量 |','|---|---:|']+[f'| {k} | {v} |' for k,v in category_counts.items()]
