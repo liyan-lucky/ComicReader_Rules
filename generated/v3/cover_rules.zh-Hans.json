@@ -1,0 +1,88 @@
+{
+  "schema": "comic_cover_discovery_rules_v1",
+  "version": "cover-rules-20260902070530",
+  "updatedAt": "2026-09-02T07:05:30Z",
+  "count": 3,
+  "rules": [
+    {
+      "id": "cover_generic_static_html",
+      "name": "通用静态封面检索",
+      "description": "从公开详情页或搜索结果页提取 og:image、封面、poster、thumb 等静态图片地址。",
+      "homepage": "https://www.baidu.com/",
+      "searchUrl": "https://www.baidu.com/s?rn=20&wd={keyword}%20漫画%20封面",
+      "itemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]{1,240}?)</a>[\\s\\S]{0,900}?(?:data-src|src|content)=[\"']([^\"']+\\.(?:jpg|jpeg|png|webp)(?:\\?[^\"']*)?)[\"']",
+      "titleGroups": [
+        2
+      ],
+      "detailUrlGroups": [
+        1
+      ],
+      "coverGroups": [
+        3
+      ],
+      "detailCoverRegex": "(?:property=[\"']og:image[\"'][^>]+content|content=[\"']([^\"']+\\.(?:jpg|jpeg|png|webp)(?:\\?[^\"']*)?)[\"'][^>]+property=[\"']og:image|(?:cover|poster|thumb|thumbnail|pic|image)[\"']?\\s*[:=]\\s*[\"'])([^\"']+\\.(?:jpg|jpeg|png|webp)(?:\\?[^\"']*)?)",
+      "detailCoverGroups": [
+        1,
+        2
+      ],
+      "domainApplicabilityList": [],
+      "userAgent": "Mozilla/5.0 HarmonyOS ComicReader CoverRules/1.0",
+      "referer": "https://www.baidu.com/"
+    },
+    {
+      "id": "cover_ac_qq",
+      "name": "腾讯动漫封面检索",
+      "description": "用于腾讯动漫公开作品页封面提取，不处理登录或付费内容。",
+      "homepage": "https://ac.qq.com/",
+      "searchUrl": "https://ac.qq.com/Comic/searchList/search/{keyword}",
+      "itemRegex": "<a[^>]+href=[\"']([^\"']*(?:Comic|comic)[^\"']*)[\"'][^>]*>[\\s\\S]{0,600}?<img[^>]+(?:alt|title)=[\"']([^\"']+)[\"'][^>]+(?:data-original|data-src|src)=[\"']([^\"']+)[\"']",
+      "titleGroups": [
+        2
+      ],
+      "detailUrlGroups": [
+        1
+      ],
+      "coverGroups": [
+        3
+      ],
+      "detailCoverRegex": "(?:property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']|(?:data-original|data-src|src)=[\"']([^\"']+\\.(?:jpg|jpeg|png|webp)(?:\\?[^\"']*)?)[\"'])",
+      "detailCoverGroups": [
+        1,
+        2
+      ],
+      "domainApplicabilityList": [
+        "ac.qq.com"
+      ],
+      "userAgent": "Mozilla/5.0 HarmonyOS ComicReader CoverRules/1.0",
+      "referer": "https://ac.qq.com/"
+    },
+    {
+      "id": "cover_bilibili_manga",
+      "name": "哔哩哔哩漫画封面检索",
+      "description": "用于哔哩哔哩漫画公开作品页封面提取。",
+      "homepage": "https://manga.bilibili.com/",
+      "searchUrl": "https://manga.bilibili.com/search?keyword={keyword}",
+      "itemRegex": "<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>[\\s\\S]{0,700}?<img[^>]+(?:alt|title)=[\"']([^\"']+)[\"'][^>]+(?:data-src|src)=[\"']([^\"']+)[\"']",
+      "titleGroups": [
+        2
+      ],
+      "detailUrlGroups": [
+        1
+      ],
+      "coverGroups": [
+        3
+      ],
+      "detailCoverRegex": "(?:property=[\"']og:image[\"'][^>]+content=[\"']([^\"']+)[\"']|(?:cover|vertical_cover|horizontal_cover)[\"']?\\s*[:=]\\s*[\"']([^\"']+)[\"'])",
+      "detailCoverGroups": [
+        1,
+        2
+      ],
+      "domainApplicabilityList": [
+        "manga.bilibili.com",
+        "bilibili.com/manga"
+      ],
+      "userAgent": "Mozilla/5.0 HarmonyOS ComicReader CoverRules/1.0",
+      "referer": "https://manga.bilibili.com/"
+    }
+  ]
+}

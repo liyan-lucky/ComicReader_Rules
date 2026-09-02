@@ -1,0 +1,23 @@
+name: 08 封面检索规则生成
+on:
+  workflow_dispatch:
+  workflow_call:
+permissions: {contents: write}
+concurrency: {group: catalog-v3-manifest-publish, cancel-in-progress: false}
+jobs:
+  cover_rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - run: git pull --rebase origin main
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/build_cover_rules.py
+      - run: python scripts/update_manifest.py --only-if-changed --section coverRules --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add generated/update_manifest.json generated/v3/cover_rules.zh-Hans.json
+          git diff --cached --quiet || git commit -m 'cover: publish discovery rules'
+          bash scripts/ci_push_with_retry.sh

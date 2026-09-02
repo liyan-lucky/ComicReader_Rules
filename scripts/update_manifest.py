@@ -30,6 +30,11 @@ SECTION_CONFIG = {
         "source_template": "generated/v3/cover_index.{lang}.json",
         "url_template": f"{REPO_RAW_BASE}/generated/v3/cover_index.{{lang}}.json",
     },
+    "coverRules": {
+        "name": "cover discovery rules",
+        "source_template": "generated/v3/cover_rules.{lang}.json",
+        "url_template": f"{REPO_RAW_BASE}/generated/v3/cover_rules.{{lang}}.json",
+    },
 }
 
 
