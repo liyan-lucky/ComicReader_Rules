@@ -18,6 +18,7 @@ jobs:
       matrix:
         category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
     runs-on: ubuntu-latest
+    continue-on-error: true
     timeout-minutes: 240
     services:
       searxng:
@@ -51,6 +52,7 @@ jobs:
         with: {name: 'category-progress-${{ matrix.category }}', path: out/}
   merge:
     needs: category_pipeline
+    if: always()
     runs-on: ubuntu-latest
     outputs:
       pending: ${{ steps.cycle.outputs.pending }}
