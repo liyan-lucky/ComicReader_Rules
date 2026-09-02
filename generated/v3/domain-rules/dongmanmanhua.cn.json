@@ -10,8 +10,8 @@
     "a",
     "a.on",
     "a.st_r",
-    "a.btn_bx",
-    "a.ico_qq"
+    "a.ico_qq",
+    "a.btn_bx"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -58,6 +58,19 @@
     "cdee4caab8ab00d6"
   ],
   "replayWorkCount": 29,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "02797ce3ca8108c4",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "3ab1b4c95330f35b",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=25)"
+    },
+    {
+      "workId": "8383274e7c215ea2",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.dongmanmanhua.cn/BOY/yushentongguideqishiwang/list?title_no=2594&page=1"
+    }
+  ],
+  "status": "rejected"
 }
