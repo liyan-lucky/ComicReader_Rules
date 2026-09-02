@@ -2,6 +2,8 @@ name: 02 分类增量搜索处理
 run-name: "02 分类增量搜索处理（上游 01 #${{ github.event.workflow_run.id || '续跑' }}）"
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
   workflow_run:
     workflows: ['01 每日平台粗采集']
     types: [completed]
@@ -9,7 +11,7 @@ permissions: {contents: write, actions: write}
 concurrency: {group: catalog-v3-category-pipelines, cancel-in-progress: false}
 jobs:
   category_pipeline:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success'
     strategy:
       fail-fast: false
       max-parallel: 16
