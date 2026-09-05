@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260905232706",
-  "updatedAt": "2026-09-05T23:27:06.066575+00:00",
+  "version": "20260905233136",
+  "updatedAt": "2026-09-05T23:31:36.001627+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8409,6 +8409,117 @@
         ],
         "replayWorkCount": 3,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "guazimanhua_com",
+        "domain": "guazimanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "a.btn",
+          "* a[href]",
+          "a.mobile-primary-btn",
+          "*.hero-actions a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.reading-image",
+          "*.reader-images img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "0e878b1b06be5f7b",
+          "1f3ed8d8289d6918",
+          "29a1f3dd24fc6f68",
+          "333b44f10dd86956",
+          "3cd2c26ccfbb40ff",
+          "44ca4e8d0bf9cfa7",
+          "4ebcc2161d7d233f",
+          "4fb011ce32bfd3da",
+          "6d55fe6d53c6af85",
+          "6f96c41e533535f4",
+          "7c71123bb1c21b83",
+          "810c6b8d200dade7",
+          "9364e7df2978ba2f",
+          "9a52e52cb19d0172",
+          "9bd92df436b36378",
+          "a20bd383c2230c32",
+          "a37aaffdde78746d",
+          "a3cbf88ae78a248f",
+          "fd3fcfd597fea0ce",
+          "382fb3a678d77f2b",
+          "41ad48a82668ec5a",
+          "adecbe8c35cc3505",
+          "b756e5b4396eae66",
+          "e52757104afe19d4",
+          "ed47b2d017288942",
+          "effb3e88a7cf8143",
+          "bbe21c0a93f91334",
+          "22e7a10f5f772f91",
+          "2b5e63d4522720d8",
+          "36bf7aa7ab1ad01b",
+          "3e5922b2ede35fe3",
+          "60bede562883bc62",
+          "8080175ab0af2f99",
+          "8dfb9055ef25dcbd",
+          "c1981154b202460d",
+          "c36547556a6627d3",
+          "d4ceb4fa267910d2",
+          "f969a891b533c193",
+          "0216f90ffc19accd",
+          "098f4bb9c634cdfb",
+          "0c1e7cfc91c8a2c2",
+          "443208b751a90a63",
+          "509822ada5107cfd",
+          "69a1769b4c02a6b3",
+          "77560f410d6fd524",
+          "8383274e7c215ea2",
+          "a225354256f2ad46",
+          "c645b4a112f06a94",
+          "d248e7c498b81312",
+          "e418469d7f8bff75",
+          "e9fd6fdf4aa2f7a0",
+          "f3c120518759f680",
+          "2cf956844e4482d9",
+          "07eaebec3a064710",
+          "25a758539f26556b",
+          "32e7c3b34297eb24",
+          "55fce4df8dda28ee",
+          "7922bdffb1471830",
+          "7c4e3545c1a7ad59",
+          "947eb5a26e5691e8",
+          "9f891060bbebb76b",
+          "b9af5b7aea80fa53",
+          "c8e15ca7d7324e36",
+          "d70430261cb6e444",
+          "e46bf372e6f0f22a",
+          "768d00f20740ee75",
+          "b379ca551fe7be8c",
+          "d3c39effa5b58dd0",
+          "52dcbb8d92b5eb24",
+          "8855ed73c0abcb96",
+          "9047492188b7f393",
+          "fc108d8b69df5e6a"
+        ],
+        "replayWorkCount": 72,
+        "failures": [
+          {
+            "workId": "c36547556a6627d3",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          }
+        ],
         "status": "rejected"
       },
       {
