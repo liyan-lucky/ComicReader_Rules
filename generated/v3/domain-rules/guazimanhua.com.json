@@ -99,6 +99,15 @@
     "fc108d8b69df5e6a"
   ],
   "replayWorkCount": 70,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "9047492188b7f393",
+      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "workId": "fc108d8b69df5e6a",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22966"
+    }
+  ],
+  "status": "rejected"
 }
