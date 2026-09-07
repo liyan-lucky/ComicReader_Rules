@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260907150153",
-  "updatedAt": "2026-09-07T15:01:53.949671+00:00",
+  "version": "20260907151326",
+  "updatedAt": "2026-09-07T15:13:26.775948+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -10380,6 +10380,37 @@
           "fa0ad67929239f3a"
         ],
         "replayWorkCount": 13,
+        "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "m_bikamanhua_com",
+        "domain": "m.bikamanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "*.desc_item a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "9461938af1f8d1c8",
+          "a1444ab7c3c7fd77",
+          "e5b513f6a04e1bee"
+        ],
+        "replayWorkCount": 3,
         "failures": [],
         "status": "rejected"
       },
