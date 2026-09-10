@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260910030551",
-  "updatedAt": "2026-09-10T03:05:51.444761+00:00",
+  "version": "20260910032735",
+  "updatedAt": "2026-09-10T03:27:35.171519+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8648,8 +8648,12 @@
         "replayWorkCount": 120,
         "failures": [
           {
+            "workId": "52ffb3c488c0fd8a",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          },
+          {
             "workId": "57fece8145b985dd",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1636037"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=10875"
           },
           {
             "workId": "584ed794445cfbc4",
