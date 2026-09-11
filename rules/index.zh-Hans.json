@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260911061402",
-  "updatedAt": "2026-09-11T06:14:02.432402+00:00",
+  "version": "20260911063613",
+  "updatedAt": "2026-09-11T06:36:13.202281+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8598,7 +8598,6 @@
           "443208b751a90a63",
           "509822ada5107cfd",
           "52ffb3c488c0fd8a",
-          "57fece8145b985dd",
           "584ed794445cfbc4",
           "59a39741c8699d48",
           "69a1769b4c02a6b3",
@@ -8644,7 +8643,7 @@
           "c60950095bf0c687",
           "fc108d8b69df5e6a"
         ],
-        "replayWorkCount": 115,
+        "replayWorkCount": 114,
         "failures": [
           {
             "workId": "0e680abfea47c123",
@@ -8927,16 +8926,12 @@
             "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.guazimanhua.com/chapter.php?id=1322524"
           },
           {
-            "workId": "57fece8145b985dd",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.guazimanhua.com/chapter.php?id=1636037"
-          },
-          {
             "workId": "584ed794445cfbc4",
             "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.guazimanhua.com/chapter.php?id=909604"
           },
           {
             "workId": "59a39741c8699d48",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.guazimanhua.com/chapter.php?id=2245584"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           },
           {
             "workId": "69a1769b4c02a6b3",
