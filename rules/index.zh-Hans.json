@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260912021428",
-  "updatedAt": "2026-09-12T02:14:28.942550+00:00",
+  "version": "20260912023224",
+  "updatedAt": "2026-09-12T02:32:24.521098+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1894,7 +1894,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 114 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 115 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2053,6 +2053,7 @@
           "a4859354577fb517",
           "a567af8429f256c2",
           "b09c20577c71301a",
+          "c46f6c05e1d8c0fb",
           "c645b4a112f06a94",
           "cded48d9fc8f1fae",
           "d74c633ecbf9e6bc",
@@ -2078,7 +2079,7 @@
           "d8cb5fcd0beb8758",
           "cdee4caab8ab00d6"
         ],
-        "replayWorkCount": 114,
+        "replayWorkCount": 115,
         "failures": [],
         "status": "verified"
       }
@@ -8665,16 +8666,8 @@
         "replayWorkCount": 124,
         "failures": [
           {
-            "workId": "a225354256f2ad46",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-          },
-          {
-            "workId": "c54073bc47444f06",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12025"
-          },
-          {
             "workId": "c645b4a112f06a94",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12144"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1643326"
           },
           {
             "workId": "d248e7c498b81312",
