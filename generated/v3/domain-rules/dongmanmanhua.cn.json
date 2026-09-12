@@ -10,8 +10,8 @@
     "a",
     "a.on",
     "a.st_r",
-    "a.btn_bx",
-    "a.ico_qq"
+    "a.ico_qq",
+    "a.btn_bx"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -150,6 +150,11 @@
     "cdee4caab8ab00d6"
   ],
   "replayWorkCount": 121,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "3ab1b4c95330f35b",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=25)"
+    }
+  ],
+  "status": "rejected"
 }
