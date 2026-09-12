@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260912092340",
-  "updatedAt": "2026-09-12T09:23:40.345231+00:00",
+  "version": "20260912101608",
+  "updatedAt": "2026-09-12T10:16:08.227437+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1894,7 +1894,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 119 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 120 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2011,6 +2011,7 @@
           "cee80b9ace6a563a",
           "d6567ac00cbccedc",
           "e09215a5c2a0ae6d",
+          "e803c9d7441310c5",
           "edb52c793c9f1ca5",
           "f96d4fe4e3d52c63",
           "fbe744aea01c76c6",
@@ -2083,7 +2084,7 @@
           "d8cb5fcd0beb8758",
           "cdee4caab8ab00d6"
         ],
-        "replayWorkCount": 119,
+        "replayWorkCount": 120,
         "failures": [],
         "status": "verified"
       }
@@ -8673,8 +8674,28 @@
         "replayWorkCount": 126,
         "failures": [
           {
-            "workId": "0e680abfea47c123",
+            "workId": "48aa3488b2d42678",
             "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          },
+          {
+            "workId": "52dcbb8d92b5eb24",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19726"
+          },
+          {
+            "workId": "8855ed73c0abcb96",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=26470"
+          },
+          {
+            "workId": "9047492188b7f393",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17147"
+          },
+          {
+            "workId": "c60950095bf0c687",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18153"
+          },
+          {
+            "workId": "fc108d8b69df5e6a",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22966"
           }
         ],
         "status": "rejected"
