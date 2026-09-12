@@ -14,7 +14,10 @@
     "*.hero-actions a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.reading-image",
+    "*.reader-images img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -149,5 +152,5 @@
   ],
   "replayWorkCount": 122,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
