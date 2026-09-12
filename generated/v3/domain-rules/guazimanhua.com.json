@@ -14,10 +14,7 @@
     "*.hero-actions a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reading-image",
-    "*.reader-images img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -158,12 +155,8 @@
   "replayWorkCount": 127,
   "failures": [
     {
-      "workId": "2cf956844e4482d9",
-      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-    },
-    {
       "workId": "59f5c4e9991b1f95",
-      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32381"
+      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     {
       "workId": "14b9c8fe41e7b389",
