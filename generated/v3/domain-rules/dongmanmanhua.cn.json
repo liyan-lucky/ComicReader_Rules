@@ -86,6 +86,7 @@
     "4aa5a77bb83020eb",
     "565546ffa17f4890",
     "58795207cf37994c",
+    "676108169493e19c",
     "81470d74943ac3e2",
     "844920402e0a78e4",
     "8e187205a6253db1",
@@ -144,7 +145,12 @@
     "d8cb5fcd0beb8758",
     "cdee4caab8ab00d6"
   ],
-  "replayWorkCount": 116,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 117,
+  "failures": [
+    {
+      "workId": "bb4dbc4ab8d06a68",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=25)"
+    }
+  ],
+  "status": "rejected"
 }
