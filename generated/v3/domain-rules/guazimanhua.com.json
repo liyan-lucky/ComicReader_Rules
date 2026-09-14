@@ -14,7 +14,10 @@
     "*.hero-actions a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.reading-image",
+    "*.reader-images img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -161,6 +164,11 @@
     "fc108d8b69df5e6a"
   ],
   "replayWorkCount": 135,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "fc108d8b69df5e6a",
+      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    }
+  ],
   "status": "rejected"
 }

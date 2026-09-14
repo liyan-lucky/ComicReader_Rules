@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260914144900",
-  "updatedAt": "2026-09-14T14:49:00.107231+00:00",
+  "version": "20260914150022",
+  "updatedAt": "2026-09-14T15:00:22.600120+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8547,7 +8547,10 @@
           "*.hero-actions a[href]"
         ],
         "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
+        "readerImageSelectors": [
+          "img.reading-image",
+          "*.reader-images img"
+        ],
         "readerImageAttributes": [
           "data-original",
           "data-src",
@@ -8694,7 +8697,12 @@
           "fc108d8b69df5e6a"
         ],
         "replayWorkCount": 135,
-        "failures": [],
+        "failures": [
+          {
+            "workId": "fc108d8b69df5e6a",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          }
+        ],
         "status": "rejected"
       },
       {
