@@ -14,7 +14,10 @@
     "*.hero-actions a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.reading-image",
+    "*.reader-images img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -183,7 +186,7 @@
   "failures": [
     {
       "workId": "443208b751a90a63",
-      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1071584"
     },
     {
       "workId": "509822ada5107cfd",
