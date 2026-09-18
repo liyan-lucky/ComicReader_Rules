@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260918150940",
-  "updatedAt": "2026-09-18T15:09:40.050494+00:00",
+  "version": "20260918152056",
+  "updatedAt": "2026-09-18T15:20:56.026175+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1946,8 +1946,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8773,8 +8773,24 @@
         "replayWorkCount": 171,
         "failures": [
           {
+            "workId": "bac27e8f982f24f1",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=969145"
+          },
+          {
+            "workId": "bbe21c0a93f91334",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12138"
+          },
+          {
+            "workId": "0a600243139f9ec9",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11604"
+          },
+          {
+            "workId": "1663b405b56fe5e7",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17764"
+          },
+          {
             "workId": "20754b354e94fed1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1119356"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20822"
           },
           {
             "workId": "22e7a10f5f772f91",
@@ -11094,10 +11110,7 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "*.desc_item a[href]"
-        ],
+        "detailChapterSelectors": [],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
@@ -11116,7 +11129,28 @@
           "f2d83078a9c7f223"
         ],
         "replayWorkCount": 5,
-        "failures": [],
+        "failures": [
+          {
+            "workId": "9461938af1f8d1c8",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /moshifanren (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b1f57ec0>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+          },
+          {
+            "workId": "a1444ab7c3c7fd77",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /zanhualang_231434 (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954620>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+          },
+          {
+            "workId": "b91bdf9b79df7791",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /shouximengbaomaiyisongyi (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954920>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+          },
+          {
+            "workId": "e5b513f6a04e1bee",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /wandanchenglefanpaideshiduxiaogenban (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954c20>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+          },
+          {
+            "workId": "f2d83078a9c7f223",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /shenhaishou (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954f80>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+          }
+        ],
         "status": "rejected"
       },
       {

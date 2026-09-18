@@ -6,10 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "*.desc_item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -28,6 +25,27 @@
     "f2d83078a9c7f223"
   ],
   "replayWorkCount": 5,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "9461938af1f8d1c8",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /moshifanren (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b1f57ec0>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+    },
+    {
+      "workId": "a1444ab7c3c7fd77",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /zanhualang_231434 (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954620>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+    },
+    {
+      "workId": "b91bdf9b79df7791",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /shouximengbaomaiyisongyi (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954920>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+    },
+    {
+      "workId": "e5b513f6a04e1bee",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /wandanchenglefanpaideshiduxiaogenban (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954c20>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+    },
+    {
+      "workId": "f2d83078a9c7f223",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.bikamanhua.com', port=443): Max retries exceeded with url: /shenhaishou (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.bikamanhua.com', port=443) at 0x7fb0b0954f80>, 'Connection to m.bikamanhua.com timed out. (connect timeout=25)'))"
+    }
+  ],
   "status": "rejected"
 }
