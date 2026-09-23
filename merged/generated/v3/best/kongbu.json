@@ -1,0 +1,96 @@
+{
+  "schema": "comic_best_sources_v2",
+  "generatedAt": "2026-09-23T10:34:05.358594+00:00",
+  "selected": [],
+  "verifiedCandidates": [],
+  "rejected": [
+    {
+      "workId": "f2aa2fabcdc831b9",
+      "language": "zh-Hans",
+      "title": "怪奇物语",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/video/BV1v2hJ6hEVx/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1v2hJ6hEVx/"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f2aa2fabcdc831b9",
+      "language": "zh-Hans",
+      "title": "怪奇物语",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/26359270/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f2aa2fabcdc831b9",
+      "language": "zh-Hans",
+      "title": "怪奇物语",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/page/n3184lfszl1.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f2aa2fabcdc831b9",
+      "language": "zh-Hans",
+      "title": "怪奇物语",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E6%80%AA%E5%A5%87%E7%89%A9%E8%AA%9E",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "1c02fc86828c0841",
+      "language": "zh-Hans",
+      "title": "狂人日记",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/wiki/%E7%8B%82%E4%BA%BA%E6%97%A5%E8%AE%B0",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "1c02fc86828c0841",
+      "language": "zh-Hans",
+      "title": "狂人日记",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E7%8B%82%E4%BA%BA%E6%97%A5%E8%AE%B0",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    }
+  ]
+}
