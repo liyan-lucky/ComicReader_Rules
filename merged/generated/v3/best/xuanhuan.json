@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T13:07:22.493149+00:00",
+  "generatedAt": "2026-09-23T20:24:59.260776+00:00",
   "selected": [
     {
       "workId": "9f891060bbebb76b",
@@ -12999,6 +12999,21 @@
       ]
     },
     {
+      "workId": "cdb6dc6d659f0231",
+      "language": "zh-Hans",
+      "title": "天书奇谈",
+      "domain": "tieba.baidu.com",
+      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "6395c530d5edd7b6",
       "language": "zh-Hans",
       "title": "天相",
@@ -13198,6 +13213,50 @@
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "c4bf53d82cfe6cc6",
+      "language": "zh-Hans",
+      "title": "常乐同学令我无法告白",
+      "domain": "manhuaba.com",
+      "detailUrl": "https://www.manhuaba.com/comic/N7E6eYDMry",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.manhuaba.com/comic/N7E6eYDMry"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "c4bf53d82cfe6cc6",
+      "language": "zh-Hans",
+      "title": "常乐同学令我无法告白",
+      "domain": "manga.bilibili.com",
+      "detailUrl": "https://manga.bilibili.com/m/detail/mc39202",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "c4bf53d82cfe6cc6",
+      "language": "zh-Hans",
+      "title": "常乐同学令我无法告白",
+      "domain": "guazimanhua.com",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=20687",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_order_or_completeness_gate_failed"
       ],
       "selectionReasons": [
         "three_chapter_readability_gate_failed"
@@ -13440,6 +13499,94 @@
       ]
     },
     {
+      "workId": "c75bb1025ee4a236",
+      "language": "zh-Hans",
+      "title": "火狐",
+      "domain": "pcsoft.com.cn",
+      "detailUrl": "https://www.pcsoft.com.cn/soft/116631.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "c75bb1025ee4a236",
+      "language": "zh-Hans",
+      "title": "火狐",
+      "domain": "firefox.com.cn",
+      "detailUrl": "https://www.firefox.com.cn/download/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ConnectTimeout: HTTPSConnectionPool(host='www.firefox.com.cn', port=443): Max retries exceeded with url: /download/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.firefox.com.cn', port=443) at 0x7fae983c6ed0>, 'Connection to www.firefox.com.cn timed out. (connect timeout=25)'))"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b22eb9970868052f",
+      "language": "zh-Hans",
+      "title": "童话",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/wiki/%E7%AB%A5%E8%A9%B1",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b22eb9970868052f",
+      "language": "zh-Hans",
+      "title": "童话",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E7%AB%A5%E8%A9%B1",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b22eb9970868052f",
+      "language": "zh-Hans",
+      "title": "童话",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/video/BV1a4411471H/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1a4411471H/"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b22eb9970868052f",
+      "language": "zh-Hans",
+      "title": "童话",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/page/v0533of6tmq.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "cc02d7e47faaa5fd",
       "language": "zh-Hans",
       "title": "终结的炽天使",
@@ -13471,38 +13618,8 @@
       "workId": "f31375dcc1d429bd",
       "language": "zh-Hans",
       "title": "美女",
-      "domain": "space.bilibili.com",
-      "detailUrl": "https://space.bilibili.com/473571777",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/473571777"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "f31375dcc1d429bd",
-      "language": "zh-Hans",
-      "title": "美女",
-      "domain": "iqiyi.com",
-      "detailUrl": "https://www.iqiyi.com/so/q_%E7%BE%8E%E5%A5%B3",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "f31375dcc1d429bd",
-      "language": "zh-Hans",
-      "title": "美女",
-      "domain": "yituyu.com",
-      "detailUrl": "https://www.yituyu.com/tag/1622/",
+      "domain": "huaban.com",
+      "detailUrl": "https://huaban.com/boards/18277914",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -13531,11 +13648,11 @@
       "workId": "f31375dcc1d429bd",
       "language": "zh-Hans",
       "title": "美女",
-      "domain": "netbian.com",
-      "detailUrl": "https://www.netbian.com/meinv/",
-      "status": "rejected",
+      "domain": "space.bilibili.com",
+      "detailUrl": "https://space.bilibili.com/473571777",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/473571777"
       ],
       "selectionReasons": [
         "title_identity_mismatch",

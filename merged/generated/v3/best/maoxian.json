@@ -1,9 +1,24 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T10:34:04.232185+00:00",
+  "generatedAt": "2026-09-23T19:28:05.670830+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
+    {
+      "workId": "18a71e469addad67",
+      "language": "zh-Hans",
+      "title": "刺客列传",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E5%88%BA%E5%AE%A2",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
     {
       "workId": "fb23c8d6df2a246e",
       "language": "zh-Hans",
@@ -121,6 +136,34 @@
       ]
     },
     {
+      "workId": "87dfab9eb91e0785",
+      "language": "zh-Hans",
+      "title": "风姿物语",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/wiki/%E9%A2%A8%E5%A7%BF%E7%89%A9%E8%AA%9E",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "87dfab9eb91e0785",
+      "language": "zh-Hans",
+      "title": "风姿物语",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E9%A2%A8%E5%A7%BF%E7%89%A9%E8%AA%9E",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "bda572cdd7bcf800",
       "language": "zh-Hans",
       "title": "魔笛MAGI",
@@ -140,9 +183,9 @@
       "title": "魔笛MAGI",
       "domain": "bilibili.com",
       "detailUrl": "https://www.bilibili.com/bangumi/play/ep86198",
-      "status": "unreachable",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/bangumi/play/ep86198"
+        "no_chapters"
       ],
       "selectionReasons": [
         "title_identity_mismatch",

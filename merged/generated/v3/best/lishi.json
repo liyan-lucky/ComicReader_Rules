@@ -1,18 +1,18 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T11:33:05.586098+00:00",
+  "generatedAt": "2026-09-23T20:10:43.025802+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
     {
-      "workId": "704ad09057df9e89",
+      "workId": "c1c821fd58e63a70",
       "language": "zh-Hans",
-      "title": "天书奇谈",
-      "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
-      "status": "unreachable",
+      "title": "刺客列传",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E5%88%BA%E5%AE%A2",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -24,10 +24,10 @@
       "language": "zh-Hans",
       "title": "天书奇谈",
       "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88%E5%85%A8%E6%9C%8D%E4%BA%A4%E6%98%93",
+      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88%E5%85%A8%E6%9C%8D%E4%BA%A4%E6%98%93"
+        "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -313,6 +313,36 @@
         "no_chapters"
       ],
       "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "9664214c68a6e3e7",
+      "language": "zh-Hans",
+      "title": "阿房宫赋",
+      "domain": "gushiwen.cn",
+      "detailUrl": "https://www.gushiwen.cn/GuShiWen_ef13474b07.aspx",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "9664214c68a6e3e7",
+      "language": "zh-Hans",
+      "title": "阿房宫赋",
+      "domain": "gushiwen.cn",
+      "detailUrl": "https://www.gushiwen.cn/shiwenv_0456af8aceec.aspx",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     }

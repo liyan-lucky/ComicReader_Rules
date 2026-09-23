@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T14:24:33.634089+00:00",
+  "generatedAt": "2026-09-23T20:31:23.536767+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
@@ -20,46 +20,32 @@
       ]
     },
     {
-      "workId": "3d54773b00c75d62",
+      "workId": "48da6c5df1bd2656",
       "language": "zh-Hans",
-      "title": "W：两个世界",
+      "title": "S.A特优生",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep22584",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/bangumi/play/ep22584"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "48da6c5df1bd2656",
+      "language": "zh-Hans",
+      "title": "S.A特优生",
       "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/26727298/",
+      "detailUrl": "https://movie.douban.com/subject/3035537/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3d54773b00c75d62",
-      "language": "zh-Hans",
-      "title": "W：两个世界",
-      "domain": "v.qq.com",
-      "detailUrl": "https://v.qq.com/x/cover/j9xn8rw7avsdwke.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3d54773b00c75d62",
-      "language": "zh-Hans",
-      "title": "W：两个世界",
-      "domain": "zh.wikipedia.org",
-      "detailUrl": "https://zh.wikipedia.org/zh-cn/W%E2%80%94%E5%85%A9%E5%80%8B%E4%B8%96%E7%95%8C",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
