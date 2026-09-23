@@ -54,3 +54,9 @@ secrets.*
 .codegraph/
 .agents/
 .tmp/
+
+# Catalog backups (keep local only, don't commit to repo)
+catalog/backups/
+
+# Push cache
+.push_blob_cache.json

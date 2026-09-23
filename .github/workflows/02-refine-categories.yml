@@ -62,12 +62,11 @@ jobs:
         with: {python-version: '3.12'}
       - uses: actions/download-artifact@v4
         with: {pattern: category-progress-*, path: merged, merge-multiple: true}
-      - name: 覆盖每类唯一状态和结果文件
+      - name: 安全合并各分类状态和审计结果（不覆盖更好的本地数据）
         run: |
-          mkdir -p state generated
-          cp -a merged/state/. state/
-          cp -a merged/generated/. generated/
-          find generated/v3/audits generated/v3/best -mindepth 1 -type d -exec rm -rf {} +
+          mkdir -p state generated/v3/audits generated/v3/best
+          python scripts/safe_merge_artifacts.py merged .
+          find generated/v3/audits generated/v3/best -mindepth 1 -type d -exec rm -rf {} + 2>/dev/null || true
       - name: 重新生成各分类最佳源文件（确保rejected含domain字段）
         run: |
           for f in generated/v3/audits/*.jsonl; do
