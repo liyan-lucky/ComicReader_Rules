@@ -505,3 +505,31 @@ App 书架书本数停滞在 234 本，不增加。
 1. **安全合并**：state 文件按 `updatedAt` 比较，只在新数据更晚时覆盖；audits 按 JSONL 行数比较，只在新数据更多行时覆盖
 2. **catalog 备份**：每次 publish 前备份当前 catalog，保留最新 10 个备份
 3. **增量保留**：`publish_catalog.py` 保留 last-good 条目直到显式失效；`merge_domain_rules.py` 保留旧 verified 规则除非新 verified 结果覆盖
+
+---
+
+## 9-23：修复 05/06 被 07/08 阻塞导致 04 publish cancelled（commit 946dd2cb，已推送）
+
+### 根因
+
+05-publish.yml、06-publish-rules.yml、07-cover-audit.yml、08-cover-rules.yml **共享同一个 concurrency group `catalog-v3-manifest-publish`**，导致：
+1. 07 运行 7 分钟期间，04 的 publish（调用 06）被排队等待
+2. 08 触发后取代了 06 的排队位置（`cancel-in-progress: false` 只保留最新排队）
+3. 06 被 cancel → 04 的 publish cancelled → publish_catalog skipped
+
+### 修复
+
+| 文件 | 旧 concurrency group | 新 concurrency group |
+|---|---|---|
+| 05-publish.yml | catalog-v3-manifest-publish | catalog-v3-publish-catalog |
+| 06-publish-rules.yml | catalog-v3-manifest-publish | catalog-v3-publish-rules |
+| 07-cover-audit.yml | catalog-v3-manifest-publish | catalog-v3-cover-audit |
+| 08-cover-rules.yml | catalog-v3-manifest-publish | catalog-v3-cover-rules |
+
+同时修复 06 的 `git pull --rebase` → `|| true`、`git add` → `git add -A`。
+
+### 验证
+
+手动触发 04 (35882546196)，所有 job 成功：
+- publish / publish (06): **success**
+- publish_catalog / publish (05): **success**
