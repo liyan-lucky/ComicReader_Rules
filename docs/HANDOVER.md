@@ -358,3 +358,41 @@ App 书架书本数停滞在 234 本，不增加。
 | 07 | cover-audit | 30m |
 | 08 | cover-rules | 15m |
 | 09 | publish-filter-words | 15m |
+
+---
+
+## 本轮：02 超时后结果丢失修复（2026-09-23，已推送）
+
+### 问题
+
+收紧到 60m 后，02 workflow 全部被 cancel 且无成功产出。根因：
+
+1. **搜索步骤被 GitHub 60m 超时 cancel → `upload-artifact` 被 skip → 结果全部丢失**
+2. **`job-time-budget=3300` (55m) 检查在 chunk 级别**，单个作品卡 5+ 分钟时无法及时退出
+3. **搜索脚本仅在循环结束后保存**，被 SIGTERM 杀死时文件不写入
+
+### 修复
+
+| 文件 | 修改 | 说明 |
+|---|---|---|
+| `incremental_category_search.py` | 提取 `save_progress()` 函数 | 保存逻辑可在循环中定期调用 |
+| `incremental_category_search.py` | 每 50 个作品调用 `save_progress()` | 即使被杀死也有部分结果写入 out/ |
+| `incremental_category_search.py` | `as_completed` 加 `timeout` 参数 | 防止单作品卡住整个 chunk |
+| `incremental_category_search.py` | mid-chunk budget 检查 | budget 到达时 cancel 未完成 future 并 break |
+| `incremental_category_search.py` | 捕获 `FutureTimeout` | chunk 超时时保存进度并标记 budget_hit |
+| `02-refine-categories.yml` | `--job-time-budget 3300` → `2700` | 45m 搜索 + 15m select/upload = 60m 内完成 |
+
+### 时间分配（60m timeout 内）
+
+```
+0-45m:  搜索（job-time-budget=2700s，每50作品保存一次）
+45-55m: select_sources 汇总最佳源
+55-60m: upload-artifact 上传结果
+```
+
+### 预期效果
+
+- 搜索在 45m 时主动退出（即使 mid-chunk 也能退出）
+- 已搜索的结果每 50 作品保存一次到 out/ 目录
+- select_sources + upload-artifact 有 15 分钟完成
+- artifact 成功上传 → merge job 有数据可合并 → 续跑或完成
