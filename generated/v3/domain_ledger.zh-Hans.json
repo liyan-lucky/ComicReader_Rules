@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-23T16:04:40.655930+00:00",
+  "generatedAt": "2026-09-23T17:04:10.593594+00:00",
   "domains": [
     {
       "domain": "36kr.com",
@@ -1797,6 +1797,32 @@
         }
       ],
       "ruleStatus": "pending_domain_analysis"
+    },
+    {
+      "domain": "gushiwen.cn",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "1b73d218393bd04e",
+          "title": "大音希声",
+          "detailUrl": "https://www.gushiwen.cn/mingju/juv_aabcbc1e92b9.aspx",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
     },
     {
       "domain": "hanyuguoxue.com",
@@ -4875,7 +4901,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
@@ -4911,6 +4937,45 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/baa1f22e37687e21af45b307e87101f69f31fb06.html"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1b73d218393bd04e",
+          "title": "大音希声",
+          "detailUrl": "https://wenku.baidu.com/view/4befa64f5b0e7cd184254b35eefdc8d377ee1406.html",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://wk.baidu.com/view/4befa64f5b0e7cd184254b35eefdc8d377ee1406?pcf=2&bfetype=new"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "wenlinshe.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "1b73d218393bd04e",
+          "title": "大音希声",
+          "detailUrl": "https://www.wenlinshe.com/chengyu/da-yin-xi-sheng-029163",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/da-yin-xi-sheng-029163"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
