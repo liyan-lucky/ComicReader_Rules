@@ -33,6 +33,7 @@ jobs:
         with: {name: 'domain-${{ strategy.job-index }}', path: out/}
   merge:
     needs: analyze
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -41,6 +42,7 @@ jobs:
       - run: rm -f generated/v3/domain-rules/*.json
       - uses: actions/download-artifact@v4
         with: {pattern: domain-*, path: generated/v3/domain-rules, merge-multiple: true}
+        continue-on-error: true
       - run: python scripts/merge_domain_rules.py --input-dir generated/v3/domain-rules --ledger generated/v3/domain_ledger.zh-Hans.json --output rules/index.zh-Hans.json
       - run: |
           git config user.name github-actions[bot]

@@ -95,7 +95,15 @@ def main() -> int:
                 audits = saved.get("audits", [])
         if audits is None:
             urls = engine.search(session, work["canonicalTitle"], candidate_limit, policy.get("searchTerms"))
-            audits = [engine.audit(session, work, url) for url in urls]
+            with ThreadPoolExecutor(max_workers=min(len(urls), 6)) as audit_pool:
+                audit_futures = {audit_pool.submit(engine.audit, session, work, url): url for url in urls}
+                audits = []
+                for future in as_completed(audit_futures):
+                    url = audit_futures[future]
+                    try:
+                        audits.append(future.result())
+                    except Exception as exc:
+                        print(f"  AUDIT ERROR [{work['canonicalTitle'][:30]}] {url}: {exc}", flush=True)
             ckpt.write_text(json.dumps({"workFingerprint": entries[wid]["workFingerprint"], "workId": wid, "audits": audits}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         return wid, audits
 

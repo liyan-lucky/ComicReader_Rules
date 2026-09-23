@@ -1,0 +1,28 @@
+name: 10 保持 02 运行
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+permissions: {contents: read, actions: write}
+jobs:
+  ensure-02-running:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - name: 检查 02 是否在运行，未运行则触发
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          echo "检查 02-refine-categories.yml 运行状态..."
+          RUNNING=$(gh run list --workflow=02-refine-categories.yml --status=in_progress --limit=1 --json databaseId 2>/dev/null || echo "[]")
+          QUEUED=$(gh run list --workflow=02-refine-categories.yml --status=queued --limit=1 --json databaseId 2>/dev/null || echo "[]")
+          if [ "$RUNNING" != "[]" ] || [ "$QUEUED" != "[]" ]; then
+            echo "02 已在运行或排队中，跳过触发"
+            echo "in_progress: $RUNNING"
+            echo "queued: $QUEUED"
+          else
+            echo "02 未运行，触发新一轮搜索..."
+            gh workflow run 02-refine-categories.yml --ref main
+            echo "已触发 02"
+          fi

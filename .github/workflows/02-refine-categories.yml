@@ -43,7 +43,7 @@ jobs:
           test ! -f 'state/search/zh-Hans/${{ matrix.category }}.json' || cp 'state/search/zh-Hans/${{ matrix.category }}.json' 'out/state/search/zh-Hans/${{ matrix.category }}.json'
           test ! -f 'generated/v3/audits/${{ matrix.category }}.jsonl' || cp 'generated/v3/audits/${{ matrix.category }}.jsonl' 'out/generated/v3/audits/${{ matrix.category }}.jsonl'
       - name: 搜索本类未标记作品并回写进度
-        run: python scripts/incremental_category_search.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --state 'out/state/search/zh-Hans/${{ matrix.category }}.json' --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --max-works 2000 --search-workers 4 --job-time-budget 13800
+        run: python scripts/incremental_category_search.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --state 'out/state/search/zh-Hans/${{ matrix.category }}.json' --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --max-works 2000 --search-workers 8 --job-time-budget 13800
       - name: 汇总本类唯一最佳源文件
         run: python scripts/select_sources.py --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --output 'out/generated/v3/best/${{ matrix.category }}.json'
       - uses: actions/upload-artifact@v4
@@ -90,10 +90,6 @@ jobs:
         if: always()
         env: {GH_TOKEN: '${{ github.token }}'}
         run: gh workflow run 03-batch-replay.yml --ref main
-      - name: 尚有未搜索作品时自动续跑
-        if: steps.cycle.outputs.pending == 'true'
-        env: {GH_TOKEN: '${{ github.token }}'}
-        run: gh workflow run 02-refine-categories.yml --ref main
   publish_incremental:
     needs: merge
     if: always()
