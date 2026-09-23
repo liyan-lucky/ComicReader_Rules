@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   workflow_call:
 permissions: {contents: write, actions: write}
-concurrency: {group: catalog-v3-manifest-publish, cancel-in-progress: false}
+concurrency: {group: catalog-v3-publish-catalog, cancel-in-progress: false}
 jobs:
   publish:
     runs-on: ubuntu-latest
