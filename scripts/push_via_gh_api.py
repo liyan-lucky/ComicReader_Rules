@@ -1,33 +1,53 @@
 #!/usr/bin/env python3
-"""Push local commits to remote via GitHub Git Database API (bypasses git proxy)."""
-import subprocess, json, sys, os, base64
+"""Push local commits to remote via GitHub Git Database API with blob caching."""
+import subprocess, json, sys, os, base64, time, hashlib
 
 REPO = "liyan-lucky/ComicReader_Rules"
+CACHE_FILE = ".push_blob_cache.json"
 
-def gh_api(method, endpoint, payload=None):
-    cmd = ["gh", "api", "--method", method, f"repos/{REPO}/{endpoint}"]
-    if payload is not None:
-        cmd += ["--input", "-"]
-    result = subprocess.run(cmd, input=json.dumps(payload) if payload else None,
-                          capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"API error {endpoint}: {result.stderr}", file=sys.stderr)
-        sys.exit(1)
-    return json.loads(result.stdout) if result.stdout.strip() else {}
+def gh_api(method, endpoint, payload=None, retries=8):
+    for attempt in range(retries):
+        cmd = ["gh", "api", "--method", method, f"repos/{REPO}/{endpoint}"]
+        if payload is not None:
+            cmd += ["--input", "-"]
+        result = subprocess.run(cmd, input=json.dumps(payload) if payload else None,
+                              capture_output=True, text=True)
+        if result.returncode == 0:
+            return json.loads(result.stdout) if result.stdout.strip() else {}
+        if attempt < retries - 1:
+            wait = min((attempt + 1) * 2, 10)
+            time.sleep(wait)
+    print(f"API error {endpoint}: {result.stderr.strip()[:100]}", file=sys.stderr)
+    sys.exit(1)
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        return json.loads(open(CACHE_FILE).read())
+    return {}
+
+def save_cache(cache):
+    with open(CACHE_FILE, "w") as f:
+        json.dump(cache, f)
 
 def get_changed_files():
     result = subprocess.run(["git", "diff", "--name-only", "origin/main", "HEAD"],
                           capture_output=True, text=True)
     return [f for f in result.stdout.strip().split("\n") if f]
 
-def create_blob(filepath):
+def create_blob(filepath, cache):
     with open(filepath, "rb") as f:
         content = f.read()
+    content_hash = hashlib.sha256(content).hexdigest()
+    if content_hash in cache:
+        return cache[content_hash]
     encoded = base64.b64encode(content).decode("ascii")
     resp = gh_api("POST", "git/blobs", {"content": encoded, "encoding": "base64"})
+    cache[content_hash] = resp["sha"]
+    save_cache(cache)
     return resp["sha"]
 
 def main():
+    cache = load_cache()
     ref = gh_api("GET", "git/refs/heads/main")
     old_commit_sha = ref["object"]["sha"]
     print(f"Remote HEAD: {old_commit_sha}")
@@ -51,7 +71,7 @@ def main():
             tree_items.append({"path": filepath, "mode": "100644", "type": "blob", "sha": None})
             print(f"  [{i+1}/{len(changed_files)}] {filepath} (deleted)")
             continue
-        blob_sha = create_blob(filepath)
+        blob_sha = create_blob(filepath, cache)
         mode = "100755" if os.access(filepath, os.X_OK) else "100644"
         tree_items.append({"path": filepath, "mode": mode, "type": "blob", "sha": blob_sha})
         print(f"  [{i+1}/{len(changed_files)}] {filepath} -> {blob_sha[:8]}")
@@ -73,6 +93,8 @@ def main():
     gh_api("PATCH", "git/refs/heads/main", {"sha": parent_sha, "force": True})
     print(f"Updated refs/heads/main -> {parent_sha}")
     print("Push complete!")
+    if os.path.exists(CACHE_FILE):
+        os.remove(CACHE_FILE)
 
 if __name__ == "__main__":
     main()
