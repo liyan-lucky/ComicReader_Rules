@@ -296,3 +296,65 @@ App 书架书本数停滞在 234 本，不增加。
 - 每作品 ~15 秒（原 ~60 秒），4 倍并行 → 每分类吞吐 16 倍
 - 42,309 作品预计 2-3 轮完成（原需 12+ 轮）
 - 02 完成后 → 05 门禁通过 → catalog 更新 → App 书架书本数增加
+
+---
+
+## 本轮：02 流程超时取消问题修复（2026-09-23，已推送）
+
+### 问题
+
+02 搜索运行 2+ 小时后被 GitHub Actions 取消，导致产出无效且影响后续流程。每小时定时触发还会导致多个 02 实例冲突。
+
+### 用户决策
+
+1. 取消 02 每小时定时运行，避免冲突
+2. 每个种类每次运行最长 1 小时（60m），避免长时间运行后取消浪费
+3. 运行结束后由 merge job 整理本轮结果，若仍有未搜索作品则自动触发下一轮续跑
+4. 持续续跑直到所有分类完成
+
+### 修复
+
+| 文件 | 修改 | 说明 |
+|---|---|---|
+| `02-refine-categories.yml` | 删除 `schedule: cron: '0 * * * *'` | 取消每小时定时触发，避免冲突 |
+| `02-refine-categories.yml` | 删除 `if` 中的 `github.event_name == 'schedule'` | 同步清理 schedule 相关逻辑 |
+| `02-refine-categories.yml` | `timeout-minutes: 240` → `60` | 每个分类最多运行 60 分钟 |
+| `02-refine-categories.yml` | `--job-time-budget 13800` → `3300` | 搜索脚本自身时间预算 55 分钟，留 5 分钟给 select_sources + upload |
+| `03-batch-replay.yml` | `timeout-minutes: 120` → `60` | 03 回放也收紧到 60m |
+
+### 续跑机制（已有，无需修改）
+
+```
+02 category_pipeline (60m 上限)
+  ↓ continue-on-error: true + if: always()
+02 merge job (30m)
+  ├─ pending=true  → gh workflow run 02-refine-categories.yml (续跑)
+  └─ pending=false → gh workflow run 03-batch-replay.yml (完成)
+```
+
+- 每个分类超时后 GitHub 标记 cancelled，但 `continue-on-error: true` 不影响 matrix 其他分类
+- merge job 的 `if: always()` 确保即使部分分类超时也运行
+- merge job 下载已完成的 artifact，合并状态，检查 pending
+- 若仍有未搜索作品（pending=true），自动触发 02 续跑，从 checkpoint 恢复
+- 若全部完成（pending=false），触发 03 进入回放阶段
+
+### 全部 workflow timeout 汇总（均 ≤ 60m）
+
+| workflow | job | timeout |
+|---|---|---|
+| 01 | collect | 5m |
+| 01 | merge | 30m |
+| 01 | publish | 10m |
+| 01 | dispatch-02 | 15m |
+| 01 | collect-manhuaxq | 10m |
+| 02 | category_pipeline | **60m** |
+| 02 | merge | 30m |
+| 03 | replay | **60m** |
+| 04 | build | 5m |
+| 04 | merge | 60m |
+| 04 | publish | 15m |
+| 05 | publish | 30m |
+| 06 | publish-rules | 15m |
+| 07 | cover-audit | 30m |
+| 08 | cover-rules | 15m |
+| 09 | publish-filter-words | 15m |
