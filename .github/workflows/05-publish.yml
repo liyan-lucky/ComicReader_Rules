@@ -24,7 +24,7 @@ jobs:
       - run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add catalog/catalog.zh-Hans.json generated/update_manifest.json generated/v3/release_audit.zh-Hans.json generated/app_blacklist.zh-Hans.json generated/blacklist_safety_report.json
+          git add -A
           git diff --cached --quiet || git commit -m 'publish: validated readable catalog'
           bash scripts/ci_push_with_retry.sh
       - name: Trigger cover audit refresh
