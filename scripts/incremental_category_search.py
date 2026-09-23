@@ -6,7 +6,7 @@ import argparse
 import hashlib
 import json
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError as FutureTimeout
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -120,45 +120,32 @@ def main() -> int:
         args.state.parent.mkdir(parents=True, exist_ok=True)
         args.state.write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    budget_hit = False
     with ThreadPoolExecutor(max_workers=search_workers) as pool:
         for chunk_start in range(0, len(selected), search_workers):
             if processed > 0 and time.monotonic() - started >= args.job_time_budget:
-                print(f"time budget reached after {processed} works; saving progress for the next run", flush=True)
+                print(f"time budget reached after {processed} works; not starting new searches", flush=True)
                 break
             chunk = selected[chunk_start:chunk_start + search_workers]
             futures = {pool.submit(search_one_work, work): work for work in chunk}
-            try:
-                for future in as_completed(futures, timeout=max(1, args.job_time_budget - int(time.monotonic() - started))):
-                    work = futures[future]
-                    try:
-                        work_id, work_audits = future.result()
-                    except Exception as exc:
-                        print(f"  ERROR [{work['canonicalTitle'][:30]}]: {exc}", flush=True)
-                        continue
-                    prior_good = [item for item in existing.get(work_id, []) if item.get("status") == "verified"
-                                  and item.get("policyVersion") == engine.POLICY_VERSION]
-                    replayed_urls = {str(item.get("detailUrl", "")) for item in work_audits}
-                    existing[work_id] = work_audits + [item for item in prior_good
-                                                       if str(item.get("detailUrl", "")) not in replayed_urls]
-                    entries[work_id]["status"] = "searched"
-                    entries[work_id]["searchedAt"] = now()
-                    processed += 1
-                    print(f"[{processed}/{len(selected)}] {work['canonicalTitle']}: {sum(x.get('status') == 'verified' for x in work_audits)}/{len(work_audits)}", flush=True)
-                    if processed % 50 == 0:
-                        save_progress()
-                        print(f"  [checkpoint] saved {processed} works", flush=True)
-                    if time.monotonic() - started >= args.job_time_budget:
-                        print(f"time budget reached mid-chunk after {processed} works; saving progress", flush=True)
-                        budget_hit = True
-                        for f in futures:
-                            f.cancel()
-                        break
-            except FutureTimeout:
-                print(f"chunk timeout after {processed} works; saving progress", flush=True)
-                budget_hit = True
-            if budget_hit:
-                break
+            for future in as_completed(futures):
+                work = futures[future]
+                try:
+                    work_id, work_audits = future.result()
+                except Exception as exc:
+                    print(f"  ERROR [{work['canonicalTitle'][:30]}]: {exc}", flush=True)
+                    continue
+                prior_good = [item for item in existing.get(work_id, []) if item.get("status") == "verified"
+                              and item.get("policyVersion") == engine.POLICY_VERSION]
+                replayed_urls = {str(item.get("detailUrl", "")) for item in work_audits}
+                existing[work_id] = work_audits + [item for item in prior_good
+                                                   if str(item.get("detailUrl", "")) not in replayed_urls]
+                entries[work_id]["status"] = "searched"
+                entries[work_id]["searchedAt"] = now()
+                processed += 1
+                print(f"[{processed}/{len(selected)}] {work['canonicalTitle']}: {sum(x.get('status') == 'verified' for x in work_audits)}/{len(work_audits)}", flush=True)
+                if processed % 50 == 0:
+                    save_progress()
+                    print(f"  [checkpoint] saved {processed} works", flush=True)
 
     save_progress()
     searched_count = sum(item["status"] == "searched" for item in entries.values())
