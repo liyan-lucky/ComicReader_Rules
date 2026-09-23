@@ -87,7 +87,7 @@ jobs:
           git diff --cached --quiet || git commit -m 'search: advance category progress'
           bash scripts/ci_push_with_retry.sh
       - name: 每批完成后显式传递到 03
-        if: steps.cycle.outputs.pending == 'false'
+        if: always()
         env: {GH_TOKEN: '${{ github.token }}'}
         run: gh workflow run 03-batch-replay.yml --ref main
       - name: 尚有未搜索作品时自动续跑
@@ -96,5 +96,5 @@ jobs:
         run: gh workflow run 02-refine-categories.yml --ref main
   publish_incremental:
     needs: merge
-    if: needs.merge.outputs.pending == 'false'
+    if: always()
     uses: ./.github/workflows/05-publish.yml
