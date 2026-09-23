@@ -1,0 +1,28 @@
+use_default_settings: true
+
+general:
+  instance_name: ComicReader Search
+  debug: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  formats:
+    - html
+    - json
+
+server:
+  bind_address: "0.0.0.0"
+  port: 8080
+  # Access control and rate isolation are provided by the token gateway.
+  limiter: false
+  image_proxy: false
+
+redis:
+  url: redis://valkey:6379/0
+
+outgoing:
+  request_timeout: 12.0
+  max_request_timeout: 25.0
+  pool_connections: 50
+  pool_maxsize: 20

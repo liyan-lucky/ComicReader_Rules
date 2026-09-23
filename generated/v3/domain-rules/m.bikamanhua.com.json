@@ -1,0 +1,33 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_bikamanhua_com",
+  "domain": "m.bikamanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [
+    "a",
+    "*.desc_item a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "9461938af1f8d1c8",
+    "a1444ab7c3c7fd77",
+    "b91bdf9b79df7791",
+    "e5b513f6a04e1bee",
+    "f2d83078a9c7f223"
+  ],
+  "replayWorkCount": 5,
+  "failures": [],
+  "status": "rejected"
+}

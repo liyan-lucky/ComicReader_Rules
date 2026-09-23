@@ -1,0 +1,35 @@
+name: 09-publish-filter-words
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Generate filter_words.txt
+        run: |
+          python scripts/generate_filter_words.py \
+            --output generated/filter_words.txt
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add generated/filter_words.txt
+          if git diff --cached --quiet; then
+            echo "No changes to filter_words.txt"
+          else
+            git commit -m "chore: update generated/filter_words.txt [skip ci]"
+            git push
+          fi

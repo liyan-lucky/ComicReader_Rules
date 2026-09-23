@@ -1,0 +1,48 @@
+name: 规则问题反馈
+description: 反馈某个漫画源规则不能搜索、不能打开详情或不能阅读
+labels: [rule]
+body:
+  - type: input
+    id: rule_id
+    attributes:
+      label: 规则 ID
+      description: 例如 kaixinman_public_access
+      placeholder: rule_id
+    validations:
+      required: false
+  - type: input
+    id: source_url
+    attributes:
+      label: 公开页面链接
+      description: 请提供公开可访问的站点首页、搜索页或漫画详情页
+      placeholder: https://example.com/comic/xxx
+    validations:
+      required: false
+  - type: dropdown
+    id: problem_type
+    attributes:
+      label: 问题类型
+      options:
+        - 搜索失败
+        - 详情页失败
+        - 章节列表失败
+        - 图片解析失败
+        - 分类目录错误
+        - 非漫画源混入
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 请描述复现步骤、关键词、错误现象
+    validations:
+      required: true
+  - type: checkboxes
+    id: compliance
+    attributes:
+      label: 合规确认
+      options:
+        - label: 我提供的是公开网页链接，不包含账号、Cookie、Token、付费内容或私有接口
+          required: true

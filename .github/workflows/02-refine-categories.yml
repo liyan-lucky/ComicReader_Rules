@@ -1,0 +1,100 @@
+name: 02 分类增量搜索处理
+run-name: "02 分类增量搜索处理（上游 01 #${{ github.event.workflow_run.id || '续跑' }}）"
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['01 每日平台粗采集']
+    types: [completed]
+permissions: {contents: write, actions: write}
+concurrency: {group: catalog-v3-category-pipelines, cancel-in-progress: false}
+jobs:
+  category_pipeline:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled'
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 60
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports: ['8080:8080']
+    env:
+      SEARXNG_URL: http://localhost:8080
+      SEARXNG_API_TOKEN: ${{ secrets.SEARXNG_API_TOKEN || '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - name: 恢复本类逐书检查点
+        uses: actions/cache@v4
+        with:
+          path: checkpoints/${{ matrix.category }}
+          key: category-v4-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'scripts/incremental_category_search.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category)) }}
+          restore-keys: category-v4-${{ matrix.category }}-
+      - name: 准备本类唯一状态和结果文件
+        run: |
+          mkdir -p 'out/state/search/zh-Hans' 'out/generated/v3/audits' 'out/generated/v3/best'
+          test ! -f 'state/search/zh-Hans/${{ matrix.category }}.json' || cp 'state/search/zh-Hans/${{ matrix.category }}.json' 'out/state/search/zh-Hans/${{ matrix.category }}.json'
+          test ! -f 'generated/v3/audits/${{ matrix.category }}.jsonl' || cp 'generated/v3/audits/${{ matrix.category }}.jsonl' 'out/generated/v3/audits/${{ matrix.category }}.jsonl'
+      - name: 搜索本类未标记作品并回写进度
+        run: python scripts/incremental_category_search.py --parameters 'parameters/catalog/zh-Hans/${{ matrix.category }}.json' --category-config 'config/categories/${{ matrix.category }}.json' --state 'out/state/search/zh-Hans/${{ matrix.category }}.json' --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --checkpoint-dir 'checkpoints/${{ matrix.category }}' --max-works 2000 --search-workers 4 --job-time-budget 3300
+      - name: 汇总本类唯一最佳源文件
+        run: python scripts/select_sources.py --audits 'out/generated/v3/audits/${{ matrix.category }}.jsonl' --output 'out/generated/v3/best/${{ matrix.category }}.json'
+      - uses: actions/upload-artifact@v4
+        with: {name: 'category-progress-${{ matrix.category }}', path: out/}
+  merge:
+    needs: category_pipeline
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      pending: ${{ steps.cycle.outputs.pending }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with: {pattern: category-progress-*, path: merged, merge-multiple: true}
+      - name: 覆盖每类唯一状态和结果文件
+        run: |
+          mkdir -p state generated
+          cp -a merged/state/. state/
+          cp -a merged/generated/. generated/
+          find generated/v3/audits generated/v3/best -mindepth 1 -type d -exec rm -rf {} +
+      - name: 重新生成各分类最佳源文件（确保rejected含domain字段）
+        run: |
+          for f in generated/v3/audits/*.jsonl; do
+            [ -f "$f" ] || continue
+            category=$(basename "$f" .jsonl)
+            python scripts/select_sources.py --audits "$f" --output "generated/v3/best/${category}.json"
+          done
+      - run: python scripts/merge_best_sources.py --input-dir generated/v3/best --output generated/v3/best_sources.zh-Hans.json --domain-output generated/v3/domain_ledger.zh-Hans.json
+      - id: cycle
+        name: 检查全目录并在整轮完成后重置标记
+        run: python scripts/finalize_search_cycle.py --state-dir state/search/zh-Hans --cycle-file generated/v3/search_cycle.zh-Hans.json
+      - name: 提交本轮统一进度
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add state/search/zh-Hans generated/v3
+          git diff --cached --quiet || git commit -m 'search: advance category progress'
+          bash scripts/ci_push_with_retry.sh
+      - name: 每批完成后显式传递到 03
+        if: steps.cycle.outputs.pending == 'false'
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh workflow run 03-batch-replay.yml --ref main
+      - name: 尚有未搜索作品时自动续跑
+        if: steps.cycle.outputs.pending == 'true'
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh workflow run 02-refine-categories.yml --ref main
+  publish_incremental:
+    needs: merge
+    if: needs.merge.outputs.pending == 'false'
+    uses: ./.github/workflows/05-publish.yml

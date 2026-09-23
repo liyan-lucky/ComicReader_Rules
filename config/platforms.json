@@ -1,0 +1,249 @@
+{
+  "schema": "comic_platform_registry_v1",
+  "language": "zh-Hans",
+  "maximumPagesPerCategory": 200,
+  "platforms": [
+    {
+      "id": "tencent",
+      "name": "腾讯动漫",
+      "baseUrl": "https://ac.qq.com",
+      "adapter": "tencent",
+      "entryUrl": "https://ac.qq.com/Comic/all",
+      "enabled": true
+    },
+    {
+      "id": "bilibili",
+      "name": "哔哩哔哩漫画",
+      "baseUrl": "https://manga.bilibili.com",
+      "adapter": "bilibili",
+      "entryUrl": "https://manga.bilibili.com/classify",
+      "enabled": false,
+      "disableReason": "CI海外IP触发ClassPage业务错误99风控（本地可访问）；需浏览器m2 token属反爬机制不予绕过（2026-09-21诊断）"
+    },
+    {
+      "id": "kuaikan",
+      "name": "快看漫画",
+      "baseUrl": "https://www.kuaikanmanhua.com",
+      "adapter": "kuaikan",
+      "entryUrl": "https://www.kuaikanmanhua.com/tag/0",
+      "enabled": true
+    },
+    {
+      "id": "dongman",
+      "name": "咚漫（用户称“破洞”）",
+      "aliases": [
+        "破洞"
+      ],
+      "baseUrl": "https://www.dongmanmanhua.cn",
+      "adapter": "dongman",
+      "entryUrl": "https://www.dongmanmanhua.cn/genre",
+      "enabled": true
+    },
+    {
+      "id": "manhuadao",
+      "name": "漫画岛",
+      "baseUrl": "https://www.manhuadao.cn",
+      "adapter": "generic",
+      "entryUrl": "https://www.manhuadao.cn",
+      "enabled": false,
+      "disableReason": "SSL证书损坏：CI报hostname mismatch，本地实测证书过期SEC_E_CERT_EXPIRED（2026-09-21诊断）"
+    },
+    {
+      "id": "u17",
+      "name": "有妖气",
+      "baseUrl": "https://www.u17.com",
+      "adapter": "generic",
+      "entryUrl": "https://www.u17.com",
+      "enabled": false,
+      "disableReason": "有妖气已停止运营，域名停放于备案解析页无真实服务（2026-09-21诊断）"
+    },
+    {
+      "id": "kanman",
+      "name": "看漫画",
+      "baseUrl": "https://www.kanman.com",
+      "adapter": "kanman",
+      "entryUrl": "https://m.kanman.com/api/getComicList",
+      "enabled": true
+    },
+    {
+      "id": "boluobao",
+      "name": "菠萝包漫画",
+      "baseUrl": "https://manhua.sfacg.com",
+      "adapter": "boluobao",
+      "entryUrl": "https://manhua.sfacg.com/catalog/",
+      "enabled": true
+    },
+    {
+      "id": "dmzj",
+      "name": "动漫之家",
+      "baseUrl": "https://manhua.dmzj.com",
+      "adapter": "generic",
+      "entryUrl": "https://manhua.dmzj.com",
+      "enabled": false,
+      "disableReason": "CI海外IP连接被重置ConnectionResetError 104，站点拒绝海外访问（2026-09-21诊断）"
+    },
+    {
+      "id": "manhuatai",
+      "name": "漫画台",
+      "baseUrl": "https://www.manhuatai.com",
+      "adapter": "generic",
+      "entryUrl": "https://www.manhuatai.com",
+      "enabled": false,
+      "disableReason": "SSL证书hostname mismatch，站方配置问题（2026-09-21诊断）"
+    },
+    {
+      "id": "manhuaxq",
+      "name": "漫画星球",
+      "baseUrl": "https://www.manhuaxq.com",
+      "adapter": "manhuaxq",
+      "entryUrl": "https://www.manhuaxq.com/genre/cate/",
+      "enabled": true
+    },
+    {
+      "id": "dm5",
+      "name": "动漫屋",
+      "baseUrl": "https://www.dm5.com",
+      "adapter": "dm5",
+      "entryUrl": "https://www.dm5.com/manhua-list/",
+      "enabled": true
+    },
+    {
+      "id": "manhuaba",
+      "name": "漫画吧",
+      "baseUrl": "https://www.manhuaba.com",
+      "adapter": "manhuaba",
+      "entryUrl": "https://www.manhuaba.com/category/list/1",
+      "enabled": true
+    }
+  ],
+  "tencentThemeIds": {
+    "lianai": 105,
+    "xuanhuan": 101,
+    "yineng": 103,
+    "kongbu": 110,
+    "juqing": 106,
+    "kehuan": 108,
+    "xuanyi": 112,
+    "qihuan": 102,
+    "maoxian": 104,
+    "fanzui": 111,
+    "dongzuo": 109,
+    "richang": 113,
+    "jingji": 114,
+    "wuxia": 115,
+    "lishi": 116,
+    "zhanzheng": 117
+  },
+  "kuaikanThemeIds": {
+    "lianai": [20, 52, 77],
+    "xuanhuan": [63, 86],
+    "yineng": 68,
+    "kongbu": 81,
+    "juqing": 23,
+    "kehuan": [91],
+    "xuanyi": 65,
+    "qihuan": [22, 80, 89, 92],
+    "dongzuo": 67,
+    "wuxia": 85,
+    "lishi": 46,
+    "richang": [74, 48, 62, 71]
+  },
+  "manhuaxqCategories": {
+    "lianai": ["恋爱", "言情", "虐恋", "甜宠", "纯爱", "总裁", "ABO", "彩虹", "橘里橘气"],
+    "xuanhuan": ["玄幻", "架空"],
+    "qihuan": ["奇幻", "穿越", "魔法", "西方", "非人类"],
+    "dongzuo": ["热血"],
+    "kongbu": ["灵异"],
+    "juqing": ["剧情", "短篇", "黑白漫"],
+    "kehuan": ["科幻"],
+    "xuanyi": ["悬疑"],
+    "maoxian": ["冒险"],
+    "richang": ["都市", "校园", "搞笑", "生活"],
+    "lishi": ["古风"],
+    "jingji": ["运动"]
+  },
+  "dm5Categories": {
+    "dongzuo": ["rexue", "shaonan"],
+    "lianai": ["aiqing", "shaonv"],
+    "qihuan": ["qihuan", "mofa"],
+    "kehuan": "kehuan",
+    "kongbu": "kongbu",
+    "xuanyi": ["xuanyi", "zhentan"],
+    "richang": ["gaoxiao", "xiaoyuan"],
+    "maoxian": "maoxian",
+    "lishi": "lishi",
+    "zhanzheng": "zhanzheng",
+    "jingji": "jingji",
+    "juqing": ["hougong", "tongren", "qingnian"]
+  },
+  "manhuabaCategories": {
+    "unclassified": 1,
+    "unclassified_jp": 2
+  },
+  "boluobaoThemeIds": {
+    "dongzuo": [
+      1,
+      4
+    ],
+    "richang": [
+      2,
+      8
+    ],
+    "xuanyi": [
+      3
+    ],
+    "maoxian": [
+      5
+    ],
+    "jingji": [
+      6
+    ],
+    "lianai": [
+      7,
+      13
+    ],
+    "kehuan": [
+      9
+    ],
+    "qihuan": [
+      10
+    ],
+    "kongbu": [
+      11
+    ],
+    "juqing": [
+      12,
+      15
+    ],
+    "wuxia": [
+      14
+    ]
+  },
+  "categoryAliases": {
+    "恋爱": "lianai",
+    "爱情": "lianai",
+    "玄幻": "xuanhuan",
+    "修仙": "xuanhuan",
+    "异能": "yineng",
+    "恐怖": "kongbu",
+    "剧情": "juqing",
+    "科幻": "kehuan",
+    "末世": "kehuan",
+    "悬疑": "xuanyi",
+    "推理": "xuanyi",
+    "奇幻": "qihuan",
+    "冒险": "maoxian",
+    "犯罪": "fanzui",
+    "动作": "dongzuo",
+    "热血": "dongzuo",
+    "战斗": "dongzuo",
+    "日常": "richang",
+    "竞技": "jingji",
+    "运动": "jingji",
+    "武侠": "wuxia",
+    "历史": "lishi",
+    "古风": "lishi",
+    "战争": "zhanzheng",
+    "军事": "zhanzheng"
+  }
+}

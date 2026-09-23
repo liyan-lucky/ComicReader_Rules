@@ -1,0 +1,5 @@
+:8080 {
+  @unauthorized not header X-Search-Token {$SEARCH_TOKEN}
+  respond @unauthorized "Forbidden" 403
+  reverse_proxy searxng:8080
+}

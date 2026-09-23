@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+import argparse,json,re,sys,os
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--catalog',type=Path,required=True);p.add_argument('--rules',type=Path,required=True);p.add_argument('--sources',type=Path);p.add_argument('--states',type=Path);p.add_argument('--output',type=Path);a=p.parse_args();errors=[];c=json.loads(a.catalog.read_text(encoding='utf-8-sig'));r=json.loads(a.rules.read_text(encoding='utf-8-sig'))
+ if c.get('schema')!='comic_catalog_v1':errors.append('invalid catalog schema')
+ if r.get('schema')!='womh_comic_rules_index_v1':errors.append('invalid rules schema')
+ domains=[];rules_by_domain={}
+ for rule in r.get('rules',[]):
+  domain=rule.get('homepage','').split('://',1)[-1].strip('/').removeprefix('www.');domains.append(domain);rules_by_domain[domain]=rule
+  if rule.get('domainApplicabilityList')!=[domain]:errors.append(f'rule {rule.get("id")} is not exact-domain')
+  if rule.get('audit',{}).get('status')!='verified':errors.append(f'rule {rule.get("id")} lacks replay proof')
+ if len(domains)!=len(set(domains)):errors.append('duplicate domain rules')
+ count=0
+ for category in c.get('categories',{}).values():
+  for item in category.get('items',[]):
+   count+=1
+   if item.get('validationPolicy')!='readability-v5':errors.append(f'{item.get("id")} has legacy validation policy')
+   if item.get('language')!='zh-Hans':errors.append(f'{item.get("id")} wrong language')
+   if int(item.get('verifiedChapterCount') or 0)<=0:errors.append(f'{item.get("id")} no chapters')
+   sources=item.get('sources',[])
+   if not sources:errors.append(f'{item.get("id")} no source');continue
+   s=sources[0]
+   chapters=s.get('chapters',[])
+   expected=int(item.get('verifiedChapterCount') or 0)
+   chapter_urls=[str(ch.get('url','')) for ch in chapters if isinstance(ch,dict)]
+   if len(chapters)!=expected:errors.append(f'{item.get("id")} chapter manifest mismatch: {len(chapters)}/{expected}')
+   if len(chapter_urls)!=len(set(chapter_urls)):errors.append(f'{item.get("id")} duplicate chapter links')
+   if any(not url.startswith('https://') for url in chapter_urls):errors.append(f'{item.get("id")} insecure chapter link')
+   if not str(s.get('detailUrl','')).startswith(('http://','https://')):errors.append(f'{item.get("id")} no detail link')
+   if not str(s.get('coverUrl','')).startswith('https://'):errors.append(f'{item.get("id")} cover is not HTTPS')
+   if s.get('domain') not in domains:errors.append(f'{item.get("id")} no domain rule')
+   else:
+    matched_rule=rules_by_domain[s.get('domain')];audit=matched_rule.get('audit',{})
+    if audit.get('policyVersion')!='readability-v5':errors.append(f'{item.get("id")} domain rule has legacy replay policy')
+    if str(item.get('id')) not in audit.get('verifiedWorkIds',[]):errors.append(f'{item.get("id")} absent from domain replay proof')
+    if matched_rule.get('readerImageGroups')!=[1]:errors.append(f'{item.get("id")} domain rule is not precise reader selector')
+ if c.get('totalItems')!=count:errors.append('catalog count mismatch')
+ category_counts={k:len(v.get('items',[])) for k,v in c.get('categories',{}).items()}; non_empty=sum(v>0 for v in category_counts.values())
+ titles=[str(x.get('title','')).strip().casefold() for v in c.get('categories',{}).values() for x in v.get('items',[])];duplicates=sorted({x for x in titles if titles.count(x)>1})
+ gates=json.loads((ROOT/'config/pipeline.json').read_text(encoding='utf-8-sig')).get('releaseGates',{})
+ if count<int(gates.get('minimumCatalogItems',0)):errors.append(f'catalog below minimum: {count}/{gates["minimumCatalogItems"]}')
+ if non_empty<int(gates.get('minimumNonEmptyCategories',0)):errors.append(f'non-empty categories below minimum: {non_empty}/{gates["minimumNonEmptyCategories"]}')
+ if duplicates and not gates.get('allowDuplicateTitles',False):errors.append(f'duplicate titles: {duplicates[:20]}')
+ selected_count=len(json.loads(a.sources.read_text(encoding='utf-8-sig')).get('selected',[])) if a.sources else None
+ category_search_progress={}
+ if a.states and a.states.exists():
+  for path in sorted(a.states.glob('*.json')):
+   st=json.loads(path.read_text(encoding='utf-8-sig'))
+   category_search_progress[path.stem]={'searched':int(st.get('searched',0)),'total':int(st.get('total',0)),'complete':bool(st.get('complete',False))}
+ report={'passed':not errors,'ruleCount':len(domains),'catalogCount':count,'selectedSourceCount':selected_count,'nonEmptyCategoryCount':non_empty,'emptyCategoryCount':len(category_counts)-non_empty,'duplicateTitleCount':len(duplicates),'categoryCounts':category_counts,'categorySearchProgress':category_search_progress,'errors':errors[:100]};rendered=json.dumps(report,ensure_ascii=False,indent=2);print(rendered)
+ if a.output:
+  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(rendered+'\n',encoding='utf-8',newline='\n')
+ summary=os.getenv('GITHUB_STEP_SUMMARY')
+ if summary:
+  lines=['## 发布数量与质量审计','',f'- 初选可读书源：**{selected_count if selected_count is not None else "未提供"} 本**',f'- 最终目录：**{count} 本**',f'- 域名规则：**{len(domains)} 条**',f'- 非空分类：**{non_empty}/{len(category_counts)}**',f'- 重复标题：**{len(duplicates)}**',f'- 发布门禁：**{"通过" if not errors else "未通过"}**','','| 分类 | 数量 | 搜索进度 |','|---|---:|---|']
+  for k,v in category_counts.items():
+   prog=category_search_progress.get(k)
+   prog_text=f"{prog['searched']}/{prog['total']}{' ✓' if prog['complete'] else ' ⏳'}" if prog else '-'
+   lines.append(f'| {k} | {v} | {prog_text} |')
+  if errors: lines+=['','### 阻断原因','']+[f'- {e}' for e in errors[:20]]
+  Path(summary).open('a',encoding='utf-8').write('\n'.join(lines)+'\n')
+ return 0 if not errors else 1
+if __name__=='__main__':raise SystemExit(main())
