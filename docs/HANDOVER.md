@@ -468,3 +468,40 @@ App 书架书本数停滞在 234 本，不增加。
 - **搜索速度提升 ~6x**：8 workers × 4 candidates 并行审计 vs 4 workers × 6 candidates 串行审计
 - **每小时自动检查**：02 未运行时自动触发，保证搜索持续进行
 - **流程更健壮**：03/04/05 的推送错误容错处理
+
+---
+
+## 9-23：数据保护与泛滥控制（commit b47c4b11，已推送）
+
+### 历史数据丢失根因
+
+`5556598e reset: clear all search state and audits for fresh start` 手动删除了全部搜索状态和审计数据（近 40 万行），导致：
+- 搜索从零开始，catalog 从 52 本降到 8 本
+- `publish_catalog.py` 的增量保留机制失效（依赖 audits → best_sources → domain_rules 链条）
+
+### 数据流审计结论
+
+| 脚本 | 模式 | 丢失风险 | 泛滥风险 |
+|---|---|---|---|
+| publish_catalog | 增量保留 + 全量写盘 | 低（仅显式失效才丢） | 低（works 驱动有上界） |
+| finalize_search_cycle | 条件重置（全 complete 才重置） | 低（entries 保留，仅 status 重置） | 低 |
+| select_sources | 全量重算 + 增量累积输入 | 低 | 中低（audits ≈ works×4） |
+| merge_best_sources | 全量合并覆盖 | 低 | 低 |
+| merge_domain_rules | 旧规则保留 + 新规则覆盖 | 低（单向累积） | 中低 |
+
+核心设计遵循 **"monotonic incremental discovery"** 原则——所有"重置"都是标记重置，不删除数据条目。
+
+### 修复
+
+| 文件 | 修改 | 说明 |
+|---|---|---|
+| `scripts/safe_merge_artifacts.py` | 新建 | 安全合并 state（按 updatedAt 比较）和 audits（按行数比较），不覆盖更好的本地数据 |
+| `02-refine-categories.yml` | `cp -a` → `safe_merge_artifacts.py` | merge job 不再暴力覆盖，防止不完整 artifact 覆盖完整本地数据 |
+| `05-publish.yml` | 添加 catalog 备份步骤 | 发布前备份到 `catalog/backups/`，保留最新 10 个 |
+| `.gitignore` | 排除 `catalog/backups/` 和 `.push_blob_cache.json` | 防止备份文件膨胀仓库 |
+
+### 数据保护机制
+
+1. **安全合并**：state 文件按 `updatedAt` 比较，只在新数据更晚时覆盖；audits 按 JSONL 行数比较，只在新数据更多行时覆盖
+2. **catalog 备份**：每次 publish 前备份当前 catalog，保留最新 10 个备份
+3. **增量保留**：`publish_catalog.py` 保留 last-good 条目直到显式失效；`merge_domain_rules.py` 保留旧 verified 规则除非新 verified 结果覆盖
