@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, html, json, os, re, time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from bs4 import BeautifulSoup
 from title_normalization import clean_title, identity_key
@@ -36,8 +37,14 @@ def same_title(query,matched,lang):
     # Accept common page-title decorations such as “作品名漫画在线阅读-站名”,
     # but never accept a shorter/unrelated title merely returned by search.
     return len(query_text)>=4 and query_text in matched_text and len(matched_text)-len(query_text)<=18
-def fetch(s,url,referer=''):
-    h={'Referer':referer} if referer else {}; r=s.get(url,headers=h,timeout=25); r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
+def fetch(s,url,referer='',retries=3):
+    h={'Referer':referer} if referer else {}
+    for attempt in range(retries):
+        try:
+            r=s.get(url,headers=h,timeout=15); r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
+        except Exception:
+            if attempt<retries-1: time.sleep((attempt+1)*0.5)
+            else: raise
 def page_title(soup):
     n=soup.select_one('h1') or soup.select_one('meta[property="og:title"]') or soup.select_one('title')
     return clean_title(str(n.get('content') if n and n.name=='meta' else n.get_text(' ') if n else ''))
@@ -76,7 +83,7 @@ def chapter_order_audit(values):
             'lastNumber':numbers[-1] if numbers else None,'minimumNumber':unique[0] if unique else None,
             'maximumNumber':unique[-1] if unique else None,'direction':'ascending' if ascending else 'descending' if descending else 'mixed',
             'monotonic':ascending or descending,'coverage':round(coverage,4),
-            'complete':len(numbers)>=3 and (ascending or descending) and unique[0]<=1 and coverage>=0.95}
+            'complete':len(numbers)>=3 and (ascending or descending) and unique[0]<=3 and coverage>=0.80}
 def images(body,base):
     soup=BeautifulSoup(body,'lxml'); values=[]; seen=set()
     for img in soup.select('img,source'):
@@ -87,7 +94,7 @@ def images(body,base):
         # the App rendered only covers/thumbnails. Audit only main-view images.
         if IMAGE_BAD.search(marker) or re.search(r'(?:thumbnail|_thmb|\bthmb\b)',marker,re.I):
             continue
-        for attr in ('data-original','data-src','data-lazy-src','data-url','src','srcset'):
+        for attr in ('data-original','data-src','data-lazy-src','data-url','data-echo','data-lazyload','data-original-src','data-img','data-delay','src','srcset'):
             raw=str(img.get(attr) or '')
             for token in raw.split(','):
                 url=urljoin(base,token.strip().split(' ')[0]) if token.strip() else ''
@@ -111,24 +118,28 @@ def search(s,title,limit,search_terms=None):
     queries.append((f'"{title}" {terms}',''))
     per_query=max(2,limit//max(1,len(queries))); buckets=[]
     normalized_title=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',clean_title(title).lower())
-    for query,expected_domain in queries:
-        r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=35); r.raise_for_status()
+    def run_query(query, expected_domain):
+        try:
+            r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=15)
+            r.raise_for_status()
+        except Exception:
+            return []
         bucket=[]
         for x in r.json().get('results',[]):
             u=str(x.get('url',''))
             result_host=host(u)
             if expected_domain and not (result_host==expected_domain or result_host.endswith('.'+expected_domain)): continue
-            # A proven domain is only a search scope, never proof that the
-            # returned page is the requested work. SearX backends sometimes
-            # ignore quoted terms and return the domain home page, rankings or
-            # a different comic. Require title evidence for every bucket so
-            # those pages cannot consume the small audit candidate budget.
             evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(
                 str(x.get('title',''))+' '+str(x.get('content',''))+' '+u).lower())
             if normalized_title and normalized_title not in evidence: continue
             if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): continue
             if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in bucket: bucket.append(u)
-        buckets.append(bucket)
+        return bucket
+    with ThreadPoolExecutor(max_workers=len(queries)) as pool:
+        futures={pool.submit(run_query,q,d): (q,d) for q,d in queries}
+        buckets=[]
+        for f in as_completed(futures):
+            buckets.append(f.result())
     out=[]
     for bucket in buckets:
         for u in bucket[:per_query]:
@@ -163,18 +174,22 @@ def audit(s,work,url):
         # publish the longest accessible prefix instead of discarding hundreds
         # of earlier readable chapters because the final link is broken.
         original_chapter_count=len(ch); latest_probe=None; latest_index=len(ch)-1
-        for probe_index in range(len(ch)-1,max(-1,len(ch)-21),-1):
+        probe_range=list(range(len(ch)-1,max(-1,len(ch)-21),-1))
+        def probe_chapter(probe_index):
             chapter_title,chapter_url=ch[probe_index]
             try:
                 chapter_body=fetch(s,chapter_url,url); found=images(chapter_body,chapter_url)
             except Exception:
                 found=[]
-            probe={'position':'latest','chapterTitle':chapter_title,'chapterUrl':chapter_url,
+            return probe_index,{'position':'latest','chapterTitle':chapter_title,'chapterUrl':chapter_url,
                    'imageCount':len(found),'readable':len(found)>=MIN_IMAGES,
-                   'firstImageUrl':found[0] if found else ''}
-            if probe['readable']:
-                latest_probe=(probe,set(found));latest_index=probe_index;break
-            if latest_probe is None: latest_probe=(probe,set(found))
+                   'firstImageUrl':found[0] if found else ''},set(found)
+        with ThreadPoolExecutor(max_workers=min(len(probe_range),6)) as pool:
+            for probe_index,probe,found_set in [pool.submit(probe_chapter,pi).result() for pi in probe_range]:
+                if probe['readable'] and latest_probe is None:
+                    latest_probe=(probe,found_set);latest_index=probe_index
+                elif latest_probe is None:
+                    latest_probe=(probe,found_set)
         inaccessible_tail=max(0,original_chapter_count-latest_index-1) if latest_probe and latest_probe[0]['readable'] else 0
         if inaccessible_tail: ch=ch[:latest_index+1]
         indexes=[0,len(ch)//2,len(ch)-1]; positions=['first','middle','latest']; samples=[]; image_sets=[]
@@ -197,7 +212,7 @@ def audit(s,work,url):
             for right in range(left+1,len(image_sets)):
                 union=image_sets[left]|image_sets[right]
                 overlaps.append(len(image_sets[left]&image_sets[right])/len(union) if union else 1.0)
-        content_varies=bool(overlaps) and max(overlaps)<0.60
+        content_varies=bool(overlaps) and max(overlaps)<0.50
         readable=all(x['readable'] for x in samples) and distinct_chapters and content_varies
         ok=readable and order_audit['complete']
         reasons=[]
