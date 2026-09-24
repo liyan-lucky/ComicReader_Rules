@@ -58,7 +58,8 @@ jobs:
       - uses: actions/checkout@v4
         with: {ref: main}
       - uses: actions/setup-python@v5
-        with: {python-version: '3.12'}
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
       - uses: actions/download-artifact@v4
         with: {pattern: category-progress-*, path: merged, merge-multiple: true}
       - name: 安全合并各分类状态和审计结果（不覆盖更好的本地数据）
