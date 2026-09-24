@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-24T01:44:13.728087+00:00",
+  "generatedAt": "2026-09-24T02:04:38.399326+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
@@ -16,6 +16,49 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "fb23c8d6df2a246e",
+      "language": "zh-Hans",
+      "title": "火影忍者",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/cover/mzc00200nc1cbum/n4100jkneti.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ChunkedEncodingError: ('Connection broken: IncompleteRead(2274 bytes read, 38465 more expected)', IncompleteRead(2274 bytes read, 38465 more expected))"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "fb23c8d6df2a246e",
+      "language": "zh-Hans",
+      "title": "火影忍者",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "fb23c8d6df2a246e",
+      "language": "zh-Hans",
+      "title": "火影忍者",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/wiki/%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -113,6 +156,36 @@
       "title": "美食的俘虏",
       "domain": "iqiyi.com",
       "detailUrl": "https://www.iqiyi.com/so/q_%E7%BE%8E%E9%A3%9F%E7%9A%84%E4%BF%98%E8%99%8F%E5%85%8D%E8%B4%B9%E5%9C%A8%E7%BA%BF%E8%A7%82%E7%9C%8B",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3f14f10594ffa9d1",
+      "language": "zh-Hans",
+      "title": "道君",
+      "domain": "qidian.com",
+      "detailUrl": "https://www.qidian.com/book/1005236478/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3f14f10594ffa9d1",
+      "language": "zh-Hans",
+      "title": "道君",
+      "domain": "readnovel.com",
+      "detailUrl": "https://www.readnovel.com/bookquery/rhzfurmisk",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
