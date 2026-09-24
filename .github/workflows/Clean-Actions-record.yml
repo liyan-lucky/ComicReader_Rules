@@ -1,6 +1,8 @@
 name: 清理 Actions 运行记录
 
 on:
+  schedule:
+    - cron: '0 3 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -62,13 +64,13 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       REPO: ${{ github.repository }}
       CURRENT_RUN_ID: ${{ github.run_id }}
-      DRY_RUN: ${{ inputs.dry_run }}
-      KEEP_LATEST_RUNS: ${{ inputs.keep_latest_runs }}
-      WORKFLOW_NAME_FILTER: ${{ inputs.workflow_name_filter }}
-      CLEAN_TAGS: ${{ inputs.clean_tags }}
-      TAG_PREFIX: ${{ inputs.tag_prefix }}
-      CLEAN_RELEASES: ${{ inputs.clean_releases }}
-      RELEASE_TAG_PREFIX: ${{ inputs.release_tag_prefix }}
+      DRY_RUN: ${{ github.event_name == 'schedule' && false || inputs.dry_run }}
+      KEEP_LATEST_RUNS: ${{ github.event_name == 'schedule' && '0' || inputs.keep_latest_runs }}
+      WORKFLOW_NAME_FILTER: ${{ github.event_name == 'schedule' && 'all' || inputs.workflow_name_filter }}
+      CLEAN_TAGS: ${{ github.event_name == 'schedule' && false || inputs.clean_tags }}
+      TAG_PREFIX: ${{ github.event_name == 'schedule' && 'search-rules-' || inputs.tag_prefix }}
+      CLEAN_RELEASES: ${{ github.event_name == 'schedule' && false || inputs.clean_releases }}
+      RELEASE_TAG_PREFIX: ${{ github.event_name == 'schedule' && 'search-rules-' || inputs.release_tag_prefix }}
 
     steps:
       - name: 检出仓库
@@ -165,12 +167,19 @@ jobs:
 
               for run in runs:
                   run_id = str(run.get("id"))
+                  run_status = str(run.get("status", ""))
 
                   if not run_id:
                       continue
 
                   # 不删除当前正在执行的清理流程
                   if run_id == current_run_id:
+                      skipped_for_workflow += 1
+                      total_skipped += 1
+                      continue
+
+                  # 不删除正在运行或排队的 run
+                  if run_status in ("in_progress", "queued", "waiting"):
                       skipped_for_workflow += 1
                       total_skipped += 1
                       continue
