@@ -11,16 +11,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: {ref: main}
-      - name: 检查 02 是否在运行，未运行则触发
+      - name: 检查 02 是否在运行，僵死或未运行则触发
         env: {GH_TOKEN: '${{ github.token }}'}
         run: |
+          set -euo pipefail
           echo "检查 02-refine-categories.yml 运行状态..."
-          RUNNING=$(gh run list --workflow=02-refine-categories.yml --status=in_progress --limit=1 --json databaseId 2>/dev/null || echo "[]")
-          QUEUED=$(gh run list --workflow=02-refine-categories.yml --status=queued --limit=1 --json databaseId 2>/dev/null || echo "[]")
-          if [ "$RUNNING" != "[]" ] || [ "$QUEUED" != "[]" ]; then
-            echo "02 已在运行或排队中，跳过触发"
-            echo "in_progress: $RUNNING"
-            echo "queued: $QUEUED"
+          NOW=$(date -u +%s)
+          STALE_FOUND=0
+          ACTIVE_FOUND=0
+          for row in $(gh run list --workflow=02-refine-categories.yml --limit=10 --json databaseId,status,startedAt 2>/dev/null | jq -c '.[]'); do
+            STATUS=$(echo "$row" | jq -r .status)
+            STARTED=$(echo "$row" | jq -r .startedAt)
+            if [ "$STATUS" = "in_progress" ] || [ "$STATUS" = "queued" ]; then
+              ACTIVE_FOUND=1
+              if [ "$STATUS" = "in_progress" ]; then
+                START_TS=$(date -u -d "$STARTED" +%s 2>/dev/null || echo 0)
+                AGE=$((NOW - START_TS))
+                if [ "$AGE" -gt 18000 ]; then
+                  STALE_FOUND=1
+                  echo "02 run $(echo "$row" | jq -r .databaseId) in_progress ${AGE}s (>5h)，视为僵死"
+                fi
+              fi
+            fi
+          done
+          if [ "$ACTIVE_FOUND" = "1" ] && [ "$STALE_FOUND" = "0" ]; then
+            echo "02 正常运行或排队中，跳过触发"
+          elif [ "$STALE_FOUND" = "1" ]; then
+            echo "02 存在僵死 run，触发新一轮（concurrency 排队，僵死 run 最终超时）"
+            gh workflow run 02-refine-categories.yml --ref main
           else
             echo "02 未运行，触发新一轮搜索..."
             gh workflow run 02-refine-categories.yml --ref main

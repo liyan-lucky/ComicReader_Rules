@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from collections import defaultdict
+from collections import defaultdict, Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -151,13 +151,18 @@ def main() -> int:
         print(f"catalog unchanged: {len(flat)} items; keeping version {old_doc.get('version', '')}")
         return 0
     now = datetime.now(timezone.utc)
+    reason_counts = Counter(r.get("reason", "unknown") for r in rejected)
     result = {"schema": "comic_catalog_v1", "version": now.strftime("%Y%m%d%H%M%S"),
         "updatedAt": now.isoformat(), "language": {"code": "zh-Hans", "name": "简体中文"},
         "totalItems": len(flat), "categoryCount": len(categories), "categories": categories,
-        "audit": {"rejected": rejected}}
+        "audit": {"rejectedCount": len(rejected), "reasonCounts": dict(reason_counts)}}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
-    print(f"published {len(flat)}, rejected {len(rejected)}")
+    rejected_path = ROOT / "generated" / "v3" / "catalog_rejected.zh-Hans.json"
+    rejected_path.parent.mkdir(parents=True, exist_ok=True)
+    rejected_path.write_text(json.dumps({"updatedAt": now.isoformat(), "rejected": rejected},
+        ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    print(f"published {len(flat)}, rejected {len(rejected)} (details -> {rejected_path})")
     return 0
 
 

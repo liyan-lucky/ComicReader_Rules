@@ -16,7 +16,6 @@ jobs:
       matrix:
         category: [lianai, xuanhuan, yineng, kongbu, juqing, kehuan, xuanyi, qihuan, maoxian, fanzui, dongzuo, richang, jingji, wuxia, lishi, zhanzheng]
     runs-on: ubuntu-latest
-    continue-on-error: true
     timeout-minutes: 240
     services:
       searxng:
@@ -35,7 +34,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: checkpoints/${{ matrix.category }}
-          key: category-v4-${{ matrix.category }}-${{ hashFiles('scripts/audit_category_sources.py', 'scripts/incremental_category_search.py', 'config/pipeline.json', format('config/categories/{0}.json', matrix.category)) }}
+          key: category-v4-${{ matrix.category }}-${{ hashFiles(format('config/categories/{0}.json', matrix.category)) }}
           restore-keys: category-v4-${{ matrix.category }}-
       - name: 准备本类唯一状态和结果文件
         run: |

@@ -24,7 +24,7 @@ def load_json(path: Path, default):
 
 
 def fingerprint(work: dict, policy: dict) -> str:
-    value = engine.POLICY_VERSION + engine.CHECKPOINT_SCHEMA + json.dumps(policy, sort_keys=True, ensure_ascii=False) + json.dumps(work, sort_keys=True, ensure_ascii=False)
+    value = engine.POLICY_VERSION + engine.CHECKPOINT_SCHEMA + str(work.get("id", "")) + str(work.get("canonicalTitle", ""))
     return hashlib.sha256(value.encode()).hexdigest()
 
 
@@ -111,7 +111,7 @@ def main() -> int:
     search_workers = max(1, args.search_workers)
 
     def save_progress():
-        ordered = [item for work in works for item in existing.get(str(work["id"]), [])]
+        ordered = [item for items in existing.values() for item in items]
         args.audits.parent.mkdir(parents=True, exist_ok=True)
         args.audits.write_text("".join(json.dumps(item, ensure_ascii=False) + "\n" for item in ordered), encoding="utf-8")
         sc = sum(item["status"] == "searched" for item in entries.values())

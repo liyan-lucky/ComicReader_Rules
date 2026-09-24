@@ -36,26 +36,50 @@ def merge_file(src, dst):
     return False
 
 def merge_state(merged_dir, repo_dir):
-    """Merge state files safely."""
+    """Merge state files with entry-level field merge to avoid cross-run state loss."""
     merged_state = Path(merged_dir) / "state" / "search" / "zh-Hans"
     repo_state = Path(repo_dir) / "state" / "search" / "zh-Hans"
     if not merged_state.exists():
         return
     repo_state.mkdir(parents=True, exist_ok=True)
+    import shutil
     for f in merged_state.glob("*.json"):
         dst = repo_state / f.name
-        src_updated = get_updated_at(f)
-        dst_updated = get_updated_at(dst) if dst.exists() else ""
-        if src_updated > dst_updated:
-            import shutil
-            shutil.copy2(f, dst)
-            print(f"  state/{f.name}: updated ({src_updated[:19]} > {dst_updated[:19]})")
-        elif not dst.exists():
-            import shutil
+        src_doc = load_json(f)
+        if not src_doc or not isinstance(src_doc, dict):
+            continue
+        if not dst.exists():
             shutil.copy2(f, dst)
             print(f"  state/{f.name}: new")
-        else:
-            print(f"  state/{f.name}: kept local ({dst_updated[:19]})")
+            continue
+        dst_doc = load_json(dst)
+        if not isinstance(dst_doc, dict):
+            shutil.copy2(f, dst)
+            print(f"  state/{f.name}: replaced (dst unreadable)")
+            continue
+        src_entries = src_doc.get("entries", {})
+        dst_entries = dst_doc.get("entries", {})
+        merged_entries = dict(dst_entries)
+        for wid, src_entry in src_entries.items():
+            dst_entry = dst_entries.get(wid)
+            if not dst_entry:
+                merged_entries[wid] = src_entry
+            elif str(src_entry.get("searchedAt", "")) > str(dst_entry.get("searchedAt", "")):
+                merged_entries[wid] = src_entry
+        searched = sum(1 for e in merged_entries.values() if e.get("status") == "searched")
+        total = len(merged_entries)
+        merged_doc = {
+            **dst_doc,
+            **{k: src_doc[k] for k in ("schema", "language", "category") if k in src_doc},
+            "entries": merged_entries,
+            "total": total,
+            "searched": searched,
+            "pending": total - searched,
+            "complete": searched == total,
+            "updatedAt": max(str(src_doc.get("updatedAt", "")), str(dst_doc.get("updatedAt", ""))),
+        }
+        dst.write_text(json.dumps(merged_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"  state/{f.name}: merged entries ({total} total, {searched} searched)")
 
 def merge_audits(merged_dir, repo_dir):
     """Merge audit files safely - only overwrite if new file has more lines."""

@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 
@@ -27,12 +27,33 @@ def main() -> int:
         lines.append(f"- {state.get('category')}: {state.get('searched', 0)}/{state.get('total', 0)}, 待搜索 {state.get('pending', 0)}")
     if complete:
         stamp = datetime.now(timezone.utc).isoformat()
+        cutoff = datetime.now(timezone.utc) - timedelta(days=30)
+        reset_count = 0
         for path, state in states:
             for entry in state.get("entries", {}).values():
-                entry["status"] = "pending"
-            state.update({"searched": 0, "pending": state.get("total", 0), "complete": False, "lastCycleCompletedAt": stamp})
+                if entry.get("status") != "searched":
+                    continue
+                searched_at = entry.get("searchedAt", "")
+                expired = True
+                if searched_at:
+                    try:
+                        sa = datetime.fromisoformat(searched_at.replace("Z", "+00:00"))
+                        expired = sa < cutoff
+                    except Exception:
+                        expired = True
+                if expired:
+                    entry["status"] = "pending"
+                    entry["searchedAt"] = ""
+                    reset_count += 1
+            searched_now = sum(1 for e in state.get("entries", {}).values() if e.get("status") == "searched")
+            total_n = int(state.get("total", 0))
+            state.update({"searched": searched_now, "pending": total_n - searched_now,
+                          "complete": searched_now == total_n, "lastCycleCompletedAt": stamp})
             path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        lines.extend(["", "本轮所有目录均已搜索，状态标记已统一重置；结果文件继续保留，供发布和下一轮复检使用。"])
+        if reset_count:
+            lines.extend(["", f"本轮复检：{reset_count} 个超期(>30 天)条目重置为 pending，其余保留。结果文件继续保留，供发布和下一轮复检使用。"])
+        else:
+            lines.extend(["", f"本轮所有条目均在 30 天复检期内，无需重搜。结果文件继续保留，供发布使用。"])
     args.cycle_file.parent.mkdir(parents=True, exist_ok=True)
     args.cycle_file.write_text(json.dumps({
         "schema": "comic_search_cycle_v1",

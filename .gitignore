@@ -58,5 +58,14 @@ secrets.*
 # Catalog backups (keep local only, don't commit to repo)
 catalog/backups/
 
+# CI workflow transient artifact-staging dirs (download-artifact targets)
+# These are pure copies of data already committed elsewhere; never track them.
+merged/
+snapshot/
+category-files/
+daily/
+staging/
+out/
+
 # Push cache
 .push_blob_cache.json
