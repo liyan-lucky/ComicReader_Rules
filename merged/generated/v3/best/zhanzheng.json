@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T17:12:12.517199+00:00",
+  "generatedAt": "2026-09-23T21:14:57.216659+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
@@ -68,27 +68,14 @@
       "workId": "a9378dd48a989cbf",
       "language": "zh-Hans",
       "title": "女仆咖啡厅",
-      "domain": "zh.wikipedia.org",
-      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E5%A5%B3%E5%83%95%E5%92%96%E5%95%A1%E5%BB%B3",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a9378dd48a989cbf",
-      "language": "zh-Hans",
-      "title": "女仆咖啡厅",
       "domain": "bilibili.com",
       "detailUrl": "https://www.bilibili.com/bangumi/play/ep17786",
-      "status": "rejected",
+      "status": "unreachable",
       "rejectionReasons": [
-        "no_chapters"
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/bangumi/play/ep17786"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -104,6 +91,20 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "a9378dd48a989cbf",
+      "language": "zh-Hans",
+      "title": "女仆咖啡厅",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/zh-cn/%E5%A5%B3%E5%83%95%E5%92%96%E5%95%A1%E5%BB%B3",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     }

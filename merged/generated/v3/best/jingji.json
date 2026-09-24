@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-23T17:18:44.774107+00:00",
+  "generatedAt": "2026-09-23T21:17:38.263768+00:00",
   "selected": [],
   "verifiedCandidates": [],
   "rejected": [
@@ -173,6 +173,65 @@
       "title": "狂赌之渊",
       "domain": "movie.douban.com",
       "detailUrl": "https://movie.douban.com/subject/26977244/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ef607a7d3ab28c2c",
+      "language": "zh-Hans",
+      "title": "网球王子",
+      "domain": "anibase.net",
+      "detailUrl": "https://anibase.net/zh-hans/anime-characters/4MANg/%E7%BD%91%E7%90%83%E7%8E%8B%E5%AD%90",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime-characters/4MANg/%E7%BD%91%E7%90%83%E7%8E%8B%E5%AD%90"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ef607a7d3ab28c2c",
+      "language": "zh-Hans",
+      "title": "网球王子",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep105598",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/bangumi/play/ep105598"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ef607a7d3ab28c2c",
+      "language": "zh-Hans",
+      "title": "网球王子",
+      "domain": "zh.wikipedia.org",
+      "detailUrl": "https://zh.wikipedia.org/wiki/%E7%BD%91%E7%90%83%E7%8E%8B%E5%AD%90",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ef607a7d3ab28c2c",
+      "language": "zh-Hans",
+      "title": "网球王子",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/cover/or44p6tzgctvdml/e0012tl80q7.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
