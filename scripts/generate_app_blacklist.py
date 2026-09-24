@@ -140,9 +140,16 @@ def main() -> int:
     ]
     pipeline = json.loads((ROOT / 'config/pipeline.json').read_text(encoding='utf-8-sig'))
     official_domains = sorted(catalog_domains)
+
+    ledger_domains = set()
+    for entry in ledger.get('domains', []):
+        domain = entry.get('domain', '')
+        if domain and domain not in blocked_domains:
+            ledger_domains.add(domain)
+
     preferred_domains = sorted(set(
         str(d).lower().removeprefix('www.') for d in pipeline.get('preferredReadableDomains', [])
-    ) | catalog_domains)
+    ) | catalog_domains | ledger_domains)
 
     all_blocked_domains = sorted(set(blocked_domains) | set(builtin_blocked_domains))
     all_blocked_words = sorted(set(blocked_words) | set(builtin_blocked_words))
