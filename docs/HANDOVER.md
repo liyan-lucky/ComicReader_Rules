@@ -1,6 +1,29 @@
 # 交接文档（2026-09-24）
 
-## 本轮：域名汇总修复（commit d9011a93，已完成并推送）
+## 本轮：全流程审计修复（commit 326d851a，已完成并推送）
+
+审计发现 4 个设计缺陷 + 5 个资源浪费点 + 6 个健壮性 bug，全部修复：
+
+| 编号 | 问题 | 修复 |
+|---|---|---|
+| A1 | 09 每周用静态 config 覆盖 filter_words.txt，回退 05 动态版本 | 09 改用 generate_app_blacklist.py 同源数据，去掉 schedule |
+| A2 | finalize_search_cycle 完成后全量重置 pending → 无限循环重搜 | 改为只重置 searchedAt 超 30 天的条目，其余保留 |
+| A3 | fingerprint 含 policy+work 全文 → 调参/01 更新即全量重置 | 精简为 POLICY_VERSION+CHECKPOINT_SCHEMA+workId+title |
+| A4 | select_sources 硬编码 readability-v5 与 engine 双写 | 改为 import POLICY_VERSION |
+| B1 | merged/snapshot/category-files 中转目录被提交（116 文件冗余） | gitignore + git rm --cached，删除 178 万行冗余 |
+| B2 | catalog 11.7MB 中 8.3MB 是 audit.rejected 段 | rejected 移到 generated/v3/catalog_rejected，catalog 只留计数 |
+| C1 | 07/08 的 git pull --rebase 缺 \|\| true → 推送竞争时 08 不触发 | 加 \|\| true |
+| C2 | 10 无法识别僵死 run（in_progress 超 5h） | 加僵死检测，超 5h 触发新的 |
+| C3 | safe_merge 整文件覆盖 → 并发 run 丢 state | 改为 entries 级字段合并（searchedAt 新者优先） |
+| C4 | save_progress 重写 audits 丢弃旧 workId 行 | 保留所有历史 workId 的审计行 |
+| C5 | 02 category_pipeline continue-on-error 掩盖失败 | 去掉，让失败可见 |
+| C6 | checkpoint cache key 含脚本 hash → 每次改脚本堆积 cache | key 只含 category config hash |
+
+**state 重置根因**：A2（全量重置）+ A3（fingerprint 全文 hash）+ C3（整文件覆盖）三者叠加。修复后搜索进度将真正累积收敛。
+
+---
+
+## 上一轮：域名汇总修复（commit d9011a93，已完成并推送）
 
 **问题**：`generate_app_blacklist.py` 只把 `pipeline.json` 的 8 个硬编码域名 + catalog 域名加入 `filter_words.txt` 的 [PREFERRED] 段，忽略了 `domain_ledger` 中的所有候选域名，导致 App 只拿到极少量可读域名。
 
