@@ -1,4 +1,16 @@
-# 交接文档（2026-09-22）
+# 交接文档（2026-09-24）
+
+## 本轮：域名汇总修复（commit d9011a93，已完成并推送）
+
+**问题**：`generate_app_blacklist.py` 只把 `pipeline.json` 的 8 个硬编码域名 + catalog 域名加入 `filter_words.txt` 的 [PREFERRED] 段，忽略了 `domain_ledger` 中的所有候选域名，导致 App 只拿到极少量可读域名。
+
+**修复**：从 `domain_ledger` 提取所有非 blocked 域名，与 pipeline 硬编码域名、catalog 域名合并后写入 [PREFERRED]。
+
+| 文件 | 修改 |
+|---|---|
+| `scripts/generate_app_blacklist.py` | 新增 `ledger_domains` 提取逻辑，合并进 `preferred_domains` |
+
+---
 
 ## 上一轮：域名收集逻辑修复（commit 92e72180，已完成并推送）
 
