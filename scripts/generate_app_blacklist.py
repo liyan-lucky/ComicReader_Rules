@@ -69,11 +69,35 @@ def main() -> int:
                 title_counter[matched] += 1
 
     catalog_titles = {str(item.get('title', '')).strip().casefold()
-                      for cat in catalog.get('categories', {}).values()
-                      for item in cat.get('items', [])}
+                       for cat in catalog.get('categories', {}).values()
+                       for item in cat.get('items', [])}
+
+    all_work_titles = set()
+    for param_file in (ROOT / 'parameters/catalog/zh-Hans').glob('*.json'):
+        try:
+            doc = json.loads(param_file.read_text(encoding='utf-8-sig'))
+            for w in doc.get('works', []):
+                all_work_titles.add(str(w.get('canonicalTitle', '')).strip().casefold())
+        except Exception:
+            pass
+
+    GENERIC_NOISE = {
+        '在线阅读', '在线观看', '全文阅读', '免费阅读', '最新章节', '漫画大全',
+        '漫画列表', '首页', '登录', '注册', '排行榜', '全集', '完整版', '无弹窗',
+        '笔趣阁', '漫画网', '免费观看', '下载', '更多', '查看更多', '查看全部',
+    }
     blocked_titles = []
     for title, count in title_counter.most_common(200):
-        if count >= 3 and title.casefold() not in catalog_titles and len(title) <= 30:
+        if title.casefold() in catalog_titles:
+            continue
+        if title.casefold() in all_work_titles:
+            continue
+        if title.casefold() in {n.casefold() for n in GENERIC_NOISE}:
+            blocked_titles.append(title)
+            continue
+        if count >= 5 and len(title) <= 12 and not any(
+            wt in title.casefold() for wt in all_work_titles if len(wt) >= 2
+        ):
             blocked_titles.append(title)
 
     words_counter: Counter = Counter()
