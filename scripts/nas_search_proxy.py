@@ -10,6 +10,7 @@ import argparse
 import gzip
 import html
 import json
+import os
 import re
 import subprocess
 import sys
@@ -20,6 +21,11 @@ from urllib.parse import urlencode, urlparse, parse_qs
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 _baidu_suspend_until = 0
+_google_daily_count = 0
+_google_count_date = ""
+GOOGLE_DAILY_LIMIT = 100
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+GOOGLE_CX = os.environ.get("GOOGLE_CX", "")
 
 
 def fetch(url, timeout=8):
@@ -86,6 +92,40 @@ def search_baidu(query, count=20):
     return results
 
 
+def _google_can_use():
+    global _google_daily_count, _google_count_date
+    today = time.strftime("%Y-%m-%d")
+    if today != _google_count_date:
+        _google_count_date = today
+        _google_daily_count = 0
+    return GOOGLE_API_KEY and GOOGLE_CX and _google_daily_count < GOOGLE_DAILY_LIMIT
+
+
+def search_google(query, count=10):
+    global _google_daily_count
+    if not _google_can_use():
+        return []
+    url = f"https://www.googleapis.com/customsearch/v1?{urlencode({'key': GOOGLE_API_KEY, 'cx': GOOGLE_CX, 'q': query, 'num': count})}"
+    try:
+        result = subprocess.run(
+            ["curl", "-s", "--connect-timeout", "8", "--max-time", "10", url],
+            capture_output=True, text=True, timeout=12,
+        )
+        data = json.loads(result.stdout)
+        _google_daily_count += 1
+        results = []
+        for item in data.get("items", []):
+            results.append({
+                "url": item.get("link", ""),
+                "title": item.get("title", ""),
+                "content": item.get("snippet", ""),
+                "engine": "google",
+            })
+        return results
+    except Exception:
+        return []
+
+
 class Handler(BaseHTTPRequestHandler):
     token = None
 
@@ -119,9 +159,19 @@ class Handler(BaseHTTPRequestHandler):
                     results.extend(search_baidu(query))
                 except Exception as e:
                     unresponsive.append(["baidu", str(e)])
+            if not results:
+                try:
+                    results.extend(search_google(query))
+                except Exception as e:
+                    unresponsive.append(["google", str(e)])
             self._json({"results": results, "unresponsive_engines": unresponsive})
         elif parsed.path == "/health":
-            self._json({"status": "ok"})
+            self._json({
+                "status": "ok",
+                "google_api": bool(GOOGLE_API_KEY and GOOGLE_CX),
+                "google_used": _google_daily_count,
+                "google_limit": GOOGLE_DAILY_LIMIT,
+            })
         else:
             self.send_response(404)
             self.end_headers()
