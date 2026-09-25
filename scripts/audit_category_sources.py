@@ -110,7 +110,7 @@ def images(body,base):
 def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'
     headers={'X-Search-Token':os.getenv('SEARXNG_API_TOKEN','')}
-    terms=' '.join(search_terms or ['漫画','在线阅读','章节'])
+    terms=' '.join(search_terms or ['漫画'])
     # Proven domains are reusable search parameters derived from previously
     # readable books. Keep a reserved share for unrestricted web discovery so
     # new domains can still enter the ledger and produce descendant rules.
