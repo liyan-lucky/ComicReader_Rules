@@ -1,6 +1,32 @@
 # 交接文档（2026-09-25）
 
-## 本轮：SearXNG 引擎修复 + IP 封禁确诊（2026-09-25）
+## 本轮：NAS 搜索代理突破——审计从 0 到 18 个可读源（2026-09-25）
+
+### 突破
+
+02 run #36143990162 首次通过审计：
+- **18 个 best readable sources**：dongzuo:7, yineng:3, xuanhuan:3, lishi:2, richang:1, qihuan:1, xuanyi:1
+- catalog 暂仍 15 items（需 03→04→05 后续流程生成新 catalog）
+
+### 方案
+
+绕过 searxng 引擎实现问题，在 NAS 上部署 Python 搜索代理（`scripts/nas_search_proxy.py`），直接用 curl 爬 bing/baidu 搜索结果，返回 searxng 兼容 JSON：
+
+1. **NAS 搜索代理**（`/home/LiYan/docker/searxng-comic/proxy/search_proxy.py`）：ThreadingHTTPServer 多线程，默认走 bing（cn.bing.com），bing 结果 <3 时 fallback baidu，curl 超时 8s
+2. **caddy 网关代理**：`/proxy/*` 路径反代到 18081 端口，外网经 18080 端口访问
+3. **cloudflare tunnel**：`https://formed-diesel-notifications-reducing.trycloudflare.com/proxy` 暴露公网（临时域名，tunnel 重启会变）
+4. **02 workflow**：`SEARXNG_URL` 改为 `secrets.NAS_SEARCH_URL`（tunnel URL），`SEARXNG_API_TOKEN` 改为 `secrets.NAS_SEARCH_TOKEN`
+5. **cron 保活**：每 5 分钟检查代理进程，未运行则自动启动
+
+### 已知限制
+
+- **trycloudflare.com 临时域名**：tunnel 重启后域名会变，须重新获取并更新 GitHub secrets `NAS_SEARCH_URL`
+- **baidu 高频 CAPTCHA**：频繁请求触发 suspend 1h，fallback 到 bing
+- **catalog 未增长**：18 个可读源已产生，但需 03→04→05 流程将其编入 catalog
+
+---
+
+## 上一轮：SearXNG 引擎修复 + IP 封禁确诊（2026-09-25）
 
 ### 已完成
 
