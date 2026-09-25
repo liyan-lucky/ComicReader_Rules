@@ -71,6 +71,16 @@ def main() -> int:
         }
 
     pending = [work for work in works if entries[str(work["id"])]["status"] == "pending"]
+
+    def sort_key(work):
+        t = work.get("canonicalTitle", "")
+        c0 = t[:1] if t else ""
+        if "\u4e00" <= c0 <= "\u9fff": return (0, t)
+        if c0.isalpha(): return (1, t)
+        if c0.isdigit(): return (2, t)
+        return (3, t)
+    pending.sort(key=sort_key)
+
     selected = pending[:batch_size]
     existing = {}
     if args.audits.exists():
