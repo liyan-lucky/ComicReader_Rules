@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 240
     env:
-      SEARXNG_URL: http://liyan-fnosnas.dynv6.net:18080/proxy
+      SEARXNG_URL: ${{ secrets.NAS_SEARCH_URL }}
       SEARXNG_API_TOKEN: ${{ secrets.NAS_SEARCH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
