@@ -1,6 +1,35 @@
-# 交接文档（2026-09-24）
+# 交接文档（2026-09-25）
 
-## 本轮：全流程审计修复（commit 326d851a，已完成并推送）
+## 本轮：SearXNG 引擎修复 + IP 封禁确诊（2026-09-25）
+
+### 已完成
+
+1. **SearXNG_DIY 镜像仓 settings.yml 重写**：`keep_only` 只保留 google/bing/duckduckgo/brave/qwant/startpage/mojeek/baidu 八个真实引擎，移除 annuaire-entreprises/verif 等垃圾引擎，新增 baidu 中文引擎，`default_lang` 设 zh-CN。镜像已自动重建推送 GHCR。
+2. **规则仓防御性改进**：`audit_category_sources.py` search() 空结果时打印警告；`incremental_category_search.py` 连续 20 个作品搜索空时提前优雅终止。
+3. **诊断 workflow**：新建 `.github/workflows/diagnose-searxng.yml`，一次性诊断 searxng 搜索请求。
+
+### 最终结论（IP 封禁，配置层面已无更多可调空间）
+
+02 验证 run #36110238677（2026-09-25 07:56Z）结果：
+- lianai 进度 80%（12557/15506），搜索跑完，**best readable sources: 0**
+- 所有真实引擎从 GitHub runner IP 发请求全部被拦截：
+  - baidu → CAPTCHA (suspended_time=3600)
+  - duckduckgo → CAPTCHA (cn-zh)
+  - qwant → CAPTCHA (suspended_time=0)
+  - brave → TooManyRequests (429)
+- catalog 未增长：仍 15 items，version 仍 20260924010909
+
+**根因**：GitHub Actions runner 是数据中心 IP，被所有主流搜索引擎反爬系统封禁。keep_only 修复了垃圾引擎（法国企业名录等无关结果），但保留的真实引擎从数据中心 IP 发请求全部被 CAPTCHA/429 拦截。**这不是 searxng 配置能解决的问题——是 IP 本身被封。**
+
+**后续修复方向**（待用户决定）：
+1. 使用住宅 IP 代理/VPN 代理让 searxng 出口 IP 非数据中心
+2. 自建搜索索引/离线数据源绕过搜索引擎
+3. 换非 GitHub Actions 的执行环境（自有服务器/本地定时跑）
+4. 使用搜索 API（Google Custom Search / Bing Search API）替代 searxng
+
+---
+
+## 上一轮：全流程审计修复（commit 326d851a，已完成并推送）
 
 审计发现 4 个设计缺陷 + 5 个资源浪费点 + 6 个健壮性 bug，全部修复：
 
