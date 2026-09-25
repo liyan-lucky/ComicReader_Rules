@@ -149,7 +149,10 @@ def search(s,title,limit,search_terms=None):
             if u not in out: out.append(u)
             if len(out)>=limit: break
         if len(out)>=limit: break
-    return out[:limit]
+    result=out[:limit]
+    if not result:
+        print(f"[search] 0 results for: {title[:40]}", flush=True)
+    return result
 def audit(s,work,url):
     base={'workId':work['id'],'language':work['language'],'category':work.get('category',''),
           'queryTitle':work['canonicalTitle'],'detailUrl':url,'domain':host(url),'policyVersion':POLICY_VERSION}

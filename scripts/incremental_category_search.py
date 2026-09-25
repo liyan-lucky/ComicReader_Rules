@@ -130,9 +130,13 @@ def main() -> int:
         args.state.write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     with ThreadPoolExecutor(max_workers=search_workers) as pool:
+        consecutive_empty = 0
         for chunk_start in range(0, len(selected), search_workers):
             if processed > 0 and time.monotonic() - started >= args.job_time_budget:
                 print(f"time budget reached after {processed} works; not starting new searches", flush=True)
+                break
+            if consecutive_empty >= 20:
+                print(f"[search-engine-failure] 连续 {consecutive_empty} 个作品搜索结果为空，判定搜索引擎故障，提前结束本轮", flush=True)
                 break
             chunk = selected[chunk_start:chunk_start + search_workers]
             futures = {pool.submit(search_one_work, work): work for work in chunk}
@@ -151,6 +155,10 @@ def main() -> int:
                 entries[work_id]["status"] = "searched"
                 entries[work_id]["searchedAt"] = now()
                 processed += 1
+                if not work_audits:
+                    consecutive_empty += 1
+                else:
+                    consecutive_empty = 0
                 print(f"[{processed}/{len(selected)}] {work['canonicalTitle']}: {sum(x.get('status') == 'verified' for x in work_audits)}/{len(work_audits)}", flush=True)
                 if processed % 50 == 0:
                     save_progress()
