@@ -26,6 +26,13 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12', cache: pip}
       - run: pip install -r requirements.txt
+      - name: 诊断 NAS 代理连通性
+        run: |
+          echo "SEARXNG_URL=$SEARXNG_URL"
+          curl -sv --connect-timeout 10 "$SEARXNG_URL/health" -H "X-Search-Token: $SEARXNG_API_TOKEN" 2>&1 || echo "CONNECT FAILED"
+        env:
+          SEARXNG_URL: ${{ env.SEARXNG_URL }}
+          SEARXNG_API_TOKEN: ${{ env.SEARXNG_API_TOKEN }}
       - name: 恢复本类逐书检查点
         uses: actions/cache@v4
         with:
