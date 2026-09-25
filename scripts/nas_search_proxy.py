@@ -46,10 +46,10 @@ def search_bing(query, count=20):
     results = []
     blocks = re.split(r'<li class="b_algo"', page)
     for block in blocks[1:]:
-        links = re.findall(r'href="(https?://[^"]+)"', block[:600])
-        h2s = re.findall(r'<h2[^>]*>(.*?)</h2>', block[:600], re.S)
+        links = re.findall(r'href="(https?://[^"]+)"', block[:3000])
+        h2s = re.findall(r'<h2[^>]*>(.*?)</h2>', block[:3000], re.S)
         title = re.sub(r'<[^>]+>', '', h2s[0]).strip() if h2s else ""
-        real_links = [l for l in links if "bing.com" not in l and "microsoft.com" not in l]
+        real_links = [l for l in links if "bing.com" not in l and "microsoft.com" not in l and "/rp/" not in l and "go.microsoft" not in l]
         if real_links and title:
             results.append({
                 "url": html.unescape(real_links[0]),
