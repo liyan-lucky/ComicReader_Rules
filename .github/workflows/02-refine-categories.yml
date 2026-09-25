@@ -20,6 +20,8 @@ jobs:
     env:
       SEARXNG_URL: ${{ secrets.NAS_SEARCH_URL }}
       SEARXNG_API_TOKEN: ${{ secrets.NAS_SEARCH_TOKEN }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      GOOGLE_CX: ${{ secrets.GOOGLE_CX }}
     steps:
       - uses: actions/checkout@v4
         with: {ref: main}

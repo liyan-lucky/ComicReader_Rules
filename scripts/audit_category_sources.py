@@ -28,6 +28,34 @@ def search_blocked(url):
     return any(result_host==b or result_host.endswith('.'+b) for b in SEARCH_BLOCKED_HOSTS)
 PREFERRED_READABLE_DOMAINS=[str(x).lower().removeprefix('www.') for x in PIPELINE.get('preferredReadableDomains',[])]
 
+# Google Custom Search API 兜底（从 GitHub secrets 注入，非 NAS 环境变量）
+GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY','')
+GOOGLE_CX=os.getenv('GOOGLE_CX','')
+GOOGLE_DAILY_LIMIT=100
+_google_daily_count=0
+_google_count_date=''
+
+def _google_can_use():
+    global _google_daily_count, _google_count_date
+    today=time.strftime('%Y-%m-%d')
+    if today!=_google_count_date:
+        _google_count_date=today
+        _google_daily_count=0
+    return bool(GOOGLE_API_KEY and GOOGLE_CX) and _google_daily_count<GOOGLE_DAILY_LIMIT
+
+def search_google(query, count=10):
+    global _google_daily_count
+    if not _google_can_use():
+        return []
+    try:
+        r=requests.get('https://www.googleapis.com/customsearch/v1',
+            params={'key':GOOGLE_API_KEY,'cx':GOOGLE_CX,'q':query,'num':count},timeout=10)
+        _google_daily_count+=1
+        return [{'url':item.get('link',''),'title':item.get('title',''),'content':item.get('snippet','')}
+                for item in r.json().get('items',[])]
+    except Exception:
+        return []
+
 def host(url): return (urlparse(url).hostname or '').lower().removeprefix('www.')
 def same_title(query,matched,lang):
     query_key=identity_key(clean_title(query),lang)
@@ -150,6 +178,18 @@ def search(s,title,limit,search_terms=None):
             if len(out)>=limit: break
         if len(out)>=limit: break
     result=out[:limit]
+    if not result and _google_can_use():
+        google_results=search_google(f'"{title}" {terms}')
+        for x in google_results:
+            u=str(x.get('url',''))
+            result_host=host(u)
+            evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(
+                str(x.get('title',''))+' '+str(x.get('content',''))+' '+u).lower())
+            if normalized_title and normalized_title not in evidence: continue
+            if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): continue
+            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in result:
+                result.append(u)
+            if len(result)>=limit: break
     if not result:
         print(f"[search] 0 results for: {title[:40]}", flush=True)
     return result
