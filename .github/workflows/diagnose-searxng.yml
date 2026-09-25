@@ -1,0 +1,45 @@
+name: 诊断 searxng 搜索
+on:
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      searxng:
+        image: ghcr.io/liyan-lucky/searxng_diy:latest
+        ports: ['8080:8080']
+    env:
+      SEARXNG_URL: http://localhost:8080
+      SEARXNG_API_TOKEN: ${{ secrets.SEARXNG_API_TOKEN || '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests beautifulsoup4 lxml
+      - name: 诊断 searxng 搜索请求
+        run: |
+          python - <<'PY'
+          import os, requests, json, time
+          endpoint = os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/') + '/search'
+          token = os.getenv('SEARXNG_API_TOKEN','')
+          print(f"endpoint={endpoint} token_len={len(token)}")
+          s = requests.Session()
+          q = '"斗破苍穹" 漫画 在线阅读 章节'
+          for attempt in range(3):
+              r = s.get(endpoint, params={'q': q, 'format': 'json', 'language': 'zh-CN'},
+                        headers={'X-Search-Token': token}, timeout=20)
+              print(f"attempt {attempt}: HTTP {r.status_code}, body[:200]={r.text[:200]!r}")
+              if r.status_code == 200:
+                  results = r.json().get('results', [])
+                  print(f"results={len(results)}")
+                  for x in results[:5]:
+                      print("  -", str(x.get('url',''))[:90])
+                  break
+              time.sleep(3)
+          # 再测不带 token 的对照
+          r2 = s.get(endpoint, params={'q': q, 'format': 'json'}, headers={}, timeout=20)
+          print(f"no-token: HTTP {r2.status_code}, body[:120]={r2.text[:120]!r}")
+          PY
