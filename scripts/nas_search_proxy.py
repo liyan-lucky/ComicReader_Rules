@@ -150,18 +150,25 @@ class Handler(BaseHTTPRequestHandler):
             engines = qs.get("engines", ["bing,baidu"])[0].split(",")
             results = []
             unresponsive = []
-            try:
-                results.extend(search_bing(query))
-            except Exception as e:
-                unresponsive.append(["bing", str(e)])
-            if len(results) < 3 and "baidu" in engines:
+            seen_urls = set()
+            def _add(new_results):
+                for r in new_results:
+                    if r["url"] not in seen_urls:
+                        seen_urls.add(r["url"])
+                        results.append(r)
+            if "bing" in engines:
                 try:
-                    results.extend(search_baidu(query))
+                    _add(search_bing(query))
+                except Exception as e:
+                    unresponsive.append(["bing", str(e)])
+            if "baidu" in engines:
+                try:
+                    _add(search_baidu(query))
                 except Exception as e:
                     unresponsive.append(["baidu", str(e)])
-            if not results:
+            if len(results) < 3:
                 try:
-                    results.extend(search_google(query))
+                    _add(search_google(query))
                 except Exception as e:
                     unresponsive.append(["google", str(e)])
             self._json({"results": results, "unresponsive_engines": unresponsive})

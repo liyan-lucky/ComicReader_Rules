@@ -135,7 +135,7 @@ def main() -> int:
             if processed > 0 and time.monotonic() - started >= args.job_time_budget:
                 print(f"time budget reached after {processed} works; not starting new searches", flush=True)
                 break
-            if consecutive_empty >= 20:
+            if consecutive_empty >= 50:
                 print(f"[search-engine-failure] 连续 {consecutive_empty} 个作品搜索结果为空，判定搜索引擎故障，提前结束本轮", flush=True)
                 break
             chunk = selected[chunk_start:chunk_start + search_workers]
