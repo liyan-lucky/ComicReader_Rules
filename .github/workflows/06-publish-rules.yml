@@ -25,3 +25,7 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m 'rules: publish rule manifest'
           bash scripts/ci_push_with_retry.sh
+      - name: 触发 05 发布目录
+        if: always()
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh workflow run 05-publish.yml --ref main

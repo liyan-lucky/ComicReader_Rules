@@ -50,3 +50,7 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m 'rules: rebuild verified domain rules'
           bash scripts/ci_push_with_retry.sh
+      - name: 触发 06 发布规则
+        if: always()
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh workflow run 06-publish-rules.yml --ref main
