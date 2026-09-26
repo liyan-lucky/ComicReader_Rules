@@ -100,9 +100,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PENDING: ${{ steps.cycle.outputs.pending }}
         run: |
-          if [ "${PENDING:-0}" -gt 0 ] 2>/dev/null; then
+          if [ "${PENDING}" = "true" ]; then
             echo "pending=${PENDING}，触发下一轮 02（与 03→08 下游链并行）..."
             gh workflow run 02-refine-categories.yml --ref main
           else
-            echo "pending=0，全目录搜索完成，不再自触发"
+            echo "pending=${PENDING}，全目录搜索完成，不再自触发"
           fi
