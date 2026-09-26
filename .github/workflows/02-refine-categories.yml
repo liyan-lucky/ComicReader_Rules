@@ -94,3 +94,15 @@ jobs:
         if: always()
         env: {GH_TOKEN: '${{ github.token }}'}
         run: gh workflow run 03-batch-replay.yml --ref main
+      - name: 自触发下一轮搜索（与下游链并行，不等待 03→08）
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PENDING: ${{ steps.cycle.outputs.pending }}
+        run: |
+          if [ "${PENDING:-0}" -gt 0 ] 2>/dev/null; then
+            echo "pending=${PENDING}，触发下一轮 02（与 03→08 下游链并行）..."
+            gh workflow run 02-refine-categories.yml --ref main
+          else
+            echo "pending=0，全目录搜索完成，不再自触发"
+          fi

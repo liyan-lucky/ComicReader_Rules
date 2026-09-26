@@ -22,7 +22,3 @@ jobs:
           git add generated/update_manifest.json generated/v3/cover_rules.zh-Hans.json
           git diff --cached --quiet || git commit -m 'cover: publish discovery rules'
           bash scripts/ci_push_with_retry.sh
-      - name: 触发下一轮 02 搜索
-        if: always()
-        env: {GH_TOKEN: '${{ github.token }}'}
-        run: gh workflow run 02-refine-categories.yml --ref main
