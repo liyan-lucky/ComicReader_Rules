@@ -14,10 +14,7 @@
     "*.hero-actions a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reading-image",
-    "*.reader-images img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -88,6 +85,7 @@
     "112d6a7df39ca80b",
     "1447043d657b03d0",
     "1634835dfd523a10",
+    "1729fee82a137943",
     "1f6190dea929ab5c",
     "27be24ce16496300",
     "2bea70daa8c69a95",
@@ -99,6 +97,7 @@
     "91846f52ffb5fbec",
     "93f55a4e8e423a11",
     "9594c7767906b3a3",
+    "a0889928e616146a",
     "a1dc022c3f66ab48",
     "a6257dbf6f4c34d7",
     "af84afa5c21dcb2e",
@@ -106,7 +105,10 @@
     "bcee2e24d592f415",
     "c61c64b89dec67f4",
     "d1925f0122c20eca",
+    "d3e74965101af31f",
+    "de89bbc759b07f3e",
     "e49116a96948e61e",
+    "e4fc49f0d5293e41",
     "ecf4e41bafba8123",
     "f3c120518759f680",
     "166d757a7bc1b381",
@@ -127,7 +129,16 @@
     "b349dd1e21064d6f",
     "bcb932d241bb76b0"
   ],
-  "replayWorkCount": 99,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 104,
+  "failures": [
+    {
+      "workId": "b349dd1e21064d6f",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2452857"
+    },
+    {
+      "workId": "bcb932d241bb76b0",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12597"
+    }
+  ],
+  "status": "rejected"
 }
