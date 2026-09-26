@@ -1,0 +1,35 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "3dmgame_com",
+  "domain": "3dmgame.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.bds_sqq",
+    "a.bds_tsina",
+    "a.bds_qzone"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img.language-switch__arrow",
+    "*.language-switch__trigger img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "be106fe98430da26"
+  ],
+  "replayWorkCount": 1,
+  "failures": [],
+  "status": "verified"
+}
