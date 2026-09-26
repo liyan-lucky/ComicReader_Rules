@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-26T16:37:54.031948+00:00",
+  "generatedAt": "2026-09-26T17:29:16.416986+00:00",
   "domains": [
     {
       "domain": "36kr.com",
@@ -9,9 +9,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "8f0aa694857bef77",
+          "title": "虚拟现实",
+          "detailUrl": "https://www.36kr.com/p/2487054398806149",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "cceaa56cba8ff3fc",
           "title": "虚拟现实",
@@ -428,32 +441,6 @@
       "ruleStatus": "candidate_only"
     },
     {
-      "domain": "3g.ali213.net",
-      "languages": [
-        "zh-Hans"
-      ],
-      "policyVersions": [],
-      "verifiedWorkCount": 0,
-      "candidateWorkCount": 1,
-      "works": [],
-      "rejectedWorks": [
-        {
-          "workId": "047f777ded99f0d3",
-          "title": "索尼克：释放",
-          "detailUrl": "https://3g.ali213.net/down/sonicunleashed.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        }
-      ],
-      "ruleStatus": "candidate_only"
-    },
-    {
       "domain": "ali213.net",
       "languages": [
         "zh-Hans"
@@ -672,9 +659,9 @@
           ]
         },
         {
-          "workId": "047f777ded99f0d3",
-          "title": "索尼克：释放",
-          "detailUrl": "https://www.ali213.net/zt/sonicunleashed/",
+          "workId": "2c751f7f36175c39",
+          "title": "装备仔",
+          "detailUrl": "https://www.ali213.net/news/html/2026-7/1026517.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -850,7 +837,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 39,
+      "candidateWorkCount": 42,
       "works": [],
       "rejectedWorks": [
         {
@@ -1166,12 +1153,38 @@
           ]
         },
         {
-          "workId": "112adc50dbb2f8d0",
-          "title": "素材采集家的异世界旅行记",
-          "detailUrl": "https://anibase.net/zh-hans/anime/4MABd/%E7%B4%A0%E6%9D%90%E9%87%87%E9%9B%86%E5%AE%B6%E7%9A%84%E5%BC%82%E4%B8%96%E7%95%8C%E6%97%85%E8%A1%8C%E8%AE%B0",
+          "workId": "7e9c787cfe72be4b",
+          "title": "禁止入内的鼹鼠",
+          "detailUrl": "https://anibase.net/zh-hans/anime/4W3Z9/%E7%A6%81%E6%AD%A2%E5%85%A5%E5%86%85%E7%9A%84%E9%BC%B9%E9%BC%A0",
           "status": "unreachable",
           "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/4MABd/%E7%B4%A0%E6%9D%90%E9%87%87%E9%9B%86%E5%AE%B6%E7%9A%84%E5%BC%82%E4%B8%96%E7%95%8C%E6%97%85%E8%A1%8C%E8%AE%B0"
+            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/4W3Z9/%E7%A6%81%E6%AD%A2%E5%85%A5%E5%86%85%E7%9A%84%E9%BC%B9%E9%BC%A0"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "706dc4a8d98579b5",
+          "title": "纯洁的玛利亚",
+          "detailUrl": "https://anibase.net/zh-hans/anime/4dZzB/%E7%BA%AF%E6%B4%81%E7%9A%84%E7%8E%9B%E5%88%A9%E4%BA%9A",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/4dZzB/%E7%BA%AF%E6%B4%81%E7%9A%84%E7%8E%9B%E5%88%A9%E4%BA%9A"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ffd735f481e08eb4",
+          "title": "致不灭的你",
+          "detailUrl": "https://anibase.net/zh-hans/anime/mEgzY/%E8%87%B4%E4%B8%8D%E7%81%AD%E7%9A%84%E4%BD%A0-%E7%AC%AC%E4%B8%89%E5%AD%A3",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/mEgzY/%E8%87%B4%E4%B8%8D%E7%81%AD%E7%9A%84%E4%BD%A0-%E7%AC%AC%E4%B8%89%E5%AD%A3"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -1263,6 +1276,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/1JEvX/%E5%B0%91%E5%A5%B3%E7%BC%96%E5%8F%B7"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "2a0f40a69d77d6d4",
+          "title": "我们仍未知道那天所看见的花的名字",
+          "detailUrl": "https://anibase.net/zh-hans/anime/1XOap/%E6%88%91%E4%BB%AC%E4%BB%8D%E6%9C%AA%E7%9F%A5%E9%81%93%E9%82%A3%E5%A4%A9%E6%89%80%E7%9C%8B%E8%A7%81%E7%9A%84%E8%8A%B1%E7%9A%84%E5%90%8D%E5%AD%97%E3%80%82",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/1XOap/%E6%88%91%E4%BB%AC%E4%BB%8D%E6%9C%AA%E7%9F%A5%E9%81%93%E9%82%A3%E5%A4%A9%E6%89%80%E7%9C%8B%E8%A7%81%E7%9A%84%E8%8A%B1%E7%9A%84%E5%90%8D%E5%AD%97%E3%80%82"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -1565,7 +1591,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 86,
+      "candidateWorkCount": 87,
       "works": [],
       "rejectedWorks": [
         {
@@ -2300,6 +2326,19 @@
           "workId": "1ea348ef34db2efd",
           "title": "左邻右舍",
           "detailUrl": "https://baike.sogou.com/v7476700.htm",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b10282b7d7a1b92c",
+          "title": "心锁",
+          "detailUrl": "https://baike.sogou.com/v7531028.htm",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -3515,7 +3554,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 228,
+      "candidateWorkCount": 229,
       "works": [],
       "rejectedWorks": [
         {
@@ -4559,24 +4598,12 @@
           ]
         },
         {
-          "workId": "eecc0565a9acc79e",
-          "title": "粗点心战争",
-          "detailUrl": "https://www.bilibili.com/bangumi/play/ep82735",
+          "workId": "970f0f1e7c4b7b11",
+          "title": "纸箱战机",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep206579",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "047f777ded99f0d3",
-          "title": "索尼克：释放",
-          "detailUrl": "https://www.bilibili.com/video/BV1QYht6GEPo/",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1QYht6GEPo/"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -4584,24 +4611,12 @@
           ]
         },
         {
-          "workId": "3f502a079f60cd06",
-          "title": "索尼克：音爆",
-          "detailUrl": "https://www.bilibili.com/bangumi/media/md87232/",
+          "workId": "38a1aa34ed47c87c",
+          "title": "蜘蛛格温：幽灵蜘蛛",
+          "detailUrl": "https://www.bilibili.com/opus/1124231591278673928",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "6530feb05fdddfff",
-          "title": "绝望先生",
-          "detailUrl": "https://www.bilibili.com/list/ml1067805040?oid=1383955&bvid=BV1Ux411N7hM",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -5478,6 +5493,45 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b10282b7d7a1b92c",
+          "title": "心锁",
+          "detailUrl": "https://www.bilibili.com/video/BV1eHhq6rE8k/",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1eHhq6rE8k/"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "15b65749d3dde65d",
+          "title": "我的朋友很少+",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep85370",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0afecd94ac1d7ef9",
+          "title": "战国千年",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep278465",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -6421,7 +6475,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 48,
+      "candidateWorkCount": 50,
       "works": [],
       "rejectedWorks": [
         {
@@ -6588,6 +6642,31 @@
           ],
           "selectionReasons": [
             "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d4f99c2aa795c613",
+          "title": "税金买的书",
+          "detailUrl": "https://book.douban.com/subject/37830708/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1d608ec63289201b",
+          "title": "落语朱音",
+          "detailUrl": "https://book.douban.com/series/84459",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -7082,26 +7161,13 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 18,
+      "candidateWorkCount": 17,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "0cc724956017d052",
           "title": "在河之洲",
           "detailUrl": "https://www.chagushici.com/ju/2",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "eb1473de74a07d0c",
-          "title": "管中窥豹",
-          "detailUrl": "https://www.chagushici.com/chengyu/%E7%AE%A1%E4%B8%AD%E7%AA%A5%E8%B1%B9",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -7637,20 +7703,6 @@
           ]
         },
         {
-          "workId": "a58de3f4db4f14f3",
-          "title": "绝世武魂",
-          "detailUrl": "https://chuangshi.qq.com/bqq/bposurgttu",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "510312b896ab23ff",
           "title": "全职高手",
           "detailUrl": "https://chuangshi.qq.com/bqq/mijdxamimi",
@@ -7994,6 +8046,20 @@
             "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d658dd2a44e63b83",
+          "title": "我的姐姐是大明星",
+          "detailUrl": "https://chuangshi.qq.com/bqq/njwzcloskg",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -8723,74 +8789,9 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 11,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
-        {
-          "workId": "814922368ec99403",
-          "title": "胶囊护士",
-          "detailUrl": "https://cn.baozimh.com/comic/xiaonanghushi-aki",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://cn.baozimh.com/comic/xiaonanghushi-aki"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "9a88e54eb6d6d624",
-          "title": "能吃的只有你",
-          "detailUrl": "https://cn.baozimh.com/comic/nengchidezhiyouni-cocori",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://cn.baozimh.com/comic/nengchidezhiyouni-cocori"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "f1faae96ff24d805",
-          "title": "能不能打",
-          "detailUrl": "https://cn.baozimh.com/comic/zhanchangnuwushen2-heishanmetuki",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://cn.baozimh.com/comic/zhanchangnuwushen2-heishanmetuki"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "7970b3390e30c1b8",
-          "title": "能力是笨重魔法的魔法师靠着重力魔法天下无双",
-          "detailUrl": "https://cn.baozimh.com/comic/bianfubili-puzezhishu",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://cn.baozimh.com/comic/bianfubili-puzezhishu"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "10e3c89f0e9f4084",
-          "title": "能当闺蜜交往的男朋友之事",
-          "detailUrl": "https://cn.baozimh.com/comic/chapter/nengdangguimijiaowangdenanpengyouzhishi-niaojingmaa/0_43.html",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://cn.baozimh.com/comic/chapter/nengdangguimijiaowangdenanpengyouzhishi-niaojingmaa/0_43.html"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
         {
           "workId": "31e023c8ba95ba10",
           "title": "艾斯比实录",
@@ -9000,38 +9001,38 @@
           ]
         },
         {
-          "workId": "626e4fed5fbf7778",
-          "title": "纱世里平行",
-          "detailUrl": "https://cnc.dm5.com/manhua-shashilipingxing/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "d84c57a55b100037",
-          "title": "绝对回归",
-          "detailUrl": "https://cnc.dm5.com/manhua-jueduihuigui/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "54dbc0518922daab",
-          "title": "绝对神奇女侠",
-          "detailUrl": "https://cnc.dm5.com/m1835060/",
+          "workId": "a681a6285cc580ae",
+          "title": "穿高跟鞋的猫",
+          "detailUrl": "https://cnc.dm5.com/m1014829/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e85d0e624b1649cf",
+          "title": "美国队长V14",
+          "detailUrl": "https://cnc.dm5.com/m1830000/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "67b49c7cdfead52b",
+          "title": "诅咒少女和死亡圆舞曲",
+          "detailUrl": "https://cnc.dm5.com/manhua-zuzhoushaonvhesiwangyuanwuqu/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -9634,7 +9635,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 332,
+      "candidateWorkCount": 344,
       "works": [],
       "rejectedWorks": [
         {
@@ -12409,98 +12410,6 @@
           ]
         },
         {
-          "workId": "3847303c89ebd657",
-          "title": "究极蜘蛛侠V2",
-          "detailUrl": "https://www.dm5.com/manhua-jiujizhizhuxia-v-2/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "5570fb610c32df4e",
-          "title": "筋肉人二世究极双打篇",
-          "detailUrl": "https://www.dm5.com/manhua-jinrourenershijiujishuangdapian/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "0ff963aa6b9a9cc9",
-          "title": "簪花郎",
-          "detailUrl": "https://www.dm5.com/manhua-zanhualang/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "3f502a079f60cd06",
-          "title": "索尼克：音爆",
-          "detailUrl": "https://www.dm5.com/manhua-suonike-yinbao/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "626e4fed5fbf7778",
-          "title": "纱世里平行",
-          "detailUrl": "https://www.dm5.com/m1596333/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "5010f31109ce9f85",
-          "title": "终极蜘蛛侠",
-          "detailUrl": "https://www.dm5.com/manhua-zhongjizhizhuxia/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "353eeace61c57cfb",
-          "title": "终极蜘蛛侠2024",
-          "detailUrl": "https://www.dm5.com/manhua-zhongjizhizhuxia-2024/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "4029d6dc76dfe0c2",
           "title": "绝对火星猎人",
           "detailUrl": "https://www.dm5.com/manhua-jueduihuoxinglieren/",
@@ -12514,9 +12423,9 @@
           ]
         },
         {
-          "workId": "54dbc0518922daab",
-          "title": "绝对神奇女侠",
-          "detailUrl": "https://www.dm5.com/manhua-jueduishenqinvxia/",
+          "workId": "7e9c787cfe72be4b",
+          "title": "禁止入内的鼹鼠",
+          "detailUrl": "https://www.dm5.com/manhua-jinzhiruneideyanshu/",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -12527,9 +12436,74 @@
           ]
         },
         {
-          "workId": "20f363b0f70ca9fc",
-          "title": "绝对灵域",
-          "detailUrl": "https://www.dm5.com/manhua-jueduilingyu/",
+          "workId": "a681a6285cc580ae",
+          "title": "穿高跟鞋的猫",
+          "detailUrl": "https://www.dm5.com/manhua-chuangaogenxiedemao/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "555306efb9f726c6",
+          "title": "组长女儿与照料专员",
+          "detailUrl": "https://www.dm5.com/manhua-zuchangnveryuzhaoliaozhuanyuan/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e85d0e624b1649cf",
+          "title": "美国队长V14",
+          "detailUrl": "https://www.dm5.com/manhua-meiguoduichang-v-14/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ab0840e4723dcf85",
+          "title": "腐男子高校生活",
+          "detailUrl": "https://www.dm5.com/m201673/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4ab71ae1705b47e4",
+          "title": "花田少年史",
+          "detailUrl": "https://www.dm5.com/manhua-huatianshaonianshi/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1d608ec63289201b",
+          "title": "落语朱音",
+          "detailUrl": "https://www.dm5.com/manhua-luoyuzhuyin/",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed",
@@ -12541,9 +12515,48 @@
           ]
         },
         {
-          "workId": "433ad7eb3da5f2ea",
-          "title": "绝对蝙蝠侠",
-          "detailUrl": "https://www.dm5.com/m1576752/",
+          "workId": "adec8f62cb82bba3",
+          "title": "蜘蛛宇宙",
+          "detailUrl": "https://www.dm5.com/manhua-zhizhuyuzhou/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "38a1aa34ed47c87c",
+          "title": "蜘蛛格温：幽灵蜘蛛",
+          "detailUrl": "https://www.dm5.com/manhua-quanxinzhizhugewen-youlingzhizhu/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9e85002eccc8df68",
+          "title": "蝙蝠侠与罗宾v3",
+          "detailUrl": "https://www.dm5.com/manhua-bianfuxiayuluobin-v-3/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "fe3c82777e79fc6a",
+          "title": "蝙蝠侠：黑暗模式",
+          "detailUrl": "https://www.dm5.com/m1696110/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -12554,9 +12567,9 @@
           ]
         },
         {
-          "workId": "74bbf2d50de97e66",
-          "title": "绝对绿灯侠",
-          "detailUrl": "https://www.dm5.com/m1830675/",
+          "workId": "6549057a5449e34d",
+          "title": "蝶蛹的心脏",
+          "detailUrl": "https://www.dm5.com/m1780287/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -12567,12 +12580,12 @@
           ]
         },
         {
-          "workId": "ccef62be7d506639",
-          "title": "绿灯侠：一号地球",
-          "detailUrl": "https://www.dm5.com/m590782/",
+          "workId": "b545074e21de5d02",
+          "title": "谢了你啊异世界",
+          "detailUrl": "https://www.dm5.com/manhua-xieleniayishijie/",
           "status": "rejected",
           "rejectionReasons": [
-            "no_chapters"
+            "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -12580,12 +12593,25 @@
           ]
         },
         {
-          "workId": "07f5d95a19adc768",
-          "title": "绿灯军团V4",
-          "detailUrl": "https://www.dm5.com/m1692469/",
+          "workId": "f8be6681480120ad",
+          "title": "贤者大叔的异世界生活日记",
+          "detailUrl": "https://www.dm5.com/m908750/",
           "status": "rejected",
           "rejectionReasons": [
-            "no_chapters"
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1a865fa779ee7c91",
+          "title": "赤色四叶草",
+          "detailUrl": "https://www.dm5.com/manhua-chisesiyecao/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -13502,6 +13528,137 @@
           ]
         },
         {
+          "workId": "9e5d634b02d3ae5b",
+          "title": "幼儿园战争",
+          "detailUrl": "https://www.dm5.com/manhua-youzhiyuan-wars/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a116470210cd0e14",
+          "title": "当吸血鬼遇见女猎手",
+          "detailUrl": "https://www.dm5.com/manhua-dangxixueguiyujiannvlieshou/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5ceb290df98882d2",
+          "title": "彻底地恋爱吧",
+          "detailUrl": "https://www.dm5.com/manhua-chedidilianaiba/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d21c2e555f928c39",
+          "title": "怪人的沙拉碗",
+          "detailUrl": "https://www.dm5.com/manhua-guairendeshalawan/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "489c525982d376f4",
+          "title": "恋是樱草色",
+          "detailUrl": "https://www.dm5.com/manhua-lianshiyingcaose/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5048e26cef664fb2",
+          "title": "恋爱代理",
+          "detailUrl": "https://www.dm5.com/m1466414/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5383ac8230ceee05",
+          "title": "恋爱屁话",
+          "detailUrl": "https://www.dm5.com/m899722/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9b731b2be03bb0ae",
+          "title": "恋爱无法用双子除尽",
+          "detailUrl": "https://www.dm5.com/manhua-lianaiwufayongshuangzichujin/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "abe11df08a948a83",
+          "title": "想让“我爱你”游戏快点结束",
+          "detailUrl": "https://www.dm5.com/m1266237/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7adfce316de7117f",
+          "title": "我有五个大佬爸爸",
+          "detailUrl": "https://www.dm5.com/manhua-woyouwugedalaobaba/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "0454d82766700aa1",
           "title": "新撰组异闻录 北上篇",
           "detailUrl": "https://www.dm5.com/manhua-xzzywl-beishangpian/",
@@ -14014,8 +14171,8 @@
       "policyVersions": [
         "readability-v5"
       ],
-      "verifiedWorkCount": 116,
-      "candidateWorkCount": 189,
+      "verifiedWorkCount": 127,
+      "candidateWorkCount": 208,
       "works": [
         {
           "workId": "003800cff7469bfa",
@@ -14238,6 +14395,38 @@
               "imageCount": 86,
               "readable": true,
               "firstImageUrl": "https://cdn.dongmanmanhua.cn/16708147360712295108.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "2f5f9109afd8f6f2",
+          "title": "绯红之心",
+          "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/feihongzhixin/list?title_no=2280&page=1",
+          "verifiedChapterCount": 11,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/feihongzhixin/%E5%BA%8F%E7%AB%A0-%E5%86%85%E7%A7%91%E7%BD%97%E7%9A%84%E6%A2%A6%E5%A2%83/viewer?title_no=2280&episode_no=1",
+              "imageCount": 39,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1668750920275228019.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "[第5话] 雾气怪兽",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/feihongzhixin/%E7%AC%AC5%E8%AF%9D-%E9%9B%BE%E6%B0%94%E6%80%AA%E5%85%BD/viewer?title_no=2280&episode_no=6",
+              "imageCount": 76,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1669082646937228062.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "[第10话] 聪明、健康又开朗",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/feihongzhixin/%E7%AC%AC10%E8%AF%9D-%E8%81%AA%E6%98%8E%E5%81%A5%E5%BA%B7%E5%8F%88%E5%BC%80%E6%9C%97/viewer?title_no=2280&episode_no=11",
+              "imageCount": 69,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/16690975085472280116.jpg?x-oss-process=image/quality"
             }
           ]
         },
@@ -14498,6 +14687,38 @@
           ]
         },
         {
+          "workId": "62ebe901beaaa031",
+          "title": "翰林体育馆",
+          "detailUrl": "https://dongmanmanhua.cn/BOY/hanlintiyuguan/list?title_no=1515&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://dongmanmanhua.cn/BOY/hanlintiyuguan/%E7%AC%AC1%E8%AF%9D/viewer?title_no=1515&episode_no=1",
+              "imageCount": 119,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1592400550047151510.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://dongmanmanhua.cn/BOY/hanlintiyuguan/%E7%AC%AC6%E8%AF%9D/viewer?title_no=1515&episode_no=6",
+              "imageCount": 97,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1594910559633151565.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://dongmanmanhua.cn/BOY/hanlintiyuguan/%E7%AC%AC10%E8%AF%9D/viewer?title_no=1515&episode_no=10",
+              "imageCount": 82,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/15949749532341515109.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
           "workId": "662e84fef2030ad4",
           "title": "公爵家的重生暗杀者",
           "detailUrl": "https://www.dongmanmanhua.cn/BOY/gongjuejiadechongshenganshazhe/list?title_no=2714&page=1",
@@ -14558,6 +14779,38 @@
               "imageCount": 119,
               "readable": true,
               "firstImageUrl": "https://cdn.dongmanmanhua.cn/16759202815932335109.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "735b033b1e4b596f",
+          "title": "绝对剑感",
+          "detailUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/list?title_no=2242&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "[第1话] 结束奸细人生",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/%E7%AC%AC1%E8%AF%9D-%E7%BB%93%E6%9D%9F%E5%A5%B8%E7%BB%86%E4%BA%BA%E7%94%9F/viewer?title_no=2242&episode_no=1",
+              "imageCount": 186,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1683595991289224216.png?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "[第6话] 陆血谷（2）",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/%E7%AC%AC6%E8%AF%9D-%E9%99%86%E8%A1%80%E8%B0%B72/viewer?title_no=2242&episode_no=6",
+              "imageCount": 119,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1683596197940224260.png?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "[第10话] 奇奇怪怪（3）",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jueduijiangan/%E7%AC%AC10%E8%AF%9D-%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA3/viewer?title_no=2242&episode_no=10",
+              "imageCount": 109,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/16835963372282242101.png?x-oss-process=image/quality"
             }
           ]
         },
@@ -14750,6 +15003,38 @@
               "imageCount": 119,
               "readable": true,
               "firstImageUrl": "https://cdn.dongmanmanhua.cn/17392539670092757104.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "879ccdb761d3c9ff",
+          "title": "荆棘女王",
+          "detailUrl": "https://www.dongmanmanhua.cn/BOY/jingjinvwang/list?title_no=1479&page=1",
+          "verifiedChapterCount": 8,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jingjinvwang/%E5%BA%8F%E7%AB%A0/viewer?title_no=1479&episode_no=1",
+              "imageCount": 44,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/image/guide/risk-title-introduction.png?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第4话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jingjinvwang/%E7%AC%AC4%E8%AF%9D/viewer?title_no=1479&episode_no=5",
+              "imageCount": 121,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/image/guide/risk-title-introduction.png?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第7话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/BOY/jingjinvwang/%E7%AC%AC7%E8%AF%9D/viewer?title_no=1479&episode_no=8",
+              "imageCount": 132,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/image/guide/risk-title-introduction.png?x-oss-process=image/quality"
             }
           ]
         },
@@ -16002,6 +16287,70 @@
           ]
         },
         {
+          "workId": "04b8786d1b7991f5",
+          "title": "我的妈妈是校花",
+          "detailUrl": "https://www.dongmanmanhua.cn/HEALING/wodemamashixiaohua/list?title_no=1440&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/HEALING/wodemamashixiaohua/%E7%AC%AC1%E8%AF%9D/viewer?title_no=1440&episode_no=1",
+              "imageCount": 110,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1567157561729144010.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/HEALING/wodemamashixiaohua/%E7%AC%AC6%E8%AF%9D/viewer?title_no=1440&episode_no=6",
+              "imageCount": 85,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1568365643678144063.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/HEALING/wodemamashixiaohua/%E7%AC%AC10%E8%AF%9D/viewer?title_no=1440&episode_no=10",
+              "imageCount": 87,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/15695894856541440107.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "125cd94b1f9154c0",
+          "title": "战利品公爵夫人",
+          "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/zhanlipingongjuefuren/list?title_no=2758&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/zhanlipingongjuefuren/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2758&episode_no=1",
+              "imageCount": 113,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1739441621676275811.JPG?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/zhanlipingongjuefuren/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2758&episode_no=6",
+              "imageCount": 123,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1739428329000275863.JPG?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/FANTASY/zhanlipingongjuefuren/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2758&episode_no=10",
+              "imageCount": 68,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/17401065326912758100.JPG?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
           "workId": "1d70156145810571",
           "title": "匿名女孩",
           "detailUrl": "https://dongmanmanhua.cn/LOVE/nimingnvhai/list?title_no=1245&page=1",
@@ -16030,6 +16379,38 @@
               "imageCount": 44,
               "readable": true,
               "firstImageUrl": "https://cdn.dongmanmanhua.cn/15247070404571245100.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "36bf7aa7ab1ad01b",
+          "title": "恶女的绯闻游戏",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/envdefeiwenyouxi/list?title_no=2913&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/envdefeiwenyouxi/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2913&episode_no=1",
+              "imageCount": 85,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1783336209017291319.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/envdefeiwenyouxi/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2913&episode_no=6",
+              "imageCount": 84,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1783336499069291369.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/envdefeiwenyouxi/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2913&episode_no=10",
+              "imageCount": 96,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/17833367233662913105.jpg?x-oss-process=image/quality"
             }
           ]
         },
@@ -16290,6 +16671,38 @@
           ]
         },
         {
+          "workId": "c6eaea57aaf32530",
+          "title": "憎恨我的丈夫失忆了",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/zenghenwodezhangfushiyile/list?title_no=2701&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/zenghenwodezhangfushiyile/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2701&episode_no=1",
+              "imageCount": 87,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1702431833078270113.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/zenghenwodezhangfushiyile/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2701&episode_no=6",
+              "imageCount": 91,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1702435110332270163.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/zenghenwodezhangfushiyile/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2701&episode_no=10",
+              "imageCount": 92,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/17024519040622701100.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
           "workId": "d53dc72943ed38bc",
           "title": "奶酪陷阱",
           "detailUrl": "https://www.dongmanmanhua.cn/CAMPUS/cheese-in-the-trap/list?title_no=259&page=1",
@@ -16354,6 +16767,70 @@
           ]
         },
         {
+          "workId": "e65d93dd2425c9d4",
+          "title": "恋爱从带娃开始",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/lianaicongwakaishi/list?title_no=2908&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/lianaicongwakaishi/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2908&episode_no=1",
+              "imageCount": 141,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1782271031923290815.JPG?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/lianaicongwakaishi/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2908&episode_no=6",
+              "imageCount": 91,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1782271244509290863.JPG?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/lianaicongwakaishi/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2908&episode_no=10",
+              "imageCount": 92,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/17822714997482908100.JPG?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "e917fa3bf69d6eec",
+          "title": "我们公会的爱豆",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/womengonghuideaidou/list?title_no=2793&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "阅读第一话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/womengonghuideaidou/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2793&episode_no=1",
+              "imageCount": 99,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1751959098652279310.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/womengonghuideaidou/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2793&episode_no=6",
+              "imageCount": 93,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1751959592315279368.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/womengonghuideaidou/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2793&episode_no=10",
+              "imageCount": 67,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/17526052908322793108.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
           "workId": "ec0089bd85cac805",
           "title": "姐姐，今生我是王妃",
           "detailUrl": "https://www.dongmanmanhua.cn/LOVE/jiejiejinshengwoshiwangfei/list?title_no=2263&page=1",
@@ -16382,6 +16859,38 @@
               "imageCount": 93,
               "readable": true,
               "firstImageUrl": "https://cdn.dongmanmanhua.cn/16672759188082263102.jpg?x-oss-process=image/quality"
+            }
+          ]
+        },
+        {
+          "workId": "ed0ea3cd5f8cf79f",
+          "title": "恶魔的愿望",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/emodeyuanwang/list?title_no=2675&page=1",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/emodeyuanwang/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2675&episode_no=1",
+              "imageCount": 107,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1699425600089267512.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/emodeyuanwang/%E7%AC%AC6%E8%AF%9D/viewer?title_no=2675&episode_no=6",
+              "imageCount": 77,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/1700032849075267569.jpg?x-oss-process=image/quality"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话",
+              "chapterUrl": "https://www.dongmanmanhua.cn/LOVE/emodeyuanwang/%E7%AC%AC10%E8%AF%9D/viewer?title_no=2675&episode_no=10",
+              "imageCount": 52,
+              "readable": true,
+              "firstImageUrl": "https://cdn.dongmanmanhua.cn/16999442209622675102.jpg?x-oss-process=image/quality"
             }
           ]
         },
@@ -17996,28 +18505,28 @@
           ]
         },
         {
-          "workId": "0e878b1b06be5f7b",
-          "title": "绝代君临",
-          "detailUrl": "https://www.dongmanmanhua.cn/BOY/juedaijunlin/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2741&episode_no=2",
+          "workId": "2f5f9109afd8f6f2",
+          "title": "绯红之心",
+          "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/feihongzhixin/list?title_no=2280&page=2",
           "status": "rejected",
           "rejectionReasons": [
-            "title_identity_mismatch"
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
-            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
         {
-          "workId": "d84c57a55b100037",
-          "title": "绝对回归",
-          "detailUrl": "https://www.dongmanmanhua.cn/BOY/jueduihuigui/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2730&episode_no=1",
+          "workId": "e0dc92d264691b6f",
+          "title": "袭击VS复活",
+          "detailUrl": "https://www.dongmanmanhua.cn/BOY/xijivsfuhuo/list?title_no=1764&page=2",
           "status": "rejected",
           "rejectionReasons": [
-            "title_identity_mismatch"
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
-            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -18340,6 +18849,106 @@
           "workId": "3a8243bf9258bb40",
           "title": "少女的审判",
           "detailUrl": "https://www.dongmanmanhua.cn/CAMPUS/shaonvdeshenpan/%E7%AC%AC1%E8%AF%9D/viewer?title_no=1508&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e65d93dd2425c9d4",
+          "title": "恋爱从带娃开始",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/lianaicongwakaishi/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2908&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "30ccdda8ab38150f",
+          "title": "恋爱革命",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/lianaigeming/list?title_no=249&page=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ed0ea3cd5f8cf79f",
+          "title": "恶魔的愿望",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/emodeyuanwang/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2675&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "c6eaea57aaf32530",
+          "title": "憎恨我的丈夫失忆了",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/zenghenwodezhangfushiyile/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2701&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "13bcd674257ac7cb",
+          "title": "我成了反派",
+          "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/wochenglefanpaimendejinzhu/list?title_no=2860&page=1",
+          "status": "verified",
+          "rejectionReasons": [],
+          "selectionReasons": [
+            "title_identity_mismatch"
+          ]
+        },
+        {
+          "workId": "4c190c458ccfd6c6",
+          "title": "我拿走了公爵的第一次",
+          "detailUrl": "https://www.dongmanmanhua.cn/LOVE/wonazoulegonjuedediyici/%E7%AC%AC1%E8%AF%9D/viewer?title_no=1526&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "04b8786d1b7991f5",
+          "title": "我的妈妈是校花",
+          "detailUrl": "https://www.dongmanmanhua.cn/HEALING/wodemamashixiaohua/%E7%AC%AC1%E8%AF%9D/viewer?title_no=1440&episode_no=1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "125cd94b1f9154c0",
+          "title": "战利品公爵夫人",
+          "detailUrl": "https://www.dongmanmanhua.cn/FANTASY/zhanlipingongjuefuren/%E7%AC%AC1%E8%AF%9D/viewer?title_no=2758&episode_no=1",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -18793,7 +19402,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 83,
+      "candidateWorkCount": 86,
       "works": [],
       "rejectedWorks": [
         {
@@ -19577,6 +20186,45 @@
           ]
         },
         {
+          "workId": "4325893293045dea",
+          "title": "徒有虚颜",
+          "detailUrl": "https://www.doubaomanhua.com/detail/xPAak871n8",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/xPAak871n8"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "256ee314a6818307",
+          "title": "我在盛夏遇见雪",
+          "detailUrl": "https://www.doubaomanhua.com/detail/GX1kkMo1lO",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/GX1kkMo1lO"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "723abdf61b9c5fff",
+          "title": "我才是真正的家主",
+          "detailUrl": "https://www.doubaomanhua.com/detail/YLWPPZ7WPw",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/YLWPPZ7WPw"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "feb358ca735f7733",
           "title": "我才是真正的家主",
           "detailUrl": "https://www.doubaomanhua.com/detail/YLWPPZ7WPw",
@@ -20181,7 +20829,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 2,
       "works": [],
       "rejectedWorks": [
         {
@@ -20205,19 +20853,6 @@
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "5570fb610c32df4e",
-          "title": "筋肉人二世究极双打篇",
-          "detailUrl": "https://en.dm5.com/manhua-jinrourenershijiujishuangdapian/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -20618,7 +21253,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 5,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
         {
@@ -20680,6 +21315,19 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "15b65749d3dde65d",
+          "title": "我的朋友很少+",
+          "detailUrl": "https://www.gamersky.com/news/202609/2210495.shtml",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -20983,8 +21631,8 @@
       "policyVersions": [
         "readability-v5"
       ],
-      "verifiedWorkCount": 145,
-      "candidateWorkCount": 691,
+      "verifiedWorkCount": 155,
+      "candidateWorkCount": 735,
       "works": [
         {
           "workId": "0a341250469049ea",
@@ -21143,6 +21791,70 @@
               "imageCount": 107,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/3078/260425/110_1.webp"
+            }
+          ]
+        },
+        {
+          "workId": "1397ee05071c2b70",
+          "title": "藏锋行",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=24314",
+          "verifiedChapterCount": 109,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1回 妖刀浩劫",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1390917",
+              "imageCount": 54,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/3204/260423/1_1.webp"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第55回 堂上止戈",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1393905",
+              "imageCount": 83,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/3204/260423/56_1.webp"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第109回 新的危机",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1397227",
+              "imageCount": 109,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/3204/260423/113_1.webp"
+            }
+          ]
+        },
+        {
+          "workId": "18004b53097b3fa8",
+          "title": "诺亚之蝶",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=29224",
+          "verifiedChapterCount": 10,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话 蝴蝶与少女",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2201797",
+              "imageCount": 13,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/29224/260517/ch1_0.jpg"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第6话 逃离学校",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2201810",
+              "imageCount": 13,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/29224/260517/ch6_0.jpg"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第10话 启程 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2201814",
+              "imageCount": 13,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/29224/260517/ch10_0.jpg"
             }
           ]
         },
@@ -21335,6 +22047,38 @@
               "imageCount": 30,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/32236/260701/45_1.jpg"
+            }
+          ]
+        },
+        {
+          "workId": "35b5d50b759281d3",
+          "title": "贵安，要来一局吗？",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=32072",
+          "verifiedChapterCount": 39,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2396240",
+              "imageCount": 18,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/32072/260626/1_1.jpg"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第20话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2396259",
+              "imageCount": 20,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/32072/260626/20_1.jpg"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第39话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2396278",
+              "imageCount": 18,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/32072/260626/39_1.jpg"
             }
           ]
         },
@@ -21659,6 +22403,38 @@
           ]
         },
         {
+          "workId": "5ef45d2c5a623680",
+          "title": "终将成为最强炼金术师？",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=17298",
+          "verifiedChapterCount": 55,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话 被投入的小石",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=838238",
+              "imageCount": 40,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12217/260421/1_1.webp"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第30话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=840264",
+              "imageCount": 28,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12217/260421/30_1.webp"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第58话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=842107",
+              "imageCount": 19,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12217/260421/59_1.webp"
+            }
+          ]
+        },
+        {
           "workId": "66c5383cf77fcfe2",
           "title": "新绘水浒传",
           "detailUrl": "https://www.guazimanhua.com/comic.php?id=29342",
@@ -21687,6 +22463,38 @@
               "imageCount": 19,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/29342/260517/ch4_0.jpg"
+            }
+          ]
+        },
+        {
+          "workId": "67b49c7cdfead52b",
+          "title": "诅咒少女和死亡圆舞曲",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=33567",
+          "verifiedChapterCount": 27,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2441243",
+              "imageCount": 63,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/33567/260726/1_1.jpg"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第14话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2441260",
+              "imageCount": 39,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/33567/260726/14_1.jpg"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第27话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2441285",
+              "imageCount": 35,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/33567/260726/27_1.jpg"
             }
           ]
         },
@@ -21847,6 +22655,70 @@
               "imageCount": 211,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/18974/260821/8_1.webp"
+            }
+          ]
+        },
+        {
+          "workId": "7e9c787cfe72be4b",
+          "title": "禁止入内的鼹鼠",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=34048",
+          "verifiedChapterCount": 81,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话 都某于内处",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2457418",
+              "imageCount": 31,
+              "readable": true,
+              "firstImageUrl": "https://mhfm8tel.cdndm5.com/89/88952/20250226001402_180x240_22.jpg"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第41话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2457561",
+              "imageCount": 19,
+              "readable": true,
+              "firstImageUrl": "https://mhfm8tel.cdndm5.com/89/88952/20250226001402_180x240_22.jpg"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第81话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2457697",
+              "imageCount": 18,
+              "readable": true,
+              "firstImageUrl": "https://mhfm8tel.cdndm5.com/89/88952/20250226001402_180x240_22.jpg"
+            }
+          ]
+        },
+        {
+          "workId": "80a238c8b4a28f3b",
+          "title": "绝世丹神",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=30342",
+          "verifiedChapterCount": 272,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话 这一世我定登峰造极！",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2296113",
+              "imageCount": 46,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/30342/260519/ch1_0.jpg"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第137话 你们尽情挣扎吧",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2297987",
+              "imageCount": 43,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/30342/260519/ch137_0.jpg"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第272话 我…无处不在！ 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2299066",
+              "imageCount": 32,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/30342/260519/ch272_0.jpg"
             }
           ]
         },
@@ -22139,6 +23011,38 @@
           ]
         },
         {
+          "workId": "9e85002eccc8df68",
+          "title": "蝙蝠侠与罗宾v3",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=22537",
+          "verifiedChapterCount": 22,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1247482",
+              "imageCount": 29,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12559/260422/1_1.webp"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第12话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1247822",
+              "imageCount": 23,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12559/260422/12_1.webp"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第26话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=1248120",
+              "imageCount": 24,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/12559/260422/22_1.webp"
+            }
+          ]
+        },
+        {
           "workId": "a2778e5d9f116357",
           "title": "医等狂兵",
           "detailUrl": "https://www.guazimanhua.com/comic.php?id=28967",
@@ -22167,6 +23071,38 @@
               "imageCount": 33,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/17706/260620/249_1.webp"
+            }
+          ]
+        },
+        {
+          "workId": "a2cdd161c91a4dbb",
+          "title": "花薰凛然",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=17115",
+          "verifiedChapterCount": 189,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "第1话 凛太郎与薰子",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=823536",
+              "imageCount": 53,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/6434/260420/1_1.webp"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第95话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=827074",
+              "imageCount": 21,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/6434/260420/96_1.webp"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第192话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=2395221",
+              "imageCount": 23,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com//dm5/comics/chapters/17115/260625/192_1.jpg"
             }
           ]
         },
@@ -22423,6 +23359,38 @@
               "imageCount": 26,
               "readable": true,
               "firstImageUrl": "https://img.guazicdn.com/mkz/comics/chapters/30463/260519/ch173_0.jpg"
+            }
+          ]
+        },
+        {
+          "workId": "e0dc92d264691b6f",
+          "title": "袭击VS复活",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=16765",
+          "verifiedChapterCount": 87,
+          "samples": [
+            {
+              "position": "first",
+              "chapterTitle": "从第一章开始阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=795194",
+              "imageCount": 31,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/1551/260420/1_1.webp"
+            },
+            {
+              "position": "middle",
+              "chapterTitle": "第43话",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=796110",
+              "imageCount": 87,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/1551/260420/44_1.webp"
+            },
+            {
+              "position": "latest",
+              "chapterTitle": "第87话 阅读",
+              "chapterUrl": "https://www.guazimanhua.com/chapter.php?id=797154",
+              "imageCount": 103,
+              "readable": true,
+              "firstImageUrl": "https://img.guazicdn.com/th/comics/chapters/1551/260420/88_1.webp"
             }
           ]
         },
@@ -27661,19 +28629,6 @@
           ]
         },
         {
-          "workId": "c6b726fe3c6b4df1",
-          "title": "练级20年，出门就是满级反派",
-          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=851020",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "9830fb2ed6ec85fa",
           "title": "终极执行官",
           "detailUrl": "https://www.guazimanhua.com/comic.php?id=19661",
@@ -27687,9 +28642,9 @@
           ]
         },
         {
-          "workId": "ce7b8af278f506f4",
-          "title": "绝世名师百师父",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=25305",
+          "workId": "9bb784f7cd7f9c37",
+          "title": "简明易懂的SCP",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=10869",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -27699,9 +28654,47 @@
           ]
         },
         {
-          "workId": "0e878b1b06be5f7b",
-          "title": "绝代君临",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=24702",
+          "workId": "8241747153ed5eef",
+          "title": "绅士同盟",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=19247",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3fd2b6497e6603e8",
+          "title": "绝对猫女",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=36493",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62ebe901beaaa031",
+          "title": "翰林体育馆",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=25840",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "05001171eb9aae88",
+          "title": "英雄样样行",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=33852",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -27711,9 +28704,9 @@
           ]
         },
         {
-          "workId": "75e30683ccea7165",
-          "title": "绝对服从",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=11713",
+          "workId": "2aa9cc6774a5431b",
+          "title": "菜鸟伙房兵",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=11243",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -27723,9 +28716,47 @@
           ]
         },
         {
-          "workId": "54dbc0518922daab",
-          "title": "绝对神奇女侠",
-          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=2359040",
+          "workId": "eb7cc82673ac32d6",
+          "title": "萌师在上",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=21109",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "6549057a5449e34d",
+          "title": "蝶蛹的心脏",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=28564",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "fa3aae6cc2b609e8",
+          "title": "血姬与骑士",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=14591",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e0dc92d264691b6f",
+          "title": "袭击VS复活",
+          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=795194",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -27736,21 +28767,61 @@
           ]
         },
         {
-          "workId": "74bbf2d50de97e66",
-          "title": "绝对绿灯侠",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=32341",
+          "workId": "3b86273622b986d0",
+          "title": "装备我最强",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=22951",
           "status": "rejected",
           "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed"
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
             "three_chapter_readability_gate_failed"
           ]
         },
         {
-          "workId": "07f5d95a19adc768",
-          "title": "绿灯军团V4",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=31135",
+          "workId": "67b49c7cdfead52b",
+          "title": "诅咒少女和死亡圆舞曲",
+          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=2441243",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b51109fba72b4fe5",
+          "title": "谢文东",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=17889",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "35b5d50b759281d3",
+          "title": "贵安，要来一局吗？",
+          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=2396240",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1a865fa779ee7c91",
+          "title": "赤色四叶草",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=14266",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -30268,6 +31339,344 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31388"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "836dd006203fc87b",
+          "title": "应有长风倚碧鸢",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=10760",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=10760"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "76f76e4d3be6cc18",
+          "title": "很纯很暧昧",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=24244",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24244"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4325893293045dea",
+          "title": "徒有虚颜",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=17156",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17156"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e489d4cb7bf86690",
+          "title": "忍者杀手",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=17715",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17715"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e4958df50fff5d7c",
+          "title": "忽如一夜病娇来",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=23840",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23840"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a713fa208661f9d8",
+          "title": "怪物恋人",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=14349",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14349"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "955731da8f8706dc",
+          "title": "总之就是非常可爱 fly me to the moon",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=31286",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31286"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e65d93dd2425c9d4",
+          "title": "恋爱从带娃开始",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=32021",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32021"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a4792bc51a6e5cae",
+          "title": "恰似寒光遇骄阳",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=22111",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22111"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "36bf7aa7ab1ad01b",
+          "title": "恶女的绯闻游戏",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=32493",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32493"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5f8525a7e7a5d83e",
+          "title": "恶意的浓度",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=21248",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=21248"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d1bcaad528ca10ec",
+          "title": "恶棍",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=26596",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=26596"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ed0ea3cd5f8cf79f",
+          "title": "恶魔的愿望",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=13820",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=13820"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "bf6875f018d4d59e",
+          "title": "想飞升就谈恋爱",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=19530",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19530"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "c6eaea57aaf32530",
+          "title": "憎恨我的丈夫失忆了",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=20226",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20226"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "28766d70880bb865",
+          "title": "成也萧河",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=20293",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20293"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "68c425208ab86357",
+          "title": "我喜欢的人所喜欢的人",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=32462",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32462"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "256ee314a6818307",
+          "title": "我在盛夏遇见雪",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=18962",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18962"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d9899f8ce8d16364",
+          "title": "我家女友可不止可爱呢",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=37425",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=37425"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "f02c140fdc6d1dd4",
+          "title": "我就想蹭你的气运",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=15941",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15941"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "13bcd674257ac7cb",
+          "title": "我成了反派",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=19776",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19776"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "13cc8e3913eecd5e",
+          "title": "我才不是魔法少女",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=10762",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=10762"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4c190c458ccfd6c6",
+          "title": "我拿走了公爵的第一次",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=11832",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11832"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8b13074e2c42111c",
+          "title": "我这条咸鱼被出道了",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=25057",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25057"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "125cd94b1f9154c0",
+          "title": "战利品公爵夫人",
+          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=1934933",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1934933"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0afecd94ac1d7ef9",
+          "title": "战国千年",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=19997",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19997"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -33461,7 +34870,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 13,
+      "candidateWorkCount": 14,
       "works": [],
       "rejectedWorks": [
         {
@@ -33517,6 +34926,18 @@
           "workId": "4de5a4d849498041",
           "title": "否极泰来",
           "detailUrl": "https://www.hgcha.com/chengyu/66a90b58.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1b360a95c9cf6727",
+          "title": "悸动",
+          "detailUrl": "https://www.hgcha.com/cidian/107b48f8.html",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -33633,7 +35054,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
@@ -33666,6 +35087,19 @@
           "workId": "952e5b55bcb2786f",
           "title": "反派女主的时间沙漏",
           "detailUrl": "https://hk.dm5.com/manhua-fanpainvzhudeshijianshalou/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "433d6d2f9d2efaa7",
+          "title": "懒散缠人的森野同学",
+          "detailUrl": "https://hk.dm5.com/manhua-lansanchanrendesenyetongxue/",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
@@ -33880,7 +35314,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 68,
+      "candidateWorkCount": 70,
       "works": [],
       "rejectedWorks": [
         {
@@ -34057,6 +35491,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8cae5a095c16507c",
+          "title": "美妙旋律",
+          "detailUrl": "https://www.iqiyi.com/so/q_%E7%BE%8E%E5%A6%99%E6%97%8B%E5%BE%8B%E7%AC%AC%E4%B8%80%E5%AD%A3%E5%85%A8%E9%9B%86",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e09b946cca149859",
+          "title": "蜘蛛侠：平行宇宙",
+          "detailUrl": "https://www.iqiyi.com/search?q=%E8%9C%98%E8%9B%9B%E4%BE%A0%EF%BC%9A%E5%B9%B3%E8%A1%8C%E5%AE%87%E5%AE%99",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -35170,7 +36630,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 348,
+      "candidateWorkCount": 355,
       "works": [],
       "rejectedWorks": [
         {
@@ -35955,9 +37415,48 @@
           ]
         },
         {
-          "workId": "0ff963aa6b9a9cc9",
-          "title": "簪花郎",
-          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/6566/",
+          "workId": "09710cf61261a8b8",
+          "title": "秘密校园",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/6617/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "27361a7c308965e3",
+          "title": "穿进赛博游戏后干掉BOSS成功上位",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/17648/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a681a6285cc580ae",
+          "title": "穿高跟鞋的猫",
+          "detailUrl": "https://www.kuaikanmanhua.com/engine1/54613_363_1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1397ee05071c2b70",
+          "title": "藏锋行",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/2989/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -35968,9 +37467,9 @@
           ]
         },
         {
-          "workId": "0f30441a890e45b1",
-          "title": "精准撞击",
-          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/2955/",
+          "workId": "715fee1168e182e1",
+          "title": "要和骷髅谈恋爱吗？",
+          "detailUrl": "https://www.kuaikanmanhua.com/query1/1409015",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -35981,25 +37480,12 @@
           ]
         },
         {
-          "workId": "376603aba864dc1a",
-          "title": "精神病面前，鬼东西算个球",
-          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/21615/",
+          "workId": "1a865fa779ee7c91",
+          "title": "赤色四叶草",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/698/",
           "status": "rejected",
           "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "d84c57a55b100037",
-          "title": "绝对回归",
-          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/26516/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
+            "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -37596,6 +39082,71 @@
           "workId": "57b6e77a9c80136b",
           "title": "小精灵是恶棍",
           "detailUrl": "https://www.kuaikanmanhua.com/webs/world/123873525257713680442",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "836dd006203fc87b",
+          "title": "应有长风倚碧鸢",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/3778/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4325893293045dea",
+          "title": "徒有虚颜",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/3754/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a713fa208661f9d8",
+          "title": "怪物恋人",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/1217/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "489c525982d376f4",
+          "title": "恋是樱草色",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/749/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "f02c140fdc6d1dd4",
+          "title": "我就想蹭你的气运",
+          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/17670/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -39982,7 +41533,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 217,
+      "candidateWorkCount": 230,
       "works": [],
       "rejectedWorks": [
         {
@@ -40948,18 +42499,6 @@
           ]
         },
         {
-          "workId": "0f30441a890e45b1",
-          "title": "精准撞击",
-          "detailUrl": "https://www.liumanhua.com/234168",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "9830fb2ed6ec85fa",
           "title": "终极执行官",
           "detailUrl": "https://www.liumanhua.com/453444",
@@ -40973,12 +42512,61 @@
           ]
         },
         {
-          "workId": "07f5d95a19adc768",
-          "title": "绿灯军团V4",
-          "detailUrl": "https://www.liumanhua.com/557801",
+          "workId": "9564f933a7159ba1",
+          "title": "笑面推销员",
+          "detailUrl": "https://www.liumanhua.com/242529",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "2f5f9109afd8f6f2",
+          "title": "绯红之心",
+          "detailUrl": "https://www.liumanhua.com/256231",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "879ccdb761d3c9ff",
+          "title": "荆棘女王",
+          "detailUrl": "https://www.liumanhua.com/262242",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "fe3c82777e79fc6a",
+          "title": "蝙蝠侠：黑暗模式",
+          "detailUrl": "https://www.liumanhua.com/553616",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "6549057a5449e34d",
+          "title": "蝶蛹的心脏",
+          "detailUrl": "https://www.liumanhua.com/610756",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
             "three_chapter_readability_gate_failed"
@@ -41885,6 +43473,132 @@
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed",
             "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "dc37a22f62208e2a",
+          "title": "庙不可言",
+          "detailUrl": "https://www.liumanhua.com/253419",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a116470210cd0e14",
+          "title": "当吸血鬼遇见女猎手",
+          "detailUrl": "https://www.liumanhua.com/602218",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4325893293045dea",
+          "title": "徒有虚颜",
+          "detailUrl": "https://www.liumanhua.com/234833",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "489c525982d376f4",
+          "title": "恋是樱草色",
+          "detailUrl": "https://www.liumanhua.com/233182",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "36bf7aa7ab1ad01b",
+          "title": "恶女的绯闻游戏",
+          "detailUrl": "https://www.liumanhua.com/617776",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ed0ea3cd5f8cf79f",
+          "title": "恶魔的愿望",
+          "detailUrl": "https://www.liumanhua.com/370404",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "c6eaea57aaf32530",
+          "title": "憎恨我的丈夫失忆了",
+          "detailUrl": "https://www.liumanhua.com/373491",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "f02c140fdc6d1dd4",
+          "title": "我就想蹭你的气运",
+          "detailUrl": "https://www.liumanhua.com/260112",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "13bcd674257ac7cb",
+          "title": "我成了反派",
+          "detailUrl": "https://www.liumanhua.com/612644",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8b13074e2c42111c",
+          "title": "我这条咸鱼被出道了",
+          "detailUrl": "https://www.liumanhua.com/232905",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
             "three_chapter_readability_gate_failed"
@@ -43004,7 +44718,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 6,
+      "candidateWorkCount": 7,
       "works": [],
       "rejectedWorks": [
         {
@@ -43047,9 +44761,22 @@
           ]
         },
         {
-          "workId": "09710cf61261a8b8",
-          "title": "秘密校园",
-          "detailUrl": "https://m.douban.com/movie/review/16224753/",
+          "workId": "1709a7107ea487fb",
+          "title": "空之境界",
+          "detailUrl": "https://m.douban.com/book/subject/30248287/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "2911bf2b4c9fae80",
+          "title": "肥宅勇者",
+          "detailUrl": "https://m.douban.com/movie/subject/37125394/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -43251,7 +44978,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 39,
+      "candidateWorkCount": 44,
       "works": [],
       "rejectedWorks": [
         {
@@ -43361,6 +45088,32 @@
           "workId": "7e6d61051941e640",
           "title": "神代搜查",
           "detailUrl": "https://m.kuaikanmanhua.com/engine/155288_20_1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a681a6285cc580ae",
+          "title": "穿高跟鞋的猫",
+          "detailUrl": "https://m.kuaikanmanhua.com/engine/54613_20_1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "715fee1168e182e1",
+          "title": "要和骷髅谈恋爱吗？",
+          "detailUrl": "https://m.kuaikanmanhua.com/engine/190493_363_1",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -43605,6 +45358,45 @@
           "workId": "6ad484133658d2e2",
           "title": "尝到深处自然甜",
           "detailUrl": "https://m.kuaikanmanhua.com/engine/160232_20_1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5ceb290df98882d2",
+          "title": "彻底地恋爱吧",
+          "detailUrl": "https://m.kuaikanmanhua.com/engine/69217_6_1",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "6a5a7b55db921e60",
+          "title": "愚女",
+          "detailUrl": "https://m.kuaikanmanhua.com/mobile/27522/list/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0afecd94ac1d7ef9",
+          "title": "战国千年",
+          "detailUrl": "https://m.kuaikanmanhua.com/engine/39551_363_1",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -43884,13 +45676,26 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "e318f851bdab7cc5",
           "title": "我成了反派大佬的小娇妻？！",
           "detailUrl": "https://m.qidian.com/comicbook/18926610408096902/catalog/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "d658dd2a44e63b83",
+          "title": "我的姐姐是大明星",
+          "detailUrl": "https://m.qidian.com/comicbook/20188572601648901/catalog/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -44117,7 +45922,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 75,
+      "candidateWorkCount": 76,
       "works": [],
       "rejectedWorks": [
         {
@@ -44735,6 +46540,19 @@
           "workId": "6903870efc9a5d06",
           "title": "尖叫女王",
           "detailUrl": "https://manga.bilibili.com/detail/mc28125",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0afecd94ac1d7ef9",
+          "title": "战国千年",
+          "detailUrl": "https://manga.bilibili.com/detail/mc25816",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -45755,7 +47573,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 165,
+      "candidateWorkCount": 168,
       "works": [],
       "rejectedWorks": [
         {
@@ -46435,9 +48253,9 @@
           ]
         },
         {
-          "workId": "09710cf61261a8b8",
-          "title": "秘密校园",
-          "detailUrl": "https://movie.douban.com/subject/36533880/",
+          "workId": "45e71ab8cf5400da",
+          "title": "秀逗魔导士",
+          "detailUrl": "https://movie.douban.com/subject/1766522/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -46448,9 +48266,35 @@
           ]
         },
         {
-          "workId": "eecc0565a9acc79e",
-          "title": "粗点心战争",
-          "detailUrl": "https://movie.douban.com/subject/26615509/",
+          "workId": "4735429077926c4f",
+          "title": "绯红女巫",
+          "detailUrl": "https://movie.douban.com/subject/37038694/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "91f983111d0dee79",
+          "title": "老子是魔法少女",
+          "detailUrl": "https://movie.douban.com/subject/27600965/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "154570f56036a152",
+          "title": "说英雄谁是英雄",
+          "detailUrl": "https://movie.douban.com/subject/35192154/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -47166,6 +49010,19 @@
           "workId": "c10f0a81066f0cfe",
           "title": "回想",
           "detailUrl": "https://movie.douban.com/subject/25714216/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "dfafeaea975d9b6d",
+          "title": "快穿：病娇男主他又吃醋了",
+          "detailUrl": "https://movie.douban.com/subject/36788863/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -48055,7 +49912,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 1,
+      "candidateWorkCount": 2,
       "works": [],
       "rejectedWorks": [
         {
@@ -48068,6 +49925,20 @@
             "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8e8c52c8187481fe",
+          "title": "绝品透视",
+          "detailUrl": "https://www.nana00.com/xs87332/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         }
@@ -48650,7 +50521,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 45,
+      "candidateWorkCount": 47,
       "works": [],
       "rejectedWorks": [
         {
@@ -48930,6 +50801,32 @@
           "workId": "36f0e8c13b91859c",
           "title": "史上第一祖师爷",
           "detailUrl": "https://www.qidian.com/book/3144004/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "dc8356d6ba279b6e",
+          "title": "我不喜欢这世界，我只喜欢你",
+          "detailUrl": "https://www.qidian.com/book/1001616265/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "64af30c0892486bd",
+          "title": "我家徒弟又挂了",
+          "detailUrl": "https://www.qidian.com/book/3378072/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -49248,7 +51145,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 33,
+      "candidateWorkCount": 34,
       "works": [],
       "rejectedWorks": [
         {
@@ -49528,6 +51425,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.qimanwu.app/comic/DJ2z9gpEKY"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9b40027f8fda2a87",
+          "title": "心河",
+          "detailUrl": "https://www.qimanwu.app/comic/aq2GpwJD8G",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -50111,7 +52021,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 41,
+      "candidateWorkCount": 40,
       "works": [],
       "rejectedWorks": [
         {
@@ -50186,19 +52096,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "ConnectTimeout: HTTPSConnectionPool(host='www.sohu.com', port=443): Max retries exceeded with url: /a/895276801_122344031 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.sohu.com', port=443) at 0x7fa28cc62720>, 'Connection to www.sohu.com timed out. (connect timeout=15)'))"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "88022390d6b8642d",
-          "title": "第三次世界大战",
-          "detailUrl": "https://www.sohu.com/a/951199290_121166768",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -50656,7 +52553,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 12,
+      "candidateWorkCount": 13,
       "works": [],
       "rejectedWorks": [
         {
@@ -50699,6 +52596,18 @@
           "workId": "3b244058074f46f7",
           "title": "死神少年",
           "detailUrl": "https://songzimanhua.com/book/25873/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1960db185ace7a9b",
+          "title": "致命冲动",
+          "detailUrl": "https://songzimanhua.com/book/11931/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -51099,7 +53008,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 57,
+      "candidateWorkCount": 58,
       "works": [],
       "rejectedWorks": [
         {
@@ -51623,6 +53532,19 @@
           ]
         },
         {
+          "workId": "52d8cd17eacb1e21",
+          "title": "我立于百万生命之上",
+          "detailUrl": "https://tieba.baidu.com/f?kw=%E6%88%91%E7%AB%8B%E4%BA%8E%E7%99%BE%E4%B8%87%E7%94%9F%E5%91%BD%E4%B9%8B%E4%B8%8A",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E6%88%91%E7%AB%8B%E4%BA%8E%E7%99%BE%E4%B8%87%E7%94%9F%E5%91%BD%E4%B9%8B%E4%B8%8A"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "704ad09057df9e89",
           "title": "天书奇谈",
           "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
@@ -51970,7 +53892,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 14,
+      "candidateWorkCount": 15,
       "works": [],
       "rejectedWorks": [
         {
@@ -52084,6 +54006,19 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "54513d84d3622c04",
+          "title": "我有一个朋友……",
+          "detailUrl": "https://tv.sohu.com/item/MTI4MTU1Nw==.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -52310,7 +54245,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 8,
+      "candidateWorkCount": 9,
       "works": [],
       "rejectedWorks": [
         {
@@ -52405,6 +54340,19 @@
           ]
         },
         {
+          "workId": "13bcd674257ac7cb",
+          "title": "我成了反派",
+          "detailUrl": "https://tw.baozimh.com/comic/wochengliaofanpaimendejinzhu-licojogenbomhanbangul",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tw.baozimh.com/comic/wochengliaofanpaimendejinzhu-licojogenbomhanbangul"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "59c5af8839a67305",
           "title": "末日物流中心",
           "detailUrl": "https://tw.baozimh.com/comic/moriwuliuzhongxin-jaedeokwanggoochaesaintnine_6yoa95",
@@ -52427,7 +54375,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 90,
+      "candidateWorkCount": 94,
       "works": [],
       "rejectedWorks": [
         {
@@ -52616,6 +54564,32 @@
           "workId": "83dfa7391ebcc567",
           "title": "极速赛车手",
           "detailUrl": "https://v.qq.com/x/cover/lnl32iz8uj2hev0/g0024xnwic6.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "45e71ab8cf5400da",
+          "title": "秀逗魔导士",
+          "detailUrl": "https://v.qq.com/x/cover/adddc4x1gd4g8yi/f00337xb7j7.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e09b946cca149859",
+          "title": "蜘蛛侠：平行宇宙",
+          "detailUrl": "https://v.qq.com/x/cover/6xzlbrzswkuo3wq/p0030g08wvl.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -53110,6 +55084,32 @@
           "workId": "d4d596de59b5d06e",
           "title": "夜曲",
           "detailUrl": "https://v.qq.com/x/page/p0377uhs672.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "97ad519004dae575",
+          "title": "归去来",
+          "detailUrl": "https://v.qq.com/x/cover/vxz0cpf5fawnghw.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "30ccdda8ab38150f",
+          "title": "恋爱革命",
+          "detailUrl": "https://v.qq.com/x/page/x0017q34fho.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -55068,7 +57068,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 71,
+      "candidateWorkCount": 74,
       "works": [],
       "rejectedWorks": [
         {
@@ -55326,6 +57326,32 @@
             "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "45ff4df20ba017f4",
+          "title": "第一赘婿",
+          "detailUrl": "http://yumanhua.com/trvswbi/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "80a238c8b4a28f3b",
+          "title": "绝世丹神",
+          "detailUrl": "https://www.yumanhua.com/TRxNNUf/",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "SSLError: HTTPSConnectionPool(host='www.yumanhua.com', port=443): Max retries exceeded with url: /TRxNNUf/ (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.yumanhua.com'. (_ssl.c:1010)\")))"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -55616,6 +57642,19 @@
           "workId": "3999f594778bb824",
           "title": "尼罗河女儿",
           "detailUrl": "http://yumanhua.com/trKbrwi/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0d7d44500e6cfea4",
+          "title": "恋爱的语言",
+          "detailUrl": "http://www.yumanhua.com/IIVgXXF/",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed",
@@ -55996,7 +58035,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 9,
+      "candidateWorkCount": 8,
       "works": [],
       "rejectedWorks": [
         {
@@ -56006,20 +58045,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "ConnectionError: HTTPSConnectionPool(host='yunqi.qq.com', port=443): Max retries exceeded with url: /bqq/foqbbphvmi (Caused by NewConnectionError(\"HTTPSConnection(host='yunqi.qq.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "0a5a4c9d0e55872c",
-          "title": "绝世武神",
-          "detailUrl": "https://yunqi.qq.com/bqq/njbpskjdgt",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
