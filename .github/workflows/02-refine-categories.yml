@@ -94,7 +94,3 @@ jobs:
         if: always()
         env: {GH_TOKEN: '${{ github.token }}'}
         run: gh workflow run 03-batch-replay.yml --ref main
-  publish_incremental:
-    needs: merge
-    if: always()
-    uses: ./.github/workflows/05-publish.yml
