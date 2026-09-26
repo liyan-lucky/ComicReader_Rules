@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-26T02:10:48.289983+00:00",
+  "generatedAt": "2026-09-26T03:35:16.779015+00:00",
   "selected": [
     {
       "workId": "0fdf24524fbfbfa1",
@@ -39808,14 +39808,13 @@
       "workId": "9e2c17ed37532c0b",
       "language": "zh-Hans",
       "title": "一念",
-      "domain": "bilibili.com",
-      "detailUrl": "https://www.bilibili.com/video/BV1D5hJ6pEpL/",
-      "status": "unreachable",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-bfe9e35b9",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1D5hJ6pEpL/"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39838,13 +39837,29 @@
       "workId": "409707181a524df1",
       "language": "zh-Hans",
       "title": "万中无一",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-fcdd6c03",
-      "status": "rejected",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/79ed58784f73f242336c1eb91a37f111f1850db1.html",
+      "status": "unreachable",
       "rejectionReasons": [
-        "no_chapters"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/79ed58784f73f242336c1eb91a37f111f1850db1.html"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "409707181a524df1",
+      "language": "zh-Hans",
+      "title": "万中无一",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/7d8b9682564de518964bcf84b9d528ea81c72fe3.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/7d8b9682564de518964bcf84b9d528ea81c72fe3.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39852,29 +39867,13 @@
       "workId": "4b242bea88ecda91",
       "language": "zh-Hans",
       "title": "不死鸟",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v67777124.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "45f1d79a3a97f351",
-      "language": "zh-Hans",
-      "title": "两界：我有一个古武世界",
-      "domain": "m.qidian.com",
-      "detailUrl": "https://m.qidian.com/wenshu/qpezfjdzf/",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep1211152",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39887,37 +39886,6 @@
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "45f1d79a3a97f351",
-      "language": "zh-Hans",
-      "title": "两界：我有一个古武世界",
-      "domain": "chuangshi.qq.com",
-      "detailUrl": "https://chuangshi.qq.com/bqq/njfogtlwyc",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='chuangshi.qq.com', port=443): Read timed out. (read timeout=15)"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "45f1d79a3a97f351",
-      "language": "zh-Hans",
-      "title": "两界：我有一个古武世界",
-      "domain": "chuangshi.qq.com",
-      "detailUrl": "https://chuangshi.qq.com/bqq/njfolwjdgt",
-      "status": "rejected",
-      "rejectionReasons": [
-        "chapter_identity_or_content_variation_gate_failed",
-        "chapter_order_or_completeness_gate_failed"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -39986,15 +39954,14 @@
       ]
     },
     {
-      "workId": "bacc09f8a73416e7",
+      "workId": "ca54167f7a78ff79",
       "language": "zh-Hans",
-      "title": "乌合之众",
-      "domain": "yunqi.qq.com",
-      "detailUrl": "https://yunqi.qq.com/bqq/skjdgtjdyc",
+      "title": "亚当",
+      "domain": "churchinmarlboro.org",
+      "detailUrl": "https://www.churchinmarlboro.org/2024/BC/01/0102.html",
       "status": "rejected",
       "rejectionReasons": [
-        "chapter_identity_or_content_variation_gate_failed",
-        "chapter_order_or_completeness_gate_failed"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -40002,26 +39969,11 @@
       ]
     },
     {
-      "workId": "aa52c6e0b509df2f",
+      "workId": "ca54167f7a78ff79",
       "language": "zh-Hans",
-      "title": "二星",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/9bf28a68f52d2af90242a8956bec0975f465a422.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/9bf28a68f52d2af90242a8956bec0975f465a422.html"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "aa52c6e0b509df2f",
-      "language": "zh-Hans",
-      "title": "二星",
-      "domain": "zhidao.baidu.com",
-      "detailUrl": "https://zhidao.baidu.com/question/466131767363570085.html",
+      "title": "亚当",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/1079002382_121752852",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -40047,6 +39999,21 @@
       ]
     },
     {
+      "workId": "ca54167f7a78ff79",
+      "language": "zh-Hans",
+      "title": "亚当",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/cover/ls2diloljctuyhm/c00210xkz2p.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "e6349e04112b1699",
       "language": "zh-Hans",
       "title": "亡灵",
@@ -40058,20 +40025,6 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "9a0b2f86088a18f8",
-      "language": "zh-Hans",
-      "title": "仙子不仁，那就沦为炉鼎吧！",
-      "domain": "liumanhua.com",
-      "detailUrl": "https://www.liumanhua.com/616629",
-      "status": "rejected",
-      "rejectionReasons": [
-        "chapter_identity_or_content_variation_gate_failed"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -46389,6 +46342,125 @@
       "status": "rejected",
       "rejectionReasons": [
         "chapter_identity_or_content_variation_gate_failed"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3e42028bcf31eb47",
+      "language": "zh-Hans",
+      "title": "万事万灵",
+      "domain": "guazimanhua.com",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=15841",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3e42028bcf31eb47",
+      "language": "zh-Hans",
+      "title": "万事万灵",
+      "domain": "kuaikanmanhua.com",
+      "detailUrl": "https://www.kuaikanmanhua.com/web/topic/22983/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "71ae2071dc53ee21",
+      "language": "zh-Hans",
+      "title": "万族之劫",
+      "domain": "qidian.com",
+      "detailUrl": "https://www.qidian.com/book/1018027842/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "71ae2071dc53ee21",
+      "language": "zh-Hans",
+      "title": "万族之劫",
+      "domain": "chuangshi.qq.com",
+      "detailUrl": "https://chuangshi.qq.com/bqq/envxqbvxgt",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "e5754cfcb0b821ae",
+      "language": "zh-Hans",
+      "title": "亡灵法师：从骷髅分身开始成神",
+      "domain": "doubaomanhua.com",
+      "detailUrl": "https://doubaomanhua.com/detail/xPAaJDken8",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://doubaomanhua.com/detail/xPAaJDken8"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "e5754cfcb0b821ae",
+      "language": "zh-Hans",
+      "title": "亡灵法师：从骷髅分身开始成神",
+      "domain": "kuaikanmanhua.com",
+      "detailUrl": "https://www.kuaikanmanhua.com/web/topic/27711/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "e5754cfcb0b821ae",
+      "language": "zh-Hans",
+      "title": "亡灵法师：从骷髅分身开始成神",
+      "domain": "guazimanhua.com",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=31852",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "e5754cfcb0b821ae",
+      "language": "zh-Hans",
+      "title": "亡灵法师：从骷髅分身开始成神",
+      "domain": "chuangshi.qq.com",
+      "detailUrl": "https://chuangshi.qq.com/bqq/dygtfoenvx",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
