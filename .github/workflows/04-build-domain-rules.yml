@@ -50,9 +50,3 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m 'rules: rebuild verified domain rules'
           bash scripts/ci_push_with_retry.sh
-  publish:
-    needs: merge
-    uses: ./.github/workflows/06-publish-rules.yml
-  publish_catalog:
-    needs: publish
-    uses: ./.github/workflows/05-publish.yml

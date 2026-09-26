@@ -1,11 +1,14 @@
 name: 06 发布规则索引
 on:
   workflow_dispatch:
-  workflow_call:
-permissions: {contents: write}
+  workflow_run:
+    workflows: ['04 域名规则分析回放']
+    types: [completed]
+permissions: {contents: write, actions: write}
 concurrency: {group: catalog-v3-publish-rules, cancel-in-progress: false}
 jobs:
   publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
