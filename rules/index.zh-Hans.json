@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260926042234",
-  "updatedAt": "2026-09-26T04:22:34.387077+00:00",
+  "version": "20260926050923",
+  "updatedAt": "2026-09-26T05:09:23.260552+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -2293,7 +2293,7 @@
     {
       "id": "guazimanhua_com",
       "name": "guazimanhua.com 已验证公开源",
-      "description": "由 98 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 99 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://guazimanhua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2424,6 +2424,7 @@
           "1447043d657b03d0",
           "1634835dfd523a10",
           "1f6190dea929ab5c",
+          "27be24ce16496300",
           "2bea70daa8c69a95",
           "311e52c64d7ef530",
           "76c91030055d590a",
@@ -2461,7 +2462,7 @@
           "b349dd1e21064d6f",
           "bcb932d241bb76b0"
         ],
-        "replayWorkCount": 98,
+        "replayWorkCount": 99,
         "failures": [],
         "status": "verified"
       }
@@ -8215,157 +8216,6 @@
     }
   ],
   "audit": {
-    "rejectedDomains": [
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "guazimanhua_com",
-        "domain": "guazimanhua.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "a.btn",
-          "* a[href]",
-          "a.mobile-primary-btn",
-          "*.hero-actions a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img.reading-image",
-          "*.reader-images img"
-        ],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "0a341250469049ea",
-          "0cf2cc1ac974ca95",
-          "2226e27aa5436794",
-          "23e38d9d8b1d929f",
-          "2732506c7627623d",
-          "31ac8c8a3d72f9e6",
-          "371a4291d552c420",
-          "39f4625c25b62410",
-          "3aa87e0a1971f393",
-          "3e55803be0699fb9",
-          "4178961f8f2873b7",
-          "44eaa1aee285f829",
-          "5770b6259d20da62",
-          "6a907de04341edf9",
-          "77622bf0e013d3f4",
-          "796aeb426f0e96e4",
-          "80b306ccf64e532d",
-          "8806c47a6747b9a4",
-          "93e9c6a924382cb0",
-          "952bc3295a976ffe",
-          "976fdbac590dab0b",
-          "984788b5dc9bf35c",
-          "9bd92df436b36378",
-          "a2778e5d9f116357",
-          "a37aaffdde78746d",
-          "b588f23aebf23cac",
-          "b73a218d1a0e231a",
-          "cb72a1714322cd9c",
-          "ce1b99f537fda5f4",
-          "e25018a54942d314",
-          "f1904095b83264be",
-          "f935f20a3713a345",
-          "fb8fcb6139a9ebff",
-          "058dfd2d7332c46b",
-          "0d41b17ba08d40e5",
-          "13e3974cc52f321c",
-          "20bfd07a95207d50",
-          "220e65c077fdda6e",
-          "2fab0a727dbedf71",
-          "30436123a009fbe1",
-          "3488b5d7e189d796",
-          "350f69fd99f4ebef",
-          "51f221f0425f02dc",
-          "62519676c4ee533e",
-          "735186eeb72f2f7c",
-          "79ee1c4d2212abdf",
-          "7d1e93e55b11a279",
-          "7fa448fd40847819",
-          "abce4eb4e3e165f9",
-          "cd4f9d8b37420332",
-          "d759d5314b89099b",
-          "da4fbff861b4f801",
-          "ecf8d4c6e7e707ef",
-          "f2eca428657765b2",
-          "3aae7f21764e0a48",
-          "d6248bac79c958ce",
-          "893284ea7a883097",
-          "0fdf24524fbfbfa1",
-          "112d6a7df39ca80b",
-          "1447043d657b03d0",
-          "1634835dfd523a10",
-          "1f6190dea929ab5c",
-          "27be24ce16496300",
-          "2bea70daa8c69a95",
-          "311e52c64d7ef530",
-          "76c91030055d590a",
-          "81a27563dfd93e8c",
-          "820b356695693392",
-          "84128f3d09e2a5a1",
-          "91846f52ffb5fbec",
-          "93f55a4e8e423a11",
-          "9594c7767906b3a3",
-          "a1dc022c3f66ab48",
-          "a6257dbf6f4c34d7",
-          "af84afa5c21dcb2e",
-          "ba556120fe1fd8e0",
-          "bcee2e24d592f415",
-          "c61c64b89dec67f4",
-          "d1925f0122c20eca",
-          "e49116a96948e61e",
-          "ecf4e41bafba8123",
-          "f3c120518759f680",
-          "166d757a7bc1b381",
-          "4d57d5eb0a4d481c",
-          "60bef91dfc278f24",
-          "63657431d5fda5a3",
-          "6f268dc1ef80eeba",
-          "ccc0ecf6bdd163c9",
-          "d80c365bf9dae4fd",
-          "2324a88d3cca6f1d",
-          "9f891060bbebb76b",
-          "c8e15ca7d7324e36",
-          "d70430261cb6e444",
-          "b986ba6ec6bd4b57",
-          "749fb2d3f26348cb",
-          "8855ed73c0abcb96",
-          "a292541cf47e8df3",
-          "b349dd1e21064d6f",
-          "bcb932d241bb76b0"
-        ],
-        "replayWorkCount": 99,
-        "failures": [
-          {
-            "workId": "8855ed73c0abcb96",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1981727"
-          },
-          {
-            "workId": "a292541cf47e8df3",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29224"
-          },
-          {
-            "workId": "b349dd1e21064d6f",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32773"
-          },
-          {
-            "workId": "bcb932d241bb76b0",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12597"
-          }
-        ],
-        "status": "rejected"
-      }
-    ]
+    "rejectedDomains": []
   }
 }
