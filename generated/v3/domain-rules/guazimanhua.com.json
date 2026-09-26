@@ -29,29 +29,29 @@
   "verifiedWorkIds": [
     "0a341250469049ea",
     "0cf2cc1ac974ca95",
-    "21a1f10ba008fc3b",
     "2226e27aa5436794",
     "23e38d9d8b1d929f",
     "2732506c7627623d",
     "31ac8c8a3d72f9e6",
     "371a4291d552c420",
+    "39f4625c25b62410",
     "3aa87e0a1971f393",
     "3e55803be0699fb9",
     "4178961f8f2873b7",
-    "4d978c9e2e856695",
+    "44eaa1aee285f829",
     "5770b6259d20da62",
     "6a907de04341edf9",
     "77622bf0e013d3f4",
     "796aeb426f0e96e4",
     "80b306ccf64e532d",
     "8806c47a6747b9a4",
+    "93e9c6a924382cb0",
     "952bc3295a976ffe",
     "976fdbac590dab0b",
     "984788b5dc9bf35c",
     "9bd92df436b36378",
     "a2778e5d9f116357",
     "a37aaffdde78746d",
-    "a8f436f1ad015311",
     "b588f23aebf23cac",
     "b73a218d1a0e231a",
     "cb72a1714322cd9c",
@@ -68,17 +68,15 @@
     "2fab0a727dbedf71",
     "30436123a009fbe1",
     "3488b5d7e189d796",
-    "49fb80d334243d21",
+    "350f69fd99f4ebef",
     "51f221f0425f02dc",
     "62519676c4ee533e",
     "735186eeb72f2f7c",
     "79ee1c4d2212abdf",
     "7d1e93e55b11a279",
     "7fa448fd40847819",
-    "87465d8002d472e9",
     "cd4f9d8b37420332",
     "d759d5314b89099b",
-    "d774bd367073176c",
     "da4fbff861b4f801",
     "ecf8d4c6e7e707ef",
     "f2eca428657765b2",
@@ -87,6 +85,8 @@
     "893284ea7a883097",
     "0fdf24524fbfbfa1",
     "112d6a7df39ca80b",
+    "1447043d657b03d0",
+    "1634835dfd523a10",
     "1f6190dea929ab5c",
     "2bea70daa8c69a95",
     "311e52c64d7ef530",
@@ -97,6 +97,7 @@
     "91846f52ffb5fbec",
     "93f55a4e8e423a11",
     "9594c7767906b3a3",
+    "a1dc022c3f66ab48",
     "a6257dbf6f4c34d7",
     "af84afa5c21dcb2e",
     "ba556120fe1fd8e0",
@@ -124,7 +125,52 @@
     "b349dd1e21064d6f",
     "bcb932d241bb76b0"
   ],
-  "replayWorkCount": 96,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 97,
+  "failures": [
+    {
+      "workId": "d80c365bf9dae4fd",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1111196"
+    },
+    {
+      "workId": "2324a88d3cca6f1d",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29637"
+    },
+    {
+      "workId": "9f891060bbebb76b",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=10963"
+    },
+    {
+      "workId": "c8e15ca7d7324e36",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20647"
+    },
+    {
+      "workId": "d70430261cb6e444",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25268"
+    },
+    {
+      "workId": "b986ba6ec6bd4b57",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
+    },
+    {
+      "workId": "749fb2d3f26348cb",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23067"
+    },
+    {
+      "workId": "8855ed73c0abcb96",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=26470"
+    },
+    {
+      "workId": "a292541cf47e8df3",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29224"
+    },
+    {
+      "workId": "b349dd1e21064d6f",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32773"
+    },
+    {
+      "workId": "bcb932d241bb76b0",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12597"
+    }
+  ],
+  "status": "rejected"
 }
