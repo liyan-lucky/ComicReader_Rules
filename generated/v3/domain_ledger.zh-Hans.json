@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-27T20:55:53.313382+00:00",
+  "generatedAt": "2026-09-27T21:01:22.438030+00:00",
   "domains": [
     {
       "domain": "010zaixian.com",
@@ -3090,7 +3090,7 @@
           "detailUrl": "https://www.9k9k.com/shouyou/tags330/",
           "status": "unreachable",
           "rejectionReasons": [
-            "ConnectTimeout: HTTPSConnectionPool(host='www.9k9k.com', port=443): Max retries exceeded with url: /shouyou/tags330/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.9k9k.com', port=443) at 0x7f4830b30110>, 'Connection to www.9k9k.com timed out. (connect timeout=15)'))"
+            "ConnectTimeout: HTTPSConnectionPool(host='www.9k9k.com', port=443): Max retries exceeded with url: /shouyou/tags330/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.9k9k.com', port=443) at 0x7fb62c150fb0>, 'Connection to www.9k9k.com timed out. (connect timeout=15)'))"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -8392,7 +8392,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 229,
+      "candidateWorkCount": 230,
       "works": [],
       "rejectedWorks": [
         {
@@ -9839,9 +9839,22 @@
           ]
         },
         {
+          "workId": "1288f17f4d12fe91",
+          "title": "左右为难",
+          "detailUrl": "https://baike.sogou.com/v64473245.htm",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "bc131b61852c7325",
           "title": "并蒂莲",
-          "detailUrl": "https://baike.sogou.com/v3695535.htm",
+          "detailUrl": "https://baike.sogou.com/v191307940.htm",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -45884,32 +45897,6 @@
       "ruleStatus": "candidate_only"
     },
     {
-      "domain": "economy.jschina.com.cn",
-      "languages": [
-        "zh-Hans"
-      ],
-      "policyVersions": [],
-      "verifiedWorkCount": 0,
-      "candidateWorkCount": 1,
-      "works": [],
-      "rejectedWorks": [
-        {
-          "workId": "8e8072ecd476e76c",
-          "title": "开锁",
-          "detailUrl": "https://economy.jschina.com.cn/rddt/202508/t20250822_3569597.shtml",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        }
-      ],
-      "ruleStatus": "candidate_only"
-    },
-    {
       "domain": "edrawsoft.cn",
       "languages": [
         "zh-Hans"
@@ -47683,6 +47670,32 @@
             "no_chapters"
           ],
           "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "fazhi.cpd.com.cn",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "8e8072ecd476e76c",
+          "title": "开锁",
+          "detailUrl": "https://fazhi.cpd.com.cn/yasf/424/t_1132177.html",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://fazhi.cpd.com.cn/yasf/424/t_1132177.html"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         }
@@ -64784,7 +64797,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 329,
+      "candidateWorkCount": 328,
       "works": [],
       "rejectedWorks": [
         {
@@ -66522,18 +66535,6 @@
           "workId": "5c8284aac2b0b89b",
           "title": "噤若寒蝉",
           "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-5eff501fd",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "73dd4b8dc77d9283",
-          "title": "尤物",
-          "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-1dcf9e91e4",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -69809,7 +69810,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 147,
+      "candidateWorkCount": 146,
       "works": [],
       "rejectedWorks": [
         {
@@ -70526,18 +70527,6 @@
           "workId": "5c8284aac2b0b89b",
           "title": "噤若寒蝉",
           "detailUrl": "https://www.hgcha.com/cidian/23e9b0d2.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "73dd4b8dc77d9283",
-          "title": "尤物",
-          "detailUrl": "https://www.hgcha.com/cidian/f7bfcd74.html",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -77258,32 +77247,6 @@
           "workId": "adb26eeb52ff250f",
           "title": "指令",
           "detailUrl": "https://ishortcutbox.com/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        }
-      ],
-      "ruleStatus": "candidate_only"
-    },
-    {
-      "domain": "itmop.com",
-      "languages": [
-        "zh-Hans"
-      ],
-      "policyVersions": [],
-      "verifiedWorkCount": 0,
-      "candidateWorkCount": 1,
-      "works": [],
-      "rejectedWorks": [
-        {
-          "workId": "c4131ee7e76ce347",
-          "title": "开罗",
-          "detailUrl": "https://www.itmop.com/key/kailuoyouxi/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -108714,32 +108677,6 @@
       "ruleStatus": "candidate_only"
     },
     {
-      "domain": "news.cpd.com.cn",
-      "languages": [
-        "zh-Hans"
-      ],
-      "policyVersions": [],
-      "verifiedWorkCount": 0,
-      "candidateWorkCount": 1,
-      "works": [],
-      "rejectedWorks": [
-        {
-          "workId": "8e8072ecd476e76c",
-          "title": "开锁",
-          "detailUrl": "https://news.cpd.com.cn/n3569/426/t_1230497.html",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://news.cpd.com.cn/n3569/426/t_1230497.html"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        }
-      ],
-      "ruleStatus": "candidate_only"
-    },
-    {
       "domain": "news.eol.cn",
       "languages": [
         "zh-Hans"
@@ -126005,7 +125942,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 152,
+      "candidateWorkCount": 151,
       "works": [],
       "rejectedWorks": [
         {
@@ -127156,19 +127093,6 @@
           "workId": "b69bd72068485eed",
           "title": "夏末",
           "detailUrl": "https://tieba.baidu.com/p/6196363626",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "c4131ee7e76ce347",
-          "title": "开罗",
-          "detailUrl": "https://tieba.baidu.com/p/9582297563",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -131134,7 +131058,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 14,
+      "candidateWorkCount": 15,
       "works": [],
       "rejectedWorks": [
         {
@@ -131167,6 +131091,19 @@
           "workId": "22f48629273c7546",
           "title": "受制于人",
           "detailUrl": "https://www.ufanv.cn/zidian/%E5%8F%97%E5%88%B6%E4%BA%8E%E4%BA%BA",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1288f17f4d12fe91",
+          "title": "左右为难",
+          "detailUrl": "https://www.ufanv.cn/zidian/%E5%B7%A6%E5%8F%B3%E4%B8%BA%E9%9A%BE",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -131612,7 +131549,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 250,
+      "candidateWorkCount": 252,
       "works": [],
       "rejectedWorks": [
         {
@@ -133179,6 +133116,32 @@
           "workId": "03a32b92fddadb68",
           "title": "坠落",
           "detailUrl": "https://v.qq.com/x/cover/mzc00200cdb1a6a/m00459ftn2r.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1288f17f4d12fe91",
+          "title": "左右为难",
+          "detailUrl": "https://v.qq.com/x/page/t3118av6wez.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "420ac1c30aaefeaf",
+          "title": "彩虹",
+          "detailUrl": "https://v.qq.com/x/cover/mzc00200vvfld1j/9vo9uDOiwrW.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -136804,7 +136767,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 211,
+      "candidateWorkCount": 212,
       "works": [],
       "rejectedWorks": [
         {
@@ -138075,6 +138038,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/4f07173421c52cc58bd63186bceb19e8b8f6ec89.html"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1288f17f4d12fe91",
+          "title": "左右为难",
+          "detailUrl": "https://wenku.baidu.com/view/69cac6a7f21fb7360b4c2e3f5727a5e9856a2731.html",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/69cac6a7f21fb7360b4c2e3f5727a5e9856a2731.html"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -147908,7 +147884,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 143,
+      "candidateWorkCount": 144,
       "works": [],
       "rejectedWorks": [
         {
@@ -148708,6 +148684,19 @@
           "workId": "5c8284aac2b0b89b",
           "title": "噤若寒蝉",
           "detailUrl": "http://zdic.net/hans/%E5%99%A4%E8%8B%A5%E5%AF%92%E8%9D%89",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "73dd4b8dc77d9283",
+          "title": "尤物",
+          "detailUrl": "http://zdic.net/hans/%E5%B0%A4%E7%89%A9",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
