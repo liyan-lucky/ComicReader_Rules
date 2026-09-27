@@ -1,22 +1,22 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "nubbub_com",
+  "domain": "nubbub.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "a.bds_sqq",
     "* a[href]",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.ksaa_btn",
+    "a.iconfont",
+    "*.nav_one a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img",
+    "* img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +27,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "cd412a89282ebd85"
   ],
   "replayWorkCount": 1,
   "failures": [],
