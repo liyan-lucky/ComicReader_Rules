@@ -154,14 +154,23 @@ def search(s,title,limit,search_terms=None):
         try:
             r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=15)
             r.raise_for_status()
-        except Exception:
+        except Exception as exc:
+            print(f"[search-debug] SearXNG error for '{query[:50]}': {type(exc).__name__}: {exc}", flush=True)
             return []
+        raw=r.json().get('results',[])
         bucket=[]
-        for x in r.json().get('results',[]):
+        filtered_anchor=0; filtered_blocked=0
+        for x in raw:
             u=str(x.get('url',''))
             if u in bucket: continue
             evidence=' '.join([str(x.get('title','')),str(x.get('content','')),u])
-            if accept(u,evidence): bucket.append(u)
+            result_host=host(u)
+            evidence_norm=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(str(evidence)).lower())
+            if anchor and anchor not in evidence_norm: filtered_anchor+=1; continue
+            if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): filtered_blocked+=1; continue
+            if u.startswith(('http://','https://')) and not BAD_PATH.search(u): bucket.append(u)
+        if not bucket and raw:
+            print(f"[search-debug] '{query[:50]}' raw={len(raw)} passed=0 anchor_filtered={filtered_anchor} blocked_filtered={filtered_blocked}", flush=True)
         return bucket
     result=run_query(f'"{title}" {terms}')
     if len(result)<limit:
