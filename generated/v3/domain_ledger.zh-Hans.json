@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-27T18:17:21.497850+00:00",
+  "generatedAt": "2026-09-27T18:23:51.048192+00:00",
   "domains": [
     {
       "domain": "010zaixian.com",
@@ -3133,9 +3133,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://academic.oup.com/evolut",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://academic.oup.com/evolut"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "6b35550781b40c82",
           "title": "evolution（真相）",
@@ -5291,7 +5304,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 84,
+      "candidateWorkCount": 85,
       "works": [],
       "rejectedWorks": [
         {
@@ -5958,6 +5971,19 @@
           ]
         },
         {
+          "workId": "5790a049fb40ce9e",
+          "title": "ZEGAPAIN外传",
+          "detailUrl": "https://anibase.net/zh-hans/anime/lrVLx/ZEGAPAIN",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/anime/lrVLx/ZEGAPAIN"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "ab66ff73cda5b127",
           "title": "冥冥",
           "detailUrl": "https://anibase.net/zh-hans/character/lroXV/%E5%86%A5%E5%86%A5",
@@ -6445,7 +6471,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 24,
+      "candidateWorkCount": 25,
       "works": [],
       "rejectedWorks": [
         {
@@ -6478,6 +6504,19 @@
           "workId": "0deffa3d05531eed",
           "title": "LoveLive性转本合集",
           "detailUrl": "https://www.anibk.com/family/398",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1a6b895984d9dc21",
+          "title": "overlord新世界篇",
+          "detailUrl": "https://www.anibk.com/family/49",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -8171,7 +8210,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 230,
+      "candidateWorkCount": 231,
       "works": [],
       "rejectedWorks": [
         {
@@ -8646,6 +8685,19 @@
           "workId": "e28d3eaadf1e517b",
           "title": "NECROMANCER-死灵复生",
           "detailUrl": "https://baike.sogou.com/v2036968.htm",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5790a049fb40ce9e",
+          "title": "ZEGAPAIN外传",
+          "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=56093",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -12628,7 +12680,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 367,
+      "candidateWorkCount": 371,
       "works": [],
       "rejectedWorks": [
         {
@@ -14459,6 +14511,58 @@
             "no_chapters"
           ],
           "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5790a049fb40ce9e",
+          "title": "ZEGAPAIN外传",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep26961",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "935bdd6a885e0371",
+          "title": "fate/zero的糖果接力",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep29919",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "cb7316ef12e8b51e",
+          "title": "jojo 的奇妙冒险之幻影血脉",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ss4334",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1a6b895984d9dc21",
+          "title": "overlord新世界篇",
+          "detailUrl": "https://www.bilibili.com/read/mobile-readlist/rl223306",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -19481,7 +19585,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 7,
+      "candidateWorkCount": 9,
       "works": [],
       "rejectedWorks": [
         {
@@ -19491,6 +19595,32 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.britannica.com/topic/Superman-fictional-character"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://www.britannica.com/science/evolution-scientific-theory",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.britannica.com/science/evolution-scientific-theory"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://www.britannica.com/topic/marriage",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.britannica.com/topic/marriage"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -24581,6 +24711,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "ciyuangu.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://www.ciyuangu.com/word/aphorism",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "classic.minecraft.net",
       "languages": [
         "zh-Hans"
@@ -24899,9 +25055,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 5,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "1a6b895984d9dc21",
+          "title": "overlord新世界篇",
+          "detailUrl": "https://cn.xgcartoon.com/detail/overlord_di1jiriyu-yitengshangwang",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "f06bc9752c8a689c",
           "title": "overlord官方同人集",
@@ -25732,9 +25901,35 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 5,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://www.collinsdictionary.com/zh/dictionary/english/aphorism",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.collinsdictionary.com/zh/dictionary/english/aphorism"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://www.collinsdictionary.com/zh/dictionary/english/marriage",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.collinsdictionary.com/zh/dictionary/english/marriage"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "c8c5f3ea87a3bd36",
           "title": "Feverish Witch (发烧魔女)",
@@ -27651,13 +27846,39 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 4,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "1f0d707ae309151c",
           "title": "DETHRONE拳后之战",
           "detailUrl": "https://dict.eudic.net/dicts/en/dethrone",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://dict.eudic.net/dicts/en/aphorism",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://dict.eudic.net/dicts/en/marriage",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -28041,7 +28262,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 41,
+      "candidateWorkCount": 44,
       "works": [],
       "rejectedWorks": [
         {
@@ -28100,6 +28321,45 @@
           "workId": "6009c987fd6b9e00",
           "title": "Parenting 帕秋莉和爱丽丝的育儿计划",
           "detailUrl": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/parenting",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD/aphorism",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/evolution",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/marriage",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -29262,7 +29522,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 478,
+      "candidateWorkCount": 481,
       "works": [],
       "rejectedWorks": [
         {
@@ -33295,6 +33555,45 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://www.dm5.com/manhua-panpanya-deduanpianheji/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "49e9cc944a4286df",
+          "title": "(C105) 连结的天空",
+          "detailUrl": "https://www.dm5.com/manhua--c-105-lianjiedetiankong/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "0f88b919b455de7f",
+          "title": "(C103) 基沃托斯的小故事",
+          "detailUrl": "https://www.dm5.com/manhua--c-103-jiwotuosidexiaogushi/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -42005,7 +42304,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 24,
+      "candidateWorkCount": 26,
       "works": [],
       "rejectedWorks": [
         {
@@ -42041,6 +42340,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://www.douban.com/note/514114075/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://www.douban.com/personage/37234637/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -42328,7 +42653,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 111,
+      "candidateWorkCount": 112,
       "works": [],
       "rejectedWorks": [
         {
@@ -42897,6 +43222,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://doubaomanhua.com/detail/jpeJ4raW58"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://www.doubaomanhua.com/detail/jL1rJaM165",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/jL1rJaM165"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -46162,9 +46500,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://evolution-x.org/",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://evolution-x.org/"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "6b35550781b40c82",
           "title": "evolution（真相）",
@@ -48064,7 +48415,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 24,
+      "candidateWorkCount": 25,
       "works": [],
       "rejectedWorks": [
         {
@@ -48148,6 +48499,19 @@
         {
           "workId": "59031088869e7a98",
           "title": "JoJo的奇妙冒險 第9部 The JOJO Lands",
+          "detailUrl": "https://www.gamersky.com/news/202607/2167023.shtml",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "cb7316ef12e8b51e",
+          "title": "jojo 的奇妙冒险之幻影血脉",
           "detailUrl": "https://www.gamersky.com/news/202607/2167023.shtml",
           "status": "rejected",
           "rejectionReasons": [
@@ -49255,6 +49619,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "glissandoo.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://glissandoo.com/en",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "gmanhua.com",
       "languages": [
         "zh-Hans"
@@ -49739,7 +50129,7 @@
         "readability-v5"
       ],
       "verifiedWorkCount": 202,
-      "candidateWorkCount": 694,
+      "candidateWorkCount": 695,
       "works": [
         {
           "workId": "0a341250469049ea",
@@ -58762,6 +59152,19 @@
           ],
           "selectionReasons": [
             "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://www.guazimanhua.com/comic.php?id=28517",
+          "status": "rejected",
+          "rejectionReasons": [
+            "chapter_identity_or_content_variation_gate_failed",
+            "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -71153,6 +71556,214 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "hololive.hololivepro.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 3,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://hololive.hololivepro.com/talents",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://hololive.hololivepro.com/talents",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://hololive.hololivepro.com/talents",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "hololive.wiki",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 3,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://hololive.wiki/wiki/Main_Page",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://hololive.wiki/wiki/Main_Page"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://hololive.wiki/wiki/Main_Page",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://hololive.wiki/wiki/Main_Page"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://hololive.wiki/wiki/Main_Page",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://hololive.wiki/wiki/Main_Page"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "hololivepro.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 3,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://hololivepro.com/en/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://hololivepro.com/en/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://hololivepro.com/en/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "holostats.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 3,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://www.holostats.com/members?lang=zh_cn",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.holostats.com/members?lang=zh_cn"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://www.holostats.com/members?lang=zh_cn",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.holostats.com/members?lang=zh_cn"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://www.holostats.com/members?lang=zh_cn",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.holostats.com/members?lang=zh_cn"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "home.meishichina.com",
       "languages": [
         "zh-Hans"
@@ -72185,7 +72796,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 38,
+      "candidateWorkCount": 41,
       "works": [],
       "rejectedWorks": [
         {
@@ -72270,6 +72881,45 @@
           "workId": "5270c1aff7fcc520",
           "title": "Thompson汤普森",
           "detailUrl": "https://www.iciba.com/word?w=Thompson",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://www.iciba.com/word?w=aphorism",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://www.iciba.com/word?w=evolution",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://www.iciba.com/word?w=marriage",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -72886,9 +73536,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://www.iikx.com/sci/ecology/12379.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "6b35550781b40c82",
           "title": "evolution（真相）",
@@ -79272,7 +79935,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 295,
+      "candidateWorkCount": 294,
       "works": [],
       "rejectedWorks": [
         {
@@ -80154,19 +80817,6 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "49dce319f0a5d00d",
-          "title": "99强化木棍",
-          "detailUrl": "https://www.kuaikanmanhua.com/web/topic/21982/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -85262,6 +85912,32 @@
           "workId": "3f975441bd64a7ab",
           "title": "山野",
           "detailUrl": "https://list.youku.com/albumlist/show/id_50640679.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "literarydevices.net",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "9d24c38203073a6f",
+          "title": "aphorism格言",
+          "detailUrl": "https://literarydevices.net/aphorism/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -98483,13 +99159,26 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 3,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "1f0d707ae309151c",
           "title": "DETHRONE拳后之战",
           "detailUrl": "https://www.merriam-webster.com/dictionary/dethrone",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://www.merriam-webster.com/dictionary/glissando",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -99656,6 +100345,58 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "moegirl.icu",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 3,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://moegirl.icu/Hololive",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://moegirl.icu/Hololive"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://moegirl.icu/Hololive",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://moegirl.icu/Hololive"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://moegirl.icu/Hololive",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://moegirl.icu/Hololive"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -106565,9 +107306,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "a44a20bfd2df8ba5",
+          "title": "evolution（真相）",
+          "detailUrl": "https://www.nature.com/subjects/evolution",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "6b35550781b40c82",
           "title": "evolution（真相）",
@@ -107786,7 +108540,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 7,
+      "candidateWorkCount": 8,
       "works": [],
       "rejectedWorks": [
         {
@@ -107809,6 +108563,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://ngabbs.com/read.php?tid=26250716"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "5790a049fb40ce9e",
+          "title": "ZEGAPAIN外传",
+          "detailUrl": "https://ngabbs.com/read.php?tid=43179579",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://ngabbs.com/read.php?tid=43179579"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -108916,6 +109683,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "panpanya.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://www.panpanya.com/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -110554,6 +111347,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "psychologytoday.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "3030b4133a970c46",
+          "title": "marriage black 黑色婚礼",
+          "detailUrl": "https://www.psychologytoday.com/us/basics/marriage",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "putongcn.com",
       "languages": [
         "zh-Hans"
@@ -111821,7 +112640,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 43,
+      "candidateWorkCount": 42,
       "works": [],
       "rejectedWorks": [
         {
@@ -111951,20 +112770,6 @@
           "workId": "078688f392f22acd",
           "title": "青春期笨蛋不做姐控俏偶像的梦",
           "detailUrl": "https://www.qimanwu.app/comic/Wx2PY7dq8O",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "49dce319f0a5d00d",
-          "title": "99强化木棍",
-          "detailUrl": "https://www.qimanwu.app/comic/mr20WjxbK1",
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed",
@@ -116028,6 +116833,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "skoove.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://www.skoove.com/blog/how-to-play-glissando-on-piano/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "slaythespire2.gg",
       "languages": [
         "zh-Hans"
@@ -120056,7 +120887,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 13,
+      "candidateWorkCount": 16,
       "works": [],
       "rejectedWorks": [
         {
@@ -120118,6 +120949,45 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/3546711347693591/channel/series"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "ac3215ece231642f",
+          "title": "hololive日常小漫画",
+          "detailUrl": "https://space.bilibili.com/286700005",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/286700005"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "8a8d28e92612b224",
+          "title": "hololive推特合集",
+          "detailUrl": "https://space.bilibili.com/286700005",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/286700005"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "06344858adcb28aa",
+          "title": "hololive推特短漫",
+          "detailUrl": "https://space.bilibili.com/286700005",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 412 Client Error: Precondition Failed for url: https://space.bilibili.com/286700005"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -123356,7 +124226,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 150,
+      "candidateWorkCount": 152,
       "works": [],
       "rejectedWorks": [
         {
@@ -123951,6 +124821,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "62345c5474d454a1",
+          "title": "panpanya的短篇合集",
+          "detailUrl": "https://tieba.baidu.com/f?kw=panpanya",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=panpanya"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "1a6b895984d9dc21",
+          "title": "overlord新世界篇",
+          "detailUrl": "https://tieba.baidu.com/f?kw=overlord%E4%B8%8D%E6%AD%BB%E8%80%85%E4%B9%8B%E7%8E%8B",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=overlord%E4%B8%8D%E6%AD%BB%E8%80%85%E4%B9%8B%E7%8E%8B"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -132259,6 +133155,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "violinspiration.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://violinspiration.com/violin-glissando/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "viu.com",
       "languages": [
         "zh-Hans"
@@ -132466,6 +133388,32 @@
           "workId": "c6be72ab05be80a6",
           "title": "志愿",
           "detailUrl": "https://www.volunteer.sh.cn/Website/Default.aspx",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "vrpiano.co.jp",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "80ccfdbc928c23ea",
+          "title": "glissando（滑奏）",
+          "detailUrl": "https://vrpiano.co.jp/en/english/glissando/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -139722,12 +140670,25 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "59031088869e7a98",
           "title": "JoJo的奇妙冒險 第9部 The JOJO Lands",
+          "detailUrl": "https://www.xgcartoon.com/detail/jojodeqimiaomaoxian4kriyu-huangmufeilvyan",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "cb7316ef12e8b51e",
+          "title": "jojo 的奇妙冒险之幻影血脉",
           "detailUrl": "https://www.xgcartoon.com/detail/jojodeqimiaomaoxian4kriyu-huangmufeilvyan",
           "status": "rejected",
           "rejectionReasons": [
@@ -146466,6 +147427,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "zegapain.net",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "5790a049fb40ce9e",
+          "title": "ZEGAPAIN外传",
+          "detailUrl": "https://www.zegapain.net/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
