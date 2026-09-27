@@ -23,8 +23,8 @@ def load_json(path: Path, default):
     return json.loads(path.read_text(encoding="utf-8-sig")) if path.exists() else default
 
 
-def fingerprint(work: dict, policy: dict) -> str:
-    value = engine.POLICY_VERSION + engine.CHECKPOINT_SCHEMA + str(work.get("id", "")) + str(work.get("canonicalTitle", ""))
+def fingerprint(work: dict, policy: dict, cycle_count: int = 0) -> str:
+    value = engine.POLICY_VERSION + engine.CHECKPOINT_SCHEMA + str(cycle_count) + str(work.get("id", "")) + str(work.get("canonicalTitle", ""))
     return hashlib.sha256(value.encode()).hexdigest()
 
 
@@ -57,10 +57,11 @@ def main() -> int:
 
     previous = load_json(args.state, {})
     previous_entries = previous.get("entries", {})
+    cycle_count = int(previous.get("cycleCount", 0))
     entries = {}
     for work in works:
         work_id = str(work["id"])
-        work_fp = fingerprint(work, policy)
+        work_fp = fingerprint(work, policy, cycle_count)
         saved = previous_entries.get(work_id, {})
         searched = saved.get("status") == "searched" and saved.get("workFingerprint") == work_fp
         entries[work_id] = {
@@ -130,6 +131,7 @@ def main() -> int:
             "language": doc.get("language", "zh-Hans"),
             "category": args.parameters.stem,
             "updatedAt": now(),
+            "cycleCount": cycle_count,
             "total": len(entries),
             "searched": sc,
             "pending": len(entries) - sc,

@@ -18,12 +18,6 @@ jobs:
         env: {GH_TOKEN: '${{ github.token }}'}
         run: |
           set -euo pipefail
-          echo "检查全目录搜索是否已完成..."
-          READY=$(gh api "repos/${{ github.repository }}/contents/generated/v3/search_cycle.zh-Hans.json?ref=main" --jq '.content' | base64 -d | jq -r '.readyForDomainAnalysis // "false"')
-          if [ "$READY" = "true" ]; then
-            echo "readyForDomainAnalysis=true，全目录搜索已完成，无需唤醒 02（30 天复检期到或 01 采集后会自动恢复）"
-            exit 0
-          fi
           echo "检查 02-refine-categories.yml 运行状态..."
           NOW=$(date -u +%s)
           for row in $(gh run list --workflow=02-refine-categories.yml --limit=10 --json databaseId,status,startedAt 2>/dev/null | jq -c '.[]'); do
