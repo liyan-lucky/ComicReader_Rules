@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-27T14:39:44.184861+00:00",
+  "generatedAt": "2026-09-27T15:13:43.137755+00:00",
   "selected": [
     {
       "workId": "0f0e3e503e1ae082",
@@ -5323,41 +5323,25 @@
       ]
     },
     {
-      "workId": "3ff02fe874c99126",
+      "workId": "d885446436de1267",
       "language": "zh-Hans",
-      "title": "攻壳机动队",
-      "domain": "bilibili.com",
-      "detailUrl": "https://www.bilibili.com/bangumi/play/ep28947",
-      "status": "unreachable",
+      "title": "无可救药",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-120f9f76c1",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/bangumi/play/ep28947"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
     {
-      "workId": "3ff02fe874c99126",
+      "workId": "d885446436de1267",
       "language": "zh-Hans",
-      "title": "攻壳机动队",
-      "domain": "bilibili.com",
-      "detailUrl": "https://www.bilibili.com/video/BV1qXhv6kEMR/",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1qXhv6kEMR/"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3ff02fe874c99126",
-      "language": "zh-Hans",
-      "title": "攻壳机动队",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/1291936/",
+      "title": "无可救药",
+      "domain": "zhidao.baidu.com",
+      "detailUrl": "https://zhidao.baidu.com/question/337510336.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -5368,14 +5352,14 @@
       ]
     },
     {
-      "workId": "3ff02fe874c99126",
+      "workId": "d885446436de1267",
       "language": "zh-Hans",
-      "title": "攻壳机动队",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/36907213/",
+      "title": "无可救药",
+      "domain": "book.douban.com",
+      "detailUrl": "https://book.douban.com/subject/38481087/?icn=index-latestbook-subject",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -5401,11 +5385,11 @@
       "workId": "d885446436de1267",
       "language": "zh-Hans",
       "title": "无可救药",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/26787934/",
-      "status": "rejected",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/6a1123b10d75f46527d3240c844769eae009a3b3.html",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/6a1123b10d75f46527d3240c844769eae009a3b3.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -5417,10 +5401,10 @@
       "language": "zh-Hans",
       "title": "无可救药",
       "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/b8590768a2c30c22590102020740be1e650eccff.html",
+      "detailUrl": "https://wenku.baidu.com/view/0ea965b184eb6294dd88d0d233d4b14e84243e4c.html",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/b8590768a2c30c22590102020740be1e650eccff.html"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/0ea965b184eb6294dd88d0d233d4b14e84243e4c.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -5431,43 +5415,14 @@
       "workId": "d885446436de1267",
       "language": "zh-Hans",
       "title": "无可救药",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/6bcd1a13f642336c1eb91a37f111f18582d00c14.html",
+      "domain": "29zw.com",
+      "detailUrl": "https://www.29zw.com/info_65108/",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/6bcd1a13f642336c1eb91a37f111f18582d00c14.html"
+        "ReadTimeout: HTTPSConnectionPool(host='www.29zw.com', port=443): Read timed out. (read timeout=15)"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d885446436de1267",
-      "language": "zh-Hans",
-      "title": "无可救药",
-      "domain": "zhidao.baidu.com",
-      "detailUrl": "https://zhidao.baidu.com/question/337510336.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d885446436de1267",
-      "language": "zh-Hans",
-      "title": "无可救药",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-120f9f76c1",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -7560,6 +7515,169 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0890175c80a6a5d9",
+      "language": "zh-Hans",
+      "title": "擎天柱",
+      "domain": "readmusk.com",
+      "detailUrl": "https://readmusk.com/optimus",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0890175c80a6a5d9",
+      "language": "zh-Hans",
+      "title": "擎天柱",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/page/u3166yryvku.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0890175c80a6a5d9",
+      "language": "zh-Hans",
+      "title": "擎天柱",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/page/a09449sob1r.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "41403bbba814f16b",
+      "language": "zh-Hans",
+      "title": "摊牌了，我全职业系统！",
+      "domain": "qimanwu.app",
+      "detailUrl": "https://www.qimanwu.app/comic/Ob2NaZR4Kn",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "db4ceed21b60dbb0",
+      "language": "zh-Hans",
+      "title": "攻略游戏",
+      "domain": "3dmgame.com",
+      "detailUrl": "https://www.3dmgame.com/gl/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "musescope.app",
+      "detailUrl": "https://musescope.app/zh-Hans/artworks/the-starry-night-van-gogh",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "minghuaqiang.com",
+      "detailUrl": "https://minghuaqiang.com/2021/01/13/1889-%E3%80%8A%E6%98%9F%E5%A4%9C%E3%80%8B%E6%A2%B5%E9%AB%98-the-starry-night/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "xingye.me",
+      "detailUrl": "https://xingye.me/game/?tab=1",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "wikiart.org",
+      "detailUrl": "https://www.wikiart.org/zh/wen-sen-te-fan-gao/xing-ye-1889",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "artifair.com",
+      "detailUrl": "https://artifair.com/zh/artwork/hNV8atTDDM5GkvSFzO9y",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ConnectionError: HTTPSConnectionPool(host='artifair.com', port=443): Max retries exceeded with url: /zh/artwork/hNV8atTDDM5GkvSFzO9y (Caused by NameResolutionError(\"HTTPSConnection(host='artifair.com', port=443): Failed to resolve 'artifair.com' ([Errno -5] No address associated with hostname)\"))"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f3295b6672b74c2a",
+      "language": "zh-Hans",
+      "title": "星夜",
+      "domain": "budarts.com",
+      "detailUrl": "https://www.budarts.com/art/135e0dc0-4981-40cb-a0a0-1c8dc8b9d49c",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     }
