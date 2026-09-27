@@ -1,59 +1,40 @@
 name: 10 保持 02 运行
 on:
   schedule:
-    - cron: '7,22,37,52 * * * *'
+    - cron: '7 * * * *'
   workflow_run:
     workflows: ['02 分类增量搜索处理']
     types: [completed]
   workflow_dispatch:
 permissions: {contents: read, actions: write}
-concurrency:
-  group: keep-02-running-loop
-  cancel-in-progress: true
 jobs:
   ensure-02-running:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with: {ref: main}
-      - name: 检查 02 是否在运行，僵死或未运行则触发
+      - name: 检查 02 是否在运行，未运行或僵死则触发
         env: {GH_TOKEN: '${{ github.token }}'}
         run: |
           set -euo pipefail
           echo "检查 02-refine-categories.yml 运行状态..."
           NOW=$(date -u +%s)
-          STALE_FOUND=0
-          ACTIVE_FOUND=0
           for row in $(gh run list --workflow=02-refine-categories.yml --limit=10 --json databaseId,status,startedAt 2>/dev/null | jq -c '.[]'); do
             STATUS=$(echo "$row" | jq -r .status)
-            STARTED=$(echo "$row" | jq -r .startedAt)
             if [ "$STATUS" = "in_progress" ] || [ "$STATUS" = "queued" ]; then
-              ACTIVE_FOUND=1
-              if [ "$STATUS" = "in_progress" ]; then
-                START_TS=$(date -u -d "$STARTED" +%s 2>/dev/null || echo 0)
-                AGE=$((NOW - START_TS))
-                if [ "$AGE" -gt 18000 ]; then
-                  STALE_FOUND=1
-                  echo "02 run $(echo "$row" | jq -r .databaseId) in_progress ${AGE}s (>5h)，视为僵死"
-                  gh run cancel $(echo "$row" | jq -r .databaseId) 2>/dev/null || true
-                fi
+              STARTED=$(echo "$row" | jq -r .startedAt)
+              START_TS=$(date -u -d "$STARTED" +%s 2>/dev/null || echo 0)
+              AGE=$((NOW - START_TS))
+              if [ "$AGE" -gt 18000 ]; then
+                echo "02 run $(echo "$row" | jq -r .databaseId) in_progress ${AGE}s (>5h)，僵死，取消并重新触发"
+                gh run cancel $(echo "$row" | jq -r .databaseId) 2>/dev/null || true
+                gh workflow run 02-refine-categories.yml --ref main
+                exit 0
               fi
+              echo "02 正在运行 (status=$STATUS, age=${AGE}s)，无需触发"
+              exit 0
             fi
           done
-          if [ "$ACTIVE_FOUND" = "1" ] && [ "$STALE_FOUND" = "0" ]; then
-            echo "02 正常运行或排队中，跳过触发"
-          elif [ "$STALE_FOUND" = "1" ]; then
-            echo "02 存在僵死 run，触发新一轮（concurrency 排队，僵死 run 最终超时）"
-            gh workflow run 02-refine-categories.yml --ref main
-          else
-            echo "02 未运行，触发新一轮搜索..."
-            gh workflow run 02-refine-categories.yml --ref main
-            echo "已触发 02"
-          fi
-      - name: 自触发下一轮监控（5 分钟间隔持续循环）
-        env: {GH_TOKEN: '${{ github.token }}'}
-        run: |
-          sleep 300
-          gh workflow run 10-keep-02-running.yml --ref main
-          echo "已自触发下一轮 10 监控"
+          echo "02 未运行，触发新一轮搜索..."
+          gh workflow run 02-refine-categories.yml --ref main
