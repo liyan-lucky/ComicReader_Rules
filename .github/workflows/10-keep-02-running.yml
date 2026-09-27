@@ -1,7 +1,7 @@
 name: 10 保持 02 运行
 on:
   schedule:
-    - cron: '7 * * * *'
+    - cron: '3,11,17,23,29,35,41,47,53,59 * * * *'
   workflow_run:
     workflows: ['02 分类增量搜索处理']
     types: [completed]
