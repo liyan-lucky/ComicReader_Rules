@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260927230609",
-  "updatedAt": "2026-09-27T23:06:09.982496+00:00",
+  "version": "20260927232651",
+  "updatedAt": "2026-09-27T23:26:51.542696+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -2105,8 +2105,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -6166,7 +6166,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bksaa_btn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\biconfont\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -6204,8 +6204,8 @@
         "detailChapterSelectors": [
           "a",
           "* a[href]",
-          "a.ksaa_btn",
           "a.iconfont",
+          "a.ksaa_btn",
           "*.nav_one a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -8777,6 +8777,22 @@
         ],
         "replayWorkCount": 202,
         "failures": [
+          {
+            "workId": "b256f33a48eab2b6",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1213652"
+          },
+          {
+            "workId": "b9e1f0e42d7dfbb4",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23647"
+          },
+          {
+            "workId": "bdf9466e9820c1a4",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17115"
+          },
+          {
+            "workId": "c428ef396779f8a6",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=28560"
+          },
           {
             "workId": "c45136c64e2dec32",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12607"
