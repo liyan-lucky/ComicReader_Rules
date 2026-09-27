@@ -93,7 +93,12 @@ jobs:
       - name: 每批完成后显式传递到 03
         if: always()
         env: {GH_TOKEN: '${{ github.token }}'}
-        run: gh workflow run 03-batch-replay.yml --ref main
+        run: |
+          for i in 1 2 3; do
+            gh workflow run 03-batch-replay.yml --ref main && break
+            echo "触发 03 失败 (尝试 $i/3)，等待 10s 重试..."
+            sleep 10
+          done
       - name: 自触发下一轮搜索（与下游链并行，不等待 03→08）
         if: always()
         env:
@@ -102,7 +107,11 @@ jobs:
         run: |
           if [ "${PENDING}" = "true" ]; then
             echo "pending=${PENDING}，触发下一轮 02（与 03→08 下游链并行）..."
-            gh workflow run 02-refine-categories.yml --ref main
+            for i in 1 2 3; do
+              gh workflow run 02-refine-categories.yml --ref main && break
+              echo "自触发 02 失败 (尝试 $i/3)，等待 10s 重试..."
+              sleep 10
+            done
           else
             echo "pending=${PENDING}，全目录搜索完成，不再自触发"
           fi
