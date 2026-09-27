@@ -1,6 +1,67 @@
 # 交接文档（2026-09-27）
 
-## 本轮：10 自触发循环修复 + 24h 监控（2026-09-27）
+## 本轮：02 永久循环 + 搜索重构 + 全链路治本（2026-09-27）
+
+### 用户澄清的核心设计要求（勿偏离）
+
+1. **02 永久循环**：01 每天触发 02；02 搜完所有内容后**立即重置从头再搜**，一直循环保持数据有效性。**不是搜完待命**。增量更新**不删历史**（audits/catalog 保留）。
+2. **02 搜索最初设计**：根据 01 列表查询书名 → **检索所有匹配结果** → 审计全部候选 → **取章节数最多的作为该书唯一数据源**，其他候选只记域名。**可靠性优先于数量**，哪怕一次只出一本也行，时间长没关系，16 分类并行保吞吐。
+3. **产出目标**：从所有域名采集 **3 万本以上不同的书**（不重复），审计通过数量 3 万+。
+
+### 数据流全景（2026-09-27 量化）
+
+```
+74300 作品（parameters works，16 分类）
+ ├─ 70899（95.4%）搜索 0 结果 ← 旧逻辑最大瓶颈（231 次 site: 查询命中率极低）
+ └─ 3401 有审计记录
+      ├─ 374 verified URL / 357 作品（通过率 ~5.7%）
+      └─ 6541 rejected/unreachable
+           └─ catalog 243 本（拒因 no_verified_source=73967）
+
+domain_ledger: 230 域名，3 已验证，227 candidate_only，6033 候选作品待验证
+```
+
+### 变更清单（均已推送）
+
+| # | 变更 | 文件 | 说明 |
+|---|---|---|---|
+| 1 | 02 自触发加重试容错 | `02-refine-categories.yml` | gh workflow run 遇 HTTP 504 重试 3 次（间隔 10s），避免自触发链断裂 |
+| 2 | safe_merge state 以 artifact 为准 | `scripts/safe_merge_artifacts.py` | 修复并集合并致 total 虚高 complete 永远 false 的空转死循环；artifact（job 从当前 works 重建）为权威，旧记录剔除 |
+| 3 | 10 多 cron 错开时间点 | `10-keep-02-running.yml` | cron `3,11,17,23,29,35,41,47,53,59 * * * *`（实测 GitHub cron 仍不可靠，但保留） |
+| 4 | 10 去掉 readyForDomainAnalysis 门禁 | `10-keep-02-running.yml` | 永久循环下 02 永远不 ready，10 恢复纯兜底（02 真断链才触发） |
+| 5 | search() 重构对齐最初设计 | `scripts/audit_category_sources.py` | 砍掉 231 次 site: 域名查询 → 1-2 次通用查询拿全候选；evidence 放宽为前 8 字锚点（摘要截断不再误杀） |
+| 6 | CHECKPOINT_SCHEMA v8→v9 | `scripts/audit_category_sources.py` | 全量重搜时缓存自然失效 |
+| 7 | checkpoint 空 audits 不复用 | `scripts/incremental_category_search.py` | 防 0 结果缓存永久短路 |
+| 8 | finalize 立即重置 | `scripts/finalize_search_cycle.py` | complete=true 时全部重置 pending + cycleCount+1（废弃 30 天复检），02 自触发下一轮永久循环 |
+| 9 | fingerprint 加 cycleCount | `scripts/incremental_category_search.py` | finalize 升 cycleCount 使 checkpoint 缓存自然失效，重搜真搜真审计（不读旧缓存空转） |
+| 10 | 备用重置脚本 | `scripts/reset_zero_result_works.py` | 精细重置 0 结果作品 state（schema 升级已覆盖全量重置，此脚本备用） |
+
+### 永久循环机制
+
+```
+02 搜完所有 → finalize: complete=true → 全部重置 pending + cycleCount+1
+           → PENDING=true → 自触发下一轮 02（从头再搜）
+           → 03→04→05→06→07→08 下游链并行处理产出
+           → 02 下一轮搜完 → 再重置 → 循环...
+01 每天触发 → 02 concurrency 串行等待当前轮完成 → 用新 works 重建 entries
+10 兜底 → 02 真断链（HTTP 504 等）才触发，正常循环时不干预
+```
+
+### 预计产出
+
+- **第一轮全量重搜后**：2000-5000 本可读（旧逻辑 357 本的 5-15 倍）
+- **距离 3 万目标仍有差距**：需提升搜索召回率（>50%）和审计通过"通过率（>30%），或扩大作品目录
+- 永久循环保持数据有效性但**不会自动增长**——增长只来自 01 新作品/新域名发现/站点变化
+
+### v9 验证实测
+
+- 单作品 1-4 秒（旧逻辑 65 秒）
+- 大分类 lianai 18950 本仅 11 分钟（旧逻辑 40+ 小时）
+- 15/16 分类快速完成，搜索速度已非瓶颈
+
+---
+
+## 上一轮：10 自触发循环修复 + 24h 监控（2026-09-27）
 
 ### 10 自触发循环
 
