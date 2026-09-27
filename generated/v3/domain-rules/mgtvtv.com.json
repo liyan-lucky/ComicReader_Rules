@@ -1,23 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "mgtvtv_com",
+  "domain": "mgtvtv.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_qzone",
-    "a.bds_tsina"
+    "a.episode-item",
+    "*.mx-10 a[href]",
+    "*.video_play_channel_list a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,9 +23,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "a01c171923ec268b"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "verified"
+  "status": "rejected"
 }
