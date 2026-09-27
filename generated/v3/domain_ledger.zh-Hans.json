@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-27T19:41:26.953153+00:00",
+  "generatedAt": "2026-09-27T19:50:55.705580+00:00",
   "domains": [
     {
       "domain": "010zaixian.com",
@@ -2459,11 +2459,24 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "487a19101f415c9c",
+          "title": "人妖",
+          "detailUrl": "https://www.56.com/w62/album-aid-8256937.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7a015b05cdfad4bc",
           "title": "人妖",
           "detailUrl": "https://www.56.com/w62/album-aid-8256937.html",
           "status": "rejected",
@@ -2742,6 +2755,32 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "78quan.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "02993c0981c4f58f",
+          "title": "今天是什么日子？",
+          "detailUrl": "https://www.78quan.com/hl/",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -4602,7 +4641,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 55,
+      "candidateWorkCount": 54,
       "works": [],
       "rejectedWorks": [
         {
@@ -5051,19 +5090,6 @@
           "workId": "9471b13c590c0b45",
           "title": "笼子",
           "detailUrl": "https://www.ali213.net/zt/kletka/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "a0fa165cad1592b3",
-          "title": "众神的恶作剧",
-          "detailUrl": "https://www.ali213.net/zt/kni/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -8301,7 +8327,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 229,
+      "candidateWorkCount": 231,
       "works": [],
       "rejectedWorks": [
         {
@@ -9436,6 +9462,19 @@
           ]
         },
         {
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://baike.sogou.com/v68503873.htm",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "e05771d0427067de",
           "title": "公主新娘",
           "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=376943",
@@ -9829,6 +9868,19 @@
           "workId": "96fccc542e81a80b",
           "title": "《欲》",
           "detailUrl": "https://baike.sogou.com/v148674071.htm",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://baike.sogou.com/v181074188.htm",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -11394,11 +11446,23 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "22c3b1eace4a9e2f",
+          "title": "伴生",
+          "detailUrl": "https://www.banshengcomp.com/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4dc0e5e0d27836a0",
           "title": "伴生",
           "detailUrl": "https://www.banshengcomp.com/",
           "status": "rejected",
@@ -11614,7 +11678,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 36,
+      "candidateWorkCount": 35,
       "works": [],
       "rejectedWorks": [
         {
@@ -11897,19 +11961,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.baozimh.com/comic/engongbuzuowenrenyashi-clevercoolclevercool"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "f4d005ce6f084016",
-          "title": "伯爵大人夜未眠",
-          "detailUrl": "https://www.baozimh.com/comic/chapter/bojuedarenyeweimian-lemonsodajeoungdeunterracetoon/0_0.html",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://www.baozimh.com/comic/chapter/bojuedarenyeweimian-lemonsodajeoungdeunterracetoon/0_0.html"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -12706,7 +12757,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 372,
+      "candidateWorkCount": 370,
       "works": [],
       "rejectedWorks": [
         {
@@ -15308,42 +15359,6 @@
           ]
         },
         {
-          "workId": "9b60f97e9ec9c5b1",
-          "title": "仙帝归来",
-          "detailUrl": "https://www.bilibili.com/bangumi/play/ep2256663",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "a0fa165cad1592b3",
-          "title": "众神的恶作剧",
-          "detailUrl": "https://www.bilibili.com/bangumi/play/ss170",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "aa19b56df8bf4699",
-          "title": "会长是女仆大人",
-          "detailUrl": "https://www.bilibili.com/bangumi/media/md969/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "5bcf3a44770148a0",
           "title": "偶像宣言",
           "detailUrl": "https://www.bilibili.com/list/ml222219136?oid=31163903&bvid=BV1UW411Z7Nd",
@@ -16157,6 +16172,19 @@
           "workId": "6ff2b0c0ab615ba9",
           "title": "IDOLiSH7 -偶像星愿- TRIGGER -before The Radiant Glory",
           "detailUrl": "https://www.bilibili.com/bangumi/play/ep173137",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7a015b05cdfad4bc",
+          "title": "人妖",
+          "detailUrl": "https://www.bilibili.com/bangumi/play/ep260835",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -18121,7 +18149,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 100,
+      "candidateWorkCount": 101,
       "works": [],
       "rejectedWorks": [
         {
@@ -18671,6 +18699,19 @@
           "workId": "1f5ecc6c41ceed79",
           "title": "荒诞人间",
           "detailUrl": "https://book.douban.com/review/12268267/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://book.douban.com/subject/36574649/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -20557,7 +20598,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 73,
+      "candidateWorkCount": 74,
       "works": [],
       "rejectedWorks": [
         {
@@ -21019,6 +21060,19 @@
           "workId": "c0662ad1954510cd",
           "title": "瓜熟蒂落",
           "detailUrl": "https://www.chagushici.com/chengyu/%E7%93%9C%E7%86%9F%E8%92%82%E8%90%BD",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.chagushici.com/chengyu/%E4%BA%B2%E5%AF%86%E6%97%A0%E9%97%B4",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -21740,7 +21794,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 82,
+      "candidateWorkCount": 83,
       "works": [],
       "rejectedWorks": [
         {
@@ -22205,6 +22259,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_eae67ffef6aaf532c5f86c0d63012c99/"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.chazidian.com/r_ci_bbef9c72be12f652ddfa3360a1e322bf/",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_bbef9c72be12f652ddfa3360a1e322bf/"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -26116,6 +26183,32 @@
       "ruleStatus": "candidate_only"
     },
     {
+      "domain": "coinglass.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "da066b17e3966500",
+          "title": "以太",
+          "detailUrl": "https://www.coinglass.com/zh/currencies/ETH",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
       "domain": "collinsdictionary.com",
       "languages": [
         "zh-Hans"
@@ -26473,13 +26566,26 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 5,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "aa3bffd51a7e86f3",
           "title": "擦肩而过",
           "detailUrl": "https://cp.baidu.com/landing/tscp_doc/1c8cbc4a08e013291122776707c9db54",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://cp.baidu.com/landing/tscp_doc/8f4f2e9463a04db2724301ea9b5707d9",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -29964,7 +30070,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 472,
+      "candidateWorkCount": 471,
       "works": [],
       "rejectedWorks": [
         {
@@ -35543,19 +35649,6 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "f5ba5b3d113255e1",
-          "title": "作为连环杀人魔的妻子活下来",
-          "detailUrl": "https://www.dm5.com/manhua-zuoweilianhuansharenmodeqizihuoxialai/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -42974,7 +43067,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 111,
+      "candidateWorkCount": 110,
       "works": [],
       "rejectedWorks": [
         {
@@ -43725,19 +43818,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/zGARyEEWVP"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "b06bd94e27d28096",
-          "title": "佐佐木同学的耳边低语直击我心底",
-          "detailUrl": "https://www.doubaomanhua.com/detail/YLWP3n41Pw",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/YLWP3n41Pw"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -50632,7 +50712,7 @@
         "readability-v5"
       ],
       "verifiedWorkCount": 202,
-      "candidateWorkCount": 680,
+      "candidateWorkCount": 674,
       "works": [
         {
           "workId": "0a341250469049ea",
@@ -60157,82 +60237,6 @@
           ]
         },
         {
-          "workId": "b6aa05fac0a818a9",
-          "title": "以你之名",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=31193",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "aa19b56df8bf4699",
-          "title": "会长是女仆大人",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=12842",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "138ecc17aba4d29b",
-          "title": "伪装上流",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=18156",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "23b8215b461f00a6",
-          "title": "伯爵家的秘密侍女",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=33695",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "efb061e71e39d883",
-          "title": "住在我隔壁的那家伙",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=18928",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_order_or_completeness_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "c1981154b202460d",
-          "title": "你是我的全世界！",
-          "detailUrl": "https://www.guazimanhua.com/chapter.php?id=2456870",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "a389294aa0368d92",
           "title": "偏偏宠爱",
           "detailUrl": "https://www.guazimanhua.com/comic.php?id=22178",
@@ -64848,7 +64852,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 327,
+      "candidateWorkCount": 329,
       "works": [],
       "rejectedWorks": [
         {
@@ -66115,6 +66119,18 @@
           ]
         },
         {
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-10b1ad9110",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
           "workId": "3437acaddfff06cd",
           "title": "再次",
           "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-8963d41a1",
@@ -66761,6 +66777,18 @@
           ],
           "selectionReasons": [
             "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-d9d24381",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -75613,19 +75641,6 @@
           ]
         },
         {
-          "workId": "c1981154b202460d",
-          "title": "你是我的全世界！",
-          "detailUrl": "https://www.iqiyi.com/v_ulybszjif4.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "93cb687a99c2e17f",
           "title": "凹凸世界",
           "detailUrl": "https://www.iqiyi.com/v_2ds3t9wwp1w.html",
@@ -75998,6 +76013,18 @@
           "workId": "2c5c77c5a6b2dd32",
           "title": "猎物",
           "detailUrl": "https://www.iqiyi.com/v_19rrhodbo8.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://www.iqiyi.com/v_19rrhv813v.html",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -78331,7 +78358,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 54,
+      "candidateWorkCount": 55,
       "works": [],
       "rejectedWorks": [
         {
@@ -78788,6 +78815,18 @@
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed",
             "chapter_order_or_completeness_gate_failed"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=2106195",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
           ],
           "selectionReasons": [
             "three_chapter_readability_gate_failed"
@@ -86873,7 +86912,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 282,
+      "candidateWorkCount": 281,
       "works": [],
       "rejectedWorks": [
         {
@@ -88922,19 +88961,6 @@
             "chapter_identity_or_content_variation_gate_failed"
           ],
           "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "f4d005ce6f084016",
-          "title": "伯爵大人夜未眠",
-          "detailUrl": "https://www.liumanhua.com/457795/156702.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -91194,7 +91220,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 21,
+      "candidateWorkCount": 22,
       "works": [],
       "rejectedWorks": [
         {
@@ -91357,6 +91383,19 @@
           "workId": "5d2502d89c0ff30b",
           "title": "情歌",
           "detailUrl": "https://lyrics.net.cn/lyrics/5118",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://lyrics.net.cn/lyrics/35661",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -92294,7 +92333,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 30,
+      "candidateWorkCount": 31,
       "works": [],
       "rejectedWorks": [
         {
@@ -92496,6 +92535,19 @@
           "workId": "10d897790cdcbbb2",
           "title": "野兽王子",
           "detailUrl": "https://m.baike.com/wikiid/3711577151340931298",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "da066b17e3966500",
+          "title": "以太",
+          "detailUrl": "https://m.baike.com/wikiid/5825924222257686230",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -94044,7 +94096,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 77,
+      "candidateWorkCount": 75,
       "works": [],
       "rejectedWorks": [
         {
@@ -94578,19 +94630,6 @@
           ]
         },
         {
-          "workId": "e16f7c882168988f",
-          "title": "以吻封缄",
-          "detailUrl": "https://m.kuaikanmanhua.com/engine/191676_17",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "af644c1119822b6c",
           "title": "侍女只想活下去",
           "detailUrl": "https://m.kuaikanmanhua.com/engine/31342_363_1",
@@ -94710,19 +94749,6 @@
           "workId": "39ad8d08dc2fc3a1",
           "title": "陛下，别杀我",
           "detailUrl": "https://m.kuaikanmanhua.com/engine/180762_363_1",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "23ef7125a5c4dda7",
-          "title": "你我的双人间",
-          "detailUrl": "https://m.kuaikanmanhua.com/engine/50827_20_1",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
@@ -95780,26 +95806,13 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 2,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "3caf3ece8b35bd4a",
           "title": "最强之人",
           "detailUrl": "https://m.sohu.com/a/364285733_100189229",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "6615d947fce9f6b2",
-          "title": "伥鬼",
-          "detailUrl": "https://m.sohu.com/a/796133613_121180648",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -96086,6 +96099,32 @@
           "workId": "08bd18f6cd7f0de3",
           "title": "粉黛",
           "detailUrl": "https://m.thepaper.cn/baijiahao_20220059",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        }
+      ],
+      "ruleStatus": "candidate_only"
+    },
+    {
+      "domain": "m.tthuangli.com",
+      "languages": [
+        "zh-Hans"
+      ],
+      "policyVersions": [],
+      "verifiedWorkCount": 0,
+      "candidateWorkCount": 1,
+      "works": [],
+      "rejectedWorks": [
+        {
+          "workId": "02993c0981c4f58f",
+          "title": "今天是什么日子？",
+          "detailUrl": "https://m.tthuangli.com/jinrihuangli/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -98179,7 +98218,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 49,
+      "candidateWorkCount": 50,
       "works": [],
       "rejectedWorks": [
         {
@@ -98553,6 +98592,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.manhuazhan.com/comic/234090"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7a015b05cdfad4bc",
+          "title": "人妖",
+          "detailUrl": "https://www.manhuazhan.com/comic/447308",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.manhuazhan.com/comic/447308"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -103908,22 +103960,9 @@
           ]
         },
         {
-          "workId": "ff3965cacff888e9",
-          "title": "似锦",
-          "detailUrl": "https://movie.douban.com/subject/36362947/",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "deb652a7bf487221",
-          "title": "你我之间",
-          "detailUrl": "https://movie.douban.com/subject/2212925/?dt_dapp=1",
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://movie.douban.com/subject/26882411/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -104808,6 +104847,19 @@
           "workId": "197350e11d5ea42a",
           "title": "xxxHOLiC·戻",
           "detailUrl": "https://movie.douban.com/subject/1760828/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://movie.douban.com/subject/26430107/",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -107350,19 +107402,6 @@
           ]
         },
         {
-          "workId": "deb652a7bf487221",
-          "title": "你我之间",
-          "detailUrl": "https://music.163.com/mv?id=10863343",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "d4d596de59b5d06e",
           "title": "夜曲",
           "detailUrl": "https://music.163.com/song?id=185904",
@@ -107496,6 +107535,19 @@
           "workId": "1fbcecc40706e072",
           "title": "Papillon花与蝶",
           "detailUrl": "https://music.163.com/mv?id=5619326",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://music.163.com/song?id=150565",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -108561,7 +108613,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 59,
+      "candidateWorkCount": 60,
       "works": [],
       "rejectedWorks": [
         {
@@ -108971,6 +109023,19 @@
           "workId": "939edba3f2a3b8c4",
           "title": "恒升",
           "detailUrl": "https://news.qq.com/rain/a/20260303A04S9K00",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7a015b05cdfad4bc",
+          "title": "人妖",
+          "detailUrl": "https://news.qq.com/rain/a/20260609A02Y2100",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -110161,26 +110226,13 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 1,
       "works": [],
       "rejectedWorks": [
         {
           "workId": "4ee54f87b5fb9eb6",
           "title": "魔咒",
           "detailUrl": "https://online.yandex.com/search?text=%E9%AD%94+%E5%92%92+%E7%AC%AC+%E4%BA%8C+%2B%E5%AD%A3&lr=21206&missword=1",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "c1981154b202460d",
-          "title": "你是我的全世界！",
-          "detailUrl": "https://online.yandex.com/search?text=%E4%BD%A0%E6%98%AF%E6%88%91%E7%9A%84%E5%85%A8%E4%B8%96%E7%95%8C%E8%9B%99%E6%BC%AB&lr=21414&p=1",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -110551,7 +110603,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 5,
+      "candidateWorkCount": 6,
       "works": [],
       "rejectedWorks": [
         {
@@ -110569,6 +110621,19 @@
         },
         {
           "workId": "c704efe6ec2a8ae4",
+          "title": "仙剑奇侠传四",
+          "detailUrl": "https://pal4.cubejoy.com/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "233229c63a80d227",
           "title": "仙剑奇侠传四",
           "detailUrl": "https://pal4.cubejoy.com/",
           "status": "rejected",
@@ -118419,7 +118484,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 256,
+      "candidateWorkCount": 257,
       "works": [],
       "rejectedWorks": [
         {
@@ -119986,6 +120051,19 @@
           "workId": "980adce70fa657c0",
           "title": "《留白》",
           "detailUrl": "https://www.sohu.com/a/938424320_120780361",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "7a015b05cdfad4bc",
+          "title": "人妖",
+          "detailUrl": "https://www.sohu.com/a/661103989_100123653",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -129212,7 +129290,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 46,
+      "candidateWorkCount": 45,
       "works": [],
       "rejectedWorks": [
         {
@@ -129414,19 +129492,6 @@
           "workId": "a25792ebb3974a52",
           "title": "诱惑",
           "detailUrl": "https://tv.sohu.com/v/MjAyMjA3MjgvbjYwMTIwMTY1MS5zaHRtbA==.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "7ac8811a44c24162",
-          "title": "你好，旧时光",
-          "detailUrl": "https://tv.sohu.com/item/MTIxNDQ3Nw==.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -130537,7 +130602,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 8,
+      "candidateWorkCount": 7,
       "works": [],
       "rejectedWorks": [
         {
@@ -130586,19 +130651,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://tw.baozimh.com/comic/mingrishendu-qingtingdongman"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "2b7800643039d1ee",
-          "title": "你和我生活在不同的世界",
-          "detailUrl": "https://tw.baozimh.com/comic/nihewoshenghuozaibutongdeshijie-seomorin",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://tw.baozimh.com/comic/nihewoshenghuozaibutongdeshijie-seomorin"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -132395,19 +132447,6 @@
           ]
         },
         {
-          "workId": "a0fa165cad1592b3",
-          "title": "众神的恶作剧",
-          "detailUrl": "https://v.qq.com/x/page/u0510rvqskt.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
           "workId": "c5c419ecf071d022",
           "title": "侧耳倾听",
           "detailUrl": "https://v.qq.com/x/page/v3546sipt5c.html",
@@ -132892,6 +132931,19 @@
           "workId": "3d54773b00c75d62",
           "title": "W：两个世界",
           "detailUrl": "https://v.qq.com/x/cover/j9xn8rw7avsdwke/y0021rjp0mx.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://v.qq.com/x/cover/vfx3eugf3h4jiqg/f0026d09nxp.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -139026,7 +139078,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 69,
+      "candidateWorkCount": 70,
       "works": [],
       "rejectedWorks": [
         {
@@ -139517,6 +139569,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/gua-shu-di-luo-014491"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.wenlinshe.com/chengyu/qin-mi-wu-jian-039385",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/qin-mi-wu-jian-039385"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -140557,7 +140622,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 31,
+      "candidateWorkCount": 30,
       "works": [],
       "rejectedWorks": [
         {
@@ -140720,18 +140785,6 @@
           ],
           "selectionReasons": [
             "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "fdecfb03c59edbc4",
-          "title": "以理服人",
-          "detailUrl": "https://wiki.biligame.com/ys/%E4%BB%A5%E7%90%86%E6%9C%8D%E4%BA%BA",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -141147,7 +141200,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 13,
+      "candidateWorkCount": 14,
       "works": [],
       "rejectedWorks": [
         {
@@ -141196,6 +141249,19 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 403 Client Error: Forbidden for url: https://www.wikiwand.com/zh-hans/%E5%8F%8C%E7%94%9F_(%E7%94%B5%E5%BD%B1)"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "da066b17e3966500",
+          "title": "以太",
+          "detailUrl": "https://www.wikiwand.com/zh/%E4%BB%A5%E5%A4%AA",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://www.wikiwand.com/zh/%E4%BB%A5%E5%A4%AA"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -144396,7 +144462,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 35,
+      "candidateWorkCount": 36,
       "works": [],
       "rejectedWorks": [
         {
@@ -144650,6 +144716,19 @@
           "workId": "d583e85c61e76325",
           "title": "INNOCENCE：美树本晴彦画集",
           "detailUrl": "https://y.qq.com/n/ryqq/mv/i00177uohp6",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "e17c7a9082d8ec53",
+          "title": "二十二",
+          "detailUrl": "https://y.qq.com/n/ryqq/mv/n0011ctrbyl",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -146093,7 +146172,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 60,
+      "candidateWorkCount": 59,
       "works": [],
       "rejectedWorks": [
         {
@@ -146466,19 +146545,6 @@
             "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "dd501f6bf7aa761d",
-          "title": "他的苹果",
-          "detailUrl": "https://www.yumanhua.com/vzUCUzS/",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "SSLError: HTTPSConnectionPool(host='www.yumanhua.com', port=443): Max retries exceeded with url: /vzUCUzS/ (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.yumanhua.com'. (_ssl.c:1010)\")))"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
             "three_chapter_readability_gate_failed"
           ]
         },
@@ -147347,7 +147413,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 143,
+      "candidateWorkCount": 144,
       "works": [],
       "rejectedWorks": [
         {
@@ -147939,6 +148005,19 @@
           "workId": "2b43caabe8bf5c53",
           "title": "《梦》",
           "detailUrl": "http://zdic.net/hans/%E6%A2%A6",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://www.zdic.net/hans/%E4%BC%B4%E7%94%9F",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -150166,7 +150245,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 55,
+      "candidateWorkCount": 56,
       "works": [],
       "rejectedWorks": [
         {
@@ -150420,6 +150499,19 @@
           "workId": "523f1042e3d1082e",
           "title": "空白",
           "detailUrl": "https://zhidao.baidu.com/question/1454578293468088420.html",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "4dc0e5e0d27836a0",
+          "title": "伴生",
+          "detailUrl": "https://zhidao.baidu.com/question/442405455854578204.html",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -151594,7 +151686,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 9,
+      "candidateWorkCount": 10,
       "works": [],
       "rejectedWorks": [
         {
@@ -151625,6 +151717,18 @@
           "workId": "025a091c8440775c",
           "title": "鸠占鹊巢",
           "detailUrl": "https://www.zpjy.net/chengyu/jiuzhanquechao/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "no_chapters"
+          ],
+          "selectionReasons": [
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "b7ea917dee0ba18d",
+          "title": "亲密无间",
+          "detailUrl": "https://www.zpjy.net/chengyu/qinmiwujian/",
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
