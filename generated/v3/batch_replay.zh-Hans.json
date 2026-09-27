@@ -2,7 +2,7 @@
   "schema": "comic_batch_replay_v1",
   "sampleSize": 50,
   "verified": 5,
-  "verifiedAndOrdered": 5,
+  "verifiedAndOrdered": 4,
   "results": [
     {
       "workId": "936ff1e5862496e8",
@@ -20308,12 +20308,12 @@
       "status": "verified",
       "rejectionReasons": [],
       "ordering": {
-        "chapterLinks": 923,
-        "numbered": 923,
-        "first": 32,
-        "last": 1,
-        "monotonic": true,
-        "direction": "descending",
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
         "gapCount": 0
       }
     },
@@ -20331,6 +20331,31 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1490312"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "23e38d9d8b1d929f",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "匿名女孩",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=18985",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18985"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20393,31 +20418,6 @@
       }
     },
     {
-      "workId": "f01a325922750569",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "皇帝的独生女",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=28936",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2183328"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "350f69fd99f4ebef",
       "language": "zh-Hans",
       "category": "",
@@ -20443,31 +20443,6 @@
       }
     },
     {
-      "workId": "93e9c6a924382cb0",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "偷星九月天",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=31017",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2351793"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "4ecd2c7697ae1e6c",
       "language": "zh-Hans",
       "category": "",
@@ -20481,31 +20456,6 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11438"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "3aae7f21764e0a48",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "偷星九月天",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=31017",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2351793"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20593,6 +20543,31 @@
       }
     },
     {
+      "workId": "f01a325922750569",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "皇帝的独生女",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=28936",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2183328"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
       "workId": "f3c120518759f680",
       "language": "zh-Hans",
       "category": "",
@@ -20631,6 +20606,31 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30162"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "93e9c6a924382cb0",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "偷星九月天",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=31017",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2351793"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20693,57 +20693,32 @@
       }
     },
     {
+      "workId": "3aae7f21764e0a48",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "偷星九月天",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=31017",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2351793"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
       "workId": "893284ea7a883097",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "大龟甲师",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=20647",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20647"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "1f6190dea929ab5c",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "都市之逆天仙尊",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=29637",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2235132"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "c8e15ca7d7324e36",
       "language": "zh-Hans",
       "category": "",
       "queryTitle": "大龟甲师",
@@ -20793,6 +20768,31 @@
       }
     },
     {
+      "workId": "c8e15ca7d7324e36",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "大龟甲师",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=20647",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20647"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
       "workId": "166d757a7bc1b381",
       "language": "zh-Hans",
       "category": "",
@@ -20806,31 +20806,6 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12183"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "2324a88d3cca6f1d",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "都市之逆天仙尊",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=29637",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2235132"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20893,31 +20868,6 @@
       }
     },
     {
-      "workId": "e750ef53140ee60a",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "金牌护卫",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=23673",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23673"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "337899ecf6342ea1",
       "language": "zh-Hans",
       "category": "",
@@ -20931,6 +20881,31 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15658"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "e750ef53140ee60a",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "金牌护卫",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=23673",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23673"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20968,6 +20943,31 @@
       }
     },
     {
+      "workId": "1f6190dea929ab5c",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "都市之逆天仙尊",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=29637",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2235132"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
       "workId": "3488b5d7e189d796",
       "language": "zh-Hans",
       "category": "",
@@ -20981,6 +20981,31 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=13646"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "2324a88d3cca6f1d",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "都市之逆天仙尊",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=29637",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2235132"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -21093,31 +21118,6 @@
       }
     },
     {
-      "workId": "81a27563dfd93e8c",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "霸道总裁轻点爱",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=14254",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1765604"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "0a341250469049ea",
       "language": "zh-Hans",
       "category": "",
@@ -21193,31 +21193,6 @@
       }
     },
     {
-      "workId": "23e38d9d8b1d929f",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "匿名女孩",
-      "detailUrl": "https://www.guazimanhua.com/comic.php?id=18985",
-      "domain": "guazimanhua.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=972480"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "d2bc26eae9445904",
       "language": "zh-Hans",
       "category": "",
@@ -21281,6 +21256,31 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=35211"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "81a27563dfd93e8c",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "霸道总裁轻点爱",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=14254",
+      "domain": "guazimanhua.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1765604"
       ],
       "ordering": {
         "chapterLinks": 0,
