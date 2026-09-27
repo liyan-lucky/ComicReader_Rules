@@ -101,7 +101,7 @@ def main() -> int:
         audits = None
         if ckpt.exists():
             saved = load_json(ckpt, {})
-            if saved.get("workFingerprint") == entries[wid]["workFingerprint"]:
+            if saved.get("workFingerprint") == entries[wid]["workFingerprint"] and saved.get("audits"):
                 audits = saved.get("audits", [])
         if audits is None:
             urls = engine.search(session, work["canonicalTitle"], candidate_limit, policy.get("searchTerms"))

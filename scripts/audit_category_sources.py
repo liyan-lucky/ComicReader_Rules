@@ -16,7 +16,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v5'
-CHECKPOINT_SCHEMA='chapter-manifest-v8-expanded-readable-domains'
+CHECKPOINT_SCHEMA='chapter-manifest-v9-general-query-search'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -139,14 +139,18 @@ def search(s,title,limit,search_terms=None):
     endpoint=os.getenv('SEARXNG_URL','http://localhost:8080').rstrip('/')+'/search'
     headers={'X-Search-Token':os.getenv('SEARXNG_API_TOKEN','')}
     terms=' '.join(search_terms or ['漫画'])
-    # Proven domains are reusable search parameters derived from previously
-    # readable books. Keep a reserved share for unrestricted web discovery so
-    # new domains can still enter the ledger and produce descendant rules.
-    queries=[(f'site:{domain} "{title}"',domain) for domain in PREFERRED_READABLE_DOMAINS]
-    queries.append((f'"{title}" {terms}',''))
-    per_query=max(2,limit//max(1,len(queries))); buckets=[]
+    # Retrieve ALL matching results for the title via general web queries.
+    # The previous per-domain site: loop (230+ queries per work) starved the
+    # engines and produced zero results for ~95% of titles.
     normalized_title=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',clean_title(title).lower())
-    def run_query(query, expected_domain):
+    anchor=normalized_title[:8] if len(normalized_title)>=8 else normalized_title
+    def accept(u,evidence_raw):
+        result_host=host(u)
+        evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(str(evidence_raw)).lower())
+        if anchor and anchor not in evidence: return False
+        if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): return False
+        return u.startswith(('http://','https://')) and not BAD_PATH.search(u)
+    def run_query(query):
         try:
             r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=15)
             r.raise_for_status()
@@ -155,40 +159,22 @@ def search(s,title,limit,search_terms=None):
         bucket=[]
         for x in r.json().get('results',[]):
             u=str(x.get('url',''))
-            result_host=host(u)
-            if expected_domain and not (result_host==expected_domain or result_host.endswith('.'+expected_domain)): continue
-            evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(
-                str(x.get('title',''))+' '+str(x.get('content',''))+' '+u).lower())
-            if normalized_title and normalized_title not in evidence: continue
-            if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): continue
-            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in bucket: bucket.append(u)
+            if u in bucket: continue
+            evidence=' '.join([str(x.get('title','')),str(x.get('content','')),u])
+            if accept(u,evidence): bucket.append(u)
         return bucket
-    with ThreadPoolExecutor(max_workers=len(queries)) as pool:
-        futures={pool.submit(run_query,q,d): (q,d) for q,d in queries}
-        buckets=[]
-        for f in as_completed(futures):
-            buckets.append(f.result())
-    out=[]
-    for bucket in buckets:
-        for u in bucket[:per_query]:
-            if u not in out: out.append(u)
-    for bucket in buckets:
-        for u in bucket[per_query:]:
-            if u not in out: out.append(u)
-            if len(out)>=limit: break
-        if len(out)>=limit: break
-    result=out[:limit]
+    result=run_query(f'"{title}" {terms}')
+    if len(result)<limit:
+        for u in run_query(f'{title} {terms}'):
+            if u not in result: result.append(u)
+            if len(result)>=limit: break
     if not result and _google_can_use():
         google_results=search_google(f'"{title}" {terms}')
         for x in google_results:
             u=str(x.get('url',''))
-            result_host=host(u)
-            evidence=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',html.unescape(
-                str(x.get('title',''))+' '+str(x.get('content',''))+' '+u).lower())
-            if normalized_title and normalized_title not in evidence: continue
-            if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): continue
-            if u.startswith(('http://','https://')) and not BAD_PATH.search(u) and u not in result:
-                result.append(u)
+            if u in result: continue
+            evidence=' '.join([str(x.get('title','')),str(x.get('snippet','')),u])
+            if accept(u,evidence): result.append(u)
             if len(result)>=limit: break
     if not result:
         print(f"[search] 0 results for: {title[:40]}", flush=True)
