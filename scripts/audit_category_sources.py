@@ -169,8 +169,9 @@ def search(s,title,limit,search_terms=None):
             if anchor and anchor not in evidence_norm: filtered_anchor+=1; continue
             if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): filtered_blocked+=1; continue
             if u.startswith(('http://','https://')) and not BAD_PATH.search(u): bucket.append(u)
-        if not bucket and raw:
-            print(f"[search-debug] '{query[:50]}' raw={len(raw)} passed=0 anchor_filtered={filtered_anchor} blocked_filtered={filtered_blocked}", flush=True)
+        if not bucket:
+            sample_urls=[str(x.get('url',''))[:80] for x in raw[:3]]
+            print(f"[search-debug] '{query[:50]}' raw={len(raw)} passed=0 anchor_f={filtered_anchor} blocked_f={filtered_blocked} sample={sample_urls}", flush=True)
         return bucket
     result=run_query(f'"{title}" {terms}')
     if len(result)<limit:
