@@ -1,6 +1,6 @@
 {
   "schema": "comic_domain_ledger_v3",
-  "generatedAt": "2026-09-27T15:13:46.946754+00:00",
+  "generatedAt": "2026-09-27T15:29:00.801094+00:00",
   "domains": [
     {
       "domain": "010zaixian.com",
@@ -9868,7 +9868,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 354,
+      "candidateWorkCount": 353,
       "works": [],
       "rejectedWorks": [
         {
@@ -9890,19 +9890,6 @@
           "status": "unreachable",
           "rejectionReasons": [
             "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV11gVszfEPN/"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "24fab6e9c367cb36",
-          "title": "义妹生活",
-          "detailUrl": "https://www.bilibili.com/video/BV18ghf6bEHJ/",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV18ghf6bEHJ/"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -20516,9 +20503,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 3,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://www.ctta.cn/?winzoom=1",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "5e505889a0413f08",
           "title": "乒乓",
@@ -21167,9 +21167,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c8ee41bc4fb44740",
+          "title": "东风",
+          "detailUrl": "https://www.dfac.com/col15/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "f67f46234b7e0023",
           "title": "东风",
@@ -21219,9 +21232,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c8ee41bc4fb44740",
+          "title": "东风",
+          "detailUrl": "https://www.dfmc.com.cn/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "f67f46234b7e0023",
           "title": "东风",
@@ -21271,9 +21297,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c8ee41bc4fb44740",
+          "title": "东风",
+          "detailUrl": "https://www.dfpv.com.cn/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "f67f46234b7e0023",
           "title": "东风",
@@ -43424,7 +43463,7 @@
         "readability-v5"
       ],
       "verifiedWorkCount": 199,
-      "candidateWorkCount": 969,
+      "candidateWorkCount": 968,
       "works": [
         {
           "workId": "0a341250469049ea",
@@ -49840,19 +49879,6 @@
           "status": "rejected",
           "rejectionReasons": [
             "chapter_identity_or_content_variation_gate_failed"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "b27ea69b0c161bc6",
-          "title": "人道大圣",
-          "detailUrl": "https://www.guazimanhua.com/comic.php?id=13199",
-          "status": "rejected",
-          "rejectionReasons": [
-            "chapter_identity_or_content_variation_gate_failed",
-            "chapter_order_or_completeness_gate_failed"
           ],
           "selectionReasons": [
             "three_chapter_readability_gate_failed"
@@ -97193,7 +97219,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 36,
+      "candidateWorkCount": 37,
       "works": [],
       "rejectedWorks": [
         {
@@ -97203,6 +97229,19 @@
           "status": "rejected",
           "rejectionReasons": [
             "no_chapters"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://news.qq.com/rain/a/20260927A000IY00",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -98111,9 +98150,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 3,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://www.olympics.com/zh/news/2026-aichi-nagoya-asian-games-chinese-table-tennis-single-event-results-tracker",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "ReadTimeout: HTTPSConnectionPool(host='www.olympics.com', port=443): Read timed out. (read timeout=15)"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "5e505889a0413f08",
           "title": "乒乓",
@@ -103538,7 +103590,7 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 159,
+      "candidateWorkCount": 160,
       "works": [],
       "rejectedWorks": [
         {
@@ -103636,6 +103688,19 @@
           "workId": "179a8306a1fcfc1e",
           "title": "幽游白书",
           "detailUrl": "https://www.sohu.com/a/942649142_122094388",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "9bf42eb0a95545e9",
+          "title": "九龙城寨",
+          "detailUrl": "https://www.sohu.com/a/453063222_189130",
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
@@ -106254,9 +106319,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 3,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://sports.cctv.com/tabletennis/",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "5e505889a0413f08",
           "title": "乒乓",
@@ -108001,35 +108079,9 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 117,
+      "candidateWorkCount": 116,
       "works": [],
       "rejectedWorks": [
-        {
-          "workId": "24fab6e9c367cb36",
-          "title": "义妹生活",
-          "detailUrl": "https://tieba.baidu.com/f?kw=%25E4%25B9%2589%25E5%25A6%25B9%25E7%2594%259F%25E6%25B4%25BB",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "efdcc0cefc93b660",
-          "title": "九界",
-          "detailUrl": "https://tieba.baidu.com/f?kw=%E4%B9%9D%E7%95%8C%E4%B9%8B%E4%B8%8A",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E4%B9%9D%E7%95%8C%E4%B9%8B%E4%B8%8A"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
         {
           "workId": "868a56c37c19d799",
           "title": "全境封锁",
@@ -108414,6 +108466,19 @@
           "status": "rejected",
           "rejectionReasons": [
             "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://tieba.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tieba.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83"
           ],
           "selectionReasons": [
             "title_identity_mismatch",
@@ -109535,9 +109600,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 3,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c607d8fc1f1abb26",
+          "title": "乒乓",
+          "detailUrl": "https://tiebac.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83",
+          "status": "unreachable",
+          "rejectionReasons": [
+            "HTTPError: 403 Client Error: Forbidden for url: https://tiebac.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "5e505889a0413f08",
           "title": "乒乓",
@@ -115386,35 +115464,9 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 135,
+      "candidateWorkCount": 133,
       "works": [],
       "rejectedWorks": [
-        {
-          "workId": "7afcc2b5a69d4427",
-          "title": "临兵斗者",
-          "detailUrl": "https://wenku.baidu.com/view/4d570f896b1aff00bed5b9f3f90f76c661374cc6.html",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/4d570f896b1aff00bed5b9f3f90f76c661374cc6.html"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "7ce7ebbd470cb949",
-          "title": "二星",
-          "detailUrl": "https://wenku.baidu.com/view/9bf28a68f52d2af90242a8956bec0975f465a422.html",
-          "status": "unreachable",
-          "rejectionReasons": [
-            "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/9bf28a68f52d2af90242a8956bec0975f465a422.html"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
         {
           "workId": "42c59e8315945995",
           "title": "凤凰涅槃",
@@ -121349,9 +121401,22 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 3,
+      "candidateWorkCount": 4,
       "works": [],
       "rejectedWorks": [
+        {
+          "workId": "c8ee41bc4fb44740",
+          "title": "东风",
+          "detailUrl": "https://www.yipai.com.cn/model007",
+          "status": "rejected",
+          "rejectionReasons": [
+            "title_identity_mismatch"
+          ],
+          "selectionReasons": [
+            "title_identity_mismatch",
+            "three_chapter_readability_gate_failed"
+          ]
+        },
         {
           "workId": "f67f46234b7e0023",
           "title": "东风",
@@ -125353,21 +125418,9 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 2,
+      "candidateWorkCount": 1,
       "works": [],
       "rejectedWorks": [
-        {
-          "workId": "24fab6e9c367cb36",
-          "title": "义妹生活",
-          "detailUrl": "https://zh.wikipedia.org/zh-cn/%E7%BE%A9%E5%A6%B9%E7%94%9F%E6%B4%BB",
-          "status": "rejected",
-          "rejectionReasons": [
-            "no_chapters"
-          ],
-          "selectionReasons": [
-            "three_chapter_readability_gate_failed"
-          ]
-        },
         {
           "workId": "a9378dd48a989cbf",
           "title": "女仆咖啡厅",
@@ -125526,35 +125579,9 @@
       ],
       "policyVersions": [],
       "verifiedWorkCount": 0,
-      "candidateWorkCount": 42,
+      "candidateWorkCount": 40,
       "works": [],
       "rejectedWorks": [
-        {
-          "workId": "7afcc2b5a69d4427",
-          "title": "临兵斗者",
-          "detailUrl": "https://zhidao.baidu.com/question/71703.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
-        {
-          "workId": "7ce7ebbd470cb949",
-          "title": "二星",
-          "detailUrl": "https://zhidao.baidu.com/question/466131767363570085.html",
-          "status": "rejected",
-          "rejectionReasons": [
-            "title_identity_mismatch"
-          ],
-          "selectionReasons": [
-            "title_identity_mismatch",
-            "three_chapter_readability_gate_failed"
-          ]
-        },
         {
           "workId": "9702c0f9914db8f2",
           "title": "天狗星",
