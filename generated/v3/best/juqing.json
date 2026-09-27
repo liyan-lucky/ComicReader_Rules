@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-09-27T19:25:46.931782+00:00",
+  "generatedAt": "2026-09-27T19:41:23.494072+00:00",
   "selected": [
     {
       "workId": "058dfd2d7332c46b",
@@ -26067,7 +26067,52 @@
       "language": "zh-Hans",
       "title": "乒乓",
       "domain": "sports.cctv.com",
-      "detailUrl": "https://sports.cctv.com/tabletennis/",
+      "detailUrl": "https://sports.cctv.com/tabletennis/?f",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "5e505889a0413f08",
+      "language": "zh-Hans",
+      "title": "乒乓",
+      "domain": "yayun.cctv.com",
+      "detailUrl": "https://yayun.cctv.com/2026/events/table_tennis/index.shtml",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "5e505889a0413f08",
+      "language": "zh-Hans",
+      "title": "乒乓",
+      "domain": "k.sina.cn",
+      "detailUrl": "https://k.sina.cn/article_7879776469_1d5abd8d506801h5w0.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "5e505889a0413f08",
+      "language": "zh-Hans",
+      "title": "乒乓",
+      "domain": "news.qq.com",
+      "detailUrl": "https://news.qq.com/rain/a/20260926A02KPT00",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -26083,54 +26128,9 @@
       "title": "乒乓",
       "domain": "tiebac.baidu.com",
       "detailUrl": "https://tiebac.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "5e505889a0413f08",
-      "language": "zh-Hans",
-      "title": "乒乓",
-      "domain": "news.qq.com",
-      "detailUrl": "https://news.qq.com/rain/a/20260927A000IY00",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "5e505889a0413f08",
-      "language": "zh-Hans",
-      "title": "乒乓",
-      "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "5e505889a0413f08",
-      "language": "zh-Hans",
-      "title": "乒乓",
-      "domain": "ctta.cn",
-      "detailUrl": "https://www.ctta.cn/?winzoom=1",
       "status": "unreachable",
       "rejectionReasons": [
-        "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+        "HTTPError: 403 Client Error: Forbidden for url: https://tiebac.baidu.com/f?kw=%E4%B9%92%E4%B9%93%E7%90%83"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -26156,11 +26156,26 @@
       "workId": "5e505889a0413f08",
       "language": "zh-Hans",
       "title": "乒乓",
-      "domain": "olympics.com",
-      "detailUrl": "https://www.olympics.com/zh/news/2026-aichi-nagoya-asian-games-chinese-table-tennis-single-event-results-tracker",
+      "domain": "ctta.cn",
+      "detailUrl": "https://www.ctta.cn/?from=groupmessage&isappinstalled=0?10000skip=true",
       "status": "unreachable",
       "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.olympics.com', port=443): Read timed out. (read timeout=15)"
+        "ConnectTimeout: HTTPSConnectionPool(host='www.ctta.cn', port=443): Max retries exceeded with url: /?from=groupmessage&isappinstalled=0?10000skip=true (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.ctta.cn', port=443) at 0x7f2108a31760>, 'Connection to www.ctta.cn timed out. (connect timeout=15)'))"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4ddac8a2b8b03f1d",
+      "language": "zh-Hans",
+      "title": "傲骨",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%82%B2%E9%AA%A8",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -26190,10 +26205,9 @@
       "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-da81f9f1d",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -26231,11 +26245,11 @@
       "workId": "4ddac8a2b8b03f1d",
       "language": "zh-Hans",
       "title": "傲骨",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%82%B2%E9%AA%A8",
-      "status": "rejected",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/1f626f20e05c3b3567ec102de2bd960590c6d929.html",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/1f626f20e05c3b3567ec102de2bd960590c6d929.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -26258,14 +26272,14 @@
       ]
     },
     {
-      "workId": "4ddac8a2b8b03f1d",
+      "workId": "ab66ff73cda5b127",
       "language": "zh-Hans",
-      "title": "傲骨",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/1f626f20e05c3b3567ec102de2bd960590c6d929.html",
-      "status": "unreachable",
+      "title": "冥冥",
+      "domain": "baike.sogou.com",
+      "detailUrl": "https://baike.sogou.com/v203871554.htm",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/1f626f20e05c3b3567ec102de2bd960590c6d929.html"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -26290,36 +26304,6 @@
       "workId": "ab66ff73cda5b127",
       "language": "zh-Hans",
       "title": "冥冥",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v203871554.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "ab66ff73cda5b127",
-      "language": "zh-Hans",
-      "title": "冥冥",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v745403.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "ab66ff73cda5b127",
-      "language": "zh-Hans",
-      "title": "冥冥",
       "domain": "moegirl.uk",
       "detailUrl": "https://moegirl.uk/%E5%86%A5%E5%86%A5(%E5%92%92%E6%9C%AF%E5%9B%9E%E6%88%98)",
       "status": "unreachable",
@@ -26336,10 +26320,40 @@
       "language": "zh-Hans",
       "title": "冥冥",
       "domain": "anibase.net",
+      "detailUrl": "https://anibase.net/zh-hant/character/lroXV/%E5%86%A5%E5%86%A5",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hant/character/lroXV/%E5%86%A5%E5%86%A5"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ab66ff73cda5b127",
+      "language": "zh-Hans",
+      "title": "冥冥",
+      "domain": "anibase.net",
       "detailUrl": "https://anibase.net/zh-hans/character/lroXV/%E5%86%A5%E5%86%A5",
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://anibase.net/zh-hans/character/lroXV/%E5%86%A5%E5%86%A5"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ab66ff73cda5b127",
+      "language": "zh-Hans",
+      "title": "冥冥",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/69bfcd5014661ed9ad51f01dc281e53a580251a6.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/69bfcd5014661ed9ad51f01dc281e53a580251a6.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -26380,21 +26394,6 @@
       "workId": "1a5d8d53bacd7ae5",
       "language": "zh-Hans",
       "title": "千千万万",
-      "domain": "iqiyi.com",
-      "detailUrl": "https://www.iqiyi.com/v_hjv4zpwfrc.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "1a5d8d53bacd7ae5",
-      "language": "zh-Hans",
-      "title": "千千万万",
       "domain": "mojigeci.com",
       "detailUrl": "https://mojigeci.com/zh-Hans/lyrics/%E5%8D%83%E5%8D%83%E4%B8%87%E4%B8%87",
       "status": "unreachable",
@@ -26410,23 +26409,8 @@
       "workId": "1a5d8d53bacd7ae5",
       "language": "zh-Hans",
       "title": "千千万万",
-      "domain": "kuwo.cn",
-      "detailUrl": "http://kuwo.cn/play_detail/161234840",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 500 Server Error: OK for url: http://kuwo.cn/play_detail/161234840"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "1a5d8d53bacd7ae5",
-      "language": "zh-Hans",
-      "title": "千千万万",
-      "domain": "y.qq.com",
-      "detailUrl": "https://y.qq.com/n/ryqq/mv/004OjpIU0pPwcu",
+      "domain": "iqiyi.com",
+      "detailUrl": "https://www.iqiyi.com/v_hjv4zpwfrc.html",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -26452,11 +26436,56 @@
       ]
     },
     {
+      "workId": "1a5d8d53bacd7ae5",
+      "language": "zh-Hans",
+      "title": "千千万万",
+      "domain": "y.qq.com",
+      "detailUrl": "https://y.qq.com/n/ryqq/mv/004OjpIU0pPwcu",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "1a5d8d53bacd7ae5",
+      "language": "zh-Hans",
+      "title": "千千万万",
+      "domain": "kuwo.cn",
+      "detailUrl": "http://kuwo.cn/play_detail/161234840",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 500 Server Error: OK for url: http://kuwo.cn/play_detail/161234840"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "21a94bfc98ff3272",
       "language": "zh-Hans",
       "title": "卫戍",
       "domain": "zdic.net",
       "detailUrl": "http://zdic.net/hans/%E5%8D%AB%E6%88%8D",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "21a94bfc98ff3272",
+      "language": "zh-Hans",
+      "title": "卫戍",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/967495160_121721912",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -26487,21 +26516,6 @@
       "title": "卫戍",
       "domain": "sohu.com",
       "detailUrl": "https://www.sohu.com/a/875178023_122157666",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "21a94bfc98ff3272",
-      "language": "zh-Hans",
-      "title": "卫戍",
-      "domain": "sohu.com",
-      "detailUrl": "https://www.sohu.com/a/967495160_121721912",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -30181,6 +30195,36 @@
       "workId": "8a29989ed3c587b6",
       "language": "zh-Hans",
       "title": "刹那",
+      "domain": "chinanews.com.cn",
+      "detailUrl": "https://www.chinanews.com.cn/hwjy/2011/01-04/2765178.shtml",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8a29989ed3c587b6",
+      "language": "zh-Hans",
+      "title": "刹那",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%88%B9%E9%82%A3",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8a29989ed3c587b6",
+      "language": "zh-Hans",
+      "title": "刹那",
       "domain": "wiki.biligame.com",
       "detailUrl": "https://wiki.biligame.com/gundam/%E5%88%B9%E9%82%A3%C2%B7F%C2%B7%E6%B8%85%E8%8B%B1",
       "status": "rejected",
@@ -30208,26 +30252,11 @@
       ]
     },
     {
-      "workId": "8a29989ed3c587b6",
-      "language": "zh-Hans",
-      "title": "刹那",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%88%B9%E9%82%A3",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
       "workId": "8cec83cabcc1fdca",
       "language": "zh-Hans",
       "title": "吞噬",
-      "domain": "qidian.com",
-      "detailUrl": "https://www.qidian.com/bqd/bprhpexa/",
+      "domain": "anibk.com",
+      "detailUrl": "https://www.anibk.com/family/1412",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -30271,21 +30300,6 @@
       "workId": "8cec83cabcc1fdca",
       "language": "zh-Hans",
       "title": "吞噬",
-      "domain": "anibk.com",
-      "detailUrl": "https://www.anibk.com/family/1412",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "8cec83cabcc1fdca",
-      "language": "zh-Hans",
-      "title": "吞噬",
       "domain": "v.qq.com",
       "detailUrl": "https://v.qq.com/x/cover/324olz7ilvo2j5f/i00350r6rf4.html",
       "status": "rejected",
@@ -30316,8 +30330,8 @@
       "workId": "8cec83cabcc1fdca",
       "language": "zh-Hans",
       "title": "吞噬",
-      "domain": "m.baike.com",
-      "detailUrl": "https://m.baike.com/wikiid/7416222767400697919",
+      "domain": "qidian.com",
+      "detailUrl": "https://www.qidian.com/bqd/bprhpexa/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -30328,11 +30342,11 @@
       ]
     },
     {
-      "workId": "4849d9ceac916d4f",
+      "workId": "8cec83cabcc1fdca",
       "language": "zh-Hans",
-      "title": "噤若寒蝉",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%99%A4%E8%8B%A5%E5%AF%92%E8%9D%89",
+      "title": "吞噬",
+      "domain": "m.baike.com",
+      "detailUrl": "https://m.baike.com/wikiid/7416222767400697919",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -30360,6 +30374,21 @@
       "workId": "4849d9ceac916d4f",
       "language": "zh-Hans",
       "title": "噤若寒蝉",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%99%A4%E8%8B%A5%E5%AF%92%E8%9D%89",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4849d9ceac916d4f",
+      "language": "zh-Hans",
+      "title": "噤若寒蝉",
       "domain": "hgcha.com",
       "detailUrl": "https://www.hgcha.com/cidian/23e9b0d2.html",
       "status": "rejected",
@@ -30379,6 +30408,21 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/jin-ruo-han-chan-032567"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4849d9ceac916d4f",
+      "language": "zh-Hans",
+      "title": "噤若寒蝉",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/345dea061ab91a37f111f18583d049649b660edb.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/345dea061ab91a37f111f18583d049649b660edb.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -30424,21 +30468,6 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/c1c29bc7a4116c175f0e7cd184254b35eefd1a33.html"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "4849d9ceac916d4f",
-      "language": "zh-Hans",
-      "title": "噤若寒蝉",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/345dea061ab91a37f111f18583d049649b660edb.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/345dea061ab91a37f111f18583d049649b660edb.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -35127,36 +35156,6 @@
       "workId": "f67f46234b7e0023",
       "language": "zh-Hans",
       "title": "东风",
-      "domain": "dfac.com",
-      "detailUrl": "https://www.dfac.com/index.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "f67f46234b7e0023",
-      "language": "zh-Hans",
-      "title": "东风",
-      "domain": "yipai.com.cn",
-      "detailUrl": "https://www.yipai.com.cn/model007",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "f67f46234b7e0023",
-      "language": "zh-Hans",
-      "title": "东风",
       "domain": "dfmc.com.cn",
       "detailUrl": "https://www.dfmc.com.cn/show/show.html",
       "status": "rejected",
@@ -35172,8 +35171,8 @@
       "workId": "f67f46234b7e0023",
       "language": "zh-Hans",
       "title": "东风",
-      "domain": "dfac.com",
-      "detailUrl": "https://www.dfac.com/col15/",
+      "domain": "dfmc.com.cn",
+      "detailUrl": "https://www.dfmc.com.cn/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35202,8 +35201,38 @@
       "workId": "f67f46234b7e0023",
       "language": "zh-Hans",
       "title": "东风",
-      "domain": "dfmc.com.cn",
-      "detailUrl": "https://www.dfmc.com.cn/",
+      "domain": "yipai.com.cn",
+      "detailUrl": "https://www.yipai.com.cn/model007",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f67f46234b7e0023",
+      "language": "zh-Hans",
+      "title": "东风",
+      "domain": "dfac.com",
+      "detailUrl": "https://www.dfac.com/index.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f67f46234b7e0023",
+      "language": "zh-Hans",
+      "title": "东风",
+      "domain": "dfac.com",
+      "detailUrl": "https://www.dfac.com/col15/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35251,7 +35280,7 @@
       "detailUrl": "https://www.mangbaike.com/changshi/ONxwNR5jlQ.html",
       "status": "unreachable",
       "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.mangbaike.com', port=443): Read timed out. (read timeout=15)"
+        "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mangbaike.com/changshi/ONxwNR5jlQ.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -35263,7 +35292,7 @@
       "language": "zh-Hans",
       "title": "回天",
       "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/p/10976904604",
+      "detailUrl": "https://tieba.baidu.com/p/10102049866",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35278,7 +35307,7 @@
       "language": "zh-Hans",
       "title": "回天",
       "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/p/10102049866",
+      "detailUrl": "https://tieba.baidu.com/p/10976904604",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35396,6 +35425,21 @@
       "workId": "b194dc0d370a53d4",
       "language": "zh-Hans",
       "title": "大雾",
+      "domain": "nmc.cn",
+      "detailUrl": "https://www.nmc.cn/publish/country/warning/fog.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b194dc0d370a53d4",
+      "language": "zh-Hans",
+      "title": "大雾",
       "domain": "music.163.com",
       "detailUrl": "https://music.163.com/song?id=1805088448",
       "status": "rejected",
@@ -35411,23 +35455,8 @@
       "workId": "b194dc0d370a53d4",
       "language": "zh-Hans",
       "title": "大雾",
-      "domain": "weather.com.cn",
-      "detailUrl": "https://www.weather.com.cn/zt/kpzt/411597.shtml",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "b194dc0d370a53d4",
-      "language": "zh-Hans",
-      "title": "大雾",
-      "domain": "nmc.cn",
-      "detailUrl": "https://www.nmc.cn/publish/country/warning/fog.html",
+      "domain": "book.douban.com",
+      "detailUrl": "https://book.douban.com/subject/35610237/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35452,17 +35481,16 @@
       ]
     },
     {
-      "workId": "b194dc0d370a53d4",
+      "workId": "1c26efdd490e7ee0",
       "language": "zh-Hans",
-      "title": "大雾",
-      "domain": "book.douban.com",
-      "detailUrl": "https://book.douban.com/subject/35610237/",
+      "title": "天光",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-73e68a4b4",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -35470,8 +35498,8 @@
       "workId": "1c26efdd490e7ee0",
       "language": "zh-Hans",
       "title": "天光",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-73e68a4b4",
+      "domain": "wiki.biligame.com",
+      "detailUrl": "https://wiki.biligame.com/nrc/%E5%A4%A9%E5%85%89",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -35499,13 +35527,14 @@
       "workId": "1c26efdd490e7ee0",
       "language": "zh-Hans",
       "title": "天光",
-      "domain": "hgcha.com",
-      "detailUrl": "https://www.hgcha.com/cidian/88fab1d0.html",
+      "domain": "guoxuehuicui.com",
+      "detailUrl": "https://www.guoxuehuicui.com/shiju/tianguang/",
       "status": "rejected",
       "rejectionReasons": [
-        "no_chapters"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -35513,8 +35542,8 @@
       "workId": "1c26efdd490e7ee0",
       "language": "zh-Hans",
       "title": "天光",
-      "domain": "guoxuehuicui.com",
-      "detailUrl": "https://www.guoxuehuicui.com/shiju/tianguang/",
+      "domain": "tg688.cnreagent.com",
+      "detailUrl": "https://tg688.cnreagent.com/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -35543,41 +35572,26 @@
       "workId": "1c26efdd490e7ee0",
       "language": "zh-Hans",
       "title": "天光",
-      "domain": "guoxuemao.com",
-      "detailUrl": "https://www.guoxuemao.com/cidian/tianguang/",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 520 Server Error: Origin Error for url: https://www.guoxuemao.com/cidian/tianguang/"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "1c26efdd490e7ee0",
-      "language": "zh-Hans",
-      "title": "天光",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/f06b097e5b0e7cd184254b35eefdc8d376ee14b2.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wk.baidu.com/view/f06b097e5b0e7cd184254b35eefdc8d376ee14b2?pcf=2&bfetype=new"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "1c26efdd490e7ee0",
-      "language": "zh-Hans",
-      "title": "天光",
       "domain": "zdic.net",
       "detailUrl": "https://www.zdic.net/hans/%E5%A4%A9%E5%85%89",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "1c26efdd490e7ee0",
+      "language": "zh-Hans",
+      "title": "天光",
+      "domain": "guoxuemao.com",
+      "detailUrl": "https://www.guoxuemao.com/cidian/tianguang/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 520 Server Error: Origin Error for url: https://www.guoxuemao.com/cidian/tianguang/"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -35602,11 +35616,11 @@
       "workId": "4732d6b65ae2b9d8",
       "language": "zh-Hans",
       "title": "天长地久",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=64439197",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%A4%A9%E9%95%BF%E5%9C%B0%E4%B9%85",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -35632,11 +35646,11 @@
       "workId": "4732d6b65ae2b9d8",
       "language": "zh-Hans",
       "title": "天长地久",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%A4%A9%E9%95%BF%E5%9C%B0%E4%B9%85",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/page/k3074ul01fo.html",
       "status": "rejected",
       "rejectionReasons": [
-        "no_chapters"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -36535,20 +36549,6 @@
       "language": "zh-Hans",
       "title": "争分夺秒",
       "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-ef451654b",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "e3e578ef423e4151",
-      "language": "zh-Hans",
-      "title": "争分夺秒",
-      "domain": "hanyuguoxue.com",
       "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-ef451654b",
       "status": "rejected",
       "rejectionReasons": [
@@ -36562,14 +36562,13 @@
       "workId": "e3e578ef423e4151",
       "language": "zh-Hans",
       "title": "争分夺秒",
-      "domain": "wenlinshe.com",
-      "detailUrl": "https://www.wenlinshe.com/chengyu/zheng-fen-duo-miao-039023",
-      "status": "unreachable",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-ef451654b",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/zheng-fen-duo-miao-039023"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -36589,11 +36588,56 @@
       ]
     },
     {
+      "workId": "e3e578ef423e4151",
+      "language": "zh-Hans",
+      "title": "争分夺秒",
+      "domain": "wenlinshe.com",
+      "detailUrl": "https://www.wenlinshe.com/chengyu/zheng-fen-duo-miao-039023",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/zheng-fen-duo-miao-039023"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "487a19101f415c9c",
       "language": "zh-Hans",
       "title": "人妖",
       "domain": "56.com",
       "detailUrl": "https://www.56.com/w62/album-aid-8256937.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "487a19101f415c9c",
+      "language": "zh-Hans",
+      "title": "人妖",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep260835",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "487a19101f415c9c",
+      "language": "zh-Hans",
+      "title": "人妖",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/943776061_122429443",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36627,21 +36671,6 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://www.manhuazhan.com/comic/447308"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "487a19101f415c9c",
-      "language": "zh-Hans",
-      "title": "人妖",
-      "domain": "sohu.com",
-      "detailUrl": "https://www.sohu.com/a/943776061_122429443",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -36713,7 +36742,7 @@
       "language": "zh-Hans",
       "title": "传单",
       "domain": "ibaotu.com",
-      "detailUrl": "https://ibaotu.com/tupian/chuandan.html",
+      "detailUrl": "https://ibaotu.com/tupian/chuandanmoban.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36727,53 +36756,8 @@
       "workId": "774768136fa26be5",
       "language": "zh-Hans",
       "title": "传单",
-      "domain": "kimi.com",
-      "detailUrl": "https://www.kimi.com/resources/flyer-design-ideas",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "774768136fa26be5",
-      "language": "zh-Hans",
-      "title": "传单",
-      "domain": "58pic.com",
-      "detailUrl": "https://www.58pic.com/tupian/chuandan.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "774768136fa26be5",
-      "language": "zh-Hans",
-      "title": "传单",
-      "domain": "edrawsoft.cn",
-      "detailUrl": "https://www.edrawsoft.cn/flyer-template/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "774768136fa26be5",
-      "language": "zh-Hans",
-      "title": "传单",
-      "domain": "canva.cn",
-      "detailUrl": "https://www.canva.cn/create/flyers/",
+      "domain": "reraw.ai",
+      "detailUrl": "https://reraw.ai/zh/marketing/flyer-maker",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36802,8 +36786,68 @@
       "workId": "774768136fa26be5",
       "language": "zh-Hans",
       "title": "传单",
+      "domain": "58pic.com",
+      "detailUrl": "https://www.58pic.com/tupian/chuandan.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "774768136fa26be5",
+      "language": "zh-Hans",
+      "title": "传单",
+      "domain": "happyimg.com",
+      "detailUrl": "https://happyimg.com/zh/flyer-maker",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "774768136fa26be5",
+      "language": "zh-Hans",
+      "title": "传单",
+      "domain": "kimi.com",
+      "detailUrl": "https://www.kimi.com/resources/flyer-design-ideas",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "774768136fa26be5",
+      "language": "zh-Hans",
+      "title": "传单",
       "domain": "canva.cn",
       "detailUrl": "https://www.canva.cn/flyers/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "774768136fa26be5",
+      "language": "zh-Hans",
+      "title": "传单",
+      "domain": "canva.cn",
+      "detailUrl": "https://www.canva.cn/flyers/templates/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36874,21 +36918,6 @@
       "workId": "22c3b1eace4a9e2f",
       "language": "zh-Hans",
       "title": "伴生",
-      "domain": "book.douban.com",
-      "detailUrl": "https://book.douban.com/subject/36574649/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "22c3b1eace4a9e2f",
-      "language": "zh-Hans",
-      "title": "伴生",
       "domain": "zdic.net",
       "detailUrl": "https://www.zdic.net/hans/%E4%BC%B4%E7%94%9F",
       "status": "rejected",
@@ -36904,8 +36933,8 @@
       "workId": "22c3b1eace4a9e2f",
       "language": "zh-Hans",
       "title": "伴生",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/26882411/",
+      "domain": "book.douban.com",
+      "detailUrl": "https://book.douban.com/subject/36574649/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36921,6 +36950,21 @@
       "title": "伴生",
       "domain": "zhidao.baidu.com",
       "detailUrl": "https://zhidao.baidu.com/question/442405455854578204.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "22c3b1eace4a9e2f",
+      "language": "zh-Hans",
+      "title": "伴生",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/26882411/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -36964,6 +37008,20 @@
       "workId": "940fb2509daa01bd",
       "language": "zh-Hans",
       "title": "余烬",
+      "domain": "wiki.biligame.com",
+      "detailUrl": "https://wiki.biligame.com/zmd/%E4%BD%99%E7%83%AC",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "940fb2509daa01bd",
+      "language": "zh-Hans",
+      "title": "余烬",
       "domain": "tvmao.com",
       "detailUrl": "https://www.tvmao.com/kanju/W2RjZmsm",
       "status": "rejected",
@@ -36972,20 +37030,6 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "940fb2509daa01bd",
-      "language": "zh-Hans",
-      "title": "余烬",
-      "domain": "wiki.biligame.com",
-      "detailUrl": "https://wiki.biligame.com/zmd/%E4%BD%99%E7%83%AC",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37020,72 +37064,14 @@
       ]
     },
     {
-      "workId": "d9219c235ea4c241",
+      "workId": "c8598909d0bacc82",
       "language": "zh-Hans",
-      "title": "侵蚀",
-      "domain": "chagushici.com",
-      "detailUrl": "https://www.chagushici.com/zidian/%E4%BE%B5%E8%9A%80",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9219c235ea4c241",
-      "language": "zh-Hans",
-      "title": "侵蚀",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-7877f1eaf",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9219c235ea4c241",
-      "language": "zh-Hans",
-      "title": "侵蚀",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v374607.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9219c235ea4c241",
-      "language": "zh-Hans",
-      "title": "侵蚀",
-      "domain": "hgcha.com",
-      "detailUrl": "https://www.hgcha.com/cidian/1ad0b202.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9219c235ea4c241",
-      "language": "zh-Hans",
-      "title": "侵蚀",
-      "domain": "chazidian.com",
-      "detailUrl": "https://www.chazidian.com/r_ci_9b9166bb65c75c34dbb046b2cea0079c/",
+      "title": "偏偏宠爱",
+      "domain": "doubaomanhua.com",
+      "detailUrl": "https://www.doubaomanhua.com/detail/9bA7ym91LM",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_9b9166bb65c75c34dbb046b2cea0079c/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/9bA7ym91LM"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -37104,50 +37090,6 @@
         "chapter_order_or_completeness_gate_failed"
       ],
       "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "c8598909d0bacc82",
-      "language": "zh-Hans",
-      "title": "偏偏宠爱",
-      "domain": "doubaomanhua.com",
-      "detailUrl": "https://www.doubaomanhua.com/detail/9bA7ym91LM",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.doubaomanhua.com/detail/9bA7ym91LM"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a8058dc030cc45e5",
-      "language": "zh-Hans",
-      "title": "停留",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-402a06339",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a8058dc030cc45e5",
-      "language": "zh-Hans",
-      "title": "停留",
-      "domain": "hgcha.com",
-      "detailUrl": "https://www.hgcha.com/cidian/bf812b0d.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37183,6 +37125,20 @@
       "workId": "a8058dc030cc45e5",
       "language": "zh-Hans",
       "title": "停留",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-402a06339",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "a8058dc030cc45e5",
+      "language": "zh-Hans",
+      "title": "停留",
       "domain": "kmcha.com",
       "detailUrl": "https://kmcha.com/cidian/%E5%81%9C%E7%95%99",
       "status": "rejected",
@@ -37191,6 +37147,35 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "a8058dc030cc45e5",
+      "language": "zh-Hans",
+      "title": "停留",
+      "domain": "hgcha.com",
+      "detailUrl": "https://www.hgcha.com/cidian/bf812b0d.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "a8058dc030cc45e5",
+      "language": "zh-Hans",
+      "title": "停留",
+      "domain": "tanzidian.cn",
+      "detailUrl": "https://www.tanzidian.cn/chacd/94vatz.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37236,20 +37221,6 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a8058dc030cc45e5",
-      "language": "zh-Hans",
-      "title": "停留",
-      "domain": "tanzidian.cn",
-      "detailUrl": "https://www.tanzidian.cn/chacd/94vatz.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37302,13 +37273,14 @@
       "workId": "4079cdff9ef49833",
       "language": "zh-Hans",
       "title": "偷窥",
-      "domain": "iqiyi.com",
-      "detailUrl": "https://www.iqiyi.com/v_19rrl56nno.html",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/1301403/",
       "status": "rejected",
       "rejectionReasons": [
-        "no_chapters"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37317,7 +37289,22 @@
       "language": "zh-Hans",
       "title": "偷窥",
       "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/1301403/",
+      "detailUrl": "https://movie.douban.com/subject/34981939/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4079cdff9ef49833",
+      "language": "zh-Hans",
+      "title": "偷窥",
+      "domain": "le.com",
+      "detailUrl": "https://www.le.com/ptv/vplay/77655001.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37376,20 +37363,6 @@
       "workId": "8f33dc02c289c55e",
       "language": "zh-Hans",
       "title": "六亲不认",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-1c2261255",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "8f33dc02c289c55e",
-      "language": "zh-Hans",
-      "title": "六亲不认",
       "domain": "liumanhua.com",
       "detailUrl": "https://www.liumanhua.com/234505",
       "status": "rejected",
@@ -37404,8 +37377,22 @@
       "workId": "8f33dc02c289c55e",
       "language": "zh-Hans",
       "title": "六亲不认",
-      "domain": "sohu.com",
-      "detailUrl": "https://www.sohu.com/a/1079883690_122066679",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-1c2261255",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8f33dc02c289c55e",
+      "language": "zh-Hans",
+      "title": "六亲不认",
+      "domain": "msn.cn",
+      "detailUrl": "https://www.msn.cn/zh-cn/gaming/%E9%80%9A%E7%94%A8/%E4%B8%89%E5%9B%BD%E6%9D%80-%E5%A4%A7%E6%8B%9B%E4%B8%80%E5%BC%80%E5%85%AD%E4%BA%B2%E4%B8%8D%E8%AE%A4-%E6%9B%BE%E7%BB%8F%E7%9A%84%E5%A4%A9%E8%8A%B1%E6%9D%BF%E7%A5%9E%E5%B0%86-%E7%8E%B0%E5%9C%A8%E8%BF%98%E5%BC%BA%E5%90%97/ar-AA2cOnRB",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37419,8 +37406,8 @@
       "workId": "8f33dc02c289c55e",
       "language": "zh-Hans",
       "title": "六亲不认",
-      "domain": "msn.cn",
-      "detailUrl": "https://www.msn.cn/zh-cn/gaming/%E9%80%9A%E7%94%A8/%E4%B8%89%E5%9B%BD%E6%9D%80-%E5%A4%A7%E6%8B%9B%E4%B8%80%E5%BC%80%E5%85%AD%E4%BA%B2%E4%B8%8D%E8%AE%A4-%E6%9B%BE%E7%BB%8F%E7%9A%84%E5%A4%A9%E8%8A%B1%E6%9D%BF%E7%A5%9E%E5%B0%86-%E7%8E%B0%E5%9C%A8%E8%BF%98%E5%BC%BA%E5%90%97/ar-AA2cOnRB",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/1079883690_122066679",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37449,8 +37436,8 @@
       "workId": "8db3ae4a342b6ba5",
       "language": "zh-Hans",
       "title": "六道轮回",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v108574364.htm",
+      "domain": "jingwen.org",
+      "detailUrl": "https://www.jingwen.org/blog/buddhist-concept-of-rebirth-samsara",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37464,8 +37451,8 @@
       "workId": "8db3ae4a342b6ba5",
       "language": "zh-Hans",
       "title": "六道轮回",
-      "domain": "sohu.com",
-      "detailUrl": "https://www.sohu.com/a/871838433_120280919",
+      "domain": "jingwen.org",
+      "detailUrl": "https://www.jingwen.org/blog/buddhist-rebirth-six-realms",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -37481,6 +37468,21 @@
       "title": "六道轮回",
       "domain": "sohu.com",
       "detailUrl": "https://www.sohu.com/a/742626442_121124746",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8db3ae4a342b6ba5",
+      "language": "zh-Hans",
+      "title": "六道轮回",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/871838433_120280919",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -37569,8 +37571,8 @@
       "workId": "f03209fe01a1111f",
       "language": "zh-Hans",
       "title": "冤家路窄",
-      "domain": "dm5.com",
-      "detailUrl": "https://www.dm5.com/manhua-yuanjialuzhai-tianmibaoji/",
+      "domain": "baike.sogou.com",
+      "detailUrl": "https://baike.sogou.com/v453124.htm",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37598,11 +37600,11 @@
       "workId": "f03209fe01a1111f",
       "language": "zh-Hans",
       "title": "冤家路窄",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/v453124.htm",
-      "status": "rejected",
+      "domain": "manwang.net",
+      "detailUrl": "https://www.manwang.net/book/512860",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.manwang.net/book/512860"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -37613,11 +37615,25 @@
       "workId": "f03209fe01a1111f",
       "language": "zh-Hans",
       "title": "冤家路窄",
-      "domain": "manwang.net",
-      "detailUrl": "https://www.manwang.net/book/512860",
-      "status": "unreachable",
+      "domain": "hgcha.com",
+      "detailUrl": "https://www.hgcha.com/chengyu/3de525e5.html",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.manwang.net/book/512860"
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f03209fe01a1111f",
+      "language": "zh-Hans",
+      "title": "冤家路窄",
+      "domain": "dm5.com",
+      "detailUrl": "https://www.dm5.com/manhua-yuanjialuzhai-tianmibaoji/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -37643,33 +37659,6 @@
       "workId": "f03209fe01a1111f",
       "language": "zh-Hans",
       "title": "冤家路窄",
-      "domain": "fuman.me",
-      "detailUrl": "https://www.fuman.me/manhua/1823407269816045568.html",
-      "status": "verified",
-      "rejectionReasons": [],
-      "selectionReasons": [
-        "title_identity_mismatch"
-      ]
-    },
-    {
-      "workId": "f03209fe01a1111f",
-      "language": "zh-Hans",
-      "title": "冤家路窄",
-      "domain": "le.com",
-      "detailUrl": "https://www.le.com/ptv/vplay/77523978.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "f03209fe01a1111f",
-      "language": "zh-Hans",
-      "title": "冤家路窄",
       "domain": "huaya.run",
       "detailUrl": "https://www.huaya.run/book/416941",
       "status": "rejected",
@@ -37679,6 +37668,18 @@
       "selectionReasons": [
         "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f03209fe01a1111f",
+      "language": "zh-Hans",
+      "title": "冤家路窄",
+      "domain": "fuman.me",
+      "detailUrl": "https://www.fuman.me/manhua/1823407269816045568.html",
+      "status": "verified",
+      "rejectionReasons": [],
+      "selectionReasons": [
+        "title_identity_mismatch"
       ]
     },
     {
@@ -37701,7 +37702,7 @@
       "language": "zh-Hans",
       "title": "决斗",
       "domain": "taptap.cn",
-      "detailUrl": "https://www.taptap.cn/app/166578",
+      "detailUrl": "https://www.taptap.cn/app/742756",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37715,8 +37716,23 @@
       "workId": "d3fedfd92dfc0a74",
       "language": "zh-Hans",
       "title": "决斗",
-      "domain": "taptap.cn",
-      "detailUrl": "https://www.taptap.cn/app/742756",
+      "domain": "17yoo.cn",
+      "detailUrl": "https://www.17yoo.cn/2345/detail/74510",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d3fedfd92dfc0a74",
+      "language": "zh-Hans",
+      "title": "决斗",
+      "domain": "17yoo.cn",
+      "detailUrl": "https://www.17yoo.cn/detail/9285",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37759,8 +37775,8 @@
       "workId": "a62e689a81f531f4",
       "language": "zh-Hans",
       "title": "冰箱",
-      "domain": "jd.com",
-      "detailUrl": "https://www.jd.com/hprm/7374719030dac8cff85.html",
+      "domain": "top.zol.com.cn",
+      "detailUrl": "https://top.zol.com.cn/compositor/icebox.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37774,8 +37790,8 @@
       "workId": "a62e689a81f531f4",
       "language": "zh-Hans",
       "title": "冰箱",
-      "domain": "top.zol.com.cn",
-      "detailUrl": "https://top.zol.com.cn/compositor/icebox.html",
+      "domain": "jd.com",
+      "detailUrl": "https://www.jd.com/hprm/7374719030dac8cff85.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -37793,7 +37809,7 @@
       "detailUrl": "https://qinan.wang/fridge-guide/",
       "status": "unreachable",
       "rejectionReasons": [
-        "ConnectTimeout: HTTPSConnectionPool(host='qinan.wang', port=443): Max retries exceeded with url: /fridge-guide/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='qinan.wang', port=443) at 0x7ff3a4a5a240>, 'Connection to qinan.wang timed out. (connect timeout=15)'))"
+        "ConnectTimeout: HTTPSConnectionPool(host='qinan.wang', port=443): Max retries exceeded with url: /fridge-guide/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='qinan.wang', port=443) at 0x7f2108face30>, 'Connection to qinan.wang timed out. (connect timeout=15)'))"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -37811,6 +37827,21 @@
         "no_chapters"
       ],
       "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "a45859fba7bfb127",
+      "language": "zh-Hans",
+      "title": "凡星",
+      "domain": "wikis.pro",
+      "detailUrl": "https://wikis.pro/%E5%87%A1%E6%98%9F",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wikis.pro/%E5%87%A1%E6%98%9F"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37862,44 +37893,13 @@
       "workId": "a45859fba7bfb127",
       "language": "zh-Hans",
       "title": "凡星",
-      "domain": "music.163.com",
-      "detailUrl": "https://music.163.com/song?id=2044490090",
+      "domain": "music.douban.com",
+      "detailUrl": "https://music.douban.com/subject/36395545/",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a45859fba7bfb127",
-      "language": "zh-Hans",
-      "title": "凡星",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/99c517da3a68011ca300a6c30c2259010302f38d.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/99c517da3a68011ca300a6c30c2259010302f38d.html"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "a45859fba7bfb127",
-      "language": "zh-Hans",
-      "title": "凡星",
-      "domain": "kuwo.cn",
-      "detailUrl": "http://www.kuwo.cn/play_detail/188035722",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 500 Server Error: OK for url: http://www.kuwo.cn/play_detail/188035722"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -37952,6 +37952,21 @@
       "workId": "08d15f7c6de6f560",
       "language": "zh-Hans",
       "title": "创业",
+      "domain": "cy.ncss.cn",
+      "detailUrl": "http://cy.ncss.cn/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "08d15f7c6de6f560",
+      "language": "zh-Hans",
+      "title": "创业",
       "domain": "v2su.com",
       "detailUrl": "https://www.v2su.com/",
       "status": "unreachable",
@@ -37969,21 +37984,6 @@
       "title": "创业",
       "domain": "cye.com.cn",
       "detailUrl": "http://cye.com.cn/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "08d15f7c6de6f560",
-      "language": "zh-Hans",
-      "title": "创业",
-      "domain": "cy.ncss.cn",
-      "detailUrl": "http://cy.ncss.cn/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38026,35 +38026,6 @@
       "workId": "037a36e4e4062efb",
       "language": "zh-Hans",
       "title": "剖析",
-      "domain": "hgcha.com",
-      "detailUrl": "https://www.hgcha.com/cidian/6e1f06f1.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "037a36e4e4062efb",
-      "language": "zh-Hans",
-      "title": "剖析",
-      "domain": "zdic.net",
-      "detailUrl": "https://www.zdic.net/hans/%E5%89%96%E6%9E%90",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "037a36e4e4062efb",
-      "language": "zh-Hans",
-      "title": "剖析",
       "domain": "dict.revised.moe.edu.tw",
       "detailUrl": "https://dict.revised.moe.edu.tw/dictView.jsp?ID=23555&la=0&powerMode=0",
       "status": "unreachable",
@@ -38070,26 +38041,11 @@
       "workId": "037a36e4e4062efb",
       "language": "zh-Hans",
       "title": "剖析",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/837084760466f5335a8102d276a20029bc646350.html",
+      "domain": "chazidian.com",
+      "detailUrl": "https://www.chazidian.com/r_ci_b740e627ff1d1729a352c00ef226eade/",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/837084760466f5335a8102d276a20029bc646350.html"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "037a36e4e4062efb",
-      "language": "zh-Hans",
-      "title": "剖析",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/9df4e315fa4733687e21af45b307e87100f6f814.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/9df4e315fa4733687e21af45b307e87100f6f814.html"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_b740e627ff1d1729a352c00ef226eade/"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -38115,11 +38071,55 @@
       "workId": "037a36e4e4062efb",
       "language": "zh-Hans",
       "title": "剖析",
-      "domain": "chazidian.com",
-      "detailUrl": "https://www.chazidian.com/r_ci_b740e627ff1d1729a352c00ef226eade/",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/9df4e315fa4733687e21af45b307e87100f6f814.html",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_b740e627ff1d1729a352c00ef226eade/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/9df4e315fa4733687e21af45b307e87100f6f814.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "037a36e4e4062efb",
+      "language": "zh-Hans",
+      "title": "剖析",
+      "domain": "hgcha.com",
+      "detailUrl": "https://www.hgcha.com/cidian/6e1f06f1.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "037a36e4e4062efb",
+      "language": "zh-Hans",
+      "title": "剖析",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/837084760466f5335a8102d276a20029bc646350.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/837084760466f5335a8102d276a20029bc646350.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "037a36e4e4062efb",
+      "language": "zh-Hans",
+      "title": "剖析",
+      "domain": "zdic.net",
+      "detailUrl": "https://www.zdic.net/hans/%E5%89%96%E6%9E%90",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ReadTimeout: HTTPSConnectionPool(host='zdic.net', port=443): Read timed out. (read timeout=15)"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -38132,6 +38132,66 @@
       "title": "匆匆",
       "domain": "ccview.net",
       "detailUrl": "http://www.ccview.net/htm/xiandai/zzq/zzqsw004.htm",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "6c9f7101c89a2b78",
+      "language": "zh-Hans",
+      "title": "匆匆",
+      "domain": "gushiwen.cn",
+      "detailUrl": "https://www.gushiwen.cn/shiwenv_383b1b8b2a04.aspx",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "6c9f7101c89a2b78",
+      "language": "zh-Hans",
+      "title": "匆匆",
+      "domain": "yjbys.com",
+      "detailUrl": "https://www.yjbys.com/wenxue/zhuziqing/357512.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "6c9f7101c89a2b78",
+      "language": "zh-Hans",
+      "title": "匆匆",
+      "domain": "kekeshici.com",
+      "detailUrl": "https://kekeshici.com/sanwen/zhuziqing/278396.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "6c9f7101c89a2b78",
+      "language": "zh-Hans",
+      "title": "匆匆",
+      "domain": "kuku.baidu.com",
+      "detailUrl": "https://kuku.baidu.com/landing/tscp_doc/05115d4d39dcbbeb3e7316cd717238e1",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38160,37 +38220,8 @@
       "workId": "6c9f7101c89a2b78",
       "language": "zh-Hans",
       "title": "匆匆",
-      "domain": "zh.wikisource.org",
-      "detailUrl": "https://zh.wikisource.org/zh-hans/%E5%8C%86%E5%8C%86",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "6c9f7101c89a2b78",
-      "language": "zh-Hans",
-      "title": "匆匆",
-      "domain": "gushiwen.cn",
-      "detailUrl": "https://www.gushiwen.cn/shiwenv_383b1b8b2a04.aspx",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "6c9f7101c89a2b78",
-      "language": "zh-Hans",
-      "title": "匆匆",
-      "domain": "yjbys.com",
-      "detailUrl": "https://www.yjbys.com/wenxue/zhuziqing/357512.html",
+      "domain": "pinshiwen.com",
+      "detailUrl": "https://www.pinshiwen.com/cidian/xiandai/201904198707.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38231,26 +38262,11 @@
       ]
     },
     {
-      "workId": "6c9f7101c89a2b78",
+      "workId": "e0c7bcb603842adb",
       "language": "zh-Hans",
-      "title": "匆匆",
-      "domain": "kuku.baidu.com",
-      "detailUrl": "https://kuku.baidu.com/landing/tscp_doc/05115d4d39dcbbeb3e7316cd717238e1",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "6c9f7101c89a2b78",
-      "language": "zh-Hans",
-      "title": "匆匆",
-      "domain": "kekeshici.com",
-      "detailUrl": "https://kekeshici.com/sanwen/zhuziqing/278396.html",
+      "title": "十一",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%8D%81%E4%B8%80",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38271,21 +38287,6 @@
         "no_chapters"
       ],
       "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "e0c7bcb603842adb",
-      "language": "zh-Hans",
-      "title": "十一",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%8D%81%E4%B8%80",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -38368,6 +38369,20 @@
       "workId": "7ebfc089ddb59cf8",
       "language": "zh-Hans",
       "title": "午后",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-317398554",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "7ebfc089ddb59cf8",
+      "language": "zh-Hans",
+      "title": "午后",
       "domain": "chinawriter.com.cn",
       "detailUrl": "https://www.chinawriter.com.cn/n1/2022/0524/c441818-32429237.html",
       "status": "rejected",
@@ -38376,20 +38391,6 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "7ebfc089ddb59cf8",
-      "language": "zh-Hans",
-      "title": "午后",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-317398554",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -38414,9 +38415,9 @@
       "title": "午后",
       "domain": "wenku.baidu.com",
       "detailUrl": "https://wenku.baidu.com/view/ad453e2e9f6648d7c1c708a1284ac850ad02048e.html",
-      "status": "rejected",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/ad453e2e9f6648d7c1c708a1284ac850ad02048e.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -38471,11 +38472,11 @@
       "workId": "e2837f7e932cf888",
       "language": "zh-Hans",
       "title": "南柯一梦",
-      "domain": "wenlinshe.com",
-      "detailUrl": "https://www.wenlinshe.com/chengyu/nan-ke-yi-meng-034910",
-      "status": "unreachable",
+      "domain": "baike.sogou.com",
+      "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=20507",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/nan-ke-yi-meng-034910"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -38500,11 +38501,11 @@
       "workId": "e2837f7e932cf888",
       "language": "zh-Hans",
       "title": "南柯一梦",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=20507",
-      "status": "rejected",
+      "domain": "wenlinshe.com",
+      "detailUrl": "https://www.wenlinshe.com/chengyu/nan-ke-yi-meng-034910",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/nan-ke-yi-meng-034910"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -38530,38 +38531,8 @@
       "workId": "4e4a199196dc9529",
       "language": "zh-Hans",
       "title": "占卜",
-      "domain": "tarot.run",
-      "detailUrl": "https://tarot.run/zh",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "4e4a199196dc9529",
-      "language": "zh-Hans",
-      "title": "占卜",
-      "domain": "destinyseek.com",
-      "detailUrl": "https://destinyseek.com/zh/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "4e4a199196dc9529",
-      "language": "zh-Hans",
-      "title": "占卜",
-      "domain": "zhouyizhanbu.cn",
-      "detailUrl": "https://zhouyizhanbu.cn/liuyao",
+      "domain": "zhouyi.cc",
+      "detailUrl": "https://www.zhouyi.cc/zhouyi/liuyao/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38590,8 +38561,8 @@
       "workId": "4e4a199196dc9529",
       "language": "zh-Hans",
       "title": "占卜",
-      "domain": "k366.com",
-      "detailUrl": "https://www.k366.com/qian/6yao.htm",
+      "domain": "zhouyizhanbu.cn",
+      "detailUrl": "https://zhouyizhanbu.cn/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38606,7 +38577,37 @@
       "language": "zh-Hans",
       "title": "占卜",
       "domain": "zhouyizhanbu.cn",
-      "detailUrl": "https://zhouyizhanbu.cn/",
+      "detailUrl": "https://zhouyizhanbu.cn/liuyao",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4e4a199196dc9529",
+      "language": "zh-Hans",
+      "title": "占卜",
+      "domain": "k366.com",
+      "detailUrl": "https://www.k366.com/qian/6yao.htm",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "7026ec3f3474d31e",
+      "language": "zh-Hans",
+      "title": "双向",
+      "domain": "health.baidu.com",
+      "detailUrl": "https://health.baidu.com/m/detail/ar_6540709107493285852",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38636,7 +38637,7 @@
       "language": "zh-Hans",
       "title": "发射日",
       "domain": "chxlive.com",
-      "detailUrl": "https://www.chxlive.com/calendar",
+      "detailUrl": "https://www.chxlive.com/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38651,7 +38652,7 @@
       "language": "zh-Hans",
       "title": "发射日",
       "domain": "chxlive.com",
-      "detailUrl": "https://www.chxlive.com/",
+      "detailUrl": "https://www.chxlive.com/calendar",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38680,20 +38681,6 @@
       "workId": "902413cc353f0983",
       "language": "zh-Hans",
       "title": "发芽",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-1d895f8ff3",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "902413cc353f0983",
-      "language": "zh-Hans",
-      "title": "发芽",
       "domain": "sohu.com",
       "detailUrl": "https://www.sohu.com/a/337895103_273847",
       "status": "rejected",
@@ -38709,14 +38696,13 @@
       "workId": "902413cc353f0983",
       "language": "zh-Hans",
       "title": "发芽",
-      "domain": "zh-cn.jardineriaon.com",
-      "detailUrl": "https://zh-cn.jardineriaon.com/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%91%E8%8A%BD.html",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-1d895f8ff3",
       "status": "rejected",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -38724,8 +38710,8 @@
       "workId": "902413cc353f0983",
       "language": "zh-Hans",
       "title": "发芽",
-      "domain": "m.baidu.com",
-      "detailUrl": "https://m.baidu.com/bh/m/detail/ar_8436146712000192732",
+      "domain": "zh-cn.jardineriaon.com",
+      "detailUrl": "https://zh-cn.jardineriaon.com/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%91%E8%8A%BD.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38756,6 +38742,21 @@
       "title": "发芽",
       "domain": "view.inews.qq.com",
       "detailUrl": "https://view.inews.qq.com/a/20260818A02C7U00",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "902413cc353f0983",
+      "language": "zh-Hans",
+      "title": "发芽",
+      "domain": "m.baidu.com",
+      "detailUrl": "https://m.baidu.com/bh/m/detail/ar_8436146712000192732",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38799,8 +38800,8 @@
       "workId": "06ff711368d5bd22",
       "language": "zh-Hans",
       "title": "发条",
-      "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/p/9710138850",
+      "domain": "1688.com",
+      "detailUrl": "https://www.1688.com/market/-B7A2CCF5.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38814,8 +38815,8 @@
       "workId": "06ff711368d5bd22",
       "language": "zh-Hans",
       "title": "发条",
-      "domain": "1688.com",
-      "detailUrl": "https://www.1688.com/market/-B7A2CCF5.html",
+      "domain": "tieba.baidu.com",
+      "detailUrl": "https://tieba.baidu.com/p/9710138850",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -38844,6 +38845,20 @@
       "workId": "ae1ba5fd3a23d98d",
       "language": "zh-Hans",
       "title": "口是心非",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-64b315935",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "ae1ba5fd3a23d98d",
+      "language": "zh-Hans",
+      "title": "口是心非",
       "domain": "zdic.net",
       "detailUrl": "http://zdic.net/hans/%E5%8F%A3%E6%98%AF%E5%BF%83%E9%9D%9E",
       "status": "rejected",
@@ -38852,20 +38867,6 @@
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "ae1ba5fd3a23d98d",
-      "language": "zh-Hans",
-      "title": "口是心非",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-64b315935",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -38918,8 +38919,8 @@
       "workId": "ae1ba5fd3a23d98d",
       "language": "zh-Hans",
       "title": "口是心非",
-      "domain": "y.qq.com",
-      "detailUrl": "https://y.qq.com/n/ryqq/mv/y0030rnl77z",
+      "domain": "music.163.com",
+      "detailUrl": "https://music.163.com/song?id=186724",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -38933,8 +38934,8 @@
       "workId": "ae1ba5fd3a23d98d",
       "language": "zh-Hans",
       "title": "口是心非",
-      "domain": "music.163.com",
-      "detailUrl": "https://music.163.com/song?id=186724",
+      "domain": "y.qq.com",
+      "detailUrl": "https://y.qq.com/n/ryqq/mv/y0030rnl77z",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
@@ -38992,6 +38993,21 @@
       "workId": "b2513839c5973f14",
       "language": "zh-Hans",
       "title": "同床异梦",
+      "domain": "tongquet.com",
+      "detailUrl": "https://tongquet.com/book/xMogO/tong-chuang-yi-meng/catalog",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://tongquet.com/book/xMogO/tong-chuang-yi-meng/catalog"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "b2513839c5973f14",
+      "language": "zh-Hans",
+      "title": "同床异梦",
       "domain": "m.acfun.cn",
       "detailUrl": "https://m.acfun.cn/v/?ac=18732345",
       "status": "rejected",
@@ -39007,11 +39023,11 @@
       "workId": "b2513839c5973f14",
       "language": "zh-Hans",
       "title": "同床异梦",
-      "domain": "tongquet.com",
-      "detailUrl": "https://tongquet.com/book/xMogO/tong-chuang-yi-meng/catalog",
-      "status": "unreachable",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/1463777/",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://tongquet.com/book/xMogO/tong-chuang-yi-meng/catalog"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -39049,21 +39065,6 @@
       ]
     },
     {
-      "workId": "b2513839c5973f14",
-      "language": "zh-Hans",
-      "title": "同床异梦",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/1463777/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
       "workId": "9dc7ae961efba99f",
       "language": "zh-Hans",
       "title": "同行",
@@ -39081,21 +39082,6 @@
       "workId": "9dc7ae961efba99f",
       "language": "zh-Hans",
       "title": "同行",
-      "domain": "zhidao.baidu.com",
-      "detailUrl": "https://zhidao.baidu.com/question/316042476852618844.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "9dc7ae961efba99f",
-      "language": "zh-Hans",
-      "title": "同行",
       "domain": "hgcha.com",
       "detailUrl": "https://www.hgcha.com/cidian/422472f4.html",
       "status": "rejected",
@@ -39103,21 +39089,6 @@
         "no_chapters"
       ],
       "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "9dc7ae961efba99f",
-      "language": "zh-Hans",
-      "title": "同行",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/2301130e7c3e0912a21614791711cc7931b778c3.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39155,13 +39126,14 @@
       "workId": "9dc7ae961efba99f",
       "language": "zh-Hans",
       "title": "同行",
-      "domain": "jjwxc.net",
-      "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=6708359",
-      "status": "rejected",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/2301130e7c3e0912a21614791711cc7931b778c3.html",
+      "status": "unreachable",
       "rejectionReasons": [
-        "chapter_identity_or_content_variation_gate_failed"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/2301130e7c3e0912a21614791711cc7931b778c3.html"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39181,11 +39153,69 @@
       ]
     },
     {
+      "workId": "9dc7ae961efba99f",
+      "language": "zh-Hans",
+      "title": "同行",
+      "domain": "zhidao.baidu.com",
+      "detailUrl": "https://zhidao.baidu.com/question/316042476852618844.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "9dc7ae961efba99f",
+      "language": "zh-Hans",
+      "title": "同行",
+      "domain": "jjwxc.net",
+      "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=6708359",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "6aa5e8d362b3b7a9",
       "language": "zh-Hans",
       "title": "向阳之处必有声",
       "domain": "movie.douban.com",
       "detailUrl": "https://movie.douban.com/subject/36907259/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "29e7c3237f6fdc23",
+      "language": "zh-Hans",
+      "title": "告白",
+      "domain": "jjwxc.net",
+      "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=4836678",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "29e7c3237f6fdc23",
+      "language": "zh-Hans",
+      "title": "告白",
+      "domain": "m.jjwxc.net",
+      "detailUrl": "https://m.jjwxc.net/book2/4836678?more=0&whole=1",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39214,28 +39244,14 @@
       "workId": "29e7c3237f6fdc23",
       "language": "zh-Hans",
       "title": "告白",
-      "domain": "qimanwu.app",
-      "detailUrl": "https://www.qimanwu.app/comic/GX8eGWVqK7",
-      "status": "rejected",
+      "domain": "manwang.net",
+      "detailUrl": "https://www.manwang.net/book/524417",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.manwang.net/book/524417"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "29e7c3237f6fdc23",
-      "language": "zh-Hans",
-      "title": "告白",
-      "domain": "jjwxc.net",
-      "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=4836678",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39258,23 +39274,8 @@
       "workId": "29e7c3237f6fdc23",
       "language": "zh-Hans",
       "title": "告白",
-      "domain": "manwang.net",
-      "detailUrl": "https://www.manwang.net/book/524417",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.manwang.net/book/524417"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "29e7c3237f6fdc23",
-      "language": "zh-Hans",
-      "title": "告白",
-      "domain": "v.qq.com",
-      "detailUrl": "https://v.qq.com/x/page/u35453emo3v.html",
+      "domain": "qimanwu.app",
+      "detailUrl": "https://www.qimanwu.app/comic/GX8eGWVqK7",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39303,6 +39304,35 @@
       "workId": "59ed20e2477163c3",
       "language": "zh-Hans",
       "title": "呼啦",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-3ea12d4d6",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "59ed20e2477163c3",
+      "language": "zh-Hans",
+      "title": "呼啦",
+      "domain": "douyin.com",
+      "detailUrl": "https://www.douyin.com/video/7426730190597901602",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "59ed20e2477163c3",
+      "language": "zh-Hans",
+      "title": "呼啦",
       "domain": "douyin.com",
       "detailUrl": "https://www.douyin.com/user/MS4wLjABAAAAaFAxUW955KBgyPcFe_tH84IS_HuU0JLc0d8hZfNbfYQ",
       "status": "rejected",
@@ -39318,8 +39348,23 @@
       "workId": "59ed20e2477163c3",
       "language": "zh-Hans",
       "title": "呼啦",
-      "domain": "douyin.com",
-      "detailUrl": "https://www.douyin.com/video/7426730190597901602",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-521122d09",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "59ed20e2477163c3",
+      "language": "zh-Hans",
+      "title": "呼啦",
+      "domain": "hulasports.com",
+      "detailUrl": "https://www.hulasports.com/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39359,6 +39404,21 @@
       ]
     },
     {
+      "workId": "59ed20e2477163c3",
+      "language": "zh-Hans",
+      "title": "呼啦",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/77bb1228f1335a8102d276a20029bd64783e62b3.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/77bb1228f1335a8102d276a20029bd64783e62b3.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "900dd70754849dfc",
       "language": "zh-Hans",
       "title": "和煦",
@@ -39376,13 +39436,29 @@
       "workId": "900dd70754849dfc",
       "language": "zh-Hans",
       "title": "和煦",
-      "domain": "zcdian.com",
-      "detailUrl": "https://www.zcdian.com/ci/vge9kh.html",
+      "domain": "zdic.net",
+      "detailUrl": "http://zdic.net/hans/%E5%92%8C%E7%85%A6",
       "status": "rejected",
       "rejectionReasons": [
-        "no_chapters"
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "900dd70754849dfc",
+      "language": "zh-Hans",
+      "title": "和煦",
+      "domain": "kuku.baidu.com",
+      "detailUrl": "https://kuku.baidu.com/landing/tscp_doc/a338b563e086c320c16c67b5315718cb",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39405,14 +39481,13 @@
       "workId": "900dd70754849dfc",
       "language": "zh-Hans",
       "title": "和煦",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/ffeb977e35126edb6f1aff00bed5b9f3f80f7261.html",
-      "status": "unreachable",
+      "domain": "zcdian.com",
+      "detailUrl": "https://www.zcdian.com/ci/vge9kh.html",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wk.baidu.com/view/ffeb977e35126edb6f1aff00bed5b9f3f80f7261?pcf=2&bfetype=new"
+        "no_chapters"
       ],
       "selectionReasons": [
-        "title_identity_mismatch",
         "three_chapter_readability_gate_failed"
       ]
     },
@@ -39420,8 +39495,8 @@
       "workId": "900dd70754849dfc",
       "language": "zh-Hans",
       "title": "和煦",
-      "domain": "kuku.baidu.com",
-      "detailUrl": "https://kuku.baidu.com/landing/tscp_doc/a338b563e086c320c16c67b5315718cb",
+      "domain": "zdic.net",
+      "detailUrl": "https://www.zdic.net/hant/%E5%92%8C%E7%85%A6",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39450,26 +39525,11 @@
       "workId": "900dd70754849dfc",
       "language": "zh-Hans",
       "title": "和煦",
-      "domain": "zdic.net",
-      "detailUrl": "https://www.zdic.net/hant/%E5%92%8C%E7%85%A6",
-      "status": "rejected",
+      "domain": "wenku.baidu.com",
+      "detailUrl": "https://wenku.baidu.com/view/ffeb977e35126edb6f1aff00bed5b9f3f80f7261.html",
+      "status": "unreachable",
       "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "900dd70754849dfc",
-      "language": "zh-Hans",
-      "title": "和煦",
-      "domain": "zdic.net",
-      "detailUrl": "http://zdic.net/hans/%E5%92%8C%E7%85%A6",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
+        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/ffeb977e35126edb6f1aff00bed5b9f3f80f7261.html"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -39480,8 +39540,8 @@
       "workId": "3e6490d67ad60ea5",
       "language": "zh-Hans",
       "title": "哪吒传",
-      "domain": "tv.cctv.cn",
-      "detailUrl": "https://tv.cctv.cn/2019/09/05/VIDAEdDuMhBBGq3sHTICvd25190905.shtml",
+      "domain": "tv.cctv.com",
+      "detailUrl": "https://tv.cctv.com/2013/03/13/VIDA1363161809008679.shtml",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39510,8 +39570,8 @@
       "workId": "8e1758092a34a1bf",
       "language": "zh-Hans",
       "title": "回声",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/35412375/",
+      "domain": "jjwxc.net",
+      "detailUrl": "https://www.jjwxc.net/onebook.php?novelid=7799200",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39525,56 +39585,11 @@
       "workId": "8e1758092a34a1bf",
       "language": "zh-Hans",
       "title": "回声",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/489f60e3f521dd36a32d7375a417866fb94ac049.html",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/489f60e3f521dd36a32d7375a417866fb94ac049.html"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "8e1758092a34a1bf",
-      "language": "zh-Hans",
-      "title": "回声",
-      "domain": "bilibili.com",
-      "detailUrl": "https://www.bilibili.com/video/BV1iNaA6EE7f/",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1iNaA6EE7f/"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "8e1758092a34a1bf",
-      "language": "zh-Hans",
-      "title": "回声",
-      "domain": "health.baidu.com",
-      "detailUrl": "https://health.baidu.com/m/detail/ar_6238907308978777179",
+      "domain": "zhidao.baidu.com",
+      "detailUrl": "https://zhidao.baidu.com/question/1652376083656447700.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "8e1758092a34a1bf",
-      "language": "zh-Hans",
-      "title": "回声",
-      "domain": "wodushu.com",
-      "detailUrl": "https://www.wodushu.com/book/293259/",
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.wodushu.com/book/293259/"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -39600,8 +39615,38 @@
       "workId": "8e1758092a34a1bf",
       "language": "zh-Hans",
       "title": "回声",
-      "domain": "aurecho.co",
-      "detailUrl": "https://www.aurecho.co/zh/",
+      "domain": "health.baidu.com",
+      "detailUrl": "https://health.baidu.com/m/detail/ar_6238907308978777179",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8e1758092a34a1bf",
+      "language": "zh-Hans",
+      "title": "回声",
+      "domain": "m.baidu.com",
+      "detailUrl": "https://m.baidu.com/bh/m/detail/ar_9231251497770786945",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "8e1758092a34a1bf",
+      "language": "zh-Hans",
+      "title": "回声",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/35412375/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39645,54 +39690,11 @@
       "workId": "d9b066bd28e263a5",
       "language": "zh-Hans",
       "title": "回头是岸",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-291e9f273",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9b066bd28e263a5",
-      "language": "zh-Hans",
-      "title": "回头是岸",
-      "domain": "songzimanhua.com",
-      "detailUrl": "https://songzimanhua.com/book/25979/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9b066bd28e263a5",
-      "language": "zh-Hans",
-      "title": "回头是岸",
       "domain": "sohu.com",
       "detailUrl": "https://www.sohu.com/a/1042346665_120701214",
       "status": "rejected",
       "rejectionReasons": [
         "no_chapters"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d9b066bd28e263a5",
-      "language": "zh-Hans",
-      "title": "回头是岸",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/1293606/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -39715,11 +39717,99 @@
       ]
     },
     {
+      "workId": "d9b066bd28e263a5",
+      "language": "zh-Hans",
+      "title": "回头是岸",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-291e9f273",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d9b066bd28e263a5",
+      "language": "zh-Hans",
+      "title": "回头是岸",
+      "domain": "wenlinshe.com",
+      "detailUrl": "https://www.wenlinshe.com/chengyu/hui-tou-shi-an-032645",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.wenlinshe.com/chengyu/hui-tou-shi-an-032645"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d9b066bd28e263a5",
+      "language": "zh-Hans",
+      "title": "回头是岸",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/1293606/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
       "workId": "3236aa0e7ae1e438",
       "language": "zh-Hans",
       "title": "围猎",
       "domain": "taicike.com",
       "detailUrl": "https://www.taicike.com/tv/17535645/fj/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3236aa0e7ae1e438",
+      "language": "zh-Hans",
+      "title": "围猎",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/cover/mzc00200i7484eg/d4101slshc2.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3236aa0e7ae1e438",
+      "language": "zh-Hans",
+      "title": "围猎",
+      "domain": "iqiyi.com",
+      "detailUrl": "https://www.iqiyi.com/v_gkh0sa2azk.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3236aa0e7ae1e438",
+      "language": "zh-Hans",
+      "title": "围猎",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/36008522/",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39748,20 +39838,6 @@
       "workId": "3236aa0e7ae1e438",
       "language": "zh-Hans",
       "title": "围猎",
-      "domain": "iqiyi.com",
-      "detailUrl": "https://www.iqiyi.com/v_gkh0sa2azk.html",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3236aa0e7ae1e438",
-      "language": "zh-Hans",
-      "title": "围猎",
       "domain": "tvmao.com",
       "detailUrl": "https://www.tvmao.com/drama/JWNlZ2Vr",
       "status": "rejected",
@@ -39777,38 +39853,8 @@
       "workId": "3236aa0e7ae1e438",
       "language": "zh-Hans",
       "title": "围猎",
-      "domain": "movie.douban.com",
-      "detailUrl": "https://movie.douban.com/subject/36008522/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3236aa0e7ae1e438",
-      "language": "zh-Hans",
-      "title": "围猎",
       "domain": "weibo.com",
       "detailUrl": "https://www.weibo.com/u/7857256438?tabtype=album",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3236aa0e7ae1e438",
-      "language": "zh-Hans",
-      "title": "围猎",
-      "domain": "v.qq.com",
-      "detailUrl": "https://v.qq.com/x/cover/mzc00200i7484eg/d4101slshc2.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39837,8 +39883,8 @@
       "workId": "b361fe20b1b772a2",
       "language": "zh-Hans",
       "title": "城堡",
-      "domain": "castle-atlas.com",
-      "detailUrl": "https://castle-atlas.com/zh",
+      "domain": "m.maigoo.com",
+      "detailUrl": "https://m.maigoo.com/top/412453.html",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39852,38 +39898,8 @@
       "workId": "b361fe20b1b772a2",
       "language": "zh-Hans",
       "title": "城堡",
-      "domain": "sohu.com",
-      "detailUrl": "https://www.sohu.com/a/199445770_614800",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "b361fe20b1b772a2",
-      "language": "zh-Hans",
-      "title": "城堡",
-      "domain": "baike.sogou.com",
-      "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=132391",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "b361fe20b1b772a2",
-      "language": "zh-Hans",
-      "title": "城堡",
-      "domain": "699pic.com",
-      "detailUrl": "https://699pic.com/tupian/chengbao.html",
+      "domain": "chuangshi.qq.com",
+      "detailUrl": "https://chuangshi.qq.com/bqq/gtvxzfclmi",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39912,21 +39928,6 @@
       "workId": "98dc0f449d714a27",
       "language": "zh-Hans",
       "title": "夏夜",
-      "domain": "ananedu.com",
-      "detailUrl": "https://ananedu.com/a/1/33/a1-3-r.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "98dc0f449d714a27",
-      "language": "zh-Hans",
-      "title": "夏夜",
       "domain": "gushiwen.cn",
       "detailUrl": "https://www.gushiwen.cn/shiwenv_84b82eb7fc8a.aspx",
       "status": "rejected",
@@ -39942,8 +39943,8 @@
       "workId": "98dc0f449d714a27",
       "language": "zh-Hans",
       "title": "夏夜",
-      "domain": "tianyou.imdqq.com",
-      "detailUrl": "https://tianyou.imdqq.com/info/1859.html",
+      "domain": "ananedu.com",
+      "detailUrl": "https://ananedu.com/a/1/33/a1-3-r.htm",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -39972,11 +39973,26 @@
       "workId": "98dc0f449d714a27",
       "language": "zh-Hans",
       "title": "夏夜",
-      "domain": "wenku.baidu.com",
-      "detailUrl": "https://wenku.baidu.com/view/3fec08a0142de2bd960590c69ec3d5bbfc0ada74.html",
-      "status": "unreachable",
+      "domain": "music.163.com",
+      "detailUrl": "https://music.163.com/song?id=410042763",
+      "status": "rejected",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/3fec08a0142de2bd960590c69ec3d5bbfc0ada74.html"
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "98dc0f449d714a27",
+      "language": "zh-Hans",
+      "title": "夏夜",
+      "domain": "hanyu.baidu.com",
+      "detailUrl": "https://hanyu.baidu.com/shici/detail?pid=cb92b233f57411e5a30ac8e0eb15ce01",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
@@ -40017,37 +40033,8 @@
       "workId": "3bbb0fc7cd64dff6",
       "language": "zh-Hans",
       "title": "大音希声",
-      "domain": "hanyuguoxue.com",
-      "detailUrl": "https://www.hanyuguoxue.com/chengyu/ci-1f7262059c",
-      "status": "rejected",
-      "rejectionReasons": [
-        "no_chapters"
-      ],
-      "selectionReasons": [
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3bbb0fc7cd64dff6",
-      "language": "zh-Hans",
-      "title": "大音希声",
       "domain": "gushiwen.cn",
       "detailUrl": "https://www.gushiwen.cn/mingju/juv.aspx?id=19ef511cdb70",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "3bbb0fc7cd64dff6",
-      "language": "zh-Hans",
-      "title": "大音希声",
-      "domain": "gushiwen.cn",
-      "detailUrl": "https://www.gushiwen.cn/mingju/juv_aabcbc1e92b9.aspx",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -40091,21 +40078,6 @@
       "workId": "e35fc4e57e3a4615",
       "language": "zh-Hans",
       "title": "天书奇谈",
-      "domain": "tieba.baidu.com",
-      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "e35fc4e57e3a4615",
-      "language": "zh-Hans",
-      "title": "天书奇谈",
       "domain": "t.imop.com",
       "detailUrl": "http://t.imop.com/",
       "status": "rejected",
@@ -40118,41 +40090,11 @@
       ]
     },
     {
-      "workId": "e3a995985a08e103",
+      "workId": "e35fc4e57e3a4615",
       "language": "zh-Hans",
-      "title": "天庭",
-      "domain": "xueqiu.com",
-      "detailUrl": "https://xueqiu.com/9950727635/264347263",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "e3a995985a08e103",
-      "language": "zh-Hans",
-      "title": "天庭",
-      "domain": "meipian.cn",
-      "detailUrl": "https://www.meipian.cn/57v31nd6",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "e3a995985a08e103",
-      "language": "zh-Hans",
-      "title": "天庭",
-      "domain": "meipian.cn",
-      "detailUrl": "https://www.meipian.cn/4h6a4fwa",
+      "title": "天书奇谈",
+      "domain": "tieba.baidu.com",
+      "detailUrl": "https://tieba.baidu.com/f?kw=%E5%A4%A9%E4%B9%A6%E5%A5%87%E8%B0%88",
       "status": "rejected",
       "rejectionReasons": [
         "title_identity_mismatch"
@@ -51485,6 +51427,423 @@
       "status": "unreachable",
       "rejectionReasons": [
         "HTTPError: 403 Client Error: Forbidden for url: https://wenku.baidu.com/view/f3243c5987c4bb4cf7ec4afe04a1b0717fd5b3a4.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "zhenjing.org",
+      "detailUrl": "https://www.zhenjing.org/jingtu/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/817254770_121301175",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "sohu.com",
+      "detailUrl": "https://www.sohu.com/a/962805077_479097",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "buddhisthk.org",
+      "detailUrl": "https://www.buddhisthk.org/zh-hans/learning/bl_ouzaFzC0S4nqBfY7pvopdOXgMhBw4HsL",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "buddhisthk.org",
+      "detailUrl": "https://www.buddhisthk.org/zh-hans/articles/el_rfpzdBo00Xj1MRGafiYWpjl5Yv0kDHoL",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "jingtumen.com",
+      "detailUrl": "https://jingtumen.com/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "3b71e498c5051243",
+      "language": "zh-Hans",
+      "title": "净土",
+      "domain": "chinabuddhism.com.cn",
+      "detailUrl": "https://chinabuddhism.com.cn/web/details/40132",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "9f83a260a8897928",
+      "language": "zh-Hans",
+      "title": "变形金刚",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep106793",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "dictionary.cambridge.org",
+      "detailUrl": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93-%E8%8B%B1%E8%AF%AD/%E5%8F%98%E8%B4%A8",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "chagushici.com",
+      "detailUrl": "https://www.chagushici.com/zidian/%E5%8F%98%E8%B4%A8",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "hanyuguoxue.com",
+      "detailUrl": "https://www.hanyuguoxue.com/cidian/ci-cabdb6fe",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "baike.sogou.com",
+      "detailUrl": "https://baike.sogou.com/m/fullLemma?lid=181038942",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "cidian.gushici.net",
+      "detailUrl": "https://cidian.gushici.net/b9/2c02cc5c2202.html",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://cidian.gushici.net/b9/2c02cc5c2202.html"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "0b827ffd6f46916b",
+      "language": "zh-Hans",
+      "title": "变质",
+      "domain": "chazidian.com",
+      "detailUrl": "https://www.chazidian.com/r_ci_b90a399cf52c02cc5c22023e49a24e9e/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.chazidian.com/r_ci_b90a399cf52c02cc5c22023e49a24e9e/"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/bangumi/play/ep746345",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "guazimanhua.com",
+      "detailUrl": "https://www.guazimanhua.com/comic.php?id=15748",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "ali213.net",
+      "detailUrl": "https://www.ali213.net/zt/dltb/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "v.qq.com",
+      "detailUrl": "https://v.qq.com/x/cover/mzc002006p8k680/q0047hk17v7.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "baike.sogou.com",
+      "detailUrl": "https://baike.sogou.com/v184970452.htm",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "dyinglightgame.com",
+      "detailUrl": "https://dyinglightgame.com/the-beast/?lang=cn",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "iqiyi.com",
+      "detailUrl": "https://www.iqiyi.com/v_14w5exupst0.html",
+      "status": "rejected",
+      "rejectionReasons": [
+        "no_chapters"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "f018c95b0f7dfbae",
+      "language": "zh-Hans",
+      "title": "困兽",
+      "domain": "movie.douban.com",
+      "detailUrl": "https://movie.douban.com/subject/34950184/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "tv.cctv.com",
+      "detailUrl": "https://tv.cctv.com/2014/08/06/VIDA1407290626191238.shtml",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "tv.cctv.com",
+      "detailUrl": "https://tv.cctv.com/2014/08/21/VIDA1408614882602642.shtml",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "manga.bilibili.com",
+      "detailUrl": "https://manga.bilibili.com/m/detail/mc25545",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "dm5.com",
+      "detailUrl": "https://www.dm5.com/manhua-guohun/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "12371.cn",
+      "detailUrl": "https://www.12371.cn/special/dsztpgh/",
+      "status": "rejected",
+      "rejectionReasons": [
+        "title_identity_mismatch"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "4dda37781293edfe",
+      "language": "zh-Hans",
+      "title": "国魂",
+      "domain": "bilibili.com",
+      "detailUrl": "https://www.bilibili.com/video/BV1aXhJ64EYK/",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 412 Client Error: Precondition Failed for url: https://www.bilibili.com/video/BV1aXhJ64EYK/"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
