@@ -7,10 +7,13 @@ on:
     types: [completed]
   workflow_dispatch:
 permissions: {contents: read, actions: write}
+concurrency:
+  group: keep-02-running-loop
+  cancel-in-progress: true
 jobs:
   ensure-02-running:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with: {ref: main}
@@ -33,6 +36,7 @@ jobs:
                 if [ "$AGE" -gt 18000 ]; then
                   STALE_FOUND=1
                   echo "02 run $(echo "$row" | jq -r .databaseId) in_progress ${AGE}s (>5h)，视为僵死"
+                  gh run cancel $(echo "$row" | jq -r .databaseId) 2>/dev/null || true
                 fi
               fi
             fi
@@ -47,3 +51,9 @@ jobs:
             gh workflow run 02-refine-categories.yml --ref main
             echo "已触发 02"
           fi
+      - name: 自触发下一轮监控（5 分钟间隔持续循环）
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          sleep 300
+          gh workflow run 10-keep-02-running.yml --ref main
+          echo "已自触发下一轮 10 监控"
