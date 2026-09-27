@@ -59,6 +59,41 @@ domain_ledger: 230 域名，3 已验证，227 candidate_only，6033 候选作品
 - 大分类 lianai 18950 本仅 11 分钟（旧逻辑 40+ 小时）
 - 15/16 分类快速完成，搜索速度已非瓶颈
 
+### v9 全量重搜 post-mortem（2026-09-28）
+
+v9 run 36318450553 完成后统计：
+
+```
+11502 审计（旧 6915，+66%）
+  ├─ 394 verified（旧 374，仅 +20）
+  ├─ 8887 rejected（77.3%）
+  └─ 2221 unreachable（19.3%）
+
+拒绝原因：
+  title_identity_mismatch                    5642  ← 搜索召回非漫画页（bilibili/douban/sohu等）
+  no_chapters                                2198  ← 同上
+  chapter_identity_or_content_variation      994
+  chapter_order_or_completeness                615
+
+有效源站（97.5% 通过来自此 2 站）：
+  guazimanhua.com    206 通过 / 758 总 (28.1%)
+  dongmanmanhua.cn   177 通过 / 246 总 (72.0%)
+
+无效域名（0 通过，大量浪费审计）：
+  bilibili.com 468 | douban 577 | sohu 322 | iqiyi 224
+  tieba 193 | wenku 292 | baike.sogou 245 | v.qq 304
+```
+
+**结论**：v9 搜索召回率提升（候选 +66%），但召回的大多是非漫画页面，真漫画源站候选被 `candidateLimit=4` 截断。
+
+### v10：屏蔽非漫画域名 + 提升 candidateLimit（2026-09-28）
+
+| # | 变更 | 文件 | 说明 |
+|---|---|---|---|
+| 11 | blockedSearchHosts +14 域名 | `config/pipeline.json` | 屏蔽 bilibili/douban/sohu/iqiyi/tieba/wenku/baike.sogou/v.qq/zdic/hanyuguoxue/kuku.baidu/anibase/youku/mgtv/doubaomanhua/3dmgame |
+| 12 | candidateLimit 4→40 | `config/categories/*.json` | 16 个分类配置全改，真漫画源站候选不再被无关页面挤出 |
+| 13 | CHECKPOINT_SCHEMA v9→v10 | `scripts/audit_category_sources.py` | `chapter-manifest-v10-domain-filter-and-higher-limit`，缓存失效强制重搜 |
+
 ---
 
 ## 上一轮：10 自触发循环修复 + 24h 监控（2026-09-27）
