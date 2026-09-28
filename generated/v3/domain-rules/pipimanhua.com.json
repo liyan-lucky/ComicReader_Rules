@@ -6,7 +6,10 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
     "*.imgpic img"
@@ -20,16 +23,20 @@
     "srcset"
   ],
   "verifiedWorkIds": [
+    "c47d3ba05e503a57",
     "e8f4e36eb9963c34",
     "f91e413fd2f81bc8",
     "fdb8d98a060761dd",
     "5622915f1a676e54",
     "32d5654e6762c472",
+    "39dc7ada7dc438ed",
+    "40e8d93765c59dde",
     "5ce33c7843b444ce",
     "9211c418d18bef1d",
     "b2a05a1c973a331b",
     "bc005d3761358967",
     "c4b80b44e279af63",
+    "fbc3875436a26356",
     "934ad50894897f5d",
     "2720b505f63f7759",
     "a3ec21609ce617f0",
@@ -39,7 +46,7 @@
     "9a6ef0ce439fcfbc",
     "6d62962a7466c854"
   ],
-  "replayWorkCount": 18,
+  "replayWorkCount": 22,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }

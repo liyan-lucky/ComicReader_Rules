@@ -1,22 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "chinahuoshan_com",
+  "domain": "chinahuoshan.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
-    "a.bds_sqq",
-    "* a[href]",
-    "a.bds_qzone",
-    "a.bds_tsina"
+    "a.btn",
+    "*.col-lg-3 a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img.lazy",
+    "*.myui-article__content img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +24,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "a196a9cddd1a76d7"
   ],
   "replayWorkCount": 1,
   "failures": [],
