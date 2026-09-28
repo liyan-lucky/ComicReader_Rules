@@ -885,3 +885,44 @@ v12 run 日志暴露 NAS 代理失效：19133 次 search-debug，不同标题返
 - 修复后 bing 对热门词完美工作，冷门词降级（bing 固有行为）
 - baidu 被风控是临时的，解除后 baidu + bing 双引擎可覆盖大部分查询
 - **Python 代理是多余的**，SearXNG 本身就能做同样的事且有更好的引擎管理
+
+---
+
+## v13e 整体修复总结（2026-09-28）
+
+### 架构定位
+
+**SearXNG Docker 容器是 NAS 搜索服务的主入口**，CI 端通过 `NAS_SEARCH_URL` secret → cloudflare tunnel → SearXNG 18080 端口访问。Python 代理（nas_search_proxy.py 端口 18081）是备用，CI 从未调用。
+
+### 本轮所有变更
+
+| 变更 | 文件 | 说明 |
+|---|---|---|
+| SearXNG bing base_url 修复 | NAS settings.yml | `https://cn.bing.com/search` → `https://cn.bing.com`，bing 从 404 → 10 条真实结果 |
+| SearXNG 启用 sogou | NAS settings.yml | keep_only 加 sogou，多一级 fallback |
+| 05 publish_catalog 修复 | `scripts/publish_catalog.py` | 跳过无 https 源的 item，修复 05 连续 4 次 failure |
+| 多查询词 | `scripts/audit_category_sources.py` | 6 个查询词：title漫画/title/title manga/在线阅读/全集/免费 |
+| baidu 分页 | `scripts/audit_category_sources.py` | run_query 支持 engines/pageno，baidu pageno=2-5（SearXNG baidu paging=True） |
+| CI 降并发 | `02-refine-categories.yml` | `--search-workers 8` → `3`（128 → 48 并发） |
+| 屏蔽垃圾域名 | `config/pipeline.json` | blockedSearchHosts 加 mc.163.com/minecraft.net |
+| Python 代理限流 | `scripts/nas_search_proxy.py` | threading.Lock + 500ms 间隔（备用服务） |
+
+### 搜索能力总结
+
+| 引擎 | 分页 | 热门词 | 冷门词 | 状态 |
+|---|---|---|---|---|
+| SearXNG bing | ❌ 不支持（JS 依赖） | ✅ 10 条真实结果 | ❌ 首字联想垃圾 | ✅ 可用 |
+| SearXNG baidu | ✅ 支持（pn 参数） | ✅ 质量最好 | ✅ 质量最好 | ⏳ IP 风控中 |
+| SearXNG sogou | ? | ? | ? | ⏳ IP 风控中 |
+| Serper API | ✅ num=100 | ✅ | ✅ | ❌ 免费额度用完 |
+| Brave API | ✅ count=50 | ✅ | ✅ | ❌ 免费额度用完 |
+
+### bing 翻页测试结论
+
+bing 声称有 68,300 条结果，但无论 curl、Puppeteer 无头浏览器、带 cookie、点击 Next 按钮、goto 完整 href（含 rdrig/FPIG token），都无法翻页——始终返回第一页相同 10 条。**bing 分页依赖 JavaScript 且有防爬机制，curl/HTML 解析方式无法突破**。
+
+### 当前瓶颈与等待
+
+- **baidu IP 风控 3h+**：CI 128 并发触发 captcha，全站被拦。限流（500ms）+ 降并发（3）已部署，等自然解除
+- **catalog 停滞 243 本**：02 还在产出中，baidu 风控期间只有 bing 10 条/查询词，多查询词（6个）可获取 ~60 条候选
+- **定时任务**：每 15 分钟检查 baidu 风控，解除后自动触发 CI
