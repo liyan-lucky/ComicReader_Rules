@@ -1,0 +1,46 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_jingmingbg_com",
+  "domain": "m.jingmingbg.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [
+    "a",
+    "a.flex-1",
+    "* a[href]",
+    "*.article-buttom a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "d688bc254f8db2ac",
+    "5bf0375e2f4f7e18",
+    "887abb057ef710b6"
+  ],
+  "replayWorkCount": 3,
+  "failures": [
+    {
+      "workId": "d688bc254f8db2ac",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "5bf0375e2f4f7e18",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/95402/2216313.html"
+    },
+    {
+      "workId": "887abb057ef710b6",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/85626/2087462.html"
+    }
+  ],
+  "status": "rejected"
+}

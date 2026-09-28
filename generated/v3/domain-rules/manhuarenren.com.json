@@ -1,7 +1,7 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "pipimanhua_com",
-  "domain": "pipimanhua.com",
+  "id": "manhuarenren_com",
+  "domain": "manhuarenren.com",
   "languages": [
     "zh-Hans"
   ],
@@ -12,7 +12,8 @@
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "*.imgpic img"
+    "img.lazy-img",
+    "*.hide-scrollbars img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -23,20 +24,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "5ce33c7843b444ce",
-    "9211c418d18bef1d",
-    "b2a05a1c973a331b",
-    "bc005d3761358967",
-    "934ad50894897f5d",
-    "2720b505f63f7759",
-    "a3ec21609ce617f0",
-    "0f815ca96545182d",
-    "a3da6ae303f00697",
-    "255690267d3b0b16",
-    "9a6ef0ce439fcfbc",
-    "6d62962a7466c854"
+    "4bbf03a80f8e0cfc"
   ],
-  "replayWorkCount": 12,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }
