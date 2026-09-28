@@ -851,3 +851,37 @@ v12 run 日志暴露 NAS 代理失效：19133 次 search-debug，不同标题返
 代理脚本已部署到 NAS `/home/LiYan/docker/searxng-comic/proxy/search_proxy.py`，进程已重启（PID 1771189）。
 
 **注意**：部署后 baidu 风控仍在（captcha 页 499 字节），需要等待 10-30 分钟自然解除。风控解除后，限流（500ms 间隔）+ 降并发（48）应能避免再次触发。
+
+---
+
+## v13b SearXNG 修复——bing base_url 配错是真正根因（2026-09-28）
+
+### 重大发现
+
+用户质疑"Docker 镜像搭不出自定义搜索引擎？"促使重新审视 SearXNG 容器，发现：
+
+1. **CI 端一直走 SearXNG**（`SEARXNG_URL` = `NAS_SEARCH_URL` secret → cloudflare tunnel → SearXNG 18080），不是 Python 代理
+2. **SearXNG 的 bing `base_url` 配错了**：`https://cn.bing.com/search` → SearXNG 引擎代码在 base_url 后再拼 `/search` → 实际请求 `https://cn.bing.com/search/search?q=...` → **404 Not Found**
+3. **Python 代理（nas_search_proxy.py 端口 18081）是多余的**——CI 从未调用它，CI 一直用 SearXNG（端口 18080）
+
+### 修复
+
+| 修复 | 旧值 | 新值 | 效果 |
+|---|---|---|---|
+| bing base_url | `https://cn.bing.com/search` | `https://cn.bing.com` | bing 从 404 → 10 条真实漫画结果 |
+| 启用 sogou 引擎 | keep_only: baidu, bing | keep_only: baidu, bing, sogou | 多一级 fallback |
+
+### 测试结果
+
+| 引擎 | 热门词"斗破苍穹 漫画" | 冷门词"我看上你了 漫画" |
+|---|---|---|
+| bing（修复后） | ✅ 10 条真实漫画站（duokanmh/guazimanhua/ac.qq.com 等） | ❌ 首字联想垃圾（baike/mc.163） |
+| baidu | ❌ CAPTCHA 风控中 | ❌ CAPTCHA 风控中 |
+| sogou | ❌ CAPTCHA 风控中 | ❌ CAPTCHA 风控中 |
+
+### 结论
+
+- **之前搜不出来东西的根因是 bing base_url 配错**（404），不是 SearXNG 不行
+- 修复后 bing 对热门词完美工作，冷门词降级（bing 固有行为）
+- baidu 被风控是临时的，解除后 baidu + bing 双引擎可覆盖大部分查询
+- **Python 代理是多余的**，SearXNG 本身就能做同样的事且有更好的引擎管理
