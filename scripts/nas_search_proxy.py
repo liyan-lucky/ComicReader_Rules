@@ -25,23 +25,28 @@ _baidu_suspend_until = 0
 _baidu_lock = threading.Lock()
 _baidu_last_request = 0.0
 _baidu_min_interval = 0.5
+_fetch_semaphore = threading.Semaphore(10)
 
 
-def fetch(url, timeout=8):
-    result = subprocess.run(
-        ["curl", "-s", "--connect-timeout", str(timeout), "--max-time", str(timeout + 2),
-         "-H", f"User-Agent: {USER_AGENT}",
-         "-H", "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
-         "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-         "--compressed", url],
-        capture_output=True, text=True, timeout=timeout + 5,
-    )
-    return result.stdout
+def fetch(url, timeout=8, referer=''):
+    cmd = ["curl", "-sL", "--connect-timeout", str(timeout), "--max-time", str(timeout + 2),
+           "-H", f"User-Agent: {USER_AGENT}",
+           "-H", "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
+           "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+           "--compressed", "-w", "\n%{http_code}", url]
+    if referer:
+        cmd.insert(-3, "-H")
+        cmd.insert(-3, f"Referer: {referer}")
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
+    parts = result.stdout.rsplit('\n', 1)
+    if len(parts) == 2 and parts[1].isdigit():
+        return parts[0], int(parts[1])
+    return result.stdout, 0
 
 
 def search_bing(query, count=20):
     url = f"https://cn.bing.com/search?{urlencode({'q': query, 'count': count, 'setlang': 'zh-CN'})}"
-    page = fetch(url)
+    page, _ = fetch(url)
     results = []
     blocks = re.split(r'<li class="b_algo"', page)
     for block in blocks[1:]:
@@ -73,7 +78,7 @@ def search_baidu(query, count=20):
         _baidu_last_request = time.time()
         url = f"https://www.baidu.com/s?{urlencode({'wd': query, 'rn': count})}"
         try:
-            page = fetch(url, timeout=10)
+            page, _ = fetch(url, timeout=10)
         except Exception as e:
             _baidu_suspend_until = time.time() + 600
             return [], f"fetch error: {e}"
@@ -157,6 +162,29 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"results": results, "unresponsive_engines": unresponsive})
         elif parsed.path == "/health":
             self._json({"status": "ok"})
+        elif parsed.path == "/fetch":
+            qs = parse_qs(parsed.query)
+            target_url = qs.get("url", [""])[0]
+            if not target_url or not target_url.startswith("http"):
+                self._json({"error": "missing or invalid url parameter"})
+                return
+            referer = qs.get("referer", [""])[0]
+            with _fetch_semaphore:
+                try:
+                    content, status_code = fetch(target_url, timeout=15, referer=referer)
+                except subprocess.TimeoutExpired:
+                    self.send_response(504); self.end_headers()
+                    self.wfile.write(b"Gateway Timeout")
+                    return
+                except Exception as e:
+                    self._json({"error": str(e)})
+                    return
+            data = content.encode('utf-8', errors='replace')
+            self.send_response(status_code if status_code else 200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
         else:
             self.send_response(404)
             self.end_headers()

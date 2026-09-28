@@ -18,6 +18,8 @@ NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v5'
 CHECKPOINT_SCHEMA='chapter-manifest-v12-serper-brave-fallback'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
+FETCH_PROXY_URL=os.getenv('FETCH_PROXY_URL','')
+FETCH_PROXY_TOKEN=os.getenv('SEARXNG_API_TOKEN','')
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
 # 搜索结果黑名单：知乎、百科、新闻等通用内容站永远不会是可读漫画站，
@@ -114,6 +116,17 @@ def same_title(query,matched,lang):
     # but never accept a shorter/unrelated title merely returned by search.
     return len(query_text)>=4 and query_text in matched_text and len(matched_text)-len(query_text)<=18
 def fetch(s,url,referer='',retries=3):
+    if FETCH_PROXY_URL:
+        params={'url':url}
+        if referer: params['referer']=referer
+        proxy_headers={'X-Search-Token':FETCH_PROXY_TOKEN}
+        for attempt in range(retries):
+            try:
+                r=requests.get(FETCH_PROXY_URL,params=params,headers=proxy_headers,timeout=25)
+                r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
+            except Exception:
+                if attempt<retries-1: time.sleep((attempt+1)*0.5)
+                else: raise
     h={'Referer':referer} if referer else {}
     for attempt in range(retries):
         try:

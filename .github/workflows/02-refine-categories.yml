@@ -37,6 +37,8 @@ jobs:
         env:
           SEARXNG_URL: ${{ env.SEARXNG_URL }}
           SEARXNG_API_TOKEN: ${{ env.SEARXNG_API_TOKEN }}
+      - name: 设置审计抓取代理 URL
+        run: echo "FETCH_PROXY_URL=${SEARXNG_URL}/fetch" >> $GITHUB_ENV
       - name: 恢复本类逐书检查点
         uses: actions/cache@v4
         with:
