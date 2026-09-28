@@ -1,21 +1,22 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "m_jingmingbg_com",
-  "domain": "m.jingmingbg.com",
+  "id": "cxjob_com_cn",
+  "domain": "cxjob.com.cn",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
-    "a.flex-1",
-    "* a[href]",
-    "*.article-buttom a[href]"
+    "a.chapter-link",
+    "*.lay-flex a[href]",
+    "a.toolBar-toolRead",
+    "*.chapter-item a[href]",
+    "*.bottom-chapter-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
+    "img.comic-pic",
+    "*.comic-pic-box img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,11 +27,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d688bc254f8db2ac",
-    "5bf0375e2f4f7e18",
-    "887abb057ef710b6"
+    "db660385795e6036"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }

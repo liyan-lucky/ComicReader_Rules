@@ -1,21 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "m_jingmingbg_com",
-  "domain": "m.jingmingbg.com",
+  "id": "zubus_net",
+  "domain": "zubus.net",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "a.flex-1",
-    "* a[href]",
-    "*.article-buttom a[href]"
+    "* a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
+    "img",
+    "*.mu_list img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,11 +24,10 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d688bc254f8db2ac",
-    "5bf0375e2f4f7e18",
-    "887abb057ef710b6"
+    "0b94880975673773",
+    "1cfdc633ed59b7df"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 2,
   "failures": [],
   "status": "verified"
 }

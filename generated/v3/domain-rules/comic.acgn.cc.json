@@ -1,22 +1,18 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "m_jingmingbg_com",
-  "domain": "m.jingmingbg.com",
+  "id": "comic_acgn_cc",
+  "domain": "comic.acgn.cc",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "a.flex-1",
     "* a[href]",
-    "*.article-buttom a[href]"
+    "*.fll a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -26,11 +22,12 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d688bc254f8db2ac",
-    "5bf0375e2f4f7e18",
-    "887abb057ef710b6"
+    "18ce01b6c4c9909e",
+    "1a2eb679692025e7",
+    "7f71f7c7b3c820ce",
+    "c91ac15c4de26ce9"
   ],
-  "replayWorkCount": 3,
+  "replayWorkCount": 4,
   "failures": [],
-  "status": "verified"
+  "status": "rejected"
 }
