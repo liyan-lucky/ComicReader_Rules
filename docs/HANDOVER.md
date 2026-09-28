@@ -926,3 +926,42 @@ bing 声称有 68,300 条结果，但无论 curl、Puppeteer 无头浏览器、�
 - **baidu IP 风控 3h+**：CI 128 并发触发 captcha，全站被拦。限流（500ms）+ 降并发（3）已部署，等自然解除
 - **catalog 停滞 243 本**：02 还在产出中，baidu 风控期间只有 bing 10 条/查询词，多查询词（6个）可获取 ~60 条候选
 - **定时任务**：每 15 分钟检查 baidu 风控，解除后自动触发 CI
+
+---
+
+## v14：CI 审计抓取走 NAS 代理绕过 403（2026-09-28）
+
+### 根因发现
+
+02 运行 16 分类全部完成，但 catalog 仅 358 本，73,588 本因 `no_verified_source` 被拒。检查审计 JSONL 发现 **前 5 个候选中 4 个返回 403 Forbidden**：
+
+| 漫画站 | 从 GitHub Actions IP | 从 NAS 住宅 IP |
+|---|---|---|
+| baozimh.com | 403 | 302→cn.bzmgcn.com |
+| guazimanhua.com | 403 | 200 ✅ |
+| manwang.net | 403 | 200 ✅ |
+| dumanwu.org | 403 | 200 ✅ |
+
+**核心瓶颈不是搜索（bing 正常返回漫画 URL）也不是审计逻辑（章节检测合理），而是漫画网站封了 GitHub Actions 的 IP 段。**
+
+### 修复方案：NAS /fetch 代理端点
+
+CI 审计的 `fetch()` 通过 NAS 住宅 IP 抓取漫画页面，绕过 IP 封锁：
+
+```
+CI → cloudflare tunnel → Caddy /proxy/ → Python 代理 /fetch?url= → 漫画站
+```
+
+**改动**：
+1. `nas_search_proxy.py`：加 `/fetch?url=` 端点，curl `-L` 跟随重定向，并发限制 10（Semaphore），返回原始 HTTP 状态码
+2. `audit_category_sources.py`：`fetch()` 检测 `FETCH_PROXY_URL` 环境变量，走 NAS 代理抓取
+3. `02-refine-categories.yml`：从 `SEARXNG_URL` 派生 `FETCH_PROXY_URL=${SEARXNG_URL}/fetch`
+
+**验证**：通过 tunnel 完整路径测试 manwang.net 返回 200 + HTML 内容 ✅
+
+### 当前状态
+
+- ✅ NAS /fetch 端点已部署并测试通过
+- ✅ 代码已推送（commit 14a7618a）
+- ⏳ 等待新 02 运行用新代码验证通过率提升
+- ⏳ baidu IP 风控仍未解除（3h+）
