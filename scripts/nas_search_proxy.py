@@ -14,6 +14,7 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 from http.server import HTTPServer, ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlencode, urlparse, parse_qs
@@ -21,6 +22,9 @@ from urllib.parse import urlencode, urlparse, parse_qs
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 _baidu_suspend_until = 0
+_baidu_lock = threading.Lock()
+_baidu_last_request = 0.0
+_baidu_min_interval = 0.5
 
 
 def fetch(url, timeout=8):
@@ -54,27 +58,40 @@ def search_bing(query, count=20):
             })
         if len(results) >= count:
             break
-    return results
+    return results, None
 
 
 def search_baidu(query, count=20):
-    global _baidu_suspend_until
-    if time.time() < _baidu_suspend_until:
-        return []
-    url = f"https://www.baidu.com/s?{urlencode({'wd': query, 'rn': count})}"
-    try:
-        page = fetch(url, timeout=10)
-    except Exception:
-        _baidu_suspend_until = time.time() + 3600
-        return []
+    global _baidu_suspend_until, _baidu_last_request
+    with _baidu_lock:
+        now = time.time()
+        if now < _baidu_suspend_until:
+            return [], f"suspended({int(_baidu_suspend_until - now)}s left)"
+        elapsed = now - _baidu_last_request
+        if elapsed < _baidu_min_interval:
+            time.sleep(_baidu_min_interval - elapsed)
+        _baidu_last_request = time.time()
+        url = f"https://www.baidu.com/s?{urlencode({'wd': query, 'rn': count})}"
+        try:
+            page = fetch(url, timeout=10)
+        except Exception as e:
+            _baidu_suspend_until = time.time() + 600
+            return [], f"fetch error: {e}"
+    if not page:
+        return [], "empty response"
     if "captcha" in page.lower() or "wappass.baidu.com" in page:
-        _baidu_suspend_until = time.time() + 3600
-        return []
-    urls = re.findall(r'mu="(https?://[^"]+)"', page)
-    titles = re.findall(r'<h3[^>]*>(.*?)</h3>', page, re.S)
+        with _baidu_lock:
+            _baidu_suspend_until = time.time() + 600
+        return [], "captcha"
     results = []
-    for u, t in zip(urls, titles):
-        t = re.sub(r'<[^>]+>', '', t).strip()
+    blocks = re.split(r'<div class="[^"]*c-container', page)
+    for block in blocks[1:]:
+        mu_links = re.findall(r'mu="(https?://[^"]+)"', block[:2000])
+        h3s = re.findall(r'<h3[^>]*>(.*?)</h3>', block[:2000], re.S)
+        if not mu_links or not h3s:
+            continue
+        u = mu_links[0]
+        t = re.sub(r'<[^>]+>', '', h3s[0]).strip()
         if t and u.startswith("http") and "baidu.com" not in u:
             results.append({
                 "url": html.unescape(u),
@@ -84,7 +101,11 @@ def search_baidu(query, count=20):
             })
         if len(results) >= count:
             break
-    return results
+    if not results and len(page) > 5000:
+        with _baidu_lock:
+            _baidu_suspend_until = time.time() + 300
+        return [], "soft-block (0 results from full page)"
+    return results, None
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -119,12 +140,18 @@ class Handler(BaseHTTPRequestHandler):
                         results.append(r)
             if "bing" in engines:
                 try:
-                    _add(search_bing(query))
+                    bing_results, bing_reason = search_bing(query)
+                    _add(bing_results)
+                    if bing_reason:
+                        unresponsive.append(["bing", bing_reason])
                 except Exception as e:
                     unresponsive.append(["bing", str(e)])
             if "baidu" in engines:
                 try:
-                    _add(search_baidu(query))
+                    baidu_results, baidu_reason = search_baidu(query)
+                    _add(baidu_results)
+                    if baidu_reason:
+                        unresponsive.append(["baidu", baidu_reason])
                 except Exception as e:
                     unresponsive.append(["baidu", str(e)])
             self._json({"results": results, "unresponsive_engines": unresponsive})

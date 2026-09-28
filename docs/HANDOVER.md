@@ -814,3 +814,40 @@ App 书架书本数停滞在 234 本，不增加。
 - 单作品搜索+审计：从最坏 890s 降至最坏 65s（~14x 加速）
 - 审计通过率从 <5% 提升到 ~15-20%（放宽条件）
 - 4h 搜索预算可处理 ~200-300 作品/分类（16 分类并行 = 3200-4800 作品/轮）
+
+---
+
+## v13 NAS 代理修复（2026-09-28）
+
+### 问题根因
+
+v12 run 日志暴露 NAS 代理失效：19133 次 search-debug，不同标题返回完全相同的 3 个 URL（`baike.baidu.com/item/我` + `mc.163.com`），9336 个 0 结果。
+
+**完整诊断链**：
+1. 本地实测 baidu 完全正常（16 条真实漫画结果），代理解析逻辑本身没问题
+2. 本地实测 bing 对冷门词降级（返回"我"字百科垃圾），热门词正常
+3. SSH 上 NAS 直接 curl baidu 完全正常（22 个 mu，真实结果）
+4. 经代理端口测试返回 10 条全是 bing 垃圾，baidu 一条没有，unresponsive_engines 为空
+5. **根因**：代理进程的 `_baidu_suspend_until` 被触发（CI 16 分类 × 8 workers = 128 并发触发 baidu 风控），suspend 时静默返回 `[]` 且不记录 unresponsive。期间所有流量只剩 bing → bing 对冷门词返回首字联想垃圾
+
+### 修复内容
+
+| 修复 | 旧值 | 新值 | 效果 |
+|---|---|---|---|
+| suspend 可见性 | 静默返回 `[]` | 返回 `([], reason)` + 记入 unresponsive_engines | 调用方知道 baidu 不可用 |
+| suspend 时长 | 3600s (1h) | 600s (captcha) / 300s (软降级) | 更快轮转恢复 |
+| 软降级检测 | 只检测显式 captcha | 额外检测"页面>5KB 但 0 结果" | 捕获无 captcha 标记的风控推荐页 |
+| 结果配对 | `zip(urls, titles)` 全局配对 | 按 `<div class="c-container"` 分块配对 | 避免 mu/h3 错位 |
+| baidu 限流 | 无 | `threading.Lock` + 500ms 间隔 | 每秒最多 2 次 baidu 请求，防止风控 |
+| CI 并发 | `--search-workers 8` (128 并发) | `--search-workers 3` (48 并发) | 降低对代理的压力 |
+
+### 文件变更
+
+- `scripts/nas_search_proxy.py` — 修复 baidu suspend 可见性 + 限流 + 结果块配对
+- `.github/workflows/02-refine-categories.yml` — `--search-workers 8` → `3`
+
+### NAS 部署
+
+代理脚本已部署到 NAS `/home/LiYan/docker/searxng-comic/proxy/search_proxy.py`，进程已重启（PID 1771189）。
+
+**注意**：部署后 baidu 风控仍在（captcha 页 499 字节），需要等待 10-30 分钟自然解除。风控解除后，限流（500ms 间隔）+ 降并发（48）应能避免再次触发。
