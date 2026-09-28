@@ -16,7 +16,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v5'
-CHECKPOINT_SCHEMA='chapter-manifest-v11-short-query-no-quotes'
+CHECKPOINT_SCHEMA='chapter-manifest-v12-serper-brave-fallback'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -53,6 +53,54 @@ def search_google(query, count=10):
         _google_daily_count+=1
         return [{'url':item.get('link',''),'title':item.get('title',''),'content':item.get('snippet','')}
                 for item in r.json().get('items',[])]
+    except Exception:
+        return []
+
+# Serper.dev returns Google search results; key-only auth (no cx needed).
+SERPER_API_KEY=os.getenv('SERPER_API_KEY','')
+SERPER_DAILY_LIMIT=2000
+_serper_daily_count=0
+# Brave Search API as an independent extra source.
+BRAVE_API_KEY=os.getenv('BRAVE_SEARCH_API_KEY','')
+BRAVE_DAILY_LIMIT=2000
+_brave_daily_count=0
+_api_count_date=''
+
+def _reset_daily_counts():
+    global _serper_daily_count, _brave_daily_count, _api_count_date
+    today=time.strftime('%Y-%m-%d')
+    if today!=_api_count_date:
+        _api_count_date=today
+        _serper_daily_count=0
+        _brave_daily_count=0
+
+def search_serper(query, count=10):
+    global _serper_daily_count
+    _reset_daily_counts()
+    if not SERPER_API_KEY or _serper_daily_count>=SERPER_DAILY_LIMIT: return []
+    try:
+        r=requests.post('https://google.serper.dev/search',
+            headers={'X-API-KEY':SERPER_API_KEY,'Content-Type':'application/json'},
+            json={'q':query,'num':count},timeout=10)
+        r.raise_for_status()
+        _serper_daily_count+=1
+        return [{'url':item.get('link',''),'title':item.get('title',''),'content':item.get('snippet','')}
+                for item in r.json().get('organic',[])]
+    except Exception:
+        return []
+
+def search_brave(query, count=10):
+    global _brave_daily_count
+    _reset_daily_counts()
+    if not BRAVE_API_KEY or _brave_daily_count>=BRAVE_DAILY_LIMIT: return []
+    try:
+        r=requests.get('https://api.search.brave.com/res/v1/web/search',
+            headers={'X-Subscription-Token':BRAVE_API_KEY,'Accept':'application/json'},
+            params={'q':query,'count':count},timeout=10)
+        r.raise_for_status()
+        _brave_daily_count+=1
+        return [{'url':item.get('url',''),'title':item.get('title',''),'content':item.get('description','')}
+                for item in (r.json().get('web') or {}).get('results',[])]
     except Exception:
         return []
 
@@ -176,19 +224,26 @@ def search(s,title,limit,search_terms=None):
             sample_urls=[str(x.get('url',''))[:80] for x in raw[:3]]
             print(f"[search-debug] '{query[:50]}' raw={len(raw)} passed=0 anchor_f={filtered_anchor} blocked_f={filtered_blocked} sample={sample_urls}", flush=True)
         return bucket
+    def add_candidates(items,result):
+        for x in items:
+            u=str(x.get('url',''))
+            if not u or u in result: continue
+            evidence=' '.join([str(x.get('title','')),str(x.get('content','')),u])
+            if accept(u,evidence): result.append(u)
+            if len(result)>=limit: break
     result=run_query(f'{title} 漫画')
     if len(result)<limit:
         for u in run_query(f'{title} manga'):
             if u not in result: result.append(u)
             if len(result)>=limit: break
+    # Serper (Google results) fills the gap when bing/baidu via SearXNG fall
+    # short on long-tail titles; key-only auth, no cx needed.
+    if len(result)<limit and SERPER_API_KEY:
+        add_candidates(search_serper(f'{title} 漫画'),result)
+    if len(result)<limit and BRAVE_API_KEY:
+        add_candidates(search_brave(f'{title} 漫画'),result)
     if not result and _google_can_use():
-        google_results=search_google(f'{title} 漫画')
-        for x in google_results:
-            u=str(x.get('url',''))
-            if u in result: continue
-            evidence=' '.join([str(x.get('title','')),str(x.get('snippet','')),u])
-            if accept(u,evidence): result.append(u)
-            if len(result)>=limit: break
+        add_candidates(search_google(f'{title} 漫画'),result)
     if not result:
         print(f"[search] 0 results for: {title[:40]}", flush=True)
     return result
