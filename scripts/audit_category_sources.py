@@ -16,7 +16,7 @@ IMAGE_EXT=re.compile(r'\.(?:jpe?g|png|webp|avif)(?:\?|$)',re.I)
 BAD_PATH=re.compile(r'/(?:login|register|category|genre|rank|history|search)(?:/|$)',re.I)
 NON_COMIC_PATH=re.compile(r'/(?:novel|xiaoshuo|txt|article)(?:/|\d|$)',re.I)
 POLICY_VERSION='readability-v5'
-CHECKPOINT_SCHEMA='chapter-manifest-v10-domain-filter-and-higher-limit'
+CHECKPOINT_SCHEMA='chapter-manifest-v11-short-query-no-quotes'
 PIPELINE=json.loads((Path(__file__).resolve().parents[1]/'config/pipeline.json').read_text(encoding='utf-8-sig'))
 MIN_IMAGES=int(PIPELINE['minimumReadableImagesPerSample'])
 BLOCKED_DOMAINS={str(x).lower().removeprefix('www.') for x in PIPELINE.get('blockedSourceDomains',[])}
@@ -142,6 +142,9 @@ def search(s,title,limit,search_terms=None):
     # Retrieve ALL matching results for the title via general web queries.
     # The previous per-domain site: loop (230+ queries per work) starved the
     # engines and produced zero results for ~95% of titles.
+    # Use short queries: long searchTerms like "动作漫画 在线阅读 章节" cause
+    # search engines to split the title into single chars and return irrelevant
+    # results (baike/zhihu/etc). Just "title 漫画" works much better.
     normalized_title=re.sub(r'[^0-9a-z\u3400-\u9fff]+','',clean_title(title).lower())
     anchor=normalized_title[:8] if len(normalized_title)>=8 else normalized_title
     def accept(u,evidence_raw):
@@ -173,13 +176,13 @@ def search(s,title,limit,search_terms=None):
             sample_urls=[str(x.get('url',''))[:80] for x in raw[:3]]
             print(f"[search-debug] '{query[:50]}' raw={len(raw)} passed=0 anchor_f={filtered_anchor} blocked_f={filtered_blocked} sample={sample_urls}", flush=True)
         return bucket
-    result=run_query(f'"{title}" {terms}')
+    result=run_query(f'{title} 漫画')
     if len(result)<limit:
-        for u in run_query(f'{title} {terms}'):
+        for u in run_query(f'{title} manga'):
             if u not in result: result.append(u)
             if len(result)>=limit: break
     if not result and _google_can_use():
-        google_results=search_google(f'"{title}" {terms}')
+        google_results=search_google(f'{title} 漫画')
         for x in google_results:
             u=str(x.get('url',''))
             if u in result: continue
