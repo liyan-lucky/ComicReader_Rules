@@ -6,12 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.flex-1",
-    "* a[href]",
-    "*.article-buttom a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -35,11 +30,11 @@
     },
     {
       "workId": "5bf0375e2f4f7e18",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/95402/2216313.html"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
     },
     {
       "workId": "887abb057ef710b6",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/85626/2087462.html"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
     }
   ],
   "status": "rejected"
