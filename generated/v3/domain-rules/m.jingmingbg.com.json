@@ -6,17 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.flex-1",
-    "* a[href]",
-    "*.article-buttom a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -31,6 +23,19 @@
     "887abb057ef710b6"
   ],
   "replayWorkCount": 3,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "d688bc254f8db2ac",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "5bf0375e2f4f7e18",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "887abb057ef710b6",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }

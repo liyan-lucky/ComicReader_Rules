@@ -1,22 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "cxjob_com_cn",
-  "domain": "cxjob.com.cn",
+  "id": "gfmanhua_com",
+  "domain": "gfmanhua.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a.chapter-link",
-    "*.lay-flex a[href]",
-    "a.toolBar-toolRead",
-    "*.chapter-item a[href]",
-    "*.bottom-chapter-item a[href]"
+    "a",
+    "* a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.comic-pic",
-    "*.comic-pic-box img"
+    "img.lazy-img",
+    "*.hide-scrollbars img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +24,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "db660385795e6036"
+    "46ff0bfe4089613c"
   ],
   "replayWorkCount": 1,
   "failures": [],
