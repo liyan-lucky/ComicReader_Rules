@@ -114,6 +114,27 @@ v10 post-mortem: 通过数仍 394（没变）。consecutive_empty 200→500 让�
 - dongmanmanhua.cn 177→254，guazimanhua.com 206→221
 - 大分类仍未搜完（lianai 18928 本），02 永久循环会继续增长
 
+### v12：接入 Serper + Brave 搜索 API（2026-09-28）
+
+**发现**：仓库 secrets 有 3 个搜索 API key（GOOGLE_API_KEY/SERPER_API_KEY/BRAVE_SEARCH_API_KEY），但只有 Google 被接入且从未生效——`GOOGLE_CX` secret 不存在，`_google_can_use()` 要求 key+cx 都有 → 永远 False。Serper/Brave 完全没接入代码。
+
+| # | 变更 | 文件 | 说明 |
+|---|---|---|---|
+| 18 | 接入 Serper.dev（Google 结果） | `scripts/audit_category_sources.py` | `search_serper()`：POST google.serper.dev/search，仅需 key 无需 cx，SearXNG 结果 < limit 时补充 |
+| 19 | 接入 Brave Search | `scripts/audit_category_sources.py` | `search_brave()`：GET api.search.brave.com，仍不足时补充 |
+| 20 | workflow 注入 secrets | `02-refine-categories.yml` | SERPER_API_KEY + BRAVE_SEARCH_API_KEY 传入 env |
+| 21 | CHECKPOINT_SCHEMA v11→v12 | `scripts/audit_category_sources.py` | `chapter-manifest-v12-serper-brave-fallback` |
+
+**搜索 fallback 链**：SearXNG（NAS 代理 bing+baidu）→ Serper（Google 结果）→ Brave → Google Custom Search API（待用户补配 GOOGLE_CX 后自动生效）。每日限额：Serper/Brave 2000 次/job/天。
+
+**v12 效果**：
+- 审计 20314→26954（+33%）
+- 通过 567→683（+20%）
+- dongmanmanhua.cn 254→298，mh250.com 30→49，kkwebtoon.com 13→23，新增 aquarium-comic.com
+- unreachable 大增（7761→11895）：新召回候选中反爬 URL 占比高，后续可考虑反爬措施
+
+**待办**：用户在 Google Cloud Console 创建 Programmable Search Engine 获取 cx 值后 `gh secret set GOOGLE_CX`，Google 第四级兜底即自动生效。
+
 ---
 
 ## 上一轮：10 自触发循环修复 + 24h 监控（2026-09-27）
