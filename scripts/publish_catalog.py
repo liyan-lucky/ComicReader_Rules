@@ -103,6 +103,10 @@ def main() -> int:
                     candidate_cover = "https://" + candidate_cover[len("http://"):]
                 published_sources.append({"domain": candidate["domain"], "detailUrl": candidate["detailUrl"],
                     "coverUrl": candidate_cover, "chapters": candidate.get("chapters", [])})
+            if not published_sources:
+                rejected.append({"workId": work["id"], "title": work["canonicalTitle"],
+                    "category": category["id"], "reason": "no_https_source"})
+                continue
             item = {"id": work["id"], "title": work["canonicalTitle"], "sources": published_sources, "category": category["id"],
                 "language": "zh-Hans", "verifiedChapterCount": source["verifiedChapterCount"],
                 "validationPolicy": source.get("validationPolicy", "")}
