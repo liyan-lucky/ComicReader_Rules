@@ -1,7 +1,7 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "kuaikanmhw_com",
+  "domain": "kuaikanmhw.com",
   "languages": [
     "zh-Hans"
   ],
@@ -9,14 +9,13 @@
   "detailChapterSelectors": [
     "a",
     "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.book-button",
+    "*.book-active a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img.lazy-img",
+    "*.hide-scrollbars img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +26,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "d4804d0b8becebac"
   ],
   "replayWorkCount": 1,
   "failures": [],

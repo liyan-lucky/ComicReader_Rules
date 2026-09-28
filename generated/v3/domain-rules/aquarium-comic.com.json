@@ -1,23 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "aquarium-comic_com",
+  "domain": "aquarium-comic.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
     "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.btn-action",
+    "a.chapter-item",
+    "*.action-row a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,9 +23,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "f4601c9e0bd7fd46"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "verified"
+  "status": "rejected"
 }

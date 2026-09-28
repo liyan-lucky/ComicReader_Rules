@@ -1,22 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "z525_com",
+  "domain": "z525.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.social-icon",
+    "*.chapter-item a[href]",
+    "*.social-links a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img.comic-image",
+    "*.comic-content img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,9 +26,10 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "e557f89d40d48d62",
+    "e32ddc75ac76364e"
   ],
-  "replayWorkCount": 1,
+  "replayWorkCount": 2,
   "failures": [],
   "status": "verified"
 }

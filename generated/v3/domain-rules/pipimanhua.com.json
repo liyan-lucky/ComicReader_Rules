@@ -1,22 +1,18 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "pipimanhua_com",
+  "domain": "pipimanhua.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "* a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "*.imgpic img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,9 +23,16 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "bc005d3761358967",
+    "934ad50894897f5d",
+    "2720b505f63f7759",
+    "0f815ca96545182d",
+    "a3da6ae303f00697",
+    "255690267d3b0b16",
+    "9a6ef0ce439fcfbc",
+    "6d62962a7466c854"
   ],
-  "replayWorkCount": 1,
+  "replayWorkCount": 8,
   "failures": [],
   "status": "verified"
 }

@@ -1,0 +1,46 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "kkwebtoon_com",
+  "domain": "kkwebtoon.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [
+    "a",
+    "a.start-read",
+    "*.chapter-item a[href]",
+    "*.neo-comic-actions a[href]"
+  ],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [
+    "img",
+    "*.comic-page img"
+  ],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "c9e92b5fffa62ba3",
+    "b7f9c8dc32689f94",
+    "7adaa6c415ee269a",
+    "296cc992d3eebc2d",
+    "e3000ed03eef5c94",
+    "18c5be65424ecb89",
+    "2bb510e23bb4b94e",
+    "1604b44701ae0289",
+    "2aabf581e45e7923",
+    "2adbbe8df18c559a",
+    "476afd10b99d28a5",
+    "995000d8b86e81d3",
+    "b545e6f3ac8237c2"
+  ],
+  "replayWorkCount": 13,
+  "failures": [],
+  "status": "verified"
+}

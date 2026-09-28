@@ -1,22 +1,22 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "huozx_net",
+  "domain": "huozx.net",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.on",
+    "a.st_r",
+    "a.ico_qq",
+    "a.btn_bx"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img._images",
+    "*.viewer_img img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +27,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "865308305088f5cd"
   ],
   "replayWorkCount": 1,
   "failures": [],

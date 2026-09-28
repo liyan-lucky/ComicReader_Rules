@@ -1,22 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "luo9_com",
+  "domain": "luo9.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "a.start-read",
+    "*.m-dt-bottom a[href]",
+    "*.chapter-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img",
+    "*.comic-page img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +26,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "824a4b4dc2a7bb89"
   ],
   "replayWorkCount": 1,
   "failures": [],
