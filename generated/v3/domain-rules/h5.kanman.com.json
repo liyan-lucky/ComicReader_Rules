@@ -1,23 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "cxjob_com_cn",
-  "domain": "cxjob.com.cn",
+  "id": "h5_kanman_com",
+  "domain": "h5.kanman.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a.chapter-link",
-    "a.toolBar-toolRead",
-    "*.lay-flex a[href]",
-    "*.chapter-item a[href]",
-    "*.bottom-chapter-item a[href]"
+    "a",
+    "*.item a[href]",
+    "a.chapter-name",
+    "*.flex-1 a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.comic-pic",
-    "*.comic-pic-box img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,9 +23,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "db660385795e6036"
+    "d3cf920f18120053"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "verified"
+  "status": "rejected"
 }
