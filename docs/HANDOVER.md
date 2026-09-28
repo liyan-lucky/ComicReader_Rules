@@ -94,6 +94,26 @@ v9 run 36318450553 完成后统计：
 | 12 | candidateLimit 4→40 | `config/categories/*.json` | 16 个分类配置全改，真漫画源站候选不再被无关页面挤出 |
 | 13 | CHECKPOINT_SCHEMA v9→v10 | `scripts/audit_category_sources.py` | `chapter-manifest-v10-domain-filter-and-higher-limit`，缓存失效强制重搜 |
 
+v10 post-mortem: 通过数仍 394（没变）。consecutive_empty 200→500 让搜索跑更多但通过数没变。
+
+### v11：短搜索词去引号去 searchTerms（2026-09-28）
+
+**根因发现**：调试日志显示 SearXNG 返回 10 条结果但全是无关页面（百度百科"姬"字、网易新闻等）。搜索词 `"标题" 动作漫画 在线阅读 章节` 太长，搜索引擎把长标题拆成单字。
+
+| # | 变更 | 文件 | 说明 |
+|---|---|---|---|
+| 14 | 搜索词改为 `title 漫画` | `scripts/audit_category_sources.py` | 去掉引号和 searchTerms（"动作漫画 在线阅读 章节"），改用简短 `title 漫画` + `title manga` fallback |
+| 15 | CHECKPOINT_SCHEMA v10→v11 | `scripts/audit_category_sources.py` | `chapter-manifest-v11-short-query-no-quotes` |
+| 16 | consecutive_empty 200→500 | `scripts/incremental_category_search.py` | 冷门书名连续 0 结果不误判为搜索引擎故障 |
+| 17 | 搜索调试日志 | `scripts/audit_category_sources.py` | `[search-debug]` 打印 raw/passed/anchor_filtered/blocked_filtered/sample URLs |
+
+**v11 效果**：
+- 审计 11536→20314（+76%）
+- 通过 394→567（+44%）
+- 有效源站 2→10+（新增 mh250.com 30通过、kkwebtoon.com 13、pipimanhua.com 8、stcwz.com 7、1990c.com 5）
+- dongmanmanhua.cn 177→254，guazimanhua.com 206→221
+- 大分类仍未搜完（lianai 18928 本），02 永久循环会继续增长
+
 ---
 
 ## 上一轮：10 自触发循环修复 + 24h 监控（2026-09-27）
