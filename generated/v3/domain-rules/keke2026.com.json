@@ -1,19 +1,25 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "h5_kanman_com",
-  "domain": "h5.kanman.com",
+  "id": "keke2026_com",
+  "domain": "keke2026.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "*.item a[href]",
-    "a.chapter-name",
-    "*.flex-1 a[href]"
+    "a.flex",
+    "a.flex-1",
+    "*.py-2 a[href]",
+    "*.flex a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "* img",
+    "img.h-auto",
+    "*.w-full img",
+    "img.lazyload"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -23,9 +29,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d3cf920f18120053"
+    "457a20b5a5c480c6"
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
