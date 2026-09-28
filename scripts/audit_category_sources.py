@@ -233,15 +233,19 @@ def search(s,title,limit,search_terms=None):
             if len(result)>=limit: break
     result=run_query(f'{title} 漫画')
     if len(result)<limit:
+        for u in run_query(title):
+            if u not in result: result.append(u)
+            if len(result)>=limit: break
+    if len(result)<limit:
         for u in run_query(f'{title} manga'):
             if u not in result: result.append(u)
             if len(result)>=limit: break
     # Serper (Google results) fills the gap when bing/baidu via SearXNG fall
     # short on long-tail titles; key-only auth, no cx needed.
     if len(result)<limit and SERPER_API_KEY:
-        add_candidates(search_serper(f'{title} 漫画'),result)
+        add_candidates(search_serper(f'{title} 漫画',count=100),result)
     if len(result)<limit and BRAVE_API_KEY:
-        add_candidates(search_brave(f'{title} 漫画'),result)
+        add_candidates(search_brave(f'{title} 漫画',count=50),result)
     if not result and _google_can_use():
         add_candidates(search_google(f'{title} 漫画'),result)
     if not result:
