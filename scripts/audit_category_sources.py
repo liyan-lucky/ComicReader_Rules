@@ -201,9 +201,11 @@ def search(s,title,limit,search_terms=None):
         if anchor and anchor not in evidence: return False
         if result_host in BLOCKED_DOMAINS or search_blocked(u) or NON_COMIC_PATH.search(u): return False
         return u.startswith(('http://','https://')) and not BAD_PATH.search(u)
-    def run_query(query):
+    def run_query(query, engines=None, pageno=1):
+        params={'q':query,'format':'json','language':'zh-CN','pageno':pageno}
+        if engines: params['engines']=engines
         try:
-            r=s.get(endpoint,params={'q':query,'format':'json','language':'zh-CN'},headers=headers,timeout=15)
+            r=s.get(endpoint,params=params,headers=headers,timeout=15)
             r.raise_for_status()
         except Exception as exc:
             print(f"[search-debug] SearXNG error for '{query[:50]}': {type(exc).__name__}: {exc}", flush=True)
@@ -239,6 +241,25 @@ def search(s,title,limit,search_terms=None):
     if len(result)<limit:
         for u in run_query(f'{title} manga'):
             if u not in result: result.append(u)
+            if len(result)>=limit: break
+    if len(result)<limit:
+        for u in run_query(f'{title} 漫画 在线阅读'):
+            if u not in result: result.append(u)
+            if len(result)>=limit: break
+    if len(result)<limit:
+        for u in run_query(f'{title} 漫画 全集'):
+            if u not in result: result.append(u)
+            if len(result)>=limit: break
+    if len(result)<limit:
+        for u in run_query(f'{title} 漫画 免费'):
+            if u not in result: result.append(u)
+            if len(result)>=limit: break
+    # baidu supports paging (pn param); fetch up to 5 pages for the primary query
+    if len(result)<limit:
+        for pg in range(2,6):
+            for u in run_query(f'{title} 漫画', engines='baidu', pageno=pg):
+                if u not in result: result.append(u)
+                if len(result)>=limit: break
             if len(result)>=limit: break
     # Serper (Google results) fills the gap when bing/baidu via SearXNG fall
     # short on long-tail titles; key-only auth, no cx needed.
