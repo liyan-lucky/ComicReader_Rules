@@ -31,9 +31,24 @@
     "b097f11359e3d551",
     "34cc72fb9d7c3cf1",
     "7102201f44fdcbbd",
+    "36bf7aa7ab1ad01b",
+    "6b9901f08bd71b2e",
     "43643d9cebc02830"
   ],
-  "replayWorkCount": 5,
-  "failures": [],
-  "status": "verified"
+  "replayWorkCount": 7,
+  "failures": [
+    {
+      "workId": "36bf7aa7ab1ad01b",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1flyr"
+    },
+    {
+      "workId": "6b9901f08bd71b2e",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-h249"
+    },
+    {
+      "workId": "43643d9cebc02830",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+    }
+  ],
+  "status": "rejected"
 }
