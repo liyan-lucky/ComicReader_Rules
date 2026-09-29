@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260929035044",
-  "updatedAt": "2026-09-29T03:50:44.284738+00:00",
+  "version": "20260929074514",
+  "updatedAt": "2026-09-29T07:45:14.927132+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -138,10 +138,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "* a[href]",
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -181,7 +181,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\byelgjf\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\btqq0ok\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -217,8 +217,8 @@
         ],
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
-          "a.yelgjf",
           "a.tqq0ok",
+          "a.yelgjf",
           "* a[href]",
           "*.comic-chapter-item a[href]"
         ],
@@ -1641,8 +1641,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2285,7 +2285,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 399 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 417 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2374,6 +2374,7 @@
           "2f5f9109afd8f6f2",
           "2f9bfbc39087e87c",
           "32e05395264ee8ae",
+          "346d3dd6bc1268de",
           "3b244058074f46f7",
           "3c4810afabb47732",
           "3d9cfa08b9b9ad63",
@@ -2381,12 +2382,14 @@
           "4267c2719e280fc1",
           "430766fd6c0a815a",
           "43b1d5c2f526e307",
+          "4467a5cb5d392293",
           "49cf6651125ec63a",
           "4c85a244067d0c82",
           "4dbba48c31b30d43",
           "4e74a870680253f2",
           "50f03900f627cd02",
           "53668c3c134875db",
+          "57759d9e86cf1131",
           "5997c914674ce58c",
           "5a8c3fc2c8032c6b",
           "5bd361e2fc97e87b",
@@ -2422,7 +2425,9 @@
           "9a52e52cb19d0172",
           "9bb261fe49c9033e",
           "9da04e2547259d76",
+          "a0f70fe33f690db5",
           "a102f6f332c188a6",
+          "a129e2ab8720695d",
           "a20bd383c2230c32",
           "a37aaffdde78746d",
           "a3cbf88ae78a248f",
@@ -2447,15 +2452,18 @@
           "ddd9ed98695f6c41",
           "e6a514740a5f38b0",
           "e7fe645eb3d2e76d",
+          "e84684dd13e2845c",
           "ea5ad876d8efec84",
           "ec02dbd644dd7136",
           "f13e2ccf3ee4c0e6",
           "f2590264ee9afa94",
           "f66e80e506cebf45",
           "fd3fcfd597fea0ce",
+          "ffcdddd90820594b",
           "55471b9c3b7022ad",
           "016189a55c25349e",
           "0cf0d49231d5d0ea",
+          "0dc5ddc31f2f1679",
           "13e3974cc52f321c",
           "1c01463a6bd21523",
           "231cf0e4524e6211",
@@ -2472,12 +2480,14 @@
           "46e3e9d5dd76cad2",
           "48304b7db4b448d2",
           "5144d42d8bf05ad4",
+          "5327b5e2a4673592",
           "5dbbca8f1e973e9d",
           "64c6460765acf028",
           "7e8fee4438753ba6",
           "819e9aad5474163e",
           "865308305088f5cd",
           "8e963f13821b2c57",
+          "9738fc7f8d2b5db8",
           "97ed5f92468510f5",
           "99d592f72814b545",
           "a15d65d41baf30e5",
@@ -2492,6 +2502,7 @@
           "d0c944b42e48751e",
           "d187ab9daec1b01a",
           "d687e40c831cab1e",
+          "d7e8c4c86d86767b",
           "d828f5d35f05d8a6",
           "db0371bbf599fd3a",
           "dbc4940696e9efd4",
@@ -2577,6 +2588,7 @@
           "b256f33a48eab2b6",
           "b45f59721e4e31f5",
           "b6aa05fac0a818a9",
+          "bb42cff8d77880c7",
           "bd3108e2966d4739",
           "c4a746da192269e9",
           "c6282e44f098150c",
@@ -2586,6 +2598,7 @@
           "cf60eda26e77e86f",
           "d0f7c99c1862fa36",
           "d53dc72943ed38bc",
+          "d5cafd1a25de87c4",
           "d7760113c04d82d6",
           "d89bc9ae0f99f141",
           "dc2a9255909d51e7",
@@ -2608,6 +2621,7 @@
           "f63c0018dc828b07",
           "f68021f190b6a57d",
           "f80d9cc303ab6ea8",
+          "f971bb8c33e77580",
           "fbbd1a8a4c95b833",
           "fc2739d9e3ff3cc9",
           "2ed990c3979e674f",
@@ -2618,6 +2632,7 @@
           "0b35937386dfa294",
           "166364e1ed91507b",
           "1729fee82a137943",
+          "17ee8df71b4682cb",
           "1cb98c5ccf64a280",
           "242a754857882cf7",
           "248212384fe26ea6",
@@ -2673,12 +2688,14 @@
           "313a2a7d33005eb7",
           "37b75bb70d853ea8",
           "4b5011622d261d85",
+          "52e6f1f8b0e5c9aa",
           "535e1f2e81eecb56",
           "53d335ff858e767c",
           "5744a3f2f918046c",
           "59f5c4e9991b1f95",
           "60bef91dfc278f24",
           "6576daf2114c5f73",
+          "6c7519dc1f81b794",
           "6de40a5df40afb9b",
           "73b616c6197e8ef1",
           "784a5ae057546e57",
@@ -2708,6 +2725,7 @@
           "ca8e0c35cbc88d52",
           "e37c682bc4f8c99e",
           "f7a879242a4416d8",
+          "5f376763da708a46",
           "9ad6a2aea52a56a2",
           "b8ce12202ecc4e02",
           "eabf6ae067cdea05",
@@ -2754,7 +2772,7 @@
           "cdee4caab8ab00d6",
           "d5274b6d4048d669"
         ],
-        "replayWorkCount": 399,
+        "replayWorkCount": 417,
         "failures": [],
         "status": "verified"
       }
@@ -3960,8 +3978,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4582,15 +4600,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.py-2 a[href]",
-          "*.flex a[href]"
+          "*.flex a[href]",
+          "*.py-2 a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -4611,7 +4629,7 @@
     {
       "id": "kkwebtoon_com",
       "name": "kkwebtoon.com 已验证公开源",
-      "description": "由 52 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 55 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://kkwebtoon.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -4682,6 +4700,7 @@
         "verifiedWorkIds": [
           "105f224877518e02",
           "10a58db3a8136ea4",
+          "18524dd0c7a8d34f",
           "3c4810afabb47732",
           "5dd954afe06e28ee",
           "61a0d684f9fbca80",
@@ -4715,6 +4734,7 @@
           "f68a7581c01df5ac",
           "2b451b469ff83488",
           "0852f082eb8c43c8",
+          "3c0b2590b8727f41",
           "820b356695693392",
           "bcee2e24d592f415",
           "e3000ed03eef5c94",
@@ -4722,6 +4742,7 @@
           "18c5be65424ecb89",
           "2613b593d85ae9a4",
           "2bb510e23bb4b94e",
+          "4b0fc6b4c125fd61",
           "817a6975a038193d",
           "a020818efba851de",
           "d77c87c201d6d358",
@@ -4733,7 +4754,7 @@
           "dee3f40aa50e88c8",
           "b545e6f3ac8237c2"
         ],
-        "replayWorkCount": 52,
+        "replayWorkCount": 55,
         "failures": [],
         "status": "verified"
       }
@@ -5743,7 +5764,7 @@
     {
       "id": "m_jingmingbg_com",
       "name": "m.jingmingbg.com 已验证公开源",
-      "description": "由 5 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 3 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://m.jingmingbg.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -5812,12 +5833,10 @@
         ],
         "verifiedWorkIds": [
           "d688bc254f8db2ac",
-          "5bf0375e2f4f7e18",
-          "887abb057ef710b6",
           "e6363f4a1c9a16ec",
           "e917fa3bf69d6eec"
         ],
-        "replayWorkCount": 5,
+        "replayWorkCount": 3,
         "failures": [],
         "status": "verified"
       }
@@ -7436,7 +7455,7 @@
     {
       "id": "nubbub_com",
       "name": "nubbub.com 已验证公开源",
-      "description": "由 8 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 7 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://nubbub.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -7489,7 +7508,6 @@
           "a",
           "* a[href]",
           "a.iconfont",
-          "a.ksaa_btn",
           "*.nav_one a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -7508,14 +7526,13 @@
         "verifiedWorkIds": [
           "cd412a89282ebd85",
           "02e5388b67afcba3",
+          "413c55d24fb169fc",
           "501e5af2bdfc8704",
-          "5bf0375e2f4f7e18",
           "a196a9cddd1a76d7",
-          "b2a05a1c973a331b",
           "6a5e7279a84992c5",
           "9a6ef0ce439fcfbc"
         ],
-        "replayWorkCount": 8,
+        "replayWorkCount": 7,
         "failures": [],
         "status": "verified"
       }
@@ -7770,7 +7787,7 @@
     {
       "id": "runshua_com",
       "name": "runshua.com 已验证公开源",
-      "description": "由 2 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 3 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://runshua.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -7840,9 +7857,10 @@
         ],
         "verifiedWorkIds": [
           "a50b7f677082297f",
-          "7adaa6c415ee269a"
+          "7adaa6c415ee269a",
+          "d0c5f954f17edfb0"
         ],
-        "replayWorkCount": 2,
+        "replayWorkCount": 3,
         "failures": [],
         "status": "verified"
       }
@@ -10190,8 +10208,10 @@
           "srcset"
         ],
         "verifiedWorkIds": [
+          "029c689c319a15f1",
           "43e214bdcecdb071",
           "d2d1705793971c7e",
+          "e9a74dba990022eb",
           "0a972b9c006e2d4e",
           "46179cce40d2cf9e",
           "7936ab92ee7f7caf",
@@ -10199,8 +10219,44 @@
           "e10c823f4d35f800",
           "f4601c9e0bd7fd46"
         ],
-        "replayWorkCount": 8,
+        "replayWorkCount": 10,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "cmanhua_com",
+        "domain": "cmanhua.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "7d5fc8c81bebdf60",
+          "a24192be50ac570e"
+        ],
+        "replayWorkCount": 2,
+        "failures": [
+          {
+            "workId": "7d5fc8c81bebdf60",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://cmanhua.com/comic/kuaichuannvpeilengjingdian"
+          },
+          {
+            "workId": "a24192be50ac570e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://cmanhua.com/comic/kuaichuannvpeilengjingdian"
+          }
+        ],
         "status": "rejected"
       },
       {
@@ -10270,7 +10326,6 @@
           "1b0d183fbdbb7245",
           "1b5c1e87b9566923",
           "1b692dbde0ff7630",
-          "23e38d9d8b1d929f",
           "2d07a639cdc43e2c",
           "31ac8c8a3d72f9e6",
           "33ea212cee8f904a",
@@ -10280,7 +10335,6 @@
           "3c4810afabb47732",
           "3d2b85074bee5818",
           "4178961f8f2873b7",
-          "44eaa1aee285f829",
           "47932cc5585f691e",
           "4a478508e93bed47",
           "4fdfa868c4ca329e",
@@ -10290,7 +10344,6 @@
           "66c5383cf77fcfe2",
           "67b49c7cdfead52b",
           "68cbeca6ec689494",
-          "6a907de04341edf9",
           "70167161e82e3331",
           "75c439de2940a8de",
           "761a32a3d600fad9",
@@ -10319,7 +10372,6 @@
           "c9ebc4c033da6123",
           "cb72a1714322cd9c",
           "cb76b56f9c7c6ca2",
-          "ce1b99f537fda5f4",
           "d2bc26eae9445904",
           "e0dc92d264691b6f",
           "e96f453f12c3c3b1",
@@ -10350,23 +10402,16 @@
           "49cfc9a6c3ecd64e",
           "51f221f0425f02dc",
           "5f035620d05ee63a",
-          "7d1e93e55b11a279",
           "7fa448fd40847819",
           "a9b442108b6b8dfe",
-          "abce4eb4e3e165f9",
           "ba96f4d6e4465a38",
           "cedc6c1582a266e6",
-          "d759d5314b89099b",
           "d774bd367073176c",
           "da4fbff861b4f801",
           "ecf8d4c6e7e707ef",
           "f0dd16290f7bf615",
           "f2eca428657765b2",
           "0f0e3e503e1ae082",
-          "1d8d11db3758e4c8",
-          "34d909fb3c031174",
-          "bcccc4b71ca6d82a",
-          "dd54d47c9843ff56",
           "6e11bf056589cb92",
           "9f6cfeb31d8eb910",
           "d72978eff5a1ffc6",
@@ -10383,8 +10428,6 @@
           "2d0a57a340b2f2ee",
           "2fd86809309c7948",
           "364863725bf2aef9",
-          "3aae7f21764e0a48",
-          "488c6a02978eb674",
           "489c525982d376f4",
           "4929102f4ed4a232",
           "4c65fd438213ee93",
@@ -10424,7 +10467,6 @@
           "e0161871fcd71e00",
           "e3e445b10adc1be7",
           "e750ef53140ee60a",
-          "ed340e3db347f034",
           "f0b3d828ff1b51fe",
           "f1cdd8c71cc76112",
           "f29cb14db7053374",
@@ -10434,13 +10476,11 @@
           "f69c7e509cdd5e90",
           "fbdaf57b2dc8942f",
           "fdd0fdb47c6f3bb0",
-          "01ea7e6074404803",
           "06b00421aa569eaa",
           "0c1e7cfc91c8a2c2",
           "0dae98e15623d7d8",
           "0fdf24524fbfbfa1",
           "112d6a7df39ca80b",
-          "1634835dfd523a10",
           "1f6190dea929ab5c",
           "2644575ca1013084",
           "27be24ce16496300",
@@ -10448,7 +10488,6 @@
           "44df4ba20bb0e96d",
           "4c34578db142c8fe",
           "509822ada5107cfd",
-          "566368f753dcfe37",
           "6e118f2caa8293db",
           "7de516e2e8150d5d",
           "81a27563dfd93e8c",
@@ -10462,11 +10501,9 @@
           "af84afa5c21dcb2e",
           "b139717993f89a8b",
           "ba556120fe1fd8e0",
-          "c61c64b89dec67f4",
           "d1925f0122c20eca",
           "d3e74965101af31f",
           "de89bbc759b07f3e",
-          "e49116a96948e61e",
           "e4fc49f0d5293e41",
           "e714d1150d535339",
           "ecf4e41bafba8123",
@@ -10488,8 +10525,6 @@
           "b45c84733fe4cd75",
           "c3d83790e160584e",
           "c781df2898e0381f",
-          "ccc0ecf6bdd163c9",
-          "d80c365bf9dae4fd",
           "deee70db57939584",
           "e436158347a5d98f",
           "eed04872c4b10786",
@@ -10503,8 +10538,6 @@
           "399ff93d9527e594",
           "47c05009b7f00418",
           "47df115eb0a1dcaf",
-          "8417ddc1a5c570aa",
-          "947eb5a26e5691e8",
           "f360b8a79d572aa5",
           "3d80b2d6cdd3cac1",
           "5936231a29304a15",
@@ -10512,22 +10545,113 @@
           "7834444774f4c689",
           "b986ba6ec6bd4b57",
           "5ab3716ae33cd036",
-          "749fb2d3f26348cb",
-          "bcb932d241bb76b0"
+          "749fb2d3f26348cb"
         ],
-        "replayWorkCount": 252,
+        "replayWorkCount": 228,
         "failures": [
           {
-            "workId": "34d909fb3c031174",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1393905"
+            "workId": "d88421ad167edd25",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2273226"
           },
           {
-            "workId": "bcccc4b71ca6d82a",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=21631"
+            "workId": "eff32cc4ff2cd42d",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=28857"
           },
           {
-            "workId": "dd54d47c9843ff56",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24441"
+            "workId": "04eafbaf130f2d37",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14649"
+          },
+          {
+            "workId": "0b0934c873019d7a",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14857"
+          },
+          {
+            "workId": "0d41b17ba08d40e5",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15138"
+          },
+          {
+            "workId": "0ee6e655e55661b8",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29422"
+          },
+          {
+            "workId": "220e65c077fdda6e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22031"
+          },
+          {
+            "workId": "248d827b11f75b4d",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=21843"
+          },
+          {
+            "workId": "2fab0a727dbedf71",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31460"
+          },
+          {
+            "workId": "30436123a009fbe1",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=21469"
+          },
+          {
+            "workId": "3488b5d7e189d796",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=13646"
+          },
+          {
+            "workId": "3f066e20f8c5895a",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15353"
+          },
+          {
+            "workId": "3fe7c64ced5dd44e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32773"
+          },
+          {
+            "workId": "49cfc9a6c3ecd64e",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11541"
+          },
+          {
+            "workId": "51f221f0425f02dc",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25478"
+          },
+          {
+            "workId": "5f035620d05ee63a",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=28959"
+          },
+          {
+            "workId": "7fa448fd40847819",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=13934"
+          },
+          {
+            "workId": "a9b442108b6b8dfe",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
+          },
+          {
+            "workId": "ba96f4d6e4465a38",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22755"
+          },
+          {
+            "workId": "cedc6c1582a266e6",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12536"
+          },
+          {
+            "workId": "d774bd367073176c",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14855"
+          },
+          {
+            "workId": "da4fbff861b4f801",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=16765"
+          },
+          {
+            "workId": "ecf8d4c6e7e707ef",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32201"
+          },
+          {
+            "workId": "f0dd16290f7bf615",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=17499"
+          },
+          {
+            "workId": "f2eca428657765b2",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14828"
+          },
+          {
+            "workId": "0f0e3e503e1ae082",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29600"
           },
           {
             "workId": "6e11bf056589cb92",
@@ -10592,14 +10716,6 @@
           {
             "workId": "364863725bf2aef9",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=16981"
-          },
-          {
-            "workId": "3aae7f21764e0a48",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31017"
-          },
-          {
-            "workId": "488c6a02978eb674",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30606"
           },
           {
             "workId": "489c525982d376f4",
@@ -10758,10 +10874,6 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23673"
           },
           {
-            "workId": "ed340e3db347f034",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23862"
-          },
-          {
             "workId": "f0b3d828ff1b51fe",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20207"
           },
@@ -10798,10 +10910,6 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=36889"
           },
           {
-            "workId": "01ea7e6074404803",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23040"
-          },
-          {
             "workId": "06b00421aa569eaa",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30716"
           },
@@ -10820,10 +10928,6 @@
           {
             "workId": "112d6a7df39ca80b",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18612"
-          },
-          {
-            "workId": "1634835dfd523a10",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19055"
           },
           {
             "workId": "1f6190dea929ab5c",
@@ -10852,10 +10956,6 @@
           {
             "workId": "509822ada5107cfd",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24299"
-          },
-          {
-            "workId": "566368f753dcfe37",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=24082"
           },
           {
             "workId": "6e118f2caa8293db",
@@ -10910,10 +11010,6 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23330"
           },
           {
-            "workId": "c61c64b89dec67f4",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15811"
-          },
-          {
             "workId": "d1925f0122c20eca",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29348"
           },
@@ -10924,10 +11020,6 @@
           {
             "workId": "de89bbc759b07f3e",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23344"
-          },
-          {
-            "workId": "e49116a96948e61e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30162"
           },
           {
             "workId": "e4fc49f0d5293e41",
@@ -11014,14 +11106,6 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18942"
           },
           {
-            "workId": "ccc0ecf6bdd163c9",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20502"
-          },
-          {
-            "workId": "d80c365bf9dae4fd",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=20687"
-          },
-          {
             "workId": "deee70db57939584",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=18791"
           },
@@ -11074,14 +11158,6 @@
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14882"
           },
           {
-            "workId": "8417ddc1a5c570aa",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30115"
-          },
-          {
-            "workId": "947eb5a26e5691e8",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=10774"
-          },
-          {
             "workId": "f360b8a79d572aa5",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=15192"
           },
@@ -11112,10 +11188,6 @@
           {
             "workId": "749fb2d3f26348cb",
             "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=23067"
-          },
-          {
-            "workId": "bcb932d241bb76b0",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=12597"
           }
         ],
         "status": "rejected"
@@ -11130,8 +11202,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11178,7 +11250,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f1657397cb0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f9371aea390>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11208,7 +11280,6 @@
         "verifiedWorkIds": [
           "3e29278ec981b10c",
           "4ffc4692e1a01cc3",
-          "589c3a4b9410c1fe",
           "5da2902794975958",
           "c47d3ba05e503a57",
           "cca246502c7c2c19",
@@ -11216,7 +11287,6 @@
           "d74c8f0157a5e387",
           "e89b17161a456784",
           "f116a7e0e0abf94f",
-          "1bb8d21f16a2a80e",
           "4ae960619a7d5261",
           "5614e573eec70bd5",
           "5622915f1a676e54",
@@ -11224,7 +11294,6 @@
           "c409c2f71b48d2f7",
           "d50fc590915236e8",
           "f30ed8fc6682d875",
-          "210bdfb5700d0445",
           "425a9eea926f070e",
           "d72978eff5a1ffc6",
           "231e34b7c0a34b27",
@@ -11239,13 +11308,11 @@
           "80d3aab87d12661d",
           "81371ea757ff60a3",
           "91a0ec0354325721",
-          "9211c418d18bef1d",
           "93fdad335ef440a4",
           "a196a9cddd1a76d7",
           "b2a05a1c973a331b",
           "b5aaf01d1e956a52",
           "c4b80b44e279af63",
-          "df2ac1889e109ef9",
           "f6a6388b0188af7f",
           "fbc3875436a26356",
           "934ad50894897f5d",
@@ -11264,12 +11331,11 @@
           "397766893e754cda",
           "3a730eec1a223c62",
           "a3da6ae303f00697",
-          "b95e3cb9d2dc2745",
           "bc86487f904f46c0",
           "6d62962a7466c854",
           "96b295d594c6ea7d"
         ],
-        "replayWorkCount": 62,
+        "replayWorkCount": 56,
         "failures": [],
         "status": "rejected"
       },
@@ -11304,8 +11370,6 @@
           "39dc7ada7dc438ed",
           "40e8d93765c59dde",
           "5ce33c7843b444ce",
-          "9211c418d18bef1d",
-          "b2a05a1c973a331b",
           "c4b80b44e279af63",
           "fbc3875436a26356",
           "934ad50894897f5d",
@@ -11317,7 +11381,7 @@
           "9a6ef0ce439fcfbc",
           "6d62962a7466c854"
         ],
-        "replayWorkCount": 21,
+        "replayWorkCount": 19,
         "failures": [],
         "status": "rejected"
       },
@@ -11348,6 +11412,7 @@
           "866338a4afd265f7",
           "b67e813fbc861f07",
           "0b3d76c8ac025ca2",
+          "2916d5ba71fdcb6e",
           "72df5f7c4343938f",
           "8c86909a330301f2",
           "1425217ec0ed5061",
@@ -11356,16 +11421,51 @@
           "344869380cfd1eaf",
           "3f8fdd3a072c0036",
           "58be219576d9d027",
+          "852add78fec94900",
+          "85dbba670d1febff",
+          "89158edb8dbb41bc",
           "921ecc75b0044064",
           "cb21ccf2c53222c1",
           "e9ea680c52d80f14",
           "81add392410d23e3",
+          "1944ebfabb5a41d5",
           "925241712635e8c7",
           "d73700d5a33308f8",
           "e32ddc75ac76364e"
         ],
-        "replayWorkCount": 19,
+        "replayWorkCount": 24,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "xiaogoumanhua_cc",
+        "domain": "xiaogoumanhua.cc",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "5bb0929ad6908373"
+        ],
+        "replayWorkCount": 1,
+        "failures": [
+          {
+            "workId": "5bb0929ad6908373",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          }
+        ],
         "status": "rejected"
       }
     ]

@@ -1,0 +1,36 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "cmanhua_com",
+  "domain": "cmanhua.com",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "7d5fc8c81bebdf60",
+    "a24192be50ac570e"
+  ],
+  "replayWorkCount": 2,
+  "failures": [
+    {
+      "workId": "7d5fc8c81bebdf60",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://cmanhua.com/comic/kuaichuannvpeilengjingdian"
+    },
+    {
+      "workId": "a24192be50ac570e",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://cmanhua.com/comic/kuaichuannvpeilengjingdian"
+    }
+  ],
+  "status": "rejected"
+}

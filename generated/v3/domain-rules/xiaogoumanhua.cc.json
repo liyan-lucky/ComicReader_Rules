@@ -1,17 +1,12 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "h5_kanman_com",
-  "domain": "h5.kanman.com",
+  "id": "xiaogoumanhua_cc",
+  "domain": "xiaogoumanhua.cc",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.chapter-name",
-    "*.item a[href]",
-    "*.flex-1 a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -23,10 +18,14 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d3cf920f18120053",
-    "3d87b5ce6e05913a"
+    "5bb0929ad6908373"
   ],
-  "replayWorkCount": 2,
-  "failures": [],
+  "replayWorkCount": 1,
+  "failures": [
+    {
+      "workId": "5bb0929ad6908373",
+      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    }
+  ],
   "status": "rejected"
 }
