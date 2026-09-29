@@ -1,19 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "gfmanhua_com",
-  "domain": "gfmanhua.com",
+  "id": "morimanga_com",
+  "domain": "morimanga.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
-    "* a[href]"
+    "a.mp-btn",
+    "a.mp-chapter-row",
+    "*.mp-chapters a[href]",
+    "*.mp-work-actions a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
+    "img.mp-reader-img",
+    "*.mp-reader-pages img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -24,7 +26,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "46ff0bfe4089613c"
+    "4cfb274456bf2772"
   ],
   "replayWorkCount": 1,
   "failures": [],
