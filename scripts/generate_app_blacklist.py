@@ -29,6 +29,7 @@ def main() -> int:
     parser.add_argument('--ledger', type=Path, required=True)
     parser.add_argument('--audits-dir', type=Path, default=ROOT / 'generated/v3/audits')
     parser.add_argument('--catalog', type=Path, default=ROOT / 'catalog/catalog.zh-Hans.json')
+    parser.add_argument('--rules', type=Path, default=ROOT / 'rules/index.zh-Hans.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'generated/app_blacklist.zh-Hans.json')
     args = parser.parse_args()
 
@@ -41,12 +42,28 @@ def main() -> int:
             for src in item.get('sources', []):
                 catalog_domains.add(str(src.get('domain', '')))
 
+    rule_domains = set()
+    if args.rules.exists():
+        rules_doc = json.loads(args.rules.read_text(encoding='utf-8-sig'))
+        for r in rules_doc.get('rules', []):
+            h = r.get('homepage', '')
+            if h:
+                d = urlparse(h).hostname or ''
+                if d: rule_domains.add(d.removeprefix('www.'))
+            dal = r.get('domainApplicabilityList', [])
+            if isinstance(dal, list):
+                for item in dal:
+                    d = item.get('domain', '') if isinstance(item, dict) else str(item) if isinstance(item, str) else ''
+                    if d: rule_domains.add(d.removeprefix('www.'))
+
     blocked_domains = []
     for entry in ledger.get('domains', []):
         domain = entry.get('domain', '')
         if not domain or entry.get('verifiedWorkCount', 0) > 0:
             continue
         if domain in catalog_domains:
+            continue
+        if domain in rule_domains:
             continue
         if COMIC_HINT.search(domain):
             continue

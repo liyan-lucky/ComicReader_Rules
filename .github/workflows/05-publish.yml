@@ -29,7 +29,7 @@ jobs:
           fi
       - run: python scripts/publish_catalog.py --parameters parameters/catalog/zh-Hans --states state/search/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --rules rules/index.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json
       - run: python scripts/validate_release.py --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --sources generated/v3/best_sources.zh-Hans.json --states state/search/zh-Hans --output generated/v3/release_audit.zh-Hans.json
-      - run: python scripts/generate_app_blacklist.py --ledger generated/v3/domain_ledger.zh-Hans.json --catalog catalog/catalog.zh-Hans.json --output generated/app_blacklist.zh-Hans.json
+      - run: python scripts/generate_app_blacklist.py --ledger generated/v3/domain_ledger.zh-Hans.json --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --output generated/app_blacklist.zh-Hans.json
       - run: python scripts/check_blacklist_safety.py --blacklist generated/app_blacklist.zh-Hans.json --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --output generated/blacklist_safety_report.json
       - run: python scripts/update_manifest.py --only-if-changed --section catalog --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
       - run: python scripts/update_manifest.py --only-if-changed --section blacklist --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
