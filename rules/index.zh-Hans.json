@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20260928221405",
-  "updatedAt": "2026-09-28T22:14:05.849029+00:00",
+  "version": "20260929000030",
+  "updatedAt": "2026-09-29T00:00:30.797415+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -138,10 +138,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "* a[href]",
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2285,7 +2285,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 381 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 383 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2522,6 +2522,7 @@
           "39ccd695cb5070c7",
           "3e1289b6a78e578c",
           "3f684af0d46c4b90",
+          "431dfb9431930652",
           "45940d90a7df8252",
           "459b851ad8460fb9",
           "49855b49e22e08c0",
@@ -2540,6 +2541,7 @@
           "6326c814d68bc747",
           "66877178191dcac3",
           "6b2dc3815aeb85c5",
+          "6d41b7af50134187",
           "6f3ad1f75dbbb97d",
           "73d1d28467cddc89",
           "747643a0b3ed96bb",
@@ -2736,7 +2738,7 @@
           "bc7645b87a2a3edb",
           "cdee4caab8ab00d6"
         ],
-        "replayWorkCount": 381,
+        "replayWorkCount": 383,
         "failures": [],
         "status": "verified"
       }
@@ -4590,7 +4592,7 @@
     {
       "id": "kkwebtoon_com",
       "name": "kkwebtoon.com 已验证公开源",
-      "description": "由 45 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 46 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://kkwebtoon.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -4678,6 +4680,7 @@
           "b7f9c8dc32689f94",
           "cd4f9d8b37420332",
           "7adaa6c415ee269a",
+          "09df14375c06bfc7",
           "0feef5e9ef5ecdc8",
           "296cc992d3eebc2d",
           "2fc03b3a2c3feca2",
@@ -4705,7 +4708,7 @@
           "995000d8b86e81d3",
           "b545e6f3ac8237c2"
         ],
-        "replayWorkCount": 45,
+        "replayWorkCount": 46,
         "failures": [],
         "status": "verified"
       }
@@ -7343,7 +7346,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\bksaa_btn\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\biconfont\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -7381,8 +7384,8 @@
         "detailChapterSelectors": [
           "a",
           "* a[href]",
-          "a.ksaa_btn",
           "a.iconfont",
+          "a.ksaa_btn",
           "*.nav_one a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -7712,8 +7715,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -9582,8 +9585,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.chapter-item a[href]",
-          "*.social-links a[href]"
+          "*.social-links a[href]",
+          "*.chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -10346,16 +10349,8 @@
         "replayWorkCount": 269,
         "failures": [
           {
-            "workId": "cedc6c1582a266e6",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1731452"
-          },
-          {
-            "workId": "d759d5314b89099b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32203"
-          },
-          {
             "workId": "d774bd367073176c",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=14855"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1723664"
           },
           {
             "workId": "da4fbff861b4f801",
@@ -11105,7 +11100,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7ff6e1a070e0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7fca137e3da0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11172,6 +11167,7 @@
           "93fdad335ef440a4",
           "a196a9cddd1a76d7",
           "b2a05a1c973a331b",
+          "b5aaf01d1e956a52",
           "bc005d3761358967",
           "c4adff5cdd8d0237",
           "c4b80b44e279af63",
@@ -11204,7 +11200,7 @@
           "6d62962a7466c854",
           "96b295d594c6ea7d"
         ],
-        "replayWorkCount": 70,
+        "replayWorkCount": 71,
         "failures": [],
         "status": "rejected"
       },
@@ -11266,10 +11262,8 @@
         ],
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
-          "a.btn",
           "a.chapter-name",
-          "*.chapter-item a[href]",
-          "*.book-detail-actions a[href]"
+          "*.chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
@@ -11290,6 +11284,7 @@
           "8c86909a330301f2",
           "15998e00216147c5",
           "344869380cfd1eaf",
+          "3f8fdd3a072c0036",
           "58be219576d9d027",
           "921ecc75b0044064",
           "cb21ccf2c53222c1",
@@ -11298,7 +11293,7 @@
           "d73700d5a33308f8",
           "e32ddc75ac76364e"
         ],
-        "replayWorkCount": 15,
+        "replayWorkCount": 16,
         "failures": [],
         "status": "rejected"
       }
