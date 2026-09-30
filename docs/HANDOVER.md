@@ -977,3 +977,21 @@ CI → cloudflare tunnel → Caddy /proxy/ → Python 代理 /fetch?url= → 漫
 - 去掉 02 的 `workflow_run` 触发器
 - 01 完成后用 `gh workflow run` 显式触发 02（workflow_dispatch）
 - 统一为单一触发源（workflow_dispatch），不再冲突
+
+## v16：修复 finalize 循环断裂——全目录搜完后 02 停滞 3 小时（2026-09-30）
+
+### 问题
+
+全目录搜索 100% 完成（64910/64910）后，无任何流程运行 3 小时+：
+- 02 自触发失效：finalize 在整轮完成时（complete=true）已重置 state（条目回 pending），**但输出 pending=false**，导致 02 判断"全目录搜完，不再自触发"，循环断裂
+- 10 兜底失效：GitHub 平台跳过 cron 触发（4 小时未触发，跳过 ~48 次），workflow_run 触发也未生效
+
+### 修复
+
+`finalize_search_cycle.py:61`：pending 输出逻辑改为 `total > 0`——永久循环设计下整轮完成后 state 已重置为全量 pending，必须继续触发下一轮；仅当目录为空（total=0）时才停止自触发。
+
+### 处理
+
+- 手动唤醒 02（12:44 in_progress）
+- finalize 修复已推送（87659e1f），本轮 02 结束后 complete=false 会自触发下一轮，下一轮用新代码，永久循环恢复
+- 手动触发 10 验证兜底（GitHub cron 跳过属平台问题，无法根治；02 自触发链是主驱动）
