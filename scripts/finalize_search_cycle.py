@@ -56,7 +56,9 @@ def main() -> int:
     if output:
         with Path(output).open("a", encoding="utf-8") as stream:
             stream.write(f"cycle_complete={'true' if complete else 'false'}\n")
-            stream.write(f"pending={'false' if complete else 'true'}\n")
+            # 永久循环：整轮完成后 state 已重置为全量 pending，必须继续触发下一轮；
+            # 仅当目录为空（total=0）时才停止自触发。
+            stream.write(f"pending={'true' if total > 0 else 'false'}\n")
     print("\n".join(lines))
     return 0
 
