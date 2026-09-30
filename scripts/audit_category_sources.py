@@ -124,6 +124,10 @@ def fetch(s,url,referer='',retries=3):
             try:
                 r=requests.get(FETCH_PROXY_URL,params=params,headers=proxy_headers,timeout=25)
                 r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
+            except requests.exceptions.HTTPError as e:
+                if e.response is not None and e.response.status_code==403: raise
+                if attempt<retries-1: time.sleep((attempt+1)*0.5)
+                else: raise
             except Exception:
                 if attempt<retries-1: time.sleep((attempt+1)*0.5)
                 else: raise
@@ -131,6 +135,10 @@ def fetch(s,url,referer='',retries=3):
     for attempt in range(retries):
         try:
             r=s.get(url,headers=h,timeout=15); r.raise_for_status(); r.encoding=r.apparent_encoding or 'utf-8'; return r.text
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code==403: raise
+            if attempt<retries-1: time.sleep((attempt+1)*0.5)
+            else: raise
         except Exception:
             if attempt<retries-1: time.sleep((attempt+1)*0.5)
             else: raise
