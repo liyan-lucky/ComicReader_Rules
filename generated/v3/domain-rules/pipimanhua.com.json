@@ -6,7 +6,10 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
     "*.imgpic img"
@@ -43,5 +46,5 @@
   ],
   "replayWorkCount": 20,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
