@@ -965,3 +965,15 @@ CI → cloudflare tunnel → Caddy /proxy/ → Python 代理 /fetch?url= → 漫
 - ✅ 代码已推送（commit 14a7618a）
 - ⏳ 等待新 02 运行用新代码验证通过率提升
 - ⏳ baidu IP 风控仍未解除（3h+）
+
+## v15：消除 02 双重触发冲突（2026-09-30）
+
+### 问题
+
+02 同时有 `workflow_run`（01 完成后触发）和 `workflow_dispatch`（02 自触发）两个触发源。当两个触发源同时触发时，后触发的 run 排队等待（`cancel-in-progress: false`），最终被更新的 run 挤掉取消。实测有 run 排队 3 小时后被取消，白排 3 小时。
+
+### 修复
+
+- 去掉 02 的 `workflow_run` 触发器
+- 01 完成后用 `gh workflow run` 显式触发 02（workflow_dispatch）
+- 统一为单一触发源（workflow_dispatch），不再冲突
