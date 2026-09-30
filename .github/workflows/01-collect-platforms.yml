@@ -135,3 +135,12 @@ jobs:
           git add observations/rough/zh-Hans parameters/catalog/zh-Hans
           git diff --cached --quiet || git commit -m 'names: refresh audited platform text catalogs'
           bash scripts/ci_push_with_retry.sh
+      - name: 触发 02 搜索
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in 1 2 3; do
+            gh workflow run 02-refine-categories.yml --ref main && break
+            echo "触发 02 失败 (尝试 $i/3)，等待 10s 重试..."
+            sleep 10
+          done

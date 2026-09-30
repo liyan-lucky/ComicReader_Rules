@@ -1,10 +1,7 @@
 name: 02 分类增量搜索处理
-run-name: "02 分类增量搜索处理（上游 01 #${{ github.event.workflow_run.id || '续跑' }}）"
+run-name: "02 分类增量搜索处理（续跑）"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ['01 每日平台粗采集']
-    types: [completed]
 permissions: {contents: write, actions: write}
 concurrency: {group: catalog-v3-category-pipelines, cancel-in-progress: false}
 jobs:
