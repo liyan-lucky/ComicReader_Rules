@@ -1,21 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "z525_com",
-  "domain": "z525.com",
+  "id": "miaoerks_com",
+  "domain": "miaoerks.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
-    "a.social-icon",
-    "*.chapter-item a[href]",
-    "*.social-links a[href]"
+    "*.grid a[href]",
+    "a.text-blue-600"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.comic-image",
-    "*.comic-content img"
+    "img",
+    "* img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,16 +24,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "9b38d50107960278",
-    "f9c4fdc223a5b1bc",
-    "4bafa5f66c48e1e8",
-    "56baf85af1cea3b2",
-    "d63ad69c78280b3d",
-    "98307a561b60cf69",
-    "e557f89d40d48d62",
-    "e32ddc75ac76364e"
+    "ebe16983b69e9c41"
   ],
-  "replayWorkCount": 8,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }
