@@ -8,16 +8,13 @@
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a.ep",
-    "a.app",
     "a.btn",
+    "a.app",
     "a.m-app",
     "*.nav a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "*.img-wrap img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -31,5 +28,5 @@
   ],
   "replayWorkCount": 1,
   "failures": [],
-  "status": "verified"
+  "status": "rejected"
 }
