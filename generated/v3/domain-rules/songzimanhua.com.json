@@ -1,21 +1,22 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "luo9_com",
-  "domain": "luo9.com",
+  "id": "songzimanhua_com",
+  "domain": "songzimanhua.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
     "a",
-    "a.start-read",
-    "*.m-dt-bottom a[href]",
-    "*.chapter-item a[href]"
+    "a.btn",
+    "* a[href]",
+    "a.chapter-collapsed",
+    "*.detail-actions a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img",
-    "*.comic-page img"
+    "*.reader-page-img img",
+    "img.reader-page-image"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -26,7 +27,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "824a4b4dc2a7bb89"
+    "1e2354e038357d44"
   ],
   "replayWorkCount": 1,
   "failures": [],

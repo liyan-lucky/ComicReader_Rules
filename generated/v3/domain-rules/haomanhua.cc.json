@@ -1,7 +1,7 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "lwmjjgs_com",
-  "domain": "lwmjjgs.com",
+  "id": "haomanhua_cc",
+  "domain": "haomanhua.cc",
   "languages": [
     "zh-Hans"
   ],
@@ -18,13 +18,13 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "5383ac8230ceee05"
+    "d6ab3f85ba515112"
   ],
   "replayWorkCount": 1,
   "failures": [
     {
-      "workId": "5383ac8230ceee05",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7efc84015880>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+      "workId": "d6ab3f85ba515112",
+      "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7fd8c6905b80>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
