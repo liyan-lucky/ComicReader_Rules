@@ -12,6 +12,7 @@
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
+    "img.lazy",
     "*.imgpic img"
   ],
   "readerImageAttributes": [
@@ -42,6 +43,59 @@
     "6d62962a7466c854"
   ],
   "replayWorkCount": 17,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "c47d3ba05e503a57",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "e8f4e36eb9963c34",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "f91e413fd2f81bc8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "fdb8d98a060761dd",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "39dc7ada7dc438ed",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "3a30d84439927664",
+      "reason": "ReadTimeout: HTTPConnectionPool(host='pipimanhua.com', port=80): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "40e8d93765c59dde",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "5ce33c7843b444ce",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "fbc3875436a26356",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "934ad50894897f5d",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "2720b505f63f7759",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "a3ec21609ce617f0",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "0f815ca96545182d",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }

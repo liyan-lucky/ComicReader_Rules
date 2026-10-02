@@ -1,22 +1,21 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "cxjob_com_cn",
-  "domain": "cxjob.com.cn",
+  "id": "242mh_com",
+  "domain": "242mh.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a.chapter-link",
-    "a.toolBar-toolRead",
-    "*.lay-flex a[href]",
-    "*.chapter-item a[href]",
-    "*.bottom-chapter-item a[href]"
+    "a",
+    "a.start-read",
+    "*.m-dt-bottom a[href]",
+    "*.chapter-item a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.comic-pic",
-    "*.comic-pic-box img"
+    "img",
+    "*.comic-page img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +26,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "db660385795e6036"
+    "98c8217e516c2279"
   ],
   "replayWorkCount": 1,
   "failures": [],
