@@ -6,9 +6,15 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.mu_list img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +27,6 @@
     "e32ddc75ac76364e"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "e32ddc75ac76364e",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.duya.cc', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
