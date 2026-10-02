@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261002100941",
-  "updatedAt": "2026-10-02T10:09:41.790734+00:00",
+  "version": "20261002133402",
+  "updatedAt": "2026-10-02T13:34:02.873863+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
+          "* a[href]",
           "a.bds_qzone",
           "a.bds_tsina"
         ],
@@ -260,7 +260,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\byelgjf\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\btqq0ok\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -296,8 +296,8 @@
         ],
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
-          "a.yelgjf",
           "a.tqq0ok",
+          "a.yelgjf",
           "* a[href]",
           "*.comic-chapter-item a[href]"
         ],
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "a.toolBar-toolRead",
           "*.lay-flex a[href]",
+          "a.toolBar-toolRead",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2364,7 +2364,7 @@
     {
       "id": "dongmanmanhua_cn",
       "name": "dongmanmanhua.cn 已验证公开源",
-      "description": "由 555 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 558 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://dongmanmanhua.cn",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -2416,8 +2416,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2707,6 +2707,7 @@
           "6d41b7af50134187",
           "6e5291fc574e1b7f",
           "6f3ad1f75dbbb97d",
+          "7231433ce17aa4bd",
           "73d1d28467cddc89",
           "747643a0b3ed96bb",
           "7a1c94a85eba3e64",
@@ -2748,6 +2749,7 @@
           "b45f59721e4e31f5",
           "b540836b99a9fe74",
           "b6aa05fac0a818a9",
+          "ba936626302ade77",
           "bb42cff8d77880c7",
           "bd3108e2966d4739",
           "bd9375e01c2d364e",
@@ -2784,6 +2786,7 @@
           "e722a39986cb9f50",
           "e750ef53140ee60a",
           "e917fa3bf69d6eec",
+          "ebea5f04be794b97",
           "ec0089bd85cac805",
           "ed0ea3cd5f8cf79f",
           "edb74c356f49fa04",
@@ -2989,7 +2992,7 @@
           "cdee4caab8ab00d6",
           "d5274b6d4048d669"
         ],
-        "replayWorkCount": 555,
+        "replayWorkCount": 558,
         "failures": [],
         "status": "verified"
       }
@@ -4196,8 +4199,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4819,15 +4822,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.flex a[href]",
-          "*.py-2 a[href]"
+          "*.py-2 a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -4848,7 +4851,7 @@
     {
       "id": "kkwebtoon_com",
       "name": "kkwebtoon.com 已验证公开源",
-      "description": "由 102 部作品首/中/末章回放验证；每域一条规则。",
+      "description": "由 105 部作品首/中/末章回放验证；每域一条规则。",
       "homepage": "https://kkwebtoon.com",
       "searchUrl": "",
       "searchMethod": "url-only",
@@ -4962,6 +4965,7 @@
           "fdd14a7a8d70bda0",
           "09df14375c06bfc7",
           "0feef5e9ef5ecdc8",
+          "15059b27fc3b01b6",
           "296cc992d3eebc2d",
           "2fc03b3a2c3feca2",
           "3025515061e2ed7f",
@@ -4989,8 +4993,10 @@
           "e26a824bac3283d8",
           "e4958df50fff5d7c",
           "e9ea680c52d80f14",
+          "ebea5f04be794b97",
           "fc1960fbfe6d2a05",
           "fc2739d9e3ff3cc9",
+          "feeddb66aa145470",
           "f68a7581c01df5ac",
           "2b451b469ff83488",
           "0852f082eb8c43c8",
@@ -5020,7 +5026,7 @@
           "6d8467ca7a096698",
           "b545e6f3ac8237c2"
         ],
-        "replayWorkCount": 102,
+        "replayWorkCount": 105,
         "failures": [],
         "status": "verified"
       }
@@ -8255,8 +8261,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -10721,6 +10727,7 @@
           "1b11eb898627f969",
           "287eefbc074495b9",
           "4776941c90ab9208",
+          "5e682607736688b6",
           "9e23db2503bcfec5",
           "484dc6c8c765a3cc",
           "eb0ee3a512fece6c",
@@ -10730,7 +10737,7 @@
           "f952a1ef96c12925",
           "f4601c9e0bd7fd46"
         ],
-        "replayWorkCount": 19,
+        "replayWorkCount": 20,
         "failures": [],
         "status": "rejected"
       },
@@ -10744,8 +10751,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.ep",
-          "a.btn",
           "a.app",
+          "a.btn",
           "a.m-app",
           "*.nav a[href]"
         ],
@@ -11057,7 +11064,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f73d87d0950>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f7cc4104cb0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11096,6 +11103,7 @@
           "34cc72fb9d7c3cf1",
           "d6bea9c17c397f36",
           "7102201f44fdcbbd",
+          "1758f2dc479d1eaf",
           "36bf7aa7ab1ad01b",
           "b6aa05fac0a818a9",
           "3211af59c13509a5",
@@ -11105,31 +11113,35 @@
           "b45c84733fe4cd75",
           "43643d9cebc02830"
         ],
-        "replayWorkCount": 13,
+        "replayWorkCount": 14,
         "failures": [
           {
-            "workId": "7102201f44fdcbbd",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-135uj"
+            "workId": "1758f2dc479d1eaf",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc38"
           },
           {
             "workId": "36bf7aa7ab1ad01b",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1flys"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1flz4"
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1embt"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+          },
+          {
+            "workId": "3211af59c13509a5",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
           },
           {
             "workId": "509822ada5107cfd",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-tsk8"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-tv1c"
           },
           {
             "workId": "8941fc658535dbe4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l4"
           },
           {
             "workId": "6b9901f08bd71b2e",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-h249"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-h2o9"
           },
           {
             "workId": "b45c84733fe4cd75",
@@ -11137,7 +11149,7 @@
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
           }
         ],
         "status": "rejected"
@@ -11168,7 +11180,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f6d5b3d0a70>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f8b38b10a70>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11199,7 +11211,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7faa5a3d09b0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fb484514b30>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11252,7 +11264,6 @@
           "91a0ec0354325721",
           "93fdad335ef440a4",
           "a196a9cddd1a76d7",
-          "b2a05a1c973a331b",
           "b3a39fda20b39280",
           "b5aaf01d1e956a52",
           "c4b80b44e279af63",
@@ -11271,51 +11282,7 @@
           "bc86487f904f46c0",
           "96b295d594c6ea7d"
         ],
-        "replayWorkCount": 43,
-        "failures": [],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "pipimanhua_com",
-        "domain": "pipimanhua.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "*.imgpic img"
-        ],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "c47d3ba05e503a57",
-          "e8f4e36eb9963c34",
-          "f91e413fd2f81bc8",
-          "fdb8d98a060761dd",
-          "39dc7ada7dc438ed",
-          "3a30d84439927664",
-          "40e8d93765c59dde",
-          "5ce33c7843b444ce",
-          "fbc3875436a26356",
-          "934ad50894897f5d",
-          "2720b505f63f7759",
-          "a3ec21609ce617f0",
-          "0f815ca96545182d",
-          "a3da6ae303f00697",
-          "255690267d3b0b16",
-          "9a6ef0ce439fcfbc",
-          "6d62962a7466c854"
-        ],
-        "replayWorkCount": 17,
+        "replayWorkCount": 42,
         "failures": [],
         "status": "rejected"
       },
@@ -11373,6 +11340,7 @@
           "3b4e7e421f7bc225",
           "3f8fdd3a072c0036",
           "498bf8ad9bfdf6b9",
+          "54afb74e752faf41",
           "58be219576d9d027",
           "727fc1f6c05d597d",
           "852add78fec94900",
@@ -11398,7 +11366,7 @@
           "f62fd428e93e8886",
           "e32ddc75ac76364e"
         ],
-        "replayWorkCount": 55,
+        "replayWorkCount": 56,
         "failures": [],
         "status": "rejected"
       },
