@@ -1,7 +1,7 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "haomanhua_cc",
-  "domain": "haomanhua.cc",
+  "id": "hmgmanhua_com",
+  "domain": "hmgmanhua.com",
   "languages": [
     "zh-Hans"
   ],
@@ -18,13 +18,13 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "d6ab3f85ba515112"
+    "fc161ca8586d4f68"
   ],
   "replayWorkCount": 1,
   "failures": [
     {
-      "workId": "d6ab3f85ba515112",
-      "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7efec1083770>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+      "workId": "fc161ca8586d4f68",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.hmgmanhua.com/hmdl/10804/1653494.html"
     }
   ],
   "status": "rejected"

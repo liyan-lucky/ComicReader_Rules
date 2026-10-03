@@ -40,6 +40,35 @@
     "9a6ef0ce439fcfbc"
   ],
   "replayWorkCount": 12,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "84cdd800bf601efc",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/21695/"
+    },
+    {
+      "workId": "cd412a89282ebd85",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://nubbub.com/mh/24563/"
+    },
+    {
+      "workId": "501e5af2bdfc8704",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/10833/"
+    },
+    {
+      "workId": "e498f26bcf8f7927",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/26190/"
+    },
+    {
+      "workId": "fba5536caccdd1d4",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "6a5e7279a84992c5",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "9a6ef0ce439fcfbc",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/14819/"
+    }
+  ],
+  "status": "rejected"
 }
