@@ -33,6 +33,7 @@
     "d6bea9c17c397f36",
     "7102201f44fdcbbd",
     "1758f2dc479d1eaf",
+    "4b5c82290e3d1dd4",
     "b6aa05fac0a818a9",
     "3211af59c13509a5",
     "509822ada5107cfd",
@@ -41,15 +42,15 @@
     "b45c84733fe4cd75",
     "43643d9cebc02830"
   ],
-  "replayWorkCount": 13,
+  "replayWorkCount": 14,
   "failures": [
-    {
-      "workId": "65aca9928a37e905",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
-    },
     {
       "workId": "1758f2dc479d1eaf",
       "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc38"
+    },
+    {
+      "workId": "4b5c82290e3d1dd4",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
     },
     {
       "workId": "b6aa05fac0a818a9",
@@ -69,15 +70,11 @@
     },
     {
       "workId": "6b9901f08bd71b2e",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-h2o9"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-h242"
     },
     {
       "workId": "b45c84733fe4cd75",
       "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l4"
-    },
-    {
-      "workId": "43643d9cebc02830",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
     }
   ],
   "status": "rejected"
