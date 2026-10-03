@@ -1,0 +1,41 @@
+{
+  "schema": "comic_domain_rule_v1",
+  "id": "m_manhuat_cc",
+  "domain": "m.manhuat.cc",
+  "languages": [
+    "zh-Hans"
+  ],
+  "policyVersion": "readability-v5",
+  "detailChapterSelectors": [],
+  "detailUrlAttribute": "href",
+  "readerImageSelectors": [],
+  "readerImageAttributes": [
+    "data-original",
+    "data-src",
+    "data-lazy-src",
+    "data-url",
+    "src",
+    "srcset"
+  ],
+  "verifiedWorkIds": [
+    "a0303e4d17785f1d",
+    "19652c3754028602",
+    "b419817e4948a2ed"
+  ],
+  "replayWorkCount": 3,
+  "failures": [
+    {
+      "workId": "a0303e4d17785f1d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f25716bc7a0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "19652c3754028602",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f25716bd070>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "b419817e4948a2ed",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f25716bd130>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+    }
+  ],
+  "status": "rejected"
+}

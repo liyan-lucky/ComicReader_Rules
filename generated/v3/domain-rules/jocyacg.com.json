@@ -1,14 +1,17 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "miaoerks_com",
-  "domain": "miaoerks.com",
+  "id": "jocyacg_com",
+  "domain": "jocyacg.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "*.grid a[href]",
-    "a.text-blue-600"
+    "a",
+    "a.btn",
+    "* a[href]",
+    "*.area a[href]",
+    "*.primary a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -24,10 +27,9 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "ebe16983b69e9c41",
-    "83d611c29228c8a9"
+    "f9821346ceb923bd"
   ],
-  "replayWorkCount": 2,
+  "replayWorkCount": 1,
   "failures": [],
   "status": "verified"
 }
