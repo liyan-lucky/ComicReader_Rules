@@ -1,22 +1,19 @@
 {
   "schema": "comic_domain_rule_v1",
-  "id": "3dmgame_com",
-  "domain": "3dmgame.com",
+  "id": "shuyuanks_com",
+  "domain": "shuyuanks.com",
   "languages": [
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
   "detailChapterSelectors": [
-    "a",
-    "* a[href]",
-    "a.bds_sqq",
-    "a.bds_tsina",
-    "a.bds_qzone"
+    "*.grid a[href]",
+    "a.text-blue-600"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
-    "img.language-switch__arrow",
-    "*.language-switch__trigger img"
+    "img",
+    "* img"
   ],
   "readerImageAttributes": [
     "data-original",
@@ -27,7 +24,7 @@
     "srcset"
   ],
   "verifiedWorkIds": [
-    "be106fe98430da26"
+    "32ed3ff6408b4805"
   ],
   "replayWorkCount": 1,
   "failures": [],

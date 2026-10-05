@@ -65,6 +65,7 @@
     "5d4d2d9a35f116f6",
     "5f2e655c50be17e5",
     "727fc1f6c05d597d",
+    "78b14bb1feaa8056",
     "835d393564c3b5ab",
     "84b9d93bfa96ad22",
     "852add78fec94900",
@@ -72,6 +73,8 @@
     "8897c9dd0a0c24eb",
     "89158edb8dbb41bc",
     "9d71f0de783466c2",
+    "a5cada0661c35b12",
+    "c40d40dddb12a9b2",
     "cb21ccf2c53222c1",
     "d35bc4438bbd88c3",
     "e8196501e4c51792",
@@ -96,7 +99,16 @@
     "f62fd428e93e8886",
     "e32ddc75ac76364e"
   ],
-  "replayWorkCount": 74,
-  "failures": [],
+  "replayWorkCount": 77,
+  "failures": [
+    {
+      "workId": "076050ee259d00c2",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/523158.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.stcwz.com', port=443) at 0x7f9ef9691df0>, 'Connection to www.stcwz.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "2c32dd424f472564",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/221128.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.stcwz.com', port=443) at 0x7f9ef9692690>, 'Connection to www.stcwz.com timed out. (connect timeout=15)'))"
+    }
+  ],
   "status": "rejected"
 }

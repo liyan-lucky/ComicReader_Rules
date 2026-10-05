@@ -26,15 +26,15 @@
   "failures": [
     {
       "workId": "b8e55ad8a0e63404",
-      "reason": "SSLError: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f574e06a060>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "cdfb83a6a1547d8f",
-      "reason": "SSLError: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f574e06a900>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "ba7f807d4ee06aba",
-      "reason": "SSLError: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f574e06acc0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
