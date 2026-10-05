@@ -6,7 +6,12 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "a.flex-1",
+    "* a[href]",
+    "*.article-buttom a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
