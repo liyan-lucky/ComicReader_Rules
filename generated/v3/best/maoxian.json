@@ -1,6 +1,6 @@
 {
   "schema": "comic_best_sources_v2",
-  "generatedAt": "2026-10-04T23:05:15.863621+00:00",
+  "generatedAt": "2026-10-05T01:20:44.513685+00:00",
   "selected": [
     {
       "workId": "02b6b5d4cf09c2d1",
@@ -36895,42 +36895,57 @@
       "title": "断章格林童话",
       "domain": "wenku8.net",
       "detailUrl": "https://www.wenku8.net/book/802.htm",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d813c93bb7bfd0e4",
-      "language": "zh-Hans",
-      "title": "断章格林童话",
-      "domain": "dm5.com",
-      "detailUrl": "https://www.dm5.com/manhua-duanzhanggelintonghua/",
-      "status": "rejected",
-      "rejectionReasons": [
-        "title_identity_mismatch"
-      ],
-      "selectionReasons": [
-        "title_identity_mismatch",
-        "three_chapter_readability_gate_failed"
-      ]
-    },
-    {
-      "workId": "d813c93bb7bfd0e4",
-      "language": "zh-Hans",
-      "title": "断章格林童话",
-      "domain": "liumanhua.com",
-      "detailUrl": "https://www.liumanhua.com/458205/155810.html",
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://formed-diesel-notifications-reducing.trycloudflare.com/proxy/fetch?url=https%3A%2F%2Fwww.liumanhua.com%2F458205%2F155810.html"
+        "HTTPError: 403 Client Error: Forbidden for url: https://formed-diesel-notifications-reducing.trycloudflare.com/proxy/fetch?url=https%3A%2F%2Fwww.wenku8.net%2Fbook%2F802.htm"
       ],
       "selectionReasons": [
         "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d813c93bb7bfd0e4",
+      "language": "zh-Hans",
+      "title": "断章格林童话",
+      "domain": "moegirl.uk",
+      "detailUrl": "https://moegirl.uk/index.php?title=%E6%96%AD%E7%AB%A0%E6%A0%BC%E6%9E%97%E7%AB%A5%E8%AF%9D&variant=zh",
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://formed-diesel-notifications-reducing.trycloudflare.com/proxy/fetch?url=https%3A%2F%2Fmoegirl.uk%2Findex.php%3Ftitle%3D%25E6%2596%25AD%25E7%25AB%25A0%25E6%25A0%25BC%25E6%259E%2597%25E7%25AB%25A5%25E8%25AF%259D%26variant%3Dzh"
+      ],
+      "selectionReasons": [
+        "title_identity_mismatch",
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d813c93bb7bfd0e4",
+      "language": "zh-Hans",
+      "title": "断章格林童话",
+      "domain": "lnovel.org",
+      "detailUrl": "https://lnovel.org/books-747",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
+      ],
+      "selectionReasons": [
+        "three_chapter_readability_gate_failed"
+      ]
+    },
+    {
+      "workId": "d813c93bb7bfd0e4",
+      "language": "zh-Hans",
+      "title": "断章格林童话",
+      "domain": "huanmengacg.com",
+      "detailUrl": "https://www.huanmengacg.com/index.php/book/info/4858",
+      "status": "rejected",
+      "rejectionReasons": [
+        "chapter_identity_or_content_variation_gate_failed",
+        "chapter_order_or_completeness_gate_failed"
+      ],
+      "selectionReasons": [
         "three_chapter_readability_gate_failed"
       ]
     },
