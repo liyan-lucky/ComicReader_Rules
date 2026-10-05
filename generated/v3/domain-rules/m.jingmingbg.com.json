@@ -6,17 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.flex-1",
-    "* a[href]",
-    "*.article-buttom a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.lazy-img",
-    "*.hide-scrollbars img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -30,6 +22,15 @@
     "e6363f4a1c9a16ec"
   ],
   "replayWorkCount": 2,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "d688bc254f8db2ac",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/77108/"
+    },
+    {
+      "workId": "e6363f4a1c9a16ec",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/7714/"
+    }
+  ],
+  "status": "rejected"
 }
