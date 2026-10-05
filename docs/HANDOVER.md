@@ -995,3 +995,19 @@ CI → cloudflare tunnel → Caddy /proxy/ → Python 代理 /fetch?url= → 漫
 - 手动唤醒 02（12:44 in_progress）
 - finalize 修复已推送（87659e1f），本轮 02 结束后 complete=false 会自触发下一轮，下一轮用新代码，永久循环恢复
 - 手动触发 10 验证兜底（GitHub cron 跳过属平台问题，无法根治；02 自触发链是主驱动）
+
+## v17：NAS IP 动态标记确诊 + /fetch 限流冷却（2026-10-05）
+
+### 问题
+
+catalog 一晚仅 +8 本。403 占比持续上升（24.9%→26%→29.4%）。搜索引擎枯竭：baidu captcha 11 天+、sogou antispider 风控（302→/antispider/，带 cookie 仍拦）——只剩 bing 10 条/查询词。
+
+### 根因确诊
+
+403 域名（liumanhua/manhuazhan/baomh/duokanmh）从本机直连**全部 200**、NAS 间歇性 403——**NAS IP 因高频爬取被漫画站动态标记（非 IP 段封锁），且标记正在扩散**。这解释了 403 占比持续上升和 catalog 增长放缓。
+
+### 修复
+
+- `nas_search_proxy.py`：全局请求限流（250ms 间隔 + Semaphore 10→4）降低 NAS IP 被标记速度
+- 403 域名冷却 15 分钟：冷却期内快速返回 403 不实际请求（防止持续触发反爬加重封禁）+ CI 端秒跳过（省 tunnel 往返与超时等待）
+- 部署验证：liumanhua/manhuazhan/baomh 恢复 200（动态标记间歇性恢复实锤），manwang/guazimanhua/dumanwu 进冷却等自动重试
