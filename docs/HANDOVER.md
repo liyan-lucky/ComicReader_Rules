@@ -1038,3 +1038,10 @@ NAS 有 4+ 个全局 IPv6 地址：/128 固定接口地址（::1、::1001）+ /6
 - `nas_search_proxy.py`：启动时枚举全局 IPv6 地址（/64 随机后缀优先，每小时刷新——临时地址内核自动轮换）
 - `fetch()` 用 `curl --interface <IPv6>` 绑定源地址，403 时自动换源重试一次
 - baidu captcha 时换源重试一次，重试失败才 suspend 600s
+
+### v18 补充：baidu 渐进式 suspend + 3s 限流
+
+CI 每秒 2 次 baidu 请求会快速标记每个 IPv6 源（标记速度>轮换速度）。部署验证后补充：
+- baidu 限流 500ms→3s
+- 渐进式 suspend：连续 captcha 时 suspend 600s→1800s→3600s 递增，给源地址冷却
+- 漫画站 403 已通过 IPv6 换源+冷却解决（manwang/guazimanhua 恢复 200）
