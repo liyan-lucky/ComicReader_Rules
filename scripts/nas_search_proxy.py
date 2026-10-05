@@ -25,10 +25,39 @@ _baidu_suspend_until = 0
 _baidu_lock = threading.Lock()
 _baidu_last_request = 0.0
 _baidu_min_interval = 0.5
-_fetch_semaphore = threading.Semaphore(10)
+_fetch_semaphore = threading.Semaphore(4)
+_global_lock = threading.Lock()
+_global_last_request = 0.0
+_global_min_interval = 0.25
+_domain_403_until = {}
+_403_cooldown = 900
+
+def _is_domain_cooled(domain):
+    if not domain:
+        return False
+    until = _domain_403_until.get(domain, 0)
+    if time.time() < until:
+        return True
+    if until:
+        _domain_403_until.pop(domain, None)
+    return False
+
+def _mark_domain_403(url):
+    try:
+        domain = urlparse(url).hostname or ''
+        if domain:
+            _domain_403_until[domain] = time.time() + _403_cooldown
+    except Exception:
+        pass
 
 
 def fetch(url, timeout=8, referer=''):
+    global _global_last_request
+    with _global_lock:
+        elapsed = time.time() - _global_last_request
+        if elapsed < _global_min_interval:
+            time.sleep(_global_min_interval - elapsed)
+        _global_last_request = time.time()
     cmd = ["curl", "-sL", "--connect-timeout", str(timeout), "--max-time", str(timeout + 2),
            "-H", f"User-Agent: {USER_AGENT}",
            "-H", "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
@@ -40,7 +69,10 @@ def fetch(url, timeout=8, referer=''):
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
     parts = result.stdout.rsplit('\n', 1)
     if len(parts) == 2 and parts[1].isdigit():
-        return parts[0], int(parts[1])
+        code = int(parts[1])
+        if code == 403:
+            _mark_domain_403(url)
+        return parts[0], code
     return result.stdout, 0
 
 
@@ -167,6 +199,14 @@ class Handler(BaseHTTPRequestHandler):
             target_url = qs.get("url", [""])[0]
             if not target_url or not target_url.startswith("http"):
                 self._json({"error": "missing or invalid url parameter"})
+                return
+            try:
+                domain = urlparse(target_url).hostname or ''
+            except Exception:
+                domain = ''
+            if _is_domain_cooled(domain):
+                self.send_response(403); self.end_headers()
+                self.wfile.write(b"domain cooldown (403 rate-limited)")
                 return
             referer = qs.get("referer", [""])[0]
             with _fetch_semaphore:
