@@ -31,6 +31,34 @@ _global_last_request = 0.0
 _global_min_interval = 0.25
 _domain_403_until = {}
 _403_cooldown = 900
+_ipv6_addrs = []
+_ipv6_idx = 0
+_ipv6_lock = threading.Lock()
+_ipv6_last_refresh = 0.0
+
+def _next_ipv6_source():
+    global _ipv6_addrs, _ipv6_idx, _ipv6_last_refresh
+    with _ipv6_lock:
+        if not _ipv6_addrs or time.time() - _ipv6_last_refresh > 3600:
+            try:
+                result = subprocess.run(["ip", "-6", "-o", "addr", "show", "scope", "global"],
+                                        capture_output=True, text=True, timeout=5)
+                addrs = []
+                for line in result.stdout.splitlines():
+                    parts = line.split()
+                    if len(parts) >= 4 and "/" in parts[3] and not parts[3].startswith("fe80"):
+                        addrs.append(parts[3].split("/")[0])
+                addrs.sort(key=lambda a: 0 if a.count(":") >= 4 else 1)
+                _ipv6_addrs = addrs
+                _ipv6_idx = 0
+                _ipv6_last_refresh = time.time()
+            except Exception:
+                pass
+        if not _ipv6_addrs:
+            return None
+        addr = _ipv6_addrs[_ipv6_idx % len(_ipv6_addrs)]
+        _ipv6_idx += 1
+        return addr
 
 def _is_domain_cooled(domain):
     if not domain:
@@ -51,29 +79,44 @@ def _mark_domain_403(url):
         pass
 
 
-def fetch(url, timeout=8, referer=''):
+def fetch(url, timeout=8, referer='', retries=2):
     global _global_last_request
-    with _global_lock:
-        elapsed = time.time() - _global_last_request
-        if elapsed < _global_min_interval:
-            time.sleep(_global_min_interval - elapsed)
-        _global_last_request = time.time()
-    cmd = ["curl", "-sL", "--connect-timeout", str(timeout), "--max-time", str(timeout + 2),
-           "-H", f"User-Agent: {USER_AGENT}",
-           "-H", "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
-           "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-           "--compressed", "-w", "\n%{http_code}", url]
-    if referer:
-        cmd.insert(-3, "-H")
-        cmd.insert(-3, f"Referer: {referer}")
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
-    parts = result.stdout.rsplit('\n', 1)
-    if len(parts) == 2 and parts[1].isdigit():
-        code = int(parts[1])
-        if code == 403:
-            _mark_domain_403(url)
-        return parts[0], code
-    return result.stdout, 0
+    for attempt in range(retries):
+        with _global_lock:
+            elapsed = time.time() - _global_last_request
+            if elapsed < _global_min_interval:
+                time.sleep(_global_min_interval - elapsed)
+            _global_last_request = time.time()
+        src = _next_ipv6_source()
+        cmd = ["curl", "-sL", "--connect-timeout", str(timeout), "--max-time", str(timeout + 2),
+               "-H", f"User-Agent: {USER_AGENT}",
+               "-H", "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
+               "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+               "--compressed", "-w", "\n%{http_code}", url]
+        if src:
+            cmd.insert(-3, "--interface")
+            cmd.insert(-3, src)
+        if referer:
+            cmd.insert(-3, "-H")
+            cmd.insert(-3, f"Referer: {referer}")
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 5)
+        except subprocess.TimeoutExpired:
+            if attempt < retries - 1:
+                continue
+            raise
+        parts = result.stdout.rsplit('\n', 1)
+        if len(parts) == 2 and parts[1].isdigit():
+            code = int(parts[1])
+            if code == 403:
+                _mark_domain_403(url)
+                if attempt < retries - 1:
+                    continue
+            return parts[0], code
+        if attempt < retries - 1:
+            continue
+        return result.stdout, 0
+    return "", 0
 
 
 def search_bing(query, count=20):
@@ -117,9 +160,24 @@ def search_baidu(query, count=20):
     if not page:
         return [], "empty response"
     if "captcha" in page.lower() or "wappass.baidu.com" in page:
-        with _baidu_lock:
-            _baidu_suspend_until = time.time() + 600
-        return [], "captcha"
+        src = _next_ipv6_source()
+        if src:
+            try:
+                retry_page, _ = fetch(f"https://www.baidu.com/s?{urlencode({'wd': query, 'rn': count})}", timeout=10)
+                if retry_page and "captcha" not in retry_page.lower() and "wappass.baidu.com" not in retry_page:
+                    page = retry_page
+                else:
+                    with _baidu_lock:
+                        _baidu_suspend_until = time.time() + 600
+                    return [], "captcha (retry after source switch failed)"
+            except Exception:
+                with _baidu_lock:
+                    _baidu_suspend_until = time.time() + 600
+                return [], "captcha (retry error)"
+        else:
+            with _baidu_lock:
+                _baidu_suspend_until = time.time() + 600
+            return [], "captcha (no alt source)"
     results = []
     blocks = re.split(r'<div class="[^"]*c-container', page)
     for block in blocks[1:]:
