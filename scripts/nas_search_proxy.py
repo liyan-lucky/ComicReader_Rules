@@ -24,7 +24,8 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 _baidu_suspend_until = 0
 _baidu_lock = threading.Lock()
 _baidu_last_request = 0.0
-_baidu_min_interval = 0.5
+_baidu_min_interval = 3.0
+_baidu_captcha_streak = 0
 _fetch_semaphore = threading.Semaphore(4)
 _global_lock = threading.Lock()
 _global_last_request = 0.0
@@ -142,7 +143,7 @@ def search_bing(query, count=20):
 
 
 def search_baidu(query, count=20):
-    global _baidu_suspend_until, _baidu_last_request
+    global _baidu_suspend_until, _baidu_last_request, _baidu_captcha_streak
     with _baidu_lock:
         now = time.time()
         if now < _baidu_suspend_until:
@@ -168,16 +169,24 @@ def search_baidu(query, count=20):
                     page = retry_page
                 else:
                     with _baidu_lock:
-                        _baidu_suspend_until = time.time() + 600
-                    return [], "captcha (retry after source switch failed)"
+                        _baidu_captcha_streak += 1
+                        suspend = 600 * min(_baidu_captcha_streak, 6)
+                        _baidu_suspend_until = time.time() + suspend
+                    return [], f"captcha (retry failed, suspend {suspend}s)"
             except Exception:
                 with _baidu_lock:
-                    _baidu_suspend_until = time.time() + 600
+                    _baidu_captcha_streak += 1
+                    suspend = 600 * min(_baidu_captcha_streak, 6)
+                    _baidu_suspend_until = time.time() + suspend
                 return [], "captcha (retry error)"
         else:
             with _baidu_lock:
-                _baidu_suspend_until = time.time() + 600
+                _baidu_captcha_streak += 1
+                suspend = 600 * min(_baidu_captcha_streak, 6)
+                _baidu_suspend_until = time.time() + suspend
             return [], "captcha (no alt source)"
+    with _baidu_lock:
+        _baidu_captcha_streak = 0
     results = []
     blocks = re.split(r'<div class="[^"]*c-container', page)
     for block in blocks[1:]:
