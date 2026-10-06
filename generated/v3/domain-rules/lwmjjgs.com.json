@@ -6,7 +6,10 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.play-page-episode-link",
+    "*.play-page-episode-item a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -21,11 +24,6 @@
     "5383ac8230ceee05"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "5383ac8230ceee05",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7ff3de499dc0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
-    }
-  ],
+  "failures": [],
   "status": "rejected"
 }
