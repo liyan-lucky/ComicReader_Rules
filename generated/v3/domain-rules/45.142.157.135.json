@@ -6,9 +6,17 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.tqq0ok",
+    "a.yelgjf",
+    "* a[href]",
+    "*.comic-chapter-item a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.gv6469 img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +29,6 @@
     "a8d8ff79a4d82017"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "a8d8ff79a4d82017",
-      "reason": "ConnectionError: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by NewConnectionError(\"HTTPConnection(host='45.142.157.135', port=8080): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
