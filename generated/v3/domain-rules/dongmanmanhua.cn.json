@@ -10,8 +10,8 @@
     "a",
     "a.on",
     "a.st_r",
-    "a.ico_qq",
-    "a.btn_bx"
+    "a.btn_bx",
+    "a.ico_qq"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -652,6 +652,19 @@
     "d5274b6d4048d669"
   ],
   "replayWorkCount": 623,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "662e84fef2030ad4",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "672eddb43173f1d1",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "6cf72da1d2f1e2d2",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.dongmanmanhua.cn', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
