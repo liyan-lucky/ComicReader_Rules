@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.ep",
+    "a.btn",
+    "a.app",
+    "a.m-app",
+    "*.nav a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.img-wrap img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "de484ba3a4c76304"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "de484ba3a4c76304",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.baoziaicomic.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
