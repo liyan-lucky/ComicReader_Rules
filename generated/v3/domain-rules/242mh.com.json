@@ -6,9 +6,17 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "a.start-read",
+    "*.m-dt-bottom a[href]",
+    "*.chapter-item a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.comic-page img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +29,6 @@
     "98c8217e516c2279"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "98c8217e516c2279",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='242mh.com', port=443): Read timed out."
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
