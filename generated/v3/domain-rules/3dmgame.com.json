@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.bds_sqq",
+    "a.bds_qzone",
+    "a.bds_tsina"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.language-switch__arrow",
+    "*.language-switch__trigger img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "be106fe98430da26"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "be106fe98430da26",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.3dmgame.com/games/theevilwithin/"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
