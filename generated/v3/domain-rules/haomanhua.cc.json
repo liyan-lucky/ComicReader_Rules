@@ -24,7 +24,7 @@
   "failures": [
     {
       "workId": "d6ab3f85ba515112",
-      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f1118199d90>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
