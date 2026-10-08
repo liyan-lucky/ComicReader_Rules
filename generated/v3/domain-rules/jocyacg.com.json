@@ -6,18 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.btn",
-    "* a[href]",
-    "*.area a[href]",
-    "*.primary a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "* img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -30,6 +21,11 @@
     "f9821346ceb923bd"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "f9821346ceb923bd",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.jocyacg.com', port=443): Max retries exceeded with url: /comics/756/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jocyacg.com', port=443) at 0x7f8046299ee0>, 'Connection to www.jocyacg.com timed out. (connect timeout=15)'))"
+    }
+  ],
+  "status": "rejected"
 }
