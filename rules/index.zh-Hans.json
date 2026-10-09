@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261009062516",
-  "updatedAt": "2026-10-09T06:25:16.607845+00:00",
+  "version": "20261009091227",
+  "updatedAt": "2026-10-09T09:12:27.330478+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.bds_sqq",
           "* a[href]",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "a.bds_sqq",
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -260,7 +260,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\byelgjf\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\btqq0ok\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -296,8 +296,8 @@
         ],
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
-          "a.yelgjf",
           "a.tqq0ok",
+          "a.yelgjf",
           "* a[href]",
           "*.comic-chapter-item a[href]"
         ],
@@ -938,8 +938,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.ep",
-          "a.app",
           "a.btn",
+          "a.app",
           "a.m-app",
           "*.nav a[href]"
         ],
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -4986,8 +4986,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -9194,8 +9194,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10576,8 +10576,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11243,7 +11243,48 @@
           "5ab3716ae33cd036"
         ],
         "replayWorkCount": 82,
-        "failures": [],
+        "failures": [
+          {
+            "workId": "f2a4c6b5521c9fc8",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2366349"
+          },
+          {
+            "workId": "76662ed8eab9f3cc",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29860"
+          },
+          {
+            "workId": "dcbabb6e10824fdf",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29074"
+          },
+          {
+            "workId": "df57ec18d85847c3",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
+          },
+          {
+            "workId": "3d80b2d6cdd3cac1",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25119"
+          },
+          {
+            "workId": "5936231a29304a15",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22643"
+          },
+          {
+            "workId": "5a07a1405059692b",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19321"
+          },
+          {
+            "workId": "7834444774f4c689",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31481"
+          },
+          {
+            "workId": "b986ba6ec6bd4b57",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
+          },
+          {
+            "workId": "5ab3716ae33cd036",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
+          }
+        ],
         "status": "rejected"
       },
       {
@@ -11256,8 +11297,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11304,7 +11345,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f8d3e099fd0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f3a8c59e0f0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11370,11 +11411,11 @@
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1embu"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
           },
           {
             "workId": "b8692668c39007e2",
@@ -11382,15 +11423,15 @@
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3hf"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "8941fc658535dbe4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
           },
           {
             "workId": "b45c84733fe4cd75",
@@ -11460,7 +11501,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f0b08799fd0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f1b5722a2d0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11491,7 +11532,7 @@
         "failures": [
           {
             "workId": "f9821346ceb923bd",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.jocyacg.com', port=443): Max retries exceeded with url: /comics/756/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jocyacg.com', port=443) at 0x7fbb6f63e150>, 'Connection to www.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.jocyacg.com', port=443): Max retries exceeded with url: /comics/756/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jocyacg.com', port=443) at 0x7f1d6c8a1dc0>, 'Connection to www.jocyacg.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11522,7 +11563,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f4c3eb9de50>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f164328e0c0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11555,15 +11596,15 @@
         "failures": [
           {
             "workId": "b8e55ad8a0e63404",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f9e621460f0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f29ff781ee0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "cdfb83a6a1547d8f",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f9e62146990>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f29ff782780>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "ba7f807d4ee06aba",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f9e62146c00>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x7f29ff782a50>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11597,19 +11638,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f692f73e120>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f692f73e9c0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f693a0a6900>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f692f73e4b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
           }
         ],
         "status": "rejected"
