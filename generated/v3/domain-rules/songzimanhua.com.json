@@ -6,18 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.btn",
-    "* a[href]",
-    "a.chapter-collapsed",
-    "*.detail-actions a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reader-page-image",
-    "*.reader-page-img img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -30,6 +21,11 @@
     "1e2354e038357d44"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "1e2354e038357d44",
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://songzimanhua.com/book/15632/"
+    }
+  ],
+  "status": "rejected"
 }

@@ -6,18 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]",
-    "a.mcd-read",
-    "a.mcd-chapter",
-    "*.mcd-catalog a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reader-page-image",
-    "*.reader-page-wrap img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -46,48 +37,64 @@
   "replayWorkCount": 15,
   "failures": [
     {
+      "workId": "8aeb2333cb39d1d6",
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-m1f"
+    },
+    {
+      "workId": "34cc72fb9d7c3cf1",
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-a5m"
+    },
+    {
+      "workId": "d6bea9c17c397f36",
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-c7s"
+    },
+    {
+      "workId": "7102201f44fdcbbd",
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-9wt"
+    },
+    {
       "workId": "c6a16655ffdb2933",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jhh"
     },
     {
       "workId": "1758f2dc479d1eaf",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-m20"
     },
     {
       "workId": "4b5c82290e3d1dd4",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-b2k"
     },
     {
       "workId": "b6aa05fac0a818a9",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-o2h"
     },
     {
       "workId": "da5a6a8e09f1c8a5",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-bsa"
     },
     {
       "workId": "b8692668c39007e2",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-o9w"
     },
     {
       "workId": "3211af59c13509a5",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jch"
     },
     {
       "workId": "326d20bf2df36824",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-b2k"
     },
     {
       "workId": "8941fc658535dbe4",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-mjo"
     },
     {
       "workId": "b45c84733fe4cd75",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-mjo"
     },
     {
       "workId": "43643d9cebc02830",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jhh"
     }
   ],
   "status": "rejected"

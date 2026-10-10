@@ -6,13 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.btn",
-    "* a[href]",
-    "a.mobile-primary-btn",
-    "*.hero-actions a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -108,6 +102,335 @@
     "5ab3716ae33cd036"
   ],
   "replayWorkCount": 82,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "19e4e5372592ae8c",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18981 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1ee0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "1b692dbde0ff7630",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=20431 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2780>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "33ea212cee8f904a",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31623 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da26f0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "35b5d50b759281d3",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=32072 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1ee0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "66c5383cf77fcfe2",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29342 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da33b0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "6badd7a97280cafa",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18401 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3ec0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "70167161e82e3331",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28580 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520a10>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7b08f687ec33bac6",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31225 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3860>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7e9c787cfe72be4b",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=34048 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2f90>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "8806c47a6747b9a4",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23137 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2360>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "89d3a9196a016b94",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31322 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520680>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "8ba2fd1b3d5ed9f4",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30980 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5213a0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "937f3f57a2ab4f30",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18857 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1f40>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "9a4132f4c26dc79a",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18053 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3b00>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "9e85002eccc8df68",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=22537 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3bf0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a2778e5d9f116357",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28967 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520950>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a667813e3c8a5e6d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=37323 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da38c0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "af35c6adc1f57e17",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=32456 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3170>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "b588f23aebf23cac",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29096 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da23f0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "c9ebc4c033da6123",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28822 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520410>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "cb72a1714322cd9c",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=35352 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521a90>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "e4702d54dc4c4acb",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28518 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2ab0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "f1904095b83264be",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18241 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2f90>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "2f39c4264c0f86de",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=17826 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3d40>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "4ef51d5dc2cc1e8b",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=32466 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5204d0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "d88421ad167edd25",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30076 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf522390>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "eff32cc4ff2cd42d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28857 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2f30>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "04eafbaf130f2d37",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=14649 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1ee0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "0b0934c873019d7a",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=14857 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2d80>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "0ee6e655e55661b8",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29422 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520110>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "220e65c077fdda6e",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=22031 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2630>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "2fab0a727dbedf71",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31460 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da13d0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "30436123a009fbe1",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=21469 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3770>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "393a303f35d02b0e",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=25342 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520620>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "da4fbff861b4f801",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=16765 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521970>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "6e11bf056589cb92",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=12862 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3ad0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "9f6cfeb31d8eb910",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=20528 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2720>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "09f0f6a176217276",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23485 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2d20>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "12d5933804bfcc85",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=21249 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521b20>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "162cd73fcf9589e9",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18702 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520da0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "1a8d2994649915d3",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28990 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da23f0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "2a1e0ae63f37acb9",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29084 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da30b0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "630e761a7260f135",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=24183 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520ec0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7a4d0ea13031e784",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23398 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521ee0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7d763be408edaf72",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30553 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3860>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7e9e98abea31f2af",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23364 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1370>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "846f318fe047ed35",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=28652 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da21b0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "99796800acc7bfb7",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=18019 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521640>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a66b0c7315570d9d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30407 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf522930>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "aabf67a77dcc027a",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=20185 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2660>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "adba61019be0c122",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=17824 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3e30>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "d70e80502362d52d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=20110 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf522930>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "e3e445b10adc1be7",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=13845 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf522480>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "f7fe91c19d103aa7",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=24631 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf523200>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "fbdaf57b2dc8942f",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=14544 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da1c40>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "0fdf24524fbfbfa1",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23137 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2c90>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "2644575ca1013084",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=12306 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf521f40>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "27be24ce16496300",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=19533 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5209e0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "7c1f4685a6c0f8e8",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=21196 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2780>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "93f55a4e8e423a11",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30582 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da37a0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a6257dbf6f4c34d7",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=24275 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3d70>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "af84afa5c21dcb2e",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=25517 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf520890>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "ba556120fe1fd8e0",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=23330 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf523890>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "e4fc49f0d5293e41",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=20110 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3e60>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "ea9e048cd6a2b853",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=25575 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da2720>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "1b08126b1c22fd47",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29422 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5238c0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "59b49ee283ab6d17",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30914 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5207d0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "6f268dc1ef80eeba",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=25517 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf523f80>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a994329fade274ac",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30980 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf5208f0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "ac0dbcc0511ac71e",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=17065 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5edf522e40>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "b45c84733fe4cd75",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29220 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da20f0>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "e436158347a5d98f",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=30553 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guazimanhua.com', port=443) at 0x7f5ed7da3890>, 'Connection to www.guazimanhua.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "f2a4c6b5521c9fc8",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31343 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "76662ed8eab9f3cc",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29860 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "dcbabb6e10824fdf",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=29074 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "df57ec18d85847c3",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=32772 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "3d80b2d6cdd3cac1",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=25119 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "5936231a29304a15",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=22643 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "5a07a1405059692b",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=19321 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "7834444774f4c689",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=31481 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "b986ba6ec6bd4b57",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=11078 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "workId": "5ab3716ae33cd036",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.guazimanhua.com', port=443): Max retries exceeded with url: /comic.php?id=32772 (Caused by NewConnectionError(\"HTTPSConnection(host='www.guazimanhua.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    }
+  ],
   "status": "rejected"
 }
