@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "*.grid a[href]",
-    "a.text-blue-600"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "* img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,6 +21,11 @@
     "32ed3ff6408b4805"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "32ed3ff6408b4805",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.shuyuanks.com/content/9223.html"
+    }
+  ],
+  "status": "rejected"
 }

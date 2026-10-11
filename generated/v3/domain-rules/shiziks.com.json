@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "*.grid a[href]",
-    "a.text-blue-600"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "* img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -28,6 +22,15 @@
     "459458b977a50770"
   ],
   "replayWorkCount": 2,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "eadd5c165ea3120c",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.shiziks.com/content/216280/"
+    },
+    {
+      "workId": "459458b977a50770",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.shiziks.com/content/62652/"
+    }
+  ],
+  "status": "rejected"
 }
