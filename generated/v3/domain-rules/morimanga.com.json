@@ -6,17 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a.mp-btn",
-    "a.mp-chapter-row",
-    "*.mp-chapters a[href]",
-    "*.mp-work-actions a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.mp-reader-img",
-    "*.mp-reader-pages img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -29,6 +21,11 @@
     "4cfb274456bf2772"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "4cfb274456bf2772",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='morimanga.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
