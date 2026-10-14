@@ -13,7 +13,10 @@
     "*.article-buttom a[href]"
   ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.lazy-img",
+    "*.hide-scrollbars img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,15 +30,6 @@
     "e6363f4a1c9a16ec"
   ],
   "replayWorkCount": 2,
-  "failures": [
-    {
-      "workId": "d688bc254f8db2ac",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "e6363f4a1c9a16ec",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
