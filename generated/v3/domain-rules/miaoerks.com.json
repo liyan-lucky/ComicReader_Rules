@@ -6,9 +6,15 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "*.grid a[href]",
+    "a.text-blue-600"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -22,15 +28,6 @@
     "83d611c29228c8a9"
   ],
   "replayWorkCount": 2,
-  "failures": [
-    {
-      "workId": "ebe16983b69e9c41",
-      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.miaoerks.com/book/43502.html"
-    },
-    {
-      "workId": "83d611c29228c8a9",
-      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.miaoerks.com/book/43502.html"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
