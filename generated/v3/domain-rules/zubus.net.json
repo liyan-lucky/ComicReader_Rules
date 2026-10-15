@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "*.mu_list img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -28,6 +22,15 @@
     "1cfdc633ed59b7df"
   ],
   "replayWorkCount": 2,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "0b94880975673773",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='zubus.net', port=443): Max retries exceeded with url: /2113/ (Caused by NameResolutionError(\"HTTPSConnection(host='zubus.net', port=443): Failed to resolve 'zubus.net' ([Errno -5] No address associated with hostname)\"))"
+    },
+    {
+      "workId": "1cfdc633ed59b7df",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='zubus.net', port=443): Max retries exceeded with url: /2113/ (Caused by NameResolutionError(\"HTTPSConnection(host='zubus.net', port=443): Failed to resolve 'zubus.net' ([Errno -5] No address associated with hostname)\"))"
+    }
+  ],
+  "status": "rejected"
 }
