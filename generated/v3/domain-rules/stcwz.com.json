@@ -100,6 +100,11 @@
     "e32ddc75ac76364e"
   ],
   "replayWorkCount": 77,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "6ad1b075b2a4e436",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/377828/1.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.stcwz.com', port=443) at 0x7fd81ada4d70>, 'Connection to www.stcwz.com timed out. (connect timeout=15)'))"
+    }
+  ],
   "status": "rejected"
 }
