@@ -42,6 +42,31 @@
     "6d62962a7466c854"
   ],
   "replayWorkCount": 17,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "f91e413fd2f81bc8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "fdb8d98a060761dd",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "39dc7ada7dc438ed",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "3a30d84439927664",
+      "reason": "ReadTimeout: HTTPConnectionPool(host='pipimanhua.com', port=80): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "40e8d93765c59dde",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "5ce33c7843b444ce",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
