@@ -6,13 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]",
-    "a.mcd-read",
-    "a.mcd-chapter",
-    "*.mcd-catalog a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
     "img.reader-page-image",
@@ -46,8 +40,12 @@
   "replayWorkCount": 15,
   "failures": [
     {
+      "workId": "c6a16655ffdb2933",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
+    },
+    {
       "workId": "1758f2dc479d1eaf",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
     },
     {
       "workId": "4b5c82290e3d1dd4",
@@ -59,7 +57,7 @@
     },
     {
       "workId": "da5a6a8e09f1c8a5",
-      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
     },
     {
       "workId": "b8692668c39007e2",
@@ -72,6 +70,10 @@
     {
       "workId": "326d20bf2df36824",
       "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+    },
+    {
+      "workId": "8941fc658535dbe4",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
     },
     {
       "workId": "b45c84733fe4cd75",
