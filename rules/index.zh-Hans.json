@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261016154330",
-  "updatedAt": "2026-10-16T15:43:30.385028+00:00",
+  "version": "20261016161652",
+  "updatedAt": "2026-10-16T16:16:52.044923+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
+          "* a[href]",
           "a.bds_qzone",
           "a.bds_tsina"
         ],
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "a.toolBar-toolRead",
           "*.lay-flex a[href]",
+          "a.toolBar-toolRead",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2416,8 +2416,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4979,8 +4979,8 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.py-2 a[href]",
-          "*.flex a[href]"
+          "*.flex a[href]",
+          "*.py-2 a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8464,8 +8464,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.item_box",
           "a.read_btn",
+          "a.item_box",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -9194,8 +9194,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11386,8 +11386,12 @@
         "replayWorkCount": 15,
         "failures": [
           {
+            "workId": "1758f2dc479d1eaf",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
+          },
+          {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
           },
           {
             "workId": "b6aa05fac0a818a9",
@@ -11399,11 +11403,11 @@
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esoa"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3dn"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
           },
           {
             "workId": "326d20bf2df36824",
@@ -11419,7 +11423,7 @@
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
           }
         ],
         "status": "rejected"
@@ -11450,7 +11454,7 @@
         "failures": [
           {
             "workId": "fc161ca8586d4f68",
-            "reason": "HTTPError: 520 Server Error: <none> for url: https://www.hmgmanhua.com/hmdl/10804/1653494.html"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.hmgmanhua.com/hmdl/10804/1653494.html"
           }
         ],
         "status": "rejected"
@@ -11481,7 +11485,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7fa516ba2660>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f9761bda660>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11543,43 +11547,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f02800065a0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
-          }
-        ],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "m_jingmingbg_com",
-        "domain": "m.jingmingbg.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "d688bc254f8db2ac",
-          "e6363f4a1c9a16ec"
-        ],
-        "replayWorkCount": 2,
-        "failures": [
-          {
-            "workId": "d688bc254f8db2ac",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jingmingbg.com', port=443): Read timed out. (read timeout=15)"
-          },
-          {
-            "workId": "e6363f4a1c9a16ec",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://m.jingmingbg.com/7714/"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f16253c27e0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
