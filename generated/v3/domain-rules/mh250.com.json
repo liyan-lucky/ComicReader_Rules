@@ -62,6 +62,31 @@
     "96b295d594c6ea7d"
   ],
   "replayWorkCount": 39,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "d4f7f387e67fa7dd",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.mh250.com/book/6d3122b722/778558.html"
+    },
+    {
+      "workId": "1e2887ee1625f9f4",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.mh250.com/book/caf1410a7f/1091610.html"
+    },
+    {
+      "workId": "685311c640db28fb",
+      "reason": "SSLError: HTTPSConnectionPool(host='mh250.com', port=443): Max retries exceeded with url: /comic/1476ff84cf/ (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'mh250.com'. (_ssl.c:1010)\")))"
+    },
+    {
+      "workId": "7860d5a9a9c28ce0",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.mh250.com/book/a644003213/1115092.html"
+    },
+    {
+      "workId": "81371ea757ff60a3",
+      "reason": "HTTPError: 404 Client Error: Not Found for url: https://www.mh250.com/book/348c81181c/171229.html"
+    },
+    {
+      "workId": "51b4a5e92702eca7",
+      "reason": "SSLError: HTTPSConnectionPool(host='mh250.com', port=443): Max retries exceeded with url: /comic/1476ff84cf/ (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'mh250.com'. (_ssl.c:1010)\")))"
+    }
+  ],
   "status": "rejected"
 }
