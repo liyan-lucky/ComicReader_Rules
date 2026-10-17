@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.ep",
+    "a.app",
+    "a.btn",
+    "a.m-app",
+    "*.nav a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.img-wrap img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "de484ba3a4c76304"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "de484ba3a4c76304",
-      "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://www.baoziaicomic.com/comic/831882025369669/%E8%A7%A3%E5%89%96%E6%80%AA%E5%85%BD"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
