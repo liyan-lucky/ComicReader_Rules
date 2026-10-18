@@ -47,6 +47,11 @@
     "9a6ef0ce439fcfbc"
   ],
   "replayWorkCount": 19,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "cd412a89282ebd85",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='nubbub.com', port=443): Max retries exceeded with url: /mh/24563/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='nubbub.com', port=443) at 0x7fc4e0a4d970>, 'Connection to nubbub.com timed out. (connect timeout=15)'))"
+    }
+  ],
+  "status": "rejected"
 }
