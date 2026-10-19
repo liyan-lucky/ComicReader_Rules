@@ -6,20 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.flex",
-    "a.flex-1",
-    "*.py-2 a[href]",
-    "*.flex a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "* img",
-    "img.h-auto",
-    "*.w-full img",
-    "img.lazyload"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -32,6 +21,11 @@
     "457a20b5a5c480c6"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "457a20b5a5c480c6",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='keke2026.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
