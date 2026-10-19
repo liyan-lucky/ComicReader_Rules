@@ -9,8 +9,8 @@
   "detailChapterSelectors": [
     "a",
     "a.social-icon",
-    "*.social-links a[href]",
-    "*.chapter-item a[href]"
+    "*.chapter-item a[href]",
+    "*.social-links a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -36,31 +36,6 @@
     "e32ddc75ac76364e"
   ],
   "replayWorkCount": 8,
-  "failures": [
-    {
-      "workId": "9b38d50107960278",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "f9c4fdc223a5b1bc",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "4bafa5f66c48e1e8",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_44436.html"
-    },
-    {
-      "workId": "56baf85af1cea3b2",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_23603.html"
-    },
-    {
-      "workId": "d63ad69c78280b3d",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "98307a561b60cf69",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
