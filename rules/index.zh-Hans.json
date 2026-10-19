@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261019053140",
-  "updatedAt": "2026-10-19T05:31:40.983225+00:00",
+  "version": "20261019060503",
+  "updatedAt": "2026-10-19T06:05:03.028718+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -219,8 +219,8 @@
           "a",
           "a.bds_sqq",
           "* a[href]",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2416,8 +2416,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11364,7 +11364,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f4273bc2810>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f3b7670e540>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11422,11 +11422,11 @@
           },
           {
             "workId": "1758f2dc479d1eaf",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zax2"
           },
           {
             "workId": "b6aa05fac0a818a9",
@@ -11442,11 +11442,11 @@
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3hf"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "8941fc658535dbe4",
@@ -11454,7 +11454,11 @@
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
+          },
+          {
+            "workId": "43643d9cebc02830",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
           }
         ],
         "status": "rejected"
@@ -11516,7 +11520,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7f5395dd66f0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7fd8fe2ca8d0>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11578,7 +11582,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f25cc106540>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fd16e1de720>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11612,19 +11616,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feac50da720>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f3d25ae2780>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feac50dafc0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f3d25ae3020>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feac50db290>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f3d25ae3380>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feac50da840>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f3d25ae26c0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11993,27 +11997,55 @@
         "failures": [
           {
             "workId": "84cdd800bf601efc",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/21695/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbebbbfe5d0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/21695/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f278e7e26f0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "fcea7e3321c120b8",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbebbbfee70>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f278e7e2f90>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "1c3d23fe214a2f1c",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbec3262390>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6a540>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "413c55d24fb169fc",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbec3263050>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6b1d0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "501e5af2bdfc8704",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/10833/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbec3262db0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/10833/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6b440>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "5d4d2d9a35f116f6",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7fbec3261fd0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6a4b0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "60468e03e87c363f",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6b9e0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "708bb21833791511",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29263/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e886e0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "a1f944185e378b7b",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/2019/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e89340>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "ba417c12133c01cc",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/28640.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6a180>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "d9fcb8ec018cc0b8",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29017/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e6a9c0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "da733236aef9cf5d",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/11640.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e88cb0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+          },
+          {
+            "workId": "e498f26bcf8f7927",
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26190/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f2795e893d0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
