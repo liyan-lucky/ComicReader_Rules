@@ -10,6 +10,7 @@
     "a",
     "* a[href]",
     "a.iconfont",
+    "a.ksaa_btn",
     "*.nav_one a[href]"
   ],
   "detailUrlAttribute": "href",
@@ -50,27 +51,75 @@
   "failures": [
     {
       "workId": "84cdd800bf601efc",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/21695/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f1670f02450>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/21695/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe68bce750>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "fcea7e3321c120b8",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f1670f02cf0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe68bcefc0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "1c3d23fe214a2f1c",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f1678462570>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe702565d0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "413c55d24fb169fc",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f1678463230>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70257260>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "501e5af2bdfc8704",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/10833/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f16784631a0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/10833/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70257470>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "5d4d2d9a35f116f6",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7f1678462060>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70256840>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "60468e03e87c363f",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70257b30>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "708bb21833791511",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29263/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70274800>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "a1f944185e378b7b",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/2019/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70275430>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "ba417c12133c01cc",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/28640.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70256150>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "d9fcb8ec018cc0b8",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29017/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70256cf0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "da733236aef9cf5d",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/11640.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70274e60>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "e498f26bcf8f7927",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26190/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70275520>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "fba5536caccdd1d4",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70256ed0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "6a5e7279a84992c5",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/24717/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe702563f0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "6635140470b449e4",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25621.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70257ce0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "db1640ffe211b447",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70274590>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "workId": "9a6ef0ce439fcfbc",
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/14819/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nubbub.com', port=443) at 0x7efe70275df0>, 'Connection to www.nubbub.com timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
