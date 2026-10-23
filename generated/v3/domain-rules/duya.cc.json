@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "*.mu_list img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,6 +21,11 @@
     "e32ddc75ac76364e"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "e32ddc75ac76364e",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.duya.cc/comic/47f0e3db3c/"
+    }
+  ],
+  "status": "rejected"
 }
