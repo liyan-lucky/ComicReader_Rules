@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "*.mu_list img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -66,6 +60,30 @@
   ],
   "replayWorkCount": 39,
   "failures": [
+    {
+      "workId": "3e29278ec981b10c",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/c2bf9d2588/"
+    },
+    {
+      "workId": "4ffc4692e1a01cc3",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/ae879dc66a/"
+    },
+    {
+      "workId": "cca246502c7c2c19",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/e685adc051/"
+    },
+    {
+      "workId": "d4f7f387e67fa7dd",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/6d3122b722/"
+    },
+    {
+      "workId": "d74c8f0157a5e387",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/eb8d8ba16c/"
+    },
+    {
+      "workId": "4ae960619a7d5261",
+      "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/cae4d88301/"
+    },
     {
       "workId": "5614e573eec70bd5",
       "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/5765948434/"
