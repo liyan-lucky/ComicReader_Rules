@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261023000045",
-  "updatedAt": "2026-10-23T00:00:45.939510+00:00",
+  "version": "20261023003035",
+  "updatedAt": "2026-10-23T00:30:35.815492+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
+          "* a[href]",
           "a.bds_tsina",
           "a.bds_qzone"
         ],
@@ -260,7 +260,7 @@
       "searchCoverGroups": [],
       "searchResultIsChapter": false,
       "searchFilterByKeyword": true,
-      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\btqq0ok\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
+      "detailChapterRegex": "<a(?=[^>]*class=[\"\\'][^\"\\']*\\byelgjf\\b[^\"\\']*[\"\\'])[^>]+href=[\"\\']([^\"\\']+)[\"\\'][^>]*>([\\s\\S]{0,280}?)<\\/a>",
       "detailChapterTitleGroups": [
         2
       ],
@@ -296,8 +296,8 @@
         ],
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
-          "a.tqq0ok",
           "a.yelgjf",
+          "a.tqq0ok",
           "* a[href]",
           "*.comic-chapter-item a[href]"
         ],
@@ -8464,8 +8464,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.item_box",
           "a.read_btn",
+          "a.item_box",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -10576,8 +10576,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11219,7 +11219,7 @@
         "failures": [
           {
             "workId": "e32ddc75ac76364e",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.duya.cc/comic/47f0e3db3c/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.duya.cc', port=443): Read timed out. (read timeout=15)"
           }
         ],
         "status": "rejected"
@@ -11395,7 +11395,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f5e60bd6780>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11453,15 +11453,15 @@
           },
           {
             "workId": "1758f2dc479d1eaf",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1embu"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
@@ -11485,7 +11485,7 @@
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
           },
           {
             "workId": "43643d9cebc02830",
@@ -11551,7 +11551,7 @@
         "failures": [
           {
             "workId": "b5b0e38ae73d2012",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7fde78cca990>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.id86.com', port=443): Max retries exceeded with url: /comic-12740/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.id86.com', port=443) at 0x7ffbbecda630>, 'Connection to www.id86.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11613,7 +11613,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fcddd6ca810>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fcec48de6c0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11647,19 +11647,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f990faca9f0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f990facb230>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f990facb410>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f990facaab0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11758,23 +11758,23 @@
         "failures": [
           {
             "workId": "3e29278ec981b10c",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/c2bf9d2588/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "4ffc4692e1a01cc3",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/ae879dc66a/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "cca246502c7c2c19",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/e685adc051/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "d4f7f387e67fa7dd",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/6d3122b722/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "d74c8f0157a5e387",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/eb8d8ba16c/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "4ae960619a7d5261",
@@ -11782,15 +11782,15 @@
           },
           {
             "workId": "5614e573eec70bd5",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/5765948434/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "03c72bc237e7cbfb",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/1095c2b9c8/1078587.html"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "0c33ef19585521f4",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/9460ac2525/976389.html"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "1c3d23fe214a2f1c",
@@ -11798,7 +11798,7 @@
           },
           {
             "workId": "1e2887ee1625f9f4",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/caf1410a7f/1083434.html"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "447816b09c4980a2",
@@ -11810,7 +11810,7 @@
           },
           {
             "workId": "56284a70613376d0",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/7f87772d52/1087359.html"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "57dae10e6b892cba",
@@ -11830,7 +11830,7 @@
           },
           {
             "workId": "685311c640db28fb",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://mh250.com/comic/1476ff84cf/"
           },
           {
             "workId": "7860d5a9a9c28ce0",
@@ -11846,7 +11846,7 @@
           },
           {
             "workId": "93fdad335ef440a4",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/740bc58511/"
           },
           {
             "workId": "b3a39fda20b39280",
@@ -11854,11 +11854,11 @@
           },
           {
             "workId": "b5aaf01d1e956a52",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/2f9469b26d/1070449.html"
           },
           {
             "workId": "f0b4420b7dba5186",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/6a00480efa/1079155.html"
           },
           {
             "workId": "f4e5f22255540a80",
@@ -11866,11 +11866,11 @@
           },
           {
             "workId": "f6a6388b0188af7f",
-            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/a2c5fc472c/"
           },
           {
             "workId": "fbc3875436a26356",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/7eaa72a756/"
           },
           {
             "workId": "fdc84892ceb2fb13",
@@ -11878,7 +11878,7 @@
           },
           {
             "workId": "8080721ff2e9ba30",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/107158fe9b/"
           },
           {
             "workId": "51b4a5e92702eca7",
@@ -11890,7 +11890,7 @@
           },
           {
             "workId": "b0ddabe28d6af5e3",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/cb9d723957/"
           },
           {
             "workId": "341a9d0d4a2cc15f",
@@ -11898,7 +11898,7 @@
           },
           {
             "workId": "397766893e754cda",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/3ad6354aa1/"
           },
           {
             "workId": "3a730eec1a223c62",
@@ -11906,11 +11906,11 @@
           },
           {
             "workId": "bc86487f904f46c0",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/082cc55d6c/"
           },
           {
             "workId": "96b295d594c6ea7d",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.mh250.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.mh250.com/book/198dd9b77d/"
           }
         ],
         "status": "rejected"
