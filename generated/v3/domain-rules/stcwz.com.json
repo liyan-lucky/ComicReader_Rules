@@ -102,24 +102,8 @@
   "replayWorkCount": 77,
   "failures": [
     {
-      "workId": "417e175bc4771de8",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/026128/1.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "workId": "44715ef8f6a8bb09",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/458288.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "workId": "4681888973364100",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.stcwz.com/bookshell/161288.html"
-    },
-    {
-      "workId": "675af96e23ee8b55",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.stcwz.com/bookshell/533228.html"
-    },
-    {
-      "workId": "6ad1b075b2a4e436",
-      "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "workId": "7f979ebe2f2817d7",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.stcwz.com', port=443): Read timed out. (read timeout=15)"
     }
   ],
   "status": "rejected"

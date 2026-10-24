@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261024150249",
-  "updatedAt": "2026-10-24T15:02:49.184430+00:00",
+  "version": "20261024154146",
+  "updatedAt": "2026-10-24T15:41:46.828200+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2416,8 +2416,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -10576,8 +10576,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11334,28 +11334,7 @@
           "5ab3716ae33cd036"
         ],
         "replayWorkCount": 82,
-        "failures": [
-          {
-            "workId": "5936231a29304a15",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1257892"
-          },
-          {
-            "workId": "5a07a1405059692b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19321"
-          },
-          {
-            "workId": "7834444774f4c689",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31481"
-          },
-          {
-            "workId": "b986ba6ec6bd4b57",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
-          },
-          {
-            "workId": "5ab3716ae33cd036",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
-          }
-        ],
+        "failures": [],
         "status": "rejected"
       },
       {
@@ -11368,8 +11347,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.chapter-name",
           "*.item a[href]",
+          "a.chapter-name",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11416,7 +11395,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f1fd76da6f0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f6154fd27e0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11478,7 +11457,7 @@
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "b6aa05fac0a818a9",
@@ -11486,11 +11465,11 @@
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esob"
           },
           {
             "workId": "3211af59c13509a5",
@@ -11498,7 +11477,7 @@
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "8941fc658535dbe4",
@@ -11506,7 +11485,7 @@
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
           },
           {
             "workId": "43643d9cebc02830",
@@ -11634,7 +11613,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f96403caa20>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fdd946ce960>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11668,19 +11647,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7cee6caa50>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f11636ce780>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7cee6cb320>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f11636cf020>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7cee6cb650>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f11636cf530>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7cee6ca900>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f11636ce900>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12005,7 +11984,10 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
@@ -12172,24 +12154,8 @@
         "replayWorkCount": 77,
         "failures": [
           {
-            "workId": "417e175bc4771de8",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/026128/1.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "44715ef8f6a8bb09",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/458288.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "4681888973364100",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.stcwz.com/bookshell/161288.html"
-          },
-          {
-            "workId": "675af96e23ee8b55",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.stcwz.com/bookshell/533228.html"
-          },
-          {
-            "workId": "6ad1b075b2a4e436",
-            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+            "workId": "7f979ebe2f2817d7",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.stcwz.com', port=443): Read timed out. (read timeout=15)"
           }
         ],
         "status": "rejected"
