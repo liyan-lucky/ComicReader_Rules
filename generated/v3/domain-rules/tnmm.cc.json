@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img",
-    "*.mu_list img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -27,6 +21,11 @@
     "f6716506b2c28f94"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "f6716506b2c28f94",
+      "reason": "ConnectionError: HTTPSConnectionPool(host='www.tnmm.cc', port=443): Max retries exceeded with url: /tm33133.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.tnmm.cc', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    }
+  ],
+  "status": "rejected"
 }
