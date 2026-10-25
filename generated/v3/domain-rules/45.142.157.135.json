@@ -24,7 +24,7 @@
   "failures": [
     {
       "workId": "a8d8ff79a4d82017",
-      "reason": "ConnectionError: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by NewConnectionError(\"HTTPConnection(host='45.142.157.135', port=8080): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7fe550bce7b0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
