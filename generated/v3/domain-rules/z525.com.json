@@ -36,6 +36,23 @@
     "e32ddc75ac76364e"
   ],
   "replayWorkCount": 8,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "9b38d50107960278",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "f9c4fdc223a5b1bc",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "4bafa5f66c48e1e8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "56baf85af1cea3b2",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
