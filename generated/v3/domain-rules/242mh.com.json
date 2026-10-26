@@ -6,9 +6,17 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "a.start-read",
+    "*.m-dt-bottom a[href]",
+    "*.chapter-item a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "*.comic-page img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -24,7 +32,7 @@
   "failures": [
     {
       "workId": "98c8217e516c2279",
-      "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='242mh.com', port=443): Read timed out. (read timeout=15)"
     }
   ],
   "status": "rejected"
