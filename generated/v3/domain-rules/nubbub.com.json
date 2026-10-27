@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.iconfont",
+    "*.last a[href]",
+    "*.right a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -46,7 +55,7 @@
     },
     {
       "workId": "fcea7e3321c120b8",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/16518/"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
     },
     {
       "workId": "cd412a89282ebd85",
@@ -54,11 +63,11 @@
     },
     {
       "workId": "1c3d23fe214a2f1c",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/chapter/29152/1840121.html"
     },
     {
       "workId": "413c55d24fb169fc",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/menu/25176.html"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
     },
     {
       "workId": "501e5af2bdfc8704",
@@ -74,23 +83,23 @@
     },
     {
       "workId": "708bb21833791511",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/29263/"
     },
     {
       "workId": "a1f944185e378b7b",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/2019/"
     },
     {
       "workId": "ba417c12133c01cc",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/menu/28640.html"
     },
     {
       "workId": "d9fcb8ec018cc0b8",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/29017/"
     },
     {
       "workId": "da733236aef9cf5d",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/menu/11640.html"
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/chapter/11640/1074137.html"
     },
     {
       "workId": "e498f26bcf8f7927",
@@ -98,7 +107,7 @@
     },
     {
       "workId": "fba5536caccdd1d4",
-      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/26692/"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
     },
     {
       "workId": "6a5e7279a84992c5",
