@@ -10,7 +10,8 @@
     "a",
     "* a[href]",
     "a.iconfont",
-    "*.nav_one a[href]"
+    "*.last a[href]",
+    "*.right a[href]"
   ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [
@@ -47,6 +48,59 @@
     "9a6ef0ce439fcfbc"
   ],
   "replayWorkCount": 19,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "84cdd800bf601efc",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "fcea7e3321c120b8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "cd412a89282ebd85",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "501e5af2bdfc8704",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/10833/"
+    },
+    {
+      "workId": "60468e03e87c363f",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/16518/"
+    },
+    {
+      "workId": "708bb21833791511",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "a1f944185e378b7b",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/2019/"
+    },
+    {
+      "workId": "d9fcb8ec018cc0b8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "e498f26bcf8f7927",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/26190/"
+    },
+    {
+      "workId": "fba5536caccdd1d4",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/26692/"
+    },
+    {
+      "workId": "6a5e7279a84992c5",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "db1640ffe211b447",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "9a6ef0ce439fcfbc",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/14819/"
+    }
+  ],
+  "status": "rejected"
 }
