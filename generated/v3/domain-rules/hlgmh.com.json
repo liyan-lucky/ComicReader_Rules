@@ -46,10 +46,6 @@
   "replayWorkCount": 15,
   "failures": [
     {
-      "workId": "34cc72fb9d7c3cf1",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
       "workId": "d6bea9c17c397f36",
       "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
     },
@@ -74,8 +70,8 @@
       "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
     },
     {
-      "workId": "326d20bf2df36824",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
+      "workId": "43643d9cebc02830",
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf6p"
     }
   ],
   "status": "rejected"
