@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261027205052",
-  "updatedAt": "2026-10-27T20:50:52.009737+00:00",
+  "version": "20261027211835",
+  "updatedAt": "2026-10-27T21:18:35.341545+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
+          "* a[href]",
           "a.bds_tsina",
           "a.bds_qzone"
         ],
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4986,8 +4986,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -8464,8 +8464,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.item_box",
           "a.read_btn",
+          "a.item_box",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -10576,8 +10576,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -10999,7 +10999,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7f3703902660>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7f1b80de2750>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11426,7 +11426,97 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7fe61a8c2a20>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f7ee7f06540>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "hlgmh_com",
+        "domain": "hlgmh.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]",
+          "a.mcd-read",
+          "a.mcd-chapter",
+          "*.mcd-catalog a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.reader-page-image",
+          "*.reader-page-wrap img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "8aeb2333cb39d1d6",
+          "34cc72fb9d7c3cf1",
+          "d6bea9c17c397f36",
+          "7102201f44fdcbbd",
+          "c6a16655ffdb2933",
+          "1758f2dc479d1eaf",
+          "4b5c82290e3d1dd4",
+          "b6aa05fac0a818a9",
+          "da5a6a8e09f1c8a5",
+          "b8692668c39007e2",
+          "3211af59c13509a5",
+          "326d20bf2df36824",
+          "8941fc658535dbe4",
+          "b45c84733fe4cd75",
+          "43643d9cebc02830"
+        ],
+        "replayWorkCount": 15,
+        "failures": [
+          {
+            "workId": "1758f2dc479d1eaf",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
+          },
+          {
+            "workId": "4b5c82290e3d1dd4",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+          },
+          {
+            "workId": "b6aa05fac0a818a9",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+          },
+          {
+            "workId": "da5a6a8e09f1c8a5",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+          },
+          {
+            "workId": "b8692668c39007e2",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+          },
+          {
+            "workId": "3211af59c13509a5",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+          },
+          {
+            "workId": "326d20bf2df36824",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+          },
+          {
+            "workId": "8941fc658535dbe4",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+          },
+          {
+            "workId": "b45c84733fe4cd75",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+          },
+          {
+            "workId": "43643d9cebc02830",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
           }
         ],
         "status": "rejected"
@@ -11550,7 +11640,7 @@
         "failures": [
           {
             "workId": "5383ac8230ceee05",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7f0e8d3c6930>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.lwmjjgs.com', port=443): Max retries exceeded with url: /lw-detail/4265.html (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.lwmjjgs.com', port=443) at 0x7fad9f8de6c0>, 'Connection to www.lwmjjgs.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11584,19 +11674,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7fbfeb28d0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feb90ce2810>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7fbfeb3170>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feb90ce30b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7fbfeb3440>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feb90ce3320>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7fbfeb27b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7feb90ce2750>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11921,18 +12011,9 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "* a[href]",
-          "a.iconfont",
-          "*.last a[href]",
-          "*.right a[href]"
-        ],
+        "detailChapterSelectors": [],
         "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img",
-          "* img"
-        ],
+        "readerImageSelectors": [],
         "readerImageAttributes": [
           "data-original",
           "data-src",
@@ -11970,7 +12051,7 @@
           },
           {
             "workId": "fcea7e3321c120b8",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/16518/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "cd412a89282ebd85",
@@ -11982,11 +12063,11 @@
           },
           {
             "workId": "413c55d24fb169fc",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/menu/25176.html"
           },
           {
             "workId": "501e5af2bdfc8704",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/10833/"
           },
           {
             "workId": "5d4d2d9a35f116f6",
@@ -12010,11 +12091,11 @@
           },
           {
             "workId": "d9fcb8ec018cc0b8",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/29017/"
           },
           {
             "workId": "da733236aef9cf5d",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/chapter/11640/1074137.html"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "e498f26bcf8f7927",
@@ -12022,11 +12103,11 @@
           },
           {
             "workId": "fba5536caccdd1d4",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/26692/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "6a5e7279a84992c5",
-            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.nubbub.com/mh/24717/"
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.nubbub.com', port=443): Read timed out. (read timeout=15)"
           },
           {
             "workId": "6635140470b449e4",
