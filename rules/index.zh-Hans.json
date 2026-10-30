@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261030174442",
-  "updatedAt": "2026-10-30T17:44:42.175610+00:00",
+  "version": "20261030181311",
+  "updatedAt": "2026-10-30T18:13:11.553693+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "* a[href]",
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1720,8 +1720,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4979,8 +4979,8 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.py-2 a[href]",
-          "*.flex a[href]"
+          "*.flex a[href]",
+          "*.py-2 a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -10999,7 +10999,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7fbb9ccc2b70>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7fb3f2ede6f0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11191,37 +11191,6 @@
           {
             "workId": "6b87de0ecbeec5cd",
             "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-          }
-        ],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "cxjob_com_cn",
-        "domain": "cxjob.com.cn",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "db660385795e6036"
-        ],
-        "replayWorkCount": 1,
-        "failures": [
-          {
-            "workId": "db660385795e6036",
-            "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.cxjob.com.cn/book/875/"
           }
         ],
         "status": "rejected"
@@ -11457,7 +11426,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f6cd1ede7e0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f33891d27e0>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11502,63 +11471,63 @@
         "failures": [
           {
             "workId": "8aeb2333cb39d1d6",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m1f (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562ba930>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m1f (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b2900>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "34cc72fb9d7c3cf1",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-a5m (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562bb1d0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-a5m (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b31a0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "d6bea9c17c397f36",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-c7s (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562bb4a0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-c7s (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b3470>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "7102201f44fdcbbd",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-9wt (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562ba8d0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-9wt (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b28a0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "c6a16655ffdb2933",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562bbe30>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b3e00>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "1758f2dc479d1eaf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f8980>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff0950>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f9490>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff1460>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o2h (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562bb980>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o2h (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b3aa0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-bsa (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562baf60>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-bsa (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b2f90>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o9w (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f9280>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o9w (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff1220>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jch (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f8410>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jch (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff0590>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f9dc0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff1d90>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "8941fc658535dbe4",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562baba0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b29c0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b562bbdd0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd770b1cd0>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7f2b561f8620>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fdd76ff0470>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11711,19 +11680,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fa9077ce690>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f9b128ce9f0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fa9077cef30>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f9b128cf230>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fa9077ceb70>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f9b128cf1a0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fa9077cda60>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f9b128cea80>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
