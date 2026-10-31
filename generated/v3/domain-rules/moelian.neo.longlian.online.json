@@ -6,11 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a.v-btn",
-    "*.detail-chapter-grid a[href]",
-    "*.detail-action-button a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -25,6 +21,11 @@
     "1ce3cf14c76ab743"
   ],
   "replayWorkCount": 1,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "1ce3cf14c76ab743",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='moelian.neo.longlian.online', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
   "status": "rejected"
 }
