@@ -6,15 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "*.chapter-item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.page-img",
-    "*.manga-pages img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -28,6 +22,15 @@
     "4604ad7f5c4dde43"
   ],
   "replayWorkCount": 2,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "2f5fc42d72583136",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.lovesz.net/comic-3393/"
+    },
+    {
+      "workId": "4604ad7f5c4dde43",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.lovesz.net/comic-15559/"
+    }
+  ],
+  "status": "rejected"
 }
