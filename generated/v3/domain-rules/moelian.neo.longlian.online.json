@@ -6,7 +6,11 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.v-btn",
+    "*.detail-chapter-grid a[href]",
+    "*.detail-action-button a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -21,11 +25,6 @@
     "1ce3cf14c76ab743"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "1ce3cf14c76ab743",
-      "reason": "HTTPError: 404 Client Error: Not Found for url: https://moelian.neo.longlian.online/manga/34"
-    }
-  ],
+  "failures": [],
   "status": "rejected"
 }
