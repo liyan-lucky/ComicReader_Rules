@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261031072924",
-  "updatedAt": "2026-10-31T07:29:24.827127+00:00",
+  "version": "20261031080225",
+  "updatedAt": "2026-10-31T08:02:25.166069+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -219,8 +219,8 @@
           "a",
           "* a[href]",
           "a.bds_sqq",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4274,8 +4274,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8464,8 +8464,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -9194,8 +9194,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10999,7 +10999,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7f5711cde7b0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7f3f0c9928d0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11378,8 +11378,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11426,7 +11426,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7fd802cb6960>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x7f4cc7fde810>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11439,9 +11439,18 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]",
+          "a.mcd-read",
+          "a.mcd-chapter",
+          "*.mcd-catalog a[href]"
+        ],
         "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
+        "readerImageSelectors": [
+          "img.reader-page-image",
+          "*.reader-page-wrap img"
+        ],
         "readerImageAttributes": [
           "data-original",
           "data-src",
@@ -11470,64 +11479,48 @@
         "replayWorkCount": 15,
         "failures": [
           {
-            "workId": "8aeb2333cb39d1d6",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m1f (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "34cc72fb9d7c3cf1",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-a5m (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "d6bea9c17c397f36",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-c7s (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "7102201f44fdcbbd",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-9wt (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
             "workId": "c6a16655ffdb2933",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
           },
           {
             "workId": "1758f2dc479d1eaf",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m20 (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o2h (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-bsa (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o9w (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esob"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jch (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "8941fc658535dbe4",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf6p"
           }
         ],
         "status": "rejected"
@@ -11680,19 +11673,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fb7927b27e0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f86bd0c29c0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fb7927b3080>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f86bd0c3260>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fb79d5d5b80>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f86bd0c3530>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fb7927b2930>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f86bd0c2ae0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12091,7 +12084,10 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a.chapter-name",
+          "*.chapter-item a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [

@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.mcd-read",
+    "a.mcd-chapter",
+    "*.mcd-catalog a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.reader-page-image",
+    "*.reader-page-wrap img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -37,64 +46,48 @@
   "replayWorkCount": 15,
   "failures": [
     {
-      "workId": "8aeb2333cb39d1d6",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m1f (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "workId": "34cc72fb9d7c3cf1",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-a5m (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "workId": "d6bea9c17c397f36",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-c7s (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "workId": "7102201f44fdcbbd",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-9wt (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
       "workId": "c6a16655ffdb2933",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
     },
     {
       "workId": "1758f2dc479d1eaf",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-m20 (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
     },
     {
       "workId": "4b5c82290e3d1dd4",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
     },
     {
       "workId": "b6aa05fac0a818a9",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o2h (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
     },
     {
       "workId": "da5a6a8e09f1c8a5",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-bsa (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
     },
     {
       "workId": "b8692668c39007e2",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-o9w (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esob"
     },
     {
       "workId": "3211af59c13509a5",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jch (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
     },
     {
       "workId": "326d20bf2df36824",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-b2k (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
     },
     {
       "workId": "8941fc658535dbe4",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
     },
     {
       "workId": "b45c84733fe4cd75",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-mjo (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
     },
     {
       "workId": "43643d9cebc02830",
-      "reason": "ConnectionError: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-jhh (Caused by NewConnectionError(\"HTTPSConnection(host='hlgmh.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf6p"
     }
   ],
   "status": "rejected"
