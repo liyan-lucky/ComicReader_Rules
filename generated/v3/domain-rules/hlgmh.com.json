@@ -6,18 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "* a[href]",
-    "a.mcd-read",
-    "a.mcd-chapter",
-    "*.mcd-catalog a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.reader-page-image",
-    "*.reader-page-wrap img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -50,8 +41,12 @@
       "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
     },
     {
+      "workId": "34cc72fb9d7c3cf1",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
       "workId": "d6bea9c17c397f36",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Max retries exceeded with url: /comic/hlg-c7s (Caused by ConnectTimeoutError(<HTTPSConnection(host='hlgmh.com', port=443) at 0x7fd1ef9c9550>, 'Connection to hlgmh.com timed out. (connect timeout=15)'))"
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
     },
     {
       "workId": "7102201f44fdcbbd",
