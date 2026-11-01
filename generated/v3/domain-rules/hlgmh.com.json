@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.mcd-read",
+    "a.mcd-chapter",
+    "*.mcd-catalog a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.reader-page-image",
+    "*.reader-page-wrap img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -90,10 +99,6 @@
     },
     {
       "workId": "b45c84733fe4cd75",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "43643d9cebc02830",
       "reason": "ReadTimeout: HTTPSConnectionPool(host='hlgmh.com', port=443): Read timed out. (read timeout=15)"
     }
   ],
