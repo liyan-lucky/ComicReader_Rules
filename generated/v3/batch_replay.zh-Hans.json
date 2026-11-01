@@ -1,11 +1,11 @@
 {
   "schema": "comic_batch_replay_v1",
   "sampleSize": 50,
-  "verified": 23,
-  "verifiedAndOrdered": 23,
+  "verified": 24,
+  "verifiedAndOrdered": 24,
   "results": [
     {
-      "workId": "1b08126b1c22fd47",
+      "workId": "0ee6e655e55661b8",
       "language": "zh-Hans",
       "category": "",
       "queryTitle": "拐个妈咪带回家",
@@ -1760,7 +1760,7 @@
       }
     },
     {
-      "workId": "0ee6e655e55661b8",
+      "workId": "1b08126b1c22fd47",
       "language": "zh-Hans",
       "category": "",
       "queryTitle": "拐个妈咪带回家",
@@ -18467,31 +18467,6 @@
       }
     },
     {
-      "workId": "c6a16655ffdb2933",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "圣墟",
-      "detailUrl": "https://hlgmh.com/comic/hlg-jhh",
-      "domain": "hlgmh.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmoo"
-      ],
-      "ordering": {
-        "chapterLinks": 293,
-        "numbered": 288,
-        "first": 290,
-        "last": 1,
-        "monotonic": true,
-        "direction": "descending",
-        "gapCount": 2
-      }
-    },
-    {
       "workId": "6badd7a97280cafa",
       "language": "zh-Hans",
       "category": "",
@@ -19623,69 +19598,19 @@
       }
     },
     {
-      "workId": "43643d9cebc02830",
+      "workId": "f18de918fb63d53b",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "圣墟",
-      "detailUrl": "https://hlgmh.com/comic/hlg-jhh",
-      "domain": "hlgmh.com",
+      "queryTitle": "网游之近战法师",
+      "detailUrl": "https://www.patternrecognition.cn/book/7/",
+      "domain": "patternrecognition.cn",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
       "chapterCount": 0,
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
-      ],
-      "ordering": {
-        "chapterLinks": 293,
-        "numbered": 288,
-        "first": 290,
-        "last": 1,
-        "monotonic": true,
-        "direction": "descending",
-        "gapCount": 2
-      }
-    },
-    {
-      "workId": "58d1987f02e6947e",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "无尽吞噬",
-      "detailUrl": "https://www.mh250.com/book/a916c98908/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/a916c98908/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "fc4856746d907830",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "无尽吞噬",
-      "detailUrl": "https://www.mh250.com/book/a916c98908/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/a916c98908/"
+        "HTTPError: 500 Server Error: Internal Server Error for url: https://www.patternrecognition.cn/book/7/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -20802,6 +20727,81 @@
         "monotonic": true,
         "direction": "ascending",
         "gapCount": 1
+      }
+    },
+    {
+      "workId": "58d1987f02e6947e",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "无尽吞噬",
+      "detailUrl": "https://www.mh250.com/book/a916c98908/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/a916c98908/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "fc4856746d907830",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "无尽吞噬",
+      "detailUrl": "https://www.mh250.com/book/a916c98908/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/a916c98908/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "dcbabb6e10824fdf",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "万界仙踪",
+      "detailUrl": "https://www.patternrecognition.cn/book/29/",
+      "domain": "patternrecognition.cn",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ReadTimeout: HTTPSConnectionPool(host='www.patternrecognition.cn', port=443): Read timed out. (read timeout=15)"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
       }
     },
     {
@@ -25792,281 +25792,6 @@
       }
     },
     {
-      "workId": "32ed3ff6408b4805",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "妙手狂医",
-      "detailUrl": "https://www.shuyuanks.com/content/9223.html",
-      "domain": "shuyuanks.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.shuyuanks.com', port=443): Read timed out. (read timeout=15)"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "eadd5c165ea3120c",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "桃运高手",
-      "detailUrl": "https://www.shiziks.com/content/216280/",
-      "domain": "shiziks.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.shiziks.com', port=443): Read timed out. (read timeout=15)"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "459458b977a50770",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "永恒国度",
-      "detailUrl": "https://www.shiziks.com/content/62652/",
-      "domain": "shiziks.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.shiziks.com', port=443): Read timed out. (read timeout=15)"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "341a9d0d4a2cc15f",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "长相思",
-      "detailUrl": "https://www.mh250.com/book/5765948434/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/5765948434/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "5614e573eec70bd5",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "长相思",
-      "detailUrl": "https://www.mh250.com/book/5765948434/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/5765948434/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "69423070eed2f9d9",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "王爷，奴家减个肥",
-      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "f18de918fb63d53b",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "网游之近战法师",
-      "detailUrl": "https://www.patternrecognition.cn/book/7/",
-      "domain": "patternrecognition.cn",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.patternrecognition.cn', port=443): Read timed out. (read timeout=15)"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "dcbabb6e10824fdf",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "万界仙踪",
-      "detailUrl": "https://www.patternrecognition.cn/book/29/",
-      "domain": "patternrecognition.cn",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.patternrecognition.cn', port=443): Read timed out. (read timeout=15)"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "49a85622c49fc31c",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "王爷，奴家减个肥",
-      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "76527003744835ab",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "王爷，奴家减个肥",
-      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "fba10217c4e35c02",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "王爷，奴家减个肥",
-      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
-      "domain": "mh250.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "",
-      "chapterCount": 0,
-      "samples": [],
-      "status": "unreachable",
-      "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
-      ],
-      "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
-        "gapCount": 0
-      }
-    },
-    {
       "workId": "b5f40b382fdb7d6e",
       "language": "zh-Hans",
       "category": "",
@@ -26958,11 +26683,36 @@
       }
     },
     {
-      "workId": "2eef54ea0e791c07",
+      "workId": "c6a16655ffdb2933",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "黑莲花学习手册",
-      "detailUrl": "https://www.mh250.com/book/1235ee9d3a/",
+      "queryTitle": "圣墟",
+      "detailUrl": "https://hlgmh.com/comic/hlg-jhh",
+      "domain": "hlgmh.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
+      ],
+      "ordering": {
+        "chapterLinks": 293,
+        "numbered": 288,
+        "first": 290,
+        "last": 1,
+        "monotonic": true,
+        "direction": "descending",
+        "gapCount": 2
+      }
+    },
+    {
+      "workId": "5614e573eec70bd5",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "长相思",
+      "detailUrl": "https://www.mh250.com/book/5765948434/",
       "domain": "mh250.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
@@ -26970,7 +26720,7 @@
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/1235ee9d3a/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/5765948434/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -26983,11 +26733,11 @@
       }
     },
     {
-      "workId": "e7bac5f45c78e449",
+      "workId": "341a9d0d4a2cc15f",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "黑莲花学习手册",
-      "detailUrl": "https://www.mh250.com/book/1235ee9d3a/",
+      "queryTitle": "长相思",
+      "detailUrl": "https://www.mh250.com/book/5765948434/",
       "domain": "mh250.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
@@ -26995,7 +26745,7 @@
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/1235ee9d3a/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/5765948434/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -27883,853 +27633,27 @@
       }
     },
     {
-      "workId": "3025515061e2ed7f",
+      "workId": "69423070eed2f9d9",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "财阀家的小儿子",
-      "detailUrl": "https://www.kkwebtoon.com/comic/29313",
-      "domain": "kkwebtoon.com",
+      "queryTitle": "王爷，奴家减个肥",
+      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
+      "domain": "mh250.com",
       "policyVersion": "readability-v5",
-      "matchedTitle": "财阀家的小儿子",
-      "coverUrl": "https://s3-tbu-og.kkwebtoon.com//cover/godmanga/gmh-27362.webp",
-      "chapterCount": 196,
-      "chapters": [
-        {
-          "title": "第一话",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128977"
-        },
-        {
-          "title": "2 第2话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128978"
-        },
-        {
-          "title": "3 第3话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128979"
-        },
-        {
-          "title": "4 第4话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128980"
-        },
-        {
-          "title": "5 第5话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128981"
-        },
-        {
-          "title": "6 第6话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128982"
-        },
-        {
-          "title": "7 第7话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128983"
-        },
-        {
-          "title": "8 第8话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128984"
-        },
-        {
-          "title": "9 第9话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128985"
-        },
-        {
-          "title": "10 第10话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128986"
-        },
-        {
-          "title": "11 第11话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128987"
-        },
-        {
-          "title": "12 第12话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128988"
-        },
-        {
-          "title": "13 第13话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128989"
-        },
-        {
-          "title": "14 第14话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128990"
-        },
-        {
-          "title": "15 第15话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128991"
-        },
-        {
-          "title": "16 第16话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128992"
-        },
-        {
-          "title": "17 第17话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128993"
-        },
-        {
-          "title": "18 第18话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128994"
-        },
-        {
-          "title": "19 第19话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128995"
-        },
-        {
-          "title": "20 第20话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128996"
-        },
-        {
-          "title": "21 第21话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128997"
-        },
-        {
-          "title": "22 第22话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128998"
-        },
-        {
-          "title": "23 第23话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/128999"
-        },
-        {
-          "title": "24 第24话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129000"
-        },
-        {
-          "title": "25 第25话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129001"
-        },
-        {
-          "title": "26 第26话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129002"
-        },
-        {
-          "title": "27 第27话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129003"
-        },
-        {
-          "title": "28 第28话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129004"
-        },
-        {
-          "title": "29 第29话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129005"
-        },
-        {
-          "title": "30 第30话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129006"
-        },
-        {
-          "title": "31 第31话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129007"
-        },
-        {
-          "title": "32 第32话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129008"
-        },
-        {
-          "title": "33 第33话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129009"
-        },
-        {
-          "title": "34 第34话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129010"
-        },
-        {
-          "title": "35 第35话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129011"
-        },
-        {
-          "title": "36 第36话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129012"
-        },
-        {
-          "title": "37 第37话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129013"
-        },
-        {
-          "title": "38 第38话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129014"
-        },
-        {
-          "title": "39 第39话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129015"
-        },
-        {
-          "title": "40 第40话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129016"
-        },
-        {
-          "title": "41 第41话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129017"
-        },
-        {
-          "title": "42 第42话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129018"
-        },
-        {
-          "title": "43 第43话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129019"
-        },
-        {
-          "title": "44 第44话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129020"
-        },
-        {
-          "title": "45 第45话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129021"
-        },
-        {
-          "title": "46 第46话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129022"
-        },
-        {
-          "title": "47 第47话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129023"
-        },
-        {
-          "title": "48 第48话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129024"
-        },
-        {
-          "title": "49 第49话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129025"
-        },
-        {
-          "title": "50 第50话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129026"
-        },
-        {
-          "title": "51 第51话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129027"
-        },
-        {
-          "title": "52 第52话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129028"
-        },
-        {
-          "title": "53 第53话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129029"
-        },
-        {
-          "title": "54 第54话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129030"
-        },
-        {
-          "title": "55 第55话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129031"
-        },
-        {
-          "title": "56 第56话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129032"
-        },
-        {
-          "title": "57 第57话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129033"
-        },
-        {
-          "title": "58 第58话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129034"
-        },
-        {
-          "title": "59 第59话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129035"
-        },
-        {
-          "title": "60 第60话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129036"
-        },
-        {
-          "title": "61 第61话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129037"
-        },
-        {
-          "title": "62 第62话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129038"
-        },
-        {
-          "title": "63 第63话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129039"
-        },
-        {
-          "title": "64 第64话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129040"
-        },
-        {
-          "title": "65 第65话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129041"
-        },
-        {
-          "title": "66 第66话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129042"
-        },
-        {
-          "title": "67 第67话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129043"
-        },
-        {
-          "title": "68 第68话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129044"
-        },
-        {
-          "title": "69 第69话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129045"
-        },
-        {
-          "title": "70 第70话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129046"
-        },
-        {
-          "title": "71 第71话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129047"
-        },
-        {
-          "title": "72 第72话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129048"
-        },
-        {
-          "title": "73 第73话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129049"
-        },
-        {
-          "title": "74 第74话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129050"
-        },
-        {
-          "title": "75 第75话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129051"
-        },
-        {
-          "title": "76 第76话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129052"
-        },
-        {
-          "title": "77 第77话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129053"
-        },
-        {
-          "title": "78 第78话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129054"
-        },
-        {
-          "title": "79 第79话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129055"
-        },
-        {
-          "title": "80 第80话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129056"
-        },
-        {
-          "title": "81 第81话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129057"
-        },
-        {
-          "title": "82 第82话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129058"
-        },
-        {
-          "title": "83 第83话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129059"
-        },
-        {
-          "title": "84 第84话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129060"
-        },
-        {
-          "title": "85 第85话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129061"
-        },
-        {
-          "title": "86 第86话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129062"
-        },
-        {
-          "title": "87 第87话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129063"
-        },
-        {
-          "title": "88 第88话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129064"
-        },
-        {
-          "title": "89 第89话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129065"
-        },
-        {
-          "title": "90 第90话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129066"
-        },
-        {
-          "title": "91 第91话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129067"
-        },
-        {
-          "title": "92 第92话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129068"
-        },
-        {
-          "title": "93 第93话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129069"
-        },
-        {
-          "title": "94 第94话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129070"
-        },
-        {
-          "title": "95 第95话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129071"
-        },
-        {
-          "title": "96 第96话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129072"
-        },
-        {
-          "title": "97 第97话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129073"
-        },
-        {
-          "title": "98 第98话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129074"
-        },
-        {
-          "title": "99 第99话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129075"
-        },
-        {
-          "title": "100 第100话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129076"
-        },
-        {
-          "title": "101 第101话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129077"
-        },
-        {
-          "title": "102 第102话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129078"
-        },
-        {
-          "title": "103 第103话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129079"
-        },
-        {
-          "title": "104 第104话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129080"
-        },
-        {
-          "title": "105 第105话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129081"
-        },
-        {
-          "title": "106 第106话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129082"
-        },
-        {
-          "title": "107 第107话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129083"
-        },
-        {
-          "title": "108 第108话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129084"
-        },
-        {
-          "title": "109 第109话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129085"
-        },
-        {
-          "title": "110 第110话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129086"
-        },
-        {
-          "title": "111 第111话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129087"
-        },
-        {
-          "title": "112 第112话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129088"
-        },
-        {
-          "title": "113 第113话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129089"
-        },
-        {
-          "title": "114 第114话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129090"
-        },
-        {
-          "title": "115 第115话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129091"
-        },
-        {
-          "title": "116 第116话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129092"
-        },
-        {
-          "title": "117 第117话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129093"
-        },
-        {
-          "title": "118 第118话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129094"
-        },
-        {
-          "title": "119 第119话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129095"
-        },
-        {
-          "title": "120 第120话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129096"
-        },
-        {
-          "title": "121 第121话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129097"
-        },
-        {
-          "title": "122 第122话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129098"
-        },
-        {
-          "title": "123 第123话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129099"
-        },
-        {
-          "title": "124 第124话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129100"
-        },
-        {
-          "title": "125 第125话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129101"
-        },
-        {
-          "title": "126 第126话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129102"
-        },
-        {
-          "title": "127 第127话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129103"
-        },
-        {
-          "title": "128 第128话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129104"
-        },
-        {
-          "title": "129 第129话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129105"
-        },
-        {
-          "title": "130 第130话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129106"
-        },
-        {
-          "title": "131 第131话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129107"
-        },
-        {
-          "title": "132 第132话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129108"
-        },
-        {
-          "title": "133 第133话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129109"
-        },
-        {
-          "title": "134 第134话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129110"
-        },
-        {
-          "title": "135 第135话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129111"
-        },
-        {
-          "title": "136 第136话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129112"
-        },
-        {
-          "title": "137 第137话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129113"
-        },
-        {
-          "title": "138 第138话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129114"
-        },
-        {
-          "title": "139 第139话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129115"
-        },
-        {
-          "title": "140 第140话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129116"
-        },
-        {
-          "title": "141 第141话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129117"
-        },
-        {
-          "title": "142 第142话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129118"
-        },
-        {
-          "title": "143 第143话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129119"
-        },
-        {
-          "title": "144 第144话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129120"
-        },
-        {
-          "title": "145 第145话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129121"
-        },
-        {
-          "title": "146 第146话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129122"
-        },
-        {
-          "title": "147 第147话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129123"
-        },
-        {
-          "title": "148 第148话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129124"
-        },
-        {
-          "title": "149 第149话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129125"
-        },
-        {
-          "title": "150 第150话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129126"
-        },
-        {
-          "title": "151 第151话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129127"
-        },
-        {
-          "title": "152 第152话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129128"
-        },
-        {
-          "title": "153 第153话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129129"
-        },
-        {
-          "title": "154 第154话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129130"
-        },
-        {
-          "title": "155 第155话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129131"
-        },
-        {
-          "title": "156 第156话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129132"
-        },
-        {
-          "title": "157 第157话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129133"
-        },
-        {
-          "title": "158 第158话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129134"
-        },
-        {
-          "title": "159 第159话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129135"
-        },
-        {
-          "title": "160 第160话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129136"
-        },
-        {
-          "title": "161 第161话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129137"
-        },
-        {
-          "title": "162 第162话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129138"
-        },
-        {
-          "title": "163 第163话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129139"
-        },
-        {
-          "title": "164 第164话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129140"
-        },
-        {
-          "title": "165 第165话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129141"
-        },
-        {
-          "title": "166 第166话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129142"
-        },
-        {
-          "title": "167 第167话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129143"
-        },
-        {
-          "title": "168 第168话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129144"
-        },
-        {
-          "title": "169 第169话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129145"
-        },
-        {
-          "title": "170 第170话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129146"
-        },
-        {
-          "title": "171 第171话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129147"
-        },
-        {
-          "title": "172 第172话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129148"
-        },
-        {
-          "title": "173 第173话 2025-12-11 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/129149"
-        },
-        {
-          "title": "174 第174话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614488"
-        },
-        {
-          "title": "175 第175话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614489"
-        },
-        {
-          "title": "176 第176话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614490"
-        },
-        {
-          "title": "177 第177话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614491"
-        },
-        {
-          "title": "178 第178话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614492"
-        },
-        {
-          "title": "179 第179话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614493"
-        },
-        {
-          "title": "180 第180话 2026-01-21 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1614494"
-        },
-        {
-          "title": "181 第181话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617256"
-        },
-        {
-          "title": "182 第182话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617257"
-        },
-        {
-          "title": "183 第183话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617258"
-        },
-        {
-          "title": "184 第184话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617259"
-        },
-        {
-          "title": "185 第185话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617260"
-        },
-        {
-          "title": "186 第186话 2026-02-25 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1617261"
-        },
-        {
-          "title": "187 第187话 2026-03-18 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1621362"
-        },
-        {
-          "title": "188 第188话 2026-03-18 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1621363"
-        },
-        {
-          "title": "189 第189话 2026-03-18 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1621364"
-        },
-        {
-          "title": "190 第190话 2026-03-18 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1621365"
-        },
-        {
-          "title": "191 第191话 2026-03-18 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1621366"
-        },
-        {
-          "title": "192 第192话 2026-04-15 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1623991"
-        },
-        {
-          "title": "193 第193话 2026-04-15 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1623992"
-        },
-        {
-          "title": "194 第194话 2026-04-15 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1623993"
-        },
-        {
-          "title": "195 第195话 2026-05-15 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1625208"
-        },
-        {
-          "title": "196 第196话 2026-05-15 免费",
-          "url": "https://www.kkwebtoon.com/chapter/29313/1625209"
-        }
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
       ],
-      "chapterOrder": {
-        "numberedCount": 195,
-        "firstNumber": 2,
-        "lastNumber": 196,
-        "minimumNumber": 2,
-        "maximumNumber": 196,
-        "direction": "ascending",
-        "monotonic": true,
-        "coverage": 1.0,
-        "complete": true,
-        "sourceDirection": "ascending",
-        "publishedDirection": "ascending",
-        "sourceChapterCount": 196,
-        "publishedChapterCount": 196,
-        "inaccessibleTailSkipped": 0
-      },
-      "samples": [
-        {
-          "position": "first",
-          "chapterTitle": "第一话",
-          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/128977",
-          "imageCount": 142,
-          "readable": true,
-          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//chapter/godmanga/27362/1130736/202512091578423.webp"
-        },
-        {
-          "position": "middle",
-          "chapterTitle": "99 第99话 2025-12-11 免费",
-          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/129075",
-          "imageCount": 77,
-          "readable": true,
-          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//chapter/godmanga/27362/1503793/202512091592409.webp"
-        },
-        {
-          "position": "latest",
-          "chapterTitle": "196 第196话 2026-05-15 免费",
-          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/1625209",
-          "imageCount": 251,
-          "readable": true,
-          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//dax/gmhReDPic/gmh-27362/1798371/20260515_xhgbla21w5.webp"
-        }
-      ],
-      "status": "verified",
-      "rejectionReasons": [],
       "ordering": {
-        "chapterLinks": 196,
-        "numbered": 195,
-        "first": 2,
-        "last": 196,
-        "monotonic": true,
-        "direction": "ascending",
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
         "gapCount": 0
       }
     },
@@ -29585,11 +28509,11 @@
       }
     },
     {
-      "workId": "18be5414e1bc2d3b",
+      "workId": "49a85622c49fc31c",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "我独自升级",
-      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "queryTitle": "王爷，奴家减个肥",
+      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
       "domain": "mh250.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
@@ -29597,7 +28521,7 @@
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -29610,11 +28534,11 @@
       }
     },
     {
-      "workId": "6598110e7d2f1506",
+      "workId": "76527003744835ab",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "我独自升级",
-      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "queryTitle": "王爷，奴家减个肥",
+      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
       "domain": "mh250.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
@@ -29622,7 +28546,7 @@
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -29635,11 +28559,862 @@
       }
     },
     {
-      "workId": "794bf42a6e4f04c5",
+      "workId": "3025515061e2ed7f",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "我独自升级",
-      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "queryTitle": "财阀家的小儿子",
+      "detailUrl": "https://www.kkwebtoon.com/comic/29313",
+      "domain": "kkwebtoon.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "财阀家的小儿子",
+      "coverUrl": "https://s3-tbu-og.kkwebtoon.com//cover/godmanga/gmh-27362.webp",
+      "chapterCount": 196,
+      "chapters": [
+        {
+          "title": "第一话",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128977"
+        },
+        {
+          "title": "2 第2话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128978"
+        },
+        {
+          "title": "3 第3话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128979"
+        },
+        {
+          "title": "4 第4话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128980"
+        },
+        {
+          "title": "5 第5话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128981"
+        },
+        {
+          "title": "6 第6话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128982"
+        },
+        {
+          "title": "7 第7话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128983"
+        },
+        {
+          "title": "8 第8话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128984"
+        },
+        {
+          "title": "9 第9话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128985"
+        },
+        {
+          "title": "10 第10话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128986"
+        },
+        {
+          "title": "11 第11话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128987"
+        },
+        {
+          "title": "12 第12话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128988"
+        },
+        {
+          "title": "13 第13话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128989"
+        },
+        {
+          "title": "14 第14话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128990"
+        },
+        {
+          "title": "15 第15话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128991"
+        },
+        {
+          "title": "16 第16话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128992"
+        },
+        {
+          "title": "17 第17话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128993"
+        },
+        {
+          "title": "18 第18话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128994"
+        },
+        {
+          "title": "19 第19话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128995"
+        },
+        {
+          "title": "20 第20话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128996"
+        },
+        {
+          "title": "21 第21话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128997"
+        },
+        {
+          "title": "22 第22话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128998"
+        },
+        {
+          "title": "23 第23话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/128999"
+        },
+        {
+          "title": "24 第24话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129000"
+        },
+        {
+          "title": "25 第25话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129001"
+        },
+        {
+          "title": "26 第26话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129002"
+        },
+        {
+          "title": "27 第27话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129003"
+        },
+        {
+          "title": "28 第28话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129004"
+        },
+        {
+          "title": "29 第29话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129005"
+        },
+        {
+          "title": "30 第30话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129006"
+        },
+        {
+          "title": "31 第31话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129007"
+        },
+        {
+          "title": "32 第32话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129008"
+        },
+        {
+          "title": "33 第33话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129009"
+        },
+        {
+          "title": "34 第34话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129010"
+        },
+        {
+          "title": "35 第35话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129011"
+        },
+        {
+          "title": "36 第36话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129012"
+        },
+        {
+          "title": "37 第37话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129013"
+        },
+        {
+          "title": "38 第38话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129014"
+        },
+        {
+          "title": "39 第39话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129015"
+        },
+        {
+          "title": "40 第40话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129016"
+        },
+        {
+          "title": "41 第41话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129017"
+        },
+        {
+          "title": "42 第42话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129018"
+        },
+        {
+          "title": "43 第43话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129019"
+        },
+        {
+          "title": "44 第44话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129020"
+        },
+        {
+          "title": "45 第45话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129021"
+        },
+        {
+          "title": "46 第46话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129022"
+        },
+        {
+          "title": "47 第47话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129023"
+        },
+        {
+          "title": "48 第48话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129024"
+        },
+        {
+          "title": "49 第49话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129025"
+        },
+        {
+          "title": "50 第50话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129026"
+        },
+        {
+          "title": "51 第51话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129027"
+        },
+        {
+          "title": "52 第52话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129028"
+        },
+        {
+          "title": "53 第53话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129029"
+        },
+        {
+          "title": "54 第54话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129030"
+        },
+        {
+          "title": "55 第55话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129031"
+        },
+        {
+          "title": "56 第56话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129032"
+        },
+        {
+          "title": "57 第57话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129033"
+        },
+        {
+          "title": "58 第58话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129034"
+        },
+        {
+          "title": "59 第59话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129035"
+        },
+        {
+          "title": "60 第60话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129036"
+        },
+        {
+          "title": "61 第61话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129037"
+        },
+        {
+          "title": "62 第62话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129038"
+        },
+        {
+          "title": "63 第63话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129039"
+        },
+        {
+          "title": "64 第64话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129040"
+        },
+        {
+          "title": "65 第65话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129041"
+        },
+        {
+          "title": "66 第66话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129042"
+        },
+        {
+          "title": "67 第67话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129043"
+        },
+        {
+          "title": "68 第68话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129044"
+        },
+        {
+          "title": "69 第69话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129045"
+        },
+        {
+          "title": "70 第70话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129046"
+        },
+        {
+          "title": "71 第71话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129047"
+        },
+        {
+          "title": "72 第72话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129048"
+        },
+        {
+          "title": "73 第73话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129049"
+        },
+        {
+          "title": "74 第74话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129050"
+        },
+        {
+          "title": "75 第75话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129051"
+        },
+        {
+          "title": "76 第76话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129052"
+        },
+        {
+          "title": "77 第77话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129053"
+        },
+        {
+          "title": "78 第78话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129054"
+        },
+        {
+          "title": "79 第79话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129055"
+        },
+        {
+          "title": "80 第80话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129056"
+        },
+        {
+          "title": "81 第81话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129057"
+        },
+        {
+          "title": "82 第82话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129058"
+        },
+        {
+          "title": "83 第83话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129059"
+        },
+        {
+          "title": "84 第84话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129060"
+        },
+        {
+          "title": "85 第85话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129061"
+        },
+        {
+          "title": "86 第86话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129062"
+        },
+        {
+          "title": "87 第87话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129063"
+        },
+        {
+          "title": "88 第88话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129064"
+        },
+        {
+          "title": "89 第89话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129065"
+        },
+        {
+          "title": "90 第90话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129066"
+        },
+        {
+          "title": "91 第91话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129067"
+        },
+        {
+          "title": "92 第92话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129068"
+        },
+        {
+          "title": "93 第93话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129069"
+        },
+        {
+          "title": "94 第94话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129070"
+        },
+        {
+          "title": "95 第95话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129071"
+        },
+        {
+          "title": "96 第96话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129072"
+        },
+        {
+          "title": "97 第97话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129073"
+        },
+        {
+          "title": "98 第98话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129074"
+        },
+        {
+          "title": "99 第99话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129075"
+        },
+        {
+          "title": "100 第100话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129076"
+        },
+        {
+          "title": "101 第101话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129077"
+        },
+        {
+          "title": "102 第102话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129078"
+        },
+        {
+          "title": "103 第103话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129079"
+        },
+        {
+          "title": "104 第104话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129080"
+        },
+        {
+          "title": "105 第105话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129081"
+        },
+        {
+          "title": "106 第106话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129082"
+        },
+        {
+          "title": "107 第107话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129083"
+        },
+        {
+          "title": "108 第108话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129084"
+        },
+        {
+          "title": "109 第109话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129085"
+        },
+        {
+          "title": "110 第110话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129086"
+        },
+        {
+          "title": "111 第111话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129087"
+        },
+        {
+          "title": "112 第112话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129088"
+        },
+        {
+          "title": "113 第113话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129089"
+        },
+        {
+          "title": "114 第114话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129090"
+        },
+        {
+          "title": "115 第115话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129091"
+        },
+        {
+          "title": "116 第116话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129092"
+        },
+        {
+          "title": "117 第117话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129093"
+        },
+        {
+          "title": "118 第118话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129094"
+        },
+        {
+          "title": "119 第119话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129095"
+        },
+        {
+          "title": "120 第120话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129096"
+        },
+        {
+          "title": "121 第121话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129097"
+        },
+        {
+          "title": "122 第122话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129098"
+        },
+        {
+          "title": "123 第123话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129099"
+        },
+        {
+          "title": "124 第124话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129100"
+        },
+        {
+          "title": "125 第125话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129101"
+        },
+        {
+          "title": "126 第126话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129102"
+        },
+        {
+          "title": "127 第127话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129103"
+        },
+        {
+          "title": "128 第128话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129104"
+        },
+        {
+          "title": "129 第129话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129105"
+        },
+        {
+          "title": "130 第130话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129106"
+        },
+        {
+          "title": "131 第131话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129107"
+        },
+        {
+          "title": "132 第132话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129108"
+        },
+        {
+          "title": "133 第133话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129109"
+        },
+        {
+          "title": "134 第134话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129110"
+        },
+        {
+          "title": "135 第135话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129111"
+        },
+        {
+          "title": "136 第136话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129112"
+        },
+        {
+          "title": "137 第137话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129113"
+        },
+        {
+          "title": "138 第138话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129114"
+        },
+        {
+          "title": "139 第139话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129115"
+        },
+        {
+          "title": "140 第140话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129116"
+        },
+        {
+          "title": "141 第141话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129117"
+        },
+        {
+          "title": "142 第142话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129118"
+        },
+        {
+          "title": "143 第143话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129119"
+        },
+        {
+          "title": "144 第144话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129120"
+        },
+        {
+          "title": "145 第145话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129121"
+        },
+        {
+          "title": "146 第146话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129122"
+        },
+        {
+          "title": "147 第147话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129123"
+        },
+        {
+          "title": "148 第148话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129124"
+        },
+        {
+          "title": "149 第149话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129125"
+        },
+        {
+          "title": "150 第150话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129126"
+        },
+        {
+          "title": "151 第151话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129127"
+        },
+        {
+          "title": "152 第152话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129128"
+        },
+        {
+          "title": "153 第153话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129129"
+        },
+        {
+          "title": "154 第154话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129130"
+        },
+        {
+          "title": "155 第155话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129131"
+        },
+        {
+          "title": "156 第156话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129132"
+        },
+        {
+          "title": "157 第157话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129133"
+        },
+        {
+          "title": "158 第158话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129134"
+        },
+        {
+          "title": "159 第159话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129135"
+        },
+        {
+          "title": "160 第160话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129136"
+        },
+        {
+          "title": "161 第161话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129137"
+        },
+        {
+          "title": "162 第162话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129138"
+        },
+        {
+          "title": "163 第163话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129139"
+        },
+        {
+          "title": "164 第164话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129140"
+        },
+        {
+          "title": "165 第165话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129141"
+        },
+        {
+          "title": "166 第166话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129142"
+        },
+        {
+          "title": "167 第167话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129143"
+        },
+        {
+          "title": "168 第168话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129144"
+        },
+        {
+          "title": "169 第169话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129145"
+        },
+        {
+          "title": "170 第170话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129146"
+        },
+        {
+          "title": "171 第171话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129147"
+        },
+        {
+          "title": "172 第172话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129148"
+        },
+        {
+          "title": "173 第173话 2025-12-11 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/129149"
+        },
+        {
+          "title": "174 第174话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614488"
+        },
+        {
+          "title": "175 第175话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614489"
+        },
+        {
+          "title": "176 第176话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614490"
+        },
+        {
+          "title": "177 第177话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614491"
+        },
+        {
+          "title": "178 第178话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614492"
+        },
+        {
+          "title": "179 第179话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614493"
+        },
+        {
+          "title": "180 第180话 2026-01-21 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1614494"
+        },
+        {
+          "title": "181 第181话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617256"
+        },
+        {
+          "title": "182 第182话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617257"
+        },
+        {
+          "title": "183 第183话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617258"
+        },
+        {
+          "title": "184 第184话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617259"
+        },
+        {
+          "title": "185 第185话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617260"
+        },
+        {
+          "title": "186 第186话 2026-02-25 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1617261"
+        },
+        {
+          "title": "187 第187话 2026-03-18 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1621362"
+        },
+        {
+          "title": "188 第188话 2026-03-18 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1621363"
+        },
+        {
+          "title": "189 第189话 2026-03-18 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1621364"
+        },
+        {
+          "title": "190 第190话 2026-03-18 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1621365"
+        },
+        {
+          "title": "191 第191话 2026-03-18 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1621366"
+        },
+        {
+          "title": "192 第192话 2026-04-15 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1623991"
+        },
+        {
+          "title": "193 第193话 2026-04-15 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1623992"
+        },
+        {
+          "title": "194 第194话 2026-04-15 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1623993"
+        },
+        {
+          "title": "195 第195话 2026-05-15 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1625208"
+        },
+        {
+          "title": "196 第196话 2026-05-15 免费",
+          "url": "https://www.kkwebtoon.com/chapter/29313/1625209"
+        }
+      ],
+      "chapterOrder": {
+        "numberedCount": 195,
+        "firstNumber": 2,
+        "lastNumber": 196,
+        "minimumNumber": 2,
+        "maximumNumber": 196,
+        "direction": "ascending",
+        "monotonic": true,
+        "coverage": 1.0,
+        "complete": true,
+        "sourceDirection": "ascending",
+        "publishedDirection": "ascending",
+        "sourceChapterCount": 196,
+        "publishedChapterCount": 196,
+        "inaccessibleTailSkipped": 0
+      },
+      "samples": [
+        {
+          "position": "first",
+          "chapterTitle": "第一话",
+          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/128977",
+          "imageCount": 142,
+          "readable": true,
+          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//chapter/godmanga/27362/1130736/202512091578423.webp"
+        },
+        {
+          "position": "middle",
+          "chapterTitle": "99 第99话 2025-12-11 免费",
+          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/129075",
+          "imageCount": 77,
+          "readable": true,
+          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//chapter/godmanga/27362/1503793/202512091592409.webp"
+        },
+        {
+          "position": "latest",
+          "chapterTitle": "196 第196话 2026-05-15 免费",
+          "chapterUrl": "https://www.kkwebtoon.com/chapter/29313/1625209",
+          "imageCount": 251,
+          "readable": true,
+          "firstImageUrl": "https://s3-tbu-og.kkwebtoon.com//dax/gmhReDPic/gmh-27362/1798371/20260515_xhgbla21w5.webp"
+        }
+      ],
+      "status": "verified",
+      "rejectionReasons": [],
+      "ordering": {
+        "chapterLinks": 196,
+        "numbered": 195,
+        "first": 2,
+        "last": 196,
+        "monotonic": true,
+        "direction": "ascending",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "fba10217c4e35c02",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "王爷，奴家减个肥",
+      "detailUrl": "https://www.mh250.com/book/21ad0ed9fa/",
       "domain": "mh250.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
@@ -29647,7 +29422,132 @@
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/21ad0ed9fa/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "459458b977a50770",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "永恒国度",
+      "detailUrl": "https://www.shiziks.com/content/62652/",
+      "domain": "shiziks.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ReadTimeout: HTTPSConnectionPool(host='www.shiziks.com', port=443): Read timed out. (read timeout=15)"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "32ed3ff6408b4805",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "妙手狂医",
+      "detailUrl": "https://www.shuyuanks.com/content/9223.html",
+      "domain": "shuyuanks.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ReadTimeout: HTTPSConnectionPool(host='www.shuyuanks.com', port=443): Read timed out. (read timeout=15)"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "eadd5c165ea3120c",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "桃运高手",
+      "detailUrl": "https://www.shiziks.com/content/216280/",
+      "domain": "shiziks.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "ReadTimeout: HTTPSConnectionPool(host='www.shiziks.com', port=443): Read timed out. (read timeout=15)"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "2eef54ea0e791c07",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "黑莲花学习手册",
+      "detailUrl": "https://www.mh250.com/book/1235ee9d3a/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/1235ee9d3a/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "e7bac5f45c78e449",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "黑莲花学习手册",
+      "detailUrl": "https://www.mh250.com/book/1235ee9d3a/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/1235ee9d3a/"
       ],
       "ordering": {
         "chapterLinks": 0,
@@ -30511,6 +30411,81 @@
       }
     },
     {
+      "workId": "18be5414e1bc2d3b",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "我独自升级",
+      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "6598110e7d2f1506",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "我独自升级",
+      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "794bf42a6e4f04c5",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "我独自升级",
+      "detailUrl": "https://www.mh250.com/book/fb6b24277b/",
+      "domain": "mh250.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "",
+      "chapterCount": 0,
+      "samples": [],
+      "status": "unreachable",
+      "rejectionReasons": [
+        "HTTPError: 403 Client Error: Forbidden for url: https://www.mh250.com/book/fb6b24277b/"
+      ],
+      "ordering": {
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
+        "gapCount": 0
+      }
+    },
+    {
       "workId": "2f39c4264c0f86de",
       "language": "zh-Hans",
       "category": "",
@@ -31307,6 +31282,821 @@
         "chapterLinks": 184,
         "numbered": 184,
         "first": 184,
+        "last": 1,
+        "monotonic": true,
+        "direction": "descending",
+        "gapCount": 0
+      }
+    },
+    {
+      "workId": "488c6a02978eb674",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "假戏真做",
+      "detailUrl": "https://www.hahacomic.com/manhua/15068.html",
+      "domain": "hahacomic.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "假戏真做漫画,假戏真做已完结 - 哈哈漫画",
+      "coverUrl": "",
+      "chapterCount": 187,
+      "chapters": [
+        {
+          "title": "第1话",
+          "url": "https://www.hahacomic.com/manhua/15068/210845.html"
+        },
+        {
+          "title": "第2话",
+          "url": "https://www.hahacomic.com/manhua/15068/210846.html"
+        },
+        {
+          "title": "第3话",
+          "url": "https://www.hahacomic.com/manhua/15068/210847.html"
+        },
+        {
+          "title": "第4话",
+          "url": "https://www.hahacomic.com/manhua/15068/210848.html"
+        },
+        {
+          "title": "第5话",
+          "url": "https://www.hahacomic.com/manhua/15068/210849.html"
+        },
+        {
+          "title": "第6话",
+          "url": "https://www.hahacomic.com/manhua/15068/210850.html"
+        },
+        {
+          "title": "第7话",
+          "url": "https://www.hahacomic.com/manhua/15068/210851.html"
+        },
+        {
+          "title": "第8话",
+          "url": "https://www.hahacomic.com/manhua/15068/210852.html"
+        },
+        {
+          "title": "第9话",
+          "url": "https://www.hahacomic.com/manhua/15068/210853.html"
+        },
+        {
+          "title": "第10话",
+          "url": "https://www.hahacomic.com/manhua/15068/210854.html"
+        },
+        {
+          "title": "第11话",
+          "url": "https://www.hahacomic.com/manhua/15068/210855.html"
+        },
+        {
+          "title": "第12话",
+          "url": "https://www.hahacomic.com/manhua/15068/210856.html"
+        },
+        {
+          "title": "第13话",
+          "url": "https://www.hahacomic.com/manhua/15068/210857.html"
+        },
+        {
+          "title": "第14话",
+          "url": "https://www.hahacomic.com/manhua/15068/210858.html"
+        },
+        {
+          "title": "第15话",
+          "url": "https://www.hahacomic.com/manhua/15068/210859.html"
+        },
+        {
+          "title": "第16话",
+          "url": "https://www.hahacomic.com/manhua/15068/210860.html"
+        },
+        {
+          "title": "第17话",
+          "url": "https://www.hahacomic.com/manhua/15068/210861.html"
+        },
+        {
+          "title": "第18话",
+          "url": "https://www.hahacomic.com/manhua/15068/210862.html"
+        },
+        {
+          "title": "第19话",
+          "url": "https://www.hahacomic.com/manhua/15068/210863.html"
+        },
+        {
+          "title": "第20话",
+          "url": "https://www.hahacomic.com/manhua/15068/210864.html"
+        },
+        {
+          "title": "第21话",
+          "url": "https://www.hahacomic.com/manhua/15068/210865.html"
+        },
+        {
+          "title": "第22话",
+          "url": "https://www.hahacomic.com/manhua/15068/210866.html"
+        },
+        {
+          "title": "第23话",
+          "url": "https://www.hahacomic.com/manhua/15068/210867.html"
+        },
+        {
+          "title": "第24话",
+          "url": "https://www.hahacomic.com/manhua/15068/210868.html"
+        },
+        {
+          "title": "第25话",
+          "url": "https://www.hahacomic.com/manhua/15068/210869.html"
+        },
+        {
+          "title": "第26话",
+          "url": "https://www.hahacomic.com/manhua/15068/210870.html"
+        },
+        {
+          "title": "第27话",
+          "url": "https://www.hahacomic.com/manhua/15068/210871.html"
+        },
+        {
+          "title": "第28话",
+          "url": "https://www.hahacomic.com/manhua/15068/210872.html"
+        },
+        {
+          "title": "第29话",
+          "url": "https://www.hahacomic.com/manhua/15068/210873.html"
+        },
+        {
+          "title": "第30话",
+          "url": "https://www.hahacomic.com/manhua/15068/210874.html"
+        },
+        {
+          "title": "第31话",
+          "url": "https://www.hahacomic.com/manhua/15068/210875.html"
+        },
+        {
+          "title": "第32话",
+          "url": "https://www.hahacomic.com/manhua/15068/210876.html"
+        },
+        {
+          "title": "第33话",
+          "url": "https://www.hahacomic.com/manhua/15068/210877.html"
+        },
+        {
+          "title": "第34话",
+          "url": "https://www.hahacomic.com/manhua/15068/210878.html"
+        },
+        {
+          "title": "第35话",
+          "url": "https://www.hahacomic.com/manhua/15068/210879.html"
+        },
+        {
+          "title": "第36话",
+          "url": "https://www.hahacomic.com/manhua/15068/210880.html"
+        },
+        {
+          "title": "第37话",
+          "url": "https://www.hahacomic.com/manhua/15068/210881.html"
+        },
+        {
+          "title": "第38话",
+          "url": "https://www.hahacomic.com/manhua/15068/210882.html"
+        },
+        {
+          "title": "第39话",
+          "url": "https://www.hahacomic.com/manhua/15068/210883.html"
+        },
+        {
+          "title": "第40话",
+          "url": "https://www.hahacomic.com/manhua/15068/210884.html"
+        },
+        {
+          "title": "第41话",
+          "url": "https://www.hahacomic.com/manhua/15068/210885.html"
+        },
+        {
+          "title": "第42话",
+          "url": "https://www.hahacomic.com/manhua/15068/210886.html"
+        },
+        {
+          "title": "第43话",
+          "url": "https://www.hahacomic.com/manhua/15068/210887.html"
+        },
+        {
+          "title": "第44话",
+          "url": "https://www.hahacomic.com/manhua/15068/210888.html"
+        },
+        {
+          "title": "第45话",
+          "url": "https://www.hahacomic.com/manhua/15068/210889.html"
+        },
+        {
+          "title": "第46话",
+          "url": "https://www.hahacomic.com/manhua/15068/210890.html"
+        },
+        {
+          "title": "第47话",
+          "url": "https://www.hahacomic.com/manhua/15068/210891.html"
+        },
+        {
+          "title": "第48话",
+          "url": "https://www.hahacomic.com/manhua/15068/210892.html"
+        },
+        {
+          "title": "第49话",
+          "url": "https://www.hahacomic.com/manhua/15068/210893.html"
+        },
+        {
+          "title": "第50话",
+          "url": "https://www.hahacomic.com/manhua/15068/210894.html"
+        },
+        {
+          "title": "第51话",
+          "url": "https://www.hahacomic.com/manhua/15068/210895.html"
+        },
+        {
+          "title": "第52话",
+          "url": "https://www.hahacomic.com/manhua/15068/210896.html"
+        },
+        {
+          "title": "第53话",
+          "url": "https://www.hahacomic.com/manhua/15068/210897.html"
+        },
+        {
+          "title": "第54话",
+          "url": "https://www.hahacomic.com/manhua/15068/210898.html"
+        },
+        {
+          "title": "第55话",
+          "url": "https://www.hahacomic.com/manhua/15068/210899.html"
+        },
+        {
+          "title": "第56话",
+          "url": "https://www.hahacomic.com/manhua/15068/210900.html"
+        },
+        {
+          "title": "第57话",
+          "url": "https://www.hahacomic.com/manhua/15068/210901.html"
+        },
+        {
+          "title": "第58话",
+          "url": "https://www.hahacomic.com/manhua/15068/210902.html"
+        },
+        {
+          "title": "第59话",
+          "url": "https://www.hahacomic.com/manhua/15068/210903.html"
+        },
+        {
+          "title": "第60话",
+          "url": "https://www.hahacomic.com/manhua/15068/210904.html"
+        },
+        {
+          "title": "第61话",
+          "url": "https://www.hahacomic.com/manhua/15068/210905.html"
+        },
+        {
+          "title": "第62话",
+          "url": "https://www.hahacomic.com/manhua/15068/210906.html"
+        },
+        {
+          "title": "第63话",
+          "url": "https://www.hahacomic.com/manhua/15068/210907.html"
+        },
+        {
+          "title": "第64话",
+          "url": "https://www.hahacomic.com/manhua/15068/210908.html"
+        },
+        {
+          "title": "第65话",
+          "url": "https://www.hahacomic.com/manhua/15068/210909.html"
+        },
+        {
+          "title": "第66话",
+          "url": "https://www.hahacomic.com/manhua/15068/210910.html"
+        },
+        {
+          "title": "第67话",
+          "url": "https://www.hahacomic.com/manhua/15068/210911.html"
+        },
+        {
+          "title": "第68话",
+          "url": "https://www.hahacomic.com/manhua/15068/210912.html"
+        },
+        {
+          "title": "第69话",
+          "url": "https://www.hahacomic.com/manhua/15068/210913.html"
+        },
+        {
+          "title": "第70话",
+          "url": "https://www.hahacomic.com/manhua/15068/210914.html"
+        },
+        {
+          "title": "第71话",
+          "url": "https://www.hahacomic.com/manhua/15068/210915.html"
+        },
+        {
+          "title": "第72话",
+          "url": "https://www.hahacomic.com/manhua/15068/210916.html"
+        },
+        {
+          "title": "第73话",
+          "url": "https://www.hahacomic.com/manhua/15068/210917.html"
+        },
+        {
+          "title": "第74话",
+          "url": "https://www.hahacomic.com/manhua/15068/210918.html"
+        },
+        {
+          "title": "第75话",
+          "url": "https://www.hahacomic.com/manhua/15068/210919.html"
+        },
+        {
+          "title": "第76话",
+          "url": "https://www.hahacomic.com/manhua/15068/210920.html"
+        },
+        {
+          "title": "第77话",
+          "url": "https://www.hahacomic.com/manhua/15068/210921.html"
+        },
+        {
+          "title": "第78话",
+          "url": "https://www.hahacomic.com/manhua/15068/210922.html"
+        },
+        {
+          "title": "第79话",
+          "url": "https://www.hahacomic.com/manhua/15068/210923.html"
+        },
+        {
+          "title": "第80话",
+          "url": "https://www.hahacomic.com/manhua/15068/210924.html"
+        },
+        {
+          "title": "第81话",
+          "url": "https://www.hahacomic.com/manhua/15068/210925.html"
+        },
+        {
+          "title": "第82话",
+          "url": "https://www.hahacomic.com/manhua/15068/210926.html"
+        },
+        {
+          "title": "第83话",
+          "url": "https://www.hahacomic.com/manhua/15068/210927.html"
+        },
+        {
+          "title": "第84话",
+          "url": "https://www.hahacomic.com/manhua/15068/210928.html"
+        },
+        {
+          "title": "第85话",
+          "url": "https://www.hahacomic.com/manhua/15068/210929.html"
+        },
+        {
+          "title": "第86话",
+          "url": "https://www.hahacomic.com/manhua/15068/210930.html"
+        },
+        {
+          "title": "第87话",
+          "url": "https://www.hahacomic.com/manhua/15068/210931.html"
+        },
+        {
+          "title": "第88话",
+          "url": "https://www.hahacomic.com/manhua/15068/210932.html"
+        },
+        {
+          "title": "第89话",
+          "url": "https://www.hahacomic.com/manhua/15068/210933.html"
+        },
+        {
+          "title": "第90话",
+          "url": "https://www.hahacomic.com/manhua/15068/210934.html"
+        },
+        {
+          "title": "第91话",
+          "url": "https://www.hahacomic.com/manhua/15068/210935.html"
+        },
+        {
+          "title": "第92话",
+          "url": "https://www.hahacomic.com/manhua/15068/210936.html"
+        },
+        {
+          "title": "第93话",
+          "url": "https://www.hahacomic.com/manhua/15068/210937.html"
+        },
+        {
+          "title": "第94话",
+          "url": "https://www.hahacomic.com/manhua/15068/210938.html"
+        },
+        {
+          "title": "第95话",
+          "url": "https://www.hahacomic.com/manhua/15068/210939.html"
+        },
+        {
+          "title": "第96话",
+          "url": "https://www.hahacomic.com/manhua/15068/210940.html"
+        },
+        {
+          "title": "第97话",
+          "url": "https://www.hahacomic.com/manhua/15068/210941.html"
+        },
+        {
+          "title": "第98话",
+          "url": "https://www.hahacomic.com/manhua/15068/210942.html"
+        },
+        {
+          "title": "第99话",
+          "url": "https://www.hahacomic.com/manhua/15068/210943.html"
+        },
+        {
+          "title": "第100话",
+          "url": "https://www.hahacomic.com/manhua/15068/210944.html"
+        },
+        {
+          "title": "第101话",
+          "url": "https://www.hahacomic.com/manhua/15068/210945.html"
+        },
+        {
+          "title": "第102话",
+          "url": "https://www.hahacomic.com/manhua/15068/210946.html"
+        },
+        {
+          "title": "第103话",
+          "url": "https://www.hahacomic.com/manhua/15068/210947.html"
+        },
+        {
+          "title": "第104话",
+          "url": "https://www.hahacomic.com/manhua/15068/210948.html"
+        },
+        {
+          "title": "第105话",
+          "url": "https://www.hahacomic.com/manhua/15068/210949.html"
+        },
+        {
+          "title": "第106话",
+          "url": "https://www.hahacomic.com/manhua/15068/210950.html"
+        },
+        {
+          "title": "第107话",
+          "url": "https://www.hahacomic.com/manhua/15068/210951.html"
+        },
+        {
+          "title": "第108话",
+          "url": "https://www.hahacomic.com/manhua/15068/210952.html"
+        },
+        {
+          "title": "第109话",
+          "url": "https://www.hahacomic.com/manhua/15068/210953.html"
+        },
+        {
+          "title": "第110话",
+          "url": "https://www.hahacomic.com/manhua/15068/210954.html"
+        },
+        {
+          "title": "第111话",
+          "url": "https://www.hahacomic.com/manhua/15068/210955.html"
+        },
+        {
+          "title": "第112话",
+          "url": "https://www.hahacomic.com/manhua/15068/210956.html"
+        },
+        {
+          "title": "第113话",
+          "url": "https://www.hahacomic.com/manhua/15068/210957.html"
+        },
+        {
+          "title": "第114话",
+          "url": "https://www.hahacomic.com/manhua/15068/210958.html"
+        },
+        {
+          "title": "第115话",
+          "url": "https://www.hahacomic.com/manhua/15068/210959.html"
+        },
+        {
+          "title": "第116话",
+          "url": "https://www.hahacomic.com/manhua/15068/210960.html"
+        },
+        {
+          "title": "第117话",
+          "url": "https://www.hahacomic.com/manhua/15068/210961.html"
+        },
+        {
+          "title": "第118话",
+          "url": "https://www.hahacomic.com/manhua/15068/210962.html"
+        },
+        {
+          "title": "第119话",
+          "url": "https://www.hahacomic.com/manhua/15068/210963.html"
+        },
+        {
+          "title": "第120话",
+          "url": "https://www.hahacomic.com/manhua/15068/210964.html"
+        },
+        {
+          "title": "第121话",
+          "url": "https://www.hahacomic.com/manhua/15068/210965.html"
+        },
+        {
+          "title": "第122话",
+          "url": "https://www.hahacomic.com/manhua/15068/210966.html"
+        },
+        {
+          "title": "第123话",
+          "url": "https://www.hahacomic.com/manhua/15068/210967.html"
+        },
+        {
+          "title": "第124话",
+          "url": "https://www.hahacomic.com/manhua/15068/210968.html"
+        },
+        {
+          "title": "第125话",
+          "url": "https://www.hahacomic.com/manhua/15068/210969.html"
+        },
+        {
+          "title": "第126话",
+          "url": "https://www.hahacomic.com/manhua/15068/210970.html"
+        },
+        {
+          "title": "第127话",
+          "url": "https://www.hahacomic.com/manhua/15068/210971.html"
+        },
+        {
+          "title": "第128话",
+          "url": "https://www.hahacomic.com/manhua/15068/210972.html"
+        },
+        {
+          "title": "第129话",
+          "url": "https://www.hahacomic.com/manhua/15068/210973.html"
+        },
+        {
+          "title": "第130话",
+          "url": "https://www.hahacomic.com/manhua/15068/210974.html"
+        },
+        {
+          "title": "第131话",
+          "url": "https://www.hahacomic.com/manhua/15068/210975.html"
+        },
+        {
+          "title": "第132话",
+          "url": "https://www.hahacomic.com/manhua/15068/210976.html"
+        },
+        {
+          "title": "第133话",
+          "url": "https://www.hahacomic.com/manhua/15068/210977.html"
+        },
+        {
+          "title": "第134话",
+          "url": "https://www.hahacomic.com/manhua/15068/210978.html"
+        },
+        {
+          "title": "第135话",
+          "url": "https://www.hahacomic.com/manhua/15068/210979.html"
+        },
+        {
+          "title": "第136话",
+          "url": "https://www.hahacomic.com/manhua/15068/210980.html"
+        },
+        {
+          "title": "第137话",
+          "url": "https://www.hahacomic.com/manhua/15068/210981.html"
+        },
+        {
+          "title": "第138话",
+          "url": "https://www.hahacomic.com/manhua/15068/210982.html"
+        },
+        {
+          "title": "第139话",
+          "url": "https://www.hahacomic.com/manhua/15068/210983.html"
+        },
+        {
+          "title": "第140话",
+          "url": "https://www.hahacomic.com/manhua/15068/210984.html"
+        },
+        {
+          "title": "第141话",
+          "url": "https://www.hahacomic.com/manhua/15068/210985.html"
+        },
+        {
+          "title": "第142话",
+          "url": "https://www.hahacomic.com/manhua/15068/210986.html"
+        },
+        {
+          "title": "第143话",
+          "url": "https://www.hahacomic.com/manhua/15068/210987.html"
+        },
+        {
+          "title": "第144话",
+          "url": "https://www.hahacomic.com/manhua/15068/210988.html"
+        },
+        {
+          "title": "第145话",
+          "url": "https://www.hahacomic.com/manhua/15068/210989.html"
+        },
+        {
+          "title": "第146话",
+          "url": "https://www.hahacomic.com/manhua/15068/210990.html"
+        },
+        {
+          "title": "第147话",
+          "url": "https://www.hahacomic.com/manhua/15068/210991.html"
+        },
+        {
+          "title": "第148话",
+          "url": "https://www.hahacomic.com/manhua/15068/210992.html"
+        },
+        {
+          "title": "第149话",
+          "url": "https://www.hahacomic.com/manhua/15068/210993.html"
+        },
+        {
+          "title": "第150话",
+          "url": "https://www.hahacomic.com/manhua/15068/210994.html"
+        },
+        {
+          "title": "第151话",
+          "url": "https://www.hahacomic.com/manhua/15068/210995.html"
+        },
+        {
+          "title": "第152话",
+          "url": "https://www.hahacomic.com/manhua/15068/210996.html"
+        },
+        {
+          "title": "第153话",
+          "url": "https://www.hahacomic.com/manhua/15068/210997.html"
+        },
+        {
+          "title": "第154话",
+          "url": "https://www.hahacomic.com/manhua/15068/210998.html"
+        },
+        {
+          "title": "第155话",
+          "url": "https://www.hahacomic.com/manhua/15068/210999.html"
+        },
+        {
+          "title": "第156话",
+          "url": "https://www.hahacomic.com/manhua/15068/211000.html"
+        },
+        {
+          "title": "第157话",
+          "url": "https://www.hahacomic.com/manhua/15068/211001.html"
+        },
+        {
+          "title": "第158话",
+          "url": "https://www.hahacomic.com/manhua/15068/211002.html"
+        },
+        {
+          "title": "第159话",
+          "url": "https://www.hahacomic.com/manhua/15068/211003.html"
+        },
+        {
+          "title": "第160话",
+          "url": "https://www.hahacomic.com/manhua/15068/211004.html"
+        },
+        {
+          "title": "第161话",
+          "url": "https://www.hahacomic.com/manhua/15068/211005.html"
+        },
+        {
+          "title": "第162话",
+          "url": "https://www.hahacomic.com/manhua/15068/211006.html"
+        },
+        {
+          "title": "第163话",
+          "url": "https://www.hahacomic.com/manhua/15068/211007.html"
+        },
+        {
+          "title": "第164话",
+          "url": "https://www.hahacomic.com/manhua/15068/211008.html"
+        },
+        {
+          "title": "第165话",
+          "url": "https://www.hahacomic.com/manhua/15068/211009.html"
+        },
+        {
+          "title": "第166话",
+          "url": "https://www.hahacomic.com/manhua/15068/211010.html"
+        },
+        {
+          "title": "第167话",
+          "url": "https://www.hahacomic.com/manhua/15068/211011.html"
+        },
+        {
+          "title": "第168话",
+          "url": "https://www.hahacomic.com/manhua/15068/211012.html"
+        },
+        {
+          "title": "第169话",
+          "url": "https://www.hahacomic.com/manhua/15068/211013.html"
+        },
+        {
+          "title": "第170话",
+          "url": "https://www.hahacomic.com/manhua/15068/211014.html"
+        },
+        {
+          "title": "第171话",
+          "url": "https://www.hahacomic.com/manhua/15068/211015.html"
+        },
+        {
+          "title": "第172话",
+          "url": "https://www.hahacomic.com/manhua/15068/211016.html"
+        },
+        {
+          "title": "第173话",
+          "url": "https://www.hahacomic.com/manhua/15068/211017.html"
+        },
+        {
+          "title": "第174话",
+          "url": "https://www.hahacomic.com/manhua/15068/211018.html"
+        },
+        {
+          "title": "第175话",
+          "url": "https://www.hahacomic.com/manhua/15068/211019.html"
+        },
+        {
+          "title": "第176话",
+          "url": "https://www.hahacomic.com/manhua/15068/211020.html"
+        },
+        {
+          "title": "第177话",
+          "url": "https://www.hahacomic.com/manhua/15068/211021.html"
+        },
+        {
+          "title": "第178话",
+          "url": "https://www.hahacomic.com/manhua/15068/211022.html"
+        },
+        {
+          "title": "第179话",
+          "url": "https://www.hahacomic.com/manhua/15068/211023.html"
+        },
+        {
+          "title": "第180话",
+          "url": "https://www.hahacomic.com/manhua/15068/211024.html"
+        },
+        {
+          "title": "第181话",
+          "url": "https://www.hahacomic.com/manhua/15068/211025.html"
+        },
+        {
+          "title": "第182话",
+          "url": "https://www.hahacomic.com/manhua/15068/211026.html"
+        },
+        {
+          "title": "第183话",
+          "url": "https://www.hahacomic.com/manhua/15068/211027.html"
+        },
+        {
+          "title": "第184话",
+          "url": "https://www.hahacomic.com/manhua/15068/211028.html"
+        },
+        {
+          "title": "第185话",
+          "url": "https://www.hahacomic.com/manhua/15068/211029.html"
+        },
+        {
+          "title": "第186话",
+          "url": "https://www.hahacomic.com/manhua/15068/211030.html"
+        },
+        {
+          "title": "第187话",
+          "url": "https://www.hahacomic.com/manhua/15068/211031.html"
+        }
+      ],
+      "chapterOrder": {
+        "numberedCount": 187,
+        "firstNumber": 187,
+        "lastNumber": 1,
+        "minimumNumber": 1,
+        "maximumNumber": 187,
+        "direction": "descending",
+        "monotonic": true,
+        "coverage": 1.0,
+        "complete": true,
+        "sourceDirection": "descending",
+        "publishedDirection": "ascending",
+        "sourceChapterCount": 187,
+        "publishedChapterCount": 187,
+        "inaccessibleTailSkipped": 0
+      },
+      "samples": [
+        {
+          "position": "first",
+          "chapterTitle": "第1话",
+          "chapterUrl": "https://www.hahacomic.com/manhua/15068/210845.html",
+          "imageCount": 31,
+          "readable": true,
+          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/1/0001.jpg"
+        },
+        {
+          "position": "middle",
+          "chapterTitle": "第94话",
+          "chapterUrl": "https://www.hahacomic.com/manhua/15068/210938.html",
+          "imageCount": 42,
+          "readable": true,
+          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/94/0001.jpg"
+        },
+        {
+          "position": "latest",
+          "chapterTitle": "第187话",
+          "chapterUrl": "https://www.hahacomic.com/manhua/15068/211031.html",
+          "imageCount": 18,
+          "readable": true,
+          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/187/0001.jpg"
+        }
+      ],
+      "status": "verified",
+      "rejectionReasons": [],
+      "ordering": {
+        "chapterLinks": 187,
+        "numbered": 187,
+        "first": 187,
         "last": 1,
         "monotonic": true,
         "direction": "descending",
@@ -32167,842 +32957,27 @@
       }
     },
     {
-      "workId": "488c6a02978eb674",
+      "workId": "d88421ad167edd25",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "假戏真做",
-      "detailUrl": "https://www.hahacomic.com/manhua/15068.html",
-      "domain": "hahacomic.com",
-      "policyVersion": "readability-v5",
-      "matchedTitle": "假戏真做漫画,假戏真做已完结 - 哈哈漫画",
-      "coverUrl": "",
-      "chapterCount": 187,
-      "chapters": [
-        {
-          "title": "第1话",
-          "url": "https://www.hahacomic.com/manhua/15068/210845.html"
-        },
-        {
-          "title": "第2话",
-          "url": "https://www.hahacomic.com/manhua/15068/210846.html"
-        },
-        {
-          "title": "第3话",
-          "url": "https://www.hahacomic.com/manhua/15068/210847.html"
-        },
-        {
-          "title": "第4话",
-          "url": "https://www.hahacomic.com/manhua/15068/210848.html"
-        },
-        {
-          "title": "第5话",
-          "url": "https://www.hahacomic.com/manhua/15068/210849.html"
-        },
-        {
-          "title": "第6话",
-          "url": "https://www.hahacomic.com/manhua/15068/210850.html"
-        },
-        {
-          "title": "第7话",
-          "url": "https://www.hahacomic.com/manhua/15068/210851.html"
-        },
-        {
-          "title": "第8话",
-          "url": "https://www.hahacomic.com/manhua/15068/210852.html"
-        },
-        {
-          "title": "第9话",
-          "url": "https://www.hahacomic.com/manhua/15068/210853.html"
-        },
-        {
-          "title": "第10话",
-          "url": "https://www.hahacomic.com/manhua/15068/210854.html"
-        },
-        {
-          "title": "第11话",
-          "url": "https://www.hahacomic.com/manhua/15068/210855.html"
-        },
-        {
-          "title": "第12话",
-          "url": "https://www.hahacomic.com/manhua/15068/210856.html"
-        },
-        {
-          "title": "第13话",
-          "url": "https://www.hahacomic.com/manhua/15068/210857.html"
-        },
-        {
-          "title": "第14话",
-          "url": "https://www.hahacomic.com/manhua/15068/210858.html"
-        },
-        {
-          "title": "第15话",
-          "url": "https://www.hahacomic.com/manhua/15068/210859.html"
-        },
-        {
-          "title": "第16话",
-          "url": "https://www.hahacomic.com/manhua/15068/210860.html"
-        },
-        {
-          "title": "第17话",
-          "url": "https://www.hahacomic.com/manhua/15068/210861.html"
-        },
-        {
-          "title": "第18话",
-          "url": "https://www.hahacomic.com/manhua/15068/210862.html"
-        },
-        {
-          "title": "第19话",
-          "url": "https://www.hahacomic.com/manhua/15068/210863.html"
-        },
-        {
-          "title": "第20话",
-          "url": "https://www.hahacomic.com/manhua/15068/210864.html"
-        },
-        {
-          "title": "第21话",
-          "url": "https://www.hahacomic.com/manhua/15068/210865.html"
-        },
-        {
-          "title": "第22话",
-          "url": "https://www.hahacomic.com/manhua/15068/210866.html"
-        },
-        {
-          "title": "第23话",
-          "url": "https://www.hahacomic.com/manhua/15068/210867.html"
-        },
-        {
-          "title": "第24话",
-          "url": "https://www.hahacomic.com/manhua/15068/210868.html"
-        },
-        {
-          "title": "第25话",
-          "url": "https://www.hahacomic.com/manhua/15068/210869.html"
-        },
-        {
-          "title": "第26话",
-          "url": "https://www.hahacomic.com/manhua/15068/210870.html"
-        },
-        {
-          "title": "第27话",
-          "url": "https://www.hahacomic.com/manhua/15068/210871.html"
-        },
-        {
-          "title": "第28话",
-          "url": "https://www.hahacomic.com/manhua/15068/210872.html"
-        },
-        {
-          "title": "第29话",
-          "url": "https://www.hahacomic.com/manhua/15068/210873.html"
-        },
-        {
-          "title": "第30话",
-          "url": "https://www.hahacomic.com/manhua/15068/210874.html"
-        },
-        {
-          "title": "第31话",
-          "url": "https://www.hahacomic.com/manhua/15068/210875.html"
-        },
-        {
-          "title": "第32话",
-          "url": "https://www.hahacomic.com/manhua/15068/210876.html"
-        },
-        {
-          "title": "第33话",
-          "url": "https://www.hahacomic.com/manhua/15068/210877.html"
-        },
-        {
-          "title": "第34话",
-          "url": "https://www.hahacomic.com/manhua/15068/210878.html"
-        },
-        {
-          "title": "第35话",
-          "url": "https://www.hahacomic.com/manhua/15068/210879.html"
-        },
-        {
-          "title": "第36话",
-          "url": "https://www.hahacomic.com/manhua/15068/210880.html"
-        },
-        {
-          "title": "第37话",
-          "url": "https://www.hahacomic.com/manhua/15068/210881.html"
-        },
-        {
-          "title": "第38话",
-          "url": "https://www.hahacomic.com/manhua/15068/210882.html"
-        },
-        {
-          "title": "第39话",
-          "url": "https://www.hahacomic.com/manhua/15068/210883.html"
-        },
-        {
-          "title": "第40话",
-          "url": "https://www.hahacomic.com/manhua/15068/210884.html"
-        },
-        {
-          "title": "第41话",
-          "url": "https://www.hahacomic.com/manhua/15068/210885.html"
-        },
-        {
-          "title": "第42话",
-          "url": "https://www.hahacomic.com/manhua/15068/210886.html"
-        },
-        {
-          "title": "第43话",
-          "url": "https://www.hahacomic.com/manhua/15068/210887.html"
-        },
-        {
-          "title": "第44话",
-          "url": "https://www.hahacomic.com/manhua/15068/210888.html"
-        },
-        {
-          "title": "第45话",
-          "url": "https://www.hahacomic.com/manhua/15068/210889.html"
-        },
-        {
-          "title": "第46话",
-          "url": "https://www.hahacomic.com/manhua/15068/210890.html"
-        },
-        {
-          "title": "第47话",
-          "url": "https://www.hahacomic.com/manhua/15068/210891.html"
-        },
-        {
-          "title": "第48话",
-          "url": "https://www.hahacomic.com/manhua/15068/210892.html"
-        },
-        {
-          "title": "第49话",
-          "url": "https://www.hahacomic.com/manhua/15068/210893.html"
-        },
-        {
-          "title": "第50话",
-          "url": "https://www.hahacomic.com/manhua/15068/210894.html"
-        },
-        {
-          "title": "第51话",
-          "url": "https://www.hahacomic.com/manhua/15068/210895.html"
-        },
-        {
-          "title": "第52话",
-          "url": "https://www.hahacomic.com/manhua/15068/210896.html"
-        },
-        {
-          "title": "第53话",
-          "url": "https://www.hahacomic.com/manhua/15068/210897.html"
-        },
-        {
-          "title": "第54话",
-          "url": "https://www.hahacomic.com/manhua/15068/210898.html"
-        },
-        {
-          "title": "第55话",
-          "url": "https://www.hahacomic.com/manhua/15068/210899.html"
-        },
-        {
-          "title": "第56话",
-          "url": "https://www.hahacomic.com/manhua/15068/210900.html"
-        },
-        {
-          "title": "第57话",
-          "url": "https://www.hahacomic.com/manhua/15068/210901.html"
-        },
-        {
-          "title": "第58话",
-          "url": "https://www.hahacomic.com/manhua/15068/210902.html"
-        },
-        {
-          "title": "第59话",
-          "url": "https://www.hahacomic.com/manhua/15068/210903.html"
-        },
-        {
-          "title": "第60话",
-          "url": "https://www.hahacomic.com/manhua/15068/210904.html"
-        },
-        {
-          "title": "第61话",
-          "url": "https://www.hahacomic.com/manhua/15068/210905.html"
-        },
-        {
-          "title": "第62话",
-          "url": "https://www.hahacomic.com/manhua/15068/210906.html"
-        },
-        {
-          "title": "第63话",
-          "url": "https://www.hahacomic.com/manhua/15068/210907.html"
-        },
-        {
-          "title": "第64话",
-          "url": "https://www.hahacomic.com/manhua/15068/210908.html"
-        },
-        {
-          "title": "第65话",
-          "url": "https://www.hahacomic.com/manhua/15068/210909.html"
-        },
-        {
-          "title": "第66话",
-          "url": "https://www.hahacomic.com/manhua/15068/210910.html"
-        },
-        {
-          "title": "第67话",
-          "url": "https://www.hahacomic.com/manhua/15068/210911.html"
-        },
-        {
-          "title": "第68话",
-          "url": "https://www.hahacomic.com/manhua/15068/210912.html"
-        },
-        {
-          "title": "第69话",
-          "url": "https://www.hahacomic.com/manhua/15068/210913.html"
-        },
-        {
-          "title": "第70话",
-          "url": "https://www.hahacomic.com/manhua/15068/210914.html"
-        },
-        {
-          "title": "第71话",
-          "url": "https://www.hahacomic.com/manhua/15068/210915.html"
-        },
-        {
-          "title": "第72话",
-          "url": "https://www.hahacomic.com/manhua/15068/210916.html"
-        },
-        {
-          "title": "第73话",
-          "url": "https://www.hahacomic.com/manhua/15068/210917.html"
-        },
-        {
-          "title": "第74话",
-          "url": "https://www.hahacomic.com/manhua/15068/210918.html"
-        },
-        {
-          "title": "第75话",
-          "url": "https://www.hahacomic.com/manhua/15068/210919.html"
-        },
-        {
-          "title": "第76话",
-          "url": "https://www.hahacomic.com/manhua/15068/210920.html"
-        },
-        {
-          "title": "第77话",
-          "url": "https://www.hahacomic.com/manhua/15068/210921.html"
-        },
-        {
-          "title": "第78话",
-          "url": "https://www.hahacomic.com/manhua/15068/210922.html"
-        },
-        {
-          "title": "第79话",
-          "url": "https://www.hahacomic.com/manhua/15068/210923.html"
-        },
-        {
-          "title": "第80话",
-          "url": "https://www.hahacomic.com/manhua/15068/210924.html"
-        },
-        {
-          "title": "第81话",
-          "url": "https://www.hahacomic.com/manhua/15068/210925.html"
-        },
-        {
-          "title": "第82话",
-          "url": "https://www.hahacomic.com/manhua/15068/210926.html"
-        },
-        {
-          "title": "第83话",
-          "url": "https://www.hahacomic.com/manhua/15068/210927.html"
-        },
-        {
-          "title": "第84话",
-          "url": "https://www.hahacomic.com/manhua/15068/210928.html"
-        },
-        {
-          "title": "第85话",
-          "url": "https://www.hahacomic.com/manhua/15068/210929.html"
-        },
-        {
-          "title": "第86话",
-          "url": "https://www.hahacomic.com/manhua/15068/210930.html"
-        },
-        {
-          "title": "第87话",
-          "url": "https://www.hahacomic.com/manhua/15068/210931.html"
-        },
-        {
-          "title": "第88话",
-          "url": "https://www.hahacomic.com/manhua/15068/210932.html"
-        },
-        {
-          "title": "第89话",
-          "url": "https://www.hahacomic.com/manhua/15068/210933.html"
-        },
-        {
-          "title": "第90话",
-          "url": "https://www.hahacomic.com/manhua/15068/210934.html"
-        },
-        {
-          "title": "第91话",
-          "url": "https://www.hahacomic.com/manhua/15068/210935.html"
-        },
-        {
-          "title": "第92话",
-          "url": "https://www.hahacomic.com/manhua/15068/210936.html"
-        },
-        {
-          "title": "第93话",
-          "url": "https://www.hahacomic.com/manhua/15068/210937.html"
-        },
-        {
-          "title": "第94话",
-          "url": "https://www.hahacomic.com/manhua/15068/210938.html"
-        },
-        {
-          "title": "第95话",
-          "url": "https://www.hahacomic.com/manhua/15068/210939.html"
-        },
-        {
-          "title": "第96话",
-          "url": "https://www.hahacomic.com/manhua/15068/210940.html"
-        },
-        {
-          "title": "第97话",
-          "url": "https://www.hahacomic.com/manhua/15068/210941.html"
-        },
-        {
-          "title": "第98话",
-          "url": "https://www.hahacomic.com/manhua/15068/210942.html"
-        },
-        {
-          "title": "第99话",
-          "url": "https://www.hahacomic.com/manhua/15068/210943.html"
-        },
-        {
-          "title": "第100话",
-          "url": "https://www.hahacomic.com/manhua/15068/210944.html"
-        },
-        {
-          "title": "第101话",
-          "url": "https://www.hahacomic.com/manhua/15068/210945.html"
-        },
-        {
-          "title": "第102话",
-          "url": "https://www.hahacomic.com/manhua/15068/210946.html"
-        },
-        {
-          "title": "第103话",
-          "url": "https://www.hahacomic.com/manhua/15068/210947.html"
-        },
-        {
-          "title": "第104话",
-          "url": "https://www.hahacomic.com/manhua/15068/210948.html"
-        },
-        {
-          "title": "第105话",
-          "url": "https://www.hahacomic.com/manhua/15068/210949.html"
-        },
-        {
-          "title": "第106话",
-          "url": "https://www.hahacomic.com/manhua/15068/210950.html"
-        },
-        {
-          "title": "第107话",
-          "url": "https://www.hahacomic.com/manhua/15068/210951.html"
-        },
-        {
-          "title": "第108话",
-          "url": "https://www.hahacomic.com/manhua/15068/210952.html"
-        },
-        {
-          "title": "第109话",
-          "url": "https://www.hahacomic.com/manhua/15068/210953.html"
-        },
-        {
-          "title": "第110话",
-          "url": "https://www.hahacomic.com/manhua/15068/210954.html"
-        },
-        {
-          "title": "第111话",
-          "url": "https://www.hahacomic.com/manhua/15068/210955.html"
-        },
-        {
-          "title": "第112话",
-          "url": "https://www.hahacomic.com/manhua/15068/210956.html"
-        },
-        {
-          "title": "第113话",
-          "url": "https://www.hahacomic.com/manhua/15068/210957.html"
-        },
-        {
-          "title": "第114话",
-          "url": "https://www.hahacomic.com/manhua/15068/210958.html"
-        },
-        {
-          "title": "第115话",
-          "url": "https://www.hahacomic.com/manhua/15068/210959.html"
-        },
-        {
-          "title": "第116话",
-          "url": "https://www.hahacomic.com/manhua/15068/210960.html"
-        },
-        {
-          "title": "第117话",
-          "url": "https://www.hahacomic.com/manhua/15068/210961.html"
-        },
-        {
-          "title": "第118话",
-          "url": "https://www.hahacomic.com/manhua/15068/210962.html"
-        },
-        {
-          "title": "第119话",
-          "url": "https://www.hahacomic.com/manhua/15068/210963.html"
-        },
-        {
-          "title": "第120话",
-          "url": "https://www.hahacomic.com/manhua/15068/210964.html"
-        },
-        {
-          "title": "第121话",
-          "url": "https://www.hahacomic.com/manhua/15068/210965.html"
-        },
-        {
-          "title": "第122话",
-          "url": "https://www.hahacomic.com/manhua/15068/210966.html"
-        },
-        {
-          "title": "第123话",
-          "url": "https://www.hahacomic.com/manhua/15068/210967.html"
-        },
-        {
-          "title": "第124话",
-          "url": "https://www.hahacomic.com/manhua/15068/210968.html"
-        },
-        {
-          "title": "第125话",
-          "url": "https://www.hahacomic.com/manhua/15068/210969.html"
-        },
-        {
-          "title": "第126话",
-          "url": "https://www.hahacomic.com/manhua/15068/210970.html"
-        },
-        {
-          "title": "第127话",
-          "url": "https://www.hahacomic.com/manhua/15068/210971.html"
-        },
-        {
-          "title": "第128话",
-          "url": "https://www.hahacomic.com/manhua/15068/210972.html"
-        },
-        {
-          "title": "第129话",
-          "url": "https://www.hahacomic.com/manhua/15068/210973.html"
-        },
-        {
-          "title": "第130话",
-          "url": "https://www.hahacomic.com/manhua/15068/210974.html"
-        },
-        {
-          "title": "第131话",
-          "url": "https://www.hahacomic.com/manhua/15068/210975.html"
-        },
-        {
-          "title": "第132话",
-          "url": "https://www.hahacomic.com/manhua/15068/210976.html"
-        },
-        {
-          "title": "第133话",
-          "url": "https://www.hahacomic.com/manhua/15068/210977.html"
-        },
-        {
-          "title": "第134话",
-          "url": "https://www.hahacomic.com/manhua/15068/210978.html"
-        },
-        {
-          "title": "第135话",
-          "url": "https://www.hahacomic.com/manhua/15068/210979.html"
-        },
-        {
-          "title": "第136话",
-          "url": "https://www.hahacomic.com/manhua/15068/210980.html"
-        },
-        {
-          "title": "第137话",
-          "url": "https://www.hahacomic.com/manhua/15068/210981.html"
-        },
-        {
-          "title": "第138话",
-          "url": "https://www.hahacomic.com/manhua/15068/210982.html"
-        },
-        {
-          "title": "第139话",
-          "url": "https://www.hahacomic.com/manhua/15068/210983.html"
-        },
-        {
-          "title": "第140话",
-          "url": "https://www.hahacomic.com/manhua/15068/210984.html"
-        },
-        {
-          "title": "第141话",
-          "url": "https://www.hahacomic.com/manhua/15068/210985.html"
-        },
-        {
-          "title": "第142话",
-          "url": "https://www.hahacomic.com/manhua/15068/210986.html"
-        },
-        {
-          "title": "第143话",
-          "url": "https://www.hahacomic.com/manhua/15068/210987.html"
-        },
-        {
-          "title": "第144话",
-          "url": "https://www.hahacomic.com/manhua/15068/210988.html"
-        },
-        {
-          "title": "第145话",
-          "url": "https://www.hahacomic.com/manhua/15068/210989.html"
-        },
-        {
-          "title": "第146话",
-          "url": "https://www.hahacomic.com/manhua/15068/210990.html"
-        },
-        {
-          "title": "第147话",
-          "url": "https://www.hahacomic.com/manhua/15068/210991.html"
-        },
-        {
-          "title": "第148话",
-          "url": "https://www.hahacomic.com/manhua/15068/210992.html"
-        },
-        {
-          "title": "第149话",
-          "url": "https://www.hahacomic.com/manhua/15068/210993.html"
-        },
-        {
-          "title": "第150话",
-          "url": "https://www.hahacomic.com/manhua/15068/210994.html"
-        },
-        {
-          "title": "第151话",
-          "url": "https://www.hahacomic.com/manhua/15068/210995.html"
-        },
-        {
-          "title": "第152话",
-          "url": "https://www.hahacomic.com/manhua/15068/210996.html"
-        },
-        {
-          "title": "第153话",
-          "url": "https://www.hahacomic.com/manhua/15068/210997.html"
-        },
-        {
-          "title": "第154话",
-          "url": "https://www.hahacomic.com/manhua/15068/210998.html"
-        },
-        {
-          "title": "第155话",
-          "url": "https://www.hahacomic.com/manhua/15068/210999.html"
-        },
-        {
-          "title": "第156话",
-          "url": "https://www.hahacomic.com/manhua/15068/211000.html"
-        },
-        {
-          "title": "第157话",
-          "url": "https://www.hahacomic.com/manhua/15068/211001.html"
-        },
-        {
-          "title": "第158话",
-          "url": "https://www.hahacomic.com/manhua/15068/211002.html"
-        },
-        {
-          "title": "第159话",
-          "url": "https://www.hahacomic.com/manhua/15068/211003.html"
-        },
-        {
-          "title": "第160话",
-          "url": "https://www.hahacomic.com/manhua/15068/211004.html"
-        },
-        {
-          "title": "第161话",
-          "url": "https://www.hahacomic.com/manhua/15068/211005.html"
-        },
-        {
-          "title": "第162话",
-          "url": "https://www.hahacomic.com/manhua/15068/211006.html"
-        },
-        {
-          "title": "第163话",
-          "url": "https://www.hahacomic.com/manhua/15068/211007.html"
-        },
-        {
-          "title": "第164话",
-          "url": "https://www.hahacomic.com/manhua/15068/211008.html"
-        },
-        {
-          "title": "第165话",
-          "url": "https://www.hahacomic.com/manhua/15068/211009.html"
-        },
-        {
-          "title": "第166话",
-          "url": "https://www.hahacomic.com/manhua/15068/211010.html"
-        },
-        {
-          "title": "第167话",
-          "url": "https://www.hahacomic.com/manhua/15068/211011.html"
-        },
-        {
-          "title": "第168话",
-          "url": "https://www.hahacomic.com/manhua/15068/211012.html"
-        },
-        {
-          "title": "第169话",
-          "url": "https://www.hahacomic.com/manhua/15068/211013.html"
-        },
-        {
-          "title": "第170话",
-          "url": "https://www.hahacomic.com/manhua/15068/211014.html"
-        },
-        {
-          "title": "第171话",
-          "url": "https://www.hahacomic.com/manhua/15068/211015.html"
-        },
-        {
-          "title": "第172话",
-          "url": "https://www.hahacomic.com/manhua/15068/211016.html"
-        },
-        {
-          "title": "第173话",
-          "url": "https://www.hahacomic.com/manhua/15068/211017.html"
-        },
-        {
-          "title": "第174话",
-          "url": "https://www.hahacomic.com/manhua/15068/211018.html"
-        },
-        {
-          "title": "第175话",
-          "url": "https://www.hahacomic.com/manhua/15068/211019.html"
-        },
-        {
-          "title": "第176话",
-          "url": "https://www.hahacomic.com/manhua/15068/211020.html"
-        },
-        {
-          "title": "第177话",
-          "url": "https://www.hahacomic.com/manhua/15068/211021.html"
-        },
-        {
-          "title": "第178话",
-          "url": "https://www.hahacomic.com/manhua/15068/211022.html"
-        },
-        {
-          "title": "第179话",
-          "url": "https://www.hahacomic.com/manhua/15068/211023.html"
-        },
-        {
-          "title": "第180话",
-          "url": "https://www.hahacomic.com/manhua/15068/211024.html"
-        },
-        {
-          "title": "第181话",
-          "url": "https://www.hahacomic.com/manhua/15068/211025.html"
-        },
-        {
-          "title": "第182话",
-          "url": "https://www.hahacomic.com/manhua/15068/211026.html"
-        },
-        {
-          "title": "第183话",
-          "url": "https://www.hahacomic.com/manhua/15068/211027.html"
-        },
-        {
-          "title": "第184话",
-          "url": "https://www.hahacomic.com/manhua/15068/211028.html"
-        },
-        {
-          "title": "第185话",
-          "url": "https://www.hahacomic.com/manhua/15068/211029.html"
-        },
-        {
-          "title": "第186话",
-          "url": "https://www.hahacomic.com/manhua/15068/211030.html"
-        },
-        {
-          "title": "第187话",
-          "url": "https://www.hahacomic.com/manhua/15068/211031.html"
-        }
-      ],
-      "chapterOrder": {
-        "numberedCount": 187,
-        "firstNumber": 187,
-        "lastNumber": 1,
-        "minimumNumber": 1,
-        "maximumNumber": 187,
-        "direction": "descending",
-        "monotonic": true,
-        "coverage": 1.0,
-        "complete": true,
-        "sourceDirection": "descending",
-        "publishedDirection": "ascending",
-        "sourceChapterCount": 187,
-        "publishedChapterCount": 187,
-        "inaccessibleTailSkipped": 0
-      },
-      "samples": [
-        {
-          "position": "first",
-          "chapterTitle": "第1话",
-          "chapterUrl": "https://www.hahacomic.com/manhua/15068/210845.html",
-          "imageCount": 31,
-          "readable": true,
-          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/1/0001.jpg"
-        },
-        {
-          "position": "middle",
-          "chapterTitle": "第94话",
-          "chapterUrl": "https://www.hahacomic.com/manhua/15068/210938.html",
-          "imageCount": 42,
-          "readable": true,
-          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/94/0001.jpg"
-        },
-        {
-          "position": "latest",
-          "chapterTitle": "第187话",
-          "chapterUrl": "https://www.hahacomic.com/manhua/15068/211031.html",
-          "imageCount": 18,
-          "readable": true,
-          "firstImageUrl": "https://img.hahacomic.com/j/1666816406013874176/187/0001.jpg"
-        }
-      ],
-      "status": "verified",
-      "rejectionReasons": [],
-      "ordering": {
-        "chapterLinks": 187,
-        "numbered": 187,
-        "first": 187,
-        "last": 1,
-        "monotonic": true,
-        "direction": "descending",
-        "gapCount": 0
-      }
-    },
-    {
-      "workId": "b6aa05fac0a818a9",
-      "language": "zh-Hans",
-      "category": "",
-      "queryTitle": "以你之名",
-      "detailUrl": "https://hlgmh.com/comic/hlg-o2h",
-      "domain": "hlgmh.com",
+      "queryTitle": "哥就是踢的远",
+      "detailUrl": "https://www.patternrecognition.cn/book/236/",
+      "domain": "patternrecognition.cn",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
       "chapterCount": 0,
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfh"
+        "HTTPError: 500 Server Error: Internal Server Error for url: https://www.patternrecognition.cn/book/236/"
       ],
       "ordering": {
-        "chapterLinks": 265,
-        "numbered": 262,
-        "first": 262,
-        "last": 1,
-        "monotonic": true,
-        "direction": "descending",
+        "chapterLinks": 0,
+        "numbered": 0,
+        "first": null,
+        "last": null,
+        "monotonic": false,
+        "direction": "mixed",
         "gapCount": 0
       }
     },
@@ -33032,27 +33007,1266 @@
       }
     },
     {
-      "workId": "d88421ad167edd25",
+      "workId": "43643d9cebc02830",
       "language": "zh-Hans",
       "category": "",
-      "queryTitle": "哥就是踢的远",
-      "detailUrl": "https://www.patternrecognition.cn/book/236/",
-      "domain": "patternrecognition.cn",
+      "queryTitle": "圣墟",
+      "detailUrl": "https://hlgmh.com/comic/hlg-jhh",
+      "domain": "hlgmh.com",
+      "policyVersion": "readability-v5",
+      "matchedTitle": "圣墟",
+      "coverUrl": "https://hlgmh.com/brand/hlgmh-og-share.png",
+      "chapterCount": 293,
+      "chapters": [
+        {
+          "title": "1 序章 地球苏醒 万灵进化！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vf4b"
+        },
+        {
+          "title": "2 第1话 世界变了 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vf6p"
+        },
+        {
+          "title": "3 第2话 惊悚 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vf8j"
+        },
+        {
+          "title": "4 第3话 天神生物 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfai"
+        },
+        {
+          "title": "5 第4话 牛魔王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfcc"
+        },
+        {
+          "title": "6 第5话 修行 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfed"
+        },
+        {
+          "title": "7 第6话 异人 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfg1"
+        },
+        {
+          "title": "8 第7话 狂虐异人！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfip"
+        },
+        {
+          "title": "9 第8话 大力牛魔拳 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfjv"
+        },
+        {
+          "title": "10 第9话 林诺依 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfl3"
+        },
+        {
+          "title": "11 第10话 激战 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfmh"
+        },
+        {
+          "title": "12 第11话 黄牛在天！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfnu"
+        },
+        {
+          "title": "13 第12话 一击必杀！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfp4"
+        },
+        {
+          "title": "14 第13话 异果？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfq6"
+        },
+        {
+          "title": "15 第14话 进山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfrz"
+        },
+        {
+          "title": "16 第15话 火箭炮小队来袭！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vftc"
+        },
+        {
+          "title": "17 第16话 狂牛降世！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfuv"
+        },
+        {
+          "title": "18 第17话 异果争夺战 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfw2"
+        },
+        {
+          "title": "19 第18话 命悬一线 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfxi"
+        },
+        {
+          "title": "20 第19话 再见，楚风 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vfz4"
+        },
+        {
+          "title": "21 第20话 爆发 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg11"
+        },
+        {
+          "title": "22 第21话 小队全灭？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg2o"
+        },
+        {
+          "title": "23 第22话 祝你好运！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg4g"
+        },
+        {
+          "title": "24 第23话 她是我的朋友！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg5s"
+        },
+        {
+          "title": "25 第24话 异人三天王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg7j"
+        },
+        {
+          "title": "26 番外篇 黄牛的一天 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vg93"
+        },
+        {
+          "title": "27 第26话 屠龙 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgap"
+        },
+        {
+          "title": "28 第27话 猎龙 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgc9"
+        },
+        {
+          "title": "29 第28话 胖子变异？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgdu"
+        },
+        {
+          "title": "30 第29话 超强呼吸法？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgfe"
+        },
+        {
+          "title": "31 第30话 上山！_(｀^´)_ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vghk"
+        },
+        {
+          "title": "32 第31话 最强火焰？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgk0"
+        },
+        {
+          "title": "33 第32话 牛神王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgm0"
+        },
+        {
+          "title": "34 第33话 银翅天神出动！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgnt"
+        },
+        {
+          "title": "35 第34话 银翅天神VS金刚 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgpe"
+        },
+        {
+          "title": "36 第35话 楚风vs银翅天神 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgr2"
+        },
+        {
+          "title": "37 第36话 楚风被虐！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgsm"
+        },
+        {
+          "title": "38 第37话 你的命，在我手里！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgu5"
+        },
+        {
+          "title": "39 第38话 黄牛战死？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgvh"
+        },
+        {
+          "title": "40 第39话 色诱？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgwo"
+        },
+        {
+          "title": "41 第40话 大黑牛登场 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgyf"
+        },
+        {
+          "title": "42 第41话 联手 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vgzk"
+        },
+        {
+          "title": "43 第42话 突围 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh0x"
+        },
+        {
+          "title": "44 第43话 极限 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh1z"
+        },
+        {
+          "title": "45 第44话 最后一刻 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh3q"
+        },
+        {
+          "title": "46 第45话 食物链 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh66"
+        },
+        {
+          "title": "47 第46话 白虎 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh7z"
+        },
+        {
+          "title": "48 第47话 叛徒 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vh9t"
+        },
+        {
+          "title": "49 第48话 不祥的预感 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhbp"
+        },
+        {
+          "title": "50 第49话 叛徒 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhd8"
+        },
+        {
+          "title": "51 第50话 转守为攻的方法 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vheh"
+        },
+        {
+          "title": "52 第51话 守护之人登场！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhg2"
+        },
+        {
+          "title": "53 第52话 复仇之异果 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhhp"
+        },
+        {
+          "title": "54 第53话 还不够！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhjh"
+        },
+        {
+          "title": "55 第54话 危险在背后 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhl3"
+        },
+        {
+          "title": "56 第55话 选错对手！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhod"
+        },
+        {
+          "title": "57 第56话 交锋 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhq1"
+        },
+        {
+          "title": "58 第57话 结下梁子了！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhrg"
+        },
+        {
+          "title": "59 第58话 大战的前夕 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vht0"
+        },
+        {
+          "title": "60 第59话 是时候开战了！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhuv"
+        },
+        {
+          "title": "61 第60话 苍狼王出动 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhxb"
+        },
+        {
+          "title": "62 第61话 完全落败？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vhzc"
+        },
+        {
+          "title": "63 第62话 无计可施？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vi1t"
+        },
+        {
+          "title": "64 第63话 绝望下的底牌！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vi4h"
+        },
+        {
+          "title": "65 第64话 危险超乎想象！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vi72"
+        },
+        {
+          "title": "66 第65话 正面对抗！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vi9l"
+        },
+        {
+          "title": "67 第66话 苍狼王下场！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vibw"
+        },
+        {
+          "title": "68 第67话 获胜？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-viee"
+        },
+        {
+          "title": "69 第68话 最后的信念 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vigk"
+        },
+        {
+          "title": "70 第69话 前所未有的一拳 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-viiy"
+        },
+        {
+          "title": "71 第70话 瞩目的激战 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vil9"
+        },
+        {
+          "title": "72 第71话 核爆？核爆！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vio3"
+        },
+        {
+          "title": "73 第72话 红烧苍狼王？？？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-virj"
+        },
+        {
+          "title": "74 第73话 玉虚宫考试开始 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vitu"
+        },
+        {
+          "title": "75 第74话 机缘？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vivp"
+        },
+        {
+          "title": "76 第75话 冤家碰面？？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vixs"
+        },
+        {
+          "title": "77 第76话 相亲大乱斗？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vizw"
+        },
+        {
+          "title": "78 第77话 凶手正面挑衅！？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vj1q"
+        },
+        {
+          "title": "79 第78话 无能狂怒？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vj3u"
+        },
+        {
+          "title": "80 第79话 截杀？楚风1v3！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vj5o"
+        },
+        {
+          "title": "81 第80话 直播追杀 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vj74"
+        },
+        {
+          "title": "82 第81话 王级的代价！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vj8v"
+        },
+        {
+          "title": "83 第82话 枷锁阶的实力 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjak"
+        },
+        {
+          "title": "84 第83话 十王之首 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjbk"
+        },
+        {
+          "title": "85 第84话 枷锁人王诞生 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjdr"
+        },
+        {
+          "title": "86 第85话 兽王“鸿门宴” 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjg7"
+        },
+        {
+          "title": "87 第86话 战斗之约 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vji2"
+        },
+        {
+          "title": "88 第87话 盘山阴谋 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjk0"
+        },
+        {
+          "title": "89 第88话 突入盘山内部 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjlq"
+        },
+        {
+          "title": "90 第89话 老祖显身盘山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjnf"
+        },
+        {
+          "title": "91 第90话 老祖的王牌 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjp1"
+        },
+        {
+          "title": "92 第91话 楚风+狼王vs老祖 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjqq"
+        },
+        {
+          "title": "93 第92话 反击 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjsb"
+        },
+        {
+          "title": "94 第93话 平山灭寨 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vju3"
+        },
+        {
+          "title": "95 第94话 楚风的两难境地 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjvy"
+        },
+        {
+          "title": "96 第95话 楚风黄牛重见 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vjxz"
+        },
+        {
+          "title": "97 第96话 昆仑山训练 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vk03"
+        },
+        {
+          "title": "98 第97话 雪狐王vs黄牛 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vk24"
+        },
+        {
+          "title": "99 第98话 猩猩王发难昆仑山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vk42"
+        },
+        {
+          "title": "100 第99话 反派落败 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vk5v"
+        },
+        {
+          "title": "101 第100话 结束战斗 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vk8a"
+        },
+        {
+          "title": "102 第101话 舆论面前 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vka9"
+        },
+        {
+          "title": "103 第102话 审判楚风 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkby"
+        },
+        {
+          "title": "104 第103话 突发变故 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkdz"
+        },
+        {
+          "title": "105 第104话 爆炸 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkfr"
+        },
+        {
+          "title": "106 第105话 十王宣言 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkhg"
+        },
+        {
+          "title": "107 第106话 血腥理想国 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkjn"
+        },
+        {
+          "title": "108 第107话 大乱 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vklf"
+        },
+        {
+          "title": "109 第108话 战斗打响 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkny"
+        },
+        {
+          "title": "110 第109话 进攻计划 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkpu"
+        },
+        {
+          "title": "111 第110话 从天而降 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkrp"
+        },
+        {
+          "title": "112 第111话 王级斩杀 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vktp"
+        },
+        {
+          "title": "113 第112话 楚风の教育 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkvk"
+        },
+        {
+          "title": "114 第113话 阻碍 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkxb"
+        },
+        {
+          "title": "115 第114话 遭遇战 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vkzb"
+        },
+        {
+          "title": "116 第115话 意外援军 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vl1k"
+        },
+        {
+          "title": "117 第116话 黄牛の反击 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vl3g"
+        },
+        {
+          "title": "118 第117话 楚风出山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vl5d"
+        },
+        {
+          "title": "119 第118话 杀招 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vl78"
+        },
+        {
+          "title": "120 第119话 反败为胜 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vl8p"
+        },
+        {
+          "title": "121 第120话 醉翁之意不在酒 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlap"
+        },
+        {
+          "title": "122 第121话 回忆 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlcd"
+        },
+        {
+          "title": "123 第122话 空投到账！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vle1"
+        },
+        {
+          "title": "124 第123话 氪金大佬 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlfj"
+        },
+        {
+          "title": "125 第124话 昨日温馨 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlhb"
+        },
+        {
+          "title": "126 第125话 西方龙王来袭 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlj2"
+        },
+        {
+          "title": "127 第126话 碾压 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlkj"
+        },
+        {
+          "title": "128 第127话 缝合怪楚风 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlm0"
+        },
+        {
+          "title": "129 第128话 楚风登场 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlnv"
+        },
+        {
+          "title": "130 第129话 威震西方 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlpm"
+        },
+        {
+          "title": "131 第130话 楚风激战金乌王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlr8"
+        },
+        {
+          "title": "132 第131话 逆转 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vltw"
+        },
+        {
+          "title": "133 第132话 援军 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlvy"
+        },
+        {
+          "title": "134 第133话 空头核弹头 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vly3"
+        },
+        {
+          "title": "135 第134话 最后的墓场！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vlzt"
+        },
+        {
+          "title": "136 第135话 金乌的往事 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vm1v"
+        },
+        {
+          "title": "137 第136话 遗憾 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vm3z"
+        },
+        {
+          "title": "138 第137话 西方来袭 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vm6g"
+        },
+        {
+          "title": "139 第138话 挣脱枷锁！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vm8m"
+        },
+        {
+          "title": "140 第139话 下战书 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmaf"
+        },
+        {
+          "title": "141 第140话 潜入西方 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmc4"
+        },
+        {
+          "title": "142 第141话 暴揍 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmeb"
+        },
+        {
+          "title": "143 第142话 暴揍 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmge"
+        },
+        {
+          "title": "144 第143话 食材来袭？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmi5"
+        },
+        {
+          "title": "145 第144话 演技 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmkg"
+        },
+        {
+          "title": "146 第145话 圣子！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmmp"
+        },
+        {
+          "title": "147 第146话 不战胜 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmoo"
+        },
+        {
+          "title": "148 第147话 不死凤王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmqr"
+        },
+        {
+          "title": "149 第148话 扔回去！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmsq"
+        },
+        {
+          "title": "150 第149话 终极武器 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmul"
+        },
+        {
+          "title": "151 第150话 楚风の把戏 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmwf"
+        },
+        {
+          "title": "152 第151话 圣城机缘 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vmyk"
+        },
+        {
+          "title": "153 第152话 激战！楚风vs双王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn0j"
+        },
+        {
+          "title": "154 《圣墟》视频漫剧上线啦！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn0w"
+        },
+        {
+          "title": "155 第153话 飞剑归来 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn2x"
+        },
+        {
+          "title": "156 第154话 鸿沟 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn4o"
+        },
+        {
+          "title": "157 第155话 反击复仇！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn6p"
+        },
+        {
+          "title": "158 第156话 凤王爆发 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vn90"
+        },
+        {
+          "title": "159 第157话 偷家 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnbi"
+        },
+        {
+          "title": "160 第158话 奥林匹斯山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vndx"
+        },
+        {
+          "title": "161 第159话 结界 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnfy"
+        },
+        {
+          "title": "162 第160话 守山主神 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnj2"
+        },
+        {
+          "title": "163 第161话 楚神！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnl9"
+        },
+        {
+          "title": "164 第162话 威震奥林匹斯 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnn8"
+        },
+        {
+          "title": "165 第163话 漫天核弹璀璨！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnom"
+        },
+        {
+          "title": "166 第164话 惊世骗局 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnqd"
+        },
+        {
+          "title": "167 第165话 “摘桃子” 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vns6"
+        },
+        {
+          "title": "168 第166话 令人颤栗的对抗 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnui"
+        },
+        {
+          "title": "169 第167话 恐怖实力 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnw8"
+        },
+        {
+          "title": "170 第168话 追杀！围剿！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vnyo"
+        },
+        {
+          "title": "171 第169话 奇遇 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vo1b"
+        },
+        {
+          "title": "172 第170话 突破 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vo3f"
+        },
+        {
+          "title": "173 第171话 食物不够？敌人凑！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vo5m"
+        },
+        {
+          "title": "174 第172话 脱变后遗症 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vo7l"
+        },
+        {
+          "title": "175 第173话 轰动 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vo99"
+        },
+        {
+          "title": "176 第174话 玩票大的 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-voar"
+        },
+        {
+          "title": "177 第175话 美食排行榜 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vocv"
+        },
+        {
+          "title": "178 第176话 行走的炒锅 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-voew"
+        },
+        {
+          "title": "179 第177话 舌尖上的昆仑 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vogq"
+        },
+        {
+          "title": "180 第178话 一战惊天下 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-voiq"
+        },
+        {
+          "title": "181 第179话 屠龙者 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vokj"
+        },
+        {
+          "title": "182 第180话 决战将起 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vomg"
+        },
+        {
+          "title": "183 第181话 阻击人王 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vooo"
+        },
+        {
+          "title": "184 第182话 局势豹变 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vor7"
+        },
+        {
+          "title": "185 第183话 虽远必诛 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vot9"
+        },
+        {
+          "title": "186 第184话 大战席勒 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-voux"
+        },
+        {
+          "title": "187 第185话 席勒大战 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vowg"
+        },
+        {
+          "title": "188 第186话 重创！！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-voz1"
+        },
+        {
+          "title": "189 第187话 攻打奥林匹斯山！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp0t"
+        },
+        {
+          "title": "190 第188话 冲击波！！发射？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp2q"
+        },
+        {
+          "title": "191 第189话 烧烤席勒！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp44"
+        },
+        {
+          "title": "192 第190话 域外生物！？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp5u"
+        },
+        {
+          "title": "193 第191话 压倒性的实力？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp7l"
+        },
+        {
+          "title": "194 第192话 海族登陆？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vp9f"
+        },
+        {
+          "title": "195 第193话 二度相亲！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpbl"
+        },
+        {
+          "title": "196 第194话 隔墙有爹 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpd3"
+        },
+        {
+          "title": "197 第195话 收货！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpev"
+        },
+        {
+          "title": "198 第196话 灾厄之石？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpge"
+        },
+        {
+          "title": "199 第197话 龘虎山，开战！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpi7"
+        },
+        {
+          "title": "200 第198话 战略失效？大危机？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpjt"
+        },
+        {
+          "title": "201 第199话 昆仑vs海族黑滕 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vplg"
+        },
+        {
+          "title": "202 第200话 猎杀黑滕！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpmq"
+        },
+        {
+          "title": "203 第201话 我，既是东海！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpol"
+        },
+        {
+          "title": "204 第202话 龘虎山奇妙冒险 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpq5"
+        },
+        {
+          "title": "205 第203话 降妖术！到手？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vps0"
+        },
+        {
+          "title": "206 第204话 龘虎山奇妙冒险 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpue"
+        },
+        {
+          "title": "207 205话 回援昆仑 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpwf"
+        },
+        {
+          "title": "208 第206话 圈套？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpy6"
+        },
+        {
+          "title": "209 第207话 十二真形 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vpzv"
+        },
+        {
+          "title": "210 第208话 大杀四方！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vq1h"
+        },
+        {
+          "title": "211 第209话 九洲大乱？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vq3c"
+        },
+        {
+          "title": "212 第210话 强敌与援兵？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vq5e"
+        },
+        {
+          "title": "213 第211话 激斗！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vq76"
+        },
+        {
+          "title": "214 第212话 逃出生天？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vq8w"
+        },
+        {
+          "title": "215 第213话 苏醒 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqb1"
+        },
+        {
+          "title": "216 第214话 试图突破？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqcz"
+        },
+        {
+          "title": "217 第215话 大战开始！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqey"
+        },
+        {
+          "title": "218 第216话 杀穿西线！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqgq"
+        },
+        {
+          "title": "219 第217话 反击！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqim"
+        },
+        {
+          "title": "220 第218话 万箭齐发！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqjt"
+        },
+        {
+          "title": "221 第219话 楚风vs四大名 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vql7"
+        },
+        {
+          "title": "222 第220话 海神虎登场？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqmf"
+        },
+        {
+          "title": "223 第221话 楚风vs海神虎（2） 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqng"
+        },
+        {
+          "title": "224 第222话 食我炸弹啦！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqoj"
+        },
+        {
+          "title": "225 第223话 逍遥界生物？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqpq"
+        },
+        {
+          "title": "226 第224话 龘虎山仙境？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqqw"
+        },
+        {
+          "title": "227 第225话 妖仙临世！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqs0"
+        },
+        {
+          "title": "228 第226话 大妖出动！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqtk"
+        },
+        {
+          "title": "229 第227话 十二丧钟！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqur"
+        },
+        {
+          "title": "230 第228话 覆海蛟魔拳！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqw0"
+        },
+        {
+          "title": "231 第229话 逍遥界的差距！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqx1"
+        },
+        {
+          "title": "232 第230话 封印大妖？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqy9"
+        },
+        {
+          "title": "233 第231话 二次天地异变？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vqzc"
+        },
+        {
+          "title": "234 第232话 巨变的世界！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr0a"
+        },
+        {
+          "title": "235 第233话 冤家路窄！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr18"
+        },
+        {
+          "title": "236 第234话 远古场域！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr2p"
+        },
+        {
+          "title": "237 第235话 豪赌！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr3m"
+        },
+        {
+          "title": "238 第236话 小磨盘！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr4o"
+        },
+        {
+          "title": "239 第237话 大雷音寺古刹！！？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr5q"
+        },
+        {
+          "title": "240 第238话 读书是唯一的出路 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr74"
+        },
+        {
+          "title": "241 第239话 知识改变命运！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr8a"
+        },
+        {
+          "title": "242 第240话 大雷音古刹！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vr9e"
+        },
+        {
+          "title": "243 第241话 套娃！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrb0"
+        },
+        {
+          "title": "244 第242话 套娃！！（2） 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrc4"
+        },
+        {
+          "title": "245 第243话 摆烂万岁！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrde"
+        },
+        {
+          "title": "246 第244话 自裁？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrej"
+        },
+        {
+          "title": "247 第245话 域外生物？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrfm"
+        },
+        {
+          "title": "248 第246话 新的修行？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrgo"
+        },
+        {
+          "title": "249 第247话 新的修行？！（2） 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrht"
+        },
+        {
+          "title": "250 第248话 大战开始！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrjb"
+        },
+        {
+          "title": "251 第249话 食我大箭啦！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrkx"
+        },
+        {
+          "title": "252 第250话 全面碾压！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrm0"
+        },
+        {
+          "title": "253 第251话 大爷来玩儿啊～ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrn8"
+        },
+        {
+          "title": "254 第252话 我剪刀你随意 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vroi"
+        },
+        {
+          "title": "255 第253话 域外生物 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrpy"
+        },
+        {
+          "title": "256 第254话 我有个宝贝 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrqz"
+        },
+        {
+          "title": "257 第255话 大杀特杀！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrrx"
+        },
+        {
+          "title": "258 第256话 BOSS登场！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrte"
+        },
+        {
+          "title": "259 第257话 猿王出击？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vruu"
+        },
+        {
+          "title": "260 第258话 留一手 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrvv"
+        },
+        {
+          "title": "261 第259话 猿王VS元首 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrwv"
+        },
+        {
+          "title": "262 第260话 分头行动 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vryr"
+        },
+        {
+          "title": "263 第261话 元首，你这是超生 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vrzy"
+        },
+        {
+          "title": "264 第262话 靓仔登场 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs1e"
+        },
+        {
+          "title": "265 第263话 变身？！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs2m"
+        },
+        {
+          "title": "266 第264话 猪脑 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs3k"
+        },
+        {
+          "title": "267 第265话 二营长！开炮！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs4m"
+        },
+        {
+          "title": "268 第266话 天才场域师 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs6g"
+        },
+        {
+          "title": "269 第267话 空投 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs7u"
+        },
+        {
+          "title": "270 第268话 胜负点 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vs9o"
+        },
+        {
+          "title": "271 第269话 亲卫队集结 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsbp"
+        },
+        {
+          "title": "272 第270话 箭指元首，例无虚发！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsdm"
+        },
+        {
+          "title": "273 第271话 败走？ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsfl"
+        },
+        {
+          "title": "274 第272话 开炼！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vshq"
+        },
+        {
+          "title": "275 第273话 交锋 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsjv"
+        },
+        {
+          "title": "276 第274话 残火 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsln"
+        },
+        {
+          "title": "277 第275话 交锋 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsnl"
+        },
+        {
+          "title": "278 第276话 透支的话补就好了 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vspj"
+        },
+        {
+          "title": "279 第277话 月黶忿怒之环 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsrj"
+        },
+        {
+          "title": "280 第278话 暴抽 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vste"
+        },
+        {
+          "title": "281 第279话 坠落 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsvg"
+        },
+        {
+          "title": "282 第280话 最盛大的爆炸 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsx5"
+        },
+        {
+          "title": "283 第281话 新的进化 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vsyx"
+        },
+        {
+          "title": "284 第282话 新客造访 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt09"
+        },
+        {
+          "title": "285 第283话 炼丹 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt1k"
+        },
+        {
+          "title": "286 第284话 外星人的围猎 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt2p"
+        },
+        {
+          "title": "287 第285话 外星VS昆仑 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt45"
+        },
+        {
+          "title": "288 第286话 火焰山 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt5g"
+        },
+        {
+          "title": "289 第287话 投降 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt6v"
+        },
+        {
+          "title": "290 第288话 给我药材！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt83"
+        },
+        {
+          "title": "291 第289话 再遇 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vt9p"
+        },
+        {
+          "title": "292 第290话 故事的开始和结束 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vtb6"
+        },
+        {
+          "title": "293 开新作啦！！！ 2026-04-23 chevron_right",
+          "url": "https://hlgmh.com/chapter/hlg-vtd3"
+        }
+      ],
+      "chapterOrder": {
+        "numberedCount": 288,
+        "firstNumber": 290,
+        "lastNumber": 1,
+        "minimumNumber": 1,
+        "maximumNumber": 290,
+        "direction": "descending",
+        "monotonic": true,
+        "coverage": 0.9931,
+        "complete": true,
+        "sourceDirection": "descending",
+        "publishedDirection": "ascending",
+        "sourceChapterCount": 293,
+        "publishedChapterCount": 293,
+        "inaccessibleTailSkipped": 0
+      },
+      "samples": [
+        {
+          "position": "first",
+          "chapterTitle": "1 序章 地球苏醒 万灵进化！ 2026-04-23 chevron_right",
+          "chapterUrl": "https://hlgmh.com/chapter/hlg-vf4b",
+          "imageCount": 102,
+          "readable": true,
+          "firstImageUrl": "https://img.hlgmh.com/th/comics/chapters/582/260423/1_1.webp"
+        },
+        {
+          "position": "middle",
+          "chapterTitle": "147 第146话 不战胜 2026-04-23 chevron_right",
+          "chapterUrl": "https://hlgmh.com/chapter/hlg-vmoo",
+          "imageCount": 191,
+          "readable": true,
+          "firstImageUrl": "https://img.hlgmh.com/th/comics/chapters/582/260423/147_1.webp"
+        },
+        {
+          "position": "latest",
+          "chapterTitle": "293 开新作啦！！！ 2026-04-23 chevron_right",
+          "chapterUrl": "https://hlgmh.com/chapter/hlg-vtd3",
+          "imageCount": 15,
+          "readable": true,
+          "firstImageUrl": "https://img.hlgmh.com/th/comics/chapters/582/260423/293_1.webp"
+        }
+      ],
+      "status": "verified",
+      "rejectionReasons": [],
+      "ordering": {
+        "chapterLinks": 293,
+        "numbered": 288,
+        "first": 290,
+        "last": 1,
+        "monotonic": true,
+        "direction": "descending",
+        "gapCount": 2
+      }
+    },
+    {
+      "workId": "b6aa05fac0a818a9",
+      "language": "zh-Hans",
+      "category": "",
+      "queryTitle": "以你之名",
+      "detailUrl": "https://hlgmh.com/comic/hlg-o2h",
+      "domain": "hlgmh.com",
       "policyVersion": "readability-v5",
       "matchedTitle": "",
       "chapterCount": 0,
       "samples": [],
       "status": "unreachable",
       "rejectionReasons": [
-        "ReadTimeout: HTTPSConnectionPool(host='www.patternrecognition.cn', port=443): Read timed out. (read timeout=15)"
+        "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfh"
       ],
       "ordering": {
-        "chapterLinks": 0,
-        "numbered": 0,
-        "first": null,
-        "last": null,
-        "monotonic": false,
-        "direction": "mixed",
+        "chapterLinks": 265,
+        "numbered": 262,
+        "first": 262,
+        "last": 1,
+        "monotonic": true,
+        "direction": "descending",
         "gapCount": 0
       }
     }
