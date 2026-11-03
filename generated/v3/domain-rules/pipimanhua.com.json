@@ -6,7 +6,10 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -37,11 +40,6 @@
     "6d62962a7466c854"
   ],
   "replayWorkCount": 17,
-  "failures": [
-    {
-      "workId": "2720b505f63f7759",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.pipimanhua.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
+  "failures": [],
   "status": "rejected"
 }
