@@ -6,18 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a.chapter-link",
-    "*.lay-flex a[href]",
-    "a.toolBar-toolRead",
-    "*.chapter-item a[href]",
-    "*.bottom-chapter-item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.comic-pic",
-    "*.comic-pic-box img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -30,6 +21,11 @@
     "db660385795e6036"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "db660385795e6036",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.cxjob.com.cn/book/875/"
+    }
+  ],
+  "status": "rejected"
 }
