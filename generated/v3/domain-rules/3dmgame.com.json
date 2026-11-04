@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.bds_sqq",
+    "a.bds_qzone",
+    "a.bds_tsina"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.language-switch__arrow",
+    "*.language-switch__trigger img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "be106fe98430da26"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "be106fe98430da26",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.3dmgame.com', port=443): Max retries exceeded with url: /games/theevilwithin/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.3dmgame.com', port=443) at 0x76c3e19436b0>, 'Connection to www.3dmgame.com timed out. (connect timeout=15)'))"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
