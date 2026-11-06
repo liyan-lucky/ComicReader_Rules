@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261106060928",
-  "updatedAt": "2026-11-06T06:09:28.271666+00:00",
+  "version": "20261106063940",
+  "updatedAt": "2026-11-06T06:39:40.854417+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.bds_sqq",
           "* a[href]",
-          "a.bds_tsina",
-          "a.bds_qzone"
+          "a.bds_sqq",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1800,8 +1800,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "a.toolBar-toolRead",
           "*.lay-flex a[href]",
+          "a.toolBar-toolRead",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -9274,8 +9274,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "*.reader-page-img img",
-          "img.reader-page-image"
+          "img.reader-page-image",
+          "*.reader-page-img img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x70309f2efb60>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x71ba2531f7a0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11422,8 +11422,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11470,7 +11470,7 @@
         "failures": [
           {
             "workId": "d6ab3f85ba515112",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x73e4af21f740>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.haomanhua.cc', port=80): Max retries exceeded with url: /hao/1.html (Caused by ConnectTimeoutError(<HTTPConnection(host='www.haomanhua.cc', port=80) at 0x71f3ff9eba10>, 'Connection to www.haomanhua.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11717,19 +11717,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7bca409378c0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7da2b0c2f770>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7bca406201a0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7da2b830c050>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7bca40937ef0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7da2b0c2fdd0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7bca40936cc0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7da2b0c2f680>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12558,6 +12558,64 @@
           {
             "workId": "f6716506b2c28f94",
             "reason": "ConnectionError: HTTPSConnectionPool(host='www.tnmm.cc', port=443): Max retries exceeded with url: /tm33133.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.tnmm.cc', port=443): Failed to resolve 'www.tnmm.cc' ([Errno -2] Name or service not known)\"))"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "z525_com",
+        "domain": "z525.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "a.social-icon",
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.comic-image",
+          "*.comic-content img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "9b38d50107960278",
+          "f9c4fdc223a5b1bc",
+          "4bafa5f66c48e1e8",
+          "56baf85af1cea3b2",
+          "d63ad69c78280b3d",
+          "98307a561b60cf69",
+          "e557f89d40d48d62",
+          "e32ddc75ac76364e"
+        ],
+        "replayWorkCount": 8,
+        "failures": [
+          {
+            "workId": "9b38d50107960278",
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_63525.html"
+          },
+          {
+            "workId": "f9c4fdc223a5b1bc",
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_57065.html"
+          },
+          {
+            "workId": "4bafa5f66c48e1e8",
+            "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_44436.html"
+          },
+          {
+            "workId": "56baf85af1cea3b2",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
           }
         ],
         "status": "rejected"
