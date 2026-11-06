@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261106102725",
-  "updatedAt": "2026-11-06T10:27:25.732464+00:00",
+  "version": "20261106105449",
+  "updatedAt": "2026-11-06T10:54:49.198290+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_tsina",
-          "a.bds_qzone"
+          "* a[href]",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4354,8 +4354,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -9274,8 +9274,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x79d25df3b5c0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x702c80123aa0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11422,8 +11422,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.chapter-name",
           "*.item a[href]",
+          "a.chapter-name",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11717,19 +11717,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c06d9033710>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7de759f237a0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c06e07140e0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7de759c24080>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c06d9033ad0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7de759f23ef0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c06d9033590>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7de759f236b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12048,13 +12048,137 @@
       },
       {
         "schema": "comic_domain_rule_v1",
+        "id": "nubbub_com",
+        "domain": "nubbub.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "84cdd800bf601efc",
+          "fcea7e3321c120b8",
+          "cd412a89282ebd85",
+          "1c3d23fe214a2f1c",
+          "413c55d24fb169fc",
+          "501e5af2bdfc8704",
+          "5d4d2d9a35f116f6",
+          "60468e03e87c363f",
+          "708bb21833791511",
+          "a1f944185e378b7b",
+          "ba417c12133c01cc",
+          "d9fcb8ec018cc0b8",
+          "da733236aef9cf5d",
+          "e498f26bcf8f7927",
+          "fba5536caccdd1d4",
+          "6a5e7279a84992c5",
+          "6635140470b449e4",
+          "db1640ffe211b447",
+          "9a6ef0ce439fcfbc"
+        ],
+        "replayWorkCount": 19,
+        "failures": [
+          {
+            "workId": "84cdd800bf601efc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/21695/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "fcea7e3321c120b8",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "cd412a89282ebd85",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='nubbub.com', port=443): Max retries exceeded with url: /mh/24563/ (Caused by NameResolutionError(\"HTTPSConnection(host='nubbub.com', port=443): Failed to resolve 'nubbub.com' ([Errno -5] No address associated with hostname)\"))"
+          },
+          {
+            "workId": "1c3d23fe214a2f1c",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "413c55d24fb169fc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "501e5af2bdfc8704",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/10833/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "5d4d2d9a35f116f6",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "60468e03e87c363f",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "708bb21833791511",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29263/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "a1f944185e378b7b",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/2019/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "ba417c12133c01cc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/28640.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "d9fcb8ec018cc0b8",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29017/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "da733236aef9cf5d",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/11640.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "e498f26bcf8f7927",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26190/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "fba5536caccdd1d4",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "6a5e7279a84992c5",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/24717/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "6635140470b449e4",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25621.html (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "db1640ffe211b447",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          },
+          {
+            "workId": "9a6ef0ce439fcfbc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/14819/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to resolve 'www.nubbub.com' ([Errno -2] Name or service not known)\"))"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
         "id": "pipimanhua_com",
         "domain": "pipimanhua.com",
         "languages": [
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
