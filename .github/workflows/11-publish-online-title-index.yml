@@ -1,0 +1,31 @@
+name: 11 在线书名目录发布
+run-name: "11 发布 2 万+ 在线书名目录"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions: {contents: write}
+concurrency: {group: online-title-index-publish, cancel-in-progress: false}
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - run: git pull --rebase origin main || true
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Build online-first catalog
+        run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 2500
+      - name: Validate 2w+ release gate
+        run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 20000 --output generated/v3/release_audit.zh-Hans.json
+      - name: Publish manifest only when the index changed
+        run: python scripts/update_manifest.py --only-if-changed --section catalog --tag "online-v1-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
+      - name: Commit online catalog
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add catalog/catalog.zh-Hans.json generated/v3/release_audit.zh-Hans.json generated/update_manifest.json
+          git diff --cached --quiet || git commit -m 'publish: online title catalog'
+          bash scripts/ci_push_with_retry.sh
