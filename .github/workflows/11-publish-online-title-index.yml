@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Build online-first catalog
-        run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 4000
+        run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 4500
       - name: Validate 3w+ release gate
         run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 30000 --output generated/v3/release_audit.zh-Hans.json
       - name: Publish manifest only when the index changed
