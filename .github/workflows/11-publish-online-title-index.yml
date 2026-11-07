@@ -1,5 +1,5 @@
 name: 11 在线书名目录发布
-run-name: "11 发布 2 万+ 在线书名目录"
+run-name: "11 发布 3 万+ 在线书名目录"
 on:
   workflow_dispatch:
   schedule:
@@ -17,9 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - name: Build online-first catalog
-        run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 2500
-      - name: Validate 2w+ release gate
-        run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 20000 --output generated/v3/release_audit.zh-Hans.json
+        run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 4000
+      - name: Validate 3w+ release gate
+        run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 30000 --output generated/v3/release_audit.zh-Hans.json
       - name: Publish manifest only when the index changed
         run: python scripts/update_manifest.py --only-if-changed --section catalog --tag "online-v1-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文
       - name: Commit online catalog

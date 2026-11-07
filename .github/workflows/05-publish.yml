@@ -30,8 +30,8 @@ jobs:
       # Publishing the visible App index must not wait for the much slower
       # per-domain readability replay.  Every title has a local all-web-search
       # fallback; verified sources are attached as they become available.
-      - run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 2500
-      - run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 20000 --output generated/v3/release_audit.zh-Hans.json
+      - run: python scripts/publish_online_title_catalog.py --parameters parameters/catalog/zh-Hans --sources generated/v3/best_sources.zh-Hans.json --existing catalog/catalog.zh-Hans.json --output catalog/catalog.zh-Hans.json --max-per-category 4000
+      - run: python scripts/validate_online_title_catalog.py --catalog catalog/catalog.zh-Hans.json --minimum-items 30000 --output generated/v3/release_audit.zh-Hans.json
       - run: python scripts/generate_app_blacklist.py --ledger generated/v3/domain_ledger.zh-Hans.json --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --output generated/app_blacklist.zh-Hans.json
       - run: python scripts/check_blacklist_safety.py --blacklist generated/app_blacklist.zh-Hans.json --catalog catalog/catalog.zh-Hans.json --rules rules/index.zh-Hans.json --output generated/blacklist_safety_report.json
       - run: python scripts/update_manifest.py --only-if-changed --section catalog --tag "v3-$(date -u +%Y%m%d%H%M%S)" --language-code zh-Hans --language-name 简体中文

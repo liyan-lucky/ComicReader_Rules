@@ -64,7 +64,7 @@ def main() -> int:
     parser.add_argument("--sources", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--existing", type=Path)
-    parser.add_argument("--max-per-category", type=int, default=2500)
+    parser.add_argument("--max-per-category", type=int, default=4000)
     args = parser.parse_args()
 
     config = json.loads((ROOT / "config" / "catalog_config.json").read_text(encoding="utf-8-sig"))
