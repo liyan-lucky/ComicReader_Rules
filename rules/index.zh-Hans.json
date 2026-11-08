@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261108181234",
-  "updatedAt": "2026-11-08T18:12:34.831569+00:00",
+  "version": "20261108183449",
+  "updatedAt": "2026-11-08T18:34:49.498908+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -5059,15 +5059,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.flex a[href]",
-          "*.py-2 a[href]"
+          "*.py-2 a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -8544,8 +8544,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -9274,8 +9274,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "*.reader-page-img img",
-          "img.reader-page-image"
+          "img.reader-page-image",
+          "*.reader-page-img img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x79cd13b43920>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x72040b03b800>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11235,6 +11235,37 @@
           {
             "workId": "6b87de0ecbeec5cd",
             "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "cxjob_com_cn",
+        "domain": "cxjob.com.cn",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "db660385795e6036"
+        ],
+        "replayWorkCount": 1,
+        "failures": [
+          {
+            "workId": "db660385795e6036",
+            "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.cxjob.com.cn/book/875/"
           }
         ],
         "status": "rejected"
@@ -11634,7 +11665,13 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a",
+          "a.btn",
+          "* a[href]",
+          "*.area a[href]",
+          "*.primary a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
@@ -11649,12 +11686,7 @@
           "f9821346ceb923bd"
         ],
         "replayWorkCount": 1,
-        "failures": [
-          {
-            "workId": "f9821346ceb923bd",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.jocyacg.com', port=443): Max retries exceeded with url: /comics/756/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jocyacg.com', port=443) at 0x7ddce401b8f0>, 'Connection to www.jocyacg.com timed out. (connect timeout=15)'))"
-          }
-        ],
+        "failures": [],
         "status": "rejected"
       },
       {
@@ -11727,7 +11759,12 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]",
+          "a.btn-normal",
+          "*.btn-group-cell a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
@@ -11747,15 +11784,11 @@
         "failures": [
           {
             "workId": "b8e55ad8a0e63404",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a224078c0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x770a86f3b770>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
           },
           {
             "workId": "cdfb83a6a1547d8f",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a221041a0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
-          },
-          {
-            "workId": "ba7f807d4ee06aba",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a22407ec0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectionError: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by NewConnectionError(\"HTTPSConnection(host='m.jocyacg.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
           }
         ],
         "status": "rejected"
@@ -11789,19 +11822,19 @@
         "failures": [
           {
             "workId": "219a32d33530fdcf",
-            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7647c2b276b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "a0303e4d17785f1d",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fc979624050>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7647c2b27f50>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "19652c3754028602",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fc97993bb00>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7647c2b27b90>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           },
           {
             "workId": "b419817e4948a2ed",
-            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7fc97993ac60>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7647c2b273b0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"

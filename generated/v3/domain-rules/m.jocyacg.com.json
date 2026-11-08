@@ -6,7 +6,12 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.btn-normal",
+    "*.btn-group-cell a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -26,15 +31,11 @@
   "failures": [
     {
       "workId": "b8e55ad8a0e63404",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a224078c0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/613/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x770a86f3b770>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
     },
     {
       "workId": "cdfb83a6a1547d8f",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a221041a0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
-    },
-    {
-      "workId": "ba7f807d4ee06aba",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/625/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.jocyacg.com', port=443) at 0x794a22407ec0>, 'Connection to m.jocyacg.com timed out. (connect timeout=15)'))"
+      "reason": "ConnectionError: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Max retries exceeded with url: /comics/609/ (Caused by NewConnectionError(\"HTTPSConnection(host='m.jocyacg.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     }
   ],
   "status": "rejected"
