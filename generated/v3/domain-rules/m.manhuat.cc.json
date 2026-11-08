@@ -27,19 +27,19 @@
   "failures": [
     {
       "workId": "219a32d33530fdcf",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7d1051b860>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+      "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
       "workId": "a0303e4d17785f1d",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7d17b040e0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c30c930c2c0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
     },
     {
       "workId": "19652c3754028602",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7d1051bb90>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-47577/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c30c1debe30>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
     },
     {
       "workId": "b419817e4948a2ed",
-      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7f7d17b04740>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
+      "reason": "ConnectTimeout: HTTPSConnectionPool(host='m.manhuat.cc', port=443): Max retries exceeded with url: /info-53838/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='m.manhuat.cc', port=443) at 0x7c30c930c5f0>, 'Connection to m.manhuat.cc timed out. (connect timeout=15)'))"
     }
   ],
   "status": "rejected"
