@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.btn",
+    "*.col-6 a[href]",
+    "a.cd-chapter-link",
+    "*.cd-actions a[href]",
+    "*.list-group-item a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "* img",
+    "img.chapter-image"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -22,15 +31,6 @@
     "a24192be50ac570e"
   ],
   "replayWorkCount": 2,
-  "failures": [
-    {
-      "workId": "7d5fc8c81bebdf60",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='cmanhua.com', port=443): Read timed out. (read timeout=15)"
-    },
-    {
-      "workId": "a24192be50ac570e",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='cmanhua.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
