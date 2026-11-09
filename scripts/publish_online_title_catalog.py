@@ -65,6 +65,8 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--existing", type=Path)
     parser.add_argument("--max-per-category", type=int, default=4500)
+    parser.add_argument("--minimum-items", type=int, default=30000,
+                        help="Preserve prior non-conflicting rows until this release floor is met")
     args = parser.parse_args()
 
     config = json.loads((ROOT / "config" / "catalog_config.json").read_text(encoding="utf-8-sig"))
@@ -127,9 +129,45 @@ def main() -> int:
             flattened.append(item)
         categories[category_id] = {"id": category_id, "name": category["name"], "count": len(items), "items": items}
 
-    content = {"categories": categories, "totalItems": len(flattened), "categoryCount": len(categories)}
+    preserved_count = 0
     if args.existing and args.existing.exists():
         old = json.loads(args.existing.read_text(encoding="utf-8-sig"))
+        # Upstream platform snapshots naturally fluctuate.  The visible online
+        # index must therefore be monotonic: a transiently smaller input must
+        # never turn a 30k release into a sub-30k release or block publishing.
+        # Preserve only unique, structurally usable previous rows and continue
+        # to prefer the freshly discovered version of every title.
+        if len(flattened) < args.minimum_items:
+            seen_ids = {str(item.get("id", "")) for item in flattened}
+            old_categories = old.get("categories", {})
+            for category in config["categories"]:
+                if len(flattened) >= args.minimum_items:
+                    break
+                category_id = str(category["id"])
+                old_category = old_categories.get(category_id, {})
+                for prior in old_category.get("items", []):
+                    if len(flattened) >= args.minimum_items:
+                        break
+                    title = str(prior.get("title", "")).strip()
+                    work_id = str(prior.get("id", ""))
+                    if not usable_title(title) or not work_id or not prior.get("sources"):
+                        continue
+                    key = title_key(title)
+                    if key in seen_titles or work_id in seen_ids:
+                        continue
+                    preserved = dict(prior)
+                    preserved["category"] = category_id
+                    preserved["language"] = "zh-Hans"
+                    categories[category_id]["items"].append(preserved)
+                    flattened.append(preserved)
+                    seen_titles.add(key)
+                    seen_ids.add(work_id)
+                    preserved_count += 1
+            for category in categories.values():
+                category["count"] = len(category["items"])
+
+    content = {"categories": categories, "totalItems": len(flattened), "categoryCount": len(categories)}
+    if args.existing and args.existing.exists():
         old_content = {key: old.get(key) for key in content}
         if old_content == content:
             print(f"online title catalog unchanged: {len(flattened)} items; keeping version {old.get('version', '')}")
@@ -141,11 +179,15 @@ def main() -> int:
         "updatedAt": now.isoformat(),
         "language": {"code": "zh-Hans", "name": "简体中文"},
         **content,
-        "audit": {"mode": "online-title-index-v1", "directReadableCount": direct_count, "fallbackSearchCount": len(flattened) - direct_count, "dropped": dict(dropped)},
+        "audit": {"mode": "online-title-index-v1", "directReadableCount": direct_count,
+                  "fallbackSearchCount": len(flattened) - direct_count, "preservedFromPrevious": preserved_count,
+                  "dropped": dict(dropped)},
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
-    print(json.dumps({"published": len(flattened), "directReadable": direct_count, "searchFallback": len(flattened) - direct_count, "dropped": dict(dropped)}, ensure_ascii=False))
+    print(json.dumps({"published": len(flattened), "directReadable": direct_count,
+                      "searchFallback": len(flattened) - direct_count, "preserved": preserved_count,
+                      "dropped": dict(dropped)}, ensure_ascii=False))
     return 0
 
 
