@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261110181022",
-  "updatedAt": "2026-11-10T18:10:22.461193+00:00",
+  "version": "20261110183615",
+  "updatedAt": "2026-11-10T18:36:15.110463+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.bds_sqq",
           "* a[href]",
+          "a.bds_sqq",
           "a.bds_tsina",
           "a.bds_qzone"
         ],
@@ -5059,15 +5059,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.flex a[href]",
-          "*.py-2 a[href]"
+          "*.py-2 a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -8544,8 +8544,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -9274,8 +9274,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "*.reader-page-img img",
-          "img.reader-page-image"
+          "img.reader-page-image",
+          "*.reader-page-img img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7801b23277a0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x740b41117a40>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11422,8 +11422,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -12111,7 +12111,10 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
+        "detailChapterSelectors": [
+          "a.chapter-name",
+          "*.chapter-item a[href]"
+        ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
@@ -12202,316 +12205,7 @@
           "e32ddc75ac76364e"
         ],
         "replayWorkCount": 77,
-        "failures": [
-          {
-            "workId": "076050ee259d00c2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/523158.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "2c32dd424f472564",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/221128.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "417e175bc4771de8",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/026128.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "44715ef8f6a8bb09",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/458288.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "4681888973364100",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/161288.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "675af96e23ee8b55",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/533228.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "6ad1b075b2a4e436",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/377828.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "7f979ebe2f2817d7",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/37108.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "8241747153ed5eef",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/956088.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "866338a4afd265f7",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/35566.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "9995de85f7ca4221",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/501428.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "b67e813fbc861f07",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/31188.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "ba256ac401877941",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/43636.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "ba98e9e7db24640b",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/4951.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "bbcd0bb10ea9d13c",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/635128.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "c868cfa8e545a19c",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/350888.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "de5abb0e08ea605d",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/10808.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "0b3d76c8ac025ca2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/93048.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "2916d5ba71fdcb6e",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/85120.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "72df5f7c4343938f",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/544788.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "8980885da96b99b7",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/971788.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "8c86909a330301f2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/45017.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1425217ec0ed5061",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/3513.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "7e4460f5d35c82e6",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/96658.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "af2701cee8382b77",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/328628.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "d35a02ab2443be33",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/52798.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "115efac67f8cc2bf",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/00908.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1287eeafb24731b3",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/93946.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "15998e00216147c5",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/898.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "16d603a2887df214",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/0513.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1919e7d5b1ae2cde",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/955888.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1c3d23fe214a2f1c",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/32471.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1dcb3ef74aebf20d",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/119148.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "33abe3caafc79d66",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/209.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "344869380cfd1eaf",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/21336.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "355c6d265e6db70f",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/99736.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "3b4e7e421f7bc225",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/43636.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "3f8fdd3a072c0036",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/0387.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "498bf8ad9bfdf6b9",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/30.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "52c0b8cb112fc28d",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/932128.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "58be219576d9d027",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/345758.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "5d4d2d9a35f116f6",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/754458.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "5f2e655c50be17e5",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/49010.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "727fc1f6c05d597d",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/117948.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "78b14bb1feaa8056",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/871558.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "835d393564c3b5ab",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/37108.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "84b9d93bfa96ad22",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/474828.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "852add78fec94900",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/31034.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "85dbba670d1febff",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/62636.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "8897c9dd0a0c24eb",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/47188.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "89158edb8dbb41bc",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/512758.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "9d71f0de783466c2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/85120.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "a5cada0661c35b12",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/884348.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "c40d40dddb12a9b2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/413858.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "cb21ccf2c53222c1",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/646558.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "d35bc4438bbd88c3",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/53136.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "e8196501e4c51792",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/8416.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "e9ea680c52d80f14",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/93048.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "f00d987d0ad2fbf6",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/947258.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "f4033cb1d4523248",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/415258.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "fb311ab14b296c98",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/230748.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "27cad24a1a402ab4",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/131.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "4eae8149d8d6e1e2",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/781588.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "81add392410d23e3",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/12180.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "dadd74f89558c188",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/94948.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "a0d4d22c7d927a10",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/884928.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "1944ebfabb5a41d5",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/85120.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "37ae1dc5c732c295",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/807748.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "55f8800c9ecfdbe6",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/62274.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "676fcdf7c75c8282",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/098948.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "925241712635e8c7",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/493858.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "acf0d08079efc41d",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/618958.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "ce06c5fcb83906f8",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/637398.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "d73700d5a33308f8",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/69036.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "e1d583413c71114c",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/919888.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "f62fd428e93e8886",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/026128.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          },
-          {
-            "workId": "e32ddc75ac76364e",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.stcwz.com', port=443): Max retries exceeded with url: /bookshell/476948.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.stcwz.com', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-          }
-        ],
+        "failures": [],
         "status": "rejected"
       },
       {
