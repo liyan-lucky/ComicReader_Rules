@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261111091108",
-  "updatedAt": "2026-11-11T09:11:08.234972+00:00",
+  "version": "20261111101321",
+  "updatedAt": "2026-11-11T10:13:21.001412+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -5059,15 +5059,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.flex a[href]",
-          "*.py-2 a[href]"
+          "*.py-2 a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x722c6d1379e0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7aee0242f7d0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11301,136 +11301,6 @@
       },
       {
         "schema": "comic_domain_rule_v1",
-        "id": "guazimanhua_com",
-        "domain": "guazimanhua.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "a.btn",
-          "* a[href]",
-          "a.mobile-primary-btn",
-          "*.hero-actions a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "19e4e5372592ae8c",
-          "1b692dbde0ff7630",
-          "33ea212cee8f904a",
-          "35b5d50b759281d3",
-          "66c5383cf77fcfe2",
-          "6badd7a97280cafa",
-          "70167161e82e3331",
-          "7b08f687ec33bac6",
-          "7e9c787cfe72be4b",
-          "8806c47a6747b9a4",
-          "89d3a9196a016b94",
-          "8ba2fd1b3d5ed9f4",
-          "937f3f57a2ab4f30",
-          "9a4132f4c26dc79a",
-          "9e85002eccc8df68",
-          "a2778e5d9f116357",
-          "a667813e3c8a5e6d",
-          "af35c6adc1f57e17",
-          "b588f23aebf23cac",
-          "c9ebc4c033da6123",
-          "cb72a1714322cd9c",
-          "e4702d54dc4c4acb",
-          "f1904095b83264be",
-          "2f39c4264c0f86de",
-          "4ef51d5dc2cc1e8b",
-          "d88421ad167edd25",
-          "eff32cc4ff2cd42d",
-          "04eafbaf130f2d37",
-          "0b0934c873019d7a",
-          "0ee6e655e55661b8",
-          "220e65c077fdda6e",
-          "2fab0a727dbedf71",
-          "30436123a009fbe1",
-          "393a303f35d02b0e",
-          "da4fbff861b4f801",
-          "6e11bf056589cb92",
-          "9f6cfeb31d8eb910",
-          "09f0f6a176217276",
-          "12d5933804bfcc85",
-          "162cd73fcf9589e9",
-          "1a8d2994649915d3",
-          "2a1e0ae63f37acb9",
-          "630e761a7260f135",
-          "7a4d0ea13031e784",
-          "7d763be408edaf72",
-          "7e9e98abea31f2af",
-          "846f318fe047ed35",
-          "99796800acc7bfb7",
-          "a66b0c7315570d9d",
-          "aabf67a77dcc027a",
-          "adba61019be0c122",
-          "d70e80502362d52d",
-          "e3e445b10adc1be7",
-          "f7fe91c19d103aa7",
-          "fbdaf57b2dc8942f",
-          "0fdf24524fbfbfa1",
-          "2644575ca1013084",
-          "27be24ce16496300",
-          "7c1f4685a6c0f8e8",
-          "93f55a4e8e423a11",
-          "a6257dbf6f4c34d7",
-          "af84afa5c21dcb2e",
-          "ba556120fe1fd8e0",
-          "e4fc49f0d5293e41",
-          "ea9e048cd6a2b853",
-          "1b08126b1c22fd47",
-          "59b49ee283ab6d17",
-          "6f268dc1ef80eeba",
-          "a994329fade274ac",
-          "ac0dbcc0511ac71e",
-          "b45c84733fe4cd75",
-          "e436158347a5d98f",
-          "f2a4c6b5521c9fc8",
-          "76662ed8eab9f3cc",
-          "dcbabb6e10824fdf",
-          "df57ec18d85847c3",
-          "3d80b2d6cdd3cac1",
-          "5936231a29304a15",
-          "5a07a1405059692b",
-          "7834444774f4c689",
-          "b986ba6ec6bd4b57",
-          "5ab3716ae33cd036"
-        ],
-        "replayWorkCount": 82,
-        "failures": [
-          {
-            "workId": "5a07a1405059692b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1000334"
-          },
-          {
-            "workId": "7834444774f4c689",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31481"
-          },
-          {
-            "workId": "b986ba6ec6bd4b57",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
-          },
-          {
-            "workId": "5ab3716ae33cd036",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
-          }
-        ],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
         "id": "h5_kanman_com",
         "domain": "h5.kanman.com",
         "languages": [
@@ -11500,18 +11370,9 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "* a[href]",
-          "a.mcd-read",
-          "a.mcd-chapter",
-          "*.mcd-catalog a[href]"
-        ],
+        "detailChapterSelectors": [],
         "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-wrap img"
-        ],
+        "readerImageSelectors": [],
         "readerImageAttributes": [
           "data-original",
           "data-src",
@@ -11540,48 +11401,64 @@
         "replayWorkCount": 15,
         "failures": [
           {
+            "workId": "8aeb2333cb39d1d6",
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-m1f"
+          },
+          {
+            "workId": "34cc72fb9d7c3cf1",
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-a5m"
+          },
+          {
+            "workId": "d6bea9c17c397f36",
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-c7s"
+          },
+          {
+            "workId": "7102201f44fdcbbd",
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-9wt"
+          },
+          {
             "workId": "c6a16655ffdb2933",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jhh"
           },
           {
             "workId": "1758f2dc479d1eaf",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-m20"
           },
           {
             "workId": "4b5c82290e3d1dd4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-b2k"
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-o2h"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-bsa"
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-o9w"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jch"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-b2k"
           },
           {
             "workId": "8941fc658535dbe4",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-mjo"
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-mjo"
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://hlgmh.com/comic/hlg-jhh"
           }
         ],
         "status": "rejected"
