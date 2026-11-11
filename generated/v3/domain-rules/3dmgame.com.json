@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.bds_sqq",
+    "a.bds_qzone",
+    "a.bds_tsina"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.language-switch__arrow",
+    "*.language-switch__trigger img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
