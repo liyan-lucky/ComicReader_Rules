@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261111173436",
-  "updatedAt": "2026-11-11T17:34:36.035750+00:00",
+  "version": "20261111183627",
+  "updatedAt": "2026-11-11T18:36:27.443824+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.chapter-item a[href]",
-          "*.social-links a[href]"
+          "*.social-links a[href]",
+          "*.chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11055,18 +11055,21 @@
     "rejectedDomains": [
       {
         "schema": "comic_domain_rule_v1",
-        "id": "242mh_com",
-        "domain": "242mh.com",
+        "id": "3dmgame_com",
+        "domain": "3dmgame.com",
         "languages": [
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img",
-          "*.comic-page img"
+        "detailChapterSelectors": [
+          "a",
+          "* a[href]",
+          "a.bds_sqq",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
         "readerImageAttributes": [
           "data-original",
           "data-src",
@@ -11076,10 +11079,15 @@
           "srcset"
         ],
         "verifiedWorkIds": [
-          "98c8217e516c2279"
+          "be106fe98430da26"
         ],
         "replayWorkCount": 1,
-        "failures": [],
+        "failures": [
+          {
+            "workId": "be106fe98430da26",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.3dmgame.com', port=443): Read timed out. (read timeout=15)"
+          }
+        ],
         "status": "rejected"
       },
       {
@@ -11108,7 +11116,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7c182eb23920>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7ef8e9d338f0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12052,7 +12060,7 @@
         "failures": [
           {
             "workId": "1e2354e038357d44",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='songzimanhua.com', port=443): Read timed out. (read timeout=15)"
+            "reason": "HTTPError: 503 Server Error: Service Unavailable for url: https://songzimanhua.com/book/15632/"
           }
         ],
         "status": "rejected"
