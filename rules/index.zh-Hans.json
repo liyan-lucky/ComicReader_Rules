@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261112052121",
-  "updatedAt": "2026-11-12T05:21:21.426303+00:00",
+  "version": "20261112054959",
+  "updatedAt": "2026-11-12T05:49:59.829795+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_tsina",
-          "a.bds_qzone"
+          "* a[href]",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1800,8 +1800,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -9274,8 +9274,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.chapter-item a[href]",
-          "*.social-links a[href]"
+          "*.social-links a[href]",
+          "*.chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11055,37 +11055,6 @@
     "rejectedDomains": [
       {
         "schema": "comic_domain_rule_v1",
-        "id": "3dmgame_com",
-        "domain": "3dmgame.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "be106fe98430da26"
-        ],
-        "replayWorkCount": 1,
-        "failures": [
-          {
-            "workId": "be106fe98430da26",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.3dmgame.com', port=443): Read timed out. (read timeout=15)"
-          }
-        ],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
         "id": "45_142_157_135",
         "domain": "45.142.157.135",
         "languages": [
@@ -11110,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7442bd4efb30>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7a59e86f3b00>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11296,7 +11265,7 @@
         "failures": [
           {
             "workId": "5ecc24ade199a0d6",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.dgmanhua.com', port=80): Max retries exceeded with url: /danmeimanhua/2605/ (Caused by ConnectTimeoutError(<HTTPConnection(host='www.dgmanhua.com', port=80) at 0x7e9e76137860>, 'Connection to www.dgmanhua.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.dgmanhua.com', port=80): Max retries exceeded with url: /danmeimanhua/2605/ (Caused by ConnectTimeoutError(<HTTPConnection(host='www.dgmanhua.com', port=80) at 0x7d1b15c2f770>, 'Connection to www.dgmanhua.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
