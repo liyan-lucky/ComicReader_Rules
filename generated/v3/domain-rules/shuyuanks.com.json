@@ -27,6 +27,11 @@
     "32ed3ff6408b4805"
   ],
   "replayWorkCount": 1,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "32ed3ff6408b4805",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.shuyuanks.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }

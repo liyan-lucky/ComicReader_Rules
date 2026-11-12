@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261112061759",
-  "updatedAt": "2026-11-12T06:17:59.479689+00:00",
+  "version": "20261112064413",
+  "updatedAt": "2026-11-12T06:44:13.660685+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -4354,8 +4354,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -5059,8 +5059,8 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.py-2 a[href]",
-          "*.flex a[href]"
+          "*.flex a[href]",
+          "*.py-2 a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8544,8 +8544,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.item_box",
           "a.read_btn",
+          "a.item_box",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -10656,8 +10656,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7fd6ee62f980>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7f61b301f980>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11265,7 +11265,7 @@
         "failures": [
           {
             "workId": "5ecc24ade199a0d6",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.dgmanhua.com', port=80): Max retries exceeded with url: /danmeimanhua/2605/ (Caused by ConnectTimeoutError(<HTTPConnection(host='www.dgmanhua.com', port=80) at 0x788d1d82b950>, 'Connection to www.dgmanhua.com timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='www.dgmanhua.com', port=80): Max retries exceeded with url: /danmeimanhua/2605/ (Caused by ConnectTimeoutError(<HTTPConnection(host='www.dgmanhua.com', port=80) at 0x7193dc2ef980>, 'Connection to www.dgmanhua.com timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -12001,6 +12001,44 @@
       },
       {
         "schema": "comic_domain_rule_v1",
+        "id": "miaoerks_com",
+        "domain": "miaoerks.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "*.grid a[href]",
+          "a.text-blue-600"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "* img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "ebe16983b69e9c41",
+          "83d611c29228c8a9"
+        ],
+        "replayWorkCount": 2,
+        "failures": [
+          {
+            "workId": "ebe16983b69e9c41",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.miaoerks.com', port=443): Read timed out. (read timeout=15)"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
         "id": "moelian_neo_longlian_online",
         "domain": "moelian.neo.longlian.online",
         "languages": [
@@ -12104,6 +12142,44 @@
       },
       {
         "schema": "comic_domain_rule_v1",
+        "id": "shiziks_com",
+        "domain": "shiziks.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "*.grid a[href]",
+          "a.text-blue-600"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "* img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "eadd5c165ea3120c",
+          "459458b977a50770"
+        ],
+        "replayWorkCount": 2,
+        "failures": [
+          {
+            "workId": "eadd5c165ea3120c",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.shiziks.com', port=443): Read timed out. (read timeout=15)"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
         "id": "shoujimanhua_com",
         "domain": "shoujimanhua.com",
         "languages": [
@@ -12129,6 +12205,43 @@
         ],
         "replayWorkCount": 1,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "shuyuanks_com",
+        "domain": "shuyuanks.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "*.grid a[href]",
+          "a.text-blue-600"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img",
+          "* img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "32ed3ff6408b4805"
+        ],
+        "replayWorkCount": 1,
+        "failures": [
+          {
+            "workId": "32ed3ff6408b4805",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.shuyuanks.com', port=443): Read timed out. (read timeout=15)"
+          }
+        ],
         "status": "rejected"
       },
       {
