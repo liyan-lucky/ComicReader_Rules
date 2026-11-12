@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.bds_sqq",
+    "a.bds_tsina",
+    "a.bds_qzone"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.language-switch__arrow",
+    "*.language-switch__trigger img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "be106fe98430da26"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "be106fe98430da26",
-      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.3dmgame.com', port=443): Read timed out. (read timeout=15)"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
