@@ -6,9 +6,18 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "a.red",
+    "* a[href]",
+    "*.t_1200 a[href]",
+    "*.cy_info_cover a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img",
+    "* img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -21,11 +30,6 @@
     "5ecc24ade199a0d6"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "5ecc24ade199a0d6",
-      "reason": "HTTPError: 403 Client Error: Forbidden for url: http://www.dgmanhua.com/danmeimanhua/2605/"
-    }
-  ],
-  "status": "rejected"
+  "failures": [],
+  "status": "verified"
 }
