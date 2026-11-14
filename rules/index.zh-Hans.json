@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261114210059",
-  "updatedAt": "2026-11-14T21:00:59.454743+00:00",
+  "version": "20261114212327",
+  "updatedAt": "2026-11-14T21:23:27.735369+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -219,8 +219,8 @@
           "a",
           "* a[href]",
           "a.bds_sqq",
-          "a.bds_qzone",
-          "a.bds_tsina"
+          "a.bds_tsina",
+          "a.bds_qzone"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4354,8 +4354,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -8544,8 +8544,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.flex",
-          "a.read_btn",
           "a.item_box",
+          "a.read_btn",
           "*.flex a[href]",
           "*.btn_box a[href]"
         ],
@@ -11079,7 +11079,7 @@
         "failures": [
           {
             "workId": "a8d8ff79a4d82017",
-            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7bd7eb0ffb30>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
+            "reason": "ConnectTimeout: HTTPConnectionPool(host='45.142.157.135', port=8080): Max retries exceeded with url: /b1480.html (Caused by ConnectTimeoutError(<HTTPConnection(host='45.142.157.135', port=8080) at 0x7618afaf7bc0>, 'Connection to 45.142.157.135 timed out. (connect timeout=15)'))"
           }
         ],
         "status": "rejected"
@@ -11535,19 +11535,19 @@
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esob"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3hf"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
           },
           {
             "workId": "8941fc658535dbe4",
@@ -11555,7 +11555,7 @@
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
           },
           {
             "workId": "43643d9cebc02830",
@@ -12026,6 +12026,127 @@
       },
       {
         "schema": "comic_domain_rule_v1",
+        "id": "nubbub_com",
+        "domain": "nubbub.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "84cdd800bf601efc",
+          "fcea7e3321c120b8",
+          "cd412a89282ebd85",
+          "1c3d23fe214a2f1c",
+          "413c55d24fb169fc",
+          "501e5af2bdfc8704",
+          "5d4d2d9a35f116f6",
+          "60468e03e87c363f",
+          "708bb21833791511",
+          "a1f944185e378b7b",
+          "ba417c12133c01cc",
+          "d9fcb8ec018cc0b8",
+          "da733236aef9cf5d",
+          "e498f26bcf8f7927",
+          "fba5536caccdd1d4",
+          "6a5e7279a84992c5",
+          "6635140470b449e4",
+          "db1640ffe211b447",
+          "9a6ef0ce439fcfbc"
+        ],
+        "replayWorkCount": 19,
+        "failures": [
+          {
+            "workId": "84cdd800bf601efc",
+            "reason": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+          },
+          {
+            "workId": "fcea7e3321c120b8",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "cd412a89282ebd85",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='nubbub.com', port=443): Max retries exceeded with url: /mh/24563/ (Caused by NewConnectionError(\"HTTPSConnection(host='nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "1c3d23fe214a2f1c",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/29152.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "413c55d24fb169fc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25176.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "501e5af2bdfc8704",
+            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+          },
+          {
+            "workId": "5d4d2d9a35f116f6",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/24444.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "60468e03e87c363f",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "708bb21833791511",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29263/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "a1f944185e378b7b",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/2019/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "ba417c12133c01cc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/28640.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "d9fcb8ec018cc0b8",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29017/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "da733236aef9cf5d",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/11640.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "e498f26bcf8f7927",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26190/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "fba5536caccdd1d4",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "6a5e7279a84992c5",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/24717/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "6635140470b449e4",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25621.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "db1640ffe211b447",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          },
+          {
+            "workId": "9a6ef0ce439fcfbc",
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/14819/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+          }
+        ],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
         "id": "pipimanhua_com",
         "domain": "pipimanhua.com",
         "languages": [
@@ -12227,56 +12348,6 @@
         ],
         "replayWorkCount": 1,
         "failures": [],
-        "status": "rejected"
-      },
-      {
-        "schema": "comic_domain_rule_v1",
-        "id": "z525_com",
-        "domain": "z525.com",
-        "languages": [
-          "zh-Hans"
-        ],
-        "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "a.social-icon",
-          "*.social-links a[href]",
-          "*.chapter-item a[href]"
-        ],
-        "detailUrlAttribute": "href",
-        "readerImageSelectors": [
-          "img.comic-image",
-          "*.comic-content img"
-        ],
-        "readerImageAttributes": [
-          "data-original",
-          "data-src",
-          "data-lazy-src",
-          "data-url",
-          "src",
-          "srcset"
-        ],
-        "verifiedWorkIds": [
-          "9b38d50107960278",
-          "f9c4fdc223a5b1bc",
-          "4bafa5f66c48e1e8",
-          "56baf85af1cea3b2",
-          "d63ad69c78280b3d",
-          "98307a561b60cf69",
-          "e557f89d40d48d62",
-          "e32ddc75ac76364e"
-        ],
-        "replayWorkCount": 8,
-        "failures": [
-          {
-            "workId": "9b38d50107960278",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-          },
-          {
-            "workId": "f9c4fdc223a5b1bc",
-            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
-          }
-        ],
         "status": "rejected"
       }
     ]
