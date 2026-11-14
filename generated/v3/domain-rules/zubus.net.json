@@ -28,6 +28,11 @@
     "1cfdc633ed59b7df"
   ],
   "replayWorkCount": 2,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "0b94880975673773",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='zubus.net', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
