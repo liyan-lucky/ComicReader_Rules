@@ -6,17 +6,9 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a",
-    "a.social-icon",
-    "*.social-links a[href]",
-    "*.chapter-item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [
-    "img.comic-image",
-    "*.comic-content img"
-  ],
+  "readerImageSelectors": [],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -47,6 +39,26 @@
     },
     {
       "workId": "4bafa5f66c48e1e8",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "56baf85af1cea3b2",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "d63ad69c78280b3d",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_86774.html"
+    },
+    {
+      "workId": "98307a561b60cf69",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+    },
+    {
+      "workId": "e557f89d40d48d62",
+      "reason": "HTTPError: 502 Server Error: Bad Gateway for url: https://www.z525.com/comic_21698.html"
+    },
+    {
+      "workId": "e32ddc75ac76364e",
       "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
     }
   ],
