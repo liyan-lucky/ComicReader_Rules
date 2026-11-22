@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261122000528",
-  "updatedAt": "2026-11-22T00:05:28.515864+00:00",
+  "version": "20261122003109",
+  "updatedAt": "2026-11-22T00:31:09.301590+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "* a[href]",
           "a.bds_sqq",
-          "a.bds_tsina",
-          "a.bds_qzone"
+          "* a[href]",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.ico_qq",
-          "a.btn_bx"
+          "a.btn_bx",
+          "a.ico_qq"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -5059,15 +5059,15 @@
           "a",
           "a.flex",
           "a.flex-1",
-          "*.flex a[href]",
-          "*.py-2 a[href]"
+          "*.py-2 a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11447,52 +11447,8 @@
         "replayWorkCount": 82,
         "failures": [
           {
-            "workId": "ac0dbcc0511ac71e",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1335788"
-          },
-          {
-            "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29220"
-          },
-          {
-            "workId": "e436158347a5d98f",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=30553"
-          },
-          {
-            "workId": "f2a4c6b5521c9fc8",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31343"
-          },
-          {
-            "workId": "76662ed8eab9f3cc",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29860"
-          },
-          {
-            "workId": "dcbabb6e10824fdf",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=29074"
-          },
-          {
-            "workId": "df57ec18d85847c3",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
-          },
-          {
-            "workId": "3d80b2d6cdd3cac1",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25119"
-          },
-          {
-            "workId": "5936231a29304a15",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22643"
-          },
-          {
-            "workId": "5a07a1405059692b",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19321"
-          },
-          {
-            "workId": "7834444774f4c689",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31481"
-          },
-          {
             "workId": "b986ba6ec6bd4b57",
-            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=1941169"
           },
           {
             "workId": "5ab3716ae33cd036",
@@ -12159,7 +12115,7 @@
           },
           {
             "workId": "fcea7e3321c120b8",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/16518/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
           },
           {
             "workId": "cd412a89282ebd85",
@@ -12187,7 +12143,7 @@
           },
           {
             "workId": "708bb21833791511",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29263/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
           },
           {
             "workId": "a1f944185e378b7b",
@@ -12195,11 +12151,11 @@
           },
           {
             "workId": "ba417c12133c01cc",
-            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/28640.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
           },
           {
             "workId": "d9fcb8ec018cc0b8",
-            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/29017/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
           },
           {
             "workId": "da733236aef9cf5d",
@@ -12211,7 +12167,7 @@
           },
           {
             "workId": "fba5536caccdd1d4",
-            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /mh/26692/ (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
           },
           {
             "workId": "6a5e7279a84992c5",
@@ -12219,7 +12175,7 @@
           },
           {
             "workId": "6635140470b449e4",
-            "reason": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+            "reason": "ConnectionError: HTTPSConnectionPool(host='www.nubbub.com', port=443): Max retries exceeded with url: /menu/25621.html (Caused by NewConnectionError(\"HTTPSConnection(host='www.nubbub.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
           },
           {
             "workId": "db1640ffe211b447",
