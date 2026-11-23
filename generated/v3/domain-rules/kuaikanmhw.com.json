@@ -6,7 +6,12 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a",
+    "* a[href]",
+    "a.book-button",
+    "*.book-active a[href]"
+  ],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -21,11 +26,6 @@
     "d4804d0b8becebac"
   ],
   "replayWorkCount": 1,
-  "failures": [
-    {
-      "workId": "d4804d0b8becebac",
-      "reason": "ConnectTimeout: HTTPConnectionPool(host='kuaikanmhw.com', port=80): Max retries exceeded with url: /km-73033/ (Caused by ConnectTimeoutError(<HTTPConnection(host='kuaikanmhw.com', port=80) at 0x78bfd9baf260>, 'Connection to kuaikanmhw.com timed out. (connect timeout=15)'))"
-    }
-  ],
+  "failures": [],
   "status": "rejected"
 }
