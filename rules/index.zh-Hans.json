@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261127134123",
-  "updatedAt": "2026-11-27T13:41:23.613746+00:00",
+  "version": "20261127141415",
+  "updatedAt": "2026-11-27T14:14:15.474211+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,10 +217,10 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.bds_sqq",
           "* a[href]",
-          "a.bds_tsina",
-          "a.bds_qzone"
+          "a.bds_sqq",
+          "a.bds_qzone",
+          "a.bds_tsina"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -1800,8 +1800,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.chapter-link",
-          "*.lay-flex a[href]",
           "a.toolBar-toolRead",
+          "*.lay-flex a[href]",
           "*.chapter-item a[href]",
           "*.bottom-chapter-item a[href]"
         ],
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -9273,8 +9273,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11876,12 +11876,8 @@
         "replayWorkCount": 15,
         "failures": [
           {
-            "workId": "c6a16655ffdb2933",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
-          },
-          {
             "workId": "1758f2dc479d1eaf",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
           },
           {
             "workId": "4b5c82290e3d1dd4",
@@ -11893,7 +11889,7 @@
           },
           {
             "workId": "da5a6a8e09f1c8a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxim"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zxfa"
           },
           {
             "workId": "b8692668c39007e2",
@@ -11917,7 +11913,7 @@
           },
           {
             "workId": "43643d9cebc02830",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vmqr"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf6p"
           }
         ],
         "status": "rejected"
@@ -12329,8 +12325,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.v-btn",
-          "*.read-action-content a[href]",
-          "*.detail-chapter-grid a[href]"
+          "*.detail-chapter-grid a[href]",
+          "*.read-action-content a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
