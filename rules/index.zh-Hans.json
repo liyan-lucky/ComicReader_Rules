@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261127104458",
-  "updatedAt": "2026-11-27T10:44:58.515627+00:00",
+  "version": "20261127111648",
+  "updatedAt": "2026-11-27T11:16:48.438721+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -217,8 +217,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "a.bds_sqq",
           "* a[href]",
+          "a.bds_sqq",
           "a.bds_qzone",
           "a.bds_tsina"
         ],
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4354,8 +4354,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "img.lazyload",
-          "*.w-full img"
+          "*.w-full img",
+          "img.lazyload"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -8545,8 +8545,8 @@
         "detailChapterSelectors": [
           "a.flex",
           "a.ml-rose-btn",
-          "*.flex a[href]",
-          "*.grid a[href]"
+          "*.grid a[href]",
+          "*.flex a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -9273,8 +9273,8 @@
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
-          "img.reader-page-image",
-          "*.reader-page-img img"
+          "*.reader-page-img img",
+          "img.reader-page-image"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -10655,8 +10655,8 @@
         "detailChapterSelectors": [
           "a",
           "a.social-icon",
-          "*.chapter-item a[href]",
-          "*.social-links a[href]"
+          "*.social-links a[href]",
+          "*.chapter-item a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -11444,7 +11444,40 @@
           "5ab3716ae33cd036"
         ],
         "replayWorkCount": 82,
-        "failures": [],
+        "failures": [
+          {
+            "workId": "dcbabb6e10824fdf",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/chapter.php?id=2192770"
+          },
+          {
+            "workId": "df57ec18d85847c3",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
+          },
+          {
+            "workId": "3d80b2d6cdd3cac1",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=25119"
+          },
+          {
+            "workId": "5936231a29304a15",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=22643"
+          },
+          {
+            "workId": "5a07a1405059692b",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=19321"
+          },
+          {
+            "workId": "7834444774f4c689",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=31481"
+          },
+          {
+            "workId": "b986ba6ec6bd4b57",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=11078"
+          },
+          {
+            "workId": "5ab3716ae33cd036",
+            "reason": "HTTPError: 403 Client Error: Forbidden for url: https://www.guazimanhua.com/comic.php?id=32772"
+          }
+        ],
         "status": "rejected"
       },
       {
@@ -11553,10 +11586,6 @@
         "replayWorkCount": 15,
         "failures": [
           {
-            "workId": "c6a16655ffdb2933",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
-          },
-          {
             "workId": "1758f2dc479d1eaf",
             "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
           },
@@ -11574,15 +11603,15 @@
           },
           {
             "workId": "b8692668c39007e2",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1esp0"
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3hf"
           },
           {
             "workId": "326d20bf2df36824",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zaxz"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-zb2g"
           },
           {
             "workId": "8941fc658535dbe4",
@@ -12006,8 +12035,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a.v-btn",
-          "*.detail-chapter-grid a[href]",
-          "*.read-action-content a[href]"
+          "*.read-action-content a[href]",
+          "*.detail-chapter-grid a[href]"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
@@ -12065,10 +12094,7 @@
           "zh-Hans"
         ],
         "policyVersion": "readability-v5",
-        "detailChapterSelectors": [
-          "a",
-          "* a[href]"
-        ],
+        "detailChapterSelectors": [],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [],
         "readerImageAttributes": [
