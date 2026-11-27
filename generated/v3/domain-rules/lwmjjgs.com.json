@@ -6,10 +6,7 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [
-    "a.play-page-episode-link",
-    "*.play-page-episode-item a[href]"
-  ],
+  "detailChapterSelectors": [],
   "detailUrlAttribute": "href",
   "readerImageSelectors": [],
   "readerImageAttributes": [
@@ -24,6 +21,11 @@
     "5383ac8230ceee05"
   ],
   "replayWorkCount": 1,
-  "failures": [],
+  "failures": [
+    {
+      "workId": "5383ac8230ceee05",
+      "reason": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.lwmjjgs.com/lw-detail/4265.html"
+    }
+  ],
   "status": "rejected"
 }
