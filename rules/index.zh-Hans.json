@@ -1,7 +1,7 @@
 {
   "schema": "womh_comic_rules_index_v1",
-  "version": "20261127202223",
-  "updatedAt": "2026-11-27T20:22:23.830175+00:00",
+  "version": "20261127205022",
+  "updatedAt": "2026-11-27T20:50:22.543242+00:00",
   "language": {
     "code": "zh-Hans",
     "name": "简体中文"
@@ -2496,8 +2496,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -4354,8 +4354,8 @@
           "a",
           "a.on",
           "a.st_r",
-          "a.btn_bx",
-          "a.ico_qq"
+          "a.ico_qq",
+          "a.btn_bx"
         ],
         "detailUrlAttribute": "href",
         "readerImageSelectors": [
@@ -5066,8 +5066,8 @@
         "readerImageSelectors": [
           "* img",
           "img.h-auto",
-          "*.w-full img",
-          "img.lazyload"
+          "img.lazyload",
+          "*.w-full img"
         ],
         "readerImageAttributes": [
           "data-original",
@@ -11457,8 +11457,8 @@
         "policyVersion": "readability-v5",
         "detailChapterSelectors": [
           "a",
-          "*.item a[href]",
           "a.chapter-name",
+          "*.item a[href]",
           "*.flex-1 a[href]"
         ],
         "detailUrlAttribute": "href",
@@ -11553,8 +11553,12 @@
         "replayWorkCount": 15,
         "failures": [
           {
+            "workId": "c6a16655ffdb2933",
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-vf4b"
+          },
+          {
             "workId": "1758f2dc479d1eaf",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3c"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1fc3x"
           },
           {
             "workId": "4b5c82290e3d1dd4",
@@ -11562,7 +11566,7 @@
           },
           {
             "workId": "b6aa05fac0a818a9",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1emfi"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1embu"
           },
           {
             "workId": "da5a6a8e09f1c8a5",
@@ -11574,7 +11578,7 @@
           },
           {
             "workId": "3211af59c13509a5",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v4ud"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-v3hf"
           },
           {
             "workId": "326d20bf2df36824",
@@ -11586,7 +11590,7 @@
           },
           {
             "workId": "b45c84733fe4cd75",
-            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6ob"
+            "reason": "HTTPError: 429 Client Error: Too Many Requests for url: https://hlgmh.com/chapter/hlg-1b6l9"
           },
           {
             "workId": "43643d9cebc02830",
@@ -12256,6 +12260,68 @@
         ],
         "replayWorkCount": 1,
         "failures": [],
+        "status": "rejected"
+      },
+      {
+        "schema": "comic_domain_rule_v1",
+        "id": "z525_com",
+        "domain": "z525.com",
+        "languages": [
+          "zh-Hans"
+        ],
+        "policyVersion": "readability-v5",
+        "detailChapterSelectors": [
+          "a",
+          "a.social-icon",
+          "*.chapter-item a[href]",
+          "*.social-links a[href]"
+        ],
+        "detailUrlAttribute": "href",
+        "readerImageSelectors": [
+          "img.comic-image",
+          "*.comic-content img"
+        ],
+        "readerImageAttributes": [
+          "data-original",
+          "data-src",
+          "data-lazy-src",
+          "data-url",
+          "src",
+          "srcset"
+        ],
+        "verifiedWorkIds": [
+          "9b38d50107960278",
+          "f9c4fdc223a5b1bc",
+          "4bafa5f66c48e1e8",
+          "56baf85af1cea3b2",
+          "d63ad69c78280b3d",
+          "98307a561b60cf69",
+          "e557f89d40d48d62",
+          "e32ddc75ac76364e"
+        ],
+        "replayWorkCount": 8,
+        "failures": [
+          {
+            "workId": "4bafa5f66c48e1e8",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+          },
+          {
+            "workId": "56baf85af1cea3b2",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+          },
+          {
+            "workId": "d63ad69c78280b3d",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+          },
+          {
+            "workId": "98307a561b60cf69",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+          },
+          {
+            "workId": "e557f89d40d48d62",
+            "reason": "ReadTimeout: HTTPSConnectionPool(host='www.z525.com', port=443): Read timed out. (read timeout=15)"
+          }
+        ],
         "status": "rejected"
       }
     ]
