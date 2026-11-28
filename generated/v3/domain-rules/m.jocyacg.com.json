@@ -29,6 +29,11 @@
     "ba7f807d4ee06aba"
   ],
   "replayWorkCount": 3,
-  "failures": [],
-  "status": "verified"
+  "failures": [
+    {
+      "workId": "b8e55ad8a0e63404",
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='m.jocyacg.com', port=443): Read timed out. (read timeout=15)"
+    }
+  ],
+  "status": "rejected"
 }
