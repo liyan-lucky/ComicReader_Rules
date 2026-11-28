@@ -6,9 +6,17 @@
     "zh-Hans"
   ],
   "policyVersion": "readability-v5",
-  "detailChapterSelectors": [],
+  "detailChapterSelectors": [
+    "a.flex",
+    "a.ml-rose-btn",
+    "*.grid a[href]",
+    "*.flex a[href]"
+  ],
   "detailUrlAttribute": "href",
-  "readerImageSelectors": [],
+  "readerImageSelectors": [
+    "img.mx-auto",
+    "*.reader-page-block img"
+  ],
   "readerImageAttributes": [
     "data-original",
     "data-src",
@@ -30,5 +38,5 @@
   ],
   "replayWorkCount": 9,
   "failures": [],
-  "status": "rejected"
+  "status": "verified"
 }
